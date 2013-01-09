@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CD7CCC02-3914-403A-BECB-9F1D5524727C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Net.Pkcs11Interop.Tests</RootNamespace>
+    <AssemblyName>Pkcs11InteropTests</AssemblyName>
+    <ReleaseVersion />
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="nunit.framework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="LowLevelAPI\Helpers.cs" />
+    <Compile Include="LowLevelAPI\InitializeTest.cs" />
+    <Compile Include="LowLevelAPI\GetInfoTest.cs" />
+    <Compile Include="LowLevelAPI\TokenInfoTest.cs" />
+    <Compile Include="LowLevelAPI\MechanismListAndInfoTest.cs" />
+    <Compile Include="LowLevelAPI\SessionTest.cs" />
+    <Compile Include="LowLevelAPI\LoginTest.cs" />
+    <Compile Include="LowLevelAPI\InitTokenAndPinTest.cs" />
+    <Compile Include="LowLevelAPI\SetPinTest.cs" />
+    <Compile Include="LowLevelAPI\OperationStateTest.cs" />
+    <Compile Include="LowLevelAPI\CreateCopyDestroyObjectTest.cs" />
+    <Compile Include="LowLevelAPI\GetAndSetAttributeValueTest.cs" />
+    <Compile Include="LowLevelAPI\ObjectFindingTest.cs" />
+    <Compile Include="LowLevelAPI\GenerateKeyAndKeyPairTest.cs" />
+    <Compile Include="LowLevelAPI\DigestTest.cs" />
+    <Compile Include="LowLevelAPI\SignAndVerifyTest.cs" />
+    <Compile Include="LowLevelAPI\EncryptAndDecryptTest.cs" />
+    <Compile Include="LowLevelAPI\SignAndVerifyRecoverTest.cs" />
+    <Compile Include="LowLevelAPI\DigestEncryptAndDecryptDigestTest.cs" />
+    <Compile Include="LowLevelAPI\SignEncryptAndDecryptVerifyTest.cs" />
+    <Compile Include="LowLevelAPI\WrapAndUnwrapKeyTest.cs" />
+    <Compile Include="LowLevelAPI\DeriveKeyTest.cs" />
+    <Compile Include="LowLevelAPI\LegacyParallelFunctionsTest.cs" />
+    <Compile Include="LowLevelAPI\SlotListInfoAndEventTest.cs" />
+    <Compile Include="LowLevelAPI\SeedAndGenerateRandomTest.cs" />
+    <Compile Include="HighLevelAPI\InitializeTest.cs" />
+    <Compile Include="HighLevelAPI\SlotListInfoAndEventTest.cs" />
+    <Compile Include="HighLevelAPI\TokenInfoTest.cs" />
+    <Compile Include="HighLevelAPI\Helpers.cs" />
+    <Compile Include="HighLevelAPI\MechanismListAndInfoTest.cs" />
+    <Compile Include="HighLevelAPI\InitTokenAndPinTest.cs" />
+    <Compile Include="HighLevelAPI\SetPinTest.cs" />
+    <Compile Include="HighLevelAPI\SessionTest.cs" />
+    <Compile Include="HighLevelAPI\OperationStateTest.cs" />
+    <Compile Include="HighLevelAPI\LoginTest.cs" />
+    <Compile Include="HighLevelAPI\CreateCopyDestroyObjectTest.cs" />
+    <Compile Include="HighLevelAPI\GetAndSetAttributeValueTest.cs" />
+    <Compile Include="HighLevelAPI\ObjectFindingTest.cs" />
+    <Compile Include="HighLevelAPI\GenerateKeyAndKeyPairTest.cs" />
+    <Compile Include="HighLevelAPI\EncryptAndDecryptTest.cs" />
+    <Compile Include="HighLevelAPI\GetInfoTest.cs" />
+    <Compile Include="HighLevelAPI\DigestTest.cs" />
+    <Compile Include="HighLevelAPI\SignAndVerifyTest.cs" />
+    <Compile Include="HighLevelAPI\SignAndVerifyRecoverTest.cs" />
+    <Compile Include="HighLevelAPI\DigestEncryptAndDecryptDigestTest.cs" />
+    <Compile Include="HighLevelAPI\SignEncryptAndDecryptVerifyTest.cs" />
+    <Compile Include="HighLevelAPI\WrapAndUnwrapKeyTest.cs" />
+    <Compile Include="HighLevelAPI\DeriveKeyTest.cs" />
+    <Compile Include="HighLevelAPI\SeedAndGenerateRandomTest.cs" />
+    <Compile Include="HighLevelAPI\LegacyParallelFunctionsTest.cs" />
+    <Compile Include="LowLevelAPI\UnmanagedMemoryTest.cs" />
+    <Compile Include="HighLevelAPI\ObjectAttributeTest.cs" />
+    <Compile Include="LowLevelAPI\ObjectAttributeTest.cs" />
+    <Compile Include="LowLevelAPI\MechanismTest.cs" />
+    <Compile Include="HighLevelAPI\MechanismTest.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="LowLevelAPI\" />
+    <Folder Include="HighLevelAPI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pkcs11Interop\Pkcs11Interop.csproj">
+      <Project>{2CB08FA0-8B71-4AE9-8734-BAC10804BF4E}</Project>
+      <Name>Pkcs11Interop</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <DotNetNamingPolicy DirectoryNamespaceAssociation="PrefixedHierarchical" ResourceNamePolicy="FileFormatDefault" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
+</Project>
