@@ -133,6 +133,13 @@
     <Compile Include="HighLevelAPI\MechanismParams\CkRsaPkcsOaepParams.cs" />
     <Compile Include="HighLevelAPI\IMechanismParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkKeyDerivationStringData.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkAesCbcEncryptDataParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkAesCtrParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkAriaCbcEncryptDataParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkCamelliaCbcEncryptDataParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkCamelliaCtrParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkCmsSigParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkDesCbcEncryptDataParams.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
