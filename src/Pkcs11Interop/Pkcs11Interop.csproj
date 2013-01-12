@@ -140,6 +140,11 @@
     <Compile Include="HighLevelAPI\MechanismParams\CkCamelliaCtrParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkCmsSigParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkDesCbcEncryptDataParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkEcdh1DeriveParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkEcdh2DeriveParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkEcmqvDeriveParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkExtractParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkKeaDeriveParams.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

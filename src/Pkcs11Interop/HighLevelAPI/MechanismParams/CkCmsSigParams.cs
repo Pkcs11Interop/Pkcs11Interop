@@ -39,15 +39,15 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Object handle for a certificate associated with the signing key
         /// </summary>
-        public uint CertificateHandle
+        public ObjectHandle CertificateHandle
         {
             get
             {
-                return _lowLevelStruct.CertificateHandle;
+                return new ObjectHandle(_lowLevelStruct.CertificateHandle);
             }
             set
             {
-                _lowLevelStruct.CertificateHandle = value;
+                _lowLevelStruct.CertificateHandle = value.ObjectId;
             }
         }
         
