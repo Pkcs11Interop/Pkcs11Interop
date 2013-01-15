@@ -145,6 +145,11 @@
     <Compile Include="HighLevelAPI\MechanismParams\CkEcmqvDeriveParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkExtractParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkKeaDeriveParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkKeyWrapSetOaepParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkKipParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkMacGeneralParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkOtpParam.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkOtpParams.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
