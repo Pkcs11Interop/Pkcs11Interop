@@ -25,13 +25,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI
     /// <summary>
     /// Mechanism and its parameters (CK_MECHANISM alternative)
     /// </summary>
-    public class Mechanism : IDisposable
+    public class Mechanism
     {
-        /// <summary>
-        /// Flag indicating whether instance has been disposed
-        /// </summary>
-        private bool _disposed = false;
-
         /// <summary>
         /// Low level mechanism structure
         /// </summary>
@@ -58,6 +53,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                 return _ckMechanism.Mechanism;
             }
         }
+
+        /// <summary>
+        /// High level object with mechanism parameters
+        /// </summary>
+        private IMechanismParams _mechanismParams = null;
 
         /// <summary>
         /// Creates mechanism of given type with no parameter
@@ -107,7 +107,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (parameter == null)
                 throw new ArgumentNullException("parameter");
 
-            object lowLevelParams = parameter.ToLowLevelParams();
+            // Keep reference to parameter => GC will not free parameter while mechanism exists
+            _mechanismParams = parameter;
+
+            object lowLevelParams = _mechanismParams.ToLowLevelParams();
             _ckMechanism = LowLevelAPI.CkmUtils.CreateMechanism(type, lowLevelParams);
         }
 
@@ -121,50 +124,20 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (parameter == null)
                 throw new ArgumentNullException("parameter");
 
-            object lowLevelParams = parameter.ToLowLevelParams();
+            // Keep reference to parameter => GC will not free parameter while mechanism exists
+            _mechanismParams = parameter;
+
+            object lowLevelParams = _mechanismParams.ToLowLevelParams();
             _ckMechanism = LowLevelAPI.CkmUtils.CreateMechanism(type, lowLevelParams);
         }
 
-        #region IDisposable
-
         /// <summary>
-        /// Disposes object
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        /// <summary>
-        /// Disposes object
-        /// </summary>
-        /// <param name="disposing">Flag indicating whether managed resources should be disposed</param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!this._disposed)
-            {
-                if (disposing)
-                {
-                    // Dispose managed objects
-                }
-
-                // Dispose unmanaged objects
-                LowLevelAPI.UnmanagedMemory.Free(ref _ckMechanism.Parameter);
-                _ckMechanism.ParameterLen = 0;
-
-                _disposed = true;
-            }
-        }
-
-        /// <summary>
-        /// Class destructor that disposes object if caller forgot to do so
+        /// Class destructor that frees unmanaged memory
         /// </summary>
         ~Mechanism()
         {
-            Dispose(false);
+            LowLevelAPI.UnmanagedMemory.Free(ref _ckMechanism.Parameter);
+            _ckMechanism.ParameterLen = 0;
         }
-
-        #endregion
     }
 }
