@@ -35,40 +35,20 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         private LowLevelAPI.MechanismParams.CK_KEY_DERIVATION_STRING_DATA _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_KEY_DERIVATION_STRING_DATA();
 
         /// <summary>
-        /// Byte string used as the input for derivation mechanism
-        /// </summary>
-        public byte[] Data
-        {
-            get
-            {
-                byte[] rv = null;
-                
-                if (_lowLevelStruct.Len > 0)
-                    rv = LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.Data, (int)_lowLevelStruct.Len);
-                
-                return rv;
-            }
-            set
-            {
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.Data);
-                _lowLevelStruct.Len = 0;
-                
-                if (value != null)
-                {
-                    _lowLevelStruct.Data = LowLevelAPI.UnmanagedMemory.Allocate(value.Length);
-                    LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.Data, value);
-                    _lowLevelStruct.Len = (uint)value.Length;
-                }
-            }
-        }
-
-        /// <summary>
         /// Initializes a new instance of the CkKeyDerivationStringData class.
         /// </summary>
-        public CkKeyDerivationStringData()
+        /// <param name='data'>Byte string used as the input for derivation mechanism</param>
+        public CkKeyDerivationStringData(byte[] data)
         {
             _lowLevelStruct.Data = IntPtr.Zero;
             _lowLevelStruct.Len = 0;
+
+            if (data != null)
+            {
+                _lowLevelStruct.Data = LowLevelAPI.UnmanagedMemory.Allocate(data.Length);
+                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.Data, data);
+                _lowLevelStruct.Len = (uint)data.Length;
+            }
         }
 
         #region IMechanismParams

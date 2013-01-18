@@ -37,170 +37,15 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         private LowLevelAPI.MechanismParams.CK_CMS_SIG_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_CMS_SIG_PARAMS();
 
         /// <summary>
-        /// Object handle for a certificate associated with the signing key
-        /// </summary>
-        public ObjectHandle CertificateHandle
-        {
-            get
-            {
-                return new ObjectHandle(_lowLevelStruct.CertificateHandle);
-            }
-            set
-            {
-                _lowLevelStruct.CertificateHandle = value.ObjectId;
-            }
-        }
-        
-        /// <summary>
-        /// Mechanism to use when signing a constructed CMS SignedAttributes value
-        /// </summary>
-        public uint? SigningMechanism
-        {
-            get
-            {
-                if (_lowLevelStruct.SigningMechanism == IntPtr.Zero)
-                    return null;
-
-                int uintSize = LowLevelAPI.UnmanagedMemory.SizeOf(typeof(uint));
-                byte[] uintValue = LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.SigningMechanism, uintSize);
-                return BitConverter.ToUInt32(uintValue, 0);
-            }
-            set
-            {
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.SigningMechanism);
-
-                if (value != null)
-                {
-                    int uintSize = LowLevelAPI.UnmanagedMemory.SizeOf(typeof(uint));
-                    _lowLevelStruct.SigningMechanism = LowLevelAPI.UnmanagedMemory.Allocate(uintSize);
-                    LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.SigningMechanism, BitConverter.GetBytes((uint)value));
-                }
-            }
-        }
-        
-        /// <summary>
-        /// Mechanism to use when digesting the data
-        /// </summary>
-        public uint? DigestMechanism
-        {
-            get
-            {
-                if (_lowLevelStruct.DigestMechanism == IntPtr.Zero)
-                    return null;
-                
-                int uintSize = LowLevelAPI.UnmanagedMemory.SizeOf(typeof(uint));
-                byte[] uintValue = LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.DigestMechanism, uintSize);
-                return BitConverter.ToUInt32(uintValue, 0);
-            }
-            set
-            {
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.DigestMechanism);
-                
-                if (value != null)
-                {
-                    int uintSize = LowLevelAPI.UnmanagedMemory.SizeOf(typeof(uint));
-                    _lowLevelStruct.DigestMechanism = LowLevelAPI.UnmanagedMemory.Allocate(uintSize);
-                    LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.DigestMechanism, BitConverter.GetBytes((uint)value));
-                }
-            }
-        }
-
-        /// <summary>
-        /// Length of ContentType string
-        /// </summary>
-        private int _contentTypeLength = 0;
-
-        /// <summary>
-        /// String indicating complete MIME Content-type of message to be signed or null if the message is a MIME object
-        /// </summary>
-        public string ContentType
-        {
-            get
-            {
-                if (_lowLevelStruct.ContentType == IntPtr.Zero)
-                    return null;
-
-                byte[] bytes = LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.ContentType, _contentTypeLength);
-                return Encoding.UTF8.GetString(bytes, 0, _contentTypeLength);
-            }
-            set
-            {
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.ContentType);
-                _contentTypeLength = 0;
-
-                if (value != null)
-                {
-                    byte[] bytes = Encoding.UTF8.GetBytes(value);
-                    Array.Resize(ref bytes, bytes.Length + 1);
-                    bytes[bytes.Length - 1] = 0;
-
-                    _lowLevelStruct.ContentType = LowLevelAPI.UnmanagedMemory.Allocate(bytes.Length);
-                    LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.ContentType, bytes);
-                    _contentTypeLength = bytes.Length - 1;
-                }
-            }
-        }
-
-        /// <summary>
-        /// DER-encoded list of CMS Attributes the caller requests to be included in the signed attributes
-        /// </summary>
-        public byte[] RequestedAttributes
-        {
-            get
-            {
-                byte[] rv = null;
-                
-                if (_lowLevelStruct.RequestedAttributesLen > 0)
-                    rv = LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.RequestedAttributes, (int)_lowLevelStruct.RequestedAttributesLen);
-                
-                return rv;
-            }
-            set
-            {
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.RequestedAttributes);
-                _lowLevelStruct.RequestedAttributesLen = 0;
-                
-                if (value != null)
-                {
-                    _lowLevelStruct.RequestedAttributes = LowLevelAPI.UnmanagedMemory.Allocate(value.Length);
-                    LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.RequestedAttributes, value);
-                    _lowLevelStruct.RequestedAttributesLen = (uint)value.Length;
-                }
-            }
-        }
-
-        /// <summary>
-        /// DER-encoded list of CMS Attributes (with accompanying values) required to be included in the resulting signed attributes
-        /// </summary>
-        public byte[] RequiredAttributes
-        {
-            get
-            {
-                byte[] rv = null;
-                
-                if (_lowLevelStruct.RequiredAttributesLen > 0)
-                    rv = LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.RequiredAttributes, (int)_lowLevelStruct.RequiredAttributesLen);
-                
-                return rv;
-            }
-            set
-            {
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.RequiredAttributes);
-                _lowLevelStruct.RequiredAttributesLen = 0;
-                
-                if (value != null)
-                {
-                    _lowLevelStruct.RequiredAttributes = LowLevelAPI.UnmanagedMemory.Allocate(value.Length);
-                    LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.RequiredAttributes, value);
-                    _lowLevelStruct.RequiredAttributesLen = (uint)value.Length;
-                }
-            }
-        }
-
-        /// <summary>
         /// Initializes a new instance of the CkCmsSigParams class.
         /// </summary>
-        public CkCmsSigParams()
+        /// <param name='certificateHandle'>Object handle for a certificate associated with the signing key</param>
+        /// <param name='signingMechanism'>Mechanism to use when signing a constructed CMS SignedAttributes value</param>
+        /// <param name='digestMechanism'>Mechanism to use when digesting the data</param>
+        /// <param name='contentType'>String indicating complete MIME Content-type of message to be signed or null if the message is a MIME object</param>
+        /// <param name='requestedAttributes'>DER-encoded list of CMS Attributes the caller requests to be included in the signed attributes</param>
+        /// <param name='requiredAttributes'>DER-encoded list of CMS Attributes (with accompanying values) required to be included in the resulting signed attributes</param>
+        public CkCmsSigParams(ObjectHandle certificateHandle, uint? signingMechanism, uint? digestMechanism, string contentType, byte[] requestedAttributes, byte[] requiredAttributes)
         {
             _lowLevelStruct.CertificateHandle = CK.CK_INVALID_HANDLE;
             _lowLevelStruct.SigningMechanism = IntPtr.Zero;
@@ -210,6 +55,49 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             _lowLevelStruct.RequestedAttributesLen = 0;
             _lowLevelStruct.RequiredAttributes = IntPtr.Zero;
             _lowLevelStruct.RequiredAttributesLen = 0;
+
+            if (certificateHandle == null)
+                throw new ArgumentNullException("certificateHandle");
+
+            _lowLevelStruct.CertificateHandle = certificateHandle.ObjectId;
+
+            if (signingMechanism != null)
+            {
+                int uintSize = LowLevelAPI.UnmanagedMemory.SizeOf(typeof(uint));
+                _lowLevelStruct.SigningMechanism = LowLevelAPI.UnmanagedMemory.Allocate(uintSize);
+                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.SigningMechanism, BitConverter.GetBytes((uint)signingMechanism));
+            }
+
+            if (digestMechanism != null)
+            {
+                int uintSize = LowLevelAPI.UnmanagedMemory.SizeOf(typeof(uint));
+                _lowLevelStruct.DigestMechanism = LowLevelAPI.UnmanagedMemory.Allocate(uintSize);
+                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.DigestMechanism, BitConverter.GetBytes((uint)digestMechanism));
+            }
+
+            if (contentType != null)
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(contentType);
+                Array.Resize(ref bytes, bytes.Length + 1);
+                bytes[bytes.Length - 1] = 0;
+                
+                _lowLevelStruct.ContentType = LowLevelAPI.UnmanagedMemory.Allocate(bytes.Length);
+                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.ContentType, bytes);
+            }
+
+            if (requestedAttributes != null)
+            {
+                _lowLevelStruct.RequestedAttributes = LowLevelAPI.UnmanagedMemory.Allocate(requestedAttributes.Length);
+                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.RequestedAttributes, requestedAttributes);
+                _lowLevelStruct.RequestedAttributesLen = (uint)requestedAttributes.Length;
+            }
+
+            if (requiredAttributes != null)
+            {
+                _lowLevelStruct.RequiredAttributes = LowLevelAPI.UnmanagedMemory.Allocate(requiredAttributes.Length);
+                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.RequiredAttributes, requiredAttributes);
+                _lowLevelStruct.RequiredAttributesLen = (uint)requiredAttributes.Length;
+            }
         }
         
         #region IMechanismParams
@@ -253,7 +141,6 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.SigningMechanism);
                 LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.DigestMechanism);
                 LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.ContentType);
-                this._contentTypeLength = 0;
                 LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.RequestedAttributes);
                 _lowLevelStruct.RequestedAttributesLen = 0;
                 LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.RequiredAttributes);

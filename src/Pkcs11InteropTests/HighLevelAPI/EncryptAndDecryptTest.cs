@@ -162,11 +162,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     Helpers.GenerateKeyPair(session, out publicKey, out privateKey);
 
                     // Specify mechanism parameters
-                    CkRsaPkcsOaepParams mechanismParams = new CkRsaPkcsOaepParams();
-                    mechanismParams.HashAlg = (uint)CKM.CKM_SHA_1;
-                    mechanismParams.Mgf = (uint)CKG.CKG_MGF1_SHA1;
-                    mechanismParams.Source = 0;
-                    mechanismParams.SourceData = null;
+                    CkRsaPkcsOaepParams mechanismParams = new CkRsaPkcsOaepParams((uint)CKM.CKM_SHA_1, (uint)CKG.CKG_MGF1_SHA1, 0, null);
 
                     // Specify encryption mechanism with parameters
                     Mechanism mechanism = new Mechanism(CKM.CKM_RSA_PKCS_OAEP, mechanismParams);

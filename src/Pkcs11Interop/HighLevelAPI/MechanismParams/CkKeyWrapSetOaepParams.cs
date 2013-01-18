@@ -35,56 +35,24 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         private LowLevelAPI.MechanismParams.CK_KEY_WRAP_SET_OAEP_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_KEY_WRAP_SET_OAEP_PARAMS();
 
         /// <summary>
-        /// Block contents byte
-        /// </summary>
-        public byte BC
-        {
-            get
-            {
-                return _lowLevelStruct.BC;
-            }
-            set
-            {
-                _lowLevelStruct.BC = value;
-            }
-        }
-        
-        /// <summary>
-        /// Concatenation of hash of plaintext data (if present) and extra data (if present)
-        /// </summary>
-        public byte[] X
-        {
-            get
-            {
-                byte[] rv = null;
-                
-                if (_lowLevelStruct.XLen > 0)
-                    rv = LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.X, (int)_lowLevelStruct.XLen);
-                
-                return rv;
-            }
-            set
-            {
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.X);
-                _lowLevelStruct.XLen = 0;
-                
-                if (value != null)
-                {
-                    _lowLevelStruct.X = LowLevelAPI.UnmanagedMemory.Allocate(value.Length);
-                    LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.X, value);
-                    _lowLevelStruct.XLen = (uint)value.Length;
-                }
-            }
-        }
-
-        /// <summary>
         /// Initializes a new instance of the CkKeyWrapSetOaepParams class.
         /// </summary>
-        public CkKeyWrapSetOaepParams()
+        /// <param name='bc'>Block contents byte</param>
+        /// <param name='x'>Concatenation of hash of plaintext data (if present) and extra data (if present)</param>
+        public CkKeyWrapSetOaepParams(byte bc, byte[] x)
         {
             _lowLevelStruct.BC = 0;
             _lowLevelStruct.X = IntPtr.Zero;
             _lowLevelStruct.XLen = 0;
+
+            _lowLevelStruct.BC = bc;
+
+            if (x != null)
+            {
+                _lowLevelStruct.X = LowLevelAPI.UnmanagedMemory.Allocate(x.Length);
+                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.X, x);
+                _lowLevelStruct.XLen = (uint)x.Length;
+            }
         }
         
         #region IMechanismParams

@@ -35,86 +35,34 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         private LowLevelAPI.MechanismParams.CK_ECDH1_DERIVE_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_ECDH1_DERIVE_PARAMS();
 
         /// <summary>
-        /// Key derivation function used on the shared secret value (CKD)
-        /// </summary>
-        public uint Kdf
-        {
-            get
-            {
-                return _lowLevelStruct.Kdf;
-            }
-            set
-            {
-                _lowLevelStruct.Kdf = value;
-            }
-        }
-        
-        /// <summary>
-        /// Some data shared between the two parties
-        /// </summary>
-        public byte[] SharedData
-        {
-            get
-            {
-                byte[] rv = null;
-                
-                if (_lowLevelStruct.SharedDataLen > 0)
-                    rv = LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.SharedData, (int)_lowLevelStruct.SharedDataLen);
-                
-                return rv;
-            }
-            set
-            {
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.SharedData);
-                _lowLevelStruct.SharedDataLen = 0;
-                
-                if (value != null)
-                {
-                    _lowLevelStruct.SharedData = LowLevelAPI.UnmanagedMemory.Allocate(value.Length);
-                    LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.SharedData, value);
-                    _lowLevelStruct.SharedDataLen = (uint)value.Length;
-                }
-            }
-        }
-        
-        /// <summary>
-        /// Other party's EC public key value
-        /// </summary>
-        public byte[] PublicData
-        {
-            get
-            {
-                byte[] rv = null;
-                
-                if (_lowLevelStruct.PublicDataLen > 0)
-                    rv = LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.PublicData, (int)_lowLevelStruct.PublicDataLen);
-                
-                return rv;
-            }
-            set
-            {
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.PublicData);
-                _lowLevelStruct.PublicDataLen = 0;
-                
-                if (value != null)
-                {
-                    _lowLevelStruct.PublicData = LowLevelAPI.UnmanagedMemory.Allocate(value.Length);
-                    LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.PublicData, value);
-                    _lowLevelStruct.PublicDataLen = (uint)value.Length;
-                }
-            }
-        }
-
-        /// <summary>
         /// Initializes a new instance of the CkEcdh1DeriveParams class.
         /// </summary>
-        public CkEcdh1DeriveParams()
+        /// <param name='kdf'>Key derivation function used on the shared secret value (CKD)</param>
+        /// <param name='sharedData'>Some data shared between the two parties</param>
+        /// <param name='publicData'>Other party's EC public key value</param>
+        public CkEcdh1DeriveParams(uint kdf, byte[] sharedData, byte[] publicData)
         {
             _lowLevelStruct.Kdf = 0;
             _lowLevelStruct.SharedDataLen = 0;
             _lowLevelStruct.SharedData = IntPtr.Zero;
             _lowLevelStruct.PublicDataLen = 0;
             _lowLevelStruct.PublicData = IntPtr.Zero;
+
+            _lowLevelStruct.Kdf = kdf;
+
+            if (sharedData != null)
+            {
+                _lowLevelStruct.SharedData = LowLevelAPI.UnmanagedMemory.Allocate(sharedData.Length);
+                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.SharedData, sharedData);
+                _lowLevelStruct.SharedDataLen = (uint)sharedData.Length;
+            }
+
+            if (publicData != null)
+            {
+                _lowLevelStruct.PublicData = LowLevelAPI.UnmanagedMemory.Allocate(publicData.Length);
+                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
+                _lowLevelStruct.PublicDataLen = (uint)publicData.Length;
+            }
         }
         
         #region IMechanismParams

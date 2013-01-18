@@ -35,84 +35,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         private LowLevelAPI.MechanismParams.CK_KEA_DERIVE_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_KEA_DERIVE_PARAMS();
 
         /// <summary>
-        /// Option for generating the key (called a TEK). True if the sender (originator) generates the TEK, false if the recipient is regenerating the TEK.
-        /// </summary>
-        public bool IsSender
-        {
-            get
-            {
-                return _lowLevelStruct.IsSender;
-            }
-            set
-            {
-                _lowLevelStruct.IsSender = value;
-            }
-        }
-        
-        /// <summary>
-        /// Ra data
-        /// </summary>
-        public byte[] RandomA
-        {
-            get
-            {
-                byte[] rv = null;
-                
-                if (_lowLevelStruct.RandomA != IntPtr.Zero)
-                    rv = LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.RandomA, (int)_lowLevelStruct.RandomLen);
-                
-                return rv;
-            }
-        }
-        
-        /// <summary>
-        /// Rb data
-        /// </summary>
-        public byte[] RandomB
-        {
-            get
-            {
-                byte[] rv = null;
-                
-                if (_lowLevelStruct.RandomB != IntPtr.Zero)
-                    rv = LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.RandomB, (int)_lowLevelStruct.RandomLen);
-                
-                return rv;
-            }
-        }
-
-        /// <summary>
-        /// Other party's KEA public key value
-        /// </summary>
-        public byte[] PublicData
-        {
-            get
-            {
-                byte[] rv = null;
-                
-                if (_lowLevelStruct.PublicDataLen > 0)
-                    rv = LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.PublicData, (int)_lowLevelStruct.PublicDataLen);
-                
-                return rv;
-            }
-            set
-            {
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.PublicData);
-                _lowLevelStruct.PublicDataLen = 0;
-                
-                if (value != null)
-                {
-                    _lowLevelStruct.PublicData = LowLevelAPI.UnmanagedMemory.Allocate(value.Length);
-                    LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.PublicData, value);
-                    _lowLevelStruct.PublicDataLen = (uint)value.Length;
-                }
-            }
-        }
-
-        /// <summary>
         /// Initializes a new instance of the CkKeaDeriveParams class.
         /// </summary>
-        public CkKeaDeriveParams()
+        /// <param name='isSender'>Option for generating the key (called a TEK). True if the sender (originator) generates the TEK, false if the recipient is regenerating the TEK.</param>
+        /// <param name='randomA'>Ra data</param>
+        /// <param name='randomB'>Rb data</param>
+        /// <param name='publicData'>Other party's KEA public key value</param>
+        public CkKeaDeriveParams(bool isSender, byte[] randomA, byte[] randomB, byte[] publicData)
         {
             _lowLevelStruct.IsSender = false;
             _lowLevelStruct.RandomLen = 0;
@@ -120,24 +49,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             _lowLevelStruct.RandomB = IntPtr.Zero;
             _lowLevelStruct.PublicDataLen = 0;
             _lowLevelStruct.PublicData = IntPtr.Zero;
-        }
 
-        /// <summary>
-        /// Sets Ra and Rb data.
-        /// </summary>
-        /// <param name='randomA'>Ra data</param>
-        /// <param name='randomB'>Rb data</param>
-        public void SetRandom(byte[] randomA, byte[] randomB)
-        {
+            _lowLevelStruct.IsSender = isSender;
+
             if ((randomA != null) && (randomB != null))
             {
                 if (randomA.Length != randomB.Length)
                     throw new ArgumentException("Length of randomA has to be the same as length of randomB");
             }
-
-            LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.RandomA);
-            LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.RandomB);
-            _lowLevelStruct.RandomLen = 0;
             
             if (randomA != null)
             {
@@ -145,12 +64,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.RandomA, randomA);
                 _lowLevelStruct.RandomLen = (uint)randomA.Length;
             }
-
+            
             if (randomB != null)
             {
                 _lowLevelStruct.RandomB = LowLevelAPI.UnmanagedMemory.Allocate(randomB.Length);
                 LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.RandomB, randomB);
                 _lowLevelStruct.RandomLen = (uint)randomB.Length;
+            }
+
+            if (publicData != null)
+            {
+                _lowLevelStruct.PublicData = LowLevelAPI.UnmanagedMemory.Allocate(publicData.Length);
+                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
+                _lowLevelStruct.PublicDataLen = (uint)publicData.Length;
             }
         }
 

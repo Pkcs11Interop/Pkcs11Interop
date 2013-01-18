@@ -35,84 +35,36 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         private LowLevelAPI.MechanismParams.CK_KIP_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_KIP_PARAMS();
 
         /// <summary>
-        /// Underlying cryptographic mechanism (CKM)
-        /// </summary>
-        public uint? Mechanism
-        {
-            get
-            {
-                if (_lowLevelStruct.Mechanism == IntPtr.Zero)
-                    return null;
-                
-                int uintSize = LowLevelAPI.UnmanagedMemory.SizeOf(typeof(uint));
-                byte[] uintValue = LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.Mechanism, uintSize);
-                return BitConverter.ToUInt32(uintValue, 0);
-            }
-            set
-            {
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.Mechanism);
-                
-                if (value != null)
-                {
-                    int uintSize = LowLevelAPI.UnmanagedMemory.SizeOf(typeof(uint));
-                    _lowLevelStruct.Mechanism = LowLevelAPI.UnmanagedMemory.Allocate(uintSize);
-                    LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.Mechanism, BitConverter.GetBytes((uint)value));
-                }
-            }
-        }
-        
-        /// <summary>
-        /// Handle to a key that will contribute to the entropy of the derived key (CKM_KIP_DERIVE) or will be used in the MAC operation (CKM_KIP_MAC)
-        /// </summary>
-        public ObjectHandle Key
-        {
-            get
-            {
-                return new ObjectHandle(_lowLevelStruct.Key);
-            }
-            set
-            {
-                _lowLevelStruct.Key = value.ObjectId;
-            }
-        }
-        
-        /// <summary>
-        /// Input seed
-        /// </summary>
-        public byte[] Seed
-        {
-            get
-            {
-                byte[] rv = null;
-                
-                if (_lowLevelStruct.SeedLen > 0)
-                    rv = LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.Seed, (int)_lowLevelStruct.SeedLen);
-                
-                return rv;
-            }
-            set
-            {
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.Seed);
-                _lowLevelStruct.SeedLen = 0;
-                
-                if (value != null)
-                {
-                    _lowLevelStruct.Seed = LowLevelAPI.UnmanagedMemory.Allocate(value.Length);
-                    LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.Seed, value);
-                    _lowLevelStruct.SeedLen = (uint)value.Length;
-                }
-            }
-        }
-
-        /// <summary>
         /// Initializes a new instance of the CkKipParams class.
         /// </summary>
-        public CkKipParams()
+        /// <param name='mechanism'>Underlying cryptographic mechanism (CKM)</param>
+        /// <param name='key'>Handle to a key that will contribute to the entropy of the derived key (CKM_KIP_DERIVE) or will be used in the MAC operation (CKM_KIP_MAC)</param>
+        /// <param name='seed'>Input seed</param>
+        public CkKipParams(uint? mechanism, ObjectHandle key, byte[] seed)
         {
             _lowLevelStruct.Mechanism = IntPtr.Zero;
             _lowLevelStruct.Key = 0;
             _lowLevelStruct.Seed = IntPtr.Zero;
             _lowLevelStruct.SeedLen = 0;
+
+            if (mechanism != null)
+            {
+                int uintSize = LowLevelAPI.UnmanagedMemory.SizeOf(typeof(uint));
+                _lowLevelStruct.Mechanism = LowLevelAPI.UnmanagedMemory.Allocate(uintSize);
+                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.Mechanism, BitConverter.GetBytes((uint)mechanism));
+            }
+
+            if (key == null)
+                throw new ArgumentNullException("key");
+            
+            _lowLevelStruct.Key = key.ObjectId;
+
+            if (seed != null)
+            {
+                _lowLevelStruct.Seed = LowLevelAPI.UnmanagedMemory.Allocate(seed.Length);
+                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.Seed, seed);
+                _lowLevelStruct.SeedLen = (uint)seed.Length;
+            }
         }
         
         #region IMechanismParams

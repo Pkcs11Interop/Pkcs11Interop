@@ -35,62 +35,30 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         private LowLevelAPI.MechanismParams.CK_DES_CBC_ENCRYPT_DATA_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_DES_CBC_ENCRYPT_DATA_PARAMS();
         
         /// <summary>
-        /// IV value (8 bytes)
-        /// </summary>
-        public byte[] Iv
-        {
-            get
-            {
-                return _lowLevelStruct.Iv;
-            }
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException("Iv");
-                
-                if (value.Length != 8)
-                    throw new ArgumentOutOfRangeException("Iv", "Array has to be 8 bytes long");
-                
-                _lowLevelStruct.Iv = value;
-            }
-        }
-        
-        /// <summary>
-        /// Data to encrypt
-        /// </summary>
-        public byte[] Data
-        {
-            get
-            {
-                byte[] rv = null;
-                
-                if (_lowLevelStruct.Length > 0)
-                    rv = LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.Data, (int)_lowLevelStruct.Length);
-                
-                return rv;
-            }
-            set
-            {
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.Data);
-                _lowLevelStruct.Length = 0;
-                
-                if (value != null)
-                {
-                    _lowLevelStruct.Data = LowLevelAPI.UnmanagedMemory.Allocate(value.Length);
-                    LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.Data, value);
-                    _lowLevelStruct.Length = (uint)value.Length;
-                }
-            }
-        }
-        
-        /// <summary>
         /// Initializes a new instance of the CkDesCbcEncryptDataParams class.
         /// </summary>
-        public CkDesCbcEncryptDataParams()
+        /// <param name='iv'>IV value (8 bytes)</param>
+        /// <param name='data'>Data to encrypt</param>
+        public CkDesCbcEncryptDataParams(byte[] iv, byte[] data)
         {
             _lowLevelStruct.Iv = new byte[8];
             _lowLevelStruct.Data = IntPtr.Zero;
             _lowLevelStruct.Length = 0;
+
+            if (iv == null)
+                throw new ArgumentNullException("iv");
+            
+            if (iv.Length != 8)
+                throw new ArgumentOutOfRangeException("iv", "Array has to be 8 bytes long");
+
+            Array.Copy(iv, _lowLevelStruct.Iv, iv.Length);
+
+            if (data != null)
+            {
+                _lowLevelStruct.Data = LowLevelAPI.UnmanagedMemory.Allocate(data.Length);
+                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.Data, data);
+                _lowLevelStruct.Length = (uint)data.Length;
+            }
         }
         
         #region IMechanismParams

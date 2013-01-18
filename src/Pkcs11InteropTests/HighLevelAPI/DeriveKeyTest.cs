@@ -53,8 +53,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     byte[] data = session.GenerateRandom(24);
 
                     // Specify mechanism parameters
-                    CkKeyDerivationStringData mechanismParams = new CkKeyDerivationStringData();
-                    mechanismParams.Data = data;
+                    CkKeyDerivationStringData mechanismParams = new CkKeyDerivationStringData(data);
 
                     // Specify derivation mechanism with parameters
                     Mechanism mechanism = new Mechanism(CKM.CKM_XOR_BASE_AND_DATA, mechanismParams);

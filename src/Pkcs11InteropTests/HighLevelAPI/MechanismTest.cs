@@ -31,6 +31,44 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
     public class MechanismTest
     {
         /// <summary>
+        /// Mechanism dispose test.
+        /// </summary>
+        [Test()]
+        public void DisposeMechanismTest()
+        {
+            byte[] parameter = new byte[8];
+            System.Random rng = new Random();
+            rng.NextBytes(parameter);
+            
+            // Unmanaged memory for mechanism parameter stored in low level CK_MECHANISM struct
+            // is allocated by constructor of Mechanism class.
+            Mechanism mechanism1 = new Mechanism(CKM.CKM_DES_CBC, parameter);
+            
+            // Do something interesting with mechanism
+            
+            // This unmanaged memory is freed by Dispose() method.
+            mechanism1.Dispose();
+            
+            
+            // Mechanism class can be used in using statement which defines a scope 
+            // at the end of which an object will be disposed (and unmanaged memory freed).
+            using (Mechanism mechanism2 = new Mechanism(CKM.CKM_DES_CBC, parameter))
+            {
+                // Do something interesting with mechanism
+            }
+            
+            
+            // Explicit calling of Dispose() method can also be ommitted
+            // and this is the prefered way how to use Mechanism class.
+            Mechanism mechanism3 = new Mechanism(CKM.CKM_DES_CBC, parameter);
+            
+            // Do something interesting with mechanism
+            
+            // Dispose() method will be called (and unmanaged memory freed) by GC eventually
+            // but we cannot be sure when will this occur.
+        }
+
+        /// <summary>
         /// Mechanism with empty parameter test.
         /// </summary>
         [Test()]
@@ -91,8 +129,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             rng.NextBytes(data);
 
             // Specify mechanism parameters
-            CkKeyDerivationStringData parameter = new CkKeyDerivationStringData();
-            parameter.Data = data;
+            CkKeyDerivationStringData parameter = new CkKeyDerivationStringData(data);
 
             // Create mechanism with the object as parameter
             Mechanism mechanism = new Mechanism(CKM.CKM_XOR_BASE_AND_DATA, parameter);

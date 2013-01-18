@@ -30,26 +30,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         private LowLevelAPI.MechanismParams.CK_MAC_GENERAL_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_MAC_GENERAL_PARAMS();
 
         /// <summary>
-        /// Length of the MAC produced, in bytes
-        /// </summary>
-        public uint MacLength
-        {
-            get
-            {
-                return _lowLevelStruct.MacLength;
-            }
-            set
-            {
-                _lowLevelStruct.MacLength = value;
-            }
-        }
-
-        /// <summary>
         /// Initializes a new instance of the CkMacGeneralParams class.
         /// </summary>
-        public CkMacGeneralParams()
+        /// <param name='macLength'>Length of the MAC produced, in bytes</param>
+        public CkMacGeneralParams(uint macLength)
         {
-            _lowLevelStruct.MacLength = 0;
+            _lowLevelStruct.MacLength = macLength;
         }
         
         #region IMechanismParams

@@ -37,88 +37,30 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         private LowLevelAPI.MechanismParams.CK_RSA_PKCS_OAEP_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_RSA_PKCS_OAEP_PARAMS();
 
         /// <summary>
-        /// Mechanism ID of the message digest algorithm used to calculate the digest of the encoding parameter (CKM)
-        /// </summary>
-        public uint HashAlg
-        {
-            get
-            {
-                return _lowLevelStruct.HashAlg;
-            }
-            set
-            {
-                _lowLevelStruct.HashAlg = value;
-            }
-        }
-
-        /// <summary>
-        /// Mask generation function to use on the encoded block (CKG)
-        /// </summary>
-        public uint Mgf
-        {
-            get
-            {
-                return _lowLevelStruct.Mgf;
-            }
-            set
-            {
-                _lowLevelStruct.Mgf = value;
-            }
-        }
-
-        /// <summary>
-        /// Source of the encoding parameter (CKZ)
-        /// </summary>
-        public uint Source
-        {
-            get
-            {
-                return _lowLevelStruct.Source;
-            }
-            set
-            {
-                _lowLevelStruct.Source = value;
-            }
-        }
-
-        /// <summary>
-        /// Data used as the input for the encoding parameter source
-        /// </summary>
-        public byte[] SourceData
-        {
-            get
-            {
-                byte[] rv = null;
-
-                if (_lowLevelStruct.SourceDataLen > 0)
-                    rv = LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.SourceData, (int)_lowLevelStruct.SourceDataLen);
-
-                return rv;
-            }
-            set
-            {
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.SourceData);
-                _lowLevelStruct.SourceDataLen = 0;
-
-                if (value != null)
-                {
-                    _lowLevelStruct.SourceData = LowLevelAPI.UnmanagedMemory.Allocate(value.Length);
-                    LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.SourceData, value);
-                    _lowLevelStruct.SourceDataLen = (uint)value.Length;
-                }
-            }
-        }
-
-        /// <summary>
         /// Initializes a new instance of the CkRsaPkcsOaepParams class.
         /// </summary>
-        public CkRsaPkcsOaepParams()
+        /// <param name='hashAlg'>Mechanism ID of the message digest algorithm used to calculate the digest of the encoding parameter (CKM)</param>
+        /// <param name='mgf'>Mask generation function to use on the encoded block (CKG)</param>
+        /// <param name='source'>Source of the encoding parameter (CKZ)</param>
+        /// <param name='sourceData'>Data used as the input for the encoding parameter source</param>
+        public CkRsaPkcsOaepParams(uint hashAlg, uint mgf, uint source, byte[] sourceData)
         {
             _lowLevelStruct.HashAlg = 0;
             _lowLevelStruct.Mgf = 0;
             _lowLevelStruct.Source = 0;
             _lowLevelStruct.SourceData = IntPtr.Zero;
             _lowLevelStruct.SourceDataLen = 0;
+
+            _lowLevelStruct.HashAlg = hashAlg;
+            _lowLevelStruct.Mgf = mgf;
+            _lowLevelStruct.Source = source;
+
+            if (sourceData != null)
+            {
+                _lowLevelStruct.SourceData = LowLevelAPI.UnmanagedMemory.Allocate(sourceData.Length);
+                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.SourceData, sourceData);
+                _lowLevelStruct.SourceDataLen = (uint)sourceData.Length;
+            }
         }
 
         #region IMechanismParams

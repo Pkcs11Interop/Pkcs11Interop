@@ -30,26 +30,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         private LowLevelAPI.MechanismParams.CK_EXTRACT_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_EXTRACT_PARAMS();
 
         /// <summary>
-        /// Specifies which bit of the base key should be used as the first bit of the derived key
-        /// </summary>
-        public uint Bit
-        {
-            get
-            {
-                return _lowLevelStruct.Bit;
-            }
-            set
-            {
-                _lowLevelStruct.Bit = value;
-            }
-        }
-
-        /// <summary>
         /// Initializes a new instance of the CkExtractParams class.
         /// </summary>
-        public CkExtractParams()
+        /// <param name='bit'>Specifies which bit of the base key should be used as the first bit of the derived key</param>
+        public CkExtractParams(uint bit)
         {
-            _lowLevelStruct.Bit = 0;
+            _lowLevelStruct.Bit = bit;
         }
         
         #region IMechanismParams

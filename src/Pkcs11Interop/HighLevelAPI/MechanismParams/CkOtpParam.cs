@@ -35,56 +35,24 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         private LowLevelAPI.MechanismParams.CK_OTP_PARAM _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_OTP_PARAM();
 
         /// <summary>
-        /// Parameter type
-        /// </summary>
-        public uint Type
-        {
-            get
-            {
-                return _lowLevelStruct.Type;
-            }
-            set
-            {
-                _lowLevelStruct.Type = value;
-            }
-        }
-        
-        /// <summary>
-        /// Value of the parameter
-        /// </summary>
-        public byte[] Value
-        {
-            get
-            {
-                byte[] rv = null;
-                
-                if (_lowLevelStruct.ValueLen > 0)
-                    rv = LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.Value, (int)_lowLevelStruct.ValueLen);
-                
-                return rv;
-            }
-            set
-            {
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.Value);
-                _lowLevelStruct.ValueLen = 0;
-                
-                if (value != null)
-                {
-                    _lowLevelStruct.Value = LowLevelAPI.UnmanagedMemory.Allocate(value.Length);
-                    LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.Value, value);
-                    _lowLevelStruct.ValueLen = (uint)value.Length;
-                }
-            }
-        }
-
-        /// <summary>
         /// Initializes a new instance of the CkOtpParam class.
         /// </summary>
-        public CkOtpParam()
+        /// <param name='type'>Parameter type</param>
+        /// <param name='value'>Value of the parameter</param>
+        public CkOtpParam(uint type, byte[] value)
         {
             _lowLevelStruct.Type = 0;
             _lowLevelStruct.Value = IntPtr.Zero;
             _lowLevelStruct.ValueLen = 0;
+
+            _lowLevelStruct.Type = type;
+
+            if (value != null)
+            {
+                _lowLevelStruct.Value = LowLevelAPI.UnmanagedMemory.Allocate(value.Length);
+                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.Value, value);
+                _lowLevelStruct.ValueLen = (uint)value.Length;
+            }
         }
         
         #region IMechanismParams

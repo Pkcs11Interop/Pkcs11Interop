@@ -30,48 +30,24 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         private LowLevelAPI.MechanismParams.CK_AES_CTR_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_AES_CTR_PARAMS();
 
         /// <summary>
-        /// The number of bits in the counter block (cb) that shall be incremented
-        /// </summary>
-        public uint CounterBits
-        {
-            get
-            {
-                return _lowLevelStruct.CounterBits;
-            }
-            set
-            {
-                _lowLevelStruct.CounterBits = value;
-            }
-        }
-
-        /// <summary>
-        /// Specifies the counter block (16 bytes)
-        /// </summary>
-        public byte[] Cb
-        {
-            get
-            {
-                return _lowLevelStruct.Cb;
-            }
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException("Cb");
-                
-                if (value.Length != 16)
-                    throw new ArgumentOutOfRangeException("Cb", "Array has to be 16 bytes long");
-                
-                _lowLevelStruct.Cb = value;
-            }
-        }
-        
-        /// <summary>
         /// Initializes a new instance of the CkAesCtrParams class.
         /// </summary>
-        public CkAesCtrParams()
+        /// <param name='counterBits'>The number of bits in the counter block (cb) that shall be incremented</param>
+        /// <param name='cb'>Specifies the counter block (16 bytes)</param>
+        public CkAesCtrParams(uint counterBits, byte[] cb)
         {
             _lowLevelStruct.CounterBits = 0;
             _lowLevelStruct.Cb = new byte[16];
+
+            _lowLevelStruct.CounterBits = counterBits;
+
+            if (cb == null)
+                throw new ArgumentNullException("cb");
+            
+            if (cb.Length != 16)
+                throw new ArgumentOutOfRangeException("cb", "Array has to be 16 bytes long");
+
+            Array.Copy(cb, _lowLevelStruct.Cb, cb.Length);
         }
         
         #region IMechanismParams

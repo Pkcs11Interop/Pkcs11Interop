@@ -17,6 +17,8 @@
 
 using System;
 using System.Collections.Generic;
+using Net.Pkcs11Interop.LowLevelAPI;
+using Net.Pkcs11Interop.LowLevelAPI.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
 {
@@ -36,6 +38,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         private LowLevelAPI.MechanismParams.CK_OTP_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_OTP_PARAMS();
 
         /// <summary>
+        /// List of OTP parameters
+        /// </summary>
+        private List<CkOtpParam> _parameters = null;
+
+        /// <summary>
         /// Initializes a new instance of the CkOtpParams class.
         /// </summary>
         /// <param name='parameters'>List of OTP parameters</param>
@@ -46,12 +53,21 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
 
             if (parameters.Count > 0)
             {
-                foreach (CkOtpParam parameter in parameters)
+                // Keep reference to parameters so GC will not free them while this object exists
+                _parameters = parameters;
+
+                // Allocate memory for parameters
+                int ckOtpParamSize = UnmanagedMemory.SizeOf(typeof(CK_OTP_PARAM));
+                _lowLevelStruct.Params = UnmanagedMemory.Allocate(ckOtpParamSize * parameters.Count);
+                _lowLevelStruct.Count = (uint)parameters.Count;
+
+                // Copy paramaters to allocated memory
+                for (int i = 0; i < parameters.Count; i++)
                 {
-                    // TODO : parameter.ToLowLevelParams();
+                    IntPtr tempPointer = new IntPtr(_lowLevelStruct.Params.ToInt32() + (i * ckOtpParamSize));
+                    UnmanagedMemory.Write(tempPointer, parameters[i].ToLowLevelParams());
                 }
             }
-
         }
         
         #region IMechanismParams

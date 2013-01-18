@@ -35,139 +35,15 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         private LowLevelAPI.MechanismParams.CK_ECDH2_DERIVE_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_ECDH2_DERIVE_PARAMS();
         
         /// <summary>
-        /// Key derivation function used on the shared secret value (CKD)
-        /// </summary>
-        public uint Kdf
-        {
-            get
-            {
-                return _lowLevelStruct.Kdf;
-            }
-            set
-            {
-                _lowLevelStruct.Kdf = value;
-            }
-        }
-        
-        /// <summary>
-        /// Some data shared between the two parties
-        /// </summary>
-        public byte[] SharedData
-        {
-            get
-            {
-                byte[] rv = null;
-                
-                if (_lowLevelStruct.SharedDataLen > 0)
-                    rv = LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.SharedData, (int)_lowLevelStruct.SharedDataLen);
-                
-                return rv;
-            }
-            set
-            {
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.SharedData);
-                _lowLevelStruct.SharedDataLen = 0;
-                
-                if (value != null)
-                {
-                    _lowLevelStruct.SharedData = LowLevelAPI.UnmanagedMemory.Allocate(value.Length);
-                    LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.SharedData, value);
-                    _lowLevelStruct.SharedDataLen = (uint)value.Length;
-                }
-            }
-        }
-        
-        /// <summary>
-        /// Other party's first EC public key value
-        /// </summary>
-        public byte[] PublicData
-        {
-            get
-            {
-                byte[] rv = null;
-                
-                if (_lowLevelStruct.PublicDataLen > 0)
-                    rv = LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.PublicData, (int)_lowLevelStruct.PublicDataLen);
-                
-                return rv;
-            }
-            set
-            {
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.PublicData);
-                _lowLevelStruct.PublicDataLen = 0;
-                
-                if (value != null)
-                {
-                    _lowLevelStruct.PublicData = LowLevelAPI.UnmanagedMemory.Allocate(value.Length);
-                    LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.PublicData, value);
-                    _lowLevelStruct.PublicDataLen = (uint)value.Length;
-                }
-            }
-        }
-
-        
-        /// <summary>
-        /// The length in bytes of the second EC private key
-        /// </summary>
-        public uint PrivateDataLen
-        {
-            get
-            {
-                return _lowLevelStruct.PrivateDataLen;
-            }
-            set
-            {
-                _lowLevelStruct.PrivateDataLen = value;
-            }
-        }
-        
-        /// <summary>
-        /// Key handle for second EC private key value
-        /// </summary>
-        public ObjectHandle PrivateData
-        {
-            get
-            {
-                return new ObjectHandle(_lowLevelStruct.PrivateData);
-            }
-            set
-            {
-                _lowLevelStruct.PrivateData = value.ObjectId;
-            }
-        }
-        
-        /// <summary>
-        /// Other party's second EC public key value
-        /// </summary>
-        public byte[] PublicData2
-        {
-            get
-            {
-                byte[] rv = null;
-                
-                if (_lowLevelStruct.PublicDataLen2 > 0)
-                    rv = LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.PublicData2, (int)_lowLevelStruct.PublicDataLen2);
-                
-                return rv;
-            }
-            set
-            {
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.PublicData2);
-                _lowLevelStruct.PublicDataLen2 = 0;
-                
-                if (value != null)
-                {
-                    _lowLevelStruct.PublicData2 = LowLevelAPI.UnmanagedMemory.Allocate(value.Length);
-                    LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.PublicData2, value);
-                    _lowLevelStruct.PublicDataLen2 = (uint)value.Length;
-                }
-            }
-        }
-
-        /// <summary>
         /// Initializes a new instance of the CkEcdh2DeriveParams class.
         /// </summary>
-        public CkEcdh2DeriveParams()
+        /// <param name='kdf'>Key derivation function used on the shared secret value (CKD)</param>
+        /// <param name='sharedData'>Some data shared between the two parties</param>
+        /// <param name='publicData'>Other party's first EC public key value</param>
+        /// <param name='privateDataLen'>The length in bytes of the second EC private key</param>
+        /// <param name='privateData'>Key handle for second EC private key value</param>
+        /// <param name='publicData2'>Other party's second EC public key value</param>
+        public CkEcdh2DeriveParams(uint kdf, byte[] sharedData, byte[] publicData, uint privateDataLen, ObjectHandle privateData, byte[] publicData2)
         {
             _lowLevelStruct.Kdf = 0;
             _lowLevelStruct.SharedDataLen = 0;
@@ -178,6 +54,36 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             _lowLevelStruct.PrivateData = 0;
             _lowLevelStruct.PublicDataLen2 = 0;
             _lowLevelStruct.PublicData2 = IntPtr.Zero;
+
+            _lowLevelStruct.Kdf = kdf;
+
+            if (sharedData != null)
+            {
+                _lowLevelStruct.SharedData = LowLevelAPI.UnmanagedMemory.Allocate(sharedData.Length);
+                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.SharedData, sharedData);
+                _lowLevelStruct.SharedDataLen = (uint)sharedData.Length;
+            }
+
+            if (publicData != null)
+            {
+                _lowLevelStruct.PublicData = LowLevelAPI.UnmanagedMemory.Allocate(publicData.Length);
+                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
+                _lowLevelStruct.PublicDataLen = (uint)publicData.Length;
+            }
+
+            _lowLevelStruct.PrivateDataLen = privateDataLen;
+
+            if (privateData == null)
+                throw new ArgumentNullException("privateData");
+
+            _lowLevelStruct.PrivateData = privateData.ObjectId;
+
+            if (publicData2 != null)
+            {
+                _lowLevelStruct.PublicData2 = LowLevelAPI.UnmanagedMemory.Allocate(publicData2.Length);
+                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.PublicData2, publicData2);
+                _lowLevelStruct.PublicDataLen2 = (uint)publicData2.Length;
+            }
         }
         
         #region IMechanismParams
