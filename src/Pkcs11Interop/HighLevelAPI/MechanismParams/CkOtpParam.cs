@@ -35,6 +35,28 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         private LowLevelAPI.MechanismParams.CK_OTP_PARAM _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_OTP_PARAM();
 
         /// <summary>
+        /// Parameter type
+        /// </summary>
+        public uint Type
+        {
+            get
+            {
+                return _lowLevelStruct.Type;
+            }
+        }
+
+        /// <summary>
+        /// Value of the parameter
+        /// </summary>
+        public byte[] Value
+        {
+            get
+            {
+                return (_lowLevelStruct.Value == IntPtr.Zero) ? null : LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.Value, (int)_lowLevelStruct.ValueLen);
+            }
+        }
+
+        /// <summary>
         /// Initializes a new instance of the CkOtpParam class.
         /// </summary>
         /// <param name='type'>Parameter type</param>

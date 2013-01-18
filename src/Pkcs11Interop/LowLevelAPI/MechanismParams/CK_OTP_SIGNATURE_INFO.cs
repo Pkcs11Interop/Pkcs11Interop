@@ -20,6 +20,9 @@ using System.Runtime.InteropServices;
 
 namespace Net.Pkcs11Interop.LowLevelAPI.MechanismParams
 {
+    /// <summary>
+    /// Structure that is returned by all OTP mechanisms in successful calls to C_Sign (C_SignFinal)
+    /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
     public struct CK_OTP_SIGNATURE_INFO
     {

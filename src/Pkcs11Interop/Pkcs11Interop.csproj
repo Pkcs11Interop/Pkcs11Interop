@@ -150,6 +150,7 @@
     <Compile Include="HighLevelAPI\MechanismParams\CkMacGeneralParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkOtpParam.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkOtpParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkOtpSignatureInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
