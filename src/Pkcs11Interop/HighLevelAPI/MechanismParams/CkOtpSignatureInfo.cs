@@ -24,7 +24,7 @@ using System.Runtime.InteropServices;
 namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
 {
     /// <summary>
-    /// Parameters returned by all OTP mechanisms in successful calls to C_Sign (C_SignFinal)
+    /// Parameters returned by all OTP mechanisms in successful calls to Sign method
     /// </summary>
     public class CkOtpSignatureInfo : IDisposable
     {
@@ -62,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Initializes a new instance of the CkOtpSignatureInfo class.
         /// </summary>
-        /// <param name='parameters'>List of OTP parameters</param>
+        /// <param name='signature'>Signature value returned by all OTP mechanisms in successful calls to Sign method</param>
         public CkOtpSignatureInfo(byte[] signature)
         {
             if (signature == null)

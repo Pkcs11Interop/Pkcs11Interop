@@ -159,6 +159,9 @@
     <Compile Include="HighLevelAPI\MechanismParams\CkRc5CbcParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkRc5MacGeneralParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkRc5Params.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkRsaPkcsPssParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkSkipjackPrivateWrapParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkSkipjackRelayxParams.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
