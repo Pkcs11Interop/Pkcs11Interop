@@ -151,6 +151,14 @@
     <Compile Include="HighLevelAPI\MechanismParams\CkOtpParam.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkOtpParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkOtpSignatureInfo.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkPbeParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkPkcs5Pbkd2Params.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkRc2CbcParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkRc2MacGeneralParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkRc2Params.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkRc5CbcParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkRc5MacGeneralParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkRc5Params.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
