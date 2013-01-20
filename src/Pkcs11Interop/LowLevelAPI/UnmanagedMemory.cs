@@ -26,16 +26,21 @@ namespace Net.Pkcs11Interop.LowLevelAPI
     public class UnmanagedMemory
     {
         /// <summary>
-        /// Allocates unmanaged memory
+        /// Allocates unmanaged zero-filled memory
         /// </summary>
         /// <param name="size">Number of bytes required</param>
-        /// <returns>Pointer to newly allocated unmanaged memory</returns>
+        /// <returns>Pointer to newly allocated unmanaged zero-filled memory</returns>
         public static IntPtr Allocate(int size)
         {
             if (size < 1)
                 throw new ArgumentException("Value has to be positive number", "size");
-            
-            return Marshal.AllocHGlobal(size);
+
+            // Allocate memory and fill it with zeros
+            // Note: new byte array is automaticaly filled with zeros
+            IntPtr memory = Marshal.AllocHGlobal(size);
+            Write(memory, new byte[size]);
+
+            return memory;
         }
 
         /// <summary>
