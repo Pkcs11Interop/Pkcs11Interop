@@ -162,6 +162,11 @@
     <Compile Include="HighLevelAPI\MechanismParams\CkRsaPkcsPssParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkSkipjackPrivateWrapParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkSkipjackRelayxParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkSsl3KeyMatOut.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkSsl3KeyMatParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkSsl3MasterKeyDeriveParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkSsl3RandomData.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkVersion.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

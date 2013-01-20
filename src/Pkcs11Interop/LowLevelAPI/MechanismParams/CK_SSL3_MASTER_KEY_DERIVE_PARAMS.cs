@@ -21,7 +21,7 @@ using System.Runtime.InteropServices;
 namespace Net.Pkcs11Interop.LowLevelAPI.MechanismParams
 {
     /// <summary>
-    /// Structure that provides the parameters to the CKM_SSL3_MASTER_KEY_DERIVE mechanism
+    /// Structure that provides the parameters to the CKM_SSL3_MASTER_KEY_DERIVE and CKM_SSL3_MASTER_KEY_DERIVE_DH mechanisms
     /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
     public struct CK_SSL3_MASTER_KEY_DERIVE_PARAMS
