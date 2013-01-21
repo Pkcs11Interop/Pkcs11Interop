@@ -16,6 +16,7 @@
  */
 
 using System;
+using Net.Pkcs11Interop.Common;
 
 namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
 {
@@ -81,7 +82,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <returns>String that represents the current CkVersion object.</returns>
         public override string ToString()
         {
-            return Convert.CkVersionToString(_lowLevelStruct);
+            return ConvertUtils.CkVersionToString(_lowLevelStruct);
         }
     }
 }

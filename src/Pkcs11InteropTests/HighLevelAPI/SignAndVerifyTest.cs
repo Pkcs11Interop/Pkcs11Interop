@@ -55,7 +55,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     // Specify signing mechanism
                     Mechanism mechanism = new Mechanism(CKM.CKM_SHA1_RSA_PKCS);
                     
-                    byte[] sourceData = UTF8Encoding.UTF8.GetBytes("Hello world");
+                    byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
 
                     // Sign data
                     byte[] signature = session.Sign(mechanism, privateKey, sourceData);
@@ -101,7 +101,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     // Specify signing mechanism
                     Mechanism mechanism = new Mechanism(CKM.CKM_SHA1_RSA_PKCS);
 
-                    byte[] sourceData = UTF8Encoding.UTF8.GetBytes("Hello world");
+                    byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
                     byte[] signature = null;
                     bool isValid = false;
                     

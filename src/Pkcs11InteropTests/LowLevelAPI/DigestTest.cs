@@ -60,7 +60,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
-                byte[] sourceData = UTF8Encoding.UTF8.GetBytes("Hello world");
+                byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
 
                 // Get length of digest value in first call
                 uint digestLen = 0;
@@ -115,7 +115,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI
                 // Specify digesting mechanism (needs no parameter => no unamanaged memory is needed)
                 CK_MECHANISM mechanism = CkmUtils.CreateMechanism(CKM.CKM_SHA_1);
 
-                byte[] sourceData = UTF8Encoding.UTF8.GetBytes("Hello world");
+                byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
                 byte[] digest = null;
 
                 // Multipart digesting functions C_DigestUpdate and C_DigestFinal can be used i.e. for digesting of streamed data

@@ -71,7 +71,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                byte[] sourceData = UTF8Encoding.UTF8.GetBytes("Hello world");
+                byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
                 
                 // Get length of signature in first call
                 uint signatureLen = 0;

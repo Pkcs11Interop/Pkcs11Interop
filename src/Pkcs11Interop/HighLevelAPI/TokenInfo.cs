@@ -350,10 +350,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         internal TokenInfo(uint slotId, LowLevelAPI.CK_TOKEN_INFO ck_token_info)
         {
             _slotId = slotId;
-            _label = Convert.ByteArrayToUtf8String(ck_token_info.Label, true);
-            _manufacturerId = Convert.ByteArrayToUtf8String(ck_token_info.ManufacturerId, true);
-            _model = Convert.ByteArrayToUtf8String(ck_token_info.Model, true);
-            _serialNumber = Convert.ByteArrayToUtf8String(ck_token_info.SerialNumber, true);
+            _label = ConvertUtils.BytesToUtf8String(ck_token_info.Label, true);
+            _manufacturerId = ConvertUtils.BytesToUtf8String(ck_token_info.ManufacturerId, true);
+            _model = ConvertUtils.BytesToUtf8String(ck_token_info.Model, true);
+            _serialNumber = ConvertUtils.BytesToUtf8String(ck_token_info.SerialNumber, true);
             _tokenFlags = new TokenFlags(ck_token_info.Flags);
             _maxSessionCount = ck_token_info.MaxSessionCount;
             _sessionCount = ck_token_info.SessionCount;
@@ -365,13 +365,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             _freePublicMemory = ck_token_info.FreePublicMemory;
             _totalPrivateMemory = ck_token_info.TotalPrivateMemory;
             _freePrivateMemory = ck_token_info.FreePrivateMemory;
-            _hardwareVersion = Convert.CkVersionToString(ck_token_info.HardwareVersion);
-            _firmwareVersion = Convert.CkVersionToString(ck_token_info.FirmwareVersion);
-            _utcTimeString = Convert.ByteArrayToUtf8String(ck_token_info.UtcTime, true);
+            _hardwareVersion = ConvertUtils.CkVersionToString(ck_token_info.HardwareVersion);
+            _firmwareVersion = ConvertUtils.CkVersionToString(ck_token_info.FirmwareVersion);
+            _utcTimeString = ConvertUtils.BytesToUtf8String(ck_token_info.UtcTime, true);
 
             try
             {
-                _utcTime = Convert.UtcTimeStringToDateTime(_utcTimeString);
+                _utcTime = ConvertUtils.UtcTimeStringToDateTime(_utcTimeString);
             }
             catch
             {

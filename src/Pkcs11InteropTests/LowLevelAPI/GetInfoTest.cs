@@ -49,7 +49,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI
                     Assert.Fail(rv.ToString());
                 
                 // Do something interesting with library information
-                Assert.IsFalse(String.IsNullOrEmpty(UTF8Encoding.UTF8.GetString(info.ManufacturerId)));
+                Assert.IsFalse(String.IsNullOrEmpty(ConvertUtils.BytesToUtf8String(info.ManufacturerId)));
                 
                 rv = pkcs11.C_Finalize(IntPtr.Zero);
                 if (rv != CKR.CKR_OK)

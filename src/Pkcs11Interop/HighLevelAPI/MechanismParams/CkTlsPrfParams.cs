@@ -16,14 +16,13 @@
  */
 
 using System;
-using Net.Pkcs11Interop.Common;
 
 namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
 {
     /// <summary>
-    /// Parameters for the CKM_KIP_DERIVE, CKM_KIP_WRAP and CKM_KIP_MAC mechanisms
+    /// Parameters for the CKM_TLS_PRF mechanism
     /// </summary>
-    public class CkKipParams : IMechanismParams, IDisposable
+    public class CkTlsPrfParams : IMechanismParams, IDisposable
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -33,32 +32,36 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI.MechanismParams.CK_KIP_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_KIP_PARAMS();
+        private LowLevelAPI.MechanismParams.CK_TLS_PRF_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_TLS_PRF_PARAMS();
 
         /// <summary>
-        /// Initializes a new instance of the CkKipParams class.
+        /// Output of the operation
         /// </summary>
-        /// <param name='mechanism'>Underlying cryptographic mechanism (CKM)</param>
-        /// <param name='key'>Handle to a key that will contribute to the entropy of the derived key (CKM_KIP_DERIVE) or will be used in the MAC operation (CKM_KIP_MAC)</param>
-        /// <param name='seed'>Input seed</param>
-        public CkKipParams(uint? mechanism, ObjectHandle key, byte[] seed)
+        public byte[] Output
         {
-            _lowLevelStruct.Mechanism = IntPtr.Zero;
-            _lowLevelStruct.Key = 0;
+            get
+            {
+                int uintSize = LowLevelAPI.UnmanagedMemory.SizeOf(typeof(uint));
+                byte[] outputLenBytes = LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.OutputLen, uintSize);
+                uint outputLen = Common.ConvertUtils.BytesToUint(outputLenBytes);
+                return LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.Output, (int)outputLen);
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the CkTlsPrfParams class.
+        /// </summary>
+        /// <param name='seed'>Input seed</param>
+        /// <param name='label'>Identifying label/param>
+        /// <param name='outputLen'>Length in bytes that the output to be created shall have</param>
+        public CkTlsPrfParams(byte[] seed, byte[] label, uint outputLen)
+        {
             _lowLevelStruct.Seed = IntPtr.Zero;
             _lowLevelStruct.SeedLen = 0;
-
-            if (mechanism != null)
-            {
-                byte[] bytes = ConvertUtils.UintToBytes((uint)mechanism);
-                _lowLevelStruct.Mechanism = LowLevelAPI.UnmanagedMemory.Allocate(bytes.Length);
-                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.Mechanism, bytes);
-            }
-
-            if (key == null)
-                throw new ArgumentNullException("key");
-            
-            _lowLevelStruct.Key = key.ObjectId;
+            _lowLevelStruct.Label = IntPtr.Zero;
+            _lowLevelStruct.LabelLen = 0;
+            _lowLevelStruct.Output = IntPtr.Zero;
+            _lowLevelStruct.OutputLen = IntPtr.Zero;
 
             if (seed != null)
             {
@@ -66,6 +69,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.Seed, seed);
                 _lowLevelStruct.SeedLen = (uint)seed.Length;
             }
+            
+            if (label != null)
+            {
+                _lowLevelStruct.Label = LowLevelAPI.UnmanagedMemory.Allocate(label.Length);
+                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.Label, label);
+                _lowLevelStruct.LabelLen = (uint)label.Length;
+            }
+
+            if (outputLen < 1)
+                throw new ArgumentException("Value has to be positive number", "outputLen");
+
+            _lowLevelStruct.Output = LowLevelAPI.UnmanagedMemory.Allocate((int)outputLen);
+
+            byte[] outputLenBytes = Common.ConvertUtils.UintToBytes(outputLen);
+            _lowLevelStruct.OutputLen = LowLevelAPI.UnmanagedMemory.Allocate(outputLenBytes.Length);
+            LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.OutputLen, outputLenBytes);
         }
         
         #region IMechanismParams
@@ -106,9 +125,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.Mechanism);
                 LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.Seed);
                 _lowLevelStruct.SeedLen = 0;
+                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.Label);
+                _lowLevelStruct.LabelLen = 0;
+                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.Output);
+                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.OutputLen);
 
                 _disposed = true;
             }
@@ -117,7 +139,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Class destructor that disposes object if caller forgot to do so
         /// </summary>
-        ~CkKipParams()
+        ~CkTlsPrfParams()
         {
             Dispose(false);
         }

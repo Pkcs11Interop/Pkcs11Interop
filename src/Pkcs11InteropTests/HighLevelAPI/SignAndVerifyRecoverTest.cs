@@ -54,7 +54,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     // Specify signing mechanism
                     Mechanism mechanism = new Mechanism(CKM.CKM_RSA_PKCS);
                     
-                    byte[] sourceData = UTF8Encoding.UTF8.GetBytes("Hello world");
+                    byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
                     
                     // Sign data
                     byte[] signature = session.SignRecover(mechanism, privateKey, sourceData);

@@ -53,7 +53,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI
                     Assert.Fail(rv.ToString());
 
                 // Mix additional seed material into the token's random number generator
-                byte[] seed = UTF8Encoding.UTF8.GetBytes("Additional seed material");
+                byte[] seed = ConvertUtils.Utf8StringToBytes("Additional seed material");
                 rv = pkcs11.C_SeedRandom(session, seed, (uint)seed.Length);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());

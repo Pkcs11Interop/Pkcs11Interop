@@ -83,7 +83,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI
                 // Note that CkmUtils.CreateMechanism() automaticaly copies iv into newly allocated unmanaged memory.
                 CK_MECHANISM encryptionMechanism = CkmUtils.CreateMechanism(CKM.CKM_DES3_CBC, iv);
 
-                byte[] sourceData = UTF8Encoding.UTF8.GetBytes("Passw0rd");
+                byte[] sourceData = ConvertUtils.Utf8StringToBytes("Passw0rd");
                 byte[] signature = null;
                 byte[] encryptedData = null;
                 byte[] decryptedData = null;

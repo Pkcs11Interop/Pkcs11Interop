@@ -16,7 +16,7 @@
  */
 
 using System;
-using System.Text;
+using Net.Pkcs11Interop.Common;
 
 namespace Net.Pkcs11Interop.Tests
 {
@@ -38,7 +38,7 @@ namespace Net.Pkcs11Interop.Tests
         /// <summary>
         /// The SO pin (PUK).
         /// </summary>
-        public static byte[] SecurityOfficerPinArray = UTF8Encoding.UTF8.GetBytes(SecurityOfficerPin);
+        public static byte[] SecurityOfficerPinArray = ConvertUtils.Utf8StringToBytes(SecurityOfficerPin);
 
         /// <summary>
         /// The normal user pin.
@@ -48,7 +48,7 @@ namespace Net.Pkcs11Interop.Tests
         /// <summary>
         /// The normal user pin.
         /// </summary>
-        public static byte[] NormalUserPinArray = UTF8Encoding.UTF8.GetBytes(NormalUserPin);
+        public static byte[] NormalUserPinArray = ConvertUtils.Utf8StringToBytes(NormalUserPin);
 
         /// <summary>
         /// The name of the application.
@@ -58,7 +58,7 @@ namespace Net.Pkcs11Interop.Tests
         /// <summary>
         /// The name of the application.
         /// </summary>
-        public static byte[] ApplicationNameArray = UTF8Encoding.UTF8.GetBytes(ApplicationName);
+        public static byte[] ApplicationNameArray = ConvertUtils.Utf8StringToBytes(ApplicationName);
     }
 }
 

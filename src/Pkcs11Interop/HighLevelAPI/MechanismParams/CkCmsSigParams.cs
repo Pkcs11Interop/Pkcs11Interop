@@ -63,21 +63,21 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
 
             if (signingMechanism != null)
             {
-                int uintSize = LowLevelAPI.UnmanagedMemory.SizeOf(typeof(uint));
-                _lowLevelStruct.SigningMechanism = LowLevelAPI.UnmanagedMemory.Allocate(uintSize);
-                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.SigningMechanism, BitConverter.GetBytes((uint)signingMechanism));
+                byte[] bytes = Common.ConvertUtils.UintToBytes((uint)signingMechanism);
+                _lowLevelStruct.SigningMechanism = LowLevelAPI.UnmanagedMemory.Allocate(bytes.Length);
+                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.SigningMechanism, bytes);
             }
 
             if (digestMechanism != null)
             {
-                int uintSize = LowLevelAPI.UnmanagedMemory.SizeOf(typeof(uint));
-                _lowLevelStruct.DigestMechanism = LowLevelAPI.UnmanagedMemory.Allocate(uintSize);
-                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.DigestMechanism, BitConverter.GetBytes((uint)digestMechanism));
+                byte[] bytes = Common.ConvertUtils.UintToBytes((uint)digestMechanism);
+                _lowLevelStruct.DigestMechanism = LowLevelAPI.UnmanagedMemory.Allocate(bytes.Length);
+                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.DigestMechanism, bytes);
             }
 
             if (contentType != null)
             {
-                byte[] bytes = Encoding.UTF8.GetBytes(contentType);
+                byte[] bytes = ConvertUtils.Utf8StringToBytes(contentType);
                 Array.Resize(ref bytes, bytes.Length + 1);
                 bytes[bytes.Length - 1] = 0;
                 

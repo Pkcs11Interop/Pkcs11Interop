@@ -72,7 +72,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>Attribute of given type with uint value</returns>
         public static CK_ATTRIBUTE CreateAttribute(uint type, uint value)
         {
-            return _CreateAttribute(type, BitConverter.GetBytes(value));
+            return _CreateAttribute(type, ConvertUtils.UintToBytes(value));
         }
 
         /// <summary>
@@ -83,10 +83,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         public static void ConvertValue(ref CK_ATTRIBUTE attribute, out uint value)
         {
             byte[] bytes = ConvertValue(ref attribute);
-            if ((bytes == null) || (bytes.Length != UnmanagedMemory.SizeOf(typeof(uint))))
-                throw new Pkcs11InteropException("Unable to convert attribute value to uint");
-
-            value = BitConverter.ToUInt32(bytes, 0);
+            value = ConvertUtils.BytesToUint(bytes);
         }
 
         #endregion
@@ -112,7 +109,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>Attribute of given type with bool value</returns>
         public static CK_ATTRIBUTE CreateAttribute(uint type, bool value)
         {
-            return _CreateAttribute(type, BitConverter.GetBytes(value));
+            return _CreateAttribute(type, ConvertUtils.BoolToBytes(value));
         }
 
         /// <summary>
@@ -123,10 +120,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         public static void ConvertValue(ref CK_ATTRIBUTE attribute, out bool value)
         {
             byte[] bytes = ConvertValue(ref attribute);
-            if ((bytes == null) || (bytes.Length != 1))
-                throw new Pkcs11InteropException("Unable to convert attribute value to bool");
-
-            value = BitConverter.ToBoolean(bytes, 0);
+            value = ConvertUtils.BytesToBool(bytes);
         }
 
         #endregion
@@ -152,12 +146,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>Attribute of given type with string value</returns>
         public static CK_ATTRIBUTE CreateAttribute(uint type, string value)
         {
-            byte[] bytes = null;
-
-            if (value != null)
-                bytes = Encoding.UTF8.GetBytes(value);
-
-            return _CreateAttribute(type, bytes);
+            return _CreateAttribute(type, ConvertUtils.Utf8StringToBytes(value));
         }
 
         /// <summary>
@@ -168,11 +157,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         public static void ConvertValue(ref CK_ATTRIBUTE attribute, out string value)
         {
             byte[] bytes = ConvertValue(ref attribute);
-
-            if (bytes == null)
-                value = null;
-            else
-                value = Encoding.UTF8.GetString(bytes);
+            value = ConvertUtils.BytesToUtf8String(bytes);
         }
 
         #endregion
@@ -234,9 +219,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>Attribute of given type with DateTime value</returns>
         public static CK_ATTRIBUTE CreateAttribute(uint type, DateTime value)
         {
-            byte[] year = UTF8Encoding.UTF8.GetBytes(value.Date.Year.ToString());
-            byte[] month = (value.Date.Month < 10) ? UTF8Encoding.UTF8.GetBytes("0" + value.Date.Month.ToString()) : UTF8Encoding.UTF8.GetBytes(value.Date.Month.ToString());
-            byte[] day = (value.Date.Day < 10) ? UTF8Encoding.UTF8.GetBytes("0" + value.Date.Day.ToString()) : UTF8Encoding.UTF8.GetBytes(value.Date.Day.ToString());
+            byte[] year = ConvertUtils.Utf8StringToBytes(value.Date.Year.ToString());
+            byte[] month = (value.Date.Month < 10) ? ConvertUtils.Utf8StringToBytes("0" + value.Date.Month.ToString()) : ConvertUtils.Utf8StringToBytes(value.Date.Month.ToString());
+            byte[] day = (value.Date.Day < 10) ? ConvertUtils.Utf8StringToBytes("0" + value.Date.Day.ToString()) : ConvertUtils.Utf8StringToBytes(value.Date.Day.ToString());
 
             byte[] date = new byte[8];
             Array.Copy(year, 0, date, 0, 4);
@@ -257,9 +242,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
             if ((bytes == null) || (bytes.Length != 8))
                 throw new Pkcs11InteropException("Unable to convert attribute value to DateTime");
 
-            string year = UTF8Encoding.UTF8.GetString(bytes, 0, 4);
-            string month = UTF8Encoding.UTF8.GetString(bytes, 4, 2);
-            string day = UTF8Encoding.UTF8.GetString(bytes, 6, 2);
+            string year = ConvertUtils.BytesToUtf8String(bytes, 0, 4);
+            string month = ConvertUtils.BytesToUtf8String(bytes, 4, 2);
+            string day = ConvertUtils.BytesToUtf8String(bytes, 6, 2);
 
             value = new DateTime(Int32.Parse(year), Int32.Parse(month), Int32.Parse(day), 0, 0, 0, DateTimeKind.Utc);
         }
@@ -373,7 +358,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI
                 for (int i = 0; i < value.Length; i++)
                 {
                     IntPtr tempPointer = new IntPtr(attribute.value.ToInt32() + (i * ckmSize));
-                    UnmanagedMemory.Write(tempPointer, BitConverter.GetBytes((uint)value[i]));
+                    UnmanagedMemory.Write(tempPointer, ConvertUtils.UintToBytes((uint)value[i]));
                 }
                 attribute.valueLen = (uint)(ckmSize * value.Length);
             }
@@ -411,7 +396,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI
                 for (int i = 0; i < attrCount; i++)
                 {
                     IntPtr tempPointer = new IntPtr(attribute.value.ToInt32() + (i * ckmSize));
-                    attrs[i] = BitConverter.ToUInt32(UnmanagedMemory.Read(tempPointer, ckmSize), 0);
+                    attrs[i] = ConvertUtils.BytesToUint(UnmanagedMemory.Read(tempPointer, ckmSize));
                 }
                 
                 value = attrs;

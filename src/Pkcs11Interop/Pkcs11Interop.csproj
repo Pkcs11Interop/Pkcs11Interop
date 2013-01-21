@@ -114,7 +114,6 @@
     <Compile Include="Common\Pkcs11InteropException.cs" />
     <Compile Include="LowLevelAPI\UnmanagedLibrary.cs" />
     <Compile Include="HighLevelAPI\Pkcs11Exception.cs" />
-    <Compile Include="HighLevelAPI\Convert.cs" />
     <Compile Include="HighLevelAPI\LibraryInfo.cs" />
     <Compile Include="HighLevelAPI\Mechanism.cs" />
     <Compile Include="HighLevelAPI\MechanismFlags.cs" />
@@ -167,6 +166,8 @@
     <Compile Include="HighLevelAPI\MechanismParams\CkSsl3MasterKeyDeriveParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkSsl3RandomData.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkVersion.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkTlsPrfParams.cs" />
+    <Compile Include="Common\ConvertUtils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

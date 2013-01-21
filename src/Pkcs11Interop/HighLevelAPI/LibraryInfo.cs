@@ -15,6 +15,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Net.Pkcs11Interop.Common;
+
 namespace Net.Pkcs11Interop.HighLevelAPI
 {
     /// <summary>
@@ -108,11 +110,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="ck_info">Low level CK_INFO structure</param>
         internal LibraryInfo(LowLevelAPI.CK_INFO ck_info)
         {
-            _cryptokiVersion = Convert.CkVersionToString(ck_info.CryptokiVersion);
-            _manufacturerId = Convert.ByteArrayToUtf8String(ck_info.ManufacturerId, true);
+            _cryptokiVersion = ConvertUtils.CkVersionToString(ck_info.CryptokiVersion);
+            _manufacturerId = ConvertUtils.BytesToUtf8String(ck_info.ManufacturerId, true);
             _flags = ck_info.Flags;
-            _libraryDescription = Convert.ByteArrayToUtf8String(ck_info.LibraryDescription, true);
-            _libraryVersion = Convert.CkVersionToString(ck_info.LibraryVersion);
+            _libraryDescription = ConvertUtils.BytesToUtf8String(ck_info.LibraryDescription, true);
+            _libraryVersion = ConvertUtils.CkVersionToString(ck_info.LibraryVersion);
         }
     }
 }

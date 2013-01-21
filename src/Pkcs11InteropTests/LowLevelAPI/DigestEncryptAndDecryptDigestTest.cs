@@ -76,7 +76,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI
                 // Specify digesting mechanism (needs no parameter => no unamanaged memory is needed)
                 CK_MECHANISM digestingMechanism = CkmUtils.CreateMechanism(CKM.CKM_SHA_1);
                 
-                byte[] sourceData = UTF8Encoding.UTF8.GetBytes("Our new password");
+                byte[] sourceData = ConvertUtils.Utf8StringToBytes("Our new password");
                 byte[] encryptedData = null;
                 byte[] digest1 = null;
                 byte[] decryptedData = null;

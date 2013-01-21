@@ -58,7 +58,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     // Specify digesting mechanism
                     Mechanism digestingMechanism = new Mechanism(CKM.CKM_SHA_1);
 
-                    byte[] sourceData = UTF8Encoding.UTF8.GetBytes("Our new password");
+                    byte[] sourceData = ConvertUtils.Utf8StringToBytes("Our new password");
 
                     // Encrypt and digest data
                     byte[] digest1 = null;

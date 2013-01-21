@@ -18,7 +18,7 @@
 using NUnit.Framework;
 using System;
 using Net.Pkcs11Interop.HighLevelAPI;
-using System.Text;
+using Net.Pkcs11Interop.Common;
 
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 {
@@ -43,7 +43,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 using (Session session = slot.OpenSession(true))
                 {
                     // Mix additional seed material into the token's random number generator
-                    byte[] seed = UTF8Encoding.UTF8.GetBytes("Additional seed material");
+                    byte[] seed = ConvertUtils.Utf8StringToBytes("Additional seed material");
                     session.SeedRandom(seed);
 
                     // Do something interesting with random number generator

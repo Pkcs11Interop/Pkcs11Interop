@@ -57,7 +57,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     // Specify encryption mechanism with initialization vector as parameter
                     Mechanism mechanism = new Mechanism(CKM.CKM_DES3_CBC, iv);
 
-                    byte[] sourceData = UTF8Encoding.UTF8.GetBytes("Our new password");
+                    byte[] sourceData = ConvertUtils.Utf8StringToBytes("Our new password");
 
                     // Encrypt data
                     byte[] encryptedData = session.Encrypt(mechanism, generatedKey, sourceData);
@@ -102,7 +102,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     // Specify encryption mechanism with initialization vector as parameter
                     Mechanism mechanism = new Mechanism(CKM.CKM_DES3_CBC, iv);
 
-                    byte[] sourceData = UTF8Encoding.UTF8.GetBytes("Our new password");
+                    byte[] sourceData = ConvertUtils.Utf8StringToBytes("Our new password");
                     byte[] encryptedData = null;
                     byte[] decryptedData = null;
                     
@@ -167,7 +167,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     // Specify encryption mechanism with parameters
                     Mechanism mechanism = new Mechanism(CKM.CKM_RSA_PKCS_OAEP, mechanismParams);
                     
-                    byte[] sourceData = UTF8Encoding.UTF8.GetBytes("Hello world");
+                    byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
                     
                     // Encrypt data
                     byte[] encryptedData = session.Encrypt(mechanism, publicKey, sourceData);

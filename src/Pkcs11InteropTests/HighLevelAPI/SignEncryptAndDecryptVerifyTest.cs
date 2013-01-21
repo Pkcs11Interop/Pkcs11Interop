@@ -63,7 +63,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     // Specify encryption mechanism with initialization vector as parameter
                     Mechanism encryptionMechanism = new Mechanism(CKM.CKM_DES3_CBC, iv);
 
-                    byte[] sourceData = UTF8Encoding.UTF8.GetBytes("Passw0rd");
+                    byte[] sourceData = ConvertUtils.Utf8StringToBytes("Passw0rd");
 
                     // Sign and encrypt data
                     byte[] signature = null;

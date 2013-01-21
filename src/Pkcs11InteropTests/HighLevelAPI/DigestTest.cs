@@ -47,7 +47,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     // Specify digesting mechanism
                     Mechanism mechanism = new Mechanism(CKM.CKM_SHA_1);
                     
-                    byte[] sourceData = UTF8Encoding.UTF8.GetBytes("Hello world");
+                    byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
                     
                     // Digest data
                     byte[] digest = session.Digest(mechanism, sourceData);
@@ -75,7 +75,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     // Specify digesting mechanism
                     Mechanism mechanism = new Mechanism(CKM.CKM_SHA_1);
                     
-                    byte[] sourceData = UTF8Encoding.UTF8.GetBytes("Hello world");
+                    byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
                     byte[] digest = null;
                     
                     // Multipart digesting can be used i.e. for digesting of streamed data

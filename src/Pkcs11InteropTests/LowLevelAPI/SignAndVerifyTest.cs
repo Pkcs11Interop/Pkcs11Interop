@@ -72,7 +72,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                byte[] sourceData = UTF8Encoding.UTF8.GetBytes("Hello world");
+                byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
 
                 // Get length of signature in first call
                 uint signatureLen = 0;
@@ -163,7 +163,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI
                 // Specify signing mechanism (needs no parameter => no unamanaged memory is needed)
                 CK_MECHANISM mechanism = CkmUtils.CreateMechanism(CKM.CKM_SHA1_RSA_PKCS);
 
-                byte[] sourceData = UTF8Encoding.UTF8.GetBytes("Hello world");
+                byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
                 byte[] signature = null;
 
                 // Multipart signature functions C_SignUpdate and C_SignFinal can be used i.e. for signing of streamed data

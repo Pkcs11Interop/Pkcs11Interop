@@ -79,7 +79,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
-                byte[] sourceData = UTF8Encoding.UTF8.GetBytes("Our new password");
+                byte[] sourceData = ConvertUtils.Utf8StringToBytes("Our new password");
 
                 // Get length of encrypted data in first call
                 uint encryptedDataLen = 0;
@@ -188,7 +188,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI
                 // Note that CkmUtils.CreateMechanism() automaticaly copies iv into newly allocated unmanaged memory.
                 CK_MECHANISM mechanism = CkmUtils.CreateMechanism(CKM.CKM_DES3_CBC, iv);
                 
-                byte[] sourceData = UTF8Encoding.UTF8.GetBytes("Our new password");
+                byte[] sourceData = ConvertUtils.Utf8StringToBytes("Our new password");
                 byte[] encryptedData = null;
                 byte[] decryptedData = null;
 
@@ -376,7 +376,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
-                byte[] sourceData = UTF8Encoding.UTF8.GetBytes("Hello world");
+                byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
                 
                 // Get length of encrypted data in first call
                 uint encryptedDataLen = 0;

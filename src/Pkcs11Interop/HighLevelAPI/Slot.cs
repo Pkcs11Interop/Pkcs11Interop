@@ -144,24 +144,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             uint soPinValueLen = 0;
             if (soPin != null)
             {
-                soPinValue = UTF8Encoding.UTF8.GetBytes(soPin);
+                soPinValue = ConvertUtils.Utf8StringToBytes(soPin);
                 soPinValueLen = (uint)soPinValue.Length;
             }
 
-            // PKCS #11 v2.20 - page 113
-            // pLabel points to the 32-byte label of the token (which must be padded with
-            // blank characters, and which must not be null-terminated).
-            byte[] tokenLabel = new byte[32];
-            for (int i = 0; i < tokenLabel.Length; i++)
-                tokenLabel [i] = 0x20;
-
-            if (label != null)
-            {
-                byte[] labelArray = UTF8Encoding.UTF8.GetBytes(label);
-                if (labelArray.Length > 32)
-                    throw new Pkcs11InteropException("Label too long");
-                Array.Copy(labelArray, 0, tokenLabel, 0, labelArray.Length);
-            }
+            byte[] tokenLabel = ConvertUtils.Utf8StringToBytes(label, 32, 0x20);
 
             CKR rv = _p11.C_InitToken(_slotId, soPinValue, soPinValueLen, tokenLabel);
             if (rv != CKR.CKR_OK)

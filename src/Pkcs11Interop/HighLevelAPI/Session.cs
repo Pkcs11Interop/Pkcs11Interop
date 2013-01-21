@@ -93,7 +93,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             uint pinValueLen = 0;
             if (userPin != null)
             {
-                pinValue = UTF8Encoding.UTF8.GetBytes(userPin);
+                pinValue = ConvertUtils.Utf8StringToBytes(userPin);
                 pinValueLen = (uint)pinValue.Length;
             }
 
@@ -132,7 +132,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             uint oldPinValueLen = 0;
             if (oldPin != null)
             {
-                oldPinValue = UTF8Encoding.UTF8.GetBytes(oldPin);
+                oldPinValue = ConvertUtils.Utf8StringToBytes(oldPin);
                 oldPinValueLen = (uint)oldPinValue.Length;
             }
 
@@ -140,7 +140,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             uint newPinValueLen = 0;
             if (newPin != null)
             {
-                newPinValue = UTF8Encoding.UTF8.GetBytes(newPin);
+                newPinValue = ConvertUtils.Utf8StringToBytes(newPin);
                 newPinValueLen = (uint)newPinValue.Length;
             }
 
@@ -234,7 +234,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             uint pinValueLen = 0;
             if (pin != null)
             {
-                pinValue = UTF8Encoding.UTF8.GetBytes(pin);
+                pinValue = ConvertUtils.Utf8StringToBytes(pin);
                 pinValueLen = (uint)pinValue.Length;
             }
 
