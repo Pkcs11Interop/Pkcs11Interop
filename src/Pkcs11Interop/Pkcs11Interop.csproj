@@ -173,6 +173,9 @@
     <Compile Include="HighLevelAPI\MechanismParams\CkWtlsMasterKeyDeriveParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkWtlsPrfParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkWtlsRandomData.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkX942Dh1DeriveParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkX942Dh2DeriveParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkX942MqvDeriveParams.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
