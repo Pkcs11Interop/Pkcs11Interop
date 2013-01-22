@@ -21,7 +21,7 @@ using System.Runtime.InteropServices;
 namespace Net.Pkcs11Interop.LowLevelAPI.MechanismParams
 {
     /// <summary>
-    /// Structure that provides the parameters to the CKM_WTLS_SEVER_KEY_AND_MAC_DERIVE and the CKM_WTLS_CLIENT_KEY_AND_MAC_DERIVE mechanisms
+    /// Structure that provides the parameters to the CKM_WTLS_SERVER_KEY_AND_MAC_DERIVE and the CKM_WTLS_CLIENT_KEY_AND_MAC_DERIVE mechanisms
     /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
     public struct CK_WTLS_KEY_MAT_PARAMS

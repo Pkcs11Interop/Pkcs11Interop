@@ -16,16 +16,15 @@
  */
 
 using System;
-using System.Runtime.InteropServices;
-using Net.Pkcs11Interop.LowLevelAPI;
-using Net.Pkcs11Interop.LowLevelAPI.MechanismParams;
+using Net.Pkcs11Interop.HighLevelAPI;
+using Net.Pkcs11Interop.Common;
 
 namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
 {
     /// <summary>
-    /// Parameters for the CKM_SSL3_MASTER_KEY_DERIVE and CKM_SSL3_MASTER_KEY_DERIVE_DH mechanisms
+    /// Resulting key handles and initialization vectors after performing a DeriveKey method with the CKM_WTLS_SERVER_KEY_AND_MAC_DERIVE or with the CKM_WTLS_CLIENT_KEY_AND_MAC_DERIVE mechanism
     /// </summary>
-    public class CkSsl3MasterKeyDeriveParams : IMechanismParams, IDisposable
+    public class CkWtlsKeyMatOut : IDisposable
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -33,64 +32,65 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         private bool _disposed = false;
         
         /// <summary>
-        /// Low level mechanism parameters
+        /// Low level structure
         /// </summary>
-        private LowLevelAPI.MechanismParams.CK_SSL3_MASTER_KEY_DERIVE_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_SSL3_MASTER_KEY_DERIVE_PARAMS();
-
+        internal LowLevelAPI.MechanismParams.CK_WTLS_KEY_MAT_OUT _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_WTLS_KEY_MAT_OUT();
+        
         /// <summary>
-        /// SSL protocol version information
+        /// Key handle for the resulting MAC secret key
         /// </summary>
-        public CkVersion Version
+        public ObjectHandle MacSecret
         {
             get
             {
-                CkVersion version = null;
-
-                if (_lowLevelStruct.Version != IntPtr.Zero)
-                {
-                    CK_VERSION ckVersion = new CK_VERSION();
-                    UnmanagedMemory.Read(_lowLevelStruct.Version, ckVersion);
-                    version = new CkVersion(ckVersion.Major[0], ckVersion.Minor[0]);
-                }
-
-                return version;
+                return new ObjectHandle(_lowLevelStruct.MacSecret);
             }
         }
 
         /// <summary>
-        /// Client's and server's random data information
+        /// Key handle for the resulting Secret key
         /// </summary>
-        private CkSsl3RandomData _randomInfo = null;
+        public ObjectHandle Key
+        {
+            get
+            {
+                return new ObjectHandle(_lowLevelStruct.Key);
+            }
+        }
 
         /// <summary>
-        /// Initializes a new instance of the CkSsl3MasterKeyDeriveParams class.
+        /// Initialization vector (IV)
         /// </summary>
-        /// <param name='randomInfo'>Client's and server's random data information</param>
-        /// <param name='dh'>Set to false for CKM_SSL3_MASTER_KEY_DERIVE mechanism and to true for CKM_SSL3_MASTER_KEY_DERIVE_DH mechanism</param>
-        public CkSsl3MasterKeyDeriveParams(CkSsl3RandomData randomInfo, bool dh)
+        public byte[] IV
         {
-            if (randomInfo == null)
-                throw new ArgumentNullException("randomInfo");
+            get
+            {
+                return (_ivLength < 1) ? null : LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.IV, (int)_ivLength);
+            }
+        }
+        
+        /// <summary>
+        /// The length of initialization vector
+        /// </summary>
+        private uint _ivLength = 0;
+        
+        /// <summary>
+        /// Initializes a new instance of the CkWtlsKeyMatOut class.
+        /// </summary>
+        /// <param name='ivLength'>Length of initialization vector or 0 if IV is not required</param>
+        internal CkWtlsKeyMatOut(uint ivLength)
+        {
+            _lowLevelStruct.MacSecret = 0;
+            _lowLevelStruct.Key = 0;
+            _lowLevelStruct.IV = IntPtr.Zero;
+
+            _ivLength = ivLength;
             
-            // Keep reference to randomInfo so GC will not free it while this object exists
-            _randomInfo = randomInfo;
-
-            _lowLevelStruct.RandomInfo = (CK_SSL3_RANDOM_DATA)_randomInfo.ToLowLevelParams();
-            _lowLevelStruct.Version = (dh) ? IntPtr.Zero : UnmanagedMemory.Allocate(UnmanagedMemory.SizeOf(typeof(CK_VERSION)));
+            if (_ivLength > 0)
+            {
+                _lowLevelStruct.IV = LowLevelAPI.UnmanagedMemory.Allocate((int)_ivLength);
+            }
         }
-        
-        #region IMechanismParams
-        
-        /// <summary>
-        /// Converts object to low level mechanism parameters
-        /// </summary>
-        /// <returns>Low level mechanism parameters</returns>
-        public object ToLowLevelParams()
-        {
-            return _lowLevelStruct;
-        }
-        
-        #endregion
         
         #region IDisposable
         
@@ -117,7 +117,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.Version);
+                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.IV);
 
                 _disposed = true;
             }
@@ -126,7 +126,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Class destructor that disposes object if caller forgot to do so
         /// </summary>
-        ~CkSsl3MasterKeyDeriveParams()
+        ~CkWtlsKeyMatOut()
         {
             Dispose(false);
         }
@@ -134,3 +134,4 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         #endregion
     }
 }
+

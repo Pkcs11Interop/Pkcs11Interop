@@ -23,9 +23,9 @@ using Net.Pkcs11Interop.LowLevelAPI.MechanismParams;
 namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
 {
     /// <summary>
-    /// Parameters for the CKM_SSL3_MASTER_KEY_DERIVE and CKM_SSL3_MASTER_KEY_DERIVE_DH mechanisms
+    /// Parameters for the CKM_WTLS_SERVER_KEY_AND_MAC_DERIVE and the CKM_WTLS_CLIENT_KEY_AND_MAC_DERIVE mechanisms
     /// </summary>
-    public class CkSsl3MasterKeyDeriveParams : IMechanismParams, IDisposable
+    public class CkWtlsKeyMatParams : IMechanismParams, IDisposable
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -35,48 +35,66 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI.MechanismParams.CK_SSL3_MASTER_KEY_DERIVE_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_SSL3_MASTER_KEY_DERIVE_PARAMS();
-
+        private LowLevelAPI.MechanismParams.CK_WTLS_KEY_MAT_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_WTLS_KEY_MAT_PARAMS();
+        
         /// <summary>
-        /// SSL protocol version information
+        /// Resulting key handles and initialization vector after performing a DeriveKey method
         /// </summary>
-        public CkVersion Version
+        public CkWtlsKeyMatOut ReturnedKeyMaterial
         {
             get
             {
-                CkVersion version = null;
-
-                if (_lowLevelStruct.Version != IntPtr.Zero)
-                {
-                    CK_VERSION ckVersion = new CK_VERSION();
-                    UnmanagedMemory.Read(_lowLevelStruct.Version, ckVersion);
-                    version = new CkVersion(ckVersion.Major[0], ckVersion.Minor[0]);
-                }
-
-                return version;
+                // Abrakadabra :)
+                UnmanagedMemory.Read(_lowLevelStruct.ReturnedKeyMaterial, _returnedKeyMaterial._lowLevelStruct);
+                return _returnedKeyMaterial;
             }
         }
-
+        
         /// <summary>
         /// Client's and server's random data information
         /// </summary>
-        private CkSsl3RandomData _randomInfo = null;
-
+        private CkWtlsRandomData _randomInfo = null;
+        
         /// <summary>
-        /// Initializes a new instance of the CkSsl3MasterKeyDeriveParams class.
+        /// Handles for the keys generated and the IV
         /// </summary>
+        private CkWtlsKeyMatOut _returnedKeyMaterial = null;
+        
+        /// <summary>
+        /// Initializes a new instance of the CkWtlsKeyMatParams class.
+        /// </summary>
+        /// <param name='digestMechanism'>The digest mechanism to be used (CKM)</param>
+        /// <param name='macSizeInBits'>The length (in bits) of the MACing key agreed upon during the protocol handshake phase</param>
+        /// <param name='keySizeInBits'>The length (in bits) of the secret key agreed upon during the handshake phase</param>
+        /// <param name='ivSizeInBits'>The length (in bits) of the IV agreed upon during the handshake phase or if no IV is required, the length should be set to 0</param>
+        /// <param name='sequenceNumber'>The current sequence number used for records sent by the client and server respectively</param>
+        /// <param name='isExport'>Flag indicating whether the keys have to be derived for an export version of the protocol</param>
         /// <param name='randomInfo'>Client's and server's random data information</param>
-        /// <param name='dh'>Set to false for CKM_SSL3_MASTER_KEY_DERIVE mechanism and to true for CKM_SSL3_MASTER_KEY_DERIVE_DH mechanism</param>
-        public CkSsl3MasterKeyDeriveParams(CkSsl3RandomData randomInfo, bool dh)
+        public CkWtlsKeyMatParams(uint digestMechanism, uint macSizeInBits, uint keySizeInBits, uint ivSizeInBits, uint sequenceNumber, bool isExport, CkWtlsRandomData randomInfo)
         {
             if (randomInfo == null)
                 throw new ArgumentNullException("randomInfo");
             
             // Keep reference to randomInfo so GC will not free it while this object exists
             _randomInfo = randomInfo;
+            
+            if (ivSizeInBits % 8 != 0)
+                throw new ArgumentException("Value has to be a multiple of 8", "ivSizeInBits");
+            
+            // GC will not free ReturnedKeyMaterial while this object exists
+            _returnedKeyMaterial = new CkWtlsKeyMatOut(ivSizeInBits / 8);
 
-            _lowLevelStruct.RandomInfo = (CK_SSL3_RANDOM_DATA)_randomInfo.ToLowLevelParams();
-            _lowLevelStruct.Version = (dh) ? IntPtr.Zero : UnmanagedMemory.Allocate(UnmanagedMemory.SizeOf(typeof(CK_VERSION)));
+            _lowLevelStruct.DigestMechanism = digestMechanism;
+            _lowLevelStruct.MacSizeInBits = macSizeInBits;
+            _lowLevelStruct.KeySizeInBits = keySizeInBits;
+            _lowLevelStruct.IVSizeInBits = ivSizeInBits;
+            _lowLevelStruct.SequenceNumber = sequenceNumber;
+            _lowLevelStruct.IsExport = isExport;
+            _lowLevelStruct.RandomInfo = (CK_WTLS_RANDOM_DATA)_randomInfo.ToLowLevelParams();
+            
+            // Abrakadabra :)
+            _lowLevelStruct.ReturnedKeyMaterial = UnmanagedMemory.Allocate(UnmanagedMemory.SizeOf(typeof(CK_WTLS_KEY_MAT_OUT)));
+            UnmanagedMemory.Write(_lowLevelStruct.ReturnedKeyMaterial, _returnedKeyMaterial._lowLevelStruct);
         }
         
         #region IMechanismParams
@@ -117,8 +135,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.Version);
-
+                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.ReturnedKeyMaterial);
+                
                 _disposed = true;
             }
         }
@@ -126,7 +144,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Class destructor that disposes object if caller forgot to do so
         /// </summary>
-        ~CkSsl3MasterKeyDeriveParams()
+        ~CkWtlsKeyMatParams()
         {
             Dispose(false);
         }

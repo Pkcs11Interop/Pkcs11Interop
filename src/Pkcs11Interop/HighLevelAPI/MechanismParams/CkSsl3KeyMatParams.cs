@@ -45,7 +45,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             get
             {
                 // Abrakadabra :)
-                Marshal.PtrToStructure(_lowLevelStruct.ReturnedKeyMaterial, _returnedKeyMaterial._lowLevelStruct);
+                UnmanagedMemory.Read(_lowLevelStruct.ReturnedKeyMaterial, _returnedKeyMaterial._lowLevelStruct);
                 return _returnedKeyMaterial;
             }
         }
@@ -76,11 +76,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             // Keep reference to randomInfo so GC will not free it while this object exists
             _randomInfo = randomInfo;
 
-            if (keySizeInBits % 8 != 0)
-                throw new ArgumentException("Value has to be a multiple of 8", "keySizeInBits");
+            if (ivSizeInBits % 8 != 0)
+                throw new ArgumentException("Value has to be a multiple of 8", "ivSizeInBits");
 
             // GC will not free ReturnedKeyMaterial while this object exists
-            _returnedKeyMaterial = new CkSsl3KeyMatOut(keySizeInBits / 8);
+            _returnedKeyMaterial = new CkSsl3KeyMatOut(ivSizeInBits / 8);
 
             _lowLevelStruct.MacSizeInBits = macSizeInBits;
             _lowLevelStruct.KeySizeInBits = keySizeInBits;

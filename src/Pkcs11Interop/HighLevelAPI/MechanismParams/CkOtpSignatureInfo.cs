@@ -78,14 +78,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             UnmanagedMemory.Write(_signature, signature);
 
             // Read CK_OTP_SIGNATURE_INFO from unmanaged memory
-            Marshal.PtrToStructure(_signature, _lowLevelStruct);
+            UnmanagedMemory.Read(_signature, _lowLevelStruct);
 
             for (int i = 0; i < _lowLevelStruct.Count; i++)
             {
                 // Read CK_OTP_PARAM from CK_OTP_SIGNATURE_INFO
                 IntPtr tempPointer = new IntPtr(_lowLevelStruct.Params.ToInt32() + (i * ckOtpParamSize));
                 CK_OTP_PARAM ckOtpParam = new CK_OTP_PARAM();
-                Marshal.PtrToStructure(tempPointer, ckOtpParam);
+                UnmanagedMemory.Read(tempPointer, ckOtpParam);
 
                 // Read members of CK_OTP_PARAM structure
                 uint ckOtpParamType = ckOtpParam.Type;

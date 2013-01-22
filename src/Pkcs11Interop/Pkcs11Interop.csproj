@@ -168,6 +168,11 @@
     <Compile Include="HighLevelAPI\MechanismParams\CkVersion.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkTlsPrfParams.cs" />
     <Compile Include="Common\ConvertUtils.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkWtlsKeyMatOut.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkWtlsKeyMatParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkWtlsMasterKeyDeriveParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkWtlsPrfParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkWtlsRandomData.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

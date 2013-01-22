@@ -16,16 +16,13 @@
  */
 
 using System;
-using System.Runtime.InteropServices;
-using Net.Pkcs11Interop.LowLevelAPI;
-using Net.Pkcs11Interop.LowLevelAPI.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
 {
     /// <summary>
-    /// Parameters for the CKM_SSL3_MASTER_KEY_DERIVE and CKM_SSL3_MASTER_KEY_DERIVE_DH mechanisms
+    /// Information about the random data of a client and a server in a WTLS context
     /// </summary>
-    public class CkSsl3MasterKeyDeriveParams : IMechanismParams, IDisposable
+    public class CkWtlsRandomData : IMechanismParams, IDisposable
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -35,48 +32,33 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI.MechanismParams.CK_SSL3_MASTER_KEY_DERIVE_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_SSL3_MASTER_KEY_DERIVE_PARAMS();
-
+        private LowLevelAPI.MechanismParams.CK_WTLS_RANDOM_DATA _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_WTLS_RANDOM_DATA();
+        
         /// <summary>
-        /// SSL protocol version information
+        /// Initializes a new instance of the CkWtlsRandomData class.
         /// </summary>
-        public CkVersion Version
+        /// <param name='clientRandom'>Client's random data</param>
+        /// <param name='serverRandom'>Server's random data</param>
+        public CkWtlsRandomData(byte[] clientRandom, byte[] serverRandom)
         {
-            get
-            {
-                CkVersion version = null;
-
-                if (_lowLevelStruct.Version != IntPtr.Zero)
-                {
-                    CK_VERSION ckVersion = new CK_VERSION();
-                    UnmanagedMemory.Read(_lowLevelStruct.Version, ckVersion);
-                    version = new CkVersion(ckVersion.Major[0], ckVersion.Minor[0]);
-                }
-
-                return version;
-            }
-        }
-
-        /// <summary>
-        /// Client's and server's random data information
-        /// </summary>
-        private CkSsl3RandomData _randomInfo = null;
-
-        /// <summary>
-        /// Initializes a new instance of the CkSsl3MasterKeyDeriveParams class.
-        /// </summary>
-        /// <param name='randomInfo'>Client's and server's random data information</param>
-        /// <param name='dh'>Set to false for CKM_SSL3_MASTER_KEY_DERIVE mechanism and to true for CKM_SSL3_MASTER_KEY_DERIVE_DH mechanism</param>
-        public CkSsl3MasterKeyDeriveParams(CkSsl3RandomData randomInfo, bool dh)
-        {
-            if (randomInfo == null)
-                throw new ArgumentNullException("randomInfo");
+            _lowLevelStruct.ClientRandom = IntPtr.Zero;
+            _lowLevelStruct.ClientRandomLen = 0;
+            _lowLevelStruct.ServerRandom = IntPtr.Zero;
+            _lowLevelStruct.ServerRandomLen = 0;
             
-            // Keep reference to randomInfo so GC will not free it while this object exists
-            _randomInfo = randomInfo;
-
-            _lowLevelStruct.RandomInfo = (CK_SSL3_RANDOM_DATA)_randomInfo.ToLowLevelParams();
-            _lowLevelStruct.Version = (dh) ? IntPtr.Zero : UnmanagedMemory.Allocate(UnmanagedMemory.SizeOf(typeof(CK_VERSION)));
+            if (clientRandom != null)
+            {
+                _lowLevelStruct.ClientRandom = LowLevelAPI.UnmanagedMemory.Allocate(clientRandom.Length);
+                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.ClientRandom, clientRandom);
+                _lowLevelStruct.ClientRandomLen = (uint)clientRandom.Length;
+            }
+            
+            if (serverRandom != null)
+            {
+                _lowLevelStruct.ServerRandom = LowLevelAPI.UnmanagedMemory.Allocate(serverRandom.Length);
+                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.ServerRandom, serverRandom);
+                _lowLevelStruct.ServerRandomLen = (uint)serverRandom.Length;
+            }
         }
         
         #region IMechanismParams
@@ -117,8 +99,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.Version);
-
+                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.ClientRandom);
+                _lowLevelStruct.ClientRandomLen = 0;
+                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.ServerRandom);
+                _lowLevelStruct.ServerRandomLen = 0;
+                
                 _disposed = true;
             }
         }
@@ -126,7 +111,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Class destructor that disposes object if caller forgot to do so
         /// </summary>
-        ~CkSsl3MasterKeyDeriveParams()
+        ~CkWtlsRandomData()
         {
             Dispose(false);
         }

@@ -121,7 +121,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         }
 
         /// <summary>
-        /// Copies content of unmanaged memory to the structure
+        /// CCopies content of unmanaged memory to the newly allocated managed structure
         /// </summary>
         /// <param name="memory">Memory that should be copied</param>
         /// <param name="structureType">Type of structure that should be created</param>
@@ -135,6 +135,22 @@ namespace Net.Pkcs11Interop.LowLevelAPI
                 throw new ArgumentNullException("structureType");
 
             return Marshal.PtrToStructure(memory, structureType);
+        }
+
+        /// <summary>
+        /// Copies content of unmanaged memory to the existing managed structure
+        /// </summary>
+        /// <param name="memory">Memory that should be copied</param>
+        /// <param name="structure">Object to which data should be copied</param>
+        public static void Read(IntPtr memory, object structure)
+        {
+            if (memory == IntPtr.Zero)
+                throw new ArgumentNullException("memory");
+            
+            if (structure == null)
+                throw new ArgumentNullException("structure");
+            
+            Marshal.PtrToStructure(memory, structure);
         }
     }
 }
