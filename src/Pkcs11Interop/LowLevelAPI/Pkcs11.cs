@@ -136,7 +136,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <param name="functionList">Structure that receives function pointers for all the Cryptoki API routines in the library</param>
         private void C_GetFunctionList(out CK_FUNCTION_LIST functionList)
         {
-            // TODO : Workaround for Linux and OS X where C_GetFunctionList or marshalling of CK_FUNCTION_LIST seems not to be working correctly
+            // TODO : Workaround for Linux and OS X where C_GetFunctionList or marshalling of CK_FUNCTION_LIST seems not to be working correctly (Mono bug?)
             PlatformID platformId = System.Environment.OSVersion.Platform;
             if ((platformId == PlatformID.Unix) || (platformId == PlatformID.MacOSX))
             {

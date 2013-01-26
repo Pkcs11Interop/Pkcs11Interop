@@ -65,6 +65,47 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 }
             }
         }
+
+        /// <summary>
+        /// GetAttributeValue test for invalid type of attribute.
+        /// </summary>
+        [Test()]
+        public void GetInvalidAttributeValueTest()
+        {
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, false))
+            {
+                // Find first slot with token present
+                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                
+                // Open RW session
+                using (Session session = slot.OpenSession(false))
+                {
+                    // Login as normal user
+                    session.Login(CKU.CKU_USER, Settings.NormalUserPin);
+                    
+                    // Generate key pair
+                    ObjectHandle publicKey = null;
+                    ObjectHandle privateKey = null;
+                    Helpers.GenerateKeyPair(session, out publicKey, out privateKey);
+                    
+                    // Prepare list of empty attributes we want to read
+                    List<CKA> attributes = new List<CKA>();
+                    attributes.Add(CKA.CKA_LABEL);
+                    attributes.Add(CKA.CKA_VALUE);
+                    
+                    // Get value of specified attributes
+                    List<ObjectAttribute> objectAttributes = session.GetAttributeValue(privateKey, attributes);
+                    
+                    // Do something interesting with attribute value
+                    Assert.IsTrue(objectAttributes[0].GetValueAsString() == Settings.ApplicationName);
+                    Assert.IsTrue(objectAttributes[1].CannotBeRead == true);
+                    
+                    session.DestroyObject(privateKey);
+                    session.DestroyObject(publicKey);
+                    session.Logout();
+                }
+            }
+        }
         
         /// <summary>
         /// SetAttributeValue test.

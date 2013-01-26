@@ -375,18 +375,21 @@ namespace Net.Pkcs11Interop.HighLevelAPI
 
             // Determine size of attribute values
             CKR rv = _p11.C_GetAttributeValue(_sessionId, objectHandle.ObjectId, template, (uint)template.Length);
-            if (rv != CKR.CKR_OK) // TODO : handle CKR_ATTRIBUTE_SENSITIVE and CKR_ATTRIBUTE_TYPE_INVALID
+            if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_ATTRIBUTE_SENSITIVE) && (rv != CKR.CKR_ATTRIBUTE_TYPE_INVALID))
                 throw new Pkcs11Exception("C_GetAttributeValue", rv);
 
             // Allocate memory for each attribute
             for (int i = 0; i < template.Length; i++)
-                template[i].value = LowLevelAPI.UnmanagedMemory.Allocate((int)template[i].valueLen);
+            {
+                if ((int)template[i].valueLen != -1)
+                    template[i].value = LowLevelAPI.UnmanagedMemory.Allocate((int)template[i].valueLen);
+            }
 
-            // TODO - Handle CKF_ARRAY_ATTRIBUTE 
+            // TODO - Add support for CKA.CKA_WRAP_TEMPLATE and CKA.CKA_UNWRAP_TEMPLATE (CKF_ARRAY_ATTRIBUTE)
 
             // Read values of attributes
             _p11.C_GetAttributeValue(_sessionId, objectHandle.ObjectId, template, (uint)template.Length);
-            if (rv != CKR.CKR_OK) // TODO : handle CKR_ATTRIBUTE_SENSITIVE and CKR_ATTRIBUTE_TYPE_INVALID
+            if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_ATTRIBUTE_SENSITIVE) && (rv != CKR.CKR_ATTRIBUTE_TYPE_INVALID))
                 throw new Pkcs11Exception("C_GetAttributeValue", rv);
 
             // Convert CK_ATTRIBUTEs to ObjectAttributes

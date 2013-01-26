@@ -503,7 +503,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         {
             byte[] value = null;
 
-            if (attribute.valueLen > 0)
+            if ((attribute.value != IntPtr.Zero) && (attribute.valueLen > 0))
                 value = UnmanagedMemory.Read(attribute.value, (int)attribute.valueLen);
 
             return value;

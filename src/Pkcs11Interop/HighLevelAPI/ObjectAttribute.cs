@@ -60,6 +60,17 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         }
 
         /// <summary>
+        /// Flag indicating whether attribute value cannot be read either because object is sensitive or unextractable or because specified attribute for the object is invalid.
+        /// </summary>
+        public bool CannotBeRead
+        {
+            get
+            {
+                return ((int)_ckAttribute.valueLen == -1);
+            }
+        }
+
+        /// <summary>
         /// Creates attribute defined by low level CK_ATTRIBUTE structure
         /// </summary>
         /// <param name="attribute">CK_ATTRIBUTE structure</param>
@@ -313,7 +324,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Value of attribute</returns>
         public List<ObjectAttribute> GetValueAsObjectAttributeList()
         {
-            // TODO : Implement this tricky method
+            // TODO : In order to implement and properly test this tricky method it is crucial to find PKCS#11 implementation that supports CKA.CKA_WRAP_TEMPLATE and CKA.CKA_UNWRAP_TEMPLATE
             throw new NotImplementedException();
         }
 
