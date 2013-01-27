@@ -52,7 +52,6 @@ namespace Net.Pkcs11Interop.Common
             if ((value == null) || (value.Length != UnmanagedMemory.SizeOf(typeof(uint))))
                 throw new Pkcs11InteropException("Unable to convert bytes to uint");
 
-            // TODO - Verify on x64
             return BitConverter.ToUInt32(value, 0);
         }
 

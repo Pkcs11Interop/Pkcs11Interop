@@ -23,7 +23,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI
     /// <summary>
     /// Specifies a particular mechanism and any parameters it requires
     /// </summary>
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
     public struct CK_MECHANISM
     {
         /// <summary>
