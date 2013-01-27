@@ -50,6 +50,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         {
             get
             {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
                 return (_params == null) ? null : _params.AsReadOnly();
             }
         }

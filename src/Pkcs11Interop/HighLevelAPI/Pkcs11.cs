@@ -96,6 +96,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>General information about loaded PKCS#11 library</returns>
         public LibraryInfo GetInfo()
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             LowLevelAPI.CK_INFO info = new LowLevelAPI.CK_INFO();
             CKR rv = _p11.C_GetInfo(ref info);
             if (rv != CKR.CKR_OK)
@@ -111,6 +114,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>List of available slots</returns>
         public List<Slot> GetSlotList(bool tokenPresent)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             uint slotCount = 0;
             CKR rv = _p11.C_GetSlotList(tokenPresent, null, ref slotCount);
             if (rv != CKR.CKR_OK)
@@ -138,6 +144,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>PKCS#11 handle of slot that the event occurred in</returns>
         public uint WaitForSlotEvent(bool dontBlock)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             uint flags = (dontBlock) ? CKF.CKF_DONT_BLOCK : 0;
 
             uint slotId = CK.CK_INVALID_HANDLE;

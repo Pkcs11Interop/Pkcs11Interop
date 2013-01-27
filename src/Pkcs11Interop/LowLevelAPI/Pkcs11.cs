@@ -90,6 +90,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// </summary>
         private void Release()
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (_libraryHandle != IntPtr.Zero)
             {
                 UnmanagedLibrary.Unload(_libraryHandle);
@@ -104,6 +107,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CANT_LOCK, CKR_CRYPTOKI_ALREADY_INITIALIZED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_NEED_TO_CREATE_THREADS, CKR_OK</returns>
         public CKR C_Initialize(CK_C_INITIALIZE_ARGS initArgs)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_InitializeDelegate cInitialize = (C_InitializeDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_Initialize, typeof(C_InitializeDelegate));
             return cInitialize(initArgs);
         }
@@ -115,6 +121,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK</returns>
         public CKR C_Finalize(IntPtr reserved)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_FinalizeDelegate cFinalize = (C_FinalizeDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_Finalize, typeof(C_FinalizeDelegate));
             return cFinalize(reserved);
         }
@@ -126,6 +135,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK</returns>
         public CKR C_GetInfo(ref CK_INFO info)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_GetInfoDelegate cGetInfo = (C_GetInfoDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GetInfo, typeof(C_GetInfoDelegate));
             return cGetInfo(ref info);
         }
@@ -136,6 +148,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <param name="functionList">Structure that receives function pointers for all the Cryptoki API routines in the library</param>
         private void C_GetFunctionList(out CK_FUNCTION_LIST functionList)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             // TODO : Workaround for Linux and OS X where C_GetFunctionList or marshalling of CK_FUNCTION_LIST seems not to be working correctly (Mono bug?)
             PlatformID platformId = System.Environment.OSVersion.Platform;
             if ((platformId == PlatformID.Unix) || (platformId == PlatformID.MacOSX))
@@ -242,6 +257,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK</returns>
         public CKR C_GetSlotList(bool tokenPresent, uint[] slotList, ref uint count)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_GetSlotListDelegate cGetSlotList = (C_GetSlotListDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GetSlotList, typeof(C_GetSlotListDelegate));
             return cGetSlotList(tokenPresent, slotList, ref count);
         }
@@ -254,6 +272,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_SLOT_ID_INVALID</returns>
         public CKR C_GetSlotInfo(uint slotId, ref CK_SLOT_INFO info)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_GetSlotInfoDelegate cGetSlotInfo = (C_GetSlotInfoDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GetSlotInfo, typeof(C_GetSlotInfoDelegate));
             return cGetSlotInfo(slotId, ref info);
         }
@@ -266,6 +287,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_SLOT_ID_INVALID, CKR_TOKEN_NOT_PRESENT, CKR_TOKEN_NOT_RECOGNIZED, CKR_ARGUMENTS_BAD</returns>
         public CKR C_GetTokenInfo(uint slotId, ref CK_TOKEN_INFO info)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_GetTokenInfoDelegate cGetTokenInfo = (C_GetTokenInfoDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GetTokenInfo, typeof(C_GetTokenInfoDelegate));
             return cGetTokenInfo(slotId, ref info);
         }
@@ -282,6 +306,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_SLOT_ID_INVALID, CKR_TOKEN_NOT_PRESENT, CKR_TOKEN_NOT_RECOGNIZED, CKR_ARGUMENTS_BAD</returns>
         public CKR C_GetMechanismList(uint slotId, CKM[] mechanismList, ref uint count)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_GetMechanismListDelegate cGetMechanismList = (C_GetMechanismListDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GetMechanismList, typeof(C_GetMechanismListDelegate));
             return cGetMechanismList(slotId, mechanismList, ref count);
         }
@@ -295,6 +322,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_MECHANISM_INVALID, CKR_OK, CKR_SLOT_ID_INVALID, CKR_TOKEN_NOT_PRESENT, CKR_TOKEN_NOT_RECOGNIZED, CKR_ARGUMENTS_BAD</returns>
         public CKR C_GetMechanismInfo(uint slotId, CKM type, ref CK_MECHANISM_INFO info)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_GetMechanismInfoDelegate cGetMechanismInfo = (C_GetMechanismInfoDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GetMechanismInfo, typeof(C_GetMechanismInfoDelegate));
             return cGetMechanismInfo(slotId, type, ref info);
         }
@@ -309,6 +339,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_PIN_INCORRECT, CKR_PIN_LOCKED, CKR_SESSION_EXISTS, CKR_SLOT_ID_INVALID, CKR_TOKEN_NOT_PRESENT, CKR_TOKEN_NOT_RECOGNIZED, CKR_TOKEN_WRITE_PROTECTED, CKR_ARGUMENTS_BAD</returns>
         public CKR C_InitToken(uint slotId, byte[] pin, uint pinLen, byte[] label)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_InitTokenDelegate cInitToken = (C_InitTokenDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_InitToken, typeof(C_InitTokenDelegate));
             return cInitToken(slotId, pin, pinLen, label);
         }
@@ -322,6 +355,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_PIN_INVALID, CKR_PIN_LEN_RANGE, CKR_SESSION_CLOSED, CKR_SESSION_READ_ONLY, CKR_SESSION_HANDLE_INVALID, CKR_TOKEN_WRITE_PROTECTED, CKR_USER_NOT_LOGGED_IN, CKR_ARGUMENTS_BAD</returns>
         public CKR C_InitPIN(uint session, byte[] pin, uint pinLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_InitPINDelegate cInitPIN = (C_InitPINDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_InitPIN, typeof(C_InitPINDelegate));
             return cInitPIN(session, pin, pinLen);
         }
@@ -337,6 +373,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_PIN_INCORRECT, CKR_PIN_INVALID, CKR_PIN_LEN_RANGE, CKR_PIN_LOCKED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TOKEN_WRITE_PROTECTED, CKR_ARGUMENTS_BAD</returns>
         public CKR C_SetPIN(uint session, byte[] oldPin, uint oldPinLen, byte[] newPin, uint newPinLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_SetPINDelegate cSetPIN = (C_SetPINDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_SetPIN, typeof(C_SetPINDelegate));
             return cSetPIN(session, oldPin, oldPinLen, newPin, newPinLen);
         }
@@ -352,6 +391,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_SESSION_COUNT, CKR_SESSION_PARALLEL_NOT_SUPPORTED, CKR_SESSION_READ_WRITE_SO_EXISTS, CKR_SLOT_ID_INVALID, CKR_TOKEN_NOT_PRESENT, CKR_TOKEN_NOT_RECOGNIZED, CKR_TOKEN_WRITE_PROTECTED, CKR_ARGUMENTS_BAD</returns>
         public CKR C_OpenSession(uint slotId, uint flags, IntPtr application, IntPtr notify, ref uint session)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_OpenSessionDelegate cOpenSession = (C_OpenSessionDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_OpenSession, typeof(C_OpenSessionDelegate));
             return cOpenSession(slotId, flags, application, notify, ref session);
         }
@@ -363,6 +405,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
         public CKR C_CloseSession(uint session)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_CloseSessionDelegate cCloseSession = (C_CloseSessionDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_CloseSession, typeof(C_CloseSessionDelegate));
             return cCloseSession(session);
         }
@@ -374,6 +419,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_SLOT_ID_INVALID, CKR_TOKEN_NOT_PRESENT</returns>
         public CKR C_CloseAllSessions(uint slotId)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_CloseAllSessionsDelegate cCloseAllSessions = (C_CloseAllSessionsDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_CloseAllSessions, typeof(C_CloseAllSessionsDelegate));
             return cCloseAllSessions(slotId);
         }
@@ -386,6 +434,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_ARGUMENTS_BAD</returns>
         public CKR C_GetSessionInfo(uint session, ref CK_SESSION_INFO info)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_GetSessionInfoDelegate cGetSessionInfo = (C_GetSessionInfoDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GetSessionInfo, typeof(C_GetSessionInfoDelegate));
             return cGetSessionInfo(session, ref info);
         }
@@ -402,6 +453,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_STATE_UNSAVEABLE, CKR_ARGUMENTS_BAD</returns>
         public CKR C_GetOperationState(uint session, byte[] operationState, ref uint operationStateLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_GetOperationStateDelegate cGetOperationState = (C_GetOperationStateDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GetOperationState, typeof(C_GetOperationStateDelegate));
             return cGetOperationState(session, operationState, ref operationStateLen);
         }
@@ -417,6 +471,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_CHANGED, CKR_KEY_NEEDED, CKR_KEY_NOT_NEEDED, CKR_OK, CKR_SAVED_STATE_INVALID, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_ARGUMENTS_BAD</returns>
         public CKR C_SetOperationState(uint session, byte[] operationState, uint operationStateLen, uint encryptionKey, uint authenticationKey)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_SetOperationStateDelegate cSetOperationState = (C_SetOperationStateDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_SetOperationState, typeof(C_SetOperationStateDelegate));
             return cSetOperationState(session, operationState, operationStateLen, encryptionKey, authenticationKey);
         }
@@ -431,6 +488,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_PIN_INCORRECT, CKR_PIN_LOCKED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY_EXISTS, CKR_USER_ALREADY_LOGGED_IN, CKR_USER_ANOTHER_ALREADY_LOGGED_IN, CKR_USER_PIN_NOT_INITIALIZED, CKR_USER_TOO_MANY_TYPES, CKR_USER_TYPE_INVALID</returns>
         public CKR C_Login(uint session, CKU userType, byte[] pin, uint pinLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_LoginDelegate cLogin = (C_LoginDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_Login, typeof(C_LoginDelegate));
             return cLogin(session, userType, pin, pinLen);
         }
@@ -442,6 +502,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
         public CKR C_Logout(uint session)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_LogoutDelegate cLogout = (C_LogoutDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_Logout, typeof(C_LogoutDelegate));
             return cLogout(session);
         }
@@ -456,6 +519,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_READ_ONLY, CKR_ATTRIBUTE_TYPE_INVALID, CKR_ATTRIBUTE_VALUE_INVALID, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_DOMAIN_PARAMS_INVALID, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TEMPLATE_INCOMPLETE, CKR_TEMPLATE_INCONSISTENT, CKR_TOKEN_WRITE_PROTECTED, CKR_USER_NOT_LOGGED_IN</returns>
         public CKR C_CreateObject(uint session, CK_ATTRIBUTE[] template, uint count, ref uint objectId)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_CreateObjectDelegate cCreateObject = (C_CreateObjectDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_CreateObject, typeof(C_CreateObjectDelegate));
             return cCreateObject(session, template, count, ref objectId);
         }
@@ -471,6 +537,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_READ_ONLY, CKR_ATTRIBUTE_TYPE_INVALID, CKR_ATTRIBUTE_VALUE_INVALID, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OBJECT_HANDLE_INVALID, CKR_OK, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TEMPLATE_INCONSISTENT, CKR_TOKEN_WRITE_PROTECTED, CKR_USER_NOT_LOGGED_IN</returns>
         public CKR C_CopyObject(uint session, uint objectId, CK_ATTRIBUTE[] template, uint count, ref uint newObjectId)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_CopyObjectDelegate cCopyObject = (C_CopyObjectDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_CopyObject, typeof(C_CopyObjectDelegate));
             return cCopyObject(session, objectId, template, count, ref newObjectId);
         }
@@ -483,6 +552,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OBJECT_HANDLE_INVALID, CKR_OK, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TOKEN_WRITE_PROTECTED</returns>
         public CKR C_DestroyObject(uint session, uint objectId)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_DestroyObjectDelegate cDestroyObject = (C_DestroyObjectDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_DestroyObject, typeof(C_DestroyObjectDelegate));
             return cDestroyObject(session, objectId);
         }
@@ -496,6 +568,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_INFORMATION_SENSITIVE, CKR_OBJECT_HANDLE_INVALID, CKR_OK, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
         public CKR C_GetObjectSize(uint session, uint objectId, ref uint size)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_GetObjectSizeDelegate cGetObjectSize = (C_GetObjectSizeDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GetObjectSize, typeof(C_GetObjectSizeDelegate));
             return cGetObjectSize(session, objectId, ref size);
         }
@@ -510,6 +585,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_SENSITIVE, CKR_ATTRIBUTE_TYPE_INVALID, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OBJECT_HANDLE_INVALID, CKR_OK, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
         public CKR C_GetAttributeValue(uint session, uint objectId, CK_ATTRIBUTE[] template, uint count)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_GetAttributeValueDelegate cGetAttributeValue = (C_GetAttributeValueDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GetAttributeValue, typeof(C_GetAttributeValueDelegate));
             return cGetAttributeValue(session, objectId, template, count);
         }
@@ -524,6 +602,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_READ_ONLY, CKR_ATTRIBUTE_TYPE_INVALID, CKR_ATTRIBUTE_VALUE_INVALID, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OBJECT_HANDLE_INVALID, CKR_OK, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TEMPLATE_INCONSISTENT, CKR_TOKEN_WRITE_PROTECTED, CKR_USER_NOT_LOGGED_IN</returns>
         public CKR C_SetAttributeValue(uint session, uint objectId, CK_ATTRIBUTE[] template, uint count)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_SetAttributeValueDelegate cSetAttributeValue = (C_SetAttributeValueDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_SetAttributeValue, typeof(C_SetAttributeValueDelegate));
             return cSetAttributeValue(session, objectId, template, count);
         }
@@ -537,6 +618,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_TYPE_INVALID, CKR_ATTRIBUTE_VALUE_INVALID, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
         public CKR C_FindObjectsInit(uint session, CK_ATTRIBUTE[] template, uint count)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_FindObjectsInitDelegate cFindObjectsInit = (C_FindObjectsInitDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_FindObjectsInit, typeof(C_FindObjectsInitDelegate));
             return cFindObjectsInit(session, template, count);
         }
@@ -551,6 +635,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
         public CKR C_FindObjects(uint session, uint[] objectId, uint maxObjectCount, ref uint objectCount)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_FindObjectsDelegate cFindObjects = (C_FindObjectsDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_FindObjects, typeof(C_FindObjectsDelegate));
             return cFindObjects(session, objectId, maxObjectCount, ref objectCount);
         }
@@ -562,6 +649,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
         public CKR C_FindObjectsFinal(uint session)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_FindObjectsFinalDelegate cFindObjectsFinal = (C_FindObjectsFinalDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_FindObjectsFinal, typeof(C_FindObjectsFinalDelegate));
             return cFindObjectsFinal(session);
         }
@@ -575,6 +665,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_FUNCTION_NOT_PERMITTED, CKR_KEY_HANDLE_INVALID, CKR_KEY_SIZE_RANGE, CKR_KEY_TYPE_INCONSISTENT, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
         public CKR C_EncryptInit(uint session, ref CK_MECHANISM mechanism, uint key)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_EncryptInitDelegate cEncryptInit = (C_EncryptInitDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_EncryptInit, typeof(C_EncryptInitDelegate));
             return cEncryptInit(session, ref mechanism, key);
         }
@@ -593,6 +686,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_INVALID, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
         public CKR C_Encrypt(uint session, byte[] data, uint dataLen, byte[] encryptedData, ref uint encryptedDataLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_EncryptDelegate cEncrypt = (C_EncryptDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_Encrypt, typeof(C_EncryptDelegate));
             return cEncrypt(session, data, dataLen, encryptedData, ref encryptedDataLen);
         }
@@ -611,6 +707,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
         public CKR C_EncryptUpdate(uint session, byte[] part, uint partLen, byte[] encryptedPart, ref uint encryptedPartLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_EncryptUpdateDelegate cEncryptUpdate = (C_EncryptUpdateDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_EncryptUpdate, typeof(C_EncryptUpdateDelegate));
             return cEncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
         }
@@ -627,6 +726,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
         public CKR C_EncryptFinal(uint session, byte[] lastEncryptedPart, ref uint lastEncryptedPartLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_EncryptFinalDelegate cEncryptFinal = (C_EncryptFinalDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_EncryptFinal, typeof(C_EncryptFinalDelegate));
             return cEncryptFinal(session, lastEncryptedPart, ref lastEncryptedPartLen);
         }
@@ -640,6 +742,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_FUNCTION_NOT_PERMITTED, CKR_KEY_HANDLE_INVALID, CKR_KEY_SIZE_RANGE, CKR_KEY_TYPE_INCONSISTENT, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
         public CKR C_DecryptInit(uint session, ref CK_MECHANISM mechanism, uint key)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_DecryptInitDelegate cDecryptInit = (C_DecryptInitDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_DecryptInit, typeof(C_DecryptInitDelegate));
             return cDecryptInit(session, ref mechanism, key);
         }
@@ -658,6 +763,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_ENCRYPTED_DATA_INVALID, CKR_ENCRYPTED_DATA_LEN_RANGE, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
         public CKR C_Decrypt(uint session, byte[] encryptedData, uint encryptedDataLen, byte[] data, ref uint dataLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_DecryptDelegate cDecrypt = (C_DecryptDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_Decrypt, typeof(C_DecryptDelegate));
             return cDecrypt(session, encryptedData, encryptedDataLen, data, ref dataLen);
         }
@@ -676,6 +784,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_ENCRYPTED_DATA_INVALID, CKR_ENCRYPTED_DATA_LEN_RANGE, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
         public CKR C_DecryptUpdate(uint session, byte[] encryptedPart, uint encryptedPartLen, byte[] part, ref uint partLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_DecryptUpdateDelegate cDecryptUpdate = (C_DecryptUpdateDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_DecryptUpdate, typeof(C_DecryptUpdateDelegate));
             return cDecryptUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
         }
@@ -692,6 +803,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_ENCRYPTED_DATA_INVALID, CKR_ENCRYPTED_DATA_LEN_RANGE, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
         public CKR C_DecryptFinal(uint session, byte[] lastPart, ref uint lastPartLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_DecryptFinalDelegate cDecryptFinal = (C_DecryptFinalDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_DecryptFinal, typeof(C_DecryptFinalDelegate));
             return cDecryptFinal(session, lastPart, ref lastPartLen);
         }
@@ -704,6 +818,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
         public CKR C_DigestInit(uint session, ref CK_MECHANISM mechanism)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_DigestInitDelegate cDigestInit = (C_DigestInitDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_DigestInit, typeof(C_DigestInitDelegate));
             return cDigestInit(session, ref mechanism);
         }
@@ -722,6 +839,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
         public CKR C_Digest(uint session, byte[] data, uint dataLen, byte[] digest, ref uint digestLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_DigestDelegate cDigest = (C_DigestDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_Digest, typeof(C_DigestDelegate));
             return cDigest(session, data, dataLen, digest, ref digestLen);
         }
@@ -735,6 +855,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
         public CKR C_DigestUpdate(uint session, byte[] part, uint partLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_DigestUpdateDelegate cDigestUpdate = (C_DigestUpdateDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_DigestUpdate, typeof(C_DigestUpdateDelegate));
             return cDigestUpdate(session, part, partLen);
         }
@@ -747,6 +870,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_HANDLE_INVALID, CKR_KEY_INDIGESTIBLE, CKR_KEY_SIZE_RANGE, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
         public CKR C_DigestKey(uint session, uint key)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_DigestKeyDelegate cDigestKey = (C_DigestKeyDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_DigestKey, typeof(C_DigestKeyDelegate));
             return cDigestKey(session, key);
         }
@@ -763,6 +889,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
         public CKR C_DigestFinal(uint session, byte[] digest, ref uint digestLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_DigestFinalDelegate cDigestFinal = (C_DigestFinalDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_DigestFinal, typeof(C_DigestFinalDelegate));
             return cDigestFinal(session, digest, ref digestLen);
         }
@@ -776,6 +905,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_FUNCTION_NOT_PERMITTED,CKR_KEY_HANDLE_INVALID, CKR_KEY_SIZE_RANGE, CKR_KEY_TYPE_INCONSISTENT, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
         public CKR C_SignInit(uint session, ref CK_MECHANISM mechanism, uint key)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_SignInitDelegate cSignInit = (C_SignInitDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_SignInit, typeof(C_SignInitDelegate));
             return cSignInit(session, ref mechanism, key);
         }
@@ -794,6 +926,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_INVALID, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN, CKR_FUNCTION_REJECTED</returns>
         public CKR C_Sign(uint session, byte[] data, uint dataLen, byte[] signature, ref uint signatureLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_SignDelegate cSign = (C_SignDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_Sign, typeof(C_SignDelegate));
             return cSign(session, data, dataLen, signature, ref signatureLen);
         }
@@ -807,6 +942,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
         public CKR C_SignUpdate(uint session, byte[] part, uint partLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_SignUpdateDelegate cSignUpdate = (C_SignUpdateDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_SignUpdate, typeof(C_SignUpdateDelegate));
             return cSignUpdate(session, part, partLen);
         }
@@ -823,6 +961,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN, CKR_FUNCTION_REJECTED</returns>
         public CKR C_SignFinal(uint session, byte[] signature, ref uint signatureLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_SignFinalDelegate cSignFinal = (C_SignFinalDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_SignFinal, typeof(C_SignFinalDelegate));
             return cSignFinal(session, signature, ref signatureLen);
         }
@@ -836,6 +977,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_FUNCTION_NOT_PERMITTED, CKR_KEY_HANDLE_INVALID, CKR_KEY_SIZE_RANGE, CKR_KEY_TYPE_INCONSISTENT, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
         public CKR C_SignRecoverInit(uint session, ref CK_MECHANISM mechanism, uint key)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_SignRecoverInitDelegate cSignRecoverInit = (C_SignRecoverInitDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_SignRecoverInit, typeof(C_SignRecoverInitDelegate));
             return cSignRecoverInit(session, ref mechanism, key);
         }
@@ -854,6 +998,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_INVALID, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
         public CKR C_SignRecover(uint session, byte[] data, uint dataLen, byte[] signature, ref uint signatureLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_SignRecoverDelegate cSignRecover = (C_SignRecoverDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_SignRecover, typeof(C_SignRecoverDelegate));
             return cSignRecover(session, data, dataLen, signature, ref signatureLen);
         }
@@ -867,6 +1014,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_FUNCTION_NOT_PERMITTED, CKR_KEY_HANDLE_INVALID, CKR_KEY_SIZE_RANGE, CKR_KEY_TYPE_INCONSISTENT, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
         public CKR C_VerifyInit(uint session, ref CK_MECHANISM mechanism, uint key)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_VerifyInitDelegate cVerifyInit = (C_VerifyInitDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_VerifyInit, typeof(C_VerifyInitDelegate));
             return cVerifyInit(session, ref mechanism, key);
         }
@@ -882,6 +1032,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_INVALID, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SIGNATURE_INVALID, CKR_SIGNATURE_LEN_RANGE</returns>
         public CKR C_Verify(uint session, byte[] data, uint dataLen, byte[] signature, uint signatureLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_VerifyDelegate cVerify = (C_VerifyDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_Verify, typeof(C_VerifyDelegate));
             return cVerify(session, data, dataLen, signature, signatureLen);
         }
@@ -895,6 +1048,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
         public CKR C_VerifyUpdate(uint session, byte[] part, uint partLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_VerifyUpdateDelegate cVerifyUpdate = (C_VerifyUpdateDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_VerifyUpdate, typeof(C_VerifyUpdateDelegate));
             return cVerifyUpdate(session, part, partLen);
         }
@@ -908,6 +1064,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SIGNATURE_INVALID, CKR_SIGNATURE_LEN_RANGE</returns>
         public CKR C_VerifyFinal(uint session, byte[] signature, uint signatureLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_VerifyFinalDelegate cVerifyFinal = (C_VerifyFinalDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_VerifyFinal, typeof(C_VerifyFinalDelegate));
             return cVerifyFinal(session, signature, signatureLen);
         }
@@ -921,6 +1080,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_FUNCTION_NOT_PERMITTED, CKR_KEY_HANDLE_INVALID, CKR_KEY_SIZE_RANGE, CKR_KEY_TYPE_INCONSISTENT, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
         public CKR C_VerifyRecoverInit(uint session, ref CK_MECHANISM mechanism, uint key)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_VerifyRecoverInitDelegate cVerifyRecoverInit = (C_VerifyRecoverInitDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_VerifyRecoverInit, typeof(C_VerifyRecoverInitDelegate));
             return cVerifyRecoverInit(session, ref mechanism, key);
         }
@@ -939,6 +1101,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_INVALID, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SIGNATURE_LEN_RANGE, CKR_SIGNATURE_INVALID</returns>
         public CKR C_VerifyRecover(uint session, byte[] signature, uint signatureLen, byte[] data, ref uint dataLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_VerifyRecoverDelegate cVerifyRecover = (C_VerifyRecoverDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_VerifyRecover, typeof(C_VerifyRecoverDelegate));
             return cVerifyRecover(session, signature, signatureLen, data, ref dataLen);
         }
@@ -957,6 +1122,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
         public CKR C_DigestEncryptUpdate(uint session, byte[] part, uint partLen, byte[] encryptedPart, ref uint encryptedPartLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_DigestEncryptUpdateDelegate cDigestEncryptUpdate = (C_DigestEncryptUpdateDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_DigestEncryptUpdate, typeof(C_DigestEncryptUpdateDelegate));
             return cDigestEncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
         }
@@ -975,6 +1143,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_ENCRYPTED_DATA_INVALID, CKR_ENCRYPTED_DATA_LEN_RANGE, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
         public CKR C_DecryptDigestUpdate(uint session, byte[] encryptedPart, uint encryptedPartLen, byte[] part, ref uint partLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_DecryptDigestUpdateDelegate cDecryptDigestUpdate = (C_DecryptDigestUpdateDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_DecryptDigestUpdate, typeof(C_DecryptDigestUpdateDelegate));
             return cDecryptDigestUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
         }
@@ -993,6 +1164,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
         public CKR C_SignEncryptUpdate(uint session, byte[] part, uint partLen, byte[] encryptedPart, ref uint encryptedPartLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_SignEncryptUpdateDelegate cSignEncryptUpdate = (C_SignEncryptUpdateDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_SignEncryptUpdate, typeof(C_SignEncryptUpdateDelegate));
             return cSignEncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
         }
@@ -1011,6 +1185,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_ENCRYPTED_DATA_INVALID, CKR_ENCRYPTED_DATA_LEN_RANGE, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
         public CKR C_DecryptVerifyUpdate(uint session, byte[] encryptedPart, uint encryptedPartLen, byte[] part, ref uint partLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_DecryptVerifyUpdateDelegate cDecryptVerifyUpdate = (C_DecryptVerifyUpdateDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_DecryptVerifyUpdate, typeof(C_DecryptVerifyUpdateDelegate));
             return cDecryptVerifyUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
         }
@@ -1026,6 +1203,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_READ_ONLY, CKR_ATTRIBUTE_TYPE_INVALID, CKR_ATTRIBUTE_VALUE_INVALID, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TEMPLATE_INCOMPLETE, CKR_TEMPLATE_INCONSISTENT, CKR_TOKEN_WRITE_PROTECTED, CKR_USER_NOT_LOGGED_IN</returns>
         public CKR C_GenerateKey(uint session, ref CK_MECHANISM mechanism, CK_ATTRIBUTE[] template, uint count, ref uint key)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_GenerateKeyDelegate cGenerateKey = (C_GenerateKeyDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GenerateKey, typeof(C_GenerateKeyDelegate));
             return cGenerateKey(session, ref mechanism, template, count, ref key);
         }
@@ -1044,6 +1224,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_READ_ONLY, CKR_ATTRIBUTE_TYPE_INVALID, CKR_ATTRIBUTE_VALUE_INVALID, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_DOMAIN_PARAMS_INVALID, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TEMPLATE_INCOMPLETE, CKR_TEMPLATE_INCONSISTENT, CKR_TOKEN_WRITE_PROTECTED, CKR_USER_NOT_LOGGED_IN</returns>
         public CKR C_GenerateKeyPair(uint session, ref CK_MECHANISM mechanism, CK_ATTRIBUTE[] publicKeyTemplate, uint publicKeyAttributeCount, CK_ATTRIBUTE[] privateKeyTemplate, uint privateKeyAttributeCount, ref uint publicKey, ref uint privateKey)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_GenerateKeyPairDelegate cGenerateKeyPair = (C_GenerateKeyPairDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GenerateKeyPair, typeof(C_GenerateKeyPairDelegate));
             return cGenerateKeyPair(session, ref mechanism, publicKeyTemplate, publicKeyAttributeCount, privateKeyTemplate, privateKeyAttributeCount, ref publicKey, ref privateKey);
         }
@@ -1063,6 +1246,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_HANDLE_INVALID, CKR_KEY_NOT_WRAPPABLE, CKR_KEY_SIZE_RANGE, CKR_KEY_UNEXTRACTABLE, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN, CKR_WRAPPING_KEY_HANDLE_INVALID, CKR_WRAPPING_KEY_SIZE_RANGE, CKR_WRAPPING_KEY_TYPE_INCONSISTENT</returns>
         public CKR C_WrapKey(uint session, ref CK_MECHANISM mechanism, uint wrappingKey, uint key, byte[] wrappedKey, ref uint wrappedKeyLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_WrapKeyDelegate cWrapKey = (C_WrapKeyDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_WrapKey, typeof(C_WrapKeyDelegate));
             return cWrapKey(session, ref mechanism, wrappingKey, key, wrappedKey, ref wrappedKeyLen);
         }
@@ -1081,6 +1267,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_READ_ONLY, CKR_ATTRIBUTE_TYPE_INVALID, CKR_ATTRIBUTE_VALUE_INVALID, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_DOMAIN_PARAMS_INVALID, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TEMPLATE_INCOMPLETE, CKR_TEMPLATE_INCONSISTENT, CKR_TOKEN_WRITE_PROTECTED, CKR_UNWRAPPING_KEY_HANDLE_INVALID, CKR_UNWRAPPING_KEY_SIZE_RANGE, CKR_UNWRAPPING_KEY_TYPE_INCONSISTENT, CKR_USER_NOT_LOGGED_IN, CKR_WRAPPED_KEY_INVALID, CKR_WRAPPED_KEY_LEN_RANGE</returns>
         public CKR C_UnwrapKey(uint session, ref CK_MECHANISM mechanism, uint unwrappingKey, byte[] wrappedKey, uint wrappedKeyLen, CK_ATTRIBUTE[] template, uint attributeCount, ref uint key)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_UnwrapKeyDelegate cUnwrapKey = (C_UnwrapKeyDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_UnwrapKey, typeof(C_UnwrapKeyDelegate));
             return cUnwrapKey(session, ref mechanism, unwrappingKey, wrappedKey, wrappedKeyLen, template, attributeCount, ref key);
         }
@@ -1097,6 +1286,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_READ_ONLY, CKR_ATTRIBUTE_TYPE_INVALID, CKR_ATTRIBUTE_VALUE_INVALID, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_DOMAIN_PARAMS_INVALID, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_HANDLE_INVALID, CKR_KEY_SIZE_RANGE, CKR_KEY_TYPE_INCONSISTENT, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TEMPLATE_INCOMPLETE, CKR_TEMPLATE_INCONSISTENT, CKR_TOKEN_WRITE_PROTECTED, CKR_USER_NOT_LOGGED_IN</returns>
         public CKR C_DeriveKey(uint session, ref CK_MECHANISM mechanism, uint baseKey, CK_ATTRIBUTE[] template, uint attributeCount, ref uint key)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_DeriveKeyDelegate cDeriveKey = (C_DeriveKeyDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_DeriveKey, typeof(C_DeriveKeyDelegate));
             return cDeriveKey(session, ref mechanism, baseKey, template, attributeCount, ref key);
         }
@@ -1110,6 +1302,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_ACTIVE, CKR_RANDOM_SEED_NOT_SUPPORTED, CKR_RANDOM_NO_RNG, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
         public CKR C_SeedRandom(uint session, byte[] seed, uint seedLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_SeedRandomDelegate cSeedRandom = (C_SeedRandomDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_SeedRandom, typeof(C_SeedRandomDelegate));
             return cSeedRandom(session, seed, seedLen);
         }
@@ -1123,6 +1318,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_ACTIVE, CKR_RANDOM_NO_RNG, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
         public CKR C_GenerateRandom(uint session, byte[] randomData, uint randomLen)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_GenerateRandomDelegate cGenerateRandom = (C_GenerateRandomDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GenerateRandom, typeof(C_GenerateRandomDelegate));
             return cGenerateRandom(session, randomData, randomLen);
         }
@@ -1134,6 +1332,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_FUNCTION_NOT_PARALLEL</returns>
         public CKR C_GetFunctionStatus(uint session)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_GetFunctionStatusDelegate cGetFunctionStatus = (C_GetFunctionStatusDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GetFunctionStatus, typeof(C_GetFunctionStatusDelegate));
             return cGetFunctionStatus(session);
         }
@@ -1145,6 +1346,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_FUNCTION_NOT_PARALLEL</returns>
         public CKR C_CancelFunction(uint session)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_CancelFunctionDelegate cCancelFunction = (C_CancelFunctionDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_CancelFunction, typeof(C_CancelFunctionDelegate));
             return cCancelFunction(session);
         }
@@ -1158,6 +1362,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_NO_EVENT, CKR_OK</returns>
         public CKR C_WaitForSlotEvent(uint flags, ref uint slot, IntPtr reserved)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             C_WaitForSlotEventDelegate cWaitForSlotEvent = (C_WaitForSlotEventDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_WaitForSlotEvent, typeof(C_WaitForSlotEventDelegate));
             return cWaitForSlotEvent(flags, ref slot, reserved);
         }

@@ -41,6 +41,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         {
             get
             {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
                 int uintSize = LowLevelAPI.UnmanagedMemory.SizeOf(typeof(uint));
                 byte[] outputLenBytes = LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.OutputLen, uintSize);
                 uint outputLen = Common.ConvertUtils.BytesToUint(outputLenBytes);
@@ -99,6 +102,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <returns>Low level mechanism parameters</returns>
         public object ToLowLevelParams()
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             return _lowLevelStruct;
         }
         

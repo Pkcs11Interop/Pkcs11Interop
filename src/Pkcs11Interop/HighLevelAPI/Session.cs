@@ -50,6 +50,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
                 return _sessionId;
             }
         }
@@ -76,6 +79,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         public void CloseSession()
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             CKR rv = _p11.C_CloseSession(_sessionId);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_CloseSession", rv);
@@ -89,6 +95,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="userPin">Pin value</param>
         public void InitPin(string userPin)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             byte[] pinValue = null;
             uint pinValueLen = 0;
             if (userPin != null)
@@ -108,6 +117,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="userPin">Pin value</param>
         public void InitPin(byte[] userPin)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             byte[] pinValue = null;
             uint pinValueLen = 0;
             if (userPin != null)
@@ -128,6 +140,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="newPin">New PIN value</param>
         public void SetPin(string oldPin, string newPin)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             byte[] oldPinValue = null;
             uint oldPinValueLen = 0;
             if (oldPin != null)
@@ -156,6 +171,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="newPin">New PIN value</param>
         public void SetPin(byte[] oldPin, byte[] newPin)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             byte[] oldPinValue = null;
             uint oldPinValueLen = 0;
             if (oldPin != null)
@@ -183,6 +201,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Information about a session</returns>
         public SessionInfo GetSessionInfo()
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             LowLevelAPI.CK_SESSION_INFO sessionInfo = new LowLevelAPI.CK_SESSION_INFO();
             CKR rv = _p11.C_GetSessionInfo(_sessionId, ref sessionInfo);
             if (rv != CKR.CKR_OK)
@@ -197,6 +218,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Operations state of a session</returns>
         public byte[] GetOperationState()
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             uint operationStateLen = 0;
             CKR rv = _p11.C_GetOperationState(_sessionId, null, ref operationStateLen);
             if (rv != CKR.CKR_OK)
@@ -218,6 +242,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="authenticationKey">CK_INVALID_HANDLE of handle to the key which will be used for an ongoing signature, MACing, or verification operation in the restored session</param>
         public void SetOperationState(byte[] state, ObjectHandle encryptionKey, ObjectHandle authenticationKey)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             CKR rv = _p11.C_SetOperationState(_sessionId, state, (uint)state.Length, encryptionKey.ObjectId, authenticationKey.ObjectId);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_SetOperationState", rv);
@@ -230,6 +257,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="pin">Pin of user</param>
         public void Login(CKU userType, string pin)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             byte[] pinValue = null;
             uint pinValueLen = 0;
             if (pin != null)
@@ -250,6 +280,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="pin">Pin of user</param>
         public void Login(CKU userType, byte[] pin)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             byte[] pinValue = null;
             uint pinValueLen = 0;
             if (pin != null)
@@ -268,6 +301,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         public void Logout()
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             CKR rv = _p11.C_Logout(_sessionId);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_Logout", rv);
@@ -280,6 +316,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Handle of created object</returns>
         public ObjectHandle CreateObject(List<ObjectAttribute> attributes)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             uint objectId = CK.CK_INVALID_HANDLE;
 
             LowLevelAPI.CK_ATTRIBUTE[] template = null;
@@ -308,6 +347,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Handle of copied object</returns>
         public ObjectHandle CopyObject(ObjectHandle objectHandle, List<ObjectAttribute> attributes)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             uint objectId = CK.CK_INVALID_HANDLE;
 
             LowLevelAPI.CK_ATTRIBUTE[] template = null;
@@ -334,6 +376,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="objectHandle">Handle of object to be destroyed</param>
         public void DestroyObject(ObjectHandle objectHandle)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             CKR rv = _p11.C_DestroyObject(_sessionId, objectHandle.ObjectId);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_DestroyObject", rv);
@@ -346,6 +391,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Size of an object in bytes</returns>
         public uint GetObjectSize(ObjectHandle objectHandle)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             uint objectSize = 0;
             CKR rv = _p11.C_GetObjectSize(_sessionId, objectHandle.ObjectId, ref objectSize);
             if (rv != CKR.CKR_OK)
@@ -362,6 +410,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Object attributes</returns>
         public List<ObjectAttribute> GetAttributeValue(ObjectHandle objectHandle, List<CKA> attributes)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (attributes == null)
                 throw new ArgumentNullException("attributes");
 
@@ -407,6 +458,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="attributes">List of attributes that should be modified</param>
         public void SetAttributeValue(ObjectHandle objectHandle, List<ObjectAttribute> attributes)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (attributes == null)
                 throw new ArgumentNullException("attributes");
             
@@ -428,6 +482,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="attributes">Attributes that should be matched</param>
         public void FindObjectsInit(List<ObjectAttribute> attributes)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             LowLevelAPI.CK_ATTRIBUTE[] template = null;
             uint templateLength = 0;
             
@@ -451,6 +508,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Found object handles</returns>
         public List<ObjectHandle> FindObjects(int objectCount)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             List<ObjectHandle> foundObjects = new List<ObjectHandle>();
 
             uint[] objects = new uint[objectCount];
@@ -470,6 +530,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         public void FindObjectsFinal()
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             CKR rv = _p11.C_FindObjectsFinal(_sessionId);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_FindObjectsFinal", rv);
@@ -482,6 +545,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Handles of found objects</returns>
         public List<ObjectHandle> FindAllObjects(List<ObjectAttribute> attributes)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             List<ObjectHandle> foundObjects = new List<ObjectHandle>();
 
             LowLevelAPI.CK_ATTRIBUTE[] template = null;
@@ -528,6 +594,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Encrypted data</returns>
         public byte[] Encrypt(Mechanism mechanism, ObjectHandle keyHandle, byte[] data)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
 
@@ -568,6 +637,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="outputStream">Output stream where encrypted data should be written</param>
         public void Encrypt(Mechanism mechanism, ObjectHandle keyHandle, Stream inputStream, Stream outputStream)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -593,6 +665,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="bufferLength">Size of read buffer in bytes</param>
         public void Encrypt(Mechanism mechanism, ObjectHandle keyHandle, Stream inputStream, Stream outputStream, int bufferLength)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -653,6 +728,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Decrypted data</returns>
         public byte[] Decrypt(Mechanism mechanism, ObjectHandle keyHandle, byte[] encryptedData)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -693,6 +771,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="outputStream">Output stream where decrypted data should be written</param>
         public void Decrypt(Mechanism mechanism, ObjectHandle keyHandle, Stream inputStream, Stream outputStream)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -718,6 +799,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="bufferLength">Size of read buffer in bytes</param>
         public void Decrypt(Mechanism mechanism, ObjectHandle keyHandle, Stream inputStream, Stream outputStream, int bufferLength)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -777,6 +861,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Digest</returns>
         public byte[] DigestKey(Mechanism mechanism, ObjectHandle keyHandle)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -817,6 +904,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Digest</returns>
         public byte[] Digest(Mechanism mechanism, byte[] data)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -853,6 +943,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Digest</returns>
         public byte[] Digest(Mechanism mechanism, Stream inputStream)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -871,6 +964,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Digest</returns>
         public byte[] Digest(Mechanism mechanism, Stream inputStream, int bufferLength)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -921,6 +1017,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Signature</returns>
         public byte[] Sign(Mechanism mechanism, ObjectHandle keyHandle, byte[] data)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -961,6 +1060,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Signature</returns>
         public byte[] Sign(Mechanism mechanism, ObjectHandle keyHandle, Stream inputStream)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -983,6 +1085,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Signature</returns>
         public byte[] Sign(Mechanism mechanism, ObjectHandle keyHandle, Stream inputStream, int bufferLength)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -1036,6 +1141,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Signature</returns>
         public byte[] SignRecover(Mechanism mechanism, ObjectHandle keyHandle, byte[] data)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -1077,6 +1185,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="isValid">Flag indicating whether signature is valid</param>
         public void Verify(Mechanism mechanism, ObjectHandle keyHandle, byte[] data, byte[] signature, out bool isValid)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -1114,6 +1225,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="isValid">Flag indicating whether signature is valid</param>
         public void Verify(Mechanism mechanism, ObjectHandle keyHandle, Stream inputStream, byte[] signature, out bool isValid)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -1140,6 +1254,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="bufferLength">Size of read buffer in bytes</param>
         public void Verify(Mechanism mechanism, ObjectHandle keyHandle, Stream inputStream, byte[] signature, out bool isValid, int bufferLength)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -1190,6 +1307,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Data recovered from the signature</returns>
         public byte[] VerifyRecover(Mechanism mechanism, ObjectHandle keyHandle, byte[] signature, out bool isValid)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -1236,6 +1356,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="digest">Digest</param>
         public void DigestEncrypt(Mechanism digestingMechanism, Mechanism encryptionMechanism, ObjectHandle keyHandle, byte[] data, out byte[] digest, out byte[] encryptedData)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (digestingMechanism == null)
                 throw new ArgumentNullException("digestingMechanism");
             
@@ -1266,6 +1389,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Digest</returns>
         public byte[] DigestEncrypt(Mechanism digestingMechanism, Mechanism encryptionMechanism, ObjectHandle keyHandle, Stream inputStream, Stream outputStream)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (digestingMechanism == null)
                 throw new ArgumentNullException("digestingMechanism");
             
@@ -1296,6 +1422,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Digest</returns>
         public byte[] DigestEncrypt(Mechanism digestingMechanism, Mechanism encryptionMechanism, ObjectHandle keyHandle, Stream inputStream, Stream outputStream, int bufferLength)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (digestingMechanism == null)
                 throw new ArgumentNullException("digestingMechanism");
             
@@ -1382,6 +1511,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="decryptedData">Decrypted data</param>
         public void DecryptDigest(Mechanism digestingMechanism, Mechanism decryptionMechanism, ObjectHandle keyHandle, byte[] data, out byte[] digest, out byte[] decryptedData)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (digestingMechanism == null)
                 throw new ArgumentNullException("digestingMechanism");
             
@@ -1412,6 +1544,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Digest</returns>
         public byte[] DecryptDigest(Mechanism digestingMechanism, Mechanism decryptionMechanism, ObjectHandle keyHandle, Stream inputStream, Stream outputStream)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (digestingMechanism == null)
                 throw new ArgumentNullException("digestingMechanism");
             
@@ -1442,6 +1577,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Digest</returns>
         public byte[] DecryptDigest(Mechanism digestingMechanism, Mechanism decryptionMechanism, ObjectHandle keyHandle, Stream inputStream, Stream outputStream, int bufferLength)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (digestingMechanism == null)
                 throw new ArgumentNullException("digestingMechanism");
             
@@ -1529,6 +1667,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="encryptedData">Encrypted data</param>
         public void SignEncrypt(Mechanism signingMechanism, ObjectHandle signingKeyHandle, Mechanism encryptionMechanism, ObjectHandle encryptionKeyHandle, byte[] data, out byte[] signature, out byte[] encryptedData)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (signingMechanism == null)
                 throw new ArgumentNullException("signingMechanism");
             
@@ -1563,6 +1704,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Signature</returns>
         public byte[] SignEncrypt(Mechanism signingMechanism, ObjectHandle signingKeyHandle, Mechanism encryptionMechanism, ObjectHandle encryptionKeyHandle, Stream inputStream, Stream outputStream)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (signingMechanism == null)
                 throw new ArgumentNullException("signingMechanism");
             
@@ -1597,6 +1741,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Signature</returns>
         public byte[] SignEncrypt(Mechanism signingMechanism, ObjectHandle signingKeyHandle, Mechanism encryptionMechanism, ObjectHandle encryptionKeyHandle, Stream inputStream, Stream outputStream, int bufferLength)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (signingMechanism == null)
                 throw new ArgumentNullException("signingMechanism");
             
@@ -1688,6 +1835,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="isValid">Flag indicating whether signature is valid</param>
         public void DecryptVerify(Mechanism verificationMechanism, ObjectHandle verificationKeyHandle, Mechanism decryptionMechanism, ObjectHandle decryptionKeyHandle, byte[] data, byte[] signature, out byte[] decryptedData, out bool isValid)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (verificationMechanism == null)
                 throw new ArgumentNullException("verificationMechanism");
             
@@ -1726,6 +1876,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="isValid">Flag indicating whether signature is valid</param>
         public void DecryptVerify(Mechanism verificationMechanism, ObjectHandle verificationKeyHandle, Mechanism decryptionMechanism, ObjectHandle decryptionKeyHandle, Stream inputStream, Stream outputStream, byte[] signature, out bool isValid)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (verificationMechanism == null)
                 throw new ArgumentNullException("verificationMechanism");
             
@@ -1764,6 +1917,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="bufferLength">Size of read buffer in bytes</param>
         public void DecryptVerify(Mechanism verificationMechanism, ObjectHandle verificationKeyHandle, Mechanism decryptionMechanism, ObjectHandle decryptionKeyHandle, Stream inputStream, Stream outputStream, byte[] signature, out bool isValid, int bufferLength)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (verificationMechanism == null)
                 throw new ArgumentNullException("verificationMechanism");
             
@@ -1846,6 +2002,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Handle of the new key or set of domain parameters</returns>
         public ObjectHandle GenerateKey(Mechanism mechanism, List<ObjectAttribute> attributes)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
 
@@ -1880,6 +2039,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="privateKeyHandle">Handle of the new private key</param>
         public void GenerateKeyPair(Mechanism mechanism, List<ObjectAttribute> publicKeyAttributes, List<ObjectAttribute> privateKeyAttributes, out ObjectHandle publicKeyHandle, out ObjectHandle privateKeyHandle)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
 
@@ -1926,6 +2088,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Wrapped key</returns>
         public byte[] WrapKey(Mechanism mechanism, ObjectHandle wrappingKeyHandle, ObjectHandle keyHandle)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -1963,6 +2128,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Handle of unwrapped key</returns>
         public ObjectHandle UnwrapKey(Mechanism mechanism, ObjectHandle unwrappingKeyHandle, byte[] wrappedKey, List<ObjectAttribute> attributes)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -2001,6 +2169,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Handle of derived key</returns>
         public ObjectHandle DeriveKey(Mechanism mechanism, ObjectHandle baseKeyHandle, List<ObjectAttribute> attributes)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -2033,6 +2204,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="seed">Seed material</param>
         public void SeedRandom(byte[] seed)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (seed == null)
                 throw new ArgumentNullException("seed");
 
@@ -2048,6 +2222,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Generated random or pseudo-random data</returns>
         public byte[] GenerateRandom(int length)
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             if (length < 1)
                 throw new ArgumentException("Value has to be positive number", "length");
 
@@ -2064,6 +2241,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         public void GetFunctionStatus()
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             CKR rv = _p11.C_GetFunctionStatus(_sessionId);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetFunctionStatus", rv);
@@ -2074,6 +2254,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         public void CancelFunction()
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             CKR rv = _p11.C_CancelFunction(_sessionId);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_CancelFunction", rv);

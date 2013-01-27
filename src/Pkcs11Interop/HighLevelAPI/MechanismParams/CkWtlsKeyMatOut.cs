@@ -43,6 +43,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         {
             get
             {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
                 return new ObjectHandle(_lowLevelStruct.MacSecret);
             }
         }
@@ -54,6 +57,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         {
             get
             {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
                 return new ObjectHandle(_lowLevelStruct.Key);
             }
         }
@@ -65,6 +71,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         {
             get
             {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
                 return (_ivLength < 1) ? null : LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.IV, (int)_ivLength);
             }
         }

@@ -44,6 +44,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         {
             get
             {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
                 CkVersion version = null;
 
                 if (_lowLevelStruct.Version != IntPtr.Zero)
@@ -87,6 +90,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <returns>Low level mechanism parameters</returns>
         public object ToLowLevelParams()
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             return _lowLevelStruct;
         }
         

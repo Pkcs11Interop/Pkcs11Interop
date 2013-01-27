@@ -44,6 +44,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
                 return _ckAttribute;
             }
         }
@@ -55,6 +58,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
                 return _ckAttribute.type;
             }
         }
@@ -66,6 +72,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
                 return ((int)_ckAttribute.valueLen == -1);
             }
         }
@@ -129,6 +138,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Value of attribute</returns>
         public uint GetValueAsUint()
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             uint value = 0;
             LowLevelAPI.CkaUtils.ConvertValue(ref _ckAttribute, out value);
             return value;
@@ -164,6 +176,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Value of attribute</returns>
         public bool GetValueAsBool()
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             bool value = false;
             LowLevelAPI.CkaUtils.ConvertValue(ref _ckAttribute, out value);
             return value;
@@ -199,6 +214,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Value of attribute</returns>
         public string GetValueAsString()
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             string value = null;
             LowLevelAPI.CkaUtils.ConvertValue(ref _ckAttribute, out value);
             return value;
@@ -234,6 +252,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Value of attribute</returns>
         public byte[] GetValueAsByteArray()
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             byte[] value = null;
             LowLevelAPI.CkaUtils.ConvertValue(ref _ckAttribute, out value);
             return value;
@@ -269,6 +290,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Value of attribute</returns>
         public DateTime GetValueAsDateTime()
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             DateTime value = DateTime.UtcNow;
             LowLevelAPI.CkaUtils.ConvertValue(ref _ckAttribute, out value);
             return value;
@@ -368,6 +392,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Value of attribute</returns>
         public List<uint> GetValueAsUintList()
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             uint[] value = null;
             LowLevelAPI.CkaUtils.ConvertValue(ref _ckAttribute, out value);
             return (value == null) ? null : new List<uint>(value);
@@ -413,6 +440,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Value of attribute</returns>
         public List<CKM> GetValueAsCkmList()
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             CKM[] value = null;
             LowLevelAPI.CkaUtils.ConvertValue(ref _ckAttribute, out value);
             return (value == null) ? null : new List<CKM>(value);

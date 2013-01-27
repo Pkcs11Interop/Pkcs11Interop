@@ -44,6 +44,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
                 return _ckMechanism;
             }
         }
@@ -55,6 +58,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
                 return _ckMechanism.Mechanism;
             }
         }

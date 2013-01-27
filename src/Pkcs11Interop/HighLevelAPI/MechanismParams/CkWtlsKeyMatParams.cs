@@ -44,6 +44,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         {
             get
             {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
                 // Abrakadabra :)
                 UnmanagedMemory.Read(_lowLevelStruct.ReturnedKeyMaterial, _returnedKeyMaterial._lowLevelStruct);
                 return _returnedKeyMaterial;
@@ -105,6 +108,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <returns>Low level mechanism parameters</returns>
         public object ToLowLevelParams()
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             return _lowLevelStruct;
         }
         
