@@ -181,6 +181,7 @@
   <ItemGroup>
     <None Include="LICENSE.txt" />
     <None Include="app.config" />
+    <None Include="TESTING.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="HighLevelAPI\" />

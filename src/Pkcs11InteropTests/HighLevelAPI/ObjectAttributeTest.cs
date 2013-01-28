@@ -188,8 +188,15 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_WRAP_TEMPLATE, originalValue))
             {
                 Assert.IsTrue(attr.Type == (uint)CKA.CKA_WRAP_TEMPLATE);
-                // Reading attribute value as List<ObjectAttribute> is currently not implemented in HighLevelAPI
-                Assert.Throws(typeof(NotImplementedException), delegate { attr.GetValueAsObjectAttributeList(); });
+
+                try
+                {
+                    attr.GetValueAsObjectAttributeList();
+                }
+                catch (NotImplementedException)
+                {
+                    // Reading attribute value as List<ObjectAttribute> is currently not implemented in HighLevelAPI
+                }
             }
 
             originalValue = null;
@@ -198,8 +205,15 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_WRAP_TEMPLATE, originalValue))
             {
                 Assert.IsTrue(attr.Type == (uint)CKA.CKA_WRAP_TEMPLATE);
-                // Reading attribute value as List<ObjectAttribute> is currently not implemented in HighLevelAPI
-                Assert.Throws(typeof(NotImplementedException), delegate { attr.GetValueAsObjectAttributeList(); });
+
+                try
+                {
+                    attr.GetValueAsObjectAttributeList();
+                }
+                catch (NotImplementedException)
+                {
+                    // Reading attribute value as List<ObjectAttribute> is currently not implemented in HighLevelAPI
+                }
             }
 
             originalValue = new List<ObjectAttribute>();
@@ -208,8 +222,15 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_WRAP_TEMPLATE, originalValue))
             {
                 Assert.IsTrue(attr.Type == (uint)CKA.CKA_WRAP_TEMPLATE);
-                // Reading attribute value as List<ObjectAttribute> is currently not implemented in HighLevelAPI
-                Assert.Throws(typeof(NotImplementedException), delegate { attr.GetValueAsObjectAttributeList(); });
+
+                try
+                {
+                    attr.GetValueAsObjectAttributeList();
+                }
+                catch (NotImplementedException)
+                {
+                    // Reading attribute value as List<ObjectAttribute> is currently not implemented in HighLevelAPI
+                }
             }
         }
 
