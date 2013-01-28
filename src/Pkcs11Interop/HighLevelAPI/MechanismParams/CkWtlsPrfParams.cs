@@ -56,7 +56,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// </summary>
         /// <param name='digestMechanism'>Digest mechanism to be used (CKM)</param>
         /// <param name='seed'>Input seed</param>
-        /// <param name='label'>Identifying label/param>
+        /// <param name='label'>Identifying label</param>
         /// <param name='outputLen'>Length in bytes that the output to be created shall have</param>
         public CkWtlsPrfParams(uint digestMechanism, byte[] seed, byte[] label, uint outputLen)
         {

@@ -55,7 +55,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// Initializes a new instance of the CkTlsPrfParams class.
         /// </summary>
         /// <param name='seed'>Input seed</param>
-        /// <param name='label'>Identifying label/param>
+        /// <param name='label'>Identifying label</param>
         /// <param name='outputLen'>Length in bytes that the output to be created shall have</param>
         public CkTlsPrfParams(byte[] seed, byte[] label, uint outputLen)
         {
