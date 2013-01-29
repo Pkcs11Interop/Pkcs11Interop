@@ -23,33 +23,34 @@ using System.ComponentModel;
 namespace Net.Pkcs11Interop.LowLevelAPI
 {
     /**
-     * \example LowLevelAPI/InitializeTest.cs
-     * \example LowLevelAPI/GetInfoTest.cs
-     * \example LowLevelAPI/SlotListInfoAndEventTest.cs
-     * \example LowLevelAPI/TokenInfoTest.cs
-     * \example LowLevelAPI/MechanismListAndInfoTest.cs
-     * \example LowLevelAPI/SessionTest.cs
-     * \example LowLevelAPI/OperationStateTest.cs
-     * \example LowLevelAPI/LoginTest.cs
-     * \example LowLevelAPI/InitTokenAndPinTest.cs
-     * \example LowLevelAPI/SetPinTest.cs
-     * \example LowLevelAPI/SeedAndGenerateRandomTest.cs
-     * \example LowLevelAPI/DigestTest.cs
-     * \example LowLevelAPI/ObjectAttributeTest.cs
-     * \example LowLevelAPI/MechanismTest.cs
-     * \example LowLevelAPI/CreateCopyDestroyObjectTest.cs
-     * \example LowLevelAPI/GetAndSetAttributeValueTest.cs
-     * \example LowLevelAPI/ObjectFindingTest.cs
-     * \example LowLevelAPI/GenerateKeyAndKeyPairTest.cs
-     * \example LowLevelAPI/EncryptAndDecryptTest.cs
-     * \example LowLevelAPI/SignAndVerifyTest.cs
-     * \example LowLevelAPI/SignAndVerifyRecoverTest.cs
-     * \example LowLevelAPI/DigestEncryptAndDecryptDigestTest.cs
-     * \example LowLevelAPI/SignEncryptAndDecryptVerifyTest.cs
-     * \example LowLevelAPI/WrapAndUnwrapKeyTest.cs
-     * \example LowLevelAPI/DeriveKeyTest.cs
-     * \example LowLevelAPI/LegacyParallelFunctionsTest.cs
-     * \example LowLevelAPI/Helpers.cs
+     * \example 01_LowLevelAPI/01_InitializeTest.cs
+     * \example 01_LowLevelAPI/02_GetInfoTest.cs
+     * \example 01_LowLevelAPI/03_SlotListInfoAndEventTest.cs
+     * \example 01_LowLevelAPI/04_TokenInfoTest.cs
+     * \example 01_LowLevelAPI/05_MechanismListAndInfoTest.cs
+     * \example 01_LowLevelAPI/06_SessionTest.cs
+     * \example 01_LowLevelAPI/07_OperationStateTest.cs
+     * \example 01_LowLevelAPI/08_LoginTest.cs
+     * \example 01_LowLevelAPI/09_InitTokenAndPinTest.cs
+     * \example 01_LowLevelAPI/10_SetPinTest.cs
+     * \example 01_LowLevelAPI/11_SeedAndGenerateRandomTest.cs
+     * \example 01_LowLevelAPI/12_DigestTest.cs
+     * \example 01_LowLevelAPI/13_UnmanagedMemoryTest.cs
+     * \example 01_LowLevelAPI/14_ObjectAttributeTest.cs
+     * \example 01_LowLevelAPI/15_MechanismTest.cs
+     * \example 01_LowLevelAPI/16_CreateCopyDestroyObjectTest.cs
+     * \example 01_LowLevelAPI/17_GetAndSetAttributeValueTest.cs
+     * \example 01_LowLevelAPI/18_ObjectFindingTest.cs
+     * \example 01_LowLevelAPI/19_GenerateKeyAndKeyPairTest.cs
+     * \example 01_LowLevelAPI/20_EncryptAndDecryptTest.cs
+     * \example 01_LowLevelAPI/21_SignAndVerifyTest.cs
+     * \example 01_LowLevelAPI/22_SignAndVerifyRecoverTest.cs
+     * \example 01_LowLevelAPI/23_DigestEncryptAndDecryptDigestTest.cs
+     * \example 01_LowLevelAPI/24_SignEncryptAndDecryptVerifyTest.cs
+     * \example 01_LowLevelAPI/25_WrapAndUnwrapKeyTest.cs
+     * \example 01_LowLevelAPI/26_DeriveKeyTest.cs
+     * \example 01_LowLevelAPI/27_LegacyParallelFunctionsTest.cs
+     * \example 01_LowLevelAPI/28_Helpers.cs
      */
 
     /// <summary>

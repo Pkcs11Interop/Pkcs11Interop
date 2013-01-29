@@ -31,7 +31,7 @@ using System.Runtime.CompilerServices;
  * 
  * <a class="el" href="http://www.pkcs11interop.net">Pkcs11interop</a> is open-source project that brings full power of PKCS#11 API to .NET environment. It uses System.Runtime.InteropServices to define platform invoke methods for accessing unmanaged cryptoki API and specifies how data is marshaled between managed and unmanaged memory.
  *
- * Pkcs11Interop API resides in Net.Pkcs11Interop namespace and is divided into two logical parts - Net.Pkcs11Interop.LowLevelAPI and Net.Pkcs11Interop.HighLevelAPI.
+ * You should first get familiar with basic concepts of <a class="el" href="http://www.rsa.com/rsalabs/node.asp?id=2133">PKCS#11 v2.20</a> and then start exploring Pkcs11Interop API which resides in Net.Pkcs11Interop namespace and is divided into two logical parts - Net.Pkcs11Interop.LowLevelAPI and Net.Pkcs11Interop.HighLevelAPI.
  *
  * \section lowlevelapi_sec LowLevelAPI
  *
@@ -39,7 +39,7 @@ using System.Runtime.CompilerServices;
  * - Gives developer a full power of PKCS#11 ANSI C API
  * - Requires C style coding with unmanaged memory management (it is quite easy with Net.Pkcs11Interop.LowLevelAPI.UnmanagedMemory class)
  *
- * Start exploring LowLevelAPI by looking at Net.Pkcs11Interop.LowLevelAPI.Pkcs11 class and <a class="el" href="examples.html">examples</a>.
+ * Start your exploration of LowLevelAPI by looking at Net.Pkcs11Interop.LowLevelAPI.Pkcs11 class and <a class="el" href="examples.html">examples</a>.
  *
  * \section highlevelapi_sec HighLevelAPI
  * 
@@ -47,5 +47,7 @@ using System.Runtime.CompilerServices;
  * - Utilizes developer friendly constructs and supports streams
  * - No unmanaged memory handling is required
  * 
- * Start exploring HighLevelAPI by looking at Net.Pkcs11Interop.HighLevelAPI.Pkcs11 class and <a class="el" href="examples.html">examples</a>.
+ * Start your exploration of HighLevelAPI by looking at Net.Pkcs11Interop.HighLevelAPI.Pkcs11 class and <a class="el" href="examples.html">examples</a>.
+ * 
+ * Please visit project website - <a class="el" href="http://www.pkcs11interop.net">pkcs11interop.net</a> - for more information regarding updates, licensing, support etc.
  */

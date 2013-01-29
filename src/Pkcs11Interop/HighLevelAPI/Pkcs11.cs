@@ -22,33 +22,33 @@ using Net.Pkcs11Interop.Common;
 namespace Net.Pkcs11Interop.HighLevelAPI
 {
     /**
-     * \example HighLevelAPI/InitializeTest.cs
-     * \example HighLevelAPI/GetInfoTest.cs
-     * \example HighLevelAPI/SlotListInfoAndEventTest.cs
-     * \example HighLevelAPI/TokenInfoTest.cs
-     * \example HighLevelAPI/MechanismListAndInfoTest.cs
-     * \example HighLevelAPI/SessionTest.cs
-     * \example HighLevelAPI/OperationStateTest.cs
-     * \example HighLevelAPI/LoginTest.cs
-     * \example HighLevelAPI/InitTokenAndPinTest.cs
-     * \example HighLevelAPI/SetPinTest.cs
-     * \example HighLevelAPI/SeedAndGenerateRandomTest.cs
-     * \example HighLevelAPI/DigestTest.cs
-     * \example HighLevelAPI/ObjectAttributeTest.cs
-     * \example HighLevelAPI/MechanismTest.cs
-     * \example HighLevelAPI/CreateCopyDestroyObjectTest.cs
-     * \example HighLevelAPI/GetAndSetAttributeValueTest.cs
-     * \example HighLevelAPI/ObjectFindingTest.cs
-     * \example HighLevelAPI/GenerateKeyAndKeyPairTest.cs
-     * \example HighLevelAPI/EncryptAndDecryptTest.cs
-     * \example HighLevelAPI/SignAndVerifyTest.cs
-     * \example HighLevelAPI/SignAndVerifyRecoverTest.cs
-     * \example HighLevelAPI/DigestEncryptAndDecryptDigestTest.cs
-     * \example HighLevelAPI/SignEncryptAndDecryptVerifyTest.cs
-     * \example HighLevelAPI/WrapAndUnwrapKeyTest.cs
-     * \example HighLevelAPI/DeriveKeyTest.cs
-     * \example HighLevelAPI/LegacyParallelFunctionsTest.cs
-     * \example HighLevelAPI/Helpers.cs
+     * \example 02_HighLevelAPI/01_InitializeTest.cs
+     * \example 02_HighLevelAPI/02_GetInfoTest.cs
+     * \example 02_HighLevelAPI/03_SlotListInfoAndEventTest.cs
+     * \example 02_HighLevelAPI/04_TokenInfoTest.cs
+     * \example 02_HighLevelAPI/05_MechanismListAndInfoTest.cs
+     * \example 02_HighLevelAPI/06_SessionTest.cs
+     * \example 02_HighLevelAPI/07_OperationStateTest.cs
+     * \example 02_HighLevelAPI/08_LoginTest.cs
+     * \example 02_HighLevelAPI/09_InitTokenAndPinTest.cs
+     * \example 02_HighLevelAPI/10_SetPinTest.cs
+     * \example 02_HighLevelAPI/11_SeedAndGenerateRandomTest.cs
+     * \example 02_HighLevelAPI/12_DigestTest.cs
+     * \example 02_HighLevelAPI/13_ObjectAttributeTest.cs
+     * \example 02_HighLevelAPI/14_MechanismTest.cs
+     * \example 02_HighLevelAPI/15_CreateCopyDestroyObjectTest.cs
+     * \example 02_HighLevelAPI/16_GetAndSetAttributeValueTest.cs
+     * \example 02_HighLevelAPI/17_ObjectFindingTest.cs
+     * \example 02_HighLevelAPI/18_GenerateKeyAndKeyPairTest.cs
+     * \example 02_HighLevelAPI/19_EncryptAndDecryptTest.cs
+     * \example 02_HighLevelAPI/20_SignAndVerifyTest.cs
+     * \example 02_HighLevelAPI/21_SignAndVerifyRecoverTest.cs
+     * \example 02_HighLevelAPI/22_DigestEncryptAndDecryptDigestTest.cs
+     * \example 02_HighLevelAPI/23_SignEncryptAndDecryptVerifyTest.cs
+     * \example 02_HighLevelAPI/24_WrapAndUnwrapKeyTest.cs
+     * \example 02_HighLevelAPI/25_DeriveKeyTest.cs
+     * \example 02_HighLevelAPI/26_LegacyParallelFunctionsTest.cs
+     * \example 02_HighLevelAPI/27_Helpers.cs
      */
 
     /// <summary>
