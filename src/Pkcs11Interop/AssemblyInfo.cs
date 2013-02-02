@@ -29,23 +29,23 @@ using System.Runtime.CompilerServices;
  *
  * <a class="el" href="http://www.rsa.com/rsalabs/node.asp?id=2133">PKCS#11</a> is cryptography standard published by RSA Laboratories that defines ANSI C API (called cryptoki) to access smart cards and other types of cryptographic hardware.
  * 
- * <a class="el" href="http://www.pkcs11interop.net">Pkcs11interop</a> is open-source project that brings full power of PKCS#11 API to .NET environment. It uses System.Runtime.InteropServices to define platform invoke methods for accessing unmanaged cryptoki API and specifies how data is marshaled between managed and unmanaged memory.
+ * <a class="el" href="http://www.pkcs11interop.net">Pkcs11interop</a> is open-source project written in C# that brings full power of PKCS#11 API to .NET environment. It uses System.Runtime.InteropServices to define platform invoke methods for accessing unmanaged cryptoki API and specifies how data is marshaled between managed and unmanaged memory.
  *
  * You should first get familiar with basic concepts of <a class="el" href="http://www.rsa.com/rsalabs/node.asp?id=2133">PKCS#11 v2.20</a> and then start exploring Pkcs11Interop API which resides in Net.Pkcs11Interop namespace and is divided into two logical parts - Net.Pkcs11Interop.LowLevelAPI and Net.Pkcs11Interop.HighLevelAPI.
  *
  * \section lowlevelapi_sec LowLevelAPI
  *
- * - Provides PKCS#11 interface as defined by RSA Laboratories
+ * - Provides exact PKCS#11 interface as defined by RSA Laboratories
  * - Gives developer a full power of PKCS#11 ANSI C API
- * - Requires C style coding with unmanaged memory management (it is quite easy with Net.Pkcs11Interop.LowLevelAPI.UnmanagedMemory class)
+ * - Requires C style coding with unmanaged memory management (it is actually quite easy with Net.Pkcs11Interop.LowLevelAPI.UnmanagedMemory class)
  *
  * Start your exploration of LowLevelAPI by looking at Net.Pkcs11Interop.LowLevelAPI.Pkcs11 class and <a class="el" href="examples.html">examples</a>.
  *
  * \section highlevelapi_sec HighLevelAPI
  * 
- * - Built on top of LowLevelAPI
+ * - It is built on top of LowLevelAPI
  * - Utilizes developer friendly constructs and supports streams
- * - No unmanaged memory handling is required
+ * - No unmanaged memory handling is required because garbage collector takes care of everything
  * 
  * Start your exploration of HighLevelAPI by looking at Net.Pkcs11Interop.HighLevelAPI.Pkcs11 class and <a class="el" href="examples.html">examples</a>.
  * 
