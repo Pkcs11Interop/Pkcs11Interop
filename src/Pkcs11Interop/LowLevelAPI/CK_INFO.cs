@@ -13,7 +13,11 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  If this license does not suit your needs you can purchase a commercial
+ *  license from Pkcs11Interop author.
  */
+
 using System.Runtime.InteropServices;
 
 namespace Net.Pkcs11Interop.LowLevelAPI
