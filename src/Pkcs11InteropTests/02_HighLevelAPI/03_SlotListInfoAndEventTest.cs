@@ -81,8 +81,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, false))
             {
                 // Wait for a slot event
-                uint slotId = pkcs11.WaitForSlotEvent(true);
-                Assert.IsTrue(slotId == CK.CK_INVALID_HANDLE);
+                bool eventOccured = false;
+                uint slotId = 0;
+                pkcs11.WaitForSlotEvent(true, out eventOccured, out slotId);
+                Assert.IsFalse(eventOccured);
             }
         }
     }

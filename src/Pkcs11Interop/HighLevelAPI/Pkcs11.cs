@@ -144,30 +144,46 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Waits for a slot event, such as token insertion or token removal, to occur
         /// </summary>
         /// <param name="dontBlock">Flag indicating that method should not block until an event occurs - it should return immediately instead. See PKCS#11 standard for full explanation.</param>
-        /// <returns>PKCS#11 handle of slot that the event occurred in</returns>
-        public uint WaitForSlotEvent(bool dontBlock)
+        /// <param name="eventOccured">Flag indicating whether event occured</param>
+        /// <param name="slotId">PKCS#11 handle of slot that the event occurred in</param>
+        public void WaitForSlotEvent(bool dontBlock, out bool eventOccured, out uint slotId)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             uint flags = (dontBlock) ? CKF.CKF_DONT_BLOCK : 0;
 
-            uint slotId = CK.CK_INVALID_HANDLE;
-            CKR rv = _p11.C_WaitForSlotEvent(flags, ref slotId, IntPtr.Zero);
+            uint slotId_ = 0;
+            CKR rv = _p11.C_WaitForSlotEvent(flags, ref slotId_, IntPtr.Zero);
             if (dontBlock)
             {
-                if (rv == CKR.CKR_NO_EVENT)
-                    slotId = CK.CK_INVALID_HANDLE;
-                else if (rv != CKR.CKR_OK)
+                if (rv == CKR.CKR_OK)
+                {
+                    eventOccured = true;
+                    slotId = slotId_;
+                }
+                else if (rv == CKR.CKR_NO_EVENT)
+                {
+                    eventOccured = false;
+                    slotId = slotId_;
+                }
+                else
+                {
                     throw new Pkcs11Exception("C_WaitForSlotEvent", rv);
+                }
             }
             else
             {
-                if (rv != CKR.CKR_OK)
+                if (rv == CKR.CKR_OK)
+                {
+                    eventOccured = true;
+                    slotId = slotId_;
+                }
+                else
+                {
                     throw new Pkcs11Exception("C_WaitForSlotEvent", rv);
+                }
             }
-
-            return slotId;
         }
 
         #region IDisposable

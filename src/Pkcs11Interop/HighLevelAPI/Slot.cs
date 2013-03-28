@@ -38,7 +38,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// PKCS#11 handle of slot
         /// </summary>
-        private uint _slotId = CK.CK_INVALID_HANDLE;
+        private uint _slotId = 0;
         
         /// <summary>
         /// PKCS#11 handle of slot
@@ -60,9 +60,6 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             if (pkcs11 == null)
                 throw new ArgumentNullException("pkcs11");
-            
-            if (slotId == CK.CK_INVALID_HANDLE)
-                throw new ArgumentException("Invalid handle specified", "slotId");
 
             _p11 = pkcs11;
             _slotId = slotId;
