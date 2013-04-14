@@ -1,0 +1,5 @@
+Pkcs11Interop 1.1 (14.04.2013)
+ - Fix #1: HighLevelAPI.Slot.SlotId can be 0
+
+Pkcs11Interop 1.0 (2013-02-02)
+ - Initial stable release
