@@ -5,11 +5,11 @@ using System.Runtime.CompilerServices;
 // Change them to the values specific to your project.
 
 [assembly: AssemblyTitle("Pkcs11Interop")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Open-source .NET wrapper for unmanaged PKCS#11 libraries")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("JWC s.r.o.")]
 [assembly: AssemblyProduct("Pkcs11Interop")]
-[assembly: AssemblyCopyright("Jaroslav Imrich")]
+[assembly: AssemblyCopyright("Copyright (c) 2012-2013 JWC s.r.o. All Rights Reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
