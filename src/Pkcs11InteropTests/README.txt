@@ -6,9 +6,9 @@ Converting NUnit test project to Visual Studio UnitTests
 3.  Delete automatically created file "UnitTest1.cs" from "TestProject1"
 4.  Righ click "TestProject1" project and add reference 
     to "Pkcs11Interop" project
-5.  Drag all files (excluding Properties\AssemblyInfo.cs) from 
-    "Pkcs11Interop.Core.Tests" project and drop them into "TestProject1"
-6.  Right click "Pkcs11Interop.Core.Tests" project and choose "Unload project" 
+5.  Drag all files (excluding AssemblyInfo.cs) from "Pkcs11InteropTests" 
+    project and drop them into "TestProject1"
+6.  Right click "Pkcs11InteropTests" project and choose "Unload project" 
     to unload it from solution
 7.  Mass replace (CTRL + SHIFT + H) in entire solution:
     using NUnit.Framework;

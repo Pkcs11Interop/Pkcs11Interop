@@ -202,6 +202,51 @@ namespace Net.Pkcs11Interop.Common
             
             return dateTime;
         }
+
+        /// <summary>
+        /// Converts byte array to hex encoded string
+        /// </summary>
+        /// <param name='value'>Byte array that should be converted</param>
+        /// <returns>String with hex encoded value from byte array</returns>
+        public static string BytesToHexString(byte[] value)
+        {
+            return BitConverter.ToString(value).Replace("-", "");
+        }
+
+        /// <summary>
+        /// Converts hex encoded string to byte array
+        /// </summary>
+        /// <param name="value">String that should be converted</param>
+        /// <returns>Byte array decoded from string</returns>
+        public static byte[] HexStringToBytes(string value)
+        {
+            byte[] bytes = new byte[value.Length / 2];
+
+            for (int i = 0; i < value.Length; i += 2)
+                bytes[i / 2] = Convert.ToByte(value.Substring(i, 2), 16);
+
+            return bytes;
+        }
+
+        /// <summary>
+        /// Converts byte array to Base64 encoded string
+        /// </summary>
+        /// <param name='value'>Byte array that should be converted</param>
+        /// <returns>String with Base64 encoded value from byte array</returns>
+        public static string BytesToBase64String(byte[] value)
+        {
+            return Convert.ToBase64String(value);
+        }
+
+        /// <summary>
+        /// Converts Base64 encoded string to byte array
+        /// </summary>
+        /// <param name="value">String that should be converted</param>
+        /// <returns>Byte array decoded from string</returns>
+        public static byte[] Base64StringToBytes(string value)
+        {
+            return Convert.FromBase64String(value);
+        }
     }
 }
 

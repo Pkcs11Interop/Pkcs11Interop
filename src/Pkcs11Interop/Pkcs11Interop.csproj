@@ -8,7 +8,7 @@
     <ProjectGuid>{2CB08FA0-8B71-4AE9-8734-BAC10804BF4E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Net.Pkcs11Interop</RootNamespace>
-    <AssemblyName>Pkcs11Interop.Core</AssemblyName>
+    <AssemblyName>Pkcs11Interop</AssemblyName>
     <SynchReleaseVersion>False</SynchReleaseVersion>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <ReleaseVersion />
@@ -31,11 +31,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
+    <GenerateDocumentation>true</GenerateDocumentation>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="LowLevelAPI\MechanismParams\CK_AES_CBC_ENCRYPT_DATA_PARAMS.cs" />
     <Compile Include="LowLevelAPI\MechanismParams\CK_AES_CTR_PARAMS.cs" />
     <Compile Include="LowLevelAPI\MechanismParams\CK_ARIA_CBC_ENCRYPT_DATA_PARAMS.cs" />
@@ -177,7 +179,6 @@
     <Compile Include="HighLevelAPI\MechanismParams\CkX942Dh1DeriveParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkX942Dh2DeriveParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkX942MqvDeriveParams.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

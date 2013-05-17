@@ -8,9 +8,10 @@
     <ProjectGuid>{CD7CCC02-3914-403A-BECB-9F1D5524727C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Net.Pkcs11Interop.Tests</RootNamespace>
-    <AssemblyName>Pkcs11Interop.Core.Tests</AssemblyName>
+    <AssemblyName>Pkcs11InteropTests</AssemblyName>
     <ReleaseVersion />
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <SynchReleaseVersion>false</SynchReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -35,6 +36,7 @@
     <Reference Include="nunit.framework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="01_LowLevelAPI\01_InitializeTest.cs" />
     <Compile Include="01_LowLevelAPI\02_GetInfoTest.cs" />
     <Compile Include="01_LowLevelAPI\03_SlotListInfoAndEventTest.cs" />
@@ -91,7 +93,6 @@
     <Compile Include="02_HighLevelAPI\26_LegacyParallelFunctionsTest.cs" />
     <Compile Include="02_HighLevelAPI\27_Helpers.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -99,9 +100,9 @@
     <Folder Include="02_HighLevelAPI\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Pkcs11Interop.Core\Pkcs11Interop.Core.csproj">
+    <ProjectReference Include="..\Pkcs11Interop\Pkcs11Interop.csproj">
       <Project>{2CB08FA0-8B71-4AE9-8734-BAC10804BF4E}</Project>
-      <Name>Pkcs11Interop.Core</Name>
+      <Name>Pkcs11Interop</Name>
     </ProjectReference>
   </ItemGroup>
   <ProjectExtensions>
