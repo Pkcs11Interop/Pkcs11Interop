@@ -40,7 +40,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>Pointer to newly allocated unmanaged zero-filled memory</returns>
         public static IntPtr Allocate(int size)
         {
-            if (size < 1)
+            if (size < 0)
                 throw new ArgumentException("Value has to be positive number", "size");
 
             // Allocate memory and fill it with zeros
@@ -120,7 +120,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI
             if (memory == IntPtr.Zero)
                 throw new ArgumentNullException("memory");
 
-            if (size < 1)
+            if (size < 0)
                 throw new ArgumentException("Value has to be positive number", "size");
 
             byte[] output = new byte[size];
@@ -129,7 +129,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         }
 
         /// <summary>
-        /// CCopies content of unmanaged memory to the newly allocated managed structure
+        /// Copies content of unmanaged memory to the newly allocated managed structure
         /// </summary>
         /// <param name="memory">Memory that should be copied</param>
         /// <param name="structureType">Type of structure that should be created</param>

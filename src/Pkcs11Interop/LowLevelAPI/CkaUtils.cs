@@ -487,7 +487,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         {
             CK_ATTRIBUTE attribute = new CK_ATTRIBUTE();
             attribute.type = type;
-            if ((value != null) && (value.Length > 0))
+            if (value != null)
             {
                 attribute.value = UnmanagedMemory.Allocate(value.Length);
                 UnmanagedMemory.Write(attribute.value, value);
@@ -511,7 +511,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         {
             byte[] value = null;
 
-            if ((attribute.value != IntPtr.Zero) && (attribute.valueLen > 0))
+            if (attribute.value != IntPtr.Zero)
                 value = UnmanagedMemory.Read(attribute.value, (int)attribute.valueLen);
 
             return value;
