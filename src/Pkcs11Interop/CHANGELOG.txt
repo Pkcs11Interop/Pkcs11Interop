@@ -1,3 +1,6 @@
+Pkcs11Interop 1.2 (21.05.2013)
+ - Fix #4: Empty string is supported as a value of object attribute
+
 Pkcs11Interop 1.1 (14.04.2013)
  - Fix #1: HighLevelAPI.Slot.SlotId can be 0
 
