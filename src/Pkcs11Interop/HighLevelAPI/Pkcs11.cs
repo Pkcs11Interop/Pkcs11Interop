@@ -99,6 +99,31 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         }
 
         /// <summary>
+        /// Loads and initializes PCKS#11 library
+        /// </summary>
+        /// <param name="libraryPath">Library name or path</param>
+        /// <param name="useOsLocking">Flag indicating whether PKCS#11 library can use the native operation system threading model for locking. Should be set to true in all multithreaded applications.</param>
+        /// <param name="useGetFunctionList">Flag indicating whether cryptoki function pointers should be acquired via C_GetFunctionList (true) or via platform native function (false)</param>
+        public Pkcs11(string libraryPath, bool useOsLocking, bool useGetFunctionList)
+        {
+            if (libraryPath == null)
+                throw new ArgumentNullException("libraryPath");
+
+            _p11 = new LowLevelAPI.Pkcs11(libraryPath, useGetFunctionList);
+
+            LowLevelAPI.CK_C_INITIALIZE_ARGS initArgs = null;
+            if (useOsLocking)
+            {
+                initArgs = new LowLevelAPI.CK_C_INITIALIZE_ARGS();
+                initArgs.Flags = CKF.CKF_OS_LOCKING_OK;
+            }
+
+            CKR rv = _p11.C_Initialize(initArgs);
+            if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
+                throw new Pkcs11Exception("C_Initialize", rv);
+        }
+
+        /// <summary>
         /// Gets general information about loaded PKCS#11 library
         /// </summary>
         /// <returns>General information about loaded PKCS#11 library</returns>

@@ -95,6 +95,24 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         }
 
         /// <summary>
+        /// Loads PCKS#11 library
+        /// </summary>
+        /// <param name="libraryPath">Library name or path</param>
+        /// <param name="useGetFunctionList">Flag indicating whether cryptoki function pointers should be acquired via C_GetFunctionList (true) or via platform native function (false)</param>
+        public Pkcs11(string libraryPath, bool useGetFunctionList)
+        {
+            if (libraryPath == null)
+                throw new ArgumentNullException("libraryPath");
+
+            _libraryHandle = UnmanagedLibrary.Load(libraryPath);
+
+            if (useGetFunctionList)
+                C_GetFunctionList(out _functionList);
+            else
+                GetFunctionList(out _functionList);
+        }
+
+        /// <summary>
         /// Unloads PKCS#11 library. Called automaticaly when object is being disposed.
         /// </summary>
         private void Release()
@@ -186,6 +204,90 @@ namespace Net.Pkcs11Interop.LowLevelAPI
                 // Set output parameter
                 functionList = (CK_FUNCTION_LIST)UnmanagedMemory.Read(functionListPointer, typeof(CK_FUNCTION_LIST));
             }
+        }
+
+        /// <summary>
+        /// Obtains function pointers for all the Cryptoki API routines in the library
+        /// </summary>
+        /// <param name="functionList">Structure that receives function pointers for all the Cryptoki API routines in the library</param>
+        private void GetFunctionList(out CK_FUNCTION_LIST functionList)
+        {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
+            // Get function pointers for all the Cryptoki API routines in the library
+            CK_FUNCTION_LIST ckFunctionList = new CK_FUNCTION_LIST();
+            ckFunctionList.C_Initialize = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_Initialize");
+            ckFunctionList.C_Finalize = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_Finalize");
+            ckFunctionList.C_GetInfo = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetInfo");
+            ckFunctionList.C_GetFunctionList = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetFunctionList");
+            ckFunctionList.C_GetSlotList = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetSlotList");
+            ckFunctionList.C_GetSlotInfo = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetSlotInfo");
+            ckFunctionList.C_GetTokenInfo = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetTokenInfo");
+            ckFunctionList.C_GetMechanismList = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetMechanismList");
+            ckFunctionList.C_GetMechanismInfo = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetMechanismInfo");
+            ckFunctionList.C_InitToken = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_InitToken");
+            ckFunctionList.C_InitPIN = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_InitPIN");
+            ckFunctionList.C_SetPIN = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_SetPIN");
+            ckFunctionList.C_OpenSession = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_OpenSession");
+            ckFunctionList.C_CloseSession = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_CloseSession");
+            ckFunctionList.C_CloseAllSessions = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_CloseAllSessions");
+            ckFunctionList.C_GetSessionInfo = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetSessionInfo");
+            ckFunctionList.C_GetOperationState = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetOperationState");
+            ckFunctionList.C_SetOperationState = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_SetOperationState");
+            ckFunctionList.C_Login = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_Login");
+            ckFunctionList.C_Logout = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_Logout");
+            ckFunctionList.C_CreateObject = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_CreateObject");
+            ckFunctionList.C_CopyObject = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_CopyObject");
+            ckFunctionList.C_DestroyObject = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_DestroyObject");
+            ckFunctionList.C_GetObjectSize = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetObjectSize");
+            ckFunctionList.C_GetAttributeValue = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetAttributeValue");
+            ckFunctionList.C_SetAttributeValue = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_SetAttributeValue");
+            ckFunctionList.C_FindObjectsInit = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_FindObjectsInit");
+            ckFunctionList.C_FindObjects = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_FindObjects");
+            ckFunctionList.C_FindObjectsFinal = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_FindObjectsFinal");
+            ckFunctionList.C_EncryptInit = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_EncryptInit");
+            ckFunctionList.C_Encrypt = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_Encrypt");
+            ckFunctionList.C_EncryptUpdate = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_EncryptUpdate");
+            ckFunctionList.C_EncryptFinal = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_EncryptFinal");
+            ckFunctionList.C_DecryptInit = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_DecryptInit");
+            ckFunctionList.C_Decrypt = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_Decrypt");
+            ckFunctionList.C_DecryptUpdate = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_DecryptUpdate");
+            ckFunctionList.C_DecryptFinal = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_DecryptFinal");
+            ckFunctionList.C_DigestInit = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_DigestInit");
+            ckFunctionList.C_Digest = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_Digest");
+            ckFunctionList.C_DigestUpdate = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_DigestUpdate");
+            ckFunctionList.C_DigestKey = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_DigestKey");
+            ckFunctionList.C_DigestFinal = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_DigestFinal");
+            ckFunctionList.C_SignInit = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_SignInit");
+            ckFunctionList.C_Sign = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_Sign");
+            ckFunctionList.C_SignUpdate = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_SignUpdate");
+            ckFunctionList.C_SignFinal = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_SignFinal");
+            ckFunctionList.C_SignRecoverInit = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_SignRecoverInit");
+            ckFunctionList.C_SignRecover = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_SignRecover");
+            ckFunctionList.C_VerifyInit = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_VerifyInit");
+            ckFunctionList.C_Verify = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_Verify");
+            ckFunctionList.C_VerifyUpdate = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_VerifyUpdate");
+            ckFunctionList.C_VerifyFinal = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_VerifyFinal");
+            ckFunctionList.C_VerifyRecoverInit = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_VerifyRecoverInit");
+            ckFunctionList.C_VerifyRecover = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_VerifyRecover");
+            ckFunctionList.C_DigestEncryptUpdate = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_DigestEncryptUpdate");
+            ckFunctionList.C_DecryptDigestUpdate = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_DecryptDigestUpdate");
+            ckFunctionList.C_SignEncryptUpdate = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_SignEncryptUpdate");
+            ckFunctionList.C_DecryptVerifyUpdate = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_DecryptVerifyUpdate");
+            ckFunctionList.C_GenerateKey = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GenerateKey");
+            ckFunctionList.C_GenerateKeyPair = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GenerateKeyPair");
+            ckFunctionList.C_WrapKey = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_WrapKey");
+            ckFunctionList.C_UnwrapKey = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_UnwrapKey");
+            ckFunctionList.C_DeriveKey = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_DeriveKey");
+            ckFunctionList.C_SeedRandom = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_SeedRandom");
+            ckFunctionList.C_GenerateRandom = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GenerateRandom");
+            ckFunctionList.C_GetFunctionStatus = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetFunctionStatus");
+            ckFunctionList.C_CancelFunction = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_CancelFunction");
+            ckFunctionList.C_WaitForSlotEvent = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_WaitForSlotEvent");
+
+            // Set output parameter
+            functionList = ckFunctionList;
         }
 
         /// <summary>

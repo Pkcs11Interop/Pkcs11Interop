@@ -96,6 +96,44 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 // Do something interesting
             }
         }
+
+        /// <summary>
+        /// Example for libraries that support C_GetFunctionList()
+        /// </summary>
+        [Test()]
+        public void Pkcs11WithGetFunctionListTest()
+        {
+            // Before an application can perform any cryptographic operations with Cryptoki library 
+            // it has to obtain function pointers for all the Cryptoki API routines present in the library.
+            // This can be done either via C_GetFunctionList() function or via platform specific native 
+            // function - GetProcAddress() on Windows and dlsym() on Unix.
+            // The most simple constructor of Net.Pkcs11Interop.HighLevelAPI.Pkcs11 class uses 
+            // C_GetFunctionList() approach but Pkcs11Interop also provides an alternative constructor 
+            // that can specify which approach should be used.
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, true, true))
+            {
+                // Do something interesting
+            }
+        }
+
+        /// <summary>
+        /// Example for libraries that do not support C_GetFunctionList()
+        /// </summary>
+        [Test()]
+        public void Pkcs11WithoutGetFunctionListTest()
+        {
+            // Before an application can perform any cryptographic operations with Cryptoki library 
+            // it has to obtain function pointers for all the Cryptoki API routines present in the library.
+            // This can be done either via C_GetFunctionList() function or via platform specific native 
+            // function - GetProcAddress() on Windows and dlsym() on Unix.
+            // The most simple constructor of Net.Pkcs11Interop.HighLevelAPI.Pkcs11 class uses 
+            // C_GetFunctionList() approach but Pkcs11Interop also provides an alternative constructor 
+            // that can specify which approach should be used.
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, true, false))
+            {
+                // Do something interesting
+            }
+        }
     }
 }
 
