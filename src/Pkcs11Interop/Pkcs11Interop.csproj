@@ -179,6 +179,7 @@
     <Compile Include="HighLevelAPI\MechanismParams\CkX942Dh1DeriveParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkX942Dh2DeriveParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkX942MqvDeriveParams.cs" />
+    <Compile Include="LowLevelAPI\CK_FUNCTION_LIST_UNIX.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
