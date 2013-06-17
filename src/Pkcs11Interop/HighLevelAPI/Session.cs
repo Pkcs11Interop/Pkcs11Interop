@@ -427,6 +427,30 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (attributes.Count < 1)
                 throw new ArgumentException("No attributes specified", "attributes");
 
+            List<uint> uintAttributes = new List<uint>();
+            foreach (CKA attribute in attributes)
+                uintAttributes.Add((uint)attribute);
+
+            return GetAttributeValue(objectHandle, uintAttributes);
+        }
+
+        /// <summary>
+        /// Obtains the value of one or more attributes of an object
+        /// </summary>
+        /// <param name="objectHandle">Handle of object whose attributes should be read</param>
+        /// <param name="attributes">List of attributes that should be read</param>
+        /// <returns>Object attributes</returns>
+        public List<ObjectAttribute> GetAttributeValue(ObjectHandle objectHandle, List<uint> attributes)
+        {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
+            if (attributes == null)
+                throw new ArgumentNullException("attributes");
+
+            if (attributes.Count < 1)
+                throw new ArgumentException("No attributes specified", "attributes");
+
             // Prepare array of CK_ATTRIBUTEs
             LowLevelAPI.CK_ATTRIBUTE[] template = new LowLevelAPI.CK_ATTRIBUTE[attributes.Count];
             for (int i = 0; i < attributes.Count; i++)
@@ -458,6 +482,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
 
             return outAttributes;
         }
+
 
         /// <summary>
         /// Modifies the value of one or more attributes of an object
