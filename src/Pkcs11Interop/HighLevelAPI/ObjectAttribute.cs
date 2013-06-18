@@ -296,12 +296,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Reads value of attribute and returns it as DateTime
         /// </summary>
         /// <returns>Value of attribute</returns>
-        public DateTime GetValueAsDateTime()
+        public DateTime? GetValueAsDateTime()
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            DateTime value = DateTime.UtcNow;
+            DateTime? value = null;
             LowLevelAPI.CkaUtils.ConvertValue(ref _ckAttribute, out value);
             return value;
         }

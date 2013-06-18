@@ -178,7 +178,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI
             Assert.IsTrue(attr.value != IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 8);
             
-            DateTime recoveredValue = DateTime.UtcNow;
+            DateTime? recoveredValue = null;
             // Read the value of attribute
             CkaUtils.ConvertValue(ref attr, out recoveredValue);
             Assert.IsTrue(originalValue == recoveredValue);

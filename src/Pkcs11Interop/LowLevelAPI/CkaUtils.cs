@@ -216,6 +216,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>Attribute of given type with DateTime value</returns>
         public static CK_ATTRIBUTE CreateAttribute(CKA type, DateTime value)
         {
+            // Possible TODO - Implement with nullable DateTime
+
             return CreateAttribute((uint)type, value);
         }
 
@@ -227,6 +229,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// <returns>Attribute of given type with DateTime value</returns>
         public static CK_ATTRIBUTE CreateAttribute(uint type, DateTime value)
         {
+            // Possible TODO - Implement with nullable DateTime
+
             byte[] year = ConvertUtils.Utf8StringToBytes(value.Date.Year.ToString());
             byte[] month = (value.Date.Month < 10) ? ConvertUtils.Utf8StringToBytes("0" + value.Date.Month.ToString()) : ConvertUtils.Utf8StringToBytes(value.Date.Month.ToString());
             byte[] day = (value.Date.Day < 10) ? ConvertUtils.Utf8StringToBytes("0" + value.Date.Day.ToString()) : ConvertUtils.Utf8StringToBytes(value.Date.Day.ToString());
@@ -244,15 +248,33 @@ namespace Net.Pkcs11Interop.LowLevelAPI
         /// </summary>
         /// <param name="attribute">Attribute whose value should be read</param>
         /// <param name="value">Location that receives attribute value</param>
-        public static void ConvertValue(ref CK_ATTRIBUTE attribute, out DateTime value)
+        public static void ConvertValue(ref CK_ATTRIBUTE attribute, out DateTime? value)
         {
             byte[] bytes = ConvertValue(ref attribute);
+
+            if (bytes.Length == 0)
+            {
+                // PKCS #11 V2.20: When a Cryptoki object carries an attribute of this type, and the default value of the
+                // attribute is specified to be "empty," then Cryptoki libraries shall set the attribute's ulValueLen to 0.
+                value = null;
+                return;
+            }
+
             if ((bytes == null) || (bytes.Length != 8))
                 throw new Pkcs11InteropException("Unable to convert attribute value to DateTime");
 
             string year = ConvertUtils.BytesToUtf8String(bytes, 0, 4);
             string month = ConvertUtils.BytesToUtf8String(bytes, 4, 2);
             string day = ConvertUtils.BytesToUtf8String(bytes, 6, 2);
+
+            if ((year == "0000") && (month == "00") && (day == "00"))
+            {
+                // PKCS #11 V2.20: Note that implementations of previous versions of Cryptoki may have used other
+                // methods to identify an "empty" attribute of type CK_DATE, and that applications that needs to
+                // interoperate with these libraries therefore have to be flexible in what they accept as an empty value.
+                value = null;
+                return;
+            }
 
             value = new DateTime(Int32.Parse(year), Int32.Parse(month), Int32.Parse(day), 0, 0, 0, DateTimeKind.Utc);
         }
