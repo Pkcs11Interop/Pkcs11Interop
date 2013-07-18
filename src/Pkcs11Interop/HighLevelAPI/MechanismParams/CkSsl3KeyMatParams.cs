@@ -142,6 +142,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (disposing)
                 {
                     // Dispose managed objects
+                    if (_returnedKeyMaterial != null)
+                    {
+                        _returnedKeyMaterial.Dispose();
+                        _returnedKeyMaterial = null;
+                    }
                 }
                 
                 // Dispose unmanaged objects
