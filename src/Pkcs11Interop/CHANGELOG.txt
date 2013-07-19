@@ -1,3 +1,10 @@
+Pkcs11Interop 1.3 (20.07.2013)
+ - Supports C_GetFunctionList() on Linux and OS X
+ - Supports also libraries without C_GetFunctionList()
+ - GetAttributeValue() can process also List<uint>
+ - Supports reading of CK_DATE attributes with an empty value
+ - Correctly disposes returned SSL and WTLS key material
+
 Pkcs11Interop 1.2 (21.05.2013)
  - Fix #4: Empty string is supported as a value of object attribute
 

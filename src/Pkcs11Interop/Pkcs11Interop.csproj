@@ -186,6 +186,7 @@
     <None Include="LICENSE.txt" />
     <None Include="app.config" />
     <None Include="CHANGELOG.txt" />
+    <None Include="ISSUES.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="HighLevelAPI\" />
