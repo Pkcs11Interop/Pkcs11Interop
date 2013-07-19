@@ -9,7 +9,6 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-		Default|Any CPU = Default|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2CB08FA0-8B71-4AE9-8734-BAC10804BF4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -18,8 +17,6 @@ Global
 		{2CB08FA0-8B71-4AE9-8734-BAC10804BF4E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CD7CCC02-3914-403A-BECB-9F1D5524727C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CD7CCC02-3914-403A-BECB-9F1D5524727C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CD7CCC02-3914-403A-BECB-9F1D5524727C}.Default|Any CPU.ActiveCfg = Debug|Any CPU
-		{CD7CCC02-3914-403A-BECB-9F1D5524727C}.Default|Any CPU.Build.0 = Debug|Any CPU
 		{CD7CCC02-3914-403A-BECB-9F1D5524727C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD7CCC02-3914-403A-BECB-9F1D5524727C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
@@ -52,6 +49,8 @@ Global
 		$3.inheritsSet = Mono
 		$3.inheritsScope = text/x-csharp
 		$3.scope = text/x-csharp
+		$0.VersionControlPolicy = $4
+		$4.inheritsSet = Mono
 		version = 
 	EndGlobalSection
 EndGlobal

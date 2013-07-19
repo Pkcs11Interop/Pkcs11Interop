@@ -1,0 +1,7 @@
+ - May not work with some libraries on 64-bit Linux
+ - Reading value of CKA_WRAP_TEMPLATE and CKA_UNWRAP_TEMPLATE attributes 
+   is supported only in LowLevelAPI
+ - Locking related types CK_CREATEMUTEX, CK_DESTROYMUTEX, CK_LOCKMUTEX 
+   and CK_UNLOCKMUTEX are not supported, but native OS threading model 
+   (CKF_OS_LOCKING_OK) can be used without any problems
+ - CK_NOTIFY notification callbacks are not supported
