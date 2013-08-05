@@ -64,10 +64,11 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI
                     Assert.Fail(rv.ToString());
 
                 // Prepare attribute template of new key
-                CK_ATTRIBUTE[] template = new CK_ATTRIBUTE[3];
+                CK_ATTRIBUTE[] template = new CK_ATTRIBUTE[4];
                 template[0] = CkaUtils.CreateAttribute(CKA.CKA_CLASS, (uint)CKO.CKO_SECRET_KEY);
-                template[1] = CkaUtils.CreateAttribute(CKA.CKA_ENCRYPT, true);
-                template[2] = CkaUtils.CreateAttribute(CKA.CKA_DECRYPT, true);
+                template[1] = CkaUtils.CreateAttribute(CKA.CKA_KEY_TYPE, (uint)CKK.CKK_DES3);
+                template[2] = CkaUtils.CreateAttribute(CKA.CKA_ENCRYPT, true);
+                template[3] = CkaUtils.CreateAttribute(CKA.CKA_DECRYPT, true);
 
                 // Specify key generation mechanism (needs no parameter => no unamanaged memory is needed)
                 CK_MECHANISM mechanism = CkmUtils.CreateMechanism(CKM.CKM_DES3_KEY_GEN);

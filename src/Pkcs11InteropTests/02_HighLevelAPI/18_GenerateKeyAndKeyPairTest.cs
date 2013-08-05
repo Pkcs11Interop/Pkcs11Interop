@@ -57,6 +57,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     // Prepare attribute template of new key
                     List<ObjectAttribute> objectAttributes = new List<ObjectAttribute>();
                     objectAttributes.Add(new ObjectAttribute(CKA.CKA_CLASS, (uint)CKO.CKO_SECRET_KEY));
+                    objectAttributes.Add(new ObjectAttribute(CKA.CKA_KEY_TYPE, (uint)CKK.CKK_DES3));
                     objectAttributes.Add(new ObjectAttribute(CKA.CKA_ENCRYPT, true));
                     objectAttributes.Add(new ObjectAttribute(CKA.CKA_DECRYPT, true));
 
