@@ -2,3 +2,5 @@
 [Oo]bj/
 *.userprefs
 test-results/
+*.suo
+*.user
