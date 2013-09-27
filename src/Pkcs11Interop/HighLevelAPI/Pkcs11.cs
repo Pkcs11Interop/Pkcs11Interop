@@ -1,26 +1,16 @@
 ﻿/*
- *  Pkcs11Interop - Open-source .NET wrapper for unmanaged PKCS#11 libraries
- *  Copyright (c) 2012-2013 JWC s.r.o.
- *  Author: Jaroslav Imrich
+ *  Pkcs11Interop - Managed .NET wrapper for unmanaged PKCS#11 libraries
+ *  Copyright (c) 2012-2013 JWC s.r.o. <http://www.jwc.sk>
+ *  Author: Jaroslav Imrich <jimrich@jimrich.sk>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License version 3
- *  as published by the Free Software Foundation.
+ *  Licensing for open source projects:
+ *  Pkcs11Interop is available under the terms of the GNU Affero General 
+ *  Public License version 3 as published by the Free Software Foundation.
+ *  Please see <http://www.gnu.org/licenses/agpl-3.0.html> for more details.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU Affero General Public License for more details.
- *
- *  You should have received a copy of the GNU Affero General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
- *  You can be released from the requirements of the license by purchasing
- *  a commercial license. Buying such a license is mandatory as soon as you
- *  develop commercial activities involving the Pkcs11Interop software without
- *  disclosing the source code of your own applications.
- * 
- *  For more information, please contact JWC s.r.o. at info@pkcs11interop.net
+ *  Licensing for other types of projects:
+ *  Pkcs11Interop is available under the terms of flexible commercial license.
+ *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
 using System;
@@ -29,36 +19,6 @@ using Net.Pkcs11Interop.Common;
 
 namespace Net.Pkcs11Interop.HighLevelAPI
 {
-    /*!
-     * \example 02_HighLevelAPI/01_InitializeTest.cs
-     * \example 02_HighLevelAPI/02_GetInfoTest.cs
-     * \example 02_HighLevelAPI/03_SlotListInfoAndEventTest.cs
-     * \example 02_HighLevelAPI/04_TokenInfoTest.cs
-     * \example 02_HighLevelAPI/05_MechanismListAndInfoTest.cs
-     * \example 02_HighLevelAPI/06_SessionTest.cs
-     * \example 02_HighLevelAPI/07_OperationStateTest.cs
-     * \example 02_HighLevelAPI/08_LoginTest.cs
-     * \example 02_HighLevelAPI/09_InitTokenAndPinTest.cs
-     * \example 02_HighLevelAPI/10_SetPinTest.cs
-     * \example 02_HighLevelAPI/11_SeedAndGenerateRandomTest.cs
-     * \example 02_HighLevelAPI/12_DigestTest.cs
-     * \example 02_HighLevelAPI/13_ObjectAttributeTest.cs
-     * \example 02_HighLevelAPI/14_MechanismTest.cs
-     * \example 02_HighLevelAPI/15_CreateCopyDestroyObjectTest.cs
-     * \example 02_HighLevelAPI/16_GetAndSetAttributeValueTest.cs
-     * \example 02_HighLevelAPI/17_ObjectFindingTest.cs
-     * \example 02_HighLevelAPI/18_GenerateKeyAndKeyPairTest.cs
-     * \example 02_HighLevelAPI/19_EncryptAndDecryptTest.cs
-     * \example 02_HighLevelAPI/20_SignAndVerifyTest.cs
-     * \example 02_HighLevelAPI/21_SignAndVerifyRecoverTest.cs
-     * \example 02_HighLevelAPI/22_DigestEncryptAndDecryptDigestTest.cs
-     * \example 02_HighLevelAPI/23_SignEncryptAndDecryptVerifyTest.cs
-     * \example 02_HighLevelAPI/24_WrapAndUnwrapKeyTest.cs
-     * \example 02_HighLevelAPI/25_DeriveKeyTest.cs
-     * \example 02_HighLevelAPI/26_LegacyParallelFunctionsTest.cs
-     * \example 02_HighLevelAPI/27_Helpers.cs
-     */
-
     /// <summary>
     /// High level PKCS#11 wrapper
     /// </summary>
@@ -70,9 +30,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         private bool _disposed = false;
 
         /// <summary>
-        /// Low level PKCS#11 wrapper
+        /// Platform specific high level PKCS#11 wrapper
         /// </summary>
-        private LowLevelAPI.Pkcs11 _p11 = null;
+        private HighLevelAPI4.Pkcs11 _p11_4 = null;
+
+        /// <summary>
+        /// Platform specific high level PKCS#11 wrapper
+        /// </summary>
+        private HighLevelAPI8.Pkcs11 _p11_8 = null;
 
         /// <summary>
         /// Loads and initializes PCKS#11 library
@@ -84,18 +49,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (libraryPath == null)
                 throw new ArgumentNullException("libraryPath");
 
-            _p11 = new LowLevelAPI.Pkcs11(libraryPath);
-
-            LowLevelAPI.CK_C_INITIALIZE_ARGS initArgs = null;
-            if (useOsLocking)
-            {
-                initArgs = new LowLevelAPI.CK_C_INITIALIZE_ARGS();
-                initArgs.Flags = CKF.CKF_OS_LOCKING_OK;
-            }
-
-            CKR rv = _p11.C_Initialize(initArgs);
-            if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
-                throw new Pkcs11Exception("C_Initialize", rv);
+            if (UnmanagedLong.Size == 4)
+                _p11_4 = new HighLevelAPI4.Pkcs11(libraryPath, useOsLocking);
+            else
+                _p11_8 = new HighLevelAPI8.Pkcs11(libraryPath, useOsLocking);
         }
 
         /// <summary>
@@ -109,18 +66,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (libraryPath == null)
                 throw new ArgumentNullException("libraryPath");
 
-            _p11 = new LowLevelAPI.Pkcs11(libraryPath, useGetFunctionList);
-
-            LowLevelAPI.CK_C_INITIALIZE_ARGS initArgs = null;
-            if (useOsLocking)
-            {
-                initArgs = new LowLevelAPI.CK_C_INITIALIZE_ARGS();
-                initArgs.Flags = CKF.CKF_OS_LOCKING_OK;
-            }
-
-            CKR rv = _p11.C_Initialize(initArgs);
-            if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
-                throw new Pkcs11Exception("C_Initialize", rv);
+            if (UnmanagedLong.Size == 4)
+                _p11_4 = new HighLevelAPI4.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
+            else
+                _p11_8 = new HighLevelAPI8.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
         }
 
         /// <summary>
@@ -132,12 +81,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            LowLevelAPI.CK_INFO info = new LowLevelAPI.CK_INFO();
-            CKR rv = _p11.C_GetInfo(ref info);
-            if (rv != CKR.CKR_OK)
-                throw new Pkcs11Exception("C_GetInfo", rv);
-
-            return new LibraryInfo(info);
+            if (UnmanagedLong.Size == 4)
+            {
+                HighLevelAPI4.LibraryInfo hlaLibraryInfo = _p11_4.GetInfo();
+                return new LibraryInfo(hlaLibraryInfo);
+            }
+            else
+            {
+                HighLevelAPI8.LibraryInfo hlaLibraryInfo = _p11_8.GetInfo();
+                return new LibraryInfo(hlaLibraryInfo);
+            }
         }
 
         /// <summary>
@@ -150,24 +103,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            uint slotCount = 0;
-            CKR rv = _p11.C_GetSlotList(tokenPresent, null, ref slotCount);
-            if (rv != CKR.CKR_OK)
-                throw new Pkcs11Exception("C_GetSlotList", rv);
-
-            uint[] slotList = new uint[slotCount];
-            rv = _p11.C_GetSlotList(tokenPresent, slotList, ref slotCount);
-            if (rv != CKR.CKR_OK)
-                throw new Pkcs11Exception("C_GetSlotList", rv);
-
-            if (slotList.Length != slotCount)
-                Array.Resize(ref slotList, (int)slotCount);
-
-            List<Slot> list = new List<Slot>();
-            foreach (uint slot in slotList)
-                list.Add(new Slot(_p11, slot));
-
-            return list;
+            if (UnmanagedLong.Size == 4)
+            {
+                List<HighLevelAPI4.Slot> hlaSlotList = _p11_4.GetSlotList(tokenPresent);
+                List<Slot> slotList = new List<Slot>();
+                foreach (HighLevelAPI4.Slot hlaSlot in hlaSlotList)
+                    slotList.Add(new Slot(hlaSlot));
+                return slotList;
+            }
+            else
+            {
+                List<HighLevelAPI8.Slot> hlaSlotList = _p11_8.GetSlotList(tokenPresent);
+                List<Slot> slotList = new List<Slot>();
+                foreach (HighLevelAPI8.Slot hlaSlot in hlaSlotList)
+                    slotList.Add(new Slot(hlaSlot));
+                return slotList;
+            }
         }
 
         /// <summary>
@@ -176,43 +127,20 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="dontBlock">Flag indicating that method should not block until an event occurs - it should return immediately instead. See PKCS#11 standard for full explanation.</param>
         /// <param name="eventOccured">Flag indicating whether event occured</param>
         /// <param name="slotId">PKCS#11 handle of slot that the event occurred in</param>
-        public void WaitForSlotEvent(bool dontBlock, out bool eventOccured, out uint slotId)
+        public void WaitForSlotEvent(bool dontBlock, out bool eventOccured, out ulong slotId)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            uint flags = (dontBlock) ? CKF.CKF_DONT_BLOCK : 0;
-
-            uint slotId_ = 0;
-            CKR rv = _p11.C_WaitForSlotEvent(flags, ref slotId_, IntPtr.Zero);
-            if (dontBlock)
+            if (UnmanagedLong.Size == 4)
             {
-                if (rv == CKR.CKR_OK)
-                {
-                    eventOccured = true;
-                    slotId = slotId_;
-                }
-                else if (rv == CKR.CKR_NO_EVENT)
-                {
-                    eventOccured = false;
-                    slotId = slotId_;
-                }
-                else
-                {
-                    throw new Pkcs11Exception("C_WaitForSlotEvent", rv);
-                }
+                uint uintSlotId = CK.CK_INVALID_HANDLE;
+                _p11_4.WaitForSlotEvent(dontBlock, out eventOccured, out uintSlotId);
+                slotId = uintSlotId;
             }
             else
             {
-                if (rv == CKR.CKR_OK)
-                {
-                    eventOccured = true;
-                    slotId = slotId_;
-                }
-                else
-                {
-                    throw new Pkcs11Exception("C_WaitForSlotEvent", rv);
-                }
+                _p11_8.WaitForSlotEvent(dontBlock, out eventOccured, out slotId);
             }
         }
 
@@ -238,11 +166,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                 if (disposing)
                 {
                     // Dispose managed objects
-                    if (_p11 != null)
+                    if (_p11_4 != null)
                     {
-                        _p11.C_Finalize(IntPtr.Zero);
-                        _p11.Dispose();
-                        _p11 = null;
+                        _p11_4.Dispose();
+                        _p11_4 = null;
+                    }
+
+                    if (_p11_8 != null)
+                    {
+                        _p11_8.Dispose();
+                        _p11_8 = null;
                     }
                 }
 

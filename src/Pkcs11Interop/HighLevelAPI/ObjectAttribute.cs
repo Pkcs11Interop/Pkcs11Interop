@@ -1,31 +1,20 @@
 ﻿/*
- *  Pkcs11Interop - Open-source .NET wrapper for unmanaged PKCS#11 libraries
- *  Copyright (c) 2012-2013 JWC s.r.o.
- *  Author: Jaroslav Imrich
+ *  Pkcs11Interop - Managed .NET wrapper for unmanaged PKCS#11 libraries
+ *  Copyright (c) 2012-2013 JWC s.r.o. <http://www.jwc.sk>
+ *  Author: Jaroslav Imrich <jimrich@jimrich.sk>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License version 3
- *  as published by the Free Software Foundation.
+ *  Licensing for open source projects:
+ *  Pkcs11Interop is available under the terms of the GNU Affero General 
+ *  Public License version 3 as published by the Free Software Foundation.
+ *  Please see <http://www.gnu.org/licenses/agpl-3.0.html> for more details.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU Affero General Public License for more details.
- *
- *  You should have received a copy of the GNU Affero General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
- *  You can be released from the requirements of the license by purchasing
- *  a commercial license. Buying such a license is mandatory as soon as you
- *  develop commercial activities involving the Pkcs11Interop software without
- *  disclosing the source code of your own applications.
- * 
- *  For more information, please contact JWC s.r.o. at info@pkcs11interop.net
+ *  Licensing for other types of projects:
+ *  Pkcs11Interop is available under the terms of flexible commercial license.
+ *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Net.Pkcs11Interop.Common;
 
 namespace Net.Pkcs11Interop.HighLevelAPI
@@ -41,35 +30,54 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         private bool _disposed = false;
 
         /// <summary>
-        /// Low level attribute structure
+        /// Platform specific ObjectAttribute
         /// </summary>
-        private LowLevelAPI.CK_ATTRIBUTE _ckAttribute;
+        private HighLevelAPI4.ObjectAttribute _objectAttribute4 = null;
 
         /// <summary>
-        /// Low level attribute structure
+        /// Platform specific ObjectAttribute
         /// </summary>
-        internal LowLevelAPI.CK_ATTRIBUTE CkAttribute
+        internal HighLevelAPI4.ObjectAttribute ObjectAttribute4
         {
             get
             {
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return _ckAttribute;
+                return _objectAttribute4;
+            }
+        }
+
+        /// <summary>
+        /// Platform specific ObjectAttribute
+        /// </summary>
+        private HighLevelAPI8.ObjectAttribute _objectAttribute8 = null;
+
+        /// <summary>
+        /// Platform specific ObjectAttribute
+        /// </summary>
+        internal HighLevelAPI8.ObjectAttribute ObjectAttribute8
+        {
+            get
+            {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
+                return _objectAttribute8;
             }
         }
 
         /// <summary>
         /// Attribute type
         /// </summary>
-        public uint Type
+        public ulong Type
         {
             get
             {
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return _ckAttribute.type;
+                return (UnmanagedLong.Size == 4) ? _objectAttribute4.Type : _objectAttribute8.Type;
             }
         }
 
@@ -83,17 +91,32 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return ((int)_ckAttribute.valueLen == -1);
+                return (UnmanagedLong.Size == 4) ? _objectAttribute4.CannotBeRead : _objectAttribute8.CannotBeRead;
             }
         }
 
         /// <summary>
-        /// Creates attribute defined by low level CK_ATTRIBUTE structure
+        /// Converts platform specific ObjectAttribute to platfrom neutral ObjectAttribute
         /// </summary>
-        /// <param name="attribute">CK_ATTRIBUTE structure</param>
-        internal ObjectAttribute(LowLevelAPI.CK_ATTRIBUTE attribute)
+        /// <param name="objectAttribute">Platform specific ObjectAttribute</param>
+        internal ObjectAttribute(HighLevelAPI4.ObjectAttribute objectAttribute)
         {
-            _ckAttribute = attribute;
+            if (objectAttribute == null)
+                throw new ArgumentNullException("objectAttribute");
+
+            _objectAttribute4 = objectAttribute;
+        }
+
+        /// <summary>
+        /// Converts platform specific ObjectAttribute to platfrom neutral ObjectAttribute
+        /// </summary>
+        /// <param name="objectAttribute">Platform specific ObjectAttribute</param>
+        internal ObjectAttribute(HighLevelAPI8.ObjectAttribute objectAttribute)
+        {
+            if (objectAttribute == null)
+                throw new ArgumentNullException("objectAttribute");
+
+            _objectAttribute8 = objectAttribute;
         }
 
         #region Attribute with no value
@@ -102,9 +125,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Creates attribute of given type with no value
         /// </summary>
         /// <param name="type">Attribute type</param>
-        public ObjectAttribute(uint type)
+        public ObjectAttribute(ulong type)
         {
-            _ckAttribute = LowLevelAPI.CkaUtils.CreateAttribute(type);
+            if (UnmanagedLong.Size == 4)
+                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type));
+            else
+                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type);
         }
 
         /// <summary>
@@ -113,45 +139,94 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="type">Attribute type</param>
         public ObjectAttribute(CKA type)
         {
-            _ckAttribute = LowLevelAPI.CkaUtils.CreateAttribute(type);
+            if (UnmanagedLong.Size == 4)
+                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type);
+            else
+                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type);
         }
 
         #endregion
 
-        #region Attribute with uint value
+        #region Attribute with ulong value
 
         /// <summary>
-        /// Creates attribute of given type with uint value
+        /// Creates attribute of given type with ulong value
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(uint type, uint value)
+        public ObjectAttribute(ulong type, ulong value)
         {
-            _ckAttribute = LowLevelAPI.CkaUtils.CreateAttribute(type, value);
+            if (UnmanagedLong.Size == 4)
+                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type), Convert.ToUInt32(value));
+            else
+                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
 
         /// <summary>
-        /// Creates attribute of given type with uint value
+        /// Creates attribute of given type with ulong value
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(CKA type, uint value)
+        public ObjectAttribute(CKA type, ulong value)
         {
-            _ckAttribute = LowLevelAPI.CkaUtils.CreateAttribute(type, value);
+            if (UnmanagedLong.Size == 4)
+                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, Convert.ToUInt32(value));
+            else
+                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
 
         /// <summary>
-        /// Reads value of attribute and returns it as uint
+        /// Creates attribute of given type with CKC value
+        /// </summary>
+        /// <param name="type">Attribute type</param>
+        /// <param name="value">Attribute value</param>
+        public ObjectAttribute(CKA type, CKC value)
+        {
+            if (UnmanagedLong.Size == 4)
+                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, value);
+            else
+                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
+        }
+
+        /// <summary>
+        /// Creates attribute of given type with CKK value
+        /// </summary>
+        /// <param name="type">Attribute type</param>
+        /// <param name="value">Attribute value</param>
+        public ObjectAttribute(CKA type, CKK value)
+        {
+            if (UnmanagedLong.Size == 4)
+                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, value);
+            else
+                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
+        }
+
+        /// <summary>
+        /// Creates attribute of given type with CKO value
+        /// </summary>
+        /// <param name="type">Attribute type</param>
+        /// <param name="value">Attribute value</param>
+        public ObjectAttribute(CKA type, CKO value)
+        {
+            if (UnmanagedLong.Size == 4)
+                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, value);
+            else
+                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
+        }
+
+        /// <summary>
+        /// Reads value of attribute and returns it as ulong
         /// </summary>
         /// <returns>Value of attribute</returns>
-        public uint GetValueAsUint()
+        public ulong GetValueAsUlong()
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            uint value = 0;
-            LowLevelAPI.CkaUtils.ConvertValue(ref _ckAttribute, out value);
-            return value;
+            if (UnmanagedLong.Size == 4)
+                return _objectAttribute4.GetValueAsUint();
+            else
+                return _objectAttribute8.GetValueAsUlong();
         }
 
         #endregion
@@ -163,9 +238,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(uint type, bool value)
+        public ObjectAttribute(ulong type, bool value)
         {
-            _ckAttribute = LowLevelAPI.CkaUtils.CreateAttribute(type, value);
+            if (UnmanagedLong.Size == 4)
+                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type), value);
+            else
+                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
 
         /// <summary>
@@ -175,7 +253,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, bool value)
         {
-            _ckAttribute = LowLevelAPI.CkaUtils.CreateAttribute(type, value);
+            if (UnmanagedLong.Size == 4)
+                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, value);
+            else
+                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
 
         /// <summary>
@@ -187,9 +268,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            bool value = false;
-            LowLevelAPI.CkaUtils.ConvertValue(ref _ckAttribute, out value);
-            return value;
+            if (UnmanagedLong.Size == 4)
+                return _objectAttribute4.GetValueAsBool();
+            else
+                return _objectAttribute8.GetValueAsBool();
         }
 
         #endregion
@@ -201,9 +283,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(uint type, string value)
+        public ObjectAttribute(ulong type, string value)
         {
-            _ckAttribute = LowLevelAPI.CkaUtils.CreateAttribute(type, value);
+            if (UnmanagedLong.Size == 4)
+                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type), value);
+            else
+                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
 
         /// <summary>
@@ -213,7 +298,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, string value)
         {
-            _ckAttribute = LowLevelAPI.CkaUtils.CreateAttribute(type, value);
+            if (UnmanagedLong.Size == 4)
+                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, value);
+            else
+                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
 
         /// <summary>
@@ -225,9 +313,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            string value = null;
-            LowLevelAPI.CkaUtils.ConvertValue(ref _ckAttribute, out value);
-            return value;
+            if (UnmanagedLong.Size == 4)
+                return _objectAttribute4.GetValueAsString();
+            else
+                return _objectAttribute8.GetValueAsString();
         }
 
         #endregion
@@ -239,9 +328,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(uint type, byte[] value)
+        public ObjectAttribute(ulong type, byte[] value)
         {
-            _ckAttribute = LowLevelAPI.CkaUtils.CreateAttribute(type, value);
+            if (UnmanagedLong.Size == 4)
+                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type), value);
+            else
+                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
 
         /// <summary>
@@ -251,7 +343,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, byte[] value)
         {
-            _ckAttribute = LowLevelAPI.CkaUtils.CreateAttribute(type, value);
+            if (UnmanagedLong.Size == 4)
+                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, value);
+            else
+                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
 
         /// <summary>
@@ -263,9 +358,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            byte[] value = null;
-            LowLevelAPI.CkaUtils.ConvertValue(ref _ckAttribute, out value);
-            return value;
+            if (UnmanagedLong.Size == 4)
+                return _objectAttribute4.GetValueAsByteArray();
+            else
+                return _objectAttribute8.GetValueAsByteArray();
         }
 
         #endregion
@@ -277,9 +373,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(uint type, DateTime value)
+        public ObjectAttribute(ulong type, DateTime value)
         {
-            _ckAttribute = LowLevelAPI.CkaUtils.CreateAttribute(type, value);
+            if (UnmanagedLong.Size == 4)
+                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type), value);
+            else
+                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
 
         /// <summary>
@@ -289,7 +388,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, DateTime value)
         {
-            _ckAttribute = LowLevelAPI.CkaUtils.CreateAttribute(type, value);
+            if (UnmanagedLong.Size == 4)
+                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, value);
+            else
+                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
 
         /// <summary>
@@ -301,9 +403,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            DateTime? value = null;
-            LowLevelAPI.CkaUtils.ConvertValue(ref _ckAttribute, out value);
-            return value;
+            if (UnmanagedLong.Size == 4)
+                return _objectAttribute4.GetValueAsDateTime();
+            else
+                return _objectAttribute8.GetValueAsDateTime();
         }
 
         #endregion
@@ -315,19 +418,18 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(uint type, List<ObjectAttribute> value)
+        public ObjectAttribute(ulong type, List<ObjectAttribute> value)
         {
-            LowLevelAPI.CK_ATTRIBUTE[] attributes = null;
-
-            if (value != null)
+            if (UnmanagedLong.Size == 4)
             {
-                attributes = new LowLevelAPI.CK_ATTRIBUTE[value.Count];
-                for (int i = 0; i < value.Count; i++)
-                    attributes[i] = value[i].CkAttribute;
+                List<HighLevelAPI4.ObjectAttribute> attributes = ConvertToHighLevelAPI4List(value);
+                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type), attributes);
             }
-
-            // Note: Each attribute in the input list still owns unmanaged memory used by its value and will free it when disposed.
-            _ckAttribute = LowLevelAPI.CkaUtils.CreateAttribute(type, attributes);
+            else
+            {
+                List<HighLevelAPI8.ObjectAttribute> attributes = ConvertToHighLevelAPI8List(value);
+                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, attributes);
+            }
         }
 
         /// <summary>
@@ -337,17 +439,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, List<ObjectAttribute> value)
         {
-            LowLevelAPI.CK_ATTRIBUTE[] attributes = null;
-            
-            if (value != null)
+            if (UnmanagedLong.Size == 4)
             {
-                attributes = new LowLevelAPI.CK_ATTRIBUTE[value.Count];
-                for (int i = 0; i < value.Count; i++)
-                    attributes[i] = value[i].CkAttribute;
+                List<HighLevelAPI4.ObjectAttribute> attributes = ConvertToHighLevelAPI4List(value);
+                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, attributes);
             }
-
-            // Note: Each attribute in the input list still owns unmanaged memory used by its value and will free it when disposed.
-            _ckAttribute = LowLevelAPI.CkaUtils.CreateAttribute(type, attributes);
+            else
+            {
+                List<HighLevelAPI8.ObjectAttribute> attributes = ConvertToHighLevelAPI8List(value);
+                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, attributes);
+            }
         }
 
         /// <summary>
@@ -362,50 +463,88 @@ namespace Net.Pkcs11Interop.HighLevelAPI
 
         #endregion
 
-        #region Attribute with uint array value
+        #region Attribute with ulong array value
 
         /// <summary>
-        /// Creates attribute of given type with uint array value
+        /// Creates attribute of given type with ulong array value
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(uint type, List<uint> value)
+        public ObjectAttribute(ulong type, List<ulong> value)
         {
-            uint[] uints = null;
-            
-            if (value != null)
-                uints = value.ToArray();
-            
-            _ckAttribute = LowLevelAPI.CkaUtils.CreateAttribute(type, uints);
+            if (UnmanagedLong.Size == 4)
+            {
+                List<uint> uintList = null;
+
+                if (value != null)
+                {
+                    uintList = new List<uint>();
+                    for (int i = 0; i < value.Count; i++)
+                        uintList.Add(Convert.ToUInt32(value[i]));
+                }
+
+                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type), uintList);
+            }
+            else
+            {
+                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
+            }
         }
 
         /// <summary>
-        /// Creates attribute of given type with uint array value
+        /// Creates attribute of given type with ulong array value
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(CKA type, List<uint> value)
+        public ObjectAttribute(CKA type, List<ulong> value)
         {
-            uint[] uints = null;
+            if (UnmanagedLong.Size == 4)
+            {
+                List<uint> uintList = null;
 
-            if (value != null)
-                uints = value.ToArray();
-            
-            _ckAttribute = LowLevelAPI.CkaUtils.CreateAttribute(type, uints);
+                if (value != null)
+                {
+                    uintList = new List<uint>();
+                    for (int i = 0; i < value.Count; i++)
+                        uintList.Add(Convert.ToUInt32(value[i]));
+                }
+
+                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, uintList);
+            }
+            else
+            {
+                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
+            }
         }
 
         /// <summary>
-        /// Reads value of attribute and returns it as list of uints
+        /// Reads value of attribute and returns it as list of ulongs
         /// </summary>
         /// <returns>Value of attribute</returns>
-        public List<uint> GetValueAsUintList()
+        public List<ulong> GetValueAsUlongList()
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            uint[] value = null;
-            LowLevelAPI.CkaUtils.ConvertValue(ref _ckAttribute, out value);
-            return (value == null) ? null : new List<uint>(value);
+            if (UnmanagedLong.Size == 4)
+            {
+                List<uint> uintList = _objectAttribute4.GetValueAsUintList();
+
+                List<ulong> ulongList = null;
+
+                if (uintList != null)
+                {
+                    ulongList = new List<ulong>();
+                    for (int i = 0; i < uintList.Count; i++)
+                        ulongList.Add(Convert.ToUInt64(uintList[i]));
+                }
+
+                return ulongList;
+            }
+            else
+            {
+                return _objectAttribute8.GetValueAsUlongList();
+            }
         }
 
         #endregion
@@ -417,14 +556,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(uint type, List<CKM> value)
+        public ObjectAttribute(ulong type, List<CKM> value)
         {
-            CKM[] mechanisms = null;
-            
-            if (value != null)
-                mechanisms = value.ToArray();
-            
-            _ckAttribute = LowLevelAPI.CkaUtils.CreateAttribute(type, mechanisms);
+            if (UnmanagedLong.Size == 4)
+                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type), value);
+            else
+                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
         
         /// <summary>
@@ -434,12 +571,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, List<CKM> value)
         {
-            CKM[] mechanisms = null;
-            
-            if (value != null)
-                mechanisms = value.ToArray();
-            
-            _ckAttribute = LowLevelAPI.CkaUtils.CreateAttribute(type, mechanisms);
+            if (UnmanagedLong.Size == 4)
+                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, value);
+            else
+                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
         
         /// <summary>
@@ -451,9 +586,90 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            CKM[] value = null;
-            LowLevelAPI.CkaUtils.ConvertValue(ref _ckAttribute, out value);
-            return (value == null) ? null : new List<CKM>(value);
+            if (UnmanagedLong.Size == 4)
+                return _objectAttribute4.GetValueAsCkmList();
+            else
+                return _objectAttribute8.GetValueAsCkmList();
+        }
+
+        #endregion
+
+        #region Conversions
+
+        /// <summary>
+        /// Converts platfrom neutral ObjectAttributes to platform specific ObjectAttributes
+        /// </summary>
+        /// <param name="attributes">Platfrom neutral ObjectAttributes</param>
+        /// <returns>Platform specific ObjectAttributes</returns>
+        internal static List<HighLevelAPI4.ObjectAttribute> ConvertToHighLevelAPI4List(List<ObjectAttribute> attributes)
+        {
+            List<HighLevelAPI4.ObjectAttribute> hlaAttributes = null;
+
+            if (attributes != null)
+            {
+                hlaAttributes = new List<HighLevelAPI4.ObjectAttribute>();
+                for (int i = 0; i < attributes.Count; i++)
+                    hlaAttributes.Add(attributes[i].ObjectAttribute4);
+            }
+
+            return hlaAttributes;
+        }
+
+        /// <summary>
+        /// Converts platform specific ObjectAttributes to platfrom neutral ObjectAttributes
+        /// </summary>
+        /// <param name="hlaAttributes">Platform specific ObjectAttributes</param>
+        /// <returns>Platfrom neutral ObjectAttributes</returns>
+        internal static List<ObjectAttribute> ConvertFromHighLevelAPI4List(List<HighLevelAPI4.ObjectAttribute> hlaAttributes)
+        {
+            List<ObjectAttribute> attributes = null;
+
+            if (hlaAttributes != null)
+            {
+                attributes = new List<ObjectAttribute>();
+                for (int i = 0; i < hlaAttributes.Count; i++)
+                    attributes.Add(new ObjectAttribute(hlaAttributes[i]));
+            }
+
+            return attributes;
+        }
+
+        /// <summary>
+        /// Converts platfrom neutral ObjectAttributes to platform specific ObjectAttributes
+        /// </summary>
+        /// <param name="attributes">Platfrom neutral ObjectAttributes</param>
+        /// <returns>Platform specific ObjectAttributes</returns>
+        internal static List<HighLevelAPI8.ObjectAttribute> ConvertToHighLevelAPI8List(List<ObjectAttribute> attributes)
+        {
+            List<HighLevelAPI8.ObjectAttribute> hlaAttributes = null;
+
+            if (attributes != null)
+            {
+                hlaAttributes = new List<HighLevelAPI8.ObjectAttribute>();
+                for (int i = 0; i < attributes.Count; i++)
+                    hlaAttributes.Add(attributes[i].ObjectAttribute8);
+            }
+
+            return hlaAttributes;
+        }
+
+        /// <summary>
+        /// Converts platform specific ObjectAttributes to platfrom neutral ObjectAttributes
+        /// </summary>
+        /// <param name="hlaAttributes">Platform specific ObjectAttributes</param>
+        /// <returns>Platfrom neutral ObjectAttributes</returns>
+        internal static List<ObjectAttribute> ConvertFromHighLevelAPI8List(List<HighLevelAPI8.ObjectAttribute> hlaAttributes)
+        {
+            List<ObjectAttribute> attributes = null;
+
+            if (hlaAttributes != null)
+            {
+                attributes = new List<ObjectAttribute>();
+                for (int i = 0; i < hlaAttributes.Count; i++)
+                    attributes.Add(new ObjectAttribute(hlaAttributes[i]));
+            }
+
+            return attributes;
         }
 
         #endregion
@@ -480,11 +696,20 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                 if (disposing)
                 {
                     // Dispose managed objects
+                    if (_objectAttribute4 != null)
+                    {
+                        _objectAttribute4.Dispose();
+                        _objectAttribute4 = null;
+                    }
+
+                    if (_objectAttribute8 != null)
+                    {
+                        _objectAttribute8.Dispose();
+                        _objectAttribute8 = null;
+                    }
                 }
 
                 // Dispose unmanaged objects
-                LowLevelAPI.UnmanagedMemory.Free(ref _ckAttribute.value);
-                _ckAttribute.valueLen = 0;
 
                 _disposed = true;
             }

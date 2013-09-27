@@ -1,29 +1,20 @@
 /*
- *  Pkcs11Interop - Open-source .NET wrapper for unmanaged PKCS#11 libraries
- *  Copyright (c) 2012-2013 JWC s.r.o.
- *  Author: Jaroslav Imrich
+ *  Pkcs11Interop - Managed .NET wrapper for unmanaged PKCS#11 libraries
+ *  Copyright (c) 2012-2013 JWC s.r.o. <http://www.jwc.sk>
+ *  Author: Jaroslav Imrich <jimrich@jimrich.sk>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License version 3
- *  as published by the Free Software Foundation.
+ *  Licensing for open source projects:
+ *  Pkcs11Interop is available under the terms of the GNU Affero General 
+ *  Public License version 3 as published by the Free Software Foundation.
+ *  Please see <http://www.gnu.org/licenses/agpl-3.0.html> for more details.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU Affero General Public License for more details.
- *
- *  You should have received a copy of the GNU Affero General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
- *  You can be released from the requirements of the license by purchasing
- *  a commercial license. Buying such a license is mandatory as soon as you
- *  develop commercial activities involving the Pkcs11Interop software without
- *  disclosing the source code of your own applications.
- * 
- *  For more information, please contact JWC s.r.o. at info@pkcs11interop.net
+ *  Licensing for other types of projects:
+ *  Pkcs11Interop is available under the terms of flexible commercial license.
+ *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
 using System;
+using Net.Pkcs11Interop.Common;
 
 namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
 {
@@ -36,11 +27,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// Flag indicating whether instance has been disposed
         /// </summary>
         private bool _disposed = false;
-        
+
         /// <summary>
-        /// Low level mechanism parameters
+        /// Platform specific CkWtlsPrfParams
         /// </summary>
-        private LowLevelAPI.MechanismParams.CK_WTLS_PRF_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_WTLS_PRF_PARAMS();
+        private HighLevelAPI4.MechanismParams.CkWtlsPrfParams _params4 = null;
+
+        /// <summary>
+        /// Platform specific CkWtlsPrfParams
+        /// </summary>
+        private HighLevelAPI8.MechanismParams.CkWtlsPrfParams _params8 = null;
         
         /// <summary>
         /// Output of the operation
@@ -52,10 +48,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                int uintSize = LowLevelAPI.UnmanagedMemory.SizeOf(typeof(uint));
-                byte[] outputLenBytes = LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.OutputLen, uintSize);
-                uint outputLen = Common.ConvertUtils.BytesToUint(outputLenBytes);
-                return LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.Output, (int)outputLen);
+                return (UnmanagedLong.Size == 4) ? _params4.Output : _params8.Output;
             }
         }
         
@@ -66,54 +59,29 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='seed'>Input seed</param>
         /// <param name='label'>Identifying label</param>
         /// <param name='outputLen'>Length in bytes that the output to be created shall have</param>
-        public CkWtlsPrfParams(uint digestMechanism, byte[] seed, byte[] label, uint outputLen)
+        public CkWtlsPrfParams(ulong digestMechanism, byte[] seed, byte[] label, ulong outputLen)
         {
-            _lowLevelStruct.DigestMechanism = 0;
-            _lowLevelStruct.Seed = IntPtr.Zero;
-            _lowLevelStruct.SeedLen = 0;
-            _lowLevelStruct.Label = IntPtr.Zero;
-            _lowLevelStruct.LabelLen = 0;
-            _lowLevelStruct.Output = IntPtr.Zero;
-            _lowLevelStruct.OutputLen = IntPtr.Zero;
-
-            _lowLevelStruct.DigestMechanism = digestMechanism;
-
-            if (seed != null)
-            {
-                _lowLevelStruct.Seed = LowLevelAPI.UnmanagedMemory.Allocate(seed.Length);
-                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.Seed, seed);
-                _lowLevelStruct.SeedLen = (uint)seed.Length;
-            }
-            
-            if (label != null)
-            {
-                _lowLevelStruct.Label = LowLevelAPI.UnmanagedMemory.Allocate(label.Length);
-                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.Label, label);
-                _lowLevelStruct.LabelLen = (uint)label.Length;
-            }
-            
-            if (outputLen < 1)
-                throw new ArgumentException("Value has to be positive number", "outputLen");
-            
-            _lowLevelStruct.Output = LowLevelAPI.UnmanagedMemory.Allocate((int)outputLen);
-            
-            byte[] outputLenBytes = Common.ConvertUtils.UintToBytes(outputLen);
-            _lowLevelStruct.OutputLen = LowLevelAPI.UnmanagedMemory.Allocate(outputLenBytes.Length);
-            LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.OutputLen, outputLenBytes);
+            if (UnmanagedLong.Size == 4)
+                _params4 = new HighLevelAPI4.MechanismParams.CkWtlsPrfParams(Convert.ToUInt32(digestMechanism), seed, label, Convert.ToUInt32(outputLen));
+            else
+                _params8 = new HighLevelAPI8.MechanismParams.CkWtlsPrfParams(digestMechanism, seed, label, outputLen);
         }
         
         #region IMechanismParams
-        
+
         /// <summary>
-        /// Converts object to low level mechanism parameters
+        /// Returns managed object that can be marshaled to an unmanaged block of memory
         /// </summary>
-        /// <returns>Low level mechanism parameters</returns>
-        public object ToLowLevelParams()
+        /// <returns>A managed object holding the data to be marshaled. This object must be an instance of a formatted class.</returns>
+        public object ToMarshalableStructure()
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _lowLevelStruct;
+            if (UnmanagedLong.Size == 4)
+                return _params4.ToMarshalableStructure();
+            else
+                return _params8.ToMarshalableStructure();
         }
         
         #endregion
@@ -140,15 +108,20 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (disposing)
                 {
                     // Dispose managed objects
+                    if (_params4 != null)
+                    {
+                        _params4.Dispose();
+                        _params4 = null;
+                    }
+
+                    if (_params8 != null)
+                    {
+                        _params8.Dispose();
+                        _params8 = null;
+                    }
                 }
                 
                 // Dispose unmanaged objects
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.Seed);
-                _lowLevelStruct.SeedLen = 0;
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.Label);
-                _lowLevelStruct.LabelLen = 0;
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.Output);
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.OutputLen);
                 
                 _disposed = true;
             }

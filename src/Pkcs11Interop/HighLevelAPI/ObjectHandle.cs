@@ -1,28 +1,20 @@
 ﻿/*
- *  Pkcs11Interop - Open-source .NET wrapper for unmanaged PKCS#11 libraries
- *  Copyright (c) 2012-2013 JWC s.r.o.
- *  Author: Jaroslav Imrich
+ *  Pkcs11Interop - Managed .NET wrapper for unmanaged PKCS#11 libraries
+ *  Copyright (c) 2012-2013 JWC s.r.o. <http://www.jwc.sk>
+ *  Author: Jaroslav Imrich <jimrich@jimrich.sk>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License version 3
- *  as published by the Free Software Foundation.
+ *  Licensing for open source projects:
+ *  Pkcs11Interop is available under the terms of the GNU Affero General 
+ *  Public License version 3 as published by the Free Software Foundation.
+ *  Please see <http://www.gnu.org/licenses/agpl-3.0.html> for more details.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU Affero General Public License for more details.
- *
- *  You should have received a copy of the GNU Affero General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
- *  You can be released from the requirements of the license by purchasing
- *  a commercial license. Buying such a license is mandatory as soon as you
- *  develop commercial activities involving the Pkcs11Interop software without
- *  disclosing the source code of your own applications.
- * 
- *  For more information, please contact JWC s.r.o. at info@pkcs11interop.net
+ *  Licensing for other types of projects:
+ *  Pkcs11Interop is available under the terms of flexible commercial license.
+ *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
+using System;
+using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
 
 namespace Net.Pkcs11Interop.HighLevelAPI
@@ -33,18 +25,45 @@ namespace Net.Pkcs11Interop.HighLevelAPI
     public class ObjectHandle
     {
         /// <summary>
-        /// PKCS#11 handle of object
+        /// Platform specific ObjectHandle
         /// </summary>
-        private uint _objectId = CK.CK_INVALID_HANDLE;
+        private HighLevelAPI4.ObjectHandle _objectHandle4 = null;
+
+        /// <summary>
+        /// Platform specific ObjectHandle
+        /// </summary>
+        internal HighLevelAPI4.ObjectHandle ObjectHandle4
+        {
+            get
+            {
+                return _objectHandle4;
+            }
+        }
+
+        /// <summary>
+        /// Platform specific ObjectHandle
+        /// </summary>
+        private HighLevelAPI8.ObjectHandle _objectHandle8 = null;
+
+        /// <summary>
+        /// Platform specific ObjectHandle
+        /// </summary>
+        internal HighLevelAPI8.ObjectHandle ObjectHandle8
+        {
+            get
+            {
+                return _objectHandle8;
+            }
+        }
 
         /// <summary>
         /// PKCS#11 handle of object
         /// </summary>
-        public uint ObjectId
+        public ulong ObjectId
         {
             get
             {
-                return _objectId;
+                return (UnmanagedLong.Size == 4) ? _objectHandle4.ObjectId : _objectHandle8.ObjectId;
             }
         }
 
@@ -53,16 +72,114 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         public ObjectHandle()
         {
-            _objectId = CK.CK_INVALID_HANDLE;
+            if (UnmanagedLong.Size == 4)
+                _objectHandle4 = new HighLevelAPI4.ObjectHandle();
+            else
+                _objectHandle8 = new HighLevelAPI8.ObjectHandle();
         }
 
         /// <summary>
-        /// Initializes new instance of ObjectHandle class
+        /// Converts platform specific ObjectHandle to platfrom neutral ObjectHandle
         /// </summary>
-        /// <param name="objectId">PKCS#11 handle of object</param>
-        public ObjectHandle(uint objectId)
+        /// <param name="objectHandle">Platform specific ObjectHandle</param>
+        internal ObjectHandle(HighLevelAPI4.ObjectHandle objectHandle)
         {
-            _objectId = objectId;
+            if (objectHandle == null)
+                throw new ArgumentNullException("objectHandle");
+
+            _objectHandle4 = objectHandle;
         }
+
+        /// <summary>
+        /// Converts platform specific ObjectHandle to platfrom neutral ObjectHandle
+        /// </summary>
+        /// <param name="objectHandle">Platform specific ObjectHandle</param>
+        internal ObjectHandle(HighLevelAPI8.ObjectHandle objectHandle)
+        {
+            if (objectHandle == null)
+                throw new ArgumentNullException("objectHandle");
+
+            _objectHandle8 = objectHandle;
+        }
+
+        #region Conversions
+
+        /// <summary>
+        /// Converts platfrom neutral ObjectHandles to platform specific ObjectHandles
+        /// </summary>
+        /// <param name="objectHandles">Platfrom neutral ObjectHandles</param>
+        /// <returns>Platform specific ObjectHandles</returns>
+        internal static List<HighLevelAPI4.ObjectHandle> ConvertToHighLevelAPI4List(List<ObjectHandle> objectHandles)
+        {
+            List<HighLevelAPI4.ObjectHandle> hlaObjectHandles = null;
+
+            if (objectHandles != null)
+            {
+                hlaObjectHandles = new List<HighLevelAPI4.ObjectHandle>();
+                for (int i = 0; i < objectHandles.Count; i++)
+                    hlaObjectHandles.Add(objectHandles[i].ObjectHandle4);
+            }
+
+            return hlaObjectHandles;
+        }
+
+        /// <summary>
+        /// Converts platform specific ObjectHandles to platfrom neutral ObjectHandles
+        /// </summary>
+        /// <param name="hlaObjectHandles">Platform specific ObjectHandles</param>
+        /// <returns>Platfrom neutral ObjectHandles</returns>
+        internal static List<ObjectHandle> ConvertFromHighLevelAPI4List(List<HighLevelAPI4.ObjectHandle> hlaObjectHandles)
+        {
+            List<ObjectHandle> objectHandles = null;
+
+            if (hlaObjectHandles != null)
+            {
+                objectHandles = new List<ObjectHandle>();
+                for (int i = 0; i < hlaObjectHandles.Count; i++)
+                    objectHandles.Add(new ObjectHandle(hlaObjectHandles[i]));
+            }
+
+            return objectHandles;
+        }
+
+        /// <summary>
+        /// Converts platfrom neutral ObjectHandles to platform specific ObjectHandles
+        /// </summary>
+        /// <param name="objectHandles">Platfrom neutral ObjectHandles</param>
+        /// <returns>Platform specific ObjectHandles</returns>
+        internal static List<HighLevelAPI8.ObjectHandle> ConvertToHighLevelAPI8List(List<ObjectHandle> objectHandles)
+        {
+            List<HighLevelAPI8.ObjectHandle> hlaObjectHandles = null;
+
+            if (objectHandles != null)
+            {
+                hlaObjectHandles = new List<HighLevelAPI8.ObjectHandle>();
+                for (int i = 0; i < objectHandles.Count; i++)
+                    hlaObjectHandles.Add(objectHandles[i].ObjectHandle8);
+            }
+
+            return hlaObjectHandles;
+        }
+
+        /// <summary>
+        /// Converts platform specific ObjectHandles to platfrom neutral ObjectHandles
+        /// </summary>
+        /// <param name="hlaObjectHandles">Platform specific ObjectHandles</param>
+        /// <returns>Platfrom neutral ObjectHandles</returns>
+        internal static List<ObjectHandle> ConvertFromHighLevelAPI8List(List<HighLevelAPI8.ObjectHandle> hlaObjectHandles)
+        {
+            List<ObjectHandle> objectHandles = null;
+
+            if (hlaObjectHandles != null)
+            {
+                objectHandles = new List<ObjectHandle>();
+                for (int i = 0; i < hlaObjectHandles.Count; i++)
+                    objectHandles.Add(new ObjectHandle(hlaObjectHandles[i]));
+            }
+
+            return objectHandles;
+        }
+
+        #endregion
     }
 }

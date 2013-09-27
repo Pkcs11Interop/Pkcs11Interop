@@ -1,0 +1,199 @@
+/*
+ *  Pkcs11Interop - Managed .NET wrapper for unmanaged PKCS#11 libraries
+ *  Copyright (c) 2012-2013 JWC s.r.o. <http://www.jwc.sk>
+ *  Author: Jaroslav Imrich <jimrich@jimrich.sk>
+ *
+ *  Licensing for open source projects:
+ *  Pkcs11Interop is available under the terms of the GNU Affero General 
+ *  Public License version 3 as published by the Free Software Foundation.
+ *  Please see <http://www.gnu.org/licenses/agpl-3.0.html> for more details.
+ *
+ *  Licensing for other types of projects:
+ *  Pkcs11Interop is available under the terms of flexible commercial license.
+ *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
+ */
+
+using System;
+using System.Reflection;
+using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
+using NUnit.Framework;
+using HLA = Net.Pkcs11Interop.HighLevelAPI;
+using HLA4 = Net.Pkcs11Interop.HighLevelAPI4;
+using HLA8 = Net.Pkcs11Interop.HighLevelAPI8;
+using LLA4 = Net.Pkcs11Interop.LowLevelAPI4;
+using LLA8 = Net.Pkcs11Interop.LowLevelAPI8;
+
+namespace Net.Pkcs11Interop.Tests.HighLevelAPI
+{
+    /// <summary>
+    /// Mechanism tests.
+    /// </summary>
+    [TestFixture()]
+    public class _14_MechanismTest
+    {
+        /// <summary>
+        /// Mechanism dispose test.
+        /// </summary>
+        [Test()]
+        public void _01_DisposeMechanismTest()
+        {
+            byte[] parameter = new byte[8];
+            System.Random rng = new Random();
+            rng.NextBytes(parameter);
+
+            // Unmanaged memory for mechanism parameter stored in low level CK_MECHANISM struct
+            // is allocated by constructor of Mechanism class.
+            Mechanism mechanism1 = new Mechanism(CKM.CKM_DES_CBC, parameter);
+
+            // Do something interesting with mechanism
+
+            // This unmanaged memory is freed by Dispose() method.
+            mechanism1.Dispose();
+
+
+            // Mechanism class can be used in using statement which defines a scope 
+            // at the end of which an object will be disposed (and unmanaged memory freed).
+            using (Mechanism mechanism2 = new Mechanism(CKM.CKM_DES_CBC, parameter))
+            {
+                // Do something interesting with mechanism
+            }
+
+
+            #pragma warning disable 0219
+
+            // Explicit calling of Dispose() method can also be ommitted
+            // and this is the prefered way how to use Mechanism class.
+            Mechanism mechanism3 = new Mechanism(CKM.CKM_DES_CBC, parameter);
+
+            // Do something interesting with mechanism
+
+            // Dispose() method will be called (and unmanaged memory freed) by GC eventually
+            // but we cannot be sure when will this occur.
+
+            #pragma warning restore 0219
+        }
+
+        /// <summary>
+        /// Mechanism with empty parameter test.
+        /// </summary>
+        [Test()]
+        public void _02_EmptyParameterTest()
+        {
+            // Create mechanism without the parameter
+            Mechanism mechanism = new Mechanism(CKM.CKM_RSA_PKCS);
+            Assert.IsTrue(mechanism.Type == (ulong)CKM.CKM_RSA_PKCS);
+
+            // We access private Mechanism member just for the testing purposes
+            if (UnmanagedLong.Size == 4)
+            {
+                HLA4.Mechanism mechanism4 = (HLA4.Mechanism)typeof(Mechanism).GetField("_mechanism4", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
+                LLA4.CK_MECHANISM ckMechanism4 = (LLA4.CK_MECHANISM)typeof(HLA4.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism4);
+                Assert.IsTrue(ckMechanism4.Mechanism == (uint)CKM.CKM_RSA_PKCS);
+                Assert.IsTrue(ckMechanism4.Parameter == IntPtr.Zero);
+                Assert.IsTrue(ckMechanism4.ParameterLen == 0);
+            }
+            else
+            {
+                HLA8.Mechanism mechanism8 = (HLA8.Mechanism)typeof(Mechanism).GetField("_mechanism8", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
+                LLA8.CK_MECHANISM ckMechanism8 = (LLA8.CK_MECHANISM)typeof(HLA8.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism8);
+                Assert.IsTrue(ckMechanism8.Mechanism == (ulong)CKM.CKM_RSA_PKCS);
+                Assert.IsTrue(ckMechanism8.Parameter == IntPtr.Zero);
+                Assert.IsTrue(ckMechanism8.ParameterLen == 0);
+            }
+        }
+
+        /// <summary>
+        /// Mechanism with byte array parameter test.
+        /// </summary>
+        [Test()]
+        public void _03_ByteArrayParameterTest()
+        {
+            byte[] parameter = new byte[16];
+            System.Random rng = new Random();
+            rng.NextBytes(parameter);
+
+            // Create mechanism with the byte array parameter
+            Mechanism mechanism = new Mechanism(CKM.CKM_AES_CBC, parameter);
+            Assert.IsTrue(mechanism.Type == (ulong)CKM.CKM_AES_CBC);
+
+            // We access private members here just for the testing purposes
+            if (UnmanagedLong.Size == 4)
+            {
+                HLA4.Mechanism mechanism4 = (HLA4.Mechanism)typeof(Mechanism).GetField("_mechanism4", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
+                LLA4.CK_MECHANISM ckMechanism4 = (LLA4.CK_MECHANISM)typeof(HLA4.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism4);
+                Assert.IsTrue(ckMechanism4.Mechanism == (uint)CKM.CKM_AES_CBC);
+                Assert.IsTrue(ckMechanism4.Parameter != IntPtr.Zero);
+                Assert.IsTrue(Convert.ToInt32(ckMechanism4.ParameterLen) == parameter.Length);
+            }
+            else
+            {
+                HLA8.Mechanism mechanism8 = (HLA8.Mechanism)typeof(Mechanism).GetField("_mechanism8", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
+                LLA8.CK_MECHANISM ckMechanism8 = (LLA8.CK_MECHANISM)typeof(HLA8.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism8);
+                Assert.IsTrue(ckMechanism8.Mechanism == (ulong)CKM.CKM_AES_CBC);
+                Assert.IsTrue(ckMechanism8.Parameter != IntPtr.Zero);
+                Assert.IsTrue(Convert.ToInt32(ckMechanism8.ParameterLen) == parameter.Length);
+            }
+
+            parameter = null;
+
+            // Create mechanism with null byte array parameter
+            mechanism = new Mechanism(CKM.CKM_AES_CBC, parameter);
+            Assert.IsTrue(mechanism.Type == (ulong)CKM.CKM_AES_CBC);
+
+            // We access private members here just for the testing purposes
+            if (UnmanagedLong.Size == 4)
+            {
+                HLA4.Mechanism mechanism4 = (HLA4.Mechanism)typeof(Mechanism).GetField("_mechanism4", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
+                LLA4.CK_MECHANISM ckMechanism4 = (LLA4.CK_MECHANISM)typeof(HLA4.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism4);
+                Assert.IsTrue(ckMechanism4.Mechanism == (uint)CKM.CKM_AES_CBC);
+                Assert.IsTrue(ckMechanism4.Parameter == IntPtr.Zero);
+                Assert.IsTrue(ckMechanism4.ParameterLen == 0);
+            }
+            else
+            {
+                HLA8.Mechanism mechanism8 = (HLA8.Mechanism)typeof(Mechanism).GetField("_mechanism8", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
+                LLA8.CK_MECHANISM ckMechanism8 = (LLA8.CK_MECHANISM)typeof(HLA8.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism8);
+                Assert.IsTrue(ckMechanism8.Mechanism == (ulong)CKM.CKM_AES_CBC);
+                Assert.IsTrue(ckMechanism8.Parameter == IntPtr.Zero);
+                Assert.IsTrue(ckMechanism8.ParameterLen == 0);
+            }
+        }
+
+        /// <summary>
+        /// Mechanism with object as parameter test.
+        /// </summary>
+        [Test()]
+        public void _04_ObjectParameterTest()
+        {
+            byte[] data = new byte[24];
+            System.Random rng = new Random();
+            rng.NextBytes(data);
+
+            // Specify mechanism parameters
+            HLA.MechanismParams.CkKeyDerivationStringData parameter = new HLA.MechanismParams.CkKeyDerivationStringData(data);
+
+            // Create mechanism with the object as parameter
+            Mechanism mechanism = new Mechanism(CKM.CKM_XOR_BASE_AND_DATA, parameter);
+            Assert.IsTrue(mechanism.Type == (ulong)CKM.CKM_XOR_BASE_AND_DATA);
+
+            // We access private Mechanism member here just for the testing purposes
+            if (UnmanagedLong.Size == 4)
+            {
+                HLA4.Mechanism mechanism4 = (HLA4.Mechanism)typeof(Mechanism).GetField("_mechanism4", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
+                LLA4.CK_MECHANISM ckMechanism4 = (LLA4.CK_MECHANISM)typeof(HLA4.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism4);
+                Assert.IsTrue(ckMechanism4.Mechanism == (uint)CKM.CKM_XOR_BASE_AND_DATA);
+                Assert.IsTrue(ckMechanism4.Parameter != IntPtr.Zero);
+                Assert.IsTrue(Convert.ToInt32(ckMechanism4.ParameterLen) == UnmanagedMemory.SizeOf(typeof(LLA4.MechanismParams.CK_KEY_DERIVATION_STRING_DATA)));
+            }
+            else
+            {
+                HLA8.Mechanism mechanism8 = (HLA8.Mechanism)typeof(Mechanism).GetField("_mechanism8", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
+                LLA8.CK_MECHANISM ckMechanism8 = (LLA8.CK_MECHANISM)typeof(HLA8.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism8);
+                Assert.IsTrue(ckMechanism8.Mechanism == (ulong)CKM.CKM_XOR_BASE_AND_DATA);
+                Assert.IsTrue(ckMechanism8.Parameter != IntPtr.Zero);
+                Assert.IsTrue(Convert.ToInt32(ckMechanism8.ParameterLen) == UnmanagedMemory.SizeOf(typeof(LLA8.MechanismParams.CK_KEY_DERIVATION_STRING_DATA)));
+            }
+        }
+    }
+}

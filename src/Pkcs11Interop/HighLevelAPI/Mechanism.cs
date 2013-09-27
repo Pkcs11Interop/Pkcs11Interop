@@ -1,31 +1,19 @@
 ﻿/*
- *  Pkcs11Interop - Open-source .NET wrapper for unmanaged PKCS#11 libraries
- *  Copyright (c) 2012-2013 JWC s.r.o.
- *  Author: Jaroslav Imrich
+ *  Pkcs11Interop - Managed .NET wrapper for unmanaged PKCS#11 libraries
+ *  Copyright (c) 2012-2013 JWC s.r.o. <http://www.jwc.sk>
+ *  Author: Jaroslav Imrich <jimrich@jimrich.sk>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License version 3
- *  as published by the Free Software Foundation.
+ *  Licensing for open source projects:
+ *  Pkcs11Interop is available under the terms of the GNU Affero General 
+ *  Public License version 3 as published by the Free Software Foundation.
+ *  Please see <http://www.gnu.org/licenses/agpl-3.0.html> for more details.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU Affero General Public License for more details.
- *
- *  You should have received a copy of the GNU Affero General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
- *  You can be released from the requirements of the license by purchasing
- *  a commercial license. Buying such a license is mandatory as soon as you
- *  develop commercial activities involving the Pkcs11Interop software without
- *  disclosing the source code of your own applications.
- * 
- *  For more information, please contact JWC s.r.o. at info@pkcs11interop.net
+ *  Licensing for other types of projects:
+ *  Pkcs11Interop is available under the terms of flexible commercial license.
+ *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Net.Pkcs11Interop.Common;
 
 namespace Net.Pkcs11Interop.HighLevelAPI
@@ -41,50 +29,91 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         private bool _disposed = false;
 
         /// <summary>
-        /// Low level mechanism structure
+        /// Platform specific Mechanism
         /// </summary>
-        private LowLevelAPI.CK_MECHANISM _ckMechanism;
+        private HighLevelAPI4.Mechanism _mechanism4 = null;
 
         /// <summary>
-        /// Low level mechanism structure
+        /// Platform specific Mechanism
         /// </summary>
-        internal LowLevelAPI.CK_MECHANISM CkMechanism
+        internal HighLevelAPI4.Mechanism Mechanism4
         {
             get
             {
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return _ckMechanism;
+                return _mechanism4;
+            }
+        }
+
+        /// <summary>
+        /// Platform specific Mechanism
+        /// </summary>
+        private HighLevelAPI8.Mechanism _mechanism8 = null;
+
+        /// <summary>
+        /// Platform specific Mechanism
+        /// </summary>
+        internal HighLevelAPI8.Mechanism Mechanism8
+        {
+            get
+            {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
+                return _mechanism8;
             }
         }
 
         /// <summary>
         /// The type of mechanism
         /// </summary>
-        public uint Type
+        public ulong Type
         {
             get
             {
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return _ckMechanism.Mechanism;
+                return (UnmanagedLong.Size == 4) ? _mechanism4.Type : _mechanism8.Type;
             }
         }
 
         /// <summary>
-        /// High level object with mechanism parameters
+        /// Converts platform specific Mechanism to platfrom neutral Mechanism
         /// </summary>
-        private IMechanismParams _mechanismParams = null;
+        /// <param name="mechanism">Platform specific Mechanism</param>
+        internal Mechanism(HighLevelAPI4.Mechanism mechanism)
+        {
+            if (mechanism == null)
+                throw new ArgumentNullException("mechanism");
+
+            _mechanism4 = mechanism;
+        }
+
+        /// <summary>
+        /// Converts platform specific Mechanism to platfrom neutral Mechanism
+        /// </summary>
+        /// <param name="mechanism">Platform specific Mechanism</param>
+        internal Mechanism(HighLevelAPI8.Mechanism mechanism)
+        {
+            if (mechanism == null)
+                throw new ArgumentNullException("mechanism");
+
+            _mechanism8 = mechanism;
+        }
 
         /// <summary>
         /// Creates mechanism of given type with no parameter
         /// </summary>
         /// <param name="type">Mechanism type</param>
-        public Mechanism(uint type)
+        public Mechanism(ulong type)
         {
-            _ckMechanism = LowLevelAPI.CkmUtils.CreateMechanism(type);
+            if (UnmanagedLong.Size == 4)
+                _mechanism4 = new HighLevelAPI4.Mechanism(Convert.ToUInt32(type));
+            else
+                _mechanism8 = new HighLevelAPI8.Mechanism(type);
         }
 
         /// <summary>
@@ -93,7 +122,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="type">Mechanism type</param>
         public Mechanism(CKM type)
         {
-            _ckMechanism = LowLevelAPI.CkmUtils.CreateMechanism(type);
+            if (UnmanagedLong.Size == 4)
+                _mechanism4 = new HighLevelAPI4.Mechanism(type);
+            else
+                _mechanism8 = new HighLevelAPI8.Mechanism(type);
         }
 
         /// <summary>
@@ -101,9 +133,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         /// <param name="type">Mechanism type</param>
         /// <param name="parameter">Mechanism parameter</param>
-        public Mechanism(uint type, byte[] parameter)
+        public Mechanism(ulong type, byte[] parameter)
         {
-            _ckMechanism = LowLevelAPI.CkmUtils.CreateMechanism(type, parameter);
+            if (UnmanagedLong.Size == 4)
+                _mechanism4 = new HighLevelAPI4.Mechanism(Convert.ToUInt32(type), parameter);
+            else
+                _mechanism8 = new HighLevelAPI8.Mechanism(type, parameter);
         }
 
         /// <summary>
@@ -113,7 +148,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="parameter">Mechanism parameter</param>
         public Mechanism(CKM type, byte[] parameter)
         {
-            _ckMechanism = LowLevelAPI.CkmUtils.CreateMechanism(type, parameter);
+            if (UnmanagedLong.Size == 4)
+                _mechanism4 = new HighLevelAPI4.Mechanism(type, parameter);
+            else
+                _mechanism8 = new HighLevelAPI8.Mechanism(type, parameter);
         }
 
         /// <summary>
@@ -121,16 +159,15 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         /// <param name="type">Mechanism type</param>
         /// <param name="parameter">Mechanism parameter</param>
-        public Mechanism(uint type, IMechanismParams parameter)
+        public Mechanism(ulong type, IMechanismParams parameter)
         {
             if (parameter == null)
                 throw new ArgumentNullException("parameter");
 
-            // Keep reference to parameter so GC will not free it while mechanism exists
-            _mechanismParams = parameter;
-
-            object lowLevelParams = _mechanismParams.ToLowLevelParams();
-            _ckMechanism = LowLevelAPI.CkmUtils.CreateMechanism(type, lowLevelParams);
+            if (UnmanagedLong.Size == 4)
+                _mechanism4 = new HighLevelAPI4.Mechanism(Convert.ToUInt32(type), parameter);
+            else
+                _mechanism8 = new HighLevelAPI8.Mechanism(type, parameter);
         }
 
         /// <summary>
@@ -143,11 +180,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (parameter == null)
                 throw new ArgumentNullException("parameter");
 
-            // Keep reference to parameter so GC will not free it while mechanism exists
-            _mechanismParams = parameter;
-
-            object lowLevelParams = _mechanismParams.ToLowLevelParams();
-            _ckMechanism = LowLevelAPI.CkmUtils.CreateMechanism(type, lowLevelParams);
+            if (UnmanagedLong.Size == 4)
+                _mechanism4 = new HighLevelAPI4.Mechanism(type, parameter);
+            else
+                _mechanism8 = new HighLevelAPI8.Mechanism(type, parameter);
         }
 
         #region IDisposable
@@ -172,12 +208,21 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                 if (disposing)
                 {
                     // Dispose managed objects
+                    if (_mechanism4 != null)
+                    {
+                        _mechanism4.Dispose();
+                        _mechanism4 = null;
+                    }
+                          
+                    if (_mechanism8 != null)
+                    {
+                        _mechanism8.Dispose();
+                        _mechanism8 = null;
+                    }
                 }
                 
                 // Dispose unmanaged objects
-                LowLevelAPI.UnmanagedMemory.Free(ref _ckMechanism.Parameter);
-                _ckMechanism.ParameterLen = 0;
-                
+
                 _disposed = true;
             }
         }

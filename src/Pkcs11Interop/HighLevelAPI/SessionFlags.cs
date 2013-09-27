@@ -1,28 +1,19 @@
 ﻿/*
- *  Pkcs11Interop - Open-source .NET wrapper for unmanaged PKCS#11 libraries
- *  Copyright (c) 2012-2013 JWC s.r.o.
- *  Author: Jaroslav Imrich
+ *  Pkcs11Interop - Managed .NET wrapper for unmanaged PKCS#11 libraries
+ *  Copyright (c) 2012-2013 JWC s.r.o. <http://www.jwc.sk>
+ *  Author: Jaroslav Imrich <jimrich@jimrich.sk>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License version 3
- *  as published by the Free Software Foundation.
+ *  Licensing for open source projects:
+ *  Pkcs11Interop is available under the terms of the GNU Affero General 
+ *  Public License version 3 as published by the Free Software Foundation.
+ *  Please see <http://www.gnu.org/licenses/agpl-3.0.html> for more details.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU Affero General Public License for more details.
- *
- *  You should have received a copy of the GNU Affero General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
- *  You can be released from the requirements of the license by purchasing
- *  a commercial license. Buying such a license is mandatory as soon as you
- *  develop commercial activities involving the Pkcs11Interop software without
- *  disclosing the source code of your own applications.
- * 
- *  For more information, please contact JWC s.r.o. at info@pkcs11interop.net
+ *  Licensing for other types of projects:
+ *  Pkcs11Interop is available under the terms of flexible commercial license.
+ *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
+using System;
 using Net.Pkcs11Interop.Common;
 
 namespace Net.Pkcs11Interop.HighLevelAPI
@@ -33,18 +24,23 @@ namespace Net.Pkcs11Interop.HighLevelAPI
     public class SessionFlags
     {
         /// <summary>
-        /// Bit flags that define the type of session
+        /// Platform specific SessionFlags
         /// </summary>
-        private uint _flags;
+        private HighLevelAPI4.SessionFlags _sessionFlags4 = null;
+
+        /// <summary>
+        /// Platform specific SessionFlags
+        /// </summary>
+        private HighLevelAPI8.SessionFlags _sessionFlags8 = null;
 
         /// <summary>
         /// Bit flags that define the type of session
         /// </summary>
-        public uint Flags
+        public ulong Flags
         {
             get
             {
-                return _flags;
+                return (UnmanagedLong.Size == 4) ? _sessionFlags4.Flags : _sessionFlags8.Flags;
             }
         }
 
@@ -55,7 +51,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_RW_SESSION) == CKF.CKF_RW_SESSION);
+                return (UnmanagedLong.Size == 4) ? _sessionFlags4.RwSession : _sessionFlags8.RwSession;
             }
         }
 
@@ -66,17 +62,32 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_SERIAL_SESSION) == CKF.CKF_SERIAL_SESSION);
+                return (UnmanagedLong.Size == 4) ? _sessionFlags4.SerialSession : _sessionFlags8.SerialSession;
             }
         }
 
         /// <summary>
-        /// Initializes new instance of SessionFlags class
+        /// Converts platform specific SessionFlags to platfrom neutral SessionFlags
         /// </summary>
-        /// <param name="flags">Bit flags that define the type of session</param>
-        internal SessionFlags(uint flags)
+        /// <param name="sessionFlags">Platform specific SessionFlags</param>
+        internal SessionFlags(HighLevelAPI4.SessionFlags sessionFlags)
         {
-            _flags = flags;
+            if (sessionFlags == null)
+                throw new ArgumentNullException("sessionFlags");
+
+            _sessionFlags4 = sessionFlags;
+        }
+
+        /// <summary>
+        /// Converts platform specific SessionFlags to platfrom neutral SessionFlags
+        /// </summary>
+        /// <param name="sessionFlags">Platform specific SessionFlags</param>
+        internal SessionFlags(HighLevelAPI8.SessionFlags sessionFlags)
+        {
+            if (sessionFlags == null)
+                throw new ArgumentNullException("sessionFlags");
+
+            _sessionFlags8 = sessionFlags;
         }
     }
 }

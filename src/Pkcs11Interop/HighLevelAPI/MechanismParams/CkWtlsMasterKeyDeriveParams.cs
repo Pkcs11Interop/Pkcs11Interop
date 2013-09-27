@@ -1,32 +1,20 @@
 /*
- *  Pkcs11Interop - Open-source .NET wrapper for unmanaged PKCS#11 libraries
- *  Copyright (c) 2012-2013 JWC s.r.o.
- *  Author: Jaroslav Imrich
+ *  Pkcs11Interop - Managed .NET wrapper for unmanaged PKCS#11 libraries
+ *  Copyright (c) 2012-2013 JWC s.r.o. <http://www.jwc.sk>
+ *  Author: Jaroslav Imrich <jimrich@jimrich.sk>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License version 3
- *  as published by the Free Software Foundation.
+ *  Licensing for open source projects:
+ *  Pkcs11Interop is available under the terms of the GNU Affero General 
+ *  Public License version 3 as published by the Free Software Foundation.
+ *  Please see <http://www.gnu.org/licenses/agpl-3.0.html> for more details.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU Affero General Public License for more details.
- *
- *  You should have received a copy of the GNU Affero General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
- *  You can be released from the requirements of the license by purchasing
- *  a commercial license. Buying such a license is mandatory as soon as you
- *  develop commercial activities involving the Pkcs11Interop software without
- *  disclosing the source code of your own applications.
- * 
- *  For more information, please contact JWC s.r.o. at info@pkcs11interop.net
+ *  Licensing for other types of projects:
+ *  Pkcs11Interop is available under the terms of flexible commercial license.
+ *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
 using System;
-using System.Runtime.InteropServices;
-using Net.Pkcs11Interop.LowLevelAPI;
-using Net.Pkcs11Interop.LowLevelAPI.MechanismParams;
+using Net.Pkcs11Interop.Common;
 
 namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
 {
@@ -39,11 +27,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// Flag indicating whether instance has been disposed
         /// </summary>
         private bool _disposed = false;
-        
+
         /// <summary>
-        /// Low level mechanism parameters
+        /// Platform specific CkWtlsMasterKeyDeriveParams
         /// </summary>
-        private LowLevelAPI.MechanismParams.CK_WTLS_MASTER_KEY_DERIVE_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_WTLS_MASTER_KEY_DERIVE_PARAMS();
+        private HighLevelAPI4.MechanismParams.CkWtlsMasterKeyDeriveParams _params4 = null;
+
+        /// <summary>
+        /// Platform specific CkSsl3MasterKeyDeriveParams
+        /// </summary>
+        private HighLevelAPI8.MechanismParams.CkWtlsMasterKeyDeriveParams _params8 = null;
         
         /// <summary>
         /// WTLS protocol version information
@@ -55,16 +48,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                CkVersion version = null;
-                
-                if (_lowLevelStruct.Version != IntPtr.Zero)
-                {
-                    CK_VERSION ckVersion = new CK_VERSION();
-                    UnmanagedMemory.Read(_lowLevelStruct.Version, ckVersion);
-                    version = new CkVersion(ckVersion.Major[0], ckVersion.Minor[0]);
-                }
-                
-                return version;
+                if (UnmanagedLong.Size == 4)
+                    return (_params4.Version == null) ? null : new CkVersion(_params4.Version);
+                else
+                    return (_params8.Version == null) ? null : new CkVersion(_params8.Version);
             }
         }
         
@@ -79,7 +66,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='digestMechanism'>Digest mechanism to be used (CKM)</param>
         /// <param name='randomInfo'>Client's and server's random data information</param>
         /// <param name='dh'>Set to false for CKM_WTLS_MASTER_KEY_DERIVE mechanism and to true for CKM_WTLS_MASTER_KEY_DERIVE_DH_ECC mechanism</param>
-        public CkWtlsMasterKeyDeriveParams(uint digestMechanism, CkWtlsRandomData randomInfo, bool dh)
+        public CkWtlsMasterKeyDeriveParams(ulong digestMechanism, CkWtlsRandomData randomInfo, bool dh)
         {
             if (randomInfo == null)
                 throw new ArgumentNullException("randomInfo");
@@ -87,23 +74,27 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             // Keep reference to randomInfo so GC will not free it while this object exists
             _randomInfo = randomInfo;
 
-            _lowLevelStruct.DigestMechanism = digestMechanism;
-            _lowLevelStruct.RandomInfo = (CK_WTLS_RANDOM_DATA)_randomInfo.ToLowLevelParams();
-            _lowLevelStruct.Version = (dh) ? IntPtr.Zero : UnmanagedMemory.Allocate(UnmanagedMemory.SizeOf(typeof(CK_VERSION)));
+            if (UnmanagedLong.Size == 4)
+                _params4 = new HighLevelAPI4.MechanismParams.CkWtlsMasterKeyDeriveParams(Convert.ToUInt32(digestMechanism), _randomInfo._params4, dh);
+            else
+                _params8 = new HighLevelAPI8.MechanismParams.CkWtlsMasterKeyDeriveParams(digestMechanism, _randomInfo._params8, dh);
         }
         
         #region IMechanismParams
-        
+
         /// <summary>
-        /// Converts object to low level mechanism parameters
+        /// Returns managed object that can be marshaled to an unmanaged block of memory
         /// </summary>
-        /// <returns>Low level mechanism parameters</returns>
-        public object ToLowLevelParams()
+        /// <returns>A managed object holding the data to be marshaled. This object must be an instance of a formatted class.</returns>
+        public object ToMarshalableStructure()
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _lowLevelStruct;
+            if (UnmanagedLong.Size == 4)
+                return _params4.ToMarshalableStructure();
+            else
+                return _params8.ToMarshalableStructure();
         }
         
         #endregion
@@ -130,10 +121,20 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (disposing)
                 {
                     // Dispose managed objects
+                    if (_params4 != null)
+                    {
+                        _params4.Dispose();
+                        _params4 = null;
+                    }
+
+                    if (_params8 != null)
+                    {
+                        _params8.Dispose();
+                        _params8 = null;
+                    }
                 }
                 
                 // Dispose unmanaged objects
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.Version);
                 
                 _disposed = true;
             }

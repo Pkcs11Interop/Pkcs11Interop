@@ -1,29 +1,20 @@
 /*
- *  Pkcs11Interop - Open-source .NET wrapper for unmanaged PKCS#11 libraries
- *  Copyright (c) 2012-2013 JWC s.r.o.
- *  Author: Jaroslav Imrich
+ *  Pkcs11Interop - Managed .NET wrapper for unmanaged PKCS#11 libraries
+ *  Copyright (c) 2012-2013 JWC s.r.o. <http://www.jwc.sk>
+ *  Author: Jaroslav Imrich <jimrich@jimrich.sk>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License version 3
- *  as published by the Free Software Foundation.
+ *  Licensing for open source projects:
+ *  Pkcs11Interop is available under the terms of the GNU Affero General 
+ *  Public License version 3 as published by the Free Software Foundation.
+ *  Please see <http://www.gnu.org/licenses/agpl-3.0.html> for more details.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU Affero General Public License for more details.
- *
- *  You should have received a copy of the GNU Affero General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
- *  You can be released from the requirements of the license by purchasing
- *  a commercial license. Buying such a license is mandatory as soon as you
- *  develop commercial activities involving the Pkcs11Interop software without
- *  disclosing the source code of your own applications.
- * 
- *  For more information, please contact JWC s.r.o. at info@pkcs11interop.net
+ *  Licensing for other types of projects:
+ *  Pkcs11Interop is available under the terms of flexible commercial license.
+ *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
 using System;
+using Net.Pkcs11Interop.Common;
 
 namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
 {
@@ -33,28 +24,39 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
     public class CkExtractParams : IMechanismParams
     {
         /// <summary>
-        /// Low level mechanism parameters
+        /// Platform specific CkExtractParams
         /// </summary>
-        private LowLevelAPI.MechanismParams.CK_EXTRACT_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_EXTRACT_PARAMS();
+        private HighLevelAPI4.MechanismParams.CkExtractParams _params4 = null;
+
+        /// <summary>
+        /// Platform specific CkExtractParams
+        /// </summary>
+        private HighLevelAPI8.MechanismParams.CkExtractParams _params8 = null;
 
         /// <summary>
         /// Initializes a new instance of the CkExtractParams class.
         /// </summary>
         /// <param name='bit'>Specifies which bit of the base key should be used as the first bit of the derived key</param>
-        public CkExtractParams(uint bit)
+        public CkExtractParams(ulong bit)
         {
-            _lowLevelStruct.Bit = bit;
+            if (UnmanagedLong.Size == 4)
+                _params4 = new HighLevelAPI4.MechanismParams.CkExtractParams(Convert.ToUInt32(bit));
+            else
+                _params8 = new HighLevelAPI8.MechanismParams.CkExtractParams(bit);
         }
         
         #region IMechanismParams
-        
+
         /// <summary>
-        /// Converts object to low level mechanism parameters
+        /// Returns managed object that can be marshaled to an unmanaged block of memory
         /// </summary>
-        /// <returns>Low level mechanism parameters</returns>
-        public object ToLowLevelParams()
+        /// <returns>A managed object holding the data to be marshaled. This object must be an instance of a formatted class.</returns>
+        public object ToMarshalableStructure()
         {
-            return _lowLevelStruct;
+            if (UnmanagedLong.Size == 4)
+                return _params4.ToMarshalableStructure();
+            else
+                return _params8.ToMarshalableStructure();
         }
         
         #endregion

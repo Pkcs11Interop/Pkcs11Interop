@@ -1,103 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>10.0.0</ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{2CB08FA0-8B71-4AE9-8734-BAC10804BF4E}</ProjectGuid>
+    <ProjectGuid>{9BC3EE70-6B0B-4B26-8C06-B7AE50BE202E}</ProjectGuid>
     <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Net.Pkcs11Interop</RootNamespace>
     <AssemblyName>Pkcs11Interop</AssemblyName>
-    <SynchReleaseVersion>False</SynchReleaseVersion>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <ReleaseVersion />
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>True</DebugSymbols>
+    <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>False</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>False</ConsolePause>
-    <GenerateDocumentation>true</GenerateDocumentation>
+    <DocumentationFile>bin\Debug\Pkcs11Interop.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
-    <Optimize>True</Optimize>
-    <OutputPath>bin\Release</OutputPath>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>False</ConsolePause>
-    <GenerateDocumentation>true</GenerateDocumentation>
+    <DocumentationFile>bin\Release\Pkcs11Interop.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_AES_CBC_ENCRYPT_DATA_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_AES_CTR_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_ARIA_CBC_ENCRYPT_DATA_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_CAMELLIA_CBC_ENCRYPT_DATA_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_CAMELLIA_CTR_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_CMS_SIG_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_DES_CBC_ENCRYPT_DATA_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_ECDH1_DERIVE_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_ECDH2_DERIVE_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_ECMQV_DERIVE_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_EXTRACT_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_KEA_DERIVE_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_KEY_DERIVATION_STRING_DATA.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_KEY_WRAP_SET_OAEP_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_KIP_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_MAC_GENERAL_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_OTP_PARAM.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_OTP_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_OTP_SIGNATURE_INFO.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_PBE_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_PKCS5_PBKD2_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_RC2_CBC_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_RC2_MAC_GENERAL_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_RC2_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_RC5_CBC_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_RC5_MAC_GENERAL_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_RC5_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_RSA_PKCS_OAEP_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_RSA_PKCS_PSS_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_SKIPJACK_PRIVATE_WRAP_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_SKIPJACK_RELAYX_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_SSL3_KEY_MAT_OUT.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_SSL3_KEY_MAT_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_SSL3_MASTER_KEY_DERIVE_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_SSL3_RANDOM_DATA.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_TLS_PRF_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_WTLS_KEY_MAT_OUT.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_WTLS_KEY_MAT_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_WTLS_MASTER_KEY_DERIVE_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_WTLS_PRF_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_WTLS_RANDOM_DATA.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_X9_42_DH1_DERIVE_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_X9_42_DH2_DERIVE_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\MechanismParams\CK_X9_42_MQV_DERIVE_PARAMS.cs" />
-    <Compile Include="LowLevelAPI\CK_ATTRIBUTE.cs" />
-    <Compile Include="LowLevelAPI\CK_C_INITIALIZE_ARGS.cs" />
-    <Compile Include="LowLevelAPI\CK_FUNCTION_LIST.cs" />
-    <Compile Include="LowLevelAPI\CK_INFO.cs" />
-    <Compile Include="LowLevelAPI\CK_MECHANISM.cs" />
-    <Compile Include="LowLevelAPI\CK_MECHANISM_INFO.cs" />
-    <Compile Include="LowLevelAPI\CK_SESSION_INFO.cs" />
-    <Compile Include="LowLevelAPI\CK_SLOT_INFO.cs" />
-    <Compile Include="LowLevelAPI\CK_TOKEN_INFO.cs" />
-    <Compile Include="LowLevelAPI\CK_VERSION.cs" />
-    <Compile Include="LowLevelAPI\CkaUtils.cs" />
-    <Compile Include="LowLevelAPI\CkmUtils.cs" />
-    <Compile Include="LowLevelAPI\Delegates.cs" />
-    <Compile Include="LowLevelAPI\NativeMethods.cs" />
-    <Compile Include="LowLevelAPI\Pkcs11.cs" />
-    <Compile Include="LowLevelAPI\UnmanagedMemory.cs" />
     <Compile Include="Common\CK.cs" />
     <Compile Include="Common\CKA.cs" />
     <Compile Include="Common\CKC.cs" />
@@ -114,27 +53,251 @@
     <Compile Include="Common\CKS.cs" />
     <Compile Include="Common\CKU.cs" />
     <Compile Include="Common\CKZ.cs" />
-    <Compile Include="Common\Pkcs11InteropException.cs" />
-    <Compile Include="LowLevelAPI\UnmanagedLibrary.cs" />
-    <Compile Include="HighLevelAPI\Pkcs11Exception.cs" />
-    <Compile Include="HighLevelAPI\LibraryInfo.cs" />
-    <Compile Include="HighLevelAPI\Mechanism.cs" />
-    <Compile Include="HighLevelAPI\MechanismFlags.cs" />
-    <Compile Include="HighLevelAPI\MechanismInfo.cs" />
-    <Compile Include="HighLevelAPI\ObjectAttribute.cs" />
-    <Compile Include="HighLevelAPI\ObjectHandle.cs" />
-    <Compile Include="HighLevelAPI\Pkcs11.cs" />
-    <Compile Include="HighLevelAPI\Session.cs" />
-    <Compile Include="HighLevelAPI\SessionFlags.cs" />
-    <Compile Include="HighLevelAPI\SessionInfo.cs" />
-    <Compile Include="HighLevelAPI\Slot.cs" />
-    <Compile Include="HighLevelAPI\SlotFlags.cs" />
-    <Compile Include="HighLevelAPI\SlotInfo.cs" />
-    <Compile Include="HighLevelAPI\TokenFlags.cs" />
-    <Compile Include="HighLevelAPI\TokenInfo.cs" />
-    <Compile Include="HighLevelAPI\MechanismParams\CkRsaPkcsOaepParams.cs" />
-    <Compile Include="HighLevelAPI\IMechanismParams.cs" />
-    <Compile Include="HighLevelAPI\MechanismParams\CkKeyDerivationStringData.cs" />
+    <Compile Include="Common\ConvertUtils.cs" />
+    <Compile Include="Common\Pkcs11Exception.cs" />
+    <Compile Include="Common\IMechanismParams.cs" />
+    <Compile Include="Common\UnmanagedLong.cs" />
+    <Compile Include="Common\Doxygen.cs" />
+    <Compile Include="HighLevelAPI4\LibraryInfo.cs" />
+    <Compile Include="HighLevelAPI4\Mechanism.cs" />
+    <Compile Include="HighLevelAPI4\MechanismFlags.cs" />
+    <Compile Include="HighLevelAPI4\MechanismInfo.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkAesCbcEncryptDataParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkAesCtrParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkAriaCbcEncryptDataParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkCamelliaCbcEncryptDataParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkCamelliaCtrParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkCmsSigParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkDesCbcEncryptDataParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkEcdh1DeriveParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkEcdh2DeriveParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkEcmqvDeriveParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkExtractParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkKeaDeriveParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkKeyDerivationStringData.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkKeyWrapSetOaepParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkKipParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkMacGeneralParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkOtpParam.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkOtpParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkOtpSignatureInfo.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkPbeParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkPkcs5Pbkd2Params.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkRc2CbcParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkRc2MacGeneralParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkRc2Params.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkRc5CbcParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkRc5MacGeneralParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkRc5Params.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkRsaPkcsOaepParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkRsaPkcsPssParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkSkipjackPrivateWrapParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkSkipjackRelayxParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkSsl3KeyMatOut.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkSsl3KeyMatParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkSsl3MasterKeyDeriveParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkSsl3RandomData.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkTlsPrfParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkVersion.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkWtlsKeyMatOut.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkWtlsKeyMatParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkWtlsMasterKeyDeriveParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkWtlsPrfParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkWtlsRandomData.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkX942Dh1DeriveParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkX942Dh2DeriveParams.cs" />
+    <Compile Include="HighLevelAPI4\MechanismParams\CkX942MqvDeriveParams.cs" />
+    <Compile Include="HighLevelAPI4\ObjectAttribute.cs" />
+    <Compile Include="HighLevelAPI4\ObjectHandle.cs" />
+    <Compile Include="HighLevelAPI4\Pkcs11.cs" />
+    <Compile Include="HighLevelAPI4\Session.cs" />
+    <Compile Include="HighLevelAPI4\SessionFlags.cs" />
+    <Compile Include="HighLevelAPI4\SessionInfo.cs" />
+    <Compile Include="HighLevelAPI4\Slot.cs" />
+    <Compile Include="HighLevelAPI4\SlotFlags.cs" />
+    <Compile Include="HighLevelAPI4\SlotInfo.cs" />
+    <Compile Include="HighLevelAPI4\TokenFlags.cs" />
+    <Compile Include="HighLevelAPI4\TokenInfo.cs" />
+    <Compile Include="HighLevelAPI8\LibraryInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\Mechanism.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismFlags.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkAesCbcEncryptDataParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkAesCtrParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkAriaCbcEncryptDataParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkCamelliaCbcEncryptDataParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkCamelliaCtrParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkCmsSigParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkDesCbcEncryptDataParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkEcdh1DeriveParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkEcdh2DeriveParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkEcmqvDeriveParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkExtractParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkKeaDeriveParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkKeyDerivationStringData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkKeyWrapSetOaepParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkKipParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkMacGeneralParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkOtpParam.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkOtpParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkOtpSignatureInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkPbeParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkPkcs5Pbkd2Params.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkRc2CbcParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkRc2MacGeneralParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkRc2Params.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkRc5CbcParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkRc5MacGeneralParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkRc5Params.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkRsaPkcsOaepParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkRsaPkcsPssParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkSkipjackPrivateWrapParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkSkipjackRelayxParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkSsl3KeyMatOut.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkSsl3KeyMatParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkSsl3MasterKeyDeriveParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkSsl3RandomData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkTlsPrfParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkVersion.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkWtlsKeyMatOut.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkWtlsKeyMatParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkWtlsMasterKeyDeriveParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkWtlsPrfParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkWtlsRandomData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkX942Dh1DeriveParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkX942Dh2DeriveParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\MechanismParams\CkX942MqvDeriveParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\ObjectAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\ObjectHandle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\Pkcs11.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\Session.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\SessionFlags.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\SessionInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\Slot.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\SlotFlags.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\SlotInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\TokenFlags.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\TokenInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="HighLevelAPI\MechanismParams\CkAesCbcEncryptDataParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkAesCtrParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkAriaCbcEncryptDataParams.cs" />
@@ -147,6 +310,7 @@
     <Compile Include="HighLevelAPI\MechanismParams\CkEcmqvDeriveParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkExtractParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkKeaDeriveParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkKeyDerivationStringData.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkKeyWrapSetOaepParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkKipParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkMacGeneralParams.cs" />
@@ -161,6 +325,7 @@
     <Compile Include="HighLevelAPI\MechanismParams\CkRc5CbcParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkRc5MacGeneralParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkRc5Params.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkRsaPkcsOaepParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkRsaPkcsPssParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkSkipjackPrivateWrapParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkSkipjackRelayxParams.cs" />
@@ -168,9 +333,8 @@
     <Compile Include="HighLevelAPI\MechanismParams\CkSsl3KeyMatParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkSsl3MasterKeyDeriveParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkSsl3RandomData.cs" />
-    <Compile Include="HighLevelAPI\MechanismParams\CkVersion.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkTlsPrfParams.cs" />
-    <Compile Include="Common\ConvertUtils.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\CkVersion.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkWtlsKeyMatOut.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkWtlsKeyMatParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkWtlsMasterKeyDeriveParams.cs" />
@@ -179,26 +343,307 @@
     <Compile Include="HighLevelAPI\MechanismParams\CkX942Dh1DeriveParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkX942Dh2DeriveParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkX942MqvDeriveParams.cs" />
-    <Compile Include="LowLevelAPI\CK_FUNCTION_LIST_UNIX.cs" />
+    <Compile Include="LowLevelAPI4\CkaUtils.cs" />
+    <Compile Include="LowLevelAPI4\CkmUtils.cs" />
+    <Compile Include="LowLevelAPI4\CK_ATTRIBUTE.cs" />
+    <Compile Include="LowLevelAPI4\CK_C_INITIALIZE_ARGS.cs" />
+    <Compile Include="LowLevelAPI4\CK_FUNCTION_LIST.cs" />
+    <Compile Include="LowLevelAPI4\CK_FUNCTION_LIST_UNIX.cs" />
+    <Compile Include="LowLevelAPI4\CK_INFO.cs" />
+    <Compile Include="LowLevelAPI4\CK_MECHANISM.cs" />
+    <Compile Include="LowLevelAPI4\CK_MECHANISM_INFO.cs" />
+    <Compile Include="LowLevelAPI4\CK_SESSION_INFO.cs" />
+    <Compile Include="LowLevelAPI4\CK_SLOT_INFO.cs" />
+    <Compile Include="LowLevelAPI4\CK_TOKEN_INFO.cs" />
+    <Compile Include="LowLevelAPI4\CK_VERSION.cs" />
+    <Compile Include="LowLevelAPI4\Delegates.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_AES_CBC_ENCRYPT_DATA_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_AES_CTR_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_ARIA_CBC_ENCRYPT_DATA_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_CAMELLIA_CBC_ENCRYPT_DATA_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_CAMELLIA_CTR_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_CMS_SIG_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_DES_CBC_ENCRYPT_DATA_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_ECDH1_DERIVE_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_ECDH2_DERIVE_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_ECMQV_DERIVE_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_EXTRACT_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_KEA_DERIVE_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_KEY_DERIVATION_STRING_DATA.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_KEY_WRAP_SET_OAEP_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_KIP_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_MAC_GENERAL_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_OTP_PARAM.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_OTP_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_OTP_SIGNATURE_INFO.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_PBE_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_PKCS5_PBKD2_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_RC2_CBC_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_RC2_MAC_GENERAL_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_RC2_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_RC5_CBC_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_RC5_MAC_GENERAL_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_RC5_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_RSA_PKCS_OAEP_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_RSA_PKCS_PSS_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_SKIPJACK_PRIVATE_WRAP_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_SKIPJACK_RELAYX_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_SSL3_KEY_MAT_OUT.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_SSL3_KEY_MAT_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_SSL3_MASTER_KEY_DERIVE_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_SSL3_RANDOM_DATA.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_TLS_PRF_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_WTLS_KEY_MAT_OUT.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_WTLS_KEY_MAT_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_WTLS_MASTER_KEY_DERIVE_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_WTLS_PRF_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_WTLS_RANDOM_DATA.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_X9_42_DH1_DERIVE_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_X9_42_DH2_DERIVE_PARAMS.cs" />
+    <Compile Include="LowLevelAPI4\MechanismParams\CK_X9_42_MQV_DERIVE_PARAMS.cs" />
+    <Compile Include="Common\NativeMethods.cs" />
+    <Compile Include="LowLevelAPI4\Pkcs11.cs" />
+    <Compile Include="Common\UnmanagedLibrary.cs" />
+    <Compile Include="Common\UnmanagedMemory.cs" />
+    <Compile Include="LowLevelAPI8\CkaUtils.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\CkmUtils.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\CK_ATTRIBUTE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\CK_C_INITIALIZE_ARGS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\CK_FUNCTION_LIST.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\CK_FUNCTION_LIST_UNIX.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\CK_INFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\CK_MECHANISM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\CK_MECHANISM_INFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\CK_SESSION_INFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\CK_SLOT_INFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\CK_TOKEN_INFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\CK_VERSION.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\Delegates.cs" />
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_AES_CBC_ENCRYPT_DATA_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_AES_CTR_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_ARIA_CBC_ENCRYPT_DATA_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_CAMELLIA_CBC_ENCRYPT_DATA_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_CAMELLIA_CTR_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_CMS_SIG_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_DES_CBC_ENCRYPT_DATA_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_ECDH1_DERIVE_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_ECDH2_DERIVE_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_ECMQV_DERIVE_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_EXTRACT_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_KEA_DERIVE_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_KEY_DERIVATION_STRING_DATA.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_KEY_WRAP_SET_OAEP_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_KIP_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_MAC_GENERAL_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_OTP_PARAM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_OTP_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_OTP_SIGNATURE_INFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_PBE_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_PKCS5_PBKD2_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_RC2_CBC_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_RC2_MAC_GENERAL_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_RC2_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_RC5_CBC_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_RC5_MAC_GENERAL_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_RC5_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_RSA_PKCS_OAEP_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_RSA_PKCS_PSS_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_SKIPJACK_PRIVATE_WRAP_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_SKIPJACK_RELAYX_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_SSL3_KEY_MAT_OUT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_SSL3_KEY_MAT_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_SSL3_MASTER_KEY_DERIVE_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_SSL3_RANDOM_DATA.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_TLS_PRF_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_WTLS_KEY_MAT_OUT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_WTLS_KEY_MAT_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_WTLS_MASTER_KEY_DERIVE_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_WTLS_PRF_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_WTLS_RANDOM_DATA.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_X9_42_DH1_DERIVE_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_X9_42_DH2_DERIVE_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\MechanismParams\CK_X9_42_MQV_DERIVE_PARAMS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelAPI8\Pkcs11.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="HighLevelAPI\LibraryInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI\Mechanism.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI\MechanismFlags.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI\MechanismInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI\ObjectAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI\ObjectHandle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI\Pkcs11.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI\Session.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI\SessionFlags.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI\SessionInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI\Slot.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI\SlotFlags.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI\SlotInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI\TokenFlags.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI\TokenInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <None Include="LICENSE.txt" />
     <None Include="app.config" />
+    <None Include="LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="CHANGELOG.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="ISSUES.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="HighLevelAPI\" />
-    <Folder Include="HighLevelAPI\MechanismParams\" />
-  </ItemGroup>
-  <ProjectExtensions>
-    <MonoDevelop>
-      <Properties>
-        <Policies>
-          <DotNetNamingPolicy DirectoryNamespaceAssociation="PrefixedHierarchical" ResourceNamePolicy="FileFormatDefault" />
-        </Policies>
-      </Properties>
-    </MonoDevelop>
-  </ProjectExtensions>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
 </Project>

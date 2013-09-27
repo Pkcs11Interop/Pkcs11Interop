@@ -1,28 +1,19 @@
 ﻿/*
- *  Pkcs11Interop - Open-source .NET wrapper for unmanaged PKCS#11 libraries
- *  Copyright (c) 2012-2013 JWC s.r.o.
- *  Author: Jaroslav Imrich
+ *  Pkcs11Interop - Managed .NET wrapper for unmanaged PKCS#11 libraries
+ *  Copyright (c) 2012-2013 JWC s.r.o. <http://www.jwc.sk>
+ *  Author: Jaroslav Imrich <jimrich@jimrich.sk>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License version 3
- *  as published by the Free Software Foundation.
+ *  Licensing for open source projects:
+ *  Pkcs11Interop is available under the terms of the GNU Affero General 
+ *  Public License version 3 as published by the Free Software Foundation.
+ *  Please see <http://www.gnu.org/licenses/agpl-3.0.html> for more details.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU Affero General Public License for more details.
- *
- *  You should have received a copy of the GNU Affero General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
- *  You can be released from the requirements of the license by purchasing
- *  a commercial license. Buying such a license is mandatory as soon as you
- *  develop commercial activities involving the Pkcs11Interop software without
- *  disclosing the source code of your own applications.
- * 
- *  For more information, please contact JWC s.r.o. at info@pkcs11interop.net
+ *  Licensing for other types of projects:
+ *  Pkcs11Interop is available under the terms of flexible commercial license.
+ *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
+using System;
 using Net.Pkcs11Interop.Common;
 
 namespace Net.Pkcs11Interop.HighLevelAPI
@@ -33,18 +24,23 @@ namespace Net.Pkcs11Interop.HighLevelAPI
     public class MechanismFlags
     {
         /// <summary>
-        /// Bits flags specifying mechanism capabilities
+        /// Platform specific MechanismFlags
         /// </summary>
-        private uint _flags;
+        private HighLevelAPI4.MechanismFlags _mechanismFlags4 = null;
+
+        /// <summary>
+        /// Platform specific MechanismFlags
+        /// </summary>
+        private HighLevelAPI8.MechanismFlags _mechanismFlags8 = null;
 
         /// <summary>
         /// Bits flags specifying mechanism capabilities
         /// </summary>
-        public uint Flags
+        public ulong Flags
         {
             get
             {
-                return _flags;
+                return (UnmanagedLong.Size == 4) ? _mechanismFlags4.Flags : _mechanismFlags8.Flags;
             }
         }
 
@@ -55,7 +51,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_HW) == CKF.CKF_HW);
+                return (UnmanagedLong.Size == 4) ? _mechanismFlags4.Hw : _mechanismFlags8.Hw;
             }
         }
 
@@ -66,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_ENCRYPT) == CKF.CKF_ENCRYPT);
+                return (UnmanagedLong.Size == 4) ? _mechanismFlags4.Encrypt : _mechanismFlags8.Encrypt;
             }
         }
 
@@ -77,7 +73,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_DECRYPT) == CKF.CKF_DECRYPT);
+                return (UnmanagedLong.Size == 4) ? _mechanismFlags4.Decrypt : _mechanismFlags8.Decrypt;
             }
         }
 
@@ -88,7 +84,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_DIGEST) == CKF.CKF_DIGEST);
+                return (UnmanagedLong.Size == 4) ? _mechanismFlags4.Digest : _mechanismFlags8.Digest;
             }
         }
 
@@ -99,7 +95,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_SIGN) == CKF.CKF_SIGN);
+                return (UnmanagedLong.Size == 4) ? _mechanismFlags4.Sign : _mechanismFlags8.Sign;
             }
         }
 
@@ -110,7 +106,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_SIGN_RECOVER) == CKF.CKF_SIGN_RECOVER);
+                return (UnmanagedLong.Size == 4) ? _mechanismFlags4.SignRecover : _mechanismFlags8.SignRecover;
             }
         }
 
@@ -121,7 +117,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_VERIFY) == CKF.CKF_VERIFY);
+                return (UnmanagedLong.Size == 4) ? _mechanismFlags4.Verify : _mechanismFlags8.Verify;
             }
         }
 
@@ -132,7 +128,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_VERIFY_RECOVER) == CKF.CKF_VERIFY_RECOVER);
+                return (UnmanagedLong.Size == 4) ? _mechanismFlags4.VerifyRecover : _mechanismFlags8.VerifyRecover;
             }
         }
 
@@ -143,7 +139,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_GENERATE) == CKF.CKF_GENERATE);
+                return (UnmanagedLong.Size == 4) ? _mechanismFlags4.Generate : _mechanismFlags8.Generate;
             }
         }
 
@@ -154,7 +150,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_GENERATE_KEY_PAIR) == CKF.CKF_GENERATE_KEY_PAIR);
+                return (UnmanagedLong.Size == 4) ? _mechanismFlags4.GenerateKeyPair : _mechanismFlags8.GenerateKeyPair;
             }
         }
 
@@ -165,7 +161,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_WRAP) == CKF.CKF_WRAP);
+                return (UnmanagedLong.Size == 4) ? _mechanismFlags4.Wrap : _mechanismFlags8.Wrap;
             }
         }
 
@@ -176,7 +172,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_UNWRAP) == CKF.CKF_UNWRAP);
+                return (UnmanagedLong.Size == 4) ? _mechanismFlags4.Unwrap : _mechanismFlags8.Unwrap;
             }
         }
 
@@ -187,7 +183,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_DERIVE) == CKF.CKF_DERIVE);
+                return (UnmanagedLong.Size == 4) ? _mechanismFlags4.Derive : _mechanismFlags8.Derive;
             }
         }
 
@@ -198,7 +194,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_EXTENSION) == CKF.CKF_EXTENSION);
+                return (UnmanagedLong.Size == 4) ? _mechanismFlags4.Extension : _mechanismFlags8.Extension;
             }
         }
 
@@ -211,7 +207,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_EC_F_P) == CKF.CKF_EC_F_P);
+                return (UnmanagedLong.Size == 4) ? _mechanismFlags4.EcFp : _mechanismFlags8.EcFp;
             }
         }
 
@@ -222,7 +218,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_EC_F_2M) == CKF.CKF_EC_F_2M);
+                return (UnmanagedLong.Size == 4) ? _mechanismFlags4.EcF2m : _mechanismFlags8.EcF2m;
             }
         }
 
@@ -233,7 +229,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_EC_ECPARAMETERS) == CKF.CKF_EC_ECPARAMETERS);
+                return (UnmanagedLong.Size == 4) ? _mechanismFlags4.EcEcParameters : _mechanismFlags8.EcEcParameters;
             }
         }
 
@@ -244,7 +240,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_EC_NAMEDCURVE) == CKF.CKF_EC_NAMEDCURVE);
+                return (UnmanagedLong.Size == 4) ? _mechanismFlags4.EcNamedCurve : _mechanismFlags8.EcNamedCurve;
             }
         }
 
@@ -255,7 +251,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_EC_UNCOMPRESS) == CKF.CKF_EC_UNCOMPRESS);
+                return (UnmanagedLong.Size == 4) ? _mechanismFlags4.EcUncompress : _mechanismFlags8.EcUncompress;
             }
         }
 
@@ -266,19 +262,34 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_EC_COMPRESS) == CKF.CKF_EC_COMPRESS);
+                return (UnmanagedLong.Size == 4) ? _mechanismFlags4.EcCompress : _mechanismFlags8.EcCompress;
             }
         }
 
         #endregion
 
         /// <summary>
-        /// Initializes new instance of MechanismFlags class
+        /// Converts platform specific MechanismFlags to platfrom neutral MechanismFlags
         /// </summary>
-        /// <param name="flags">Bits flags specifying mechanism capabilities</param>
-        internal MechanismFlags(uint flags)
+        /// <param name="mechanismFlags">Platform specific MechanismFlags</param>
+        internal MechanismFlags(HighLevelAPI4.MechanismFlags mechanismFlags)
         {
-            _flags = flags;
+            if (mechanismFlags == null)
+                throw new ArgumentNullException("mechanismFlags");
+
+            _mechanismFlags4 = mechanismFlags;
+        }
+
+        /// <summary>
+        /// Converts platform specific MechanismFlags to platfrom neutral MechanismFlags
+        /// </summary>
+        /// <param name="mechanismFlags">Platform specific MechanismFlags</param>
+        internal MechanismFlags(HighLevelAPI8.MechanismFlags mechanismFlags)
+        {
+            if (mechanismFlags == null)
+                throw new ArgumentNullException("mechanismFlags");
+
+            _mechanismFlags8 = mechanismFlags;
         }
     }
 }

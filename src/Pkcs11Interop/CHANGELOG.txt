@@ -1,15 +1,26 @@
-Pkcs11Interop 1.3 (20.07.2013)
+Pkcs11Interop 2.0 (2013-09-27)
+ - Platforms where C 'long' type is 8 bytes long (Linux x86_64) are now 
+   supported via LowLevelAPI8 and HighLevel8
+ - LowLevelAPI and HighLevelAPI known from previous versions of library 
+   support only platforms where C 'long' type is 4 bytes long and they have 
+   been renamed to LowLevelAPI4 and HighLevelAPI4
+ - New HighLevelAPI is now built on top of HighLevelAPI4 and HighLevelAPI8 
+   and automatically uses correct set of platform dependent APIs
+ - System.Convert is used instead of explicit type casting where appropriate
+ - Pkcs11InteropException has been removed
+
+Pkcs11Interop 1.3 (2013-07-20)
  - Supports C_GetFunctionList() on Linux and OS X
  - Supports also libraries without C_GetFunctionList()
  - GetAttributeValue() can process also List<uint>
  - Supports reading of CK_DATE attributes with an empty value
  - Correctly disposes returned SSL and WTLS key material
 
-Pkcs11Interop 1.2 (21.05.2013)
+Pkcs11Interop 1.2 (2013-05-21)
  - Fix #4: Empty string is supported as a value of object attribute
 
-Pkcs11Interop 1.1 (14.04.2013)
- - Fix #1: HighLevelAPI.Slot.SlotId can be 0
+Pkcs11Interop 1.1 (2013-04-14)
+ - Fix #1: HighLevelAPI4.Slot.SlotId can be 0
 
 Pkcs11Interop 1.0 (2013-02-02)
  - Initial stable release

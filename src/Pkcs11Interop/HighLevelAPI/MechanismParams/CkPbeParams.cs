@@ -1,29 +1,20 @@
 /*
- *  Pkcs11Interop - Open-source .NET wrapper for unmanaged PKCS#11 libraries
- *  Copyright (c) 2012-2013 JWC s.r.o.
- *  Author: Jaroslav Imrich
+ *  Pkcs11Interop - Managed .NET wrapper for unmanaged PKCS#11 libraries
+ *  Copyright (c) 2012-2013 JWC s.r.o. <http://www.jwc.sk>
+ *  Author: Jaroslav Imrich <jimrich@jimrich.sk>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License version 3
- *  as published by the Free Software Foundation.
+ *  Licensing for open source projects:
+ *  Pkcs11Interop is available under the terms of the GNU Affero General 
+ *  Public License version 3 as published by the Free Software Foundation.
+ *  Please see <http://www.gnu.org/licenses/agpl-3.0.html> for more details.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU Affero General Public License for more details.
- *
- *  You should have received a copy of the GNU Affero General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
- *  You can be released from the requirements of the license by purchasing
- *  a commercial license. Buying such a license is mandatory as soon as you
- *  develop commercial activities involving the Pkcs11Interop software without
- *  disclosing the source code of your own applications.
- * 
- *  For more information, please contact JWC s.r.o. at info@pkcs11interop.net
+ *  Licensing for other types of projects:
+ *  Pkcs11Interop is available under the terms of flexible commercial license.
+ *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
 using System;
+using Net.Pkcs11Interop.Common;
 
 namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
 {
@@ -36,11 +27,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// Flag indicating whether instance has been disposed
         /// </summary>
         private bool _disposed = false;
-        
+
         /// <summary>
-        /// Low level mechanism parameters
+        /// Platform specific CkPbeParams
         /// </summary>
-        private LowLevelAPI.MechanismParams.CK_PBE_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_PBE_PARAMS();
+        private HighLevelAPI4.MechanismParams.CkPbeParams _params4 = null;
+
+        /// <summary>
+        /// Platform specific CkPbeParams
+        /// </summary>
+        private HighLevelAPI8.MechanismParams.CkPbeParams _params8 = null;
         
         /// <summary>
         /// Initializes a new instance of the CkPbeParams class.
@@ -49,53 +45,29 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='password'>Password to be used in the PBE key generation</param>
         /// <param name='salt'>Salt to be used in the PBE key generation</param>
         /// <param name='iteration'>Number of iterations required for the generation</param>
-        public CkPbeParams(byte[] initVector, byte[] password, byte[] salt, uint iteration)
+        public CkPbeParams(byte[] initVector, byte[] password, byte[] salt, ulong iteration)
         {
-            _lowLevelStruct.InitVector = IntPtr.Zero;
-            _lowLevelStruct.Password = IntPtr.Zero;
-            _lowLevelStruct.PasswordLen = 0;
-            _lowLevelStruct.Salt = IntPtr.Zero;
-            _lowLevelStruct.SaltLen = 0;
-            _lowLevelStruct.Iteration = 0;
-
-            if (initVector != null)
-            {
-                if (initVector.Length != 8)
-                    throw new ArgumentOutOfRangeException("initVector", "Array has to be 8 bytes long");
-
-                _lowLevelStruct.InitVector = LowLevelAPI.UnmanagedMemory.Allocate(initVector.Length);
-                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.InitVector, initVector);
-            }
-
-            if (password != null)
-            {
-                _lowLevelStruct.Password = LowLevelAPI.UnmanagedMemory.Allocate(password.Length);
-                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.Password, password);
-                _lowLevelStruct.PasswordLen = (uint)password.Length;
-            }
-
-            if (salt != null)
-            {
-                _lowLevelStruct.Salt = LowLevelAPI.UnmanagedMemory.Allocate(salt.Length);
-                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.Salt, salt);
-                _lowLevelStruct.SaltLen = (uint)salt.Length;
-            }
-
-            _lowLevelStruct.Iteration = iteration;
+            if (UnmanagedLong.Size == 4)
+                _params4 = new HighLevelAPI4.MechanismParams.CkPbeParams(initVector, password, salt, Convert.ToUInt32(iteration));
+            else
+                _params8 = new HighLevelAPI8.MechanismParams.CkPbeParams(initVector, password, salt, iteration);
         }
         
         #region IMechanismParams
-        
+
         /// <summary>
-        /// Converts object to low level mechanism parameters
+        /// Returns managed object that can be marshaled to an unmanaged block of memory
         /// </summary>
-        /// <returns>Low level mechanism parameters</returns>
-        public object ToLowLevelParams()
+        /// <returns>A managed object holding the data to be marshaled. This object must be an instance of a formatted class.</returns>
+        public object ToMarshalableStructure()
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _lowLevelStruct;
+            if (UnmanagedLong.Size == 4)
+                return _params4.ToMarshalableStructure();
+            else
+                return _params8.ToMarshalableStructure();
         }
         
         #endregion
@@ -122,14 +94,20 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (disposing)
                 {
                     // Dispose managed objects
+                    if (_params4 != null)
+                    {
+                        _params4.Dispose();
+                        _params4 = null;
+                    }
+
+                    if (_params8 != null)
+                    {
+                        _params8.Dispose();
+                        _params8 = null;
+                    }
                 }
                 
                 // Dispose unmanaged objects
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.InitVector);
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.Password);
-                _lowLevelStruct.PasswordLen = 0;
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.Salt);
-                _lowLevelStruct.SaltLen = 0;
 
                 _disposed = true;
             }

@@ -1,28 +1,19 @@
 ﻿/*
- *  Pkcs11Interop - Open-source .NET wrapper for unmanaged PKCS#11 libraries
- *  Copyright (c) 2012-2013 JWC s.r.o.
- *  Author: Jaroslav Imrich
+ *  Pkcs11Interop - Managed .NET wrapper for unmanaged PKCS#11 libraries
+ *  Copyright (c) 2012-2013 JWC s.r.o. <http://www.jwc.sk>
+ *  Author: Jaroslav Imrich <jimrich@jimrich.sk>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License version 3
- *  as published by the Free Software Foundation.
+ *  Licensing for open source projects:
+ *  Pkcs11Interop is available under the terms of the GNU Affero General 
+ *  Public License version 3 as published by the Free Software Foundation.
+ *  Please see <http://www.gnu.org/licenses/agpl-3.0.html> for more details.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU Affero General Public License for more details.
- *
- *  You should have received a copy of the GNU Affero General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
- *  You can be released from the requirements of the license by purchasing
- *  a commercial license. Buying such a license is mandatory as soon as you
- *  develop commercial activities involving the Pkcs11Interop software without
- *  disclosing the source code of your own applications.
- * 
- *  For more information, please contact JWC s.r.o. at info@pkcs11interop.net
+ *  Licensing for other types of projects:
+ *  Pkcs11Interop is available under the terms of flexible commercial license.
+ *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
+using System;
 using Net.Pkcs11Interop.Common;
 
 namespace Net.Pkcs11Interop.HighLevelAPI
@@ -33,18 +24,23 @@ namespace Net.Pkcs11Interop.HighLevelAPI
     public class TokenFlags
     {
         /// <summary>
-        /// Bits flags indicating capabilities and status of the device
+        /// Platform specific TokenFlags
         /// </summary>
-        private uint _flags;
+        private HighLevelAPI4.TokenFlags _tokenFlags4 = null;
+
+        /// <summary>
+        /// Platform specific TokenFlags
+        /// </summary>
+        private HighLevelAPI8.TokenFlags _tokenFlags8 = null;
 
         /// <summary>
         /// Bits flags indicating capabilities and status of the device
         /// </summary>
-        public uint Flags
+        public ulong Flags
         {
             get
             {
-                return _flags;
+                return (UnmanagedLong.Size == 4) ? _tokenFlags4.Flags : _tokenFlags8.Flags;
             }
         }
 
@@ -55,7 +51,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_RNG) == CKF.CKF_RNG);
+                return (UnmanagedLong.Size == 4) ? _tokenFlags4.Rng : _tokenFlags8.Rng;
             }
         }
 
@@ -66,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_WRITE_PROTECTED) == CKF.CKF_WRITE_PROTECTED);
+                return (UnmanagedLong.Size == 4) ? _tokenFlags4.WriteProtected : _tokenFlags8.WriteProtected;
             }
         }
 
@@ -77,7 +73,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_LOGIN_REQUIRED) == CKF.CKF_LOGIN_REQUIRED);
+                return (UnmanagedLong.Size == 4) ? _tokenFlags4.LoginRequired : _tokenFlags8.LoginRequired;
             }
         }
 
@@ -88,7 +84,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_USER_PIN_INITIALIZED) == CKF.CKF_USER_PIN_INITIALIZED);
+                return (UnmanagedLong.Size == 4) ? _tokenFlags4.UserPinInitialized : _tokenFlags8.UserPinInitialized;
             }
         }
 
@@ -99,7 +95,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_RESTORE_KEY_NOT_NEEDED) == CKF.CKF_RESTORE_KEY_NOT_NEEDED);
+                return (UnmanagedLong.Size == 4) ? _tokenFlags4.RestoreKeyNotNeeded : _tokenFlags8.RestoreKeyNotNeeded;
             }
         }
 
@@ -110,7 +106,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_CLOCK_ON_TOKEN) == CKF.CKF_CLOCK_ON_TOKEN);
+                return (UnmanagedLong.Size == 4) ? _tokenFlags4.ClockOnToken : _tokenFlags8.ClockOnToken;
             }
         }
         
@@ -121,7 +117,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_PROTECTED_AUTHENTICATION_PATH) == CKF.CKF_PROTECTED_AUTHENTICATION_PATH);
+                return (UnmanagedLong.Size == 4) ? _tokenFlags4.ProtectedAuthenticationPath : _tokenFlags8.ProtectedAuthenticationPath;
             }
         }
 
@@ -132,7 +128,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_DUAL_CRYPTO_OPERATIONS) == CKF.CKF_DUAL_CRYPTO_OPERATIONS);
+                return (UnmanagedLong.Size == 4) ? _tokenFlags4.DualCryptoOperations : _tokenFlags8.DualCryptoOperations;
             }
         }
 
@@ -143,7 +139,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_TOKEN_INITIALIZED) == CKF.CKF_TOKEN_INITIALIZED);
+                return (UnmanagedLong.Size == 4) ? _tokenFlags4.TokenInitialized : _tokenFlags8.TokenInitialized;
             }
         }
 
@@ -154,7 +150,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_SECONDARY_AUTHENTICATION) == CKF.CKF_SECONDARY_AUTHENTICATION);
+                return (UnmanagedLong.Size == 4) ? _tokenFlags4.SecondaryAuthentication : _tokenFlags8.SecondaryAuthentication;
             }
         }
 
@@ -165,7 +161,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_USER_PIN_COUNT_LOW) == CKF.CKF_USER_PIN_COUNT_LOW);
+                return (UnmanagedLong.Size == 4) ? _tokenFlags4.UserPinCountLow : _tokenFlags8.UserPinCountLow;
             }
         }
 
@@ -176,7 +172,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_USER_PIN_FINAL_TRY) == CKF.CKF_USER_PIN_FINAL_TRY);
+                return (UnmanagedLong.Size == 4) ? _tokenFlags4.UserPinFinalTry : _tokenFlags8.UserPinFinalTry;
             }
         }
 
@@ -187,7 +183,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_USER_PIN_LOCKED) == CKF.CKF_USER_PIN_LOCKED);
+                return (UnmanagedLong.Size == 4) ? _tokenFlags4.UserPinLocked : _tokenFlags8.UserPinLocked;
             }
         }
 
@@ -198,7 +194,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_USER_PIN_TO_BE_CHANGED) == CKF.CKF_USER_PIN_TO_BE_CHANGED);
+                return (UnmanagedLong.Size == 4) ? _tokenFlags4.UserPinToBeChanged : _tokenFlags8.UserPinToBeChanged;
             }
         }
 
@@ -209,7 +205,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_SO_PIN_COUNT_LOW) == CKF.CKF_SO_PIN_COUNT_LOW);
+                return (UnmanagedLong.Size == 4) ? _tokenFlags4.SoPinCountLow : _tokenFlags8.SoPinCountLow;
             }
         }
 
@@ -220,7 +216,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_SO_PIN_FINAL_TRY) == CKF.CKF_SO_PIN_FINAL_TRY);
+                return (UnmanagedLong.Size == 4) ? _tokenFlags4.SoPinFinalTry : _tokenFlags8.SoPinFinalTry;
             }
         }
 
@@ -231,7 +227,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_SO_PIN_LOCKED) == CKF.CKF_SO_PIN_LOCKED);
+                return (UnmanagedLong.Size == 4) ? _tokenFlags4.SoPinLocked : _tokenFlags8.SoPinLocked;
             }
         }
 
@@ -242,17 +238,32 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return ((_flags & CKF.CKF_SO_PIN_TO_BE_CHANGED) == CKF.CKF_SO_PIN_TO_BE_CHANGED);
+                return (UnmanagedLong.Size == 4) ? _tokenFlags4.SoPinToBeChanged : _tokenFlags8.SoPinToBeChanged;
             }
         }
 
         /// <summary>
-        /// Initializes new instance of TokenFlags class
+        /// Converts platform specific TokenFlags to platfrom neutral TokenFlags
         /// </summary>
-        /// <param name="flags">Bits flags indicating capabilities and status of the device</param>
-        internal TokenFlags(uint flags)
+        /// <param name="tokenFlags">Platform specific TokenFlags</param>
+        internal TokenFlags(HighLevelAPI4.TokenFlags tokenFlags)
         {
-            _flags = flags;
+            if (tokenFlags == null)
+                throw new ArgumentNullException("tokenFlags");
+
+            _tokenFlags4 = tokenFlags;
+        }
+
+        /// <summary>
+        /// Converts platform specific TokenFlags to platfrom neutral TokenFlags
+        /// </summary>
+        /// <param name="tokenFlags">Platform specific TokenFlags</param>
+        internal TokenFlags(HighLevelAPI8.TokenFlags tokenFlags)
+        {
+            if (tokenFlags == null)
+                throw new ArgumentNullException("tokenFlags");
+
+            _tokenFlags8 = tokenFlags;
         }
     }
 }

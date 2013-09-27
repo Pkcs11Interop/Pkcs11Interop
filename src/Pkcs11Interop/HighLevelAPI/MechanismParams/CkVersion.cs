@@ -1,26 +1,16 @@
 /*
- *  Pkcs11Interop - Open-source .NET wrapper for unmanaged PKCS#11 libraries
- *  Copyright (c) 2012-2013 JWC s.r.o.
- *  Author: Jaroslav Imrich
+ *  Pkcs11Interop - Managed .NET wrapper for unmanaged PKCS#11 libraries
+ *  Copyright (c) 2012-2013 JWC s.r.o. <http://www.jwc.sk>
+ *  Author: Jaroslav Imrich <jimrich@jimrich.sk>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License version 3
- *  as published by the Free Software Foundation.
+ *  Licensing for open source projects:
+ *  Pkcs11Interop is available under the terms of the GNU Affero General 
+ *  Public License version 3 as published by the Free Software Foundation.
+ *  Please see <http://www.gnu.org/licenses/agpl-3.0.html> for more details.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU Affero General Public License for more details.
- *
- *  You should have received a copy of the GNU Affero General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
- *  You can be released from the requirements of the license by purchasing
- *  a commercial license. Buying such a license is mandatory as soon as you
- *  develop commercial activities involving the Pkcs11Interop software without
- *  disclosing the source code of your own applications.
- * 
- *  For more information, please contact JWC s.r.o. at info@pkcs11interop.net
+ *  Licensing for other types of projects:
+ *  Pkcs11Interop is available under the terms of flexible commercial license.
+ *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
 using System;
@@ -34,9 +24,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
     public class CkVersion : IMechanismParams
     {
         /// <summary>
-        /// Low level mechanism parameters
+        /// Platform specific CkVersion
         /// </summary>
-        private LowLevelAPI.CK_VERSION _lowLevelStruct = new LowLevelAPI.CK_VERSION();
+        private HighLevelAPI4.MechanismParams.CkVersion _params4 = null;
+
+        /// <summary>
+        /// Platform specific CkVersion
+        /// </summary>
+        private HighLevelAPI8.MechanismParams.CkVersion _params8 = null;
 
         /// <summary>
         /// Major version number (the integer portion of the version)
@@ -45,7 +40,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         {
             get
             {
-                return _lowLevelStruct.Major[0];
+                return (UnmanagedLong.Size == 4) ? _params4.Major : _params8.Major;
             }
         }
 
@@ -56,7 +51,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         {
             get
             {
-                return _lowLevelStruct.Minor[0];
+                return (UnmanagedLong.Size == 4) ? _params4.Minor : _params8.Minor;
             }
         }
 
@@ -67,19 +62,48 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='minor'>Minor version number (the hundredths portion of the version)</param>
         public CkVersion(byte major, byte minor)
         {
-            _lowLevelStruct.Major = new byte[] { major };
-            _lowLevelStruct.Minor = new byte[] { minor };
+            if (UnmanagedLong.Size == 4)
+                _params4 = new HighLevelAPI4.MechanismParams.CkVersion(major, minor);
+            else
+                _params8 = new HighLevelAPI8.MechanismParams.CkVersion(major, minor);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the CkVersion class.
+        /// </summary>
+        /// <param name='ckVersion'>Platform specific CkVersion</param>
+        internal CkVersion(HighLevelAPI4.MechanismParams.CkVersion ckVersion)
+        {
+            if (ckVersion == null)
+                throw new ArgumentNullException("ckVersion");
+
+            _params4 = ckVersion;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the CkVersion class.
+        /// </summary>
+        /// <param name='ckVersion'>Platform specific CkVersion</param>
+        internal CkVersion(HighLevelAPI8.MechanismParams.CkVersion ckVersion)
+        {
+            if (ckVersion == null)
+                throw new ArgumentNullException("ckVersion");
+
+            _params8 = ckVersion;
         }
         
         #region IMechanismParams
-        
+
         /// <summary>
-        /// Converts object to low level mechanism parameters
+        /// Returns managed object that can be marshaled to an unmanaged block of memory
         /// </summary>
-        /// <returns>Low level mechanism parameters</returns>
-        public object ToLowLevelParams()
+        /// <returns>A managed object holding the data to be marshaled. This object must be an instance of a formatted class.</returns>
+        public object ToMarshalableStructure()
         {
-            return _lowLevelStruct;
+            if (UnmanagedLong.Size == 4)
+                return _params4.ToMarshalableStructure();
+            else
+                return _params8.ToMarshalableStructure();
         }
         
         #endregion
@@ -90,7 +114,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <returns>String that represents the current CkVersion object.</returns>
         public override string ToString()
         {
-            return ConvertUtils.CkVersionToString(_lowLevelStruct);
+            string version = null;
+
+            if (UnmanagedLong.Size == 4)
+                version = ConvertUtils.CkVersionToString((LowLevelAPI4.CK_VERSION)_params4.ToMarshalableStructure());
+            else
+                version = ConvertUtils.CkVersionToString((LowLevelAPI8.CK_VERSION)_params8.ToMarshalableStructure());
+            
+            return version;
         }
     }
 }

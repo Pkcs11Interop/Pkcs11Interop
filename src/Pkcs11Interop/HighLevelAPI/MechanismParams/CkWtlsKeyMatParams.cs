@@ -1,32 +1,20 @@
 /*
- *  Pkcs11Interop - Open-source .NET wrapper for unmanaged PKCS#11 libraries
- *  Copyright (c) 2012-2013 JWC s.r.o.
- *  Author: Jaroslav Imrich
+ *  Pkcs11Interop - Managed .NET wrapper for unmanaged PKCS#11 libraries
+ *  Copyright (c) 2012-2013 JWC s.r.o. <http://www.jwc.sk>
+ *  Author: Jaroslav Imrich <jimrich@jimrich.sk>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License version 3
- *  as published by the Free Software Foundation.
+ *  Licensing for open source projects:
+ *  Pkcs11Interop is available under the terms of the GNU Affero General 
+ *  Public License version 3 as published by the Free Software Foundation.
+ *  Please see <http://www.gnu.org/licenses/agpl-3.0.html> for more details.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU Affero General Public License for more details.
- *
- *  You should have received a copy of the GNU Affero General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
- *  You can be released from the requirements of the license by purchasing
- *  a commercial license. Buying such a license is mandatory as soon as you
- *  develop commercial activities involving the Pkcs11Interop software without
- *  disclosing the source code of your own applications.
- * 
- *  For more information, please contact JWC s.r.o. at info@pkcs11interop.net
+ *  Licensing for other types of projects:
+ *  Pkcs11Interop is available under the terms of flexible commercial license.
+ *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
 using System;
-using System.Runtime.InteropServices;
-using Net.Pkcs11Interop.LowLevelAPI;
-using Net.Pkcs11Interop.LowLevelAPI.MechanismParams;
+using Net.Pkcs11Interop.Common;
 
 namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
 {
@@ -39,12 +27,27 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// Flag indicating whether instance has been disposed
         /// </summary>
         private bool _disposed = false;
-        
+
         /// <summary>
-        /// Low level mechanism parameters
+        /// Platform specific CkWtlsKeyMatParams
         /// </summary>
-        private LowLevelAPI.MechanismParams.CK_WTLS_KEY_MAT_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_WTLS_KEY_MAT_PARAMS();
-        
+        private HighLevelAPI4.MechanismParams.CkWtlsKeyMatParams _params4 = null;
+
+        /// <summary>
+        /// Platform specific CkWtlsKeyMatParams
+        /// </summary>
+        private HighLevelAPI8.MechanismParams.CkWtlsKeyMatParams _params8 = null;
+
+        /// <summary>
+        /// Flag indicating whether object with returned key material has left this instance
+        /// </summary>
+        private bool _returnedKeyMaterialLeftInstance = false;
+
+        /// <summary>
+        /// Resulting key handles and initialization vector after performing a DeriveKey method
+        /// </summary>
+        private CkWtlsKeyMatOut _returnedKeyMaterial = null;
+
         /// <summary>
         /// Resulting key handles and initialization vector after performing a DeriveKey method
         /// </summary>
@@ -55,8 +58,17 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                // Abrakadabra :)
-                UnmanagedMemory.Read(_lowLevelStruct.ReturnedKeyMaterial, _returnedKeyMaterial._lowLevelStruct);
+                if (_returnedKeyMaterial == null)
+                {
+                    if (UnmanagedLong.Size == 4)
+                        _returnedKeyMaterial = new CkWtlsKeyMatOut(_params4.ReturnedKeyMaterial);
+                    else
+                        _returnedKeyMaterial = new CkWtlsKeyMatOut(_params8.ReturnedKeyMaterial);
+
+                    // Since now it is the caller's responsibility to dispose returned key material
+                    _returnedKeyMaterialLeftInstance = true;
+                }
+                
                 return _returnedKeyMaterial;
             }
         }
@@ -65,11 +77,6 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// Client's and server's random data information
         /// </summary>
         private CkWtlsRandomData _randomInfo = null;
-        
-        /// <summary>
-        /// Handles for the keys generated and the IV
-        /// </summary>
-        private CkWtlsKeyMatOut _returnedKeyMaterial = null;
         
         /// <summary>
         /// Initializes a new instance of the CkWtlsKeyMatParams class.
@@ -81,45 +88,35 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='sequenceNumber'>The current sequence number used for records sent by the client and server respectively</param>
         /// <param name='isExport'>Flag indicating whether the keys have to be derived for an export version of the protocol</param>
         /// <param name='randomInfo'>Client's and server's random data information</param>
-        public CkWtlsKeyMatParams(uint digestMechanism, uint macSizeInBits, uint keySizeInBits, uint ivSizeInBits, uint sequenceNumber, bool isExport, CkWtlsRandomData randomInfo)
+        public CkWtlsKeyMatParams(ulong digestMechanism, ulong macSizeInBits, ulong keySizeInBits, ulong ivSizeInBits, ulong sequenceNumber, bool isExport, CkWtlsRandomData randomInfo)
         {
             if (randomInfo == null)
                 throw new ArgumentNullException("randomInfo");
             
             // Keep reference to randomInfo so GC will not free it while this object exists
             _randomInfo = randomInfo;
-            
-            if (ivSizeInBits % 8 != 0)
-                throw new ArgumentException("Value has to be a multiple of 8", "ivSizeInBits");
-            
-            // GC will not free ReturnedKeyMaterial while this object exists
-            _returnedKeyMaterial = new CkWtlsKeyMatOut(ivSizeInBits / 8);
 
-            _lowLevelStruct.DigestMechanism = digestMechanism;
-            _lowLevelStruct.MacSizeInBits = macSizeInBits;
-            _lowLevelStruct.KeySizeInBits = keySizeInBits;
-            _lowLevelStruct.IVSizeInBits = ivSizeInBits;
-            _lowLevelStruct.SequenceNumber = sequenceNumber;
-            _lowLevelStruct.IsExport = isExport;
-            _lowLevelStruct.RandomInfo = (CK_WTLS_RANDOM_DATA)_randomInfo.ToLowLevelParams();
-            
-            // Abrakadabra :)
-            _lowLevelStruct.ReturnedKeyMaterial = UnmanagedMemory.Allocate(UnmanagedMemory.SizeOf(typeof(CK_WTLS_KEY_MAT_OUT)));
-            UnmanagedMemory.Write(_lowLevelStruct.ReturnedKeyMaterial, _returnedKeyMaterial._lowLevelStruct);
+            if (UnmanagedLong.Size == 4)
+                _params4 = new HighLevelAPI4.MechanismParams.CkWtlsKeyMatParams(Convert.ToUInt32(digestMechanism), Convert.ToUInt32(macSizeInBits), Convert.ToUInt32(keySizeInBits), Convert.ToUInt32(ivSizeInBits), Convert.ToUInt32(sequenceNumber), isExport, _randomInfo._params4);
+            else
+                _params8 = new HighLevelAPI8.MechanismParams.CkWtlsKeyMatParams(digestMechanism, macSizeInBits, keySizeInBits, ivSizeInBits, sequenceNumber, isExport, _randomInfo._params8);
         }
         
         #region IMechanismParams
-        
+
         /// <summary>
-        /// Converts object to low level mechanism parameters
+        /// Returns managed object that can be marshaled to an unmanaged block of memory
         /// </summary>
-        /// <returns>Low level mechanism parameters</returns>
-        public object ToLowLevelParams()
+        /// <returns>A managed object holding the data to be marshaled. This object must be an instance of a formatted class.</returns>
+        public object ToMarshalableStructure()
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _lowLevelStruct;
+            if (UnmanagedLong.Size == 4)
+                return _params4.ToMarshalableStructure();
+            else
+                return _params8.ToMarshalableStructure();
         }
         
         #endregion
@@ -146,15 +143,29 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (disposing)
                 {
                     // Dispose managed objects
-                    if (_returnedKeyMaterial != null)
+                    if (_params4 != null)
                     {
-                        _returnedKeyMaterial.Dispose();
-                        _returnedKeyMaterial = null;
+                        _params4.Dispose();
+                        _params4 = null;
+                    }
+
+                    if (_params8 != null)
+                    {
+                        _params8.Dispose();
+                        _params8 = null;
+                    }
+
+                    if (_returnedKeyMaterialLeftInstance == false)
+                    {
+                        if (_returnedKeyMaterial != null)
+                        {
+                            _returnedKeyMaterial.Dispose();
+                            _returnedKeyMaterial = null;
+                        }
                     }
                 }
                 
                 // Dispose unmanaged objects
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.ReturnedKeyMaterial);
                 
                 _disposed = true;
             }

@@ -1,30 +1,19 @@
 /*
- *  Pkcs11Interop - Open-source .NET wrapper for unmanaged PKCS#11 libraries
- *  Copyright (c) 2012-2013 JWC s.r.o.
- *  Author: Jaroslav Imrich
+ *  Pkcs11Interop - Managed .NET wrapper for unmanaged PKCS#11 libraries
+ *  Copyright (c) 2012-2013 JWC s.r.o. <http://www.jwc.sk>
+ *  Author: Jaroslav Imrich <jimrich@jimrich.sk>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License version 3
- *  as published by the Free Software Foundation.
+ *  Licensing for open source projects:
+ *  Pkcs11Interop is available under the terms of the GNU Affero General 
+ *  Public License version 3 as published by the Free Software Foundation.
+ *  Please see <http://www.gnu.org/licenses/agpl-3.0.html> for more details.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU Affero General Public License for more details.
- *
- *  You should have received a copy of the GNU Affero General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
- *  You can be released from the requirements of the license by purchasing
- *  a commercial license. Buying such a license is mandatory as soon as you
- *  develop commercial activities involving the Pkcs11Interop software without
- *  disclosing the source code of your own applications.
- * 
- *  For more information, please contact JWC s.r.o. at info@pkcs11interop.net
+ *  Licensing for other types of projects:
+ *  Pkcs11Interop is available under the terms of flexible commercial license.
+ *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
 using System;
-using Net.Pkcs11Interop.LowLevelAPI;
 using System.Text;
 
 namespace Net.Pkcs11Interop.Common
@@ -32,20 +21,20 @@ namespace Net.Pkcs11Interop.Common
     /// <summary>
     /// Utility class that helps with data type conversions.
     /// </summary>
-    public class ConvertUtils
+    public static class ConvertUtils
     {
         /// <summary>
         /// Converts uint to byte array
         /// </summary>
         /// <param name='value'>Uint that should be converted</param>
         /// <returns>Byte array with uint value</returns>
-        public static byte[] UintToBytes(uint value)
+        public static byte[] UIntToBytes(uint value)
         {
             byte[] bytes = BitConverter.GetBytes(value);
 
-            int unmanagedSize = LowLevelAPI.UnmanagedMemory.SizeOf(typeof(uint));
+            int unmanagedSize = Common.UnmanagedMemory.SizeOf(typeof(uint));
             if (unmanagedSize != bytes.Length)
-                throw new Pkcs11InteropException(string.Format("Unmanaged size of uint ({0}) does not match the length of produced byte array ({1})", unmanagedSize, bytes.Length));
+                throw new Exception(string.Format("Unmanaged size of uint ({0}) does not match the length of produced byte array ({1})", unmanagedSize, bytes.Length));
 
             return bytes;
         }
@@ -55,12 +44,41 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name='value'>Byte array that should be converted</param>
         /// <returns>Uint with value from byte array</returns>
-        public static uint BytesToUint(byte[] value)
+        public static uint BytesToUInt(byte[] value)
         {
             if ((value == null) || (value.Length != UnmanagedMemory.SizeOf(typeof(uint))))
-                throw new Pkcs11InteropException("Unable to convert bytes to uint");
+                throw new Exception("Unable to convert bytes to uint");
 
             return BitConverter.ToUInt32(value, 0);
+        }
+
+        /// <summary>
+        /// Converts ulong to byte array
+        /// </summary>
+        /// <param name='value'>Uint that should be converted</param>
+        /// <returns>Byte array with ulong value</returns>
+        public static byte[] ULongToBytes(ulong value)
+        {
+            byte[] bytes = BitConverter.GetBytes(value);
+
+            int unmanagedSize = UnmanagedMemory.SizeOf(typeof(ulong));
+            if (unmanagedSize != bytes.Length)
+                throw new Exception(string.Format("Unmanaged size of ulong ({0}) does not match the length of produced byte array ({1})", unmanagedSize, bytes.Length));
+
+            return bytes;
+        }
+
+        /// <summary>
+        /// Converts byte array to ulong
+        /// </summary>
+        /// <param name='value'>Byte array that should be converted</param>
+        /// <returns>Uint with value from byte array</returns>
+        public static ulong BytesToULong(byte[] value)
+        {
+            if ((value == null) || (value.Length != UnmanagedMemory.SizeOf(typeof(ulong))))
+                throw new Exception("Unable to convert bytes to ulong");
+
+            return BitConverter.ToUInt64(value, 0);
         }
 
         /// <summary>
@@ -75,7 +93,7 @@ namespace Net.Pkcs11Interop.Common
             // Cryptoki uses boolean flag with size of 1 byte
             int unmanagedSize = 1;
             if (unmanagedSize != bytes.Length)
-                throw new Pkcs11InteropException(string.Format("Unmanaged size of bool ({0}) does not match the length of produced byte array ({1})", unmanagedSize, bytes.Length));
+                throw new Exception(string.Format("Unmanaged size of bool ({0}) does not match the length of produced byte array ({1})", unmanagedSize, bytes.Length));
             
             return bytes;
         }
@@ -89,7 +107,7 @@ namespace Net.Pkcs11Interop.Common
         {
             // Cryptoki uses boolean flag with size of 1 byte
             if ((value == null) || (value.Length != 1))
-                throw new Pkcs11InteropException("Unable to convert bytes to bool");
+                throw new Exception("Unable to convert bytes to bool");
             
             return BitConverter.ToBoolean(value, 0);
         }
@@ -175,7 +193,17 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name='ck_version'>CK_VERSION structure that should be converted.</param>
         /// <returns>String with version information.</returns>
-        public static string CkVersionToString(LowLevelAPI.CK_VERSION ck_version)
+        public static string CkVersionToString(LowLevelAPI4.CK_VERSION ck_version)
+        {
+            return string.Format("{0}.{1}", ck_version.Major[0], ck_version.Minor[0]);
+        }
+
+        /// <summary>
+        /// Converts CK_VERSION to string
+        /// </summary>
+        /// <param name='ck_version'>CK_VERSION structure that should be converted.</param>
+        /// <returns>String with version information.</returns>
+        public static string CkVersionToString(LowLevelAPI8.CK_VERSION ck_version)
         {
             return string.Format("{0}.{1}", ck_version.Major[0], ck_version.Minor[0]);
         }
@@ -254,4 +282,3 @@ namespace Net.Pkcs11Interop.Common
         }
     }
 }
-

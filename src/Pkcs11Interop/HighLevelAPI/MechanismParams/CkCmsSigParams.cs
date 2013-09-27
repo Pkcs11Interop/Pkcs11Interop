@@ -1,31 +1,20 @@
 /*
- *  Pkcs11Interop - Open-source .NET wrapper for unmanaged PKCS#11 libraries
- *  Copyright (c) 2012-2013 JWC s.r.o.
- *  Author: Jaroslav Imrich
+ *  Pkcs11Interop - Managed .NET wrapper for unmanaged PKCS#11 libraries
+ *  Copyright (c) 2012-2013 JWC s.r.o. <http://www.jwc.sk>
+ *  Author: Jaroslav Imrich <jimrich@jimrich.sk>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License version 3
- *  as published by the Free Software Foundation.
+ *  Licensing for open source projects:
+ *  Pkcs11Interop is available under the terms of the GNU Affero General 
+ *  Public License version 3 as published by the Free Software Foundation.
+ *  Please see <http://www.gnu.org/licenses/agpl-3.0.html> for more details.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU Affero General Public License for more details.
- *
- *  You should have received a copy of the GNU Affero General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
- *  You can be released from the requirements of the license by purchasing
- *  a commercial license. Buying such a license is mandatory as soon as you
- *  develop commercial activities involving the Pkcs11Interop software without
- *  disclosing the source code of your own applications.
- * 
- *  For more information, please contact JWC s.r.o. at info@pkcs11interop.net
+ *  Licensing for other types of projects:
+ *  Pkcs11Interop is available under the terms of flexible commercial license.
+ *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
 using System;
 using Net.Pkcs11Interop.Common;
-using System.Text;
 
 namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
 {
@@ -38,11 +27,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// Flag indicating whether instance has been disposed
         /// </summary>
         private bool _disposed = false;
-        
+
         /// <summary>
-        /// Low level mechanism parameters
+        /// Platform specific CkCmsSigParams
         /// </summary>
-        private LowLevelAPI.MechanismParams.CK_CMS_SIG_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_CMS_SIG_PARAMS();
+        private HighLevelAPI4.MechanismParams.CkCmsSigParams _params4 = null;
+
+        /// <summary>
+        /// Platform specific CkCmsSigParams
+        /// </summary>
+        private HighLevelAPI8.MechanismParams.CkCmsSigParams _params8 = null;
 
         /// <summary>
         /// Initializes a new instance of the CkCmsSigParams class.
@@ -53,73 +47,36 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='contentType'>String indicating complete MIME Content-type of message to be signed or null if the message is a MIME object</param>
         /// <param name='requestedAttributes'>DER-encoded list of CMS Attributes the caller requests to be included in the signed attributes</param>
         /// <param name='requiredAttributes'>DER-encoded list of CMS Attributes (with accompanying values) required to be included in the resulting signed attributes</param>
-        public CkCmsSigParams(ObjectHandle certificateHandle, uint? signingMechanism, uint? digestMechanism, string contentType, byte[] requestedAttributes, byte[] requiredAttributes)
+        public CkCmsSigParams(ObjectHandle certificateHandle, ulong? signingMechanism, ulong? digestMechanism, string contentType, byte[] requestedAttributes, byte[] requiredAttributes)
         {
-            _lowLevelStruct.CertificateHandle = CK.CK_INVALID_HANDLE;
-            _lowLevelStruct.SigningMechanism = IntPtr.Zero;
-            _lowLevelStruct.DigestMechanism = IntPtr.Zero;
-            _lowLevelStruct.ContentType = IntPtr.Zero;
-            _lowLevelStruct.RequestedAttributes = IntPtr.Zero;
-            _lowLevelStruct.RequestedAttributesLen = 0;
-            _lowLevelStruct.RequiredAttributes = IntPtr.Zero;
-            _lowLevelStruct.RequiredAttributesLen = 0;
-
-            if (certificateHandle == null)
-                throw new ArgumentNullException("certificateHandle");
-
-            _lowLevelStruct.CertificateHandle = certificateHandle.ObjectId;
-
-            if (signingMechanism != null)
+            if (UnmanagedLong.Size == 4)
             {
-                byte[] bytes = Common.ConvertUtils.UintToBytes((uint)signingMechanism);
-                _lowLevelStruct.SigningMechanism = LowLevelAPI.UnmanagedMemory.Allocate(bytes.Length);
-                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.SigningMechanism, bytes);
+                uint? uintSigningMechanism = (signingMechanism == null) ? null : (uint?)Convert.ToUInt32(signingMechanism.Value);
+                uint? uintDigestMechanism = (digestMechanism == null) ? null : (uint?)Convert.ToUInt32(digestMechanism.Value);
+
+                _params4 = new HighLevelAPI4.MechanismParams.CkCmsSigParams(certificateHandle.ObjectHandle4, uintSigningMechanism, uintDigestMechanism, contentType, requestedAttributes, requiredAttributes);
             }
-
-            if (digestMechanism != null)
+            else
             {
-                byte[] bytes = Common.ConvertUtils.UintToBytes((uint)digestMechanism);
-                _lowLevelStruct.DigestMechanism = LowLevelAPI.UnmanagedMemory.Allocate(bytes.Length);
-                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.DigestMechanism, bytes);
-            }
-
-            if (contentType != null)
-            {
-                byte[] bytes = ConvertUtils.Utf8StringToBytes(contentType);
-                Array.Resize(ref bytes, bytes.Length + 1);
-                bytes[bytes.Length - 1] = 0;
-                
-                _lowLevelStruct.ContentType = LowLevelAPI.UnmanagedMemory.Allocate(bytes.Length);
-                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.ContentType, bytes);
-            }
-
-            if (requestedAttributes != null)
-            {
-                _lowLevelStruct.RequestedAttributes = LowLevelAPI.UnmanagedMemory.Allocate(requestedAttributes.Length);
-                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.RequestedAttributes, requestedAttributes);
-                _lowLevelStruct.RequestedAttributesLen = (uint)requestedAttributes.Length;
-            }
-
-            if (requiredAttributes != null)
-            {
-                _lowLevelStruct.RequiredAttributes = LowLevelAPI.UnmanagedMemory.Allocate(requiredAttributes.Length);
-                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.RequiredAttributes, requiredAttributes);
-                _lowLevelStruct.RequiredAttributesLen = (uint)requiredAttributes.Length;
+                _params8 = new HighLevelAPI8.MechanismParams.CkCmsSigParams(certificateHandle.ObjectHandle8, signingMechanism, digestMechanism, contentType, requestedAttributes, requiredAttributes);
             }
         }
         
         #region IMechanismParams
-        
+
         /// <summary>
-        /// Converts object to low level mechanism parameters
+        /// Returns managed object that can be marshaled to an unmanaged block of memory
         /// </summary>
-        /// <returns>Low level mechanism parameters</returns>
-        public object ToLowLevelParams()
+        /// <returns>A managed object holding the data to be marshaled. This object must be an instance of a formatted class.</returns>
+        public object ToMarshalableStructure()
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _lowLevelStruct;
+            if (UnmanagedLong.Size == 4)
+                return _params4.ToMarshalableStructure();
+            else
+                return _params8.ToMarshalableStructure();
         }
         
         #endregion
@@ -146,16 +103,20 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (disposing)
                 {
                     // Dispose managed objects
+                    if (_params4 != null)
+                    {
+                        _params4.Dispose();
+                        _params4 = null;
+                    }
+
+                    if (_params8 != null)
+                    {
+                        _params8.Dispose();
+                        _params8 = null;
+                    }
                 }
                 
                 // Dispose unmanaged objects
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.SigningMechanism);
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.DigestMechanism);
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.ContentType);
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.RequestedAttributes);
-                _lowLevelStruct.RequestedAttributesLen = 0;
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.RequiredAttributes);
-                _lowLevelStruct.RequiredAttributesLen = 0;
 
                 _disposed = true;
             }

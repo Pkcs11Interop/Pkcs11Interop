@@ -1,120 +1,309 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>10.0.0</ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{CD7CCC02-3914-403A-BECB-9F1D5524727C}</ProjectGuid>
+    <ProjectGuid>{21C986F1-411F-4F01-B9A2-5930B6E75DC7}</ProjectGuid>
     <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Net.Pkcs11Interop.Tests</RootNamespace>
     <AssemblyName>Pkcs11InteropTests</AssemblyName>
-    <ReleaseVersion />
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <SynchReleaseVersion>false</SynchReleaseVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>True</DebugSymbols>
+    <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>False</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>False</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
-    <Optimize>True</Optimize>
-    <OutputPath>bin\Release</OutputPath>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>False</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\NUnit\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="nunit.framework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="01_LowLevelAPI\01_InitializeTest.cs" />
-    <Compile Include="01_LowLevelAPI\02_GetInfoTest.cs" />
-    <Compile Include="01_LowLevelAPI\03_SlotListInfoAndEventTest.cs" />
-    <Compile Include="01_LowLevelAPI\04_TokenInfoTest.cs" />
-    <Compile Include="01_LowLevelAPI\05_MechanismListAndInfoTest.cs" />
-    <Compile Include="01_LowLevelAPI\06_SessionTest.cs" />
-    <Compile Include="01_LowLevelAPI\07_OperationStateTest.cs" />
-    <Compile Include="01_LowLevelAPI\08_LoginTest.cs" />
-    <Compile Include="01_LowLevelAPI\09_InitTokenAndPinTest.cs" />
-    <Compile Include="01_LowLevelAPI\10_SetPinTest.cs" />
-    <Compile Include="01_LowLevelAPI\11_SeedAndGenerateRandomTest.cs" />
-    <Compile Include="01_LowLevelAPI\12_DigestTest.cs" />
-    <Compile Include="01_LowLevelAPI\13_UnmanagedMemoryTest.cs" />
-    <Compile Include="01_LowLevelAPI\14_ObjectAttributeTest.cs" />
-    <Compile Include="01_LowLevelAPI\15_MechanismTest.cs" />
-    <Compile Include="01_LowLevelAPI\16_CreateCopyDestroyObjectTest.cs" />
-    <Compile Include="01_LowLevelAPI\17_GetAndSetAttributeValueTest.cs" />
-    <Compile Include="01_LowLevelAPI\18_ObjectFindingTest.cs" />
-    <Compile Include="01_LowLevelAPI\19_GenerateKeyAndKeyPairTest.cs" />
-    <Compile Include="01_LowLevelAPI\20_EncryptAndDecryptTest.cs" />
-    <Compile Include="01_LowLevelAPI\21_SignAndVerifyTest.cs" />
-    <Compile Include="01_LowLevelAPI\22_SignAndVerifyRecoverTest.cs" />
-    <Compile Include="01_LowLevelAPI\23_DigestEncryptAndDecryptDigestTest.cs" />
-    <Compile Include="01_LowLevelAPI\24_SignEncryptAndDecryptVerifyTest.cs" />
-    <Compile Include="01_LowLevelAPI\25_WrapAndUnwrapKeyTest.cs" />
-    <Compile Include="01_LowLevelAPI\26_DeriveKeyTest.cs" />
-    <Compile Include="01_LowLevelAPI\27_LegacyParallelFunctionsTest.cs" />
-    <Compile Include="01_LowLevelAPI\28_Helpers.cs" />
-    <Compile Include="02_HighLevelAPI\01_InitializeTest.cs" />
-    <Compile Include="02_HighLevelAPI\02_GetInfoTest.cs" />
-    <Compile Include="02_HighLevelAPI\03_SlotListInfoAndEventTest.cs" />
-    <Compile Include="02_HighLevelAPI\04_TokenInfoTest.cs" />
-    <Compile Include="02_HighLevelAPI\05_MechanismListAndInfoTest.cs" />
-    <Compile Include="02_HighLevelAPI\06_SessionTest.cs" />
-    <Compile Include="02_HighLevelAPI\07_OperationStateTest.cs" />
-    <Compile Include="02_HighLevelAPI\08_LoginTest.cs" />
-    <Compile Include="02_HighLevelAPI\09_InitTokenAndPinTest.cs" />
-    <Compile Include="02_HighLevelAPI\10_SetPinTest.cs" />
-    <Compile Include="02_HighLevelAPI\11_SeedAndGenerateRandomTest.cs" />
-    <Compile Include="02_HighLevelAPI\12_DigestTest.cs" />
-    <Compile Include="02_HighLevelAPI\13_ObjectAttributeTest.cs" />
-    <Compile Include="02_HighLevelAPI\14_MechanismTest.cs" />
-    <Compile Include="02_HighLevelAPI\15_CreateCopyDestroyObjectTest.cs" />
-    <Compile Include="02_HighLevelAPI\16_GetAndSetAttributeValueTest.cs" />
-    <Compile Include="02_HighLevelAPI\17_ObjectFindingTest.cs" />
-    <Compile Include="02_HighLevelAPI\18_GenerateKeyAndKeyPairTest.cs" />
-    <Compile Include="02_HighLevelAPI\19_EncryptAndDecryptTest.cs" />
-    <Compile Include="02_HighLevelAPI\20_SignAndVerifyTest.cs" />
-    <Compile Include="02_HighLevelAPI\21_SignAndVerifyRecoverTest.cs" />
-    <Compile Include="02_HighLevelAPI\22_DigestEncryptAndDecryptDigestTest.cs" />
-    <Compile Include="02_HighLevelAPI\23_SignEncryptAndDecryptVerifyTest.cs" />
-    <Compile Include="02_HighLevelAPI\24_WrapAndUnwrapKeyTest.cs" />
-    <Compile Include="02_HighLevelAPI\25_DeriveKeyTest.cs" />
-    <Compile Include="02_HighLevelAPI\26_LegacyParallelFunctionsTest.cs" />
-    <Compile Include="02_HighLevelAPI\27_Helpers.cs" />
+    <Compile Include="HighLevelAPI4\Helpers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_01_InitializeTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_02_GetInfoTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_03_SlotListInfoAndEventTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_04_TokenInfoTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_05_MechanismListAndInfoTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_06_SessionTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_07_OperationStateTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_08_LoginTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_09_InitTokenAndPinTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_10_SetPinTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_11_SeedAndGenerateRandomTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_12_DigestTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_13_ObjectAttributeTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_14_MechanismTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_15_CreateCopyDestroyObjectTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_16_GetAndSetAttributeValueTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_17_ObjectFindingTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_18_GenerateKeyAndKeyPairTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_19_EncryptAndDecryptTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_20_SignAndVerifyTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_21_SignAndVerifyRecoverTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_22_DigestEncryptAndDecryptDigestTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_23_SignEncryptAndDecryptVerifyTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_24_WrapAndUnwrapKeyTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_25_DeriveKeyTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI4\_26_LegacyParallelFunctionsTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\Helpers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_01_InitializeTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_02_GetInfoTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_03_SlotListInfoAndEventTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_04_TokenInfoTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_05_MechanismListAndInfoTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_06_SessionTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_07_OperationStateTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_08_LoginTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_09_InitTokenAndPinTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_10_SetPinTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_11_SeedAndGenerateRandomTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_12_DigestTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_13_ObjectAttributeTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_14_MechanismTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_15_CreateCopyDestroyObjectTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_16_GetAndSetAttributeValueTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_17_ObjectFindingTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_18_GenerateKeyAndKeyPairTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_19_EncryptAndDecryptTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_20_SignAndVerifyTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_21_SignAndVerifyRecoverTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_22_DigestEncryptAndDecryptDigestTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_23_SignEncryptAndDecryptVerifyTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_24_WrapAndUnwrapKeyTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_25_DeriveKeyTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI8\_26_LegacyParallelFunctionsTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI\Helpers.cs" />
+    <Compile Include="HighLevelAPI\_01_InitializeTest.cs" />
+    <Compile Include="HighLevelAPI\_02_GetInfoTest.cs" />
+    <Compile Include="HighLevelAPI\_03_SlotListInfoAndEventTest.cs" />
+    <Compile Include="HighLevelAPI\_04_TokenInfoTest.cs" />
+    <Compile Include="HighLevelAPI\_05_MechanismListAndInfoTest.cs" />
+    <Compile Include="HighLevelAPI\_06_SessionTest.cs" />
+    <Compile Include="HighLevelAPI\_07_OperationStateTest.cs" />
+    <Compile Include="HighLevelAPI\_08_LoginTest.cs" />
+    <Compile Include="HighLevelAPI\_09_InitTokenAndPinTest.cs" />
+    <Compile Include="HighLevelAPI\_10_SetPinTest.cs" />
+    <Compile Include="HighLevelAPI\_11_SeedAndGenerateRandomTest.cs" />
+    <Compile Include="HighLevelAPI\_12_DigestTest.cs" />
+    <Compile Include="HighLevelAPI\_13_ObjectAttributeTest.cs" />
+    <Compile Include="HighLevelAPI\_14_MechanismTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighLevelAPI\_15_CreateCopyDestroyObjectTest.cs" />
+    <Compile Include="HighLevelAPI\_16_GetAndSetAttributeValueTest.cs" />
+    <Compile Include="HighLevelAPI\_17_ObjectFindingTest.cs" />
+    <Compile Include="HighLevelAPI\_18_GenerateKeyAndKeyPairTest.cs" />
+    <Compile Include="HighLevelAPI\_19_EncryptAndDecryptTest.cs" />
+    <Compile Include="HighLevelAPI\_20_SignAndVerifyTest.cs" />
+    <Compile Include="HighLevelAPI\_21_SignAndVerifyRecoverTest.cs" />
+    <Compile Include="HighLevelAPI\_22_DigestEncryptAndDecryptDigestTest.cs" />
+    <Compile Include="HighLevelAPI\_23_SignEncryptAndDecryptVerifyTest.cs" />
+    <Compile Include="HighLevelAPI\_24_WrapAndUnwrapKeyTest.cs" />
+    <Compile Include="HighLevelAPI\_25_DeriveKeyTest.cs" />
+    <Compile Include="HighLevelAPI\_26_LegacyParallelFunctionsTest.cs" />
+    <Compile Include="LowLevelAPI4\Helpers.cs" />
+    <Compile Include="LowLevelAPI4\_01_InitializeTest.cs" />
+    <Compile Include="LowLevelAPI4\_02_GetInfoTest.cs" />
+    <Compile Include="LowLevelAPI4\_03_SlotListInfoAndEventTest.cs" />
+    <Compile Include="LowLevelAPI4\_04_TokenInfoTest.cs" />
+    <Compile Include="LowLevelAPI4\_05_MechanismListAndInfoTest.cs" />
+    <Compile Include="LowLevelAPI4\_06_SessionTest.cs" />
+    <Compile Include="LowLevelAPI4\_07_OperationStateTest.cs" />
+    <Compile Include="LowLevelAPI4\_08_LoginTest.cs" />
+    <Compile Include="LowLevelAPI4\_09_InitTokenAndPinTest.cs" />
+    <Compile Include="LowLevelAPI4\_10_SetPinTest.cs" />
+    <Compile Include="LowLevelAPI4\_11_SeedAndGenerateRandomTest.cs" />
+    <Compile Include="LowLevelAPI4\_12_DigestTest.cs" />
+    <Compile Include="LowLevelAPI4\_13_UnmanagedMemoryTest.cs" />
+    <Compile Include="LowLevelAPI4\_14_ObjectAttributeTest.cs" />
+    <Compile Include="LowLevelAPI4\_15_MechanismTest.cs" />
+    <Compile Include="LowLevelAPI4\_16_CreateCopyDestroyObjectTest.cs" />
+    <Compile Include="LowLevelAPI4\_17_GetAndSetAttributeValueTest.cs" />
+    <Compile Include="LowLevelAPI4\_18_ObjectFindingTest.cs" />
+    <Compile Include="LowLevelAPI4\_19_GenerateKeyAndKeyPairTest.cs" />
+    <Compile Include="LowLevelAPI4\_20_EncryptAndDecryptTest.cs" />
+    <Compile Include="LowLevelAPI4\_21_SignAndVerifyTest.cs" />
+    <Compile Include="LowLevelAPI4\_22_SignAndVerifyRecoverTest.cs" />
+    <Compile Include="LowLevelAPI4\_23_DigestEncryptAndDecryptDigestTest.cs" />
+    <Compile Include="LowLevelAPI4\_24_SignEncryptAndDecryptVerifyTest.cs" />
+    <Compile Include="LowLevelAPI4\_25_WrapAndUnwrapKeyTest.cs" />
+    <Compile Include="LowLevelAPI4\_26_DeriveKeyTest.cs" />
+    <Compile Include="LowLevelAPI4\_27_LegacyParallelFunctionsTest.cs" />
+    <Compile Include="LowLevelAPI8\Helpers.cs" />
+    <Compile Include="LowLevelAPI8\_01_InitializeTest.cs" />
+    <Compile Include="LowLevelAPI8\_02_GetInfoTest.cs" />
+    <Compile Include="LowLevelAPI8\_03_SlotListInfoAndEventTest.cs" />
+    <Compile Include="LowLevelAPI8\_04_TokenInfoTest.cs" />
+    <Compile Include="LowLevelAPI8\_05_MechanismListAndInfoTest.cs" />
+    <Compile Include="LowLevelAPI8\_06_SessionTest.cs" />
+    <Compile Include="LowLevelAPI8\_07_OperationStateTest.cs" />
+    <Compile Include="LowLevelAPI8\_08_LoginTest.cs" />
+    <Compile Include="LowLevelAPI8\_09_InitTokenAndPinTest.cs" />
+    <Compile Include="LowLevelAPI8\_10_SetPinTest.cs" />
+    <Compile Include="LowLevelAPI8\_11_SeedAndGenerateRandomTest.cs" />
+    <Compile Include="LowLevelAPI8\_12_DigestTest.cs" />
+    <Compile Include="LowLevelAPI8\_13_UnmanagedMemoryTest.cs" />
+    <Compile Include="LowLevelAPI8\_14_ObjectAttributeTest.cs" />
+    <Compile Include="LowLevelAPI8\_15_MechanismTest.cs" />
+    <Compile Include="LowLevelAPI8\_16_CreateCopyDestroyObjectTest.cs" />
+    <Compile Include="LowLevelAPI8\_17_GetAndSetAttributeValueTest.cs" />
+    <Compile Include="LowLevelAPI8\_18_ObjectFindingTest.cs" />
+    <Compile Include="LowLevelAPI8\_19_GenerateKeyAndKeyPairTest.cs" />
+    <Compile Include="LowLevelAPI8\_20_EncryptAndDecryptTest.cs" />
+    <Compile Include="LowLevelAPI8\_21_SignAndVerifyTest.cs" />
+    <Compile Include="LowLevelAPI8\_22_SignAndVerifyRecoverTest.cs" />
+    <Compile Include="LowLevelAPI8\_23_DigestEncryptAndDecryptDigestTest.cs" />
+    <Compile Include="LowLevelAPI8\_24_SignEncryptAndDecryptVerifyTest.cs" />
+    <Compile Include="LowLevelAPI8\_25_WrapAndUnwrapKeyTest.cs" />
+    <Compile Include="LowLevelAPI8\_26_DeriveKeyTest.cs" />
+    <Compile Include="LowLevelAPI8\_27_LegacyParallelFunctionsTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="01_LowLevelAPI\" />
-    <Folder Include="02_HighLevelAPI\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Pkcs11Interop\Pkcs11Interop.csproj">
-      <Project>{2CB08FA0-8B71-4AE9-8734-BAC10804BF4E}</Project>
+      <Project>{9BC3EE70-6B0B-4B26-8C06-B7AE50BE202E}</Project>
       <Name>Pkcs11Interop</Name>
     </ProjectReference>
   </ItemGroup>
-  <ProjectExtensions>
-    <MonoDevelop>
-      <Properties>
-        <Policies>
-          <DotNetNamingPolicy DirectoryNamespaceAssociation="PrefixedHierarchical" ResourceNamePolicy="FileFormatDefault" />
-        </Policies>
-      </Properties>
-    </MonoDevelop>
-  </ProjectExtensions>
   <ItemGroup>
-    <None Include="README.txt" />
+    <Content Include="README.txt" />
   </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
 </Project>

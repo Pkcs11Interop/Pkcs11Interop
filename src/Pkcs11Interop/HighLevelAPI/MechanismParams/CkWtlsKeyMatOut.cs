@@ -1,30 +1,19 @@
 /*
- *  Pkcs11Interop - Open-source .NET wrapper for unmanaged PKCS#11 libraries
- *  Copyright (c) 2012-2013 JWC s.r.o.
- *  Author: Jaroslav Imrich
+ *  Pkcs11Interop - Managed .NET wrapper for unmanaged PKCS#11 libraries
+ *  Copyright (c) 2012-2013 JWC s.r.o. <http://www.jwc.sk>
+ *  Author: Jaroslav Imrich <jimrich@jimrich.sk>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License version 3
- *  as published by the Free Software Foundation.
+ *  Licensing for open source projects:
+ *  Pkcs11Interop is available under the terms of the GNU Affero General 
+ *  Public License version 3 as published by the Free Software Foundation.
+ *  Please see <http://www.gnu.org/licenses/agpl-3.0.html> for more details.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU Affero General Public License for more details.
- *
- *  You should have received a copy of the GNU Affero General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
- *  You can be released from the requirements of the license by purchasing
- *  a commercial license. Buying such a license is mandatory as soon as you
- *  develop commercial activities involving the Pkcs11Interop software without
- *  disclosing the source code of your own applications.
- * 
- *  For more information, please contact JWC s.r.o. at info@pkcs11interop.net
+ *  Licensing for other types of projects:
+ *  Pkcs11Interop is available under the terms of flexible commercial license.
+ *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
 using System;
-using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.Common;
 
 namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
@@ -38,11 +27,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// Flag indicating whether instance has been disposed
         /// </summary>
         private bool _disposed = false;
-        
+
         /// <summary>
-        /// Low level structure
+        /// Platform specific CkWtlsKeyMatOut
         /// </summary>
-        internal LowLevelAPI.MechanismParams.CK_WTLS_KEY_MAT_OUT _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_WTLS_KEY_MAT_OUT();
+        private HighLevelAPI4.MechanismParams.CkWtlsKeyMatOut _params4 = null;
+
+        /// <summary>
+        /// Platform specific CkWtlsKeyMatOut
+        /// </summary>
+        private HighLevelAPI8.MechanismParams.CkWtlsKeyMatOut _params8 = null;
         
         /// <summary>
         /// Key handle for the resulting MAC secret key
@@ -54,7 +48,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return new ObjectHandle(_lowLevelStruct.MacSecret);
+                return (UnmanagedLong.Size == 4) ? new ObjectHandle(_params4.MacSecret) : new ObjectHandle(_params8.MacSecret);
             }
         }
 
@@ -68,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return new ObjectHandle(_lowLevelStruct.Key);
+                return (UnmanagedLong.Size == 4) ? new ObjectHandle(_params4.Key) : new ObjectHandle(_params8.Key);
             }
         }
 
@@ -82,33 +76,34 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (_ivLength < 1) ? null : LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.IV, (int)_ivLength);
+                return (UnmanagedLong.Size == 4) ? _params4.IV : _params8.IV;
             }
         }
-        
-        /// <summary>
-        /// The length of initialization vector
-        /// </summary>
-        private uint _ivLength = 0;
         
         /// <summary>
         /// Initializes a new instance of the CkWtlsKeyMatOut class.
         /// </summary>
-        /// <param name='ivLength'>Length of initialization vector or 0 if IV is not required</param>
-        internal CkWtlsKeyMatOut(uint ivLength)
+        /// <param name='ckWtlsKeyMatOut'>Platform specific CkWtlsKeyMatOut</param>
+        internal CkWtlsKeyMatOut(HighLevelAPI4.MechanismParams.CkWtlsKeyMatOut ckWtlsKeyMatOut)
         {
-            _lowLevelStruct.MacSecret = 0;
-            _lowLevelStruct.Key = 0;
-            _lowLevelStruct.IV = IntPtr.Zero;
+            if (ckWtlsKeyMatOut == null)
+                throw new ArgumentNullException("ckWtlsKeyMatOut");
 
-            _ivLength = ivLength;
-            
-            if (_ivLength > 0)
-            {
-                _lowLevelStruct.IV = LowLevelAPI.UnmanagedMemory.Allocate((int)_ivLength);
-            }
+            _params4 = ckWtlsKeyMatOut;
         }
-        
+
+        /// <summary>
+        /// Initializes a new instance of the CkWtlsKeyMatOut class.
+        /// </summary>
+        /// <param name='ckWtlsKeyMatOut'>Platform specific CkWtlsKeyMatOut</param>
+        internal CkWtlsKeyMatOut(HighLevelAPI8.MechanismParams.CkWtlsKeyMatOut ckWtlsKeyMatOut)
+        {
+            if (ckWtlsKeyMatOut == null)
+                throw new ArgumentNullException("ckWtlsKeyMatOut");
+
+            _params8 = ckWtlsKeyMatOut;
+        }
+
         #region IDisposable
         
         /// <summary>
@@ -131,10 +126,20 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (disposing)
                 {
                     // Dispose managed objects
+                    if (_params4 != null)
+                    {
+                        _params4.Dispose();
+                        _params4 = null;
+                    }
+
+                    if (_params8 != null)
+                    {
+                        _params8.Dispose();
+                        _params8 = null;
+                    }
                 }
                 
                 // Dispose unmanaged objects
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.IV);
 
                 _disposed = true;
             }

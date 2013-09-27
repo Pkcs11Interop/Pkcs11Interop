@@ -1,30 +1,19 @@
 /*
- *  Pkcs11Interop - Open-source .NET wrapper for unmanaged PKCS#11 libraries
- *  Copyright (c) 2012-2013 JWC s.r.o.
- *  Author: Jaroslav Imrich
+ *  Pkcs11Interop - Managed .NET wrapper for unmanaged PKCS#11 libraries
+ *  Copyright (c) 2012-2013 JWC s.r.o. <http://www.jwc.sk>
+ *  Author: Jaroslav Imrich <jimrich@jimrich.sk>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License version 3
- *  as published by the Free Software Foundation.
+ *  Licensing for open source projects:
+ *  Pkcs11Interop is available under the terms of the GNU Affero General 
+ *  Public License version 3 as published by the Free Software Foundation.
+ *  Please see <http://www.gnu.org/licenses/agpl-3.0.html> for more details.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU Affero General Public License for more details.
- *
- *  You should have received a copy of the GNU Affero General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
- *  You can be released from the requirements of the license by purchasing
- *  a commercial license. Buying such a license is mandatory as soon as you
- *  develop commercial activities involving the Pkcs11Interop software without
- *  disclosing the source code of your own applications.
- * 
- *  For more information, please contact JWC s.r.o. at info@pkcs11interop.net
+ *  Licensing for other types of projects:
+ *  Pkcs11Interop is available under the terms of flexible commercial license.
+ *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
 using System;
-using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.Common;
 
 namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
@@ -40,9 +29,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         private bool _disposed = false;
 
         /// <summary>
-        /// Low level mechanism parameters
+        /// Platform specific CkRsaPkcsOaepParams
         /// </summary>
-        private LowLevelAPI.MechanismParams.CK_RSA_PKCS_OAEP_PARAMS _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_RSA_PKCS_OAEP_PARAMS();
+        private HighLevelAPI4.MechanismParams.CkRsaPkcsOaepParams _params4 = null;
+
+        /// <summary>
+        /// Platform specific CkRsaPkcsOaepParams
+        /// </summary>
+        private HighLevelAPI8.MechanismParams.CkRsaPkcsOaepParams _params8 = null;
 
         /// <summary>
         /// Initializes a new instance of the CkRsaPkcsOaepParams class.
@@ -51,38 +45,29 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='mgf'>Mask generation function to use on the encoded block (CKG)</param>
         /// <param name='source'>Source of the encoding parameter (CKZ)</param>
         /// <param name='sourceData'>Data used as the input for the encoding parameter source</param>
-        public CkRsaPkcsOaepParams(uint hashAlg, uint mgf, uint source, byte[] sourceData)
+        public CkRsaPkcsOaepParams(ulong hashAlg, ulong mgf, ulong source, byte[] sourceData)
         {
-            _lowLevelStruct.HashAlg = 0;
-            _lowLevelStruct.Mgf = 0;
-            _lowLevelStruct.Source = 0;
-            _lowLevelStruct.SourceData = IntPtr.Zero;
-            _lowLevelStruct.SourceDataLen = 0;
-
-            _lowLevelStruct.HashAlg = hashAlg;
-            _lowLevelStruct.Mgf = mgf;
-            _lowLevelStruct.Source = source;
-
-            if (sourceData != null)
-            {
-                _lowLevelStruct.SourceData = LowLevelAPI.UnmanagedMemory.Allocate(sourceData.Length);
-                LowLevelAPI.UnmanagedMemory.Write(_lowLevelStruct.SourceData, sourceData);
-                _lowLevelStruct.SourceDataLen = (uint)sourceData.Length;
-            }
+            if (UnmanagedLong.Size == 4)
+                _params4 = new HighLevelAPI4.MechanismParams.CkRsaPkcsOaepParams(Convert.ToUInt32(hashAlg), Convert.ToUInt32(mgf), Convert.ToUInt32(source), sourceData);
+            else
+                _params8 = new HighLevelAPI8.MechanismParams.CkRsaPkcsOaepParams(hashAlg, mgf, source, sourceData);
         }
-
+        
         #region IMechanismParams
 
         /// <summary>
-        /// Converts object to low level mechanism parameters
+        /// Returns managed object that can be marshaled to an unmanaged block of memory
         /// </summary>
-        /// <returns>Low level mechanism parameters</returns>
-        public object ToLowLevelParams()
+        /// <returns>A managed object holding the data to be marshaled. This object must be an instance of a formatted class.</returns>
+        public object ToMarshalableStructure()
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _lowLevelStruct;
+            if (UnmanagedLong.Size == 4)
+                return _params4.ToMarshalableStructure();
+            else
+                return _params8.ToMarshalableStructure();
         }
         
         #endregion
@@ -109,11 +94,20 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (disposing)
                 {
                     // Dispose managed objects
+                    if (_params4 != null)
+                    {
+                        _params4.Dispose();
+                        _params4 = null;
+                    }
+
+                    if (_params8 != null)
+                    {
+                        _params8.Dispose();
+                        _params8 = null;
+                    }
                 }
                 
                 // Dispose unmanaged objects
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.SourceData);
-                _lowLevelStruct.SourceDataLen = 0;
 
                 _disposed = true;
             }

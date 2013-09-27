@@ -1,28 +1,19 @@
 ﻿/*
- *  Pkcs11Interop - Open-source .NET wrapper for unmanaged PKCS#11 libraries
- *  Copyright (c) 2012-2013 JWC s.r.o.
- *  Author: Jaroslav Imrich
+ *  Pkcs11Interop - Managed .NET wrapper for unmanaged PKCS#11 libraries
+ *  Copyright (c) 2012-2013 JWC s.r.o. <http://www.jwc.sk>
+ *  Author: Jaroslav Imrich <jimrich@jimrich.sk>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License version 3
- *  as published by the Free Software Foundation.
+ *  Licensing for open source projects:
+ *  Pkcs11Interop is available under the terms of the GNU Affero General 
+ *  Public License version 3 as published by the Free Software Foundation.
+ *  Please see <http://www.gnu.org/licenses/agpl-3.0.html> for more details.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU Affero General Public License for more details.
- *
- *  You should have received a copy of the GNU Affero General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
- *  You can be released from the requirements of the license by purchasing
- *  a commercial license. Buying such a license is mandatory as soon as you
- *  develop commercial activities involving the Pkcs11Interop software without
- *  disclosing the source code of your own applications.
- * 
- *  For more information, please contact JWC s.r.o. at info@pkcs11interop.net
+ *  Licensing for other types of projects:
+ *  Pkcs11Interop is available under the terms of flexible commercial license.
+ *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
+using System;
 using Net.Pkcs11Interop.Common;
 
 namespace Net.Pkcs11Interop.HighLevelAPI
@@ -33,25 +24,25 @@ namespace Net.Pkcs11Interop.HighLevelAPI
     public class SlotInfo
     {
         /// <summary>
-        /// PKCS#11 handle of slot
+        /// Platform specific SlotInfo
         /// </summary>
-        private uint _slotId = CK.CK_INVALID_HANDLE;
+        private HighLevelAPI4.SlotInfo _slotInfo4 = null;
+
+        /// <summary>
+        /// Platform specific SlotInfo
+        /// </summary>
+        private HighLevelAPI8.SlotInfo _slotInfo8 = null;
 
         /// <summary>
         /// PKCS#11 handle of slot
         /// </summary>
-        public uint SlotId
+        public ulong SlotId
         {
             get
             {
-                return _slotId;
+                return (UnmanagedLong.Size == 4) ? _slotInfo4.SlotId : _slotInfo8.SlotId;
             }
         }
-
-        /// <summary>
-        /// Description of the slot
-        /// </summary>
-        private string _slotDescription = null;
 
         /// <summary>
         /// Description of the slot
@@ -60,14 +51,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return _slotDescription;
+                return (UnmanagedLong.Size == 4) ? _slotInfo4.SlotDescription : _slotInfo8.SlotDescription;
             }
         }
-
-        /// <summary>
-        /// ID of the slot manufacturer
-        /// </summary>
-        private string _manufacturerId = null;
 
         /// <summary>
         /// ID of the slot manufacturer
@@ -76,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return _manufacturerId;
+                return (UnmanagedLong.Size == 4) ? _slotInfo4.ManufacturerId : _slotInfo8.ManufacturerId;
             }
         }
 
@@ -92,14 +78,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
+                if (_slotFlags == null)
+                    _slotFlags = (UnmanagedLong.Size == 4) ? new SlotFlags(_slotInfo4.SlotFlags) : new SlotFlags(_slotInfo8.SlotFlags);
+
                 return _slotFlags;
             }
         }
-
-        /// <summary>
-        /// Version number of the slot's hardware
-        /// </summary>
-        private string _hardwareVersion = null;
 
         /// <summary>
         /// Version number of the slot's hardware
@@ -108,15 +92,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return _hardwareVersion;
+                return (UnmanagedLong.Size == 4) ? _slotInfo4.HardwareVersion : _slotInfo8.HardwareVersion;
             }
         }
 
-        /// <summary>
-        /// Version number of the slot's firmware
-        /// </summary>
-        private string _firmwareVersion = null;
-        
         /// <summary>
         /// Version number of the slot's firmware
         /// </summary>
@@ -124,23 +103,32 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return _firmwareVersion;
+                return (UnmanagedLong.Size == 4) ? _slotInfo4.FirmwareVersion : _slotInfo8.FirmwareVersion;
             }
         }
 
         /// <summary>
-        /// Converts low level CK_SLOT_INFO structure to high level SlotInfo class
+        /// Converts platform specific SlotInfo to platfrom neutral SlotInfo
         /// </summary>
-        /// <param name="slotId">PKCS#11 handle of slot</param>
-        /// <param name="ck_slot_info">Low level CK_SLOT_INFO structure</param>
-        internal SlotInfo(uint slotId, LowLevelAPI.CK_SLOT_INFO ck_slot_info)
+        /// <param name="slotInfo">Platform specific SlotInfo</param>
+        internal SlotInfo(HighLevelAPI4.SlotInfo slotInfo)
         {
-            _slotId = slotId;
-            _slotDescription = ConvertUtils.BytesToUtf8String(ck_slot_info.SlotDescription, true);
-            _manufacturerId = ConvertUtils.BytesToUtf8String(ck_slot_info.ManufacturerId, true);
-            _slotFlags = new SlotFlags(ck_slot_info.Flags);
-            _hardwareVersion = ConvertUtils.CkVersionToString(ck_slot_info.HardwareVersion);
-            _firmwareVersion = ConvertUtils.CkVersionToString(ck_slot_info.FirmwareVersion);
+            if (slotInfo == null)
+                throw new ArgumentNullException("slotInfo");
+
+            _slotInfo4 = slotInfo;
+        }
+
+        /// <summary>
+        /// Converts platform specific SlotInfo to platfrom neutral SlotInfo
+        /// </summary>
+        /// <param name="slotInfo">Platform specific SlotInfo</param>
+        internal SlotInfo(HighLevelAPI8.SlotInfo slotInfo)
+        {
+            if (slotInfo == null)
+                throw new ArgumentNullException("slotInfo");
+
+            _slotInfo8 = slotInfo;
         }
     }
 }

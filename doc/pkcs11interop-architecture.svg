@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="1570.4745"
+   height="550.78101"
+   id="svg2">
+  <defs
+     id="defs4" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-784.04492,-165.58063)"
+     id="layer1">
+    <rect
+       width="430.49631"
+       height="85.835487"
+       rx="3.1486776"
+       ry="0.41571617"
+       x="811.54346"
+       y="383.58038"
+       id="rect2985-7-6-1-8-9-9"
+       style="fill:#ffe788;fill-opacity:1;stroke:#dba500;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <text
+       x="1026.0094"
+       y="419.82285"
+       id="text4183-1-3-4"
+       xml:space="preserve"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Tahoma;-inkscape-font-specification:Tahoma"><tspan
+         x="1026.0094"
+         y="419.82285"
+         id="tspan4229-1"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;fill:#030303;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial">Pkcs11Interop</tspan><tspan
+         x="1026.0094"
+         y="442.32285"
+         id="tspan3973"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#030303;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial">Managed PKCS#11 wrapper</tspan></text>
+    <rect
+       width="430.49631"
+       height="85.835487"
+       rx="3.1486776"
+       ry="0.41571617"
+       x="811.54346"
+       y="273.10745"
+       id="rect2985-7-6-1-8-9-9-7"
+       style="fill:#ffe788;fill-opacity:1;stroke:#dba500;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <text
+       x="1027.4596"
+       y="309.94318"
+       id="text4183-1-3-4-4"
+       xml:space="preserve"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Tahoma;-inkscape-font-specification:Tahoma"><tspan
+         x="1027.4596"
+         y="309.94318"
+         id="tspan4229-1-0"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;fill:#030303;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial">.NET application</tspan><tspan
+         x="1027.4596"
+         y="332.44318"
+         id="tspan3975"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#030303;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial">WinForms, WPF, WCF, ASP.NET etc.</tspan></text>
+    <path
+       d="m 1026.7916,394.359 -36.98883,-23.09734 18.49443,0 0,-23.09732 36.9889,0 0,23.09732 18.4944,0 -36.9889,23.09734 z"
+       id="rect2834"
+       style="fill:#ffce38;fill-opacity:1;stroke:#dba500;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <rect
+       width="430.49631"
+       height="85.835487"
+       rx="3.1486776"
+       ry="0.41571617"
+       x="811.54346"
+       y="494.05325"
+       id="rect2985-7-6-1-8-9-9-4"
+       style="fill:#ffe788;fill-opacity:1;stroke:#dba500;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <text
+       x="1025.9698"
+       y="530.37921"
+       id="text4183-1-3-4-8"
+       xml:space="preserve"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Tahoma;-inkscape-font-specification:Tahoma"><tspan
+         x="1025.9698"
+         y="530.37921"
+         id="tspan4229-1-8"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;fill:#030303;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial Bold">PKCS#11 library</tspan><tspan
+         x="1025.9698"
+         y="552.87921"
+         id="tspan3971"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#030303;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial">Unmanaged library provided by the device vendor</tspan></text>
+    <rect
+       width="430.49631"
+       height="85.835487"
+       rx="3.1486776"
+       ry="0.41571617"
+       x="810.04492"
+       y="604.52612"
+       id="rect2985-7-6-1-8-9-9-4-4"
+       style="fill:#ffe788;fill-opacity:1;stroke:#dba500;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <text
+       x="1025.3502"
+       y="641.47168"
+       id="text4183-1-3-4-8-5"
+       xml:space="preserve"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Tahoma;-inkscape-font-specification:Tahoma"><tspan
+         x="1025.3502"
+         y="641.47168"
+         id="tspan4229-1-8-5"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;fill:#030303;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial Bold">Cryptographic device</tspan><tspan
+         x="1025.3502"
+         y="663.97168"
+         id="tspan3969"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#030303;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial">HSM, smart card, SW token etc.</tspan></text>
+    <path
+       d="m 1026.7916,504.83187 -36.98883,-23.09734 18.49453,0 0,-23.09732 36.9888,0 0,23.09732 18.4944,0 -36.9889,23.09734 z"
+       id="rect2834-7"
+       style="fill:#ffce38;fill-opacity:1;stroke:#dba500;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <path
+       d="m 1026.7916,615.3048 -36.98879,-23.09734 18.49439,0 0,-23.09732 36.9889,0 0,23.09732 18.4944,0 -36.9889,23.09734 z"
+       id="rect2834-1"
+       style="fill:#ffce38;fill-opacity:1;stroke:#dba500;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <rect
+       width="935.49597"
+       height="469.83499"
+       rx="3.1486776"
+       ry="0.41571617"
+       x="1393.0234"
+       y="191.58063"
+       id="rect2985-7-6-1-8-9-9-7-0-1"
+       style="fill:#fff6d5;fill-opacity:1;stroke:#dba500;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <rect
+       width="885.49597"
+       height="85.835487"
+       rx="3.1486776"
+       ry="0.41571617"
+       x="1418.0234"
+       y="217.87105"
+       id="rect2985-7-6-1-8-9-9-7-0"
+       style="fill:#ffe788;fill-opacity:1;stroke:#dba500;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <text
+       x="1859.8477"
+       y="252.6301"
+       id="text4183-1-3-4-4-9"
+       xml:space="preserve"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Tahoma;-inkscape-font-specification:Arial Bold"><tspan
+         x="1859.8477"
+         y="252.6301"
+         id="tspan4229-1-0-4"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;fill:#030303;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial Bold">Net.Pkcs11Interop.HighLevelAPI</tspan><tspan
+         x="1859.8477"
+         y="275.1301"
+         id="tspan4027"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#030303;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial">.NET friendly API usable for multiplatform application development</tspan></text>
+    <rect
+       width="885.49597"
+       height="85.835487"
+       rx="3.1486776"
+       ry="0.41571617"
+       x="1418.0234"
+       y="549.28973"
+       id="rect2985-7-6-1-8-9-9-4-4-5"
+       style="fill:#ffe788;fill-opacity:1;stroke:#dba500;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <text
+       x="1860.3203"
+       y="584.27972"
+       id="text4183-1-3-4-8-5-5"
+       xml:space="preserve"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Tahoma;-inkscape-font-specification:Tahoma"><tspan
+         x="1860.3203"
+         y="584.27972"
+         id="tspan4229-1-8-5-1"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;fill:#030303;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial">System.Runtime.InteropServices</tspan><tspan
+         x="1860.3203"
+         y="606.77972"
+         id="tspan4031"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#030303;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial">Standard platform invoke services of .NET Framework</tspan></text>
+    <rect
+       width="430.49631"
+       height="85.835487"
+       rx="3.1486776"
+       ry="0.41571617"
+       x="1418.0234"
+       y="328.34402"
+       id="rect2985-7-6-1-8-9-9-1"
+       style="fill:#f4eed7;fill-opacity:1;stroke:#dba500;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <text
+       x="1632.713"
+       y="363.86041"
+       id="text4183-1-3-4-7"
+       xml:space="preserve"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Tahoma;-inkscape-font-specification:Tahoma"><tspan
+         x="1632.713"
+         y="363.86041"
+         id="tspan4229-1-4"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;fill:#030303;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial">Net.Pkcs11Interop.HighLevelAPI4</tspan><tspan
+         x="1632.713"
+         y="386.36041"
+         id="tspan4029"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#030303;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial">.NET friendly API for Win32, Win64 and Unix32</tspan></text>
+    <path
+       d="m 1633.2718,339.12261 -36.9889,-23.09734 18.4945,0 0,-23.09732 36.9889,0 0,23.09732 18.4944,0 -36.9889,23.09734 z"
+       id="rect2834-8"
+       style="fill:#ffce38;fill-opacity:1;stroke:#dba500;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <rect
+       width="430.49631"
+       height="85.835487"
+       rx="3.1486776"
+       ry="0.41571617"
+       x="1418.0234"
+       y="438.81686"
+       id="rect2985-7-6-1-8-9-9-4-8"
+       style="fill:#f4eed7;fill-opacity:1;stroke:#dba500;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <text
+       x="1633.3092"
+       y="474.33325"
+       id="text4183-1-3-4-8-2"
+       xml:space="preserve"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Tahoma;-inkscape-font-specification:Tahoma"><tspan
+         x="1633.3092"
+         y="474.33325"
+         id="tspan4229-1-8-4"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;fill:#030303;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial">Net.Pkcs11Interop.LowLevelAPI4</tspan><tspan
+         x="1633.3092"
+         y="496.83325"
+         id="tspan4033"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#030303;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial">C-like API for Win32, Win64 and Unix32</tspan></text>
+    <path
+       d="m 1633.2718,449.59548 -36.9889,-23.09734 18.4946,0 0,-23.09732 36.9888,0 0,23.09732 18.4944,0 -36.9889,23.09734 z"
+       id="rect2834-7-7"
+       style="fill:#ffce38;fill-opacity:1;stroke:#dba500;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <path
+       d="m 1633.2718,560.06841 -36.9888,-23.09734 18.4944,0 0,-23.09732 36.9889,0 0,23.09732 18.4944,0 -36.9889,23.09734 z"
+       id="rect2834-1-1"
+       style="fill:#ffce38;fill-opacity:1;stroke:#dba500;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <rect
+       width="430.49631"
+       height="85.835487"
+       rx="3.1486776"
+       ry="0.41571617"
+       x="1873.0231"
+       y="328.34402"
+       id="rect2985-7-6-1-8-9-9-1-2"
+       style="fill:#f4eed7;fill-opacity:1;stroke:#dba500;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <text
+       x="2087.9543"
+       y="365.28375"
+       id="text4183-1-3-4-7-3"
+       xml:space="preserve"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Tahoma;-inkscape-font-specification:Tahoma"><tspan
+         x="2087.9543"
+         y="365.28375"
+         id="tspan4229-1-4-2"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;fill:#030303;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial">Net.Pkcs11Interop.HighLevelAPI8</tspan><tspan
+         x="2087.9543"
+         y="387.78375"
+         id="tspan4037"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#030303;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial">.NET friendly API for Unix64</tspan></text>
+    <path
+       d="m 2088.2715,339.12261 -36.9889,-23.09734 18.4945,0 0,-23.09732 36.9889,0 0,23.09732 18.4944,0 -36.9889,23.09734 z"
+       id="rect2834-8-2"
+       style="fill:#ffce38;fill-opacity:1;stroke:#dba500;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <rect
+       width="430.49631"
+       height="85.835487"
+       rx="3.1486776"
+       ry="0.41571617"
+       x="1873.0231"
+       y="438.81683"
+       id="rect2985-7-6-1-8-9-9-4-8-1"
+       style="fill:#f4eed7;fill-opacity:1;stroke:#dba500;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <text
+       x="2087.9543"
+       y="475.75656"
+       id="text4183-1-3-4-8-2-6"
+       xml:space="preserve"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Tahoma;-inkscape-font-specification:Tahoma"><tspan
+         x="2087.9543"
+         y="475.75656"
+         id="tspan4229-1-8-4-8"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;fill:#030303;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial">Net.Pkcs11Interop.LowLevelAPI8</tspan><tspan
+         x="2087.9543"
+         y="498.25656"
+         id="tspan4035"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#030303;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial">C-like API for Unix64</tspan></text>
+    <path
+       d="m 2088.2715,449.59548 -36.9889,-23.09734 18.4946,0 0,-23.09732 36.9888,0 0,23.09732 18.4944,0 -36.9889,23.09734 z"
+       id="rect2834-7-7-5"
+       style="fill:#ffce38;fill-opacity:1;stroke:#dba500;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <path
+       d="m 2088.2715,560.06841 -36.9888,-23.09734 18.4944,0 0,-23.09732 36.9889,0 0,23.09732 18.4944,0 -36.9889,23.09734 z"
+       id="rect2834-1-1-7"
+       style="fill:#ffce38;fill-opacity:1;stroke:#dba500;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <path
+       d="M 1240.4154,383.76774 1393.048,191.93577"
+       id="path3193"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:8, 8;stroke-dashoffset:0;display:inline" />
+    <path
+       d="m 1240.5604,467.85574 152.623,191.77493"
+       id="path3195"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:8, 8;stroke-dashoffset:0;display:inline" />
+  </g>
+</svg>

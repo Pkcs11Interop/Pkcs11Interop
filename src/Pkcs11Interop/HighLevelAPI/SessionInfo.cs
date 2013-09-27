@@ -1,28 +1,19 @@
 ﻿/*
- *  Pkcs11Interop - Open-source .NET wrapper for unmanaged PKCS#11 libraries
- *  Copyright (c) 2012-2013 JWC s.r.o.
- *  Author: Jaroslav Imrich
+ *  Pkcs11Interop - Managed .NET wrapper for unmanaged PKCS#11 libraries
+ *  Copyright (c) 2012-2013 JWC s.r.o. <http://www.jwc.sk>
+ *  Author: Jaroslav Imrich <jimrich@jimrich.sk>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License version 3
- *  as published by the Free Software Foundation.
+ *  Licensing for open source projects:
+ *  Pkcs11Interop is available under the terms of the GNU Affero General 
+ *  Public License version 3 as published by the Free Software Foundation.
+ *  Please see <http://www.gnu.org/licenses/agpl-3.0.html> for more details.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU Affero General Public License for more details.
- *
- *  You should have received a copy of the GNU Affero General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
- *  You can be released from the requirements of the license by purchasing
- *  a commercial license. Buying such a license is mandatory as soon as you
- *  develop commercial activities involving the Pkcs11Interop software without
- *  disclosing the source code of your own applications.
- * 
- *  For more information, please contact JWC s.r.o. at info@pkcs11interop.net
+ *  Licensing for other types of projects:
+ *  Pkcs11Interop is available under the terms of flexible commercial license.
+ *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
+using System;
 using Net.Pkcs11Interop.Common;
 
 namespace Net.Pkcs11Interop.HighLevelAPI
@@ -33,41 +24,36 @@ namespace Net.Pkcs11Interop.HighLevelAPI
     public class SessionInfo
     {   
         /// <summary>
-        /// PKCS#11 handle of session
+        /// Platform specific SessionInfo
         /// </summary>
-        private uint _sessionId = CK.CK_INVALID_HANDLE;
+        private HighLevelAPI4.SessionInfo _sessionInfo4 = null;
+
+        /// <summary>
+        /// Platform specific SessionInfo
+        /// </summary>
+        private HighLevelAPI8.SessionInfo _sessionInfo8 = null;
 
         /// <summary>
         /// PKCS#11 handle of session
         /// </summary>
-        public uint SessionId
+        public ulong SessionId
         {
             get
             {
-                return _sessionId;
+                return (UnmanagedLong.Size == 4) ? _sessionInfo4.SessionId : _sessionInfo8.SessionId;
             }
         }
 
         /// <summary>
         /// PKCS#11 handle of slot that interfaces with the token
         /// </summary>
-        private uint _slotId = CK.CK_INVALID_HANDLE;
-
-        /// <summary>
-        /// PKCS#11 handle of slot that interfaces with the token
-        /// </summary>
-        public uint SlotId
+        public ulong SlotId
         {
             get
             {
-                return _slotId;
+                return (UnmanagedLong.Size == 4) ? _sessionInfo4.SlotId : _sessionInfo8.SlotId;
             }
         }
-
-        /// <summary>
-        /// The state of the session
-        /// </summary>
-        private CKS _state = 0;
 
         /// <summary>
         /// The state of the session
@@ -76,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return _state;
+                return (UnmanagedLong.Size == 4) ? _sessionInfo4.State : _sessionInfo8.State;
             }
         }
 
@@ -92,6 +78,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
+                if (_sessionFlags == null)
+                    _sessionFlags = (UnmanagedLong.Size == 4) ? new SessionFlags(_sessionInfo4.SessionFlags) : new SessionFlags(_sessionInfo8.SessionFlags);
+
                 return _sessionFlags;
             }
         }
@@ -99,31 +88,36 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// An error code defined by the cryptographic device used for errors not covered by Cryptoki
         /// </summary>
-        private uint _deviceError = 0;
-
-        /// <summary>
-        /// An error code defined by the cryptographic device used for errors not covered by Cryptoki
-        /// </summary>
-        public uint DeviceError
+        public ulong DeviceError
         {
             get
             {
-                return _deviceError;
+                return (UnmanagedLong.Size == 4) ? _sessionInfo4.DeviceError : _sessionInfo8.DeviceError;
             }
         }
 
         /// <summary>
-        /// Converts low level CK_SESSION_INFO structure to high level SessionInfo class
+        /// Converts platform specific SessionInfo to platfrom neutral SessionInfo
         /// </summary>
-        /// <param name="sessionId">PKCS#11 handle of session</param>
-        /// <param name="ck_session_info">Low level CK_SESSION_INFO structure</param>
-        internal SessionInfo(uint sessionId, LowLevelAPI.CK_SESSION_INFO ck_session_info)
+        /// <param name="sessionInfo">Platform specific SessionInfo</param>
+        internal SessionInfo(HighLevelAPI4.SessionInfo sessionInfo)
         {
-            _sessionId = sessionId;
-            _slotId = ck_session_info.SlotId;
-            _state = (CKS)ck_session_info.State;
-            _sessionFlags = new SessionFlags(ck_session_info.Flags);
-            _deviceError = ck_session_info.DeviceError;
+            if (sessionInfo == null)
+                throw new ArgumentNullException("sessionInfo");
+
+            _sessionInfo4 = sessionInfo;
+        }
+
+        /// <summary>
+        /// Converts platform specific SessionInfo to platfrom neutral SessionInfo
+        /// </summary>
+        /// <param name="sessionInfo">Platform specific SessionInfo</param>
+        internal SessionInfo(HighLevelAPI8.SessionInfo sessionInfo)
+        {
+            if (sessionInfo == null)
+                throw new ArgumentNullException("sessionInfo");
+
+            _sessionInfo8 = sessionInfo;
         }
     }
 }

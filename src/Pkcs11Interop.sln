@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pkcs11Interop", "Pkcs11Interop\Pkcs11Interop.csproj", "{2CB08FA0-8B71-4AE9-8734-BAC10804BF4E}"
+# Visual C# Express 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pkcs11Interop", "Pkcs11Interop\Pkcs11Interop.csproj", "{9BC3EE70-6B0B-4B26-8C06-B7AE50BE202E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pkcs11InteropTests", "Pkcs11InteropTests\Pkcs11InteropTests.csproj", "{CD7CCC02-3914-403A-BECB-9F1D5524727C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pkcs11InteropTests", "Pkcs11InteropTests\Pkcs11InteropTests.csproj", "{21C986F1-411F-4F01-B9A2-5930B6E75DC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,46 +11,16 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2CB08FA0-8B71-4AE9-8734-BAC10804BF4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2CB08FA0-8B71-4AE9-8734-BAC10804BF4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2CB08FA0-8B71-4AE9-8734-BAC10804BF4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2CB08FA0-8B71-4AE9-8734-BAC10804BF4E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CD7CCC02-3914-403A-BECB-9F1D5524727C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CD7CCC02-3914-403A-BECB-9F1D5524727C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CD7CCC02-3914-403A-BECB-9F1D5524727C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CD7CCC02-3914-403A-BECB-9F1D5524727C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BC3EE70-6B0B-4B26-8C06-B7AE50BE202E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BC3EE70-6B0B-4B26-8C06-B7AE50BE202E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BC3EE70-6B0B-4B26-8C06-B7AE50BE202E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BC3EE70-6B0B-4B26-8C06-B7AE50BE202E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21C986F1-411F-4F01-B9A2-5930B6E75DC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21C986F1-411F-4F01-B9A2-5930B6E75DC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21C986F1-411F-4F01-B9A2-5930B6E75DC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21C986F1-411F-4F01-B9A2-5930B6E75DC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Pkcs11Interop\Pkcs11Interop.csproj
-		Policies = $0
-		$0.DotNetNamingPolicy = $1
-		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
-		$1.ResourceNamePolicy = FileFormatDefault
-		$0.TextStylePolicy = $2
-		$2.inheritsSet = VisualStudio
-		$2.inheritsScope = text/plain
-		$2.scope = text/x-csharp
-		$0.CSharpFormattingPolicy = $3
-		$3.IndentSwitchBody = True
-		$3.AnonymousMethodBraceStyle = NextLine
-		$3.PropertyBraceStyle = NextLine
-		$3.PropertyGetBraceStyle = NextLine
-		$3.PropertySetBraceStyle = NextLine
-		$3.EventBraceStyle = NextLine
-		$3.EventAddBraceStyle = NextLine
-		$3.EventRemoveBraceStyle = NextLine
-		$3.StatementBraceStyle = NextLine
-		$3.ArrayInitializerBraceStyle = NextLine
-		$3.BeforeMethodDeclarationParentheses = False
-		$3.BeforeMethodCallParentheses = False
-		$3.BeforeConstructorDeclarationParentheses = False
-		$3.BeforeDelegateDeclarationParentheses = False
-		$3.NewParentheses = False
-		$3.inheritsSet = Mono
-		$3.inheritsScope = text/x-csharp
-		$3.scope = text/x-csharp
-		$0.VersionControlPolicy = $4
-		$4.inheritsSet = Mono
-		version = 
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

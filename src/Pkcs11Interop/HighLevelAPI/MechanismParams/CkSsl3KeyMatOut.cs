@@ -1,30 +1,19 @@
 /*
- *  Pkcs11Interop - Open-source .NET wrapper for unmanaged PKCS#11 libraries
- *  Copyright (c) 2012-2013 JWC s.r.o.
- *  Author: Jaroslav Imrich
+ *  Pkcs11Interop - Managed .NET wrapper for unmanaged PKCS#11 libraries
+ *  Copyright (c) 2012-2013 JWC s.r.o. <http://www.jwc.sk>
+ *  Author: Jaroslav Imrich <jimrich@jimrich.sk>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License version 3
- *  as published by the Free Software Foundation.
+ *  Licensing for open source projects:
+ *  Pkcs11Interop is available under the terms of the GNU Affero General 
+ *  Public License version 3 as published by the Free Software Foundation.
+ *  Please see <http://www.gnu.org/licenses/agpl-3.0.html> for more details.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU Affero General Public License for more details.
- *
- *  You should have received a copy of the GNU Affero General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
- *  You can be released from the requirements of the license by purchasing
- *  a commercial license. Buying such a license is mandatory as soon as you
- *  develop commercial activities involving the Pkcs11Interop software without
- *  disclosing the source code of your own applications.
- * 
- *  For more information, please contact JWC s.r.o. at info@pkcs11interop.net
+ *  Licensing for other types of projects:
+ *  Pkcs11Interop is available under the terms of flexible commercial license.
+ *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
 using System;
-using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.Common;
 
 namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
@@ -38,11 +27,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// Flag indicating whether instance has been disposed
         /// </summary>
         private bool _disposed = false;
-        
+
         /// <summary>
-        /// Low level structure
+        /// Platform specific CkSsl3KeyMatOut
         /// </summary>
-        internal LowLevelAPI.MechanismParams.CK_SSL3_KEY_MAT_OUT _lowLevelStruct = new LowLevelAPI.MechanismParams.CK_SSL3_KEY_MAT_OUT();
+        private HighLevelAPI4.MechanismParams.CkSsl3KeyMatOut _params4 = null;
+
+        /// <summary>
+        /// Platform specific CkSsl3KeyMatOut
+        /// </summary>
+        private HighLevelAPI8.MechanismParams.CkSsl3KeyMatOut _params8 = null;
 
         /// <summary>
         /// Key handle for the resulting Client MAC Secret key
@@ -54,7 +48,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return new ObjectHandle(_lowLevelStruct.ClientMacSecret);
+                return (UnmanagedLong.Size == 4) ? new ObjectHandle(_params4.ClientMacSecret) : new ObjectHandle(_params8.ClientMacSecret);
             }
         }
 
@@ -68,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return new ObjectHandle(_lowLevelStruct.ServerMacSecret);
+                return (UnmanagedLong.Size == 4) ? new ObjectHandle(_params4.ServerMacSecret) : new ObjectHandle(_params8.ServerMacSecret);
             }
         }
 
@@ -82,7 +76,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return new ObjectHandle(_lowLevelStruct.ClientKey);
+                return (UnmanagedLong.Size == 4) ? new ObjectHandle(_params4.ClientKey) : new ObjectHandle(_params8.ClientKey);
             }
         }
 
@@ -96,7 +90,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return new ObjectHandle(_lowLevelStruct.ServerKey);
+                return (UnmanagedLong.Size == 4) ? new ObjectHandle(_params4.ServerKey) : new ObjectHandle(_params8.ServerKey);
             }
         }
 
@@ -110,7 +104,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (_ivLength < 1) ? null : LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.IVClient, (int)_ivLength);
+                return (UnmanagedLong.Size == 4) ? _params4.IVClient : _params8.IVClient;
             }
         }
 
@@ -124,35 +118,32 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (_ivLength < 1) ? null : LowLevelAPI.UnmanagedMemory.Read(_lowLevelStruct.IVServer, (int)_ivLength);
+                return (UnmanagedLong.Size == 4) ? _params4.IVServer : _params8.IVServer;
             }
         }
 
         /// <summary>
-        /// The length of initialization vectors
+        /// Initializes a new instance of the CkSsl3KeyMatOut class.
         /// </summary>
-        private uint _ivLength = 0;
+        /// <param name='ckSsl3KeyMatOut'>Platform specific CkSsl3KeyMatOut</param>
+        internal CkSsl3KeyMatOut(HighLevelAPI4.MechanismParams.CkSsl3KeyMatOut ckSsl3KeyMatOut)
+        {
+            if (ckSsl3KeyMatOut == null)
+                throw new ArgumentNullException("ckSsl3KeyMatOut");
+
+            _params4 = ckSsl3KeyMatOut;
+        }
 
         /// <summary>
         /// Initializes a new instance of the CkSsl3KeyMatOut class.
         /// </summary>
-        /// <param name='ivLength'>Length of initialization vectors or 0 if IVs are not required</param>
-        internal CkSsl3KeyMatOut(uint ivLength)
+        /// <param name='ckSsl3KeyMatOut'>Platform specific CkSsl3KeyMatOut</param>
+        internal CkSsl3KeyMatOut(HighLevelAPI8.MechanismParams.CkSsl3KeyMatOut ckSsl3KeyMatOut)
         {
-            _lowLevelStruct.ClientMacSecret = 0;
-            _lowLevelStruct.ServerMacSecret = 0;
-            _lowLevelStruct.ClientKey = 0;
-            _lowLevelStruct.ServerKey = 0;
-            _lowLevelStruct.IVClient = IntPtr.Zero;
-            _lowLevelStruct.IVServer = IntPtr.Zero;
+            if (ckSsl3KeyMatOut == null)
+                throw new ArgumentNullException("ckSsl3KeyMatOut");
 
-            _ivLength = ivLength;
-
-            if (_ivLength > 0)
-            {
-                _lowLevelStruct.IVClient = LowLevelAPI.UnmanagedMemory.Allocate((int)_ivLength);
-                _lowLevelStruct.IVServer = LowLevelAPI.UnmanagedMemory.Allocate((int)_ivLength);
-            }
+            _params8 = ckSsl3KeyMatOut;
         }
 
         #region IDisposable
@@ -177,11 +168,20 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (disposing)
                 {
                     // Dispose managed objects
+                    if (_params4 != null)
+                    {
+                        _params4.Dispose();
+                        _params4 = null;
+                    }
+
+                    if (_params8 != null)
+                    {
+                        _params8.Dispose();
+                        _params8 = null;
+                    }
                 }
                 
                 // Dispose unmanaged objects
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.IVClient);
-                LowLevelAPI.UnmanagedMemory.Free(ref _lowLevelStruct.IVServer);
 
                 _disposed = true;
             }

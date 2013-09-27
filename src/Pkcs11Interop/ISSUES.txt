@@ -1,11 +1,8 @@
-Pkcs11Interop implements full PKCS#11 v2.20 specification with following 
-mostly temporary exceptions/limitations:
+Pkcs11Interop implements full PKCS#11 v2.20 specification with the following 
+mostly temporary exceptions and limitations:
  
- - Pkcs11Interop works with .NET Framework 2.0 or higher on MS Windows (32-bit 
-   and 64-bit) and also with Mono on Linux (32-bit) and Mac OS X (32-bit). 
-   It may not work with Mono on Linux (64-bit).
  - Reading value of CKA_WRAP_TEMPLATE and CKA_UNWRAP_TEMPLATE attributes 
-   is supported only in LowLevelAPI.
+   is supported only in LowLevelAPIs.
  - Locking related types CK_CREATEMUTEX, CK_DESTROYMUTEX, CK_LOCKMUTEX 
    and CK_UNLOCKMUTEX are not supported, but native OS threading model 
    (CKF_OS_LOCKING_OK) can be used without any problems.

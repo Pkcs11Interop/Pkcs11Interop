@@ -1,28 +1,19 @@
 ﻿/*
- *  Pkcs11Interop - Open-source .NET wrapper for unmanaged PKCS#11 libraries
- *  Copyright (c) 2012-2013 JWC s.r.o.
- *  Author: Jaroslav Imrich
+ *  Pkcs11Interop - Managed .NET wrapper for unmanaged PKCS#11 libraries
+ *  Copyright (c) 2012-2013 JWC s.r.o. <http://www.jwc.sk>
+ *  Author: Jaroslav Imrich <jimrich@jimrich.sk>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License version 3
- *  as published by the Free Software Foundation.
+ *  Licensing for open source projects:
+ *  Pkcs11Interop is available under the terms of the GNU Affero General 
+ *  Public License version 3 as published by the Free Software Foundation.
+ *  Please see <http://www.gnu.org/licenses/agpl-3.0.html> for more details.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU Affero General Public License for more details.
- *
- *  You should have received a copy of the GNU Affero General Public License
- *  along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
- *  You can be released from the requirements of the license by purchasing
- *  a commercial license. Buying such a license is mandatory as soon as you
- *  develop commercial activities involving the Pkcs11Interop software without
- *  disclosing the source code of your own applications.
- * 
- *  For more information, please contact JWC s.r.o. at info@pkcs11interop.net
+ *  Licensing for other types of projects:
+ *  Pkcs11Interop is available under the terms of flexible commercial license.
+ *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
+using System;
 using Net.Pkcs11Interop.Common;
 
 namespace Net.Pkcs11Interop.HighLevelAPI
@@ -33,9 +24,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI
     public class LibraryInfo
     {
         /// <summary>
-        /// Cryptoki interface version number
+        /// Platform specific LibraryInfo
         /// </summary>
-        private string _cryptokiVersion = null;
+        private HighLevelAPI4.LibraryInfo _libraryInfo4 = null;
+
+        /// <summary>
+        /// Platform specific LibraryInfo
+        /// </summary>
+        private HighLevelAPI8.LibraryInfo _libraryInfo8 = null;
 
         /// <summary>
         /// Cryptoki interface version number
@@ -44,14 +40,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return _cryptokiVersion;
+                return (UnmanagedLong.Size == 4) ? _libraryInfo4.CryptokiVersion : _libraryInfo8.CryptokiVersion;
             }
         }
-
-        /// <summary>
-        /// ID of the Cryptoki library manufacturer
-        /// </summary>
-        private string _manufacturerId = null;
 
         /// <summary>
         /// ID of the Cryptoki library manufacturer
@@ -60,30 +51,20 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return _manufacturerId;
+                return (UnmanagedLong.Size == 4) ? _libraryInfo4.ManufacturerId : _libraryInfo8.ManufacturerId;
             }
         }
 
         /// <summary>
         /// Bit flags reserved for future versions
         /// </summary>
-        private uint _flags = 0;
-
-        /// <summary>
-        /// Bit flags reserved for future versions
-        /// </summary>
-        public uint Flags
+        public ulong Flags
         {
             get
             {
-                return _flags;
+                return (UnmanagedLong.Size == 4) ? _libraryInfo4.Flags : _libraryInfo8.Flags;
             }
         }
-
-        /// <summary>
-        /// Description of the library
-        /// </summary>
-        private string _libraryDescription = null;
 
         /// <summary>
         /// Description of the library
@@ -92,15 +73,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return _libraryDescription;
+                return (UnmanagedLong.Size == 4) ? _libraryInfo4.LibraryDescription : _libraryInfo8.LibraryDescription;
             }
         }
 
-        /// <summary>
-        /// Cryptoki library version number
-        /// </summary>
-        private string _libraryVersion = null;
-        
         /// <summary>
         /// Cryptoki library version number
         /// </summary>
@@ -108,21 +84,32 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return _libraryVersion;
+                return (UnmanagedLong.Size == 4) ? _libraryInfo4.LibraryVersion : _libraryInfo8.LibraryVersion;
             }
         }
 
         /// <summary>
-        /// Converts low level CK_INFO structure to high level LibraryInfo class
+        /// Converts platform specific LibraryInfo to platfrom neutral LibraryInfo
         /// </summary>
-        /// <param name="ck_info">Low level CK_INFO structure</param>
-        internal LibraryInfo(LowLevelAPI.CK_INFO ck_info)
+        /// <param name="libraryInfo">Platform specific LibraryInfo</param>
+        internal LibraryInfo(HighLevelAPI4.LibraryInfo libraryInfo)
         {
-            _cryptokiVersion = ConvertUtils.CkVersionToString(ck_info.CryptokiVersion);
-            _manufacturerId = ConvertUtils.BytesToUtf8String(ck_info.ManufacturerId, true);
-            _flags = ck_info.Flags;
-            _libraryDescription = ConvertUtils.BytesToUtf8String(ck_info.LibraryDescription, true);
-            _libraryVersion = ConvertUtils.CkVersionToString(ck_info.LibraryVersion);
+            if (libraryInfo == null)
+                throw new ArgumentNullException("libraryInfo");
+
+            _libraryInfo4 = libraryInfo;
+        }
+
+        /// <summary>
+        /// Converts platform specific LibraryInfo to platfrom neutral LibraryInfo
+        /// </summary>
+        /// <param name="libraryInfo">Platform specific LibraryInfo</param>
+        internal LibraryInfo(HighLevelAPI8.LibraryInfo libraryInfo)
+        {
+            if (libraryInfo == null)
+                throw new ArgumentNullException("libraryInfo");
+
+            _libraryInfo8 = libraryInfo;
         }
     }
 }
