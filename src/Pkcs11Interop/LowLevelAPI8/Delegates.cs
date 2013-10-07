@@ -41,10 +41,10 @@ namespace Net.Pkcs11Interop.LowLevelAPI8
     internal delegate CKR C_GetTokenInfoDelegate(ulong slotId, ref CK_TOKEN_INFO info);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_GetMechanismListDelegate(ulong slotId, CKM[] mechanismList, ref ulong count);
+    internal delegate CKR C_GetMechanismListDelegate(ulong slotId, ulong[] mechanismList, ref ulong count);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_GetMechanismInfoDelegate(ulong slotId, CKM type, ref CK_MECHANISM_INFO info);
+    internal delegate CKR C_GetMechanismInfoDelegate(ulong slotId, ulong type, ref CK_MECHANISM_INFO info);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     internal delegate CKR C_InitTokenDelegate(ulong slotId, byte[] pin, ulong pinLen, byte[] label);
@@ -74,7 +74,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI8
     internal delegate CKR C_SetOperationStateDelegate(ulong session, byte[] operationState, ulong operationStateLen, ulong encryptionKey, ulong authenticationKey);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_LoginDelegate(ulong session, CKU userType, byte[] pin, ulong pinLen);
+    internal delegate CKR C_LoginDelegate(ulong session, ulong userType, byte[] pin, ulong pinLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     internal delegate CKR C_LogoutDelegate(ulong session);
