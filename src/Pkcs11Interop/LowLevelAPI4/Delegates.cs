@@ -41,10 +41,10 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
     internal delegate CKR C_GetTokenInfoDelegate(uint slotId, ref CK_TOKEN_INFO info);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_GetMechanismListDelegate(uint slotId, CKM[] mechanismList, ref uint count);
+    internal delegate CKR C_GetMechanismListDelegate(uint slotId, uint[] mechanismList, ref uint count);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_GetMechanismInfoDelegate(uint slotId, CKM type, ref CK_MECHANISM_INFO info);
+    internal delegate CKR C_GetMechanismInfoDelegate(uint slotId, uint type, ref CK_MECHANISM_INFO info);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     internal delegate CKR C_InitTokenDelegate(uint slotId, byte[] pin, uint pinLen, byte[] label);
@@ -74,7 +74,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
     internal delegate CKR C_SetOperationStateDelegate(uint session, byte[] operationState, uint operationStateLen, uint encryptionKey, uint authenticationKey);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_LoginDelegate(uint session, CKU userType, byte[] pin, uint pinLen);
+    internal delegate CKR C_LoginDelegate(uint session, uint userType, byte[] pin, uint pinLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     internal delegate CKR C_LogoutDelegate(uint session);

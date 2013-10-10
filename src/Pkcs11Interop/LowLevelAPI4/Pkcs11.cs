@@ -312,8 +312,20 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            uint[] uintList = null;
+            if (mechanismList != null)
+                uintList = new uint[mechanismList.Length];
+
             C_GetMechanismListDelegate cGetMechanismList = (C_GetMechanismListDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GetMechanismList, typeof(C_GetMechanismListDelegate));
-            return cGetMechanismList(slotId, mechanismList, ref count);
+            CKR rv = cGetMechanismList(slotId, uintList, ref count);
+
+            if (mechanismList != null)
+            {
+                for (int i = 0; i < mechanismList.Length; i++)
+                    mechanismList[i] = (CKM)uintList[i];
+            }
+
+            return rv;
         }
 
         /// <summary>
@@ -329,7 +341,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             C_GetMechanismInfoDelegate cGetMechanismInfo = (C_GetMechanismInfoDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GetMechanismInfo, typeof(C_GetMechanismInfoDelegate));
-            return cGetMechanismInfo(slotId, type, ref info);
+            return cGetMechanismInfo(slotId, (uint)type, ref info);
         }
 
         /// <summary>
@@ -495,7 +507,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             C_LoginDelegate cLogin = (C_LoginDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_Login, typeof(C_LoginDelegate));
-            return cLogin(session, userType, pin, pinLen);
+            return cLogin(session, (uint)userType, pin, pinLen);
         }
 
         /// <summary>
