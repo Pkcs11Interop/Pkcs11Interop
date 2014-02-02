@@ -46,16 +46,25 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
 
             _p11 = new LowLevelAPI4.Pkcs11(libraryPath);
 
-            LowLevelAPI4.CK_C_INITIALIZE_ARGS initArgs = null;
-            if (useOsLocking)
+            try
             {
-                initArgs = new LowLevelAPI4.CK_C_INITIALIZE_ARGS();
-                initArgs.Flags = CKF.CKF_OS_LOCKING_OK;
-            }
+                LowLevelAPI4.CK_C_INITIALIZE_ARGS initArgs = null;
+                if (useOsLocking)
+                {
+                    initArgs = new LowLevelAPI4.CK_C_INITIALIZE_ARGS();
+                    initArgs.Flags = CKF.CKF_OS_LOCKING_OK;
+                }
 
-            CKR rv = _p11.C_Initialize(initArgs);
-            if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
-                throw new Pkcs11Exception("C_Initialize", rv);
+                CKR rv = _p11.C_Initialize(initArgs);
+                if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
+                    throw new Pkcs11Exception("C_Initialize", rv);
+            }
+            catch
+            {
+                _p11.Dispose();
+                _p11 = null;
+                throw;
+            }
         }
 
         /// <summary>
@@ -71,16 +80,25 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
 
             _p11 = new LowLevelAPI4.Pkcs11(libraryPath, useGetFunctionList);
 
-            LowLevelAPI4.CK_C_INITIALIZE_ARGS initArgs = null;
-            if (useOsLocking)
+            try
             {
-                initArgs = new LowLevelAPI4.CK_C_INITIALIZE_ARGS();
-                initArgs.Flags = CKF.CKF_OS_LOCKING_OK;
-            }
+                LowLevelAPI4.CK_C_INITIALIZE_ARGS initArgs = null;
+                if (useOsLocking)
+                {
+                    initArgs = new LowLevelAPI4.CK_C_INITIALIZE_ARGS();
+                    initArgs.Flags = CKF.CKF_OS_LOCKING_OK;
+                }
 
-            CKR rv = _p11.C_Initialize(initArgs);
-            if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
-                throw new Pkcs11Exception("C_Initialize", rv);
+                CKR rv = _p11.C_Initialize(initArgs);
+                if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
+                    throw new Pkcs11Exception("C_Initialize", rv);
+            }
+            catch
+            {
+                _p11.Dispose();
+                _p11 = null;
+                throw;
+            }
         }
 
         /// <summary>

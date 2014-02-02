@@ -48,8 +48,16 @@ namespace Net.Pkcs11Interop.LowLevelAPI8
             if (libraryPath == null)
                 throw new ArgumentNullException("libraryPath");
 
-            _libraryHandle = UnmanagedLibrary.Load(libraryPath);
-            C_GetFunctionList(out _functionList);
+            try
+            {
+                _libraryHandle = UnmanagedLibrary.Load(libraryPath);
+                C_GetFunctionList(out _functionList);
+            }
+            catch
+            {
+                Release();
+                throw;
+            }
         }
 
         /// <summary>
@@ -62,12 +70,20 @@ namespace Net.Pkcs11Interop.LowLevelAPI8
             if (libraryPath == null)
                 throw new ArgumentNullException("libraryPath");
 
-            _libraryHandle = UnmanagedLibrary.Load(libraryPath);
+            try
+            {
+                _libraryHandle = UnmanagedLibrary.Load(libraryPath);
 
-            if (useGetFunctionList)
-                C_GetFunctionList(out _functionList);
-            else
-                GetFunctionList(out _functionList);
+                if (useGetFunctionList)
+                    C_GetFunctionList(out _functionList);
+                else
+                    GetFunctionList(out _functionList);
+            }
+            catch
+            {
+                Release();
+                throw;
+            }
         }
 
         /// <summary>
