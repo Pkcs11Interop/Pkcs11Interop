@@ -22,14 +22,14 @@ namespace Net.Pkcs11Interop.Common
     /// <summary>
     /// Utility class that helps to manage unmanaged dynamic libraries
     /// </summary>
-    public static class UnmanagedLibrary
+    internal static class UnmanagedLibrary
     {
         /// <summary>
         /// Loads the dynamic library
         /// </summary>
         /// <param name='fileName'>Library filename</param>
         /// <returns>Dynamic library handle</returns>
-        public static IntPtr Load(string fileName)
+        internal static IntPtr Load(string fileName)
         {
             if (fileName == null)
                 throw new ArgumentNullException("fileName");
@@ -63,7 +63,7 @@ namespace Net.Pkcs11Interop.Common
         /// Unloads the dynamic library
         /// </summary>
         /// <param name='libraryHandle'>Dynamic library handle</param>
-        public static void Unload(IntPtr libraryHandle)
+        internal static void Unload(IntPtr libraryHandle)
         {
             if (libraryHandle == IntPtr.Zero)
                 throw new ArgumentNullException("libraryHandle");
@@ -93,7 +93,7 @@ namespace Net.Pkcs11Interop.Common
         /// <param name='libraryHandle'>Dynamic library handle</param>
         /// <param name='function'>Function name</param>
         /// <returns>The function pointer</returns>
-        public static IntPtr GetFunctionPointer(IntPtr libraryHandle, string function)
+        internal static IntPtr GetFunctionPointer(IntPtr libraryHandle, string function)
         {
             if (libraryHandle == IntPtr.Zero)
                 throw new ArgumentNullException("libraryHandle");
