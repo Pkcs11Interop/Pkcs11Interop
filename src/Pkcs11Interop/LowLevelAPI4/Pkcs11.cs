@@ -162,7 +162,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             IntPtr functionListPointer = IntPtr.Zero;
             CKR rv = cGetFunctionList(out functionListPointer);
             if ((rv != CKR.CKR_OK) || (functionListPointer == IntPtr.Zero))
-                throw new Exception("Unable to call C_GetFunctionList");
+                throw new Pkcs11Exception("C_GetFunctionList", rv);
 
             PlatformID platformId = System.Environment.OSVersion.Platform;
             if ((platformId == PlatformID.Unix) || (platformId == PlatformID.MacOSX))
