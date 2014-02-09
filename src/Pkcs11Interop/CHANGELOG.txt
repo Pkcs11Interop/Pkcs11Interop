@@ -1,3 +1,9 @@
+Pkcs11Interop 2.0.1 (2014-02-09)
+ - Fixed C_GetMechanismList delegate on Linux64
+ - Throws Pkcs11Exception when C_GetFunctionList fails
+ - Unmanaged library is correctly unloaded when C_GetFunctionList fails
+ - Resolved Mac OS X detection and unmanaged library loading issues
+
 Pkcs11Interop 2.0 (2013-09-27)
  - Platforms where C 'long' type is 8 bytes long (Linux x86_64) are now 
    supported via LowLevelAPI8 and HighLevel8
