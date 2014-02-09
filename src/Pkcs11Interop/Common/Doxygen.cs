@@ -44,7 +44,7 @@
  * 
  * \section sec_documentation Documentation
  * 
- * Before you start using Pkcs11Interop you should at least read "Chapter 2 - Scope", "Chapter 6 - General overview" and "Chapter 10 - Objects" of <a href="rsa-pkcs11-2.20/pkcs-11v2-20.pdf">PKCS#11&nbsp;standard</a> which has later been extended by <a href="rsa-pkcs11-2.20/pkcs-11v2-20a1.pdf">Amendment&nbsp;1</a>, <a href="rsa-pkcs11-2.20/pkcs-11v2-20a2.pdf">Amendment&nbsp;2</a> and <a href="rsa-pkcs11-2.20/pkcs-11v2-20a3.pdf">Amendment&nbsp;3</a>.
+ * Before you start using Pkcs11Interop you should at least read "Chapter 2 - Scope", "Chapter 6 - General overview" and "Chapter 10 - Objects" of <a href="/rsa-pkcs11-2.20/pkcs-11v2-20.pdf">PKCS#11&nbsp;standard</a> which has later been extended by <a href="/rsa-pkcs11-2.20/pkcs-11v2-20a1.pdf">Amendment&nbsp;1</a>, <a href="/rsa-pkcs11-2.20/pkcs-11v2-20a2.pdf">Amendment&nbsp;2</a> and <a href="/rsa-pkcs11-2.20/pkcs-11v2-20a3.pdf">Amendment&nbsp;3</a>.
  * 
  * \section sec_code_samples Code samples
  * 
