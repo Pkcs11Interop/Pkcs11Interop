@@ -54,6 +54,7 @@
     <Compile Include="Common\CKU.cs" />
     <Compile Include="Common\CKZ.cs" />
     <Compile Include="Common\ConvertUtils.cs" />
+    <Compile Include="Common\Platform.cs" />
     <Compile Include="Common\Pkcs11Exception.cs" />
     <Compile Include="Common\IMechanismParams.cs" />
     <Compile Include="Common\UnmanagedLong.cs" />

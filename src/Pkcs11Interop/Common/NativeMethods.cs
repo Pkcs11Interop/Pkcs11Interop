@@ -53,26 +53,26 @@ namespace Net.Pkcs11Interop.Common
         #endregion
          
         #region Unix
-        
-        /// <summary>
-        /// Resolve symbols when they are used
-        /// </summary>
-        internal const int RTLD_LAZY = 0x00001;
-        
+
         /// <summary>
         /// Immediately resolve all symbols
         /// </summary>
-        internal const int RTLD_NOW = 0x00002;
+        internal const int RTLD_NOW_LINUX = 0x2;
 
         /// <summary>
         /// Resolved symbols are not available for subsequently loaded libraries
         /// </summary>
-        internal const int RTLD_LOCAL = 0x00004;
+        internal const int RTLD_LOCAL_LINUX = 0;
 
         /// <summary>
-        /// Resolved symbols are available for subsequently loaded libraries
+        /// Immediately resolve all symbols
         /// </summary>
-        internal const int RTLD_GLOBAL = 0x00008;
+        internal const int RTLD_NOW_MACOSX = 0x2;
+
+        /// <summary>
+        /// Resolved symbols are not available for subsequently loaded libraries
+        /// </summary>
+        internal const int RTLD_LOCAL_MACOSX = 0x4;
 
         /// <summary>
         /// Human readable string describing the most recent error that occurred from dlopen(), dlsym() or dlclose() since the last call to dlerror().

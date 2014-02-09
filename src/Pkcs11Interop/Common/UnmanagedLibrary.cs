@@ -36,10 +36,16 @@ namespace Net.Pkcs11Interop.Common
 
             IntPtr libraryHandle = IntPtr.Zero;
 
-            PlatformID platformId = System.Environment.OSVersion.Platform;
-            if ((platformId == PlatformID.Unix) || (platformId == PlatformID.MacOSX))
+            if (Platform.IsLinux || Platform.IsMacOsX)
             {
-                libraryHandle = NativeMethods.dlopen(fileName, NativeMethods.RTLD_NOW | NativeMethods.RTLD_LOCAL);
+                int flags = 0;
+
+                if (Platform.IsLinux)
+                    flags = NativeMethods.RTLD_NOW_LINUX | NativeMethods.RTLD_LOCAL_LINUX;
+                else
+                    flags = NativeMethods.RTLD_NOW_MACOSX | NativeMethods.RTLD_LOCAL_MACOSX;
+
+                libraryHandle = NativeMethods.dlopen(fileName, flags);
                 if (libraryHandle == IntPtr.Zero)
                 {
                     IntPtr error = NativeMethods.dlerror();
@@ -68,8 +74,7 @@ namespace Net.Pkcs11Interop.Common
             if (libraryHandle == IntPtr.Zero)
                 throw new ArgumentNullException("libraryHandle");
 
-            PlatformID platformId = System.Environment.OSVersion.Platform;
-            if ((platformId == PlatformID.Unix) || (platformId == PlatformID.MacOSX))
+            if (Platform.IsLinux || Platform.IsMacOsX)
             {
                 if (0 != NativeMethods.dlclose(libraryHandle))
                 {
@@ -103,8 +108,7 @@ namespace Net.Pkcs11Interop.Common
 
             IntPtr functionPointer = IntPtr.Zero;
 
-            PlatformID platformId = System.Environment.OSVersion.Platform;
-            if ((platformId == PlatformID.Unix) || (platformId == PlatformID.MacOSX))
+            if (Platform.IsLinux || Platform.IsMacOsX)
             {
                 NativeMethods.dlerror();
                 functionPointer = NativeMethods.dlsym(libraryHandle, function);

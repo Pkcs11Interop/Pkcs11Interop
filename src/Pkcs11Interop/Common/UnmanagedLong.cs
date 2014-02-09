@@ -37,8 +37,7 @@ namespace Net.Pkcs11Interop.Common
                 if (_size != 0)
                     return _size;
 
-                PlatformID platformId = System.Environment.OSVersion.Platform;
-                if ((platformId == PlatformID.Unix) || (platformId == PlatformID.MacOSX))
+                if (Platform.IsLinux || Platform.IsMacOsX)
                 {
                     // CK_ULONG is 4 bytes long on 32-bit Unix and 8 bytes long 64-bit Unix
                     _size = IntPtr.Size;

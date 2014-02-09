@@ -164,8 +164,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI8
             if ((rv != CKR.CKR_OK) || (functionListPointer == IntPtr.Zero))
                 throw new Pkcs11Exception("C_GetFunctionList", rv);
 
-            PlatformID platformId = System.Environment.OSVersion.Platform;
-            if ((platformId == PlatformID.Unix) || (platformId == PlatformID.MacOSX))
+            if (Platform.IsLinux || Platform.IsMacOsX)
             {
                 // Workaround for MONO on Linux and OS X where marshaling of CK_FUNCTION_LIST is not working correctly
                 CK_FUNCTION_LIST_UNIX functionListUnix = (CK_FUNCTION_LIST_UNIX)UnmanagedMemory.Read(functionListPointer, typeof(CK_FUNCTION_LIST_UNIX));
