@@ -24,6 +24,28 @@ namespace Net.Pkcs11Interop.Common
     public static class Platform
     {
         /// <summary>
+        /// True if 64-bit runtime is used
+        /// </summary>
+        public static bool Uses64BitRuntime
+        {
+            get
+            {
+                return (IntPtr.Size == 8);
+            }
+        }
+
+        /// <summary>
+        /// True if 32-bit runtime is used
+        /// </summary>
+        public static bool Uses32BitRuntime
+        {
+            get
+            {
+                return (IntPtr.Size == 4);
+            }
+        }
+
+        /// <summary>
         /// True if runtime platform is Windows
         /// </summary>
         private static bool _isWindows = false;
