@@ -20,7 +20,7 @@ namespace Net.Pkcs11Interop.Tests
     /// <summary>
     /// Test settings.
     /// </summary>
-    public class Settings
+    public static class Settings
     {
         /// <summary>
         /// The PKCS#11 unmanaged library path
@@ -56,6 +56,18 @@ namespace Net.Pkcs11Interop.Tests
         /// The name of the application.
         /// </summary>
         public static byte[] ApplicationNameArray = ConvertUtils.Utf8StringToBytes(ApplicationName);
+
+        /*
+        /// <summary>
+        /// Logs all PKCS#11 calls with PKCS11-LOGGER
+        /// </summary>
+        static Settings()
+        {
+            System.Environment.SetEnvironmentVariable("PKCS11_LOGGER_LIBRARY_PATH", @"siecap11.dll");
+            System.Environment.SetEnvironmentVariable("PKCS11_LOGGER_LOG_FILE_PATH", @"c:\pkcs11-logger.txt");
+            Pkcs11LibraryPath = @"c:\pkcs11-logger-x86.dll";
+        }
+        */
     }
 }
 
