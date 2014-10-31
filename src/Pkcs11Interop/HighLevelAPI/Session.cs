@@ -1229,9 +1229,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                 throw new ArgumentException("Value has to be positive number", "bufferLength");
 
             if (UnmanagedLong.Size == 4)
-                return _session4.DigestEncrypt(digestingMechanism.Mechanism4, decryptionMechanism.Mechanism4, keyHandle.ObjectHandle4, inputStream, outputStream, bufferLength);
+                return _session4.DecryptDigest(digestingMechanism.Mechanism4, decryptionMechanism.Mechanism4, keyHandle.ObjectHandle4, inputStream, outputStream, bufferLength);
             else
-                return _session8.DigestEncrypt(digestingMechanism.Mechanism8, decryptionMechanism.Mechanism8, keyHandle.ObjectHandle8, inputStream, outputStream, bufferLength);
+                return _session8.DecryptDigest(digestingMechanism.Mechanism8, decryptionMechanism.Mechanism8, keyHandle.ObjectHandle8, inputStream, outputStream, bufferLength);
         }
 
         /// <summary>
