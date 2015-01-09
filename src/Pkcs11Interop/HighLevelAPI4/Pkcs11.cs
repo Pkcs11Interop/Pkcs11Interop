@@ -133,19 +133,26 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetSlotList", rv);
 
-            uint[] slotList = new uint[slotCount];
-            rv = _p11.C_GetSlotList(tokenPresent, slotList, ref slotCount);
-            if (rv != CKR.CKR_OK)
-                throw new Pkcs11Exception("C_GetSlotList", rv);
+            if (slotCount == 0)
+            {
+                return new List<Slot>();
+            }
+            else
+            {
+                uint[] slotList = new uint[slotCount];
+                rv = _p11.C_GetSlotList(tokenPresent, slotList, ref slotCount);
+                if (rv != CKR.CKR_OK)
+                    throw new Pkcs11Exception("C_GetSlotList", rv);
 
-            if (slotList.Length != slotCount)
-                Array.Resize(ref slotList, Convert.ToInt32(slotCount));
+                if (slotList.Length != slotCount)
+                    Array.Resize(ref slotList, Convert.ToInt32(slotCount));
 
-            List<Slot> list = new List<Slot>();
-            foreach (uint slot in slotList)
-                list.Add(new Slot(_p11, slot));
+                List<Slot> list = new List<Slot>();
+                foreach (uint slot in slotList)
+                    list.Add(new Slot(_p11, slot));
 
-            return list;
+                return list;
+            }
         }
 
         /// <summary>
