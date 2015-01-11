@@ -1,3 +1,8 @@
+Pkcs11Interop 2.0.2 (2015-01-12)
+ - Fixed DecryptDigest method in HighLevelAPI
+ - Calls C_GetSlotList() only once with no slots present
+ - Added CK_UNAVAILABLE_INFORMATION and CK_EFFECTIVELY_INFINITE constants
+
 Pkcs11Interop 2.0.1 (2014-02-09)
  - Fixed C_GetMechanismList delegate on Linux64
  - Throws Pkcs11Exception when C_GetFunctionList fails
