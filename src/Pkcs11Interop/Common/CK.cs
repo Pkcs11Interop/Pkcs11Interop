@@ -26,6 +26,32 @@ namespace Net.Pkcs11Interop.Common
         public const uint CK_INVALID_HANDLE = 0;
 
         /// <summary>
+        /// Token and/or library is unable or unwilling to provide information
+        /// </summary>
+        public const uint CK_UNAVAILABLE_INFORMATION_4 = ~0U;
+
+        /// <summary>
+        /// Token and/or library is unable or unwilling to provide information
+        /// </summary>
+        public const ulong CK_UNAVAILABLE_INFORMATION_8 = ~0UL;
+
+        /// <summary>
+        /// Checks whether provided number has value of CK_UNAVAILABLE_INFORMATION constant
+        /// </summary>
+        public static bool IsCkInformationUnavailable(ulong value)
+        {
+            if (UnmanagedLong.Size == 4)
+                return (value == CK_UNAVAILABLE_INFORMATION_4);
+            else
+                return (value == CK_UNAVAILABLE_INFORMATION_8);
+        }
+
+        /// <summary>
+        /// Specifies no practical limit
+        /// </summary>
+        public const uint CK_EFFECTIVELY_INFINITE = 0;
+
+        /// <summary>
         /// Decimal (default) (UTF8-encoded) format of OTP value
         /// </summary>
         public const uint CK_OTP_FORMAT_DECIMAL = 0;
