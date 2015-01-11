@@ -1,6 +1,6 @@
 /*
  *  Pkcs11Interop - Managed .NET wrapper for unmanaged PKCS#11 libraries
- *  Copyright (c) 2012-2013 JWC s.r.o. <http://www.jwc.sk>
+ *  Copyright (c) 2012-2015 JWC s.r.o. <http://www.jwc.sk>
  *  Author: Jaroslav Imrich <jimrich@jimrich.sk>
  *
  *  Licensing for open source projects:
