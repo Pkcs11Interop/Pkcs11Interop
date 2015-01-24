@@ -157,7 +157,7 @@ namespace Net.Pkcs11Interop.Common
         /// <returns>String with value from byte array</returns>
         public static string BytesToUtf8String(byte[] value)
         {
-            return (value == null) ? null : UTF8Encoding.UTF8.GetString(value);
+            return (value == null) ? null : Encoding.UTF8.GetString(value, 0, value.Length);
         }
 
         /// <summary>
