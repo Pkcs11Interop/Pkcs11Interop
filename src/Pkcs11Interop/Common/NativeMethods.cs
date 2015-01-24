@@ -30,8 +30,13 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="lpFileName">The name of the module.</param>
         /// <returns>If the function succeeds, the return value is a handle to the module. If the function fails, the return value is NULL.</returns>
+#if SILVERLIGHT
+        [DllImport("kernel32", CallingConvention = CallingConvention.Winapi, SetLastError = true, BestFitMapping = false)]
+        internal static extern IntPtr LoadLibrary([MarshalAs(UnmanagedType.LPStr)] string lpFileName);
+#else
         [DllImport("kernel32", CallingConvention = CallingConvention.Winapi, SetLastError = true, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         internal static extern IntPtr LoadLibrary([MarshalAs(UnmanagedType.LPStr)] string lpFileName);
+#endif
 
         /// <summary>
         /// Frees the loaded dynamic-link library (DLL) module and, if necessary, decrements its reference count.
@@ -47,11 +52,16 @@ namespace Net.Pkcs11Interop.Common
         /// <param name="hModule">A handle to the DLL module that contains the function or variable.</param>
         /// <param name="lpProcName">The function or variable name, or the function's ordinal value.</param>
         /// <returns>If the function succeeds, the return value is the address of the exported function or variable. If the function fails, the return value is NULL.</returns>
+#if SILVERLIGHT
+        [DllImport("kernel32", CallingConvention = CallingConvention.Winapi, SetLastError = true, BestFitMapping = false)]
+        internal static extern IntPtr GetProcAddress(IntPtr hModule, [MarshalAs(UnmanagedType.LPStr)] string lpProcName);
+#else
         [DllImport("kernel32", CallingConvention = CallingConvention.Winapi, SetLastError = true, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         internal static extern IntPtr GetProcAddress(IntPtr hModule, [MarshalAs(UnmanagedType.LPStr)] string lpProcName);
+#endif
 
         #endregion
-         
+
         #region Unix
 
         /// <summary>
@@ -87,8 +97,13 @@ namespace Net.Pkcs11Interop.Common
         /// <param name='filename'>Library filename.</param>
         /// <param name='flag'>RTLD_LAZY for lazy function call binding or RTLD_NOW immediate function call binding.</param>
         /// <returns>Handle for the dynamic library if successful, IntPtr.Zero otherwise.</returns>
+#if SILVERLIGHT
+        [DllImport("libdl", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, BestFitMapping = false)]
+        internal static extern IntPtr dlopen(string filename, int flag);
+#else
         [DllImport("libdl", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         internal static extern IntPtr dlopen(string filename, int flag);
+#endif
 
         /// <summary>
         /// Decrements the reference count on the dynamic library handle. If the reference count drops to zero and no other loaded libraries use symbols in it, then the dynamic library is unloaded.
@@ -104,8 +119,13 @@ namespace Net.Pkcs11Interop.Common
         /// <param name='handle'>Handle for the dynamic library.</param>
         /// <param name='symbol'>Name of symbol that should be addressed.</param>
         /// <returns>Returns 0 on success, and nonzero on error.</returns>
+#if SILVERLIGHT
+        [DllImport("libdl", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, BestFitMapping = false)]
+        internal static extern IntPtr dlsym(IntPtr handle, string symbol);
+#else
         [DllImport("libdl", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         internal static extern IntPtr dlsym(IntPtr handle, string symbol);
+#endif
         
         #endregion
     }
