@@ -33,10 +33,26 @@ namespace Net.Pkcs11Interop.Common
             if (size < 0)
                 throw new ArgumentException("Value has to be positive number", "size");
 
+            IntPtr memory = IntPtr.Zero;
+
+#if SILVERLIGHT
+            if (Platform.IsLinux || Platform.IsMacOsX)
+            {
+                throw new Exception("This platform is not supported"); // TODO - Implement support
+            }
+            else
+            {
+                // Allocate memory and fill it with zeros
+                memory = NativeMethods.LocalAlloc(NativeMethods.LMEM_FIXED | NativeMethods.LMEM_ZEROINIT, new UIntPtr(Convert.ToUInt32(size)));
+                if (memory == IntPtr.Zero)
+                    throw new OutOfMemoryException();
+            }
+#else
             // Allocate memory and fill it with zeros
             // Note: new byte array is automaticaly filled with zeros
-            IntPtr memory = Marshal.AllocHGlobal(size);
+            memory = Marshal.AllocHGlobal(size);
             Write(memory, new byte[size]);
+#endif
 
             return memory;
         }
@@ -49,8 +65,21 @@ namespace Net.Pkcs11Interop.Common
         {
             if (memory != IntPtr.Zero)
             {
+#if SILVERLIGHT
+                if (Platform.IsLinux || Platform.IsMacOsX)
+                {
+                    throw new Exception("This platform is not supported"); // TODO - Implement support
+                }
+                else
+                {
+                    memory = NativeMethods.LocalFree(memory);
+                    if (memory != IntPtr.Zero)
+                        throw new UnmanagedException("Unable to free memory", Marshal.GetLastWin32Error());
+                }
+#else
                 Marshal.FreeHGlobal(memory);
                 memory = IntPtr.Zero;
+#endif
             }
         }
 

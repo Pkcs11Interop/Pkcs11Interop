@@ -60,6 +60,37 @@ namespace Net.Pkcs11Interop.Common
         internal static extern IntPtr GetProcAddress(IntPtr hModule, [MarshalAs(UnmanagedType.LPStr)] string lpProcName);
 #endif
 
+#if SILVERLIGHT
+
+        /// <summary>
+        /// Allocates fixed memory
+        /// </summary>
+        internal const int LMEM_FIXED = 0x0000;
+
+        /// <summary>
+        /// Initializes memory contents to zero
+        /// </summary>
+        internal const int LMEM_ZEROINIT = 0x0040;
+
+        /// <summary>
+        /// Allocates the specified number of bytes from the heap
+        /// </summary>
+        /// <param name="uFlags">The memory allocation attributes</param>
+        /// <param name="uBytes">The number of bytes to allocate</param>
+        /// <returns>If the function succeeds, the return value is a handle to the newly allocated memory object. If the function fails, the return value is NULL.</returns>
+        [DllImport("kernel32", CallingConvention = CallingConvention.Winapi, SetLastError = true)]
+        internal static extern IntPtr LocalAlloc(int uFlags, UIntPtr uBytes);
+
+        /// <summary>
+        /// Frees the specified local memory object and invalidates its handle
+        /// </summary>
+        /// <param name="hMem">A handle to the local memory object</param>
+        /// <returns>If the function succeeds, the return value is NULL. If the function fails, the return value is equal to a handle to the local memory object.</returns>
+        [DllImport("kernel32", CallingConvention = CallingConvention.Winapi, SetLastError = true)]
+        internal static extern IntPtr LocalFree(IntPtr hMem);
+
+#endif
+
         #endregion
 
         #region Unix
@@ -126,7 +157,14 @@ namespace Net.Pkcs11Interop.Common
         [DllImport("libdl", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         internal static extern IntPtr dlsym(IntPtr handle, string symbol);
 #endif
-        
+
+#if SILVERLIGHT
+
+        // TODO - void *malloc(size_t size);
+        // TODO - void free(void *ptr);
+
+#endif
+
         #endregion
     }
 }
