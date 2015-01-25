@@ -50,16 +50,24 @@ namespace Net.Pkcs11Interop.Common
                 {
                     IntPtr error = NativeMethods.dlerror();
                     if (error != IntPtr.Zero)
-                        throw new Exception(string.Format("Unable to load library: {0}", Marshal.PtrToStringAnsi(error)));
+                        throw new UnmanagedException(string.Format("Unable to load library: {0}", Marshal.PtrToStringAnsi(error)));
                     else
-                        throw new Exception("Unable to load library");
+                        throw new UnmanagedException("Unable to load library");
                 }
             }
             else
             {
                 libraryHandle = NativeMethods.LoadLibrary(fileName);
                 if (libraryHandle == IntPtr.Zero)
-                    throw new Win32Exception(Marshal.GetLastWin32Error());
+                {
+#if SILVERLIGHT
+                    throw new UnmanagedException("Unable to load library", Marshal.GetLastWin32Error());
+#else
+                    int errorCode = Marshal.GetLastWin32Error();
+                    string errorMessage = new Win32Exception(errorCode).Message;
+                    throw new UnmanagedException(string.Format("Unable to load library: {0}", errorMessage), errorCode);
+#endif
+                }
             }
 
             return libraryHandle;
@@ -80,15 +88,23 @@ namespace Net.Pkcs11Interop.Common
                 {
                     IntPtr error = NativeMethods.dlerror();
                     if (error != IntPtr.Zero)
-                        throw new Exception(string.Format("Unable to unload library: {0}", Marshal.PtrToStringAnsi(error)));
+                        throw new UnmanagedException(string.Format("Unable to unload library: {0}", Marshal.PtrToStringAnsi(error)));
                     else
-                        throw new Exception("Unable to unload library");
+                        throw new UnmanagedException("Unable to unload library");
                 }
             }
             else
             {
                 if (false == NativeMethods.FreeLibrary(libraryHandle))
-                    throw new Win32Exception(Marshal.GetLastWin32Error());
+                {
+#if SILVERLIGHT
+                    throw new UnmanagedException("Unable to unload library", Marshal.GetLastWin32Error());
+#else
+                    int errorCode = Marshal.GetLastWin32Error();
+                    string errorMessage = new Win32Exception(errorCode).Message;
+                    throw new UnmanagedException(string.Format("Unable to unload library: {0}", errorMessage), errorCode);
+#endif
+                }
             }
         }
 
@@ -114,13 +130,21 @@ namespace Net.Pkcs11Interop.Common
                 functionPointer = NativeMethods.dlsym(libraryHandle, function);
                 IntPtr error = NativeMethods.dlerror();
                 if (error != IntPtr.Zero)
-                    throw new Exception(string.Format("Unable to get function pointer: {0}", Marshal.PtrToStringAnsi(error)));
+                    throw new UnmanagedException(string.Format("Unable to get function pointer: {0}", Marshal.PtrToStringAnsi(error)));
             }
             else
             {
                 functionPointer = NativeMethods.GetProcAddress(libraryHandle, function);
                 if (functionPointer == IntPtr.Zero)
-                    throw new Win32Exception(Marshal.GetLastWin32Error());
+                {
+#if SILVERLIGHT
+                    throw new UnmanagedException("Unable to get function pointer", Marshal.GetLastWin32Error());
+#else
+                    int errorCode = Marshal.GetLastWin32Error();
+                    string errorMessage = new Win32Exception(errorCode).Message;
+                    throw new UnmanagedException(string.Format("Unable to get function pointer: {0}", errorMessage), errorCode);
+#endif
+                }
             }
 
             return functionPointer;

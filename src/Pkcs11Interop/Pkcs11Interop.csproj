@@ -57,6 +57,7 @@
     <Compile Include="Common\Platform.cs" />
     <Compile Include="Common\Pkcs11Exception.cs" />
     <Compile Include="Common\IMechanismParams.cs" />
+    <Compile Include="Common\UnmanagedException.cs" />
     <Compile Include="Common\UnmanagedLong.cs" />
     <Compile Include="Common\Doxygen.cs" />
     <Compile Include="HighLevelAPI4\LibraryInfo.cs" />

@@ -123,6 +123,9 @@
     <Compile Include="..\Pkcs11Interop\Common\Platform.cs">
       <Link>Common\Platform.cs</Link>
     </Compile>
+    <Compile Include="..\Pkcs11Interop\Common\UnmanagedException.cs">
+      <Link>Common\UnmanagedException.cs</Link>
+    </Compile>
     <Compile Include="..\Pkcs11Interop\Common\UnmanagedLibrary.cs">
       <Link>Common\UnmanagedLibrary.cs</Link>
     </Compile>
