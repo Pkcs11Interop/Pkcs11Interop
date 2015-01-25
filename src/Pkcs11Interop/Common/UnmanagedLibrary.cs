@@ -126,11 +126,15 @@ namespace Net.Pkcs11Interop.Common
 
             if (Platform.IsLinux || Platform.IsMacOsX)
             {
-                NativeMethods.dlerror();
                 functionPointer = NativeMethods.dlsym(libraryHandle, function);
-                IntPtr error = NativeMethods.dlerror();
-                if (error != IntPtr.Zero)
-                    throw new UnmanagedException(string.Format("Unable to get function pointer: {0}", Marshal.PtrToStringAnsi(error)));
+                if (functionPointer == IntPtr.Zero)
+                {
+                    IntPtr error = NativeMethods.dlerror();
+                    if (error != IntPtr.Zero)
+                        throw new UnmanagedException(string.Format("Unable to get function pointer: {0}", Marshal.PtrToStringAnsi(error)));
+                    else
+                        throw new UnmanagedException("Unable to get function pointer");
+                }
             }
             else
             {
