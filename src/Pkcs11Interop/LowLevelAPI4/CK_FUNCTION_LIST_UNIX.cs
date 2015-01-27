@@ -21,8 +21,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
     /// <summary>
     /// Structure which contains a Cryptoki version and a function pointer to each function in the Cryptoki API. Please note that CK_FUNCTION_LIST_UNIX uses different marshaling than CK_FUNCTION_LIST.
     /// </summary>
+#if SILVERLIGHT
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    internal class CK_FUNCTION_LIST_UNIX
+#else
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
     internal struct CK_FUNCTION_LIST_UNIX
+#endif
     {
         /// <summary>
         /// Cryptoki version

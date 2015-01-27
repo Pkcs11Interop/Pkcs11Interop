@@ -20,8 +20,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
     /// <summary>
     /// Describes the version
     /// </summary>
+#if SILVERLIGHT
+    [StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
+    public class CK_VERSION
+#else
     [StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
     public struct CK_VERSION
+#endif
     {
         /// <summary>
         /// Major version number (the integer portion of the version)

@@ -164,8 +164,9 @@ namespace Net.Pkcs11Interop.Common
             object structure = null;
 
 #if SILVERLIGHT
-            // Marshal.PtrToStructure(IntPtr, Type) is not present in Silverlight 5
+            // Marshal.PtrToStructure(IntPtr, Type) is not present in Silverlight 5...
             structure = Activator.CreateInstance(structureType);
+            // ...and Marshal.PtrToStructure(IntPtr, object) does not support value types (structs)
             Read(memory, structure);
 #else
             structure = Marshal.PtrToStructure(memory, structureType);
@@ -186,44 +187,8 @@ namespace Net.Pkcs11Interop.Common
             
             if (structure == null)
                 throw new ArgumentNullException("structure");
-            
-#if SILVERLIGHT
-            Type structureType = structure.GetType();
 
-            // Marshal.PtrToStructure(IntPtr, object) does not support value types (structs) in Silverlight 5
-            if (!structureType.IsValueType)
-            {
-                Marshal.PtrToStructure(memory, structure);
-            }
-            else
-            {
-                // There are two options how to process value types (structs):
-                // 1. Change them to classes
-                // 2. Use BitConverter and manually set individual members of the struct
-                
-                // Affected structs passed to this method are:
-                //
-                // Net.Pkcs11Interop.LowLevelAPI4.CK_ATTRIBUTE
-                // Net.Pkcs11Interop.LowLevelAPI4.CK_FUNCTION_LIST
-                // Net.Pkcs11Interop.LowLevelAPI4.CK_FUNCTION_LIST_UNIX
-                // Net.Pkcs11Interop.LowLevelAPI4.CK_VERSION
-                // Net.Pkcs11Interop.LowLevelAPI4.MechanismParams.CK_OTP_PARAM
-                // Net.Pkcs11Interop.LowLevelAPI4.MechanismParams.CK_OTP_SIGNATURE_INFO
-                // Net.Pkcs11Interop.LowLevelAPI4.MechanismParams.CK_SSL3_KEY_MAT_OUT
-                // Net.Pkcs11Interop.LowLevelAPI4.MechanismParams.CK_WTLS_KEY_MAT_OUT
-                //
-                // Net.Pkcs11Interop.LowLevelAPI8.CK_ATTRIBUTE
-                // Net.Pkcs11Interop.LowLevelAPI8.CK_FUNCTION_LIST
-                // Net.Pkcs11Interop.LowLevelAPI8.CK_FUNCTION_LIST_UNIX
-                // Net.Pkcs11Interop.LowLevelAPI8.CK_VERSION
-                // Net.Pkcs11Interop.LowLevelAPI8.MechanismParams.CK_OTP_PARAM
-                // Net.Pkcs11Interop.LowLevelAPI8.MechanismParams.CK_OTP_SIGNATURE_INFO
-                // Net.Pkcs11Interop.LowLevelAPI8.MechanismParams.CK_SSL3_KEY_MAT_OUT
-                // Net.Pkcs11Interop.LowLevelAPI8.MechanismParams.CK_WTLS_KEY_MAT_OUT
-            }
-#else
             Marshal.PtrToStructure(memory, structure);
-#endif
         }
     }
 }

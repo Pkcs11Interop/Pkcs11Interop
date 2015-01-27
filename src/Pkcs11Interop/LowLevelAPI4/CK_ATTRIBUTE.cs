@@ -21,8 +21,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
     /// <summary>
     /// Defines the type, value, and length of an attribute
     /// </summary>
+#if SILVERLIGHT
+    [StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
+    public class CK_ATTRIBUTE
+#else
     [StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
     public struct CK_ATTRIBUTE
+#endif
     {
         /// <summary>
         /// The attribute type

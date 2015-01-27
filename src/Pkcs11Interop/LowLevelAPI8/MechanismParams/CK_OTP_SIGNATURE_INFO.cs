@@ -21,8 +21,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI8.MechanismParams
     /// <summary>
     /// Structure that is returned by all OTP mechanisms in successful calls to C_Sign (C_SignFinal)
     /// </summary>
+#if SILVERLIGHT
+    [StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
+    public class CK_OTP_SIGNATURE_INFO
+#else
     [StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
     public struct CK_OTP_SIGNATURE_INFO
+#endif
     {
         /// <summary>
         /// Pointer to an array of OTP parameter values (CK_OTP_PARAM structures)
