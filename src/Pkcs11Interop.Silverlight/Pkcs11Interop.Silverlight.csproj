@@ -47,14 +47,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
-    <Reference Include="System.Windows" />
     <Reference Include="system" />
-    <Reference Include="System.Core">
-      <HintPath>$(TargetFrameworkDirectory)System.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Net" />
-    <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Pkcs11Interop\Common\CK.cs">
