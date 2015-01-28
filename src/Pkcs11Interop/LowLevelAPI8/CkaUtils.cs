@@ -372,7 +372,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI8
                 for (int i = 0; i < attrCount; i++)
                 {
                     IntPtr tempPointer = new IntPtr(attribute.value.ToInt64() + (i * ckAttributeSize));
+#if SILVERLIGHT
+                    CK_ATTRIBUTE_CLASS attrClass = (CK_ATTRIBUTE_CLASS)UnmanagedMemory.Read(tempPointer, typeof(CK_ATTRIBUTE_CLASS));
+                    attrClass.ToCkAttributeStruct(ref attrs[i]);
+#else
                     attrs[i] = (CK_ATTRIBUTE)UnmanagedMemory.Read(tempPointer, typeof(CK_ATTRIBUTE));
+#endif
                 }
 
                 value = attrs;
