@@ -26,7 +26,7 @@ namespace Pkcs11Interop.Silverlight.Tests
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            this.RootVisual = new MainPage();
+            this.RootVisual = new NUnitLite.Runner.Silverlight.TestPage();
         }
 
         private void Application_Exit(object sender, EventArgs e)
