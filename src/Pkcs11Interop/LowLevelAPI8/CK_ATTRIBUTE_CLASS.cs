@@ -19,10 +19,11 @@ using System.Runtime.InteropServices;
 namespace Net.Pkcs11Interop.LowLevelAPI8
 {
     /// <summary>
-    /// Defines the type, value, and length of an attribute
+    /// Defines the type, value, and length of an attribute.
+    /// This class can be used with Silverlight 5 version of Marshal.PtrToStructure(IntPtr, object) which does not support value types (structs).
     /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
-    public struct CK_ATTRIBUTE
+    public class CK_ATTRIBUTE_CLASS
     {
         /// <summary>
         /// The attribute type
@@ -38,5 +39,16 @@ namespace Net.Pkcs11Interop.LowLevelAPI8
         /// Length in bytes of the value
         /// </summary>
         public ulong valueLen;
+
+        /// <summary>
+        /// Copies instance members to CK_ATTRIBUTE struct
+        /// </summary>
+        /// <param name="ckAttribute">Destination CK_ATTRIBUTE struct</param>
+        public void ToCkAttributeStruct(ref CK_ATTRIBUTE ckAttribute)
+        {
+            ckAttribute.type = type;
+            ckAttribute.value = value;
+            ckAttribute.valueLen = valueLen;
+        }
     }
 }

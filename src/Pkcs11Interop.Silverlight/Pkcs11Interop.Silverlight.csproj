@@ -684,6 +684,9 @@
     <Compile Include="..\Pkcs11Interop\LowLevelAPI4\CK_ATTRIBUTE.cs">
       <Link>LowLevelAPI4\CK_ATTRIBUTE.cs</Link>
     </Compile>
+    <Compile Include="..\Pkcs11Interop\LowLevelAPI4\CK_ATTRIBUTE_CLASS.cs">
+      <Link>LowLevelAPI4\CK_ATTRIBUTE_CLASS.cs</Link>
+    </Compile>
     <Compile Include="..\Pkcs11Interop\LowLevelAPI4\CK_C_INITIALIZE_ARGS.cs">
       <Link>LowLevelAPI4\CK_C_INITIALIZE_ARGS.cs</Link>
     </Compile>
@@ -860,6 +863,9 @@
     </Compile>
     <Compile Include="..\Pkcs11Interop\LowLevelAPI8\CK_ATTRIBUTE.cs">
       <Link>LowLevelAPI8\CK_ATTRIBUTE.cs</Link>
+    </Compile>
+    <Compile Include="..\Pkcs11Interop\LowLevelAPI8\CK_ATTRIBUTE_CLASS.cs">
+      <Link>LowLevelAPI8\CK_ATTRIBUTE_CLASS.cs</Link>
     </Compile>
     <Compile Include="..\Pkcs11Interop\LowLevelAPI8\CK_C_INITIALIZE_ARGS.cs">
       <Link>LowLevelAPI8\CK_C_INITIALIZE_ARGS.cs</Link>
