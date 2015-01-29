@@ -112,6 +112,9 @@ namespace Net.Pkcs11Interop.Common
             // 128 - Unix   - Used by a few ancient versions of Mono
             if (platformId == 4 || platformId == 6 || platformId == 128)
             {
+#if SILVERLIGHT
+                throw new UnsupportedPlatformException("Silverlight version of Pkcs11Interop is supported only on Windows platform");
+#else
                 // Note: I don't like the idea of pinvoking uname() function (via mono.posix or directly)
                 //       or executing uname app so let's try this slightly higher level approach
                 if (File.Exists(@"/proc/sys/kernel/ostype"))
@@ -120,7 +123,7 @@ namespace Net.Pkcs11Interop.Common
                     if (osType.StartsWith("Linux", StringComparison.InvariantCultureIgnoreCase))
                         _isLinux = true;
                     else
-                        throw new Exception("This platform (" + osType + ") is not supported");
+                        throw new UnsupportedPlatformException("Pkcs11Interop is not supported on this platform - " + osType);
                 }
                 else if (File.Exists(@"/System/Library/CoreServices/SystemVersion.plist"))
                 {
@@ -128,11 +131,16 @@ namespace Net.Pkcs11Interop.Common
                 }
                 else
                 {
-                    throw new Exception("This platform is not supported");
+                    throw new UnsupportedPlatformException("Pkcs11Interop is not supported on this platform");
                 }
+#endif
             }
             else
             {
+#if SILVERLIGHT
+                if (!System.Windows.Application.Current.HasElevatedPermissions)
+                    throw new ElevatedPermissionsMissingException("Silverlight version of Pkcs11Interop requires elevated trust");
+#endif
                 _isWindows = true;
             }
         }

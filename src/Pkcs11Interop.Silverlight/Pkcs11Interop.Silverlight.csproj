@@ -48,6 +48,7 @@
   <ItemGroup>
     <Reference Include="mscorlib" />
     <Reference Include="system" />
+    <Reference Include="System.Windows" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Pkcs11Interop\Common\CK.cs">
@@ -104,6 +105,9 @@
     <Compile Include="..\Pkcs11Interop\Common\Doxygen.cs">
       <Link>Common\Doxygen.cs</Link>
     </Compile>
+    <Compile Include="..\Pkcs11Interop\Common\ElevatedPermissionsMissingException.cs">
+      <Link>Common\ElevatedPermissionsMissingException.cs</Link>
+    </Compile>
     <Compile Include="..\Pkcs11Interop\Common\IMechanismParams.cs">
       <Link>Common\IMechanismParams.cs</Link>
     </Compile>
@@ -127,6 +131,9 @@
     </Compile>
     <Compile Include="..\Pkcs11Interop\Common\UnmanagedMemory.cs">
       <Link>Common\UnmanagedMemory.cs</Link>
+    </Compile>
+    <Compile Include="..\Pkcs11Interop\Common\UnsupportedPlatformException.cs">
+      <Link>Common\UnsupportedPlatformException.cs</Link>
     </Compile>
     <Compile Include="..\Pkcs11Interop\HighLevelAPI4\LibraryInfo.cs">
       <Link>HighLevelAPI4\LibraryInfo.cs</Link>
