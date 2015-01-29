@@ -158,13 +158,6 @@ namespace Net.Pkcs11Interop.Common
         internal static extern IntPtr dlsym(IntPtr handle, string symbol);
 #endif
 
-#if SILVERLIGHT
-
-        // TODO - void *malloc(size_t size);
-        // TODO - void free(void *ptr);
-
-#endif
-
         #endregion
     }
 }

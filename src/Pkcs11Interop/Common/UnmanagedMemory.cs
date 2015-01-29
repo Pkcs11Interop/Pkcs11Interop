@@ -38,7 +38,7 @@ namespace Net.Pkcs11Interop.Common
 #if SILVERLIGHT
             if (Platform.IsLinux || Platform.IsMacOsX)
             {
-                throw new Exception("This platform is not supported"); // TODO - Implement support
+                throw new UnsupportedPlatformException("Silverlight version of Pkcs11Interop is supported only on Windows platform");
             }
             else
             {
@@ -68,7 +68,7 @@ namespace Net.Pkcs11Interop.Common
 #if SILVERLIGHT
                 if (Platform.IsLinux || Platform.IsMacOsX)
                 {
-                    throw new Exception("This platform is not supported"); // TODO - Implement support
+                    throw new UnsupportedPlatformException("Silverlight version of Pkcs11Interop is supported only on Windows platform");
                 }
                 else
                 {
