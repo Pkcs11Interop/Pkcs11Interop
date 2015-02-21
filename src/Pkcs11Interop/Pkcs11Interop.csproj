@@ -55,6 +55,11 @@
     <Compile Include="Common\CKZ.cs" />
     <Compile Include="Common\ConvertUtils.cs" />
     <Compile Include="Common\ElevatedPermissionsMissingException.cs" />
+    <Compile Include="Common\Pkcs11Uri.cs" />
+    <Compile Include="Common\Pkcs11UriBuilder.cs" />
+    <Compile Include="Common\Pkcs11UriException.cs" />
+    <Compile Include="Common\Pkcs11UriSpec.cs" />
+    <Compile Include="Common\Pkcs11UriSharedUtils.cs" />
     <Compile Include="Common\Platform.cs" />
     <Compile Include="Common\Pkcs11Exception.cs" />
     <Compile Include="Common\IMechanismParams.cs" />
@@ -114,6 +119,7 @@
     <Compile Include="HighLevelAPI4\ObjectAttribute.cs" />
     <Compile Include="HighLevelAPI4\ObjectHandle.cs" />
     <Compile Include="HighLevelAPI4\Pkcs11.cs" />
+    <Compile Include="HighLevelAPI4\Pkcs11UriUtils.cs" />
     <Compile Include="HighLevelAPI4\Session.cs" />
     <Compile Include="HighLevelAPI4\SessionFlags.cs" />
     <Compile Include="HighLevelAPI4\SessionInfo.cs" />
@@ -278,6 +284,7 @@
     <Compile Include="HighLevelAPI8\Pkcs11.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="HighLevelAPI8\Pkcs11UriUtils.cs" />
     <Compile Include="HighLevelAPI8\Session.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -347,6 +354,7 @@
     <Compile Include="HighLevelAPI\MechanismParams\CkX942Dh1DeriveParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkX942Dh2DeriveParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\CkX942MqvDeriveParams.cs" />
+    <Compile Include="HighLevelAPI\Pkcs11UriUtils.cs" />
     <Compile Include="LowLevelAPI4\CkaUtils.cs" />
     <Compile Include="LowLevelAPI4\CkmUtils.cs" />
     <Compile Include="LowLevelAPI4\CK_ATTRIBUTE.cs" />
@@ -410,6 +418,7 @@
     <Compile Include="LowLevelAPI4\Pkcs11.cs" />
     <Compile Include="Common\UnmanagedLibrary.cs" />
     <Compile Include="Common\UnmanagedMemory.cs" />
+    <Compile Include="LowLevelAPI4\Pkcs11UriUtils.cs" />
     <Compile Include="LowLevelAPI8\CkaUtils.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -586,6 +595,7 @@
     <Compile Include="LowLevelAPI8\Pkcs11.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LowLevelAPI8\Pkcs11UriUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HighLevelAPI\LibraryInfo.cs">
       <SubType>Code</SubType>

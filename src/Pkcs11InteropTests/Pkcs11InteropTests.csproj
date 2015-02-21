@@ -38,9 +38,12 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Helpers.cs" />
+    <Compile Include="Common\_01_Pkcs11UriAndBuilderTest.cs" />
     <Compile Include="HighLevelAPI4\Helpers.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="HighLevelAPI4\_27_Pkcs11UriUtilsTest.cs" />
     <Compile Include="HighLevelAPI4\_01_InitializeTest.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -122,6 +125,7 @@
     <Compile Include="HighLevelAPI8\Helpers.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="HighLevelAPI8\_27_Pkcs11UriUtilsTest.cs" />
     <Compile Include="HighLevelAPI8\_01_InitializeTest.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -201,6 +205,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="HighLevelAPI\Helpers.cs" />
+    <Compile Include="HighLevelAPI\_27_Pkcs11UriUtilsTest.cs" />
     <Compile Include="HighLevelAPI\_01_InitializeTest.cs" />
     <Compile Include="HighLevelAPI\_02_GetInfoTest.cs" />
     <Compile Include="HighLevelAPI\_03_SlotListInfoAndEventTest.cs" />
@@ -230,6 +235,7 @@
     <Compile Include="HighLevelAPI\_25_DeriveKeyTest.cs" />
     <Compile Include="HighLevelAPI\_26_LegacyParallelFunctionsTest.cs" />
     <Compile Include="LowLevelAPI4\Helpers.cs" />
+    <Compile Include="LowLevelAPI4\_28_Pkcs11UriUtilsTest.cs" />
     <Compile Include="LowLevelAPI4\_01_InitializeTest.cs" />
     <Compile Include="LowLevelAPI4\_02_GetInfoTest.cs" />
     <Compile Include="LowLevelAPI4\_03_SlotListInfoAndEventTest.cs" />
@@ -258,6 +264,7 @@
     <Compile Include="LowLevelAPI4\_26_DeriveKeyTest.cs" />
     <Compile Include="LowLevelAPI4\_27_LegacyParallelFunctionsTest.cs" />
     <Compile Include="LowLevelAPI8\Helpers.cs" />
+    <Compile Include="LowLevelAPI8\_28_Pkcs11UriUtilsTest.cs" />
     <Compile Include="LowLevelAPI8\_01_InitializeTest.cs" />
     <Compile Include="LowLevelAPI8\_02_GetInfoTest.cs" />
     <Compile Include="LowLevelAPI8\_03_SlotListInfoAndEventTest.cs" />

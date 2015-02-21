@@ -117,6 +117,21 @@
     <Compile Include="..\Pkcs11Interop\Common\Pkcs11Exception.cs">
       <Link>Common\Pkcs11Exception.cs</Link>
     </Compile>
+    <Compile Include="..\Pkcs11Interop\Common\Pkcs11Uri.cs">
+      <Link>Common\Pkcs11Uri.cs</Link>
+    </Compile>
+    <Compile Include="..\Pkcs11Interop\Common\Pkcs11UriBuilder.cs">
+      <Link>Common\Pkcs11UriBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\Pkcs11Interop\Common\Pkcs11UriException.cs">
+      <Link>Common\Pkcs11UriException.cs</Link>
+    </Compile>
+    <Compile Include="..\Pkcs11Interop\Common\Pkcs11UriSharedUtils.cs">
+      <Link>Common\Pkcs11UriSharedUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\Pkcs11Interop\Common\Pkcs11UriSpec.cs">
+      <Link>Common\Pkcs11UriSpec.cs</Link>
+    </Compile>
     <Compile Include="..\Pkcs11Interop\Common\Platform.cs">
       <Link>Common\Platform.cs</Link>
     </Compile>
@@ -290,6 +305,9 @@
     </Compile>
     <Compile Include="..\Pkcs11Interop\HighLevelAPI4\Pkcs11.cs">
       <Link>HighLevelAPI4\Pkcs11.cs</Link>
+    </Compile>
+    <Compile Include="..\Pkcs11Interop\HighLevelAPI4\Pkcs11UriUtils.cs">
+      <Link>HighLevelAPI4\Pkcs11UriUtils.cs</Link>
     </Compile>
     <Compile Include="..\Pkcs11Interop\HighLevelAPI4\Session.cs">
       <Link>HighLevelAPI4\Session.cs</Link>
@@ -471,6 +489,9 @@
     <Compile Include="..\Pkcs11Interop\HighLevelAPI8\Pkcs11.cs">
       <Link>HighLevelAPI8\Pkcs11.cs</Link>
     </Compile>
+    <Compile Include="..\Pkcs11Interop\HighLevelAPI8\Pkcs11UriUtils.cs">
+      <Link>HighLevelAPI8\Pkcs11UriUtils.cs</Link>
+    </Compile>
     <Compile Include="..\Pkcs11Interop\HighLevelAPI8\Session.cs">
       <Link>HighLevelAPI8\Session.cs</Link>
     </Compile>
@@ -650,6 +671,9 @@
     </Compile>
     <Compile Include="..\Pkcs11Interop\HighLevelAPI\Pkcs11.cs">
       <Link>HighLevelAPI\Pkcs11.cs</Link>
+    </Compile>
+    <Compile Include="..\Pkcs11Interop\HighLevelAPI\Pkcs11UriUtils.cs">
+      <Link>HighLevelAPI\Pkcs11UriUtils.cs</Link>
     </Compile>
     <Compile Include="..\Pkcs11Interop\HighLevelAPI\Session.cs">
       <Link>HighLevelAPI\Session.cs</Link>
@@ -855,6 +879,9 @@
     <Compile Include="..\Pkcs11Interop\LowLevelAPI4\Pkcs11.cs">
       <Link>LowLevelAPI4\Pkcs11.cs</Link>
     </Compile>
+    <Compile Include="..\Pkcs11Interop\LowLevelAPI4\Pkcs11UriUtils.cs">
+      <Link>LowLevelAPI4\Pkcs11UriUtils.cs</Link>
+    </Compile>
     <Compile Include="..\Pkcs11Interop\LowLevelAPI8\CkaUtils.cs">
       <Link>LowLevelAPI8\CkaUtils.cs</Link>
     </Compile>
@@ -1034,6 +1061,9 @@
     </Compile>
     <Compile Include="..\Pkcs11Interop\LowLevelAPI8\Pkcs11.cs">
       <Link>LowLevelAPI8\Pkcs11.cs</Link>
+    </Compile>
+    <Compile Include="..\Pkcs11Interop\LowLevelAPI8\Pkcs11UriUtils.cs">
+      <Link>LowLevelAPI8\Pkcs11UriUtils.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

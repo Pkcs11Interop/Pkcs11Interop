@@ -7,4 +7,15 @@ mostly temporary exceptions and limitations:
    and CK_UNLOCKMUTEX are not supported, but native OS threading model 
    (CKF_OS_LOCKING_OK) can be used without any problems.
  - CK_NOTIFY notification callbacks are not supported.
- 
+
+Pkcs11Interop implements full PKCS#11 URI specification with the following 
+known limitations:
+
+ - As recommended by PKCS#11 URI specification Pkcs11UriBuilder class 
+   percent-encodes the whole value of the "id" attribute which is supposed 
+   to be handled as arbitrary binary data. Therefore it is not possible to 
+   construct URIs with arbitrary string value of the "id" attribute.
+ - Validation of each individual attribute value is performed by the setter 
+   of corresponding Pkcs11UriBuilder class property with the exception to 
+   UnknownPathAttributes and UnknownQueryAttributes properties whose values 
+   are validated when ToString() or ToPkcs11Uri() method is called.

@@ -37,15 +37,15 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI8
             byte[] recoveredValue = null;
             
             IntPtr ptr = IntPtr.Zero;
-            ptr = Common.UnmanagedMemory.Allocate(originalValue.Length);
+            ptr = UnmanagedMemory.Allocate(originalValue.Length);
             Assert.IsTrue(ptr != IntPtr.Zero);
 
-            Common.UnmanagedMemory.Write(ptr, originalValue);
-            recoveredValue = Common.UnmanagedMemory.Read(ptr, originalValue.Length);
+            UnmanagedMemory.Write(ptr, originalValue);
+            recoveredValue = UnmanagedMemory.Read(ptr, originalValue.Length);
             Assert.IsTrue(recoveredValue != null);
             Assert.IsTrue(Convert.ToBase64String(originalValue) == Convert.ToBase64String(recoveredValue));
 
-            Common.UnmanagedMemory.Free(ref ptr);
+            UnmanagedMemory.Free(ref ptr);
             Assert.IsTrue(ptr == IntPtr.Zero);
         }
     }
