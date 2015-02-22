@@ -25,376 +25,96 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
     /// Pkcs11UriUtils tests
     /// </summary>
     [TestFixture()]
-    public class _27_Pkcs11UriUtilsTest
+    public partial class _27_Pkcs11UriUtilsTest
     {
         /// <summary>
-        /// LibraryInfo matching against PKCS#11 URI
+        /// Demonstration of PKCS#11 URI usage in a signature creation application
         /// </summary>
         [Test()]
-        public void _01_LibraryInfoMatches()
+        public void _01_Pkcs11UriInSignatureCreationApplication()
         {
             Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
 
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, false))
-            {
-                LibraryInfo libraryInfo = pkcs11.GetInfo();
+            // PKCS#11 URI can be acquired i.e. from configuration file as a simple string...
+            string uri = @"<pkcs11:serial=7BFF2737350B262C;
+                            type=private;
+                            object=John%20Doe
+                            ?module-path=siecap11.dll&
+                            pin-value=11111111>";
 
-                // Empty URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(@"pkcs11:");
-                Assert.IsTrue(Pkcs11UriUtils.Matches(pkcs11uri, libraryInfo));
+            // ...or it can be easily constructed with Pkcs11UriBuilder
+            Pkcs11UriBuilder pkcs11UriBuilder = new Pkcs11UriBuilder();
+            pkcs11UriBuilder.Serial = "7BFF2737350B262C";
+            pkcs11UriBuilder.Type = CKO.CKO_PRIVATE_KEY;
+            pkcs11UriBuilder.Object = "John Doe";
+            pkcs11UriBuilder.ModulePath = "siecap11.dll";
+            pkcs11UriBuilder.PinValue = "11111111";
+            uri = pkcs11UriBuilder.ToString();
 
-                // Unknown path attribute in URI
-                pkcs11uri = new Pkcs11Uri(@"pkcs11:vendor=foobar");
-                Assert.IsFalse(Pkcs11UriUtils.Matches(pkcs11uri, libraryInfo));
+            // Warning: Please note that PIN stored in PKCS#11 URI can pose a security risk and therefore other options
+            //          should be carefully considered. For example an application may ask for a PIN with a GUI dialog etc.
 
-                // All attributes matching
-                Pkcs11UriBuilder pkcs11UriBuilder = new Pkcs11UriBuilder();
-                pkcs11UriBuilder.LibraryManufacturer = libraryInfo.ManufacturerId;
-                pkcs11UriBuilder.LibraryDescription = libraryInfo.LibraryDescription;
-                pkcs11UriBuilder.LibraryVersion = libraryInfo.LibraryVersion;
-                pkcs11uri = pkcs11UriBuilder.ToPkcs11Uri();
-                Assert.IsTrue(Pkcs11UriUtils.Matches(pkcs11uri, libraryInfo));
+            // Use PKCS#11 URI acquired from Settings class to identify private key in signature creation method
+            byte[] signature = SignData(ConvertUtils.Utf8StringToBytes("Hello world"), Settings.PrivateKeyUri);
 
-                // LibraryManufacturer nonmatching
-                pkcs11UriBuilder = new Pkcs11UriBuilder();
-                pkcs11UriBuilder.LibraryManufacturer = "foobar";
-                pkcs11UriBuilder.LibraryDescription = libraryInfo.LibraryDescription;
-                pkcs11UriBuilder.LibraryVersion = libraryInfo.LibraryVersion;
-                pkcs11uri = pkcs11UriBuilder.ToPkcs11Uri();
-                Assert.IsFalse(Pkcs11UriUtils.Matches(pkcs11uri, libraryInfo));
-
-                // LibraryDescription nonmatching
-                pkcs11UriBuilder = new Pkcs11UriBuilder();
-                pkcs11UriBuilder.LibraryManufacturer = libraryInfo.ManufacturerId;
-                pkcs11UriBuilder.LibraryDescription = "foobar";
-                pkcs11UriBuilder.LibraryVersion = libraryInfo.LibraryVersion;
-                pkcs11uri = pkcs11UriBuilder.ToPkcs11Uri();
-                Assert.IsFalse(Pkcs11UriUtils.Matches(pkcs11uri, libraryInfo));
-
-                // LibraryVersion nonmatching
-                pkcs11UriBuilder = new Pkcs11UriBuilder();
-                pkcs11UriBuilder.LibraryManufacturer = libraryInfo.ManufacturerId;
-                pkcs11UriBuilder.LibraryDescription = libraryInfo.LibraryDescription;
-                pkcs11UriBuilder.LibraryVersion = "0";
-                pkcs11uri = pkcs11UriBuilder.ToPkcs11Uri();
-                Assert.IsFalse(Pkcs11UriUtils.Matches(pkcs11uri, libraryInfo));
-            }
+            // Do something interesting with the signature
         }
 
         /// <summary>
-        /// SlotInfo matching against PKCS#11 URI
+        /// Creates the PKCS#1 v1.5 RSA signature with SHA-1 mechanism
         /// </summary>
-        [Test()]
-        public void _02_SlotInfoMatches()
+        /// <param name="data">Data that should be signed</param>
+        /// <param name="uri">PKCS#11 URI identifying PKCS#11 library, token and private key</param>
+        /// <returns>PKCS#1 v1.5 RSA signature</returns>
+        private byte[] SignData(byte[] data, string uri)
         {
-            Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
+            // Verify input parameters
+            if (data == null)
+                throw new ArgumentNullException("data");
 
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, false))
+            if (string.IsNullOrEmpty(uri))
+                throw new ArgumentNullException("uri");
+
+            // Parse PKCS#11 URI
+            Pkcs11Uri pkcs11Uri = new Pkcs11Uri(uri);
+
+            // Verify that URI contains all information required to perform this operation
+            if (pkcs11Uri.ModulePath == null)
+                throw new Exception("PKCS#11 URI does not specify PKCS#11 library");
+
+            if (pkcs11Uri.PinValue == null)
+                throw new Exception("PKCS#11 URI does not specify PIN");
+
+            if (!pkcs11Uri.DefinesObject || pkcs11Uri.Type != CKO.CKO_PRIVATE_KEY)
+                throw new Exception("PKCS#11 URI does not specify private key");
+
+            // Load and initialize PKCS#11 library specified by URI
+            using (Pkcs11 pkcs11 = new Pkcs11(pkcs11Uri.ModulePath, true))
             {
-                List<Slot> slots = pkcs11.GetSlotList(true);
-                Assert.IsTrue(slots != null && slots.Count > 0);
-                SlotInfo slotInfo = slots[0].GetSlotInfo();
+                //  Obtain a list of all slots with tokens that match URI
+                List<Slot> slots = Pkcs11UriUtils.GetMatchingSlotList(pkcs11Uri, pkcs11, true);
+                if ((slots == null) || (slots.Count == 0))
+                    throw new Exception("None of the slots matches PKCS#11 URI");
 
-                // Empty URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(@"pkcs11:");
-                Assert.IsTrue(Pkcs11UriUtils.Matches(pkcs11uri, slotInfo));
+                // Open read only session with first token that matches URI
+                using (Session session = slots[0].OpenSession(true))
+                {
+                    // Login as normal user with PIN acquired from URI
+                    session.Login(CKU.CKU_USER, pkcs11Uri.PinValue);
 
-                // Unknown path attribute in URI
-                pkcs11uri = new Pkcs11Uri(@"pkcs11:vendor=foobar");
-                Assert.IsFalse(Pkcs11UriUtils.Matches(pkcs11uri, slotInfo));
+                    // Get list of object attributes for the private key specified by URI
+                    List<ObjectAttribute> searchTemplate = null;
+                    Pkcs11UriUtils.GetObjectAttributes(pkcs11Uri, out searchTemplate);
 
-                // All attributes matching
-                Pkcs11UriBuilder pkcs11UriBuilder = new Pkcs11UriBuilder();
-                pkcs11UriBuilder.SlotManufacturer = slotInfo.ManufacturerId;
-                pkcs11UriBuilder.SlotDescription = slotInfo.SlotDescription;
-                pkcs11UriBuilder.SlotId = slotInfo.SlotId;
-                pkcs11uri = pkcs11UriBuilder.ToPkcs11Uri();
-                Assert.IsTrue(Pkcs11UriUtils.Matches(pkcs11uri, slotInfo));
+                    // Find private key specified by URI
+                    List<ObjectHandle> foundObjects = session.FindAllObjects(searchTemplate);
+                    if ((foundObjects == null) || (foundObjects.Count == 0))
+                        throw new Exception("None of the private keys match PKCS#11 URI");
 
-                // Manufacturer nonmatching
-                pkcs11UriBuilder = new Pkcs11UriBuilder();
-                pkcs11UriBuilder.SlotManufacturer = "foobar";
-                pkcs11UriBuilder.SlotDescription = slotInfo.SlotDescription;
-                pkcs11UriBuilder.SlotId = slotInfo.SlotId;
-                pkcs11uri = pkcs11UriBuilder.ToPkcs11Uri();
-                Assert.IsFalse(Pkcs11UriUtils.Matches(pkcs11uri, slotInfo));
-
-                // Description nonmatching
-                pkcs11UriBuilder = new Pkcs11UriBuilder();
-                pkcs11UriBuilder.SlotManufacturer = slotInfo.ManufacturerId;
-                pkcs11UriBuilder.SlotDescription = "foobar";
-                pkcs11UriBuilder.SlotId = slotInfo.SlotId;
-                pkcs11uri = pkcs11UriBuilder.ToPkcs11Uri();
-                Assert.IsFalse(Pkcs11UriUtils.Matches(pkcs11uri, slotInfo));
-
-                // Slot id nonmatching
-                pkcs11UriBuilder = new Pkcs11UriBuilder();
-                pkcs11UriBuilder.SlotManufacturer = slotInfo.ManufacturerId;
-                pkcs11UriBuilder.SlotDescription = slotInfo.SlotDescription;
-                pkcs11UriBuilder.SlotId = slotInfo.SlotId + 1;
-                pkcs11uri = pkcs11UriBuilder.ToPkcs11Uri();
-                Assert.IsFalse(Pkcs11UriUtils.Matches(pkcs11uri, slotInfo));
+                    // Create signature with the private key specified by URI
+                    return session.Sign(new Mechanism(CKM.CKM_SHA1_RSA_PKCS), foundObjects[0], data);
+                }
             }
-        }
-
-        /// <summary>
-        /// TokenInfo matching against PKCS#11 URI
-        /// </summary>
-        [Test()]
-        public void _03_TokenInfoMatches()
-        {
-            Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
-
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, false))
-            {
-                List<Slot> slots = pkcs11.GetSlotList(true);
-                Assert.IsTrue(slots != null && slots.Count > 0);
-                TokenInfo tokenInfo = slots[0].GetTokenInfo();
-
-                // Empty URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(@"pkcs11:");
-                Assert.IsTrue(Pkcs11UriUtils.Matches(pkcs11uri, tokenInfo));
-
-                // Unknown path attribute in URI
-                pkcs11uri = new Pkcs11Uri(@"pkcs11:vendor=foobar");
-                Assert.IsFalse(Pkcs11UriUtils.Matches(pkcs11uri, tokenInfo));
-
-                // All attributes matching
-                Pkcs11UriBuilder pkcs11UriBuilder = new Pkcs11UriBuilder();
-                pkcs11UriBuilder.Token = tokenInfo.Label;
-                pkcs11UriBuilder.Manufacturer = tokenInfo.ManufacturerId;
-                pkcs11UriBuilder.Serial = tokenInfo.SerialNumber;
-                pkcs11UriBuilder.Model = tokenInfo.Model;
-                pkcs11uri = pkcs11UriBuilder.ToPkcs11Uri();
-                Assert.IsTrue(Pkcs11UriUtils.Matches(pkcs11uri, tokenInfo));
-
-                // Token nonmatching
-                pkcs11UriBuilder = new Pkcs11UriBuilder();
-                pkcs11UriBuilder.Token = "foobar";
-                pkcs11UriBuilder.Manufacturer = tokenInfo.ManufacturerId;
-                pkcs11UriBuilder.Serial = tokenInfo.SerialNumber;
-                pkcs11UriBuilder.Model = tokenInfo.Model;
-                pkcs11uri = pkcs11UriBuilder.ToPkcs11Uri();
-                Assert.IsFalse(Pkcs11UriUtils.Matches(pkcs11uri, tokenInfo));
-
-                // Manufacturer nonmatching
-                pkcs11UriBuilder = new Pkcs11UriBuilder();
-                pkcs11UriBuilder.Token = tokenInfo.Label;
-                pkcs11UriBuilder.Manufacturer = "foobar";
-                pkcs11UriBuilder.Serial = tokenInfo.SerialNumber;
-                pkcs11UriBuilder.Model = tokenInfo.Model;
-                pkcs11uri = pkcs11UriBuilder.ToPkcs11Uri();
-                Assert.IsFalse(Pkcs11UriUtils.Matches(pkcs11uri, tokenInfo));
-
-                // Serial nonmatching
-                pkcs11UriBuilder = new Pkcs11UriBuilder();
-                pkcs11UriBuilder.Token = tokenInfo.Label;
-                pkcs11UriBuilder.Manufacturer = tokenInfo.ManufacturerId;
-                pkcs11UriBuilder.Serial = "foobar";
-                pkcs11UriBuilder.Model = tokenInfo.Model;
-                pkcs11uri = pkcs11UriBuilder.ToPkcs11Uri();
-                Assert.IsFalse(Pkcs11UriUtils.Matches(pkcs11uri, tokenInfo));
-
-                // Model nonmatching
-                pkcs11UriBuilder = new Pkcs11UriBuilder();
-                pkcs11UriBuilder.Token = tokenInfo.Label;
-                pkcs11UriBuilder.Manufacturer = tokenInfo.ManufacturerId;
-                pkcs11UriBuilder.Serial = tokenInfo.SerialNumber;
-                pkcs11UriBuilder.Model = "foobar";
-                pkcs11uri = pkcs11UriBuilder.ToPkcs11Uri();
-                Assert.IsFalse(Pkcs11UriUtils.Matches(pkcs11uri, tokenInfo));
-            }
-        }
-
-        /// <summary>
-        /// ObjectAttribute matching against PKCS#11 URI
-        /// </summary>
-        [Test()]
-        public void _04_ObjectAttributesMatches()
-        {
-            Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
-
-            // Empty URI
-            Pkcs11Uri pkcs11uri = new Pkcs11Uri(@"pkcs11:");
-            List<ObjectAttribute> objectAttributes = new List<ObjectAttribute>();
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PRIVATE_KEY));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_LABEL, "foobar"));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_ID, new byte[] { 0x01, 0x02, 0x03 }));
-            Assert.IsTrue(Pkcs11UriUtils.Matches(pkcs11uri, objectAttributes));
-
-            // Empty attribute
-            pkcs11uri = new Pkcs11Uri(@"pkcs11:type=private;object=;id=%01%02%03");
-            objectAttributes = new List<ObjectAttribute>();
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PRIVATE_KEY));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_LABEL, string.Empty));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_ID, new byte[] { 0x01, 0x02, 0x03 }));
-            Assert.IsTrue(Pkcs11UriUtils.Matches(pkcs11uri, objectAttributes));
-
-            // Unknown path attribute in URI
-            pkcs11uri = new Pkcs11Uri(@"pkcs11:type=private;object=foobar;id=%01%02%03;foo=bar");
-            objectAttributes = new List<ObjectAttribute>();
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PRIVATE_KEY));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_LABEL, "foobar"));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_ID, new byte[] { 0x01, 0x02, 0x03 }));
-            Assert.IsFalse(Pkcs11UriUtils.Matches(pkcs11uri, objectAttributes));
-
-            // All attributes matching
-            pkcs11uri = new Pkcs11Uri(@"pkcs11:type=private;object=foobar;id=%01%02%03");
-            objectAttributes = new List<ObjectAttribute>();
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PRIVATE_KEY));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_LABEL, "foobar"));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_ID, new byte[] { 0x01, 0x02, 0x03 }));
-            Assert.IsTrue(Pkcs11UriUtils.Matches(pkcs11uri, objectAttributes));
-
-            // Type nonmatching
-            pkcs11uri = new Pkcs11Uri(@"pkcs11:type=private;object=foobar;id=%01%02%03");
-            objectAttributes = new List<ObjectAttribute>();
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PUBLIC_KEY));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_LABEL, "foobar"));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_ID, new byte[] { 0x01, 0x02, 0x03 }));
-            Assert.IsFalse(Pkcs11UriUtils.Matches(pkcs11uri, objectAttributes));
-
-            // Object nonmatching
-            pkcs11uri = new Pkcs11Uri(@"pkcs11:type=private;object=foobar;id=%01%02%03");
-            objectAttributes = new List<ObjectAttribute>();
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PUBLIC_KEY));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_LABEL, "foo bar"));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_ID, new byte[] { 0x01, 0x02, 0x03 }));
-            Assert.IsFalse(Pkcs11UriUtils.Matches(pkcs11uri, objectAttributes));
-
-            // Id nonmatching
-            pkcs11uri = new Pkcs11Uri(@"pkcs11:type=private;object=foobar;id=%01%02%03");
-            objectAttributes = new List<ObjectAttribute>();
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PUBLIC_KEY));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_LABEL, "foobar"));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_ID, new byte[] { 0x04, 0x05, 0x06 }));
-            Assert.IsFalse(Pkcs11UriUtils.Matches(pkcs11uri, objectAttributes));
-
-            try
-            {
-                // Type present in URI but missing in list
-                pkcs11uri = new Pkcs11Uri(@"pkcs11:type=private;object=foobar;id=%01%02%03");
-                objectAttributes = new List<ObjectAttribute>();
-                objectAttributes.Add(new ObjectAttribute(CKA.CKA_LABEL, "foobar"));
-                objectAttributes.Add(new ObjectAttribute(CKA.CKA_ID, new byte[] { 0x01, 0x02, 0x03 }));
-                Pkcs11UriUtils.Matches(pkcs11uri, objectAttributes);
-                Assert.Fail("Exception expected but not thrown");
-            }
-            catch (Exception ex)
-            {
-                Assert.IsTrue(ex is Pkcs11UriException);
-            }
-
-            try
-            {
-                // Object present in URI but missing in list
-                pkcs11uri = new Pkcs11Uri(@"pkcs11:type=private;object=foobar;id=%01%02%03");
-                objectAttributes = new List<ObjectAttribute>();
-                objectAttributes.Add(new ObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PUBLIC_KEY));
-                objectAttributes.Add(new ObjectAttribute(CKA.CKA_ID, new byte[] { 0x01, 0x02, 0x03 }));
-                Pkcs11UriUtils.Matches(pkcs11uri, objectAttributes);
-                Assert.Fail("Exception expected but not thrown");
-            }
-            catch (Exception ex)
-            {
-                Assert.IsTrue(ex is Pkcs11UriException);
-            }
-
-            try
-            {
-                // Id present in URI but missing in list
-                pkcs11uri = new Pkcs11Uri(@"pkcs11:type=private;object=foobar;id=%01%02%03");
-                objectAttributes = new List<ObjectAttribute>();
-                objectAttributes.Add(new ObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PUBLIC_KEY));
-                objectAttributes.Add(new ObjectAttribute(CKA.CKA_ID, new byte[] { 0x04, 0x05, 0x06 }));
-                Pkcs11UriUtils.Matches(pkcs11uri, objectAttributes);
-                Assert.Fail("Exception expected but not thrown");
-            }
-            catch (Exception ex)
-            {
-                Assert.IsTrue(ex is Pkcs11UriException);
-            }
-        }
-
-        /// <summary>
-        /// PKCS#11 URI matching slot list extraction
-        /// </summary>
-        [Test()]
-        public void _05_GetMatchingSlotList()
-        {
-            Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
-
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, false))
-            {
-                // Get all slots
-                List<Slot> allSlots = pkcs11.GetSlotList(true);
-                Assert.IsTrue(allSlots != null && allSlots.Count > 0);
-
-                // Empty URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(@"pkcs11:");
-                List<Slot> matchedSlots = Pkcs11UriUtils.GetMatchingSlotList(pkcs11uri, pkcs11, true);
-                Assert.IsTrue(matchedSlots.Count == allSlots.Count);
-
-                // Unknown path attribute in URI
-                pkcs11uri = new Pkcs11Uri(@"pkcs11:vendor=foobar");
-                matchedSlots = Pkcs11UriUtils.GetMatchingSlotList(pkcs11uri, pkcs11, true);
-                Assert.IsTrue(matchedSlots.Count == 0);
-
-                // All attributes matching one slot
-                LibraryInfo libraryInfo = pkcs11.GetInfo();
-                SlotInfo slotInfo = allSlots[0].GetSlotInfo();
-                TokenInfo tokenInfo = allSlots[0].GetTokenInfo();
-
-                Pkcs11UriBuilder pkcs11UriBuilder = new Pkcs11UriBuilder();
-                pkcs11UriBuilder.LibraryManufacturer = libraryInfo.ManufacturerId;
-                pkcs11UriBuilder.LibraryDescription = libraryInfo.LibraryDescription;
-                pkcs11UriBuilder.LibraryVersion = libraryInfo.LibraryVersion;
-                pkcs11UriBuilder.SlotManufacturer = slotInfo.ManufacturerId;
-                pkcs11UriBuilder.SlotDescription = slotInfo.SlotDescription;
-                pkcs11UriBuilder.SlotId = slotInfo.SlotId;
-                pkcs11UriBuilder.Token = tokenInfo.Label;
-                pkcs11UriBuilder.Manufacturer = tokenInfo.ManufacturerId;
-                pkcs11UriBuilder.Serial = tokenInfo.SerialNumber;
-                pkcs11UriBuilder.Model = tokenInfo.Model;
-                pkcs11uri = pkcs11UriBuilder.ToPkcs11Uri();
-
-                matchedSlots = Pkcs11UriUtils.GetMatchingSlotList(pkcs11uri, pkcs11, true);
-                Assert.IsTrue(matchedSlots.Count == 1);
-
-                // One attribute nonmatching
-                pkcs11UriBuilder.Serial = "foobar";
-                pkcs11uri = pkcs11UriBuilder.ToPkcs11Uri();
-                matchedSlots = Pkcs11UriUtils.GetMatchingSlotList(pkcs11uri, pkcs11, true);
-                Assert.IsTrue(matchedSlots.Count == 0);
-            }
-        }
-
-        /// <summary>
-        /// PKCS#11 URI matching ObjectAttribute extraction
-        /// </summary>
-        [Test()]
-        public void _06_GetObjectAttributes()
-        {
-            Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
-
-            string uri = @"pkcs11:object=foo;type=private;id=%01%02%03";
-
-            Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
-
-            List<ObjectAttribute> attributes = null;
-            Pkcs11UriUtils.GetObjectAttributes(pkcs11uri, out attributes);
-
-            Assert.IsTrue(attributes != null);
-            Assert.IsTrue(attributes.Count == 3);
-
-            Assert.IsTrue(attributes[0].Type == (uint)CKA.CKA_CLASS);
-            Assert.IsTrue(attributes[0].GetValueAsUint() == (uint)CKO.CKO_PRIVATE_KEY);
-
-            Assert.IsTrue(attributes[1].Type == (uint)CKA.CKA_LABEL);
-            Assert.IsTrue(attributes[1].GetValueAsString() == "foo");
-
-            Assert.IsTrue(attributes[2].Type == (uint)CKA.CKA_ID);
-            Assert.IsTrue(Common.Helpers.ByteArraysMatch(attributes[2].GetValueAsByteArray(), new byte[] { 0x01, 0x02, 0x03 }));
         }
     }
 }

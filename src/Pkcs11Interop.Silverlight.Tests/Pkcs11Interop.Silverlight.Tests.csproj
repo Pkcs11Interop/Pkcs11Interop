@@ -168,6 +168,9 @@
     <Compile Include="..\Pkcs11InteropTests\HighLevelAPI4\_26_LegacyParallelFunctionsTest.cs">
       <Link>HighLevelAPI4\_26_LegacyParallelFunctionsTest.cs</Link>
     </Compile>
+    <Compile Include="..\Pkcs11InteropTests\HighLevelAPI4\_27b_Pkcs11UriUtilsTest.cs">
+      <Link>HighLevelAPI4\_27b_Pkcs11UriUtilsTest.cs</Link>
+    </Compile>
     <Compile Include="..\Pkcs11InteropTests\HighLevelAPI4\_27_Pkcs11UriUtilsTest.cs">
       <Link>HighLevelAPI4\_27_Pkcs11UriUtilsTest.cs</Link>
     </Compile>
@@ -252,6 +255,9 @@
     <Compile Include="..\Pkcs11InteropTests\HighLevelAPI8\_26_LegacyParallelFunctionsTest.cs">
       <Link>HighLevelAPI8\_26_LegacyParallelFunctionsTest.cs</Link>
     </Compile>
+    <Compile Include="..\Pkcs11InteropTests\HighLevelAPI8\_27b_Pkcs11UriUtilsTest.cs">
+      <Link>HighLevelAPI8\_27b_Pkcs11UriUtilsTest.cs</Link>
+    </Compile>
     <Compile Include="..\Pkcs11InteropTests\HighLevelAPI8\_27_Pkcs11UriUtilsTest.cs">
       <Link>HighLevelAPI8\_27_Pkcs11UriUtilsTest.cs</Link>
     </Compile>
@@ -335,6 +341,9 @@
     </Compile>
     <Compile Include="..\Pkcs11InteropTests\HighLevelAPI\_26_LegacyParallelFunctionsTest.cs">
       <Link>HighLevelAPI\_26_LegacyParallelFunctionsTest.cs</Link>
+    </Compile>
+    <Compile Include="..\Pkcs11InteropTests\HighLevelAPI\_27b_Pkcs11UriUtilsTest.cs">
+      <Link>HighLevelAPI\_27b_Pkcs11UriUtilsTest.cs</Link>
     </Compile>
     <Compile Include="..\Pkcs11InteropTests\HighLevelAPI\_27_Pkcs11UriUtilsTest.cs">
       <Link>HighLevelAPI\_27_Pkcs11UriUtilsTest.cs</Link>
@@ -423,6 +432,9 @@
     <Compile Include="..\Pkcs11InteropTests\LowLevelAPI4\_27_LegacyParallelFunctionsTest.cs">
       <Link>LowLevelAPI4\_27_LegacyParallelFunctionsTest.cs</Link>
     </Compile>
+    <Compile Include="..\Pkcs11InteropTests\LowLevelAPI4\_28b_Pkcs11UriUtilsTest.cs">
+      <Link>LowLevelAPI4\_28b_Pkcs11UriUtilsTest.cs</Link>
+    </Compile>
     <Compile Include="..\Pkcs11InteropTests\LowLevelAPI4\_28_Pkcs11UriUtilsTest.cs">
       <Link>LowLevelAPI4\_28_Pkcs11UriUtilsTest.cs</Link>
     </Compile>
@@ -509,6 +521,9 @@
     </Compile>
     <Compile Include="..\Pkcs11InteropTests\LowLevelAPI8\_27_LegacyParallelFunctionsTest.cs">
       <Link>LowLevelAPI8\_27_LegacyParallelFunctionsTest.cs</Link>
+    </Compile>
+    <Compile Include="..\Pkcs11InteropTests\LowLevelAPI8\_28b_Pkcs11UriUtilsTest.cs">
+      <Link>LowLevelAPI8\_28b_Pkcs11UriUtilsTest.cs</Link>
     </Compile>
     <Compile Include="..\Pkcs11InteropTests\LowLevelAPI8\_28_Pkcs11UriUtilsTest.cs">
       <Link>LowLevelAPI8\_28_Pkcs11UriUtilsTest.cs</Link>

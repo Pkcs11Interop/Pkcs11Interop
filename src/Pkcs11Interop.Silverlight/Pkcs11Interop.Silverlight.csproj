@@ -102,9 +102,6 @@
     <Compile Include="..\Pkcs11Interop\Common\ConvertUtils.cs">
       <Link>Common\ConvertUtils.cs</Link>
     </Compile>
-    <Compile Include="..\Pkcs11Interop\Common\Doxygen.cs">
-      <Link>Common\Doxygen.cs</Link>
-    </Compile>
     <Compile Include="..\Pkcs11Interop\Common\ElevatedPermissionsMissingException.cs">
       <Link>Common\ElevatedPermissionsMissingException.cs</Link>
     </Compile>
@@ -149,6 +146,9 @@
     </Compile>
     <Compile Include="..\Pkcs11Interop\Common\UnsupportedPlatformException.cs">
       <Link>Common\UnsupportedPlatformException.cs</Link>
+    </Compile>
+    <Compile Include="..\Pkcs11Interop\Doxygen.cs">
+      <Link>Doxygen.cs</Link>
     </Compile>
     <Compile Include="..\Pkcs11Interop\HighLevelAPI4\LibraryInfo.cs">
       <Link>HighLevelAPI4\LibraryInfo.cs</Link>
@@ -1067,7 +1067,17 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="..\Pkcs11Interop\CHANGELOG.txt">
+      <Link>CHANGELOG.txt</Link>
+    </Content>
+    <Content Include="..\Pkcs11Interop\ISSUES.txt">
+      <Link>ISSUES.txt</Link>
+    </Content>
+    <Content Include="..\Pkcs11Interop\LICENSE.txt">
+      <Link>LICENSE.txt</Link>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

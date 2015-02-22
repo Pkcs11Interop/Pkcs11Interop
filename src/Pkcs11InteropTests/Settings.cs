@@ -28,6 +28,11 @@ namespace Net.Pkcs11Interop.Tests
         public static string Pkcs11LibraryPath = @"siecap11.dll";
 
         /// <summary>
+        /// Serial number of token that should be used in tests
+        /// </summary>
+        public static string TokenSerial = @"7BFF2737350B262C";
+
+        /// <summary>
         /// The SO pin (PUK).
         /// </summary>
         public static string SecurityOfficerPin = @"11111111";
@@ -57,17 +62,29 @@ namespace Net.Pkcs11Interop.Tests
         /// </summary>
         public static byte[] ApplicationNameArray = ConvertUtils.Utf8StringToBytes(ApplicationName);
 
-        /*
         /// <summary>
-        /// Logs all PKCS#11 calls with PKCS11-LOGGER
+        /// PKCS#11 URI that identifies private key usable in signature creation tests
+        /// </summary>
+        public static string PrivateKeyUri = null;
+
+        /// <summary>
+        /// Static constructor
         /// </summary>
         static Settings()
         {
-            System.Environment.SetEnvironmentVariable("PKCS11_LOGGER_LIBRARY_PATH", @"siecap11.dll");
-            System.Environment.SetEnvironmentVariable("PKCS11_LOGGER_LOG_FILE_PATH", @"c:\pkcs11-logger.txt");
-            Pkcs11LibraryPath = @"c:\pkcs11-logger-x86.dll";
+            // Uncomment following three lines to enable logging of PKCS#11 calls with PKCS11-LOGGER library
+            // System.Environment.SetEnvironmentVariable("PKCS11_LOGGER_LIBRARY_PATH", @"siecap11.dll");
+            // System.Environment.SetEnvironmentVariable("PKCS11_LOGGER_LOG_FILE_PATH", @"c:\pkcs11-logger.txt");
+            // Pkcs11LibraryPath = @"c:\pkcs11-logger-x86.dll";
+
+            // Build PKCS#11 URI that identifies private key usable in signature creation tests
+            Pkcs11UriBuilder pkcs11UriBuilder = new Pkcs11UriBuilder();
+            pkcs11UriBuilder.Serial = TokenSerial;
+            pkcs11UriBuilder.Type = CKO.CKO_PRIVATE_KEY;
+            pkcs11UriBuilder.Object = "John Doe";
+            pkcs11UriBuilder.ModulePath = Pkcs11LibraryPath;
+            pkcs11UriBuilder.PinValue = NormalUserPin;
+            PrivateKeyUri = pkcs11UriBuilder.ToString();
         }
-        */
     }
 }
-

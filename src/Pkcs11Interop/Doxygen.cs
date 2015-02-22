@@ -124,5 +124,6 @@
  * \example HighLevelAPI/_24_WrapAndUnwrapKeyTest.cs
  * \example HighLevelAPI/_25_DeriveKeyTest.cs
  * \example HighLevelAPI/_26_LegacyParallelFunctionsTest.cs
+ * \example HighLevelAPI/_27_Pkcs11UriUtilsTest.cs
  * \example HighLevelAPI/Helpers.cs
  */
