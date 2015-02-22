@@ -120,7 +120,7 @@ namespace Net.Pkcs11Interop.Common
                 if (File.Exists(@"/proc/sys/kernel/ostype"))
                 {
                     string osType = File.ReadAllText(@"/proc/sys/kernel/ostype");
-                    if (osType.StartsWith("Linux", StringComparison.InvariantCultureIgnoreCase))
+                    if (osType.StartsWith("Linux", StringComparison.OrdinalIgnoreCase))
                         _isLinux = true;
                     else
                         throw new UnsupportedPlatformException("Pkcs11Interop is not supported on this platform - " + osType);
