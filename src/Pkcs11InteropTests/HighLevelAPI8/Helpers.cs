@@ -13,10 +13,11 @@
  *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
-using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI8;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
 {
@@ -26,20 +27,58 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
     public static class Helpers
     {
         /// <summary>
-        /// Finds first slot with token present
+        /// Finds slot containing the token that matches criteria specified in Settings class
         /// </summary>
         /// <param name='pkcs11'>Initialized PKCS11 wrapper</param>
-        /// <returns>First slot with token present</returns>
+        /// <returns>Slot containing the token that matches criteria</returns>
         public static Slot GetUsableSlot(Pkcs11 pkcs11)
         {
-            // Get list of available slots
+            // Get list of available slots with token present
             List<Slot> slots = pkcs11.GetSlotList(true);
 
             Assert.IsNotNull(slots);
             Assert.IsTrue(slots.Count > 0);
 
-            // Let's use first slot with token present
-            return slots[0];
+            // First slot with token present is OK...
+            Slot matchingSlot = slots[0];
+
+            // ...unless there are matching criteria specified in Settings class
+            if (Settings.TokenSerial != null || Settings.TokenLabel != null)
+            {
+                matchingSlot = null;
+
+                foreach (Slot slot in slots)
+                {
+                    TokenInfo tokenInfo = null;
+
+                    try
+                    {
+                        tokenInfo = slot.GetTokenInfo();
+                    }
+                    catch (Pkcs11Exception ex)
+                    {
+                        if (ex.RV != CKR.CKR_TOKEN_NOT_RECOGNIZED && ex.RV != CKR.CKR_TOKEN_NOT_PRESENT)
+                            throw;
+                    }
+
+                    if (tokenInfo == null)
+                        continue;
+
+                    if (!string.IsNullOrEmpty(Settings.TokenSerial))
+                        if (0 != string.Compare(Settings.TokenSerial, tokenInfo.SerialNumber, StringComparison.Ordinal))
+                            continue;
+
+                    if (!string.IsNullOrEmpty(Settings.TokenLabel))
+                        if (0 != string.Compare(Settings.TokenLabel, tokenInfo.Label, StringComparison.Ordinal))
+                            continue;
+
+                    matchingSlot = slot;
+                    break;
+                }
+            }
+
+            Assert.IsTrue(matchingSlot != null, "Token matching criteria specified in Settings class is not present");
+            return matchingSlot;
         }
 
         /// <summary>

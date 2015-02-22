@@ -13,10 +13,10 @@
  *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
-using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI4;
 using NUnit.Framework;
+using System;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI4
 {
@@ -26,32 +26,67 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI4
     public static class Helpers
     {
         /// <summary>
-        /// Finds first slot with token present
+        /// Finds slot containing the token that matches criteria specified in Settings class
         /// </summary>
         /// <param name='pkcs11'>Initialized PKCS11 wrapper</param>
-        /// <returns>First slot with token present</returns>
+        /// <returns>Slot containing the token that matches criteria</returns>
         public static uint GetUsableSlot(Pkcs11 pkcs11)
         {
             CKR rv = CKR.CKR_OK;
-            
-            // Get number of slots in first call
+
+            // Get list of available slots with token present
             uint slotCount = 0;
             rv = pkcs11.C_GetSlotList(true, null, ref slotCount);
             if (rv != CKR.CKR_OK)
                 Assert.Fail(rv.ToString());
-            
+
             Assert.IsTrue(slotCount > 0);
-            
-            // Allocate array for slot IDs
+
             uint[] slotList = new uint[slotCount];
-            
-            // Get slot IDs in second call
+
             rv = pkcs11.C_GetSlotList(true, slotList, ref slotCount);
             if (rv != CKR.CKR_OK)
                 Assert.Fail(rv.ToString());
-            
-            // Let's use first slot with token present
-            return slotList[0];
+
+            // Return first slot with token present when both TokenSerial and TokenLabel are null...
+            if (Settings.TokenSerial == null && Settings.TokenLabel == null)
+                return slotList[0];
+
+            // First slot with token present is OK...
+            uint? matchingSlot = slotList[0];
+
+            // ...unless there are matching criteria specified in Settings class
+            if (Settings.TokenSerial != null || Settings.TokenLabel != null)
+            {
+                matchingSlot = null;
+
+                foreach (uint slot in slotList)
+                {
+                    CK_TOKEN_INFO tokenInfo = new CK_TOKEN_INFO();
+                    rv = pkcs11.C_GetTokenInfo(slot, ref tokenInfo);
+                    if (rv != CKR.CKR_OK)
+                    {
+                        if (rv == CKR.CKR_TOKEN_NOT_RECOGNIZED || rv == CKR.CKR_TOKEN_NOT_PRESENT)
+                            continue;
+                        else
+                            Assert.Fail(rv.ToString());
+                    }
+
+                    if (!string.IsNullOrEmpty(Settings.TokenSerial))
+                        if (0 != string.Compare(Settings.TokenSerial, ConvertUtils.BytesToUtf8String(tokenInfo.SerialNumber, true), StringComparison.Ordinal))
+                            continue;
+
+                    if (!string.IsNullOrEmpty(Settings.TokenLabel))
+                        if (0 != string.Compare(Settings.TokenLabel, ConvertUtils.BytesToUtf8String(tokenInfo.Label, true), StringComparison.Ordinal))
+                            continue;
+
+                    matchingSlot = slot;
+                    break;
+                }
+            }
+
+            Assert.IsTrue(matchingSlot != null, "Token matching criteria specified in Settings class is not present");
+            return matchingSlot.Value;
         }
 
         /// <summary>
