@@ -38,7 +38,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI8
             string uri = @"<pkcs11:serial=7BFF2737350B262C;
                             type=private;
                             object=John%20Doe
-                            ?module-path=siecap11.dll&
+                            ?module-path=pkcs11.dll&
                             pin-value=11111111>";
 
             // ...or it can be easily constructed with Pkcs11UriBuilder
@@ -46,7 +46,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI8
             pkcs11UriBuilder.Serial = "7BFF2737350B262C";
             pkcs11UriBuilder.Type = CKO.CKO_PRIVATE_KEY;
             pkcs11UriBuilder.Object = "John Doe";
-            pkcs11UriBuilder.ModulePath = "siecap11.dll";
+            pkcs11UriBuilder.ModulePath = "pkcs11.dll";
             pkcs11UriBuilder.PinValue = "11111111";
             uri = pkcs11UriBuilder.ToString();
 
@@ -92,7 +92,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI8
 
             using (Pkcs11 pkcs11 = new Pkcs11(pkcs11Uri.ModulePath, true))
             {
-                rv = pkcs11.C_Initialize(null);
+                rv = pkcs11.C_Initialize(Settings.InitArgs8);
                 if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
                     Assert.Fail(rv.ToString());
 

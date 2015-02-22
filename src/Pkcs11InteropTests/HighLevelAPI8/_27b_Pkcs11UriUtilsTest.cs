@@ -35,7 +35,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         {
             Assert.IsTrue(UnmanagedLong.Size == 8, "Test cannot be executed on this platform");
 
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, false))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {
                 LibraryInfo libraryInfo = pkcs11.GetInfo();
 
@@ -89,7 +89,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         {
             Assert.IsTrue(UnmanagedLong.Size == 8, "Test cannot be executed on this platform");
 
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, false))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {
                 List<Slot> slots = pkcs11.GetSlotList(true);
                 Assert.IsTrue(slots != null && slots.Count > 0);
@@ -145,7 +145,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         {
             Assert.IsTrue(UnmanagedLong.Size == 8, "Test cannot be executed on this platform");
 
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, false))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {
                 List<Slot> slots = pkcs11.GetSlotList(true);
                 Assert.IsTrue(slots != null && slots.Count > 0);
@@ -324,7 +324,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         {
             Assert.IsTrue(UnmanagedLong.Size == 8, "Test cannot be executed on this platform");
 
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, false))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {
                 // Get all slots
                 List<Slot> allSlots = pkcs11.GetSlotList(true);

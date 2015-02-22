@@ -36,7 +36,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
             // Unmanaged PKCS#11 library is loaded by the constructor of Pkcs11 class.
             // Every PKCS#11 library needs to be initialized with C_Initialize method
             // which is also called automatically by the constructor of Pkcs11 class.
-            Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, false);
+            Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking);
             
             // Do something  interesting
             
@@ -56,7 +56,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
 
             // Pkcs11 class can be used in using statement which defines a scope 
             // at the end of which an object will be disposed.
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, false))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {
                 // Do something interesting
             }
@@ -110,7 +110,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
             // The most simple constructor of Net.Pkcs11Interop.HighLevelAPI4.Pkcs11 class uses 
             // C_GetFunctionList() approach but Pkcs11Interop also provides an alternative constructor 
             // that can specify which approach should be used.
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, true, true))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking, true))
             {
                 // Do something interesting
             }
@@ -131,7 +131,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
             // The most simple constructor of Net.Pkcs11Interop.HighLevelAPI4.Pkcs11 class uses 
             // C_GetFunctionList() approach but Pkcs11Interop also provides an alternative constructor 
             // that can specify which approach should be used.
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, true, false))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking, false))
             {
                 // Do something interesting
             }

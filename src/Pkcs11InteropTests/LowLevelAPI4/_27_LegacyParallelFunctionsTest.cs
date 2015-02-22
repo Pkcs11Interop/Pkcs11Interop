@@ -38,7 +38,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI4
             
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath))
             {
-                rv = pkcs11.C_Initialize(null);
+                rv = pkcs11.C_Initialize(Settings.InitArgs4);
                 if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
                     Assert.Fail(rv.ToString());
                 
@@ -78,7 +78,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI4
             
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath))
             {
-                rv = pkcs11.C_Initialize(null);
+                rv = pkcs11.C_Initialize(Settings.InitArgs4);
                 if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
                     Assert.Fail(rv.ToString());
                 

@@ -356,9 +356,9 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI4
         {
             Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
 
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, false))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {
-                CKR rv = pkcs11.C_Initialize(null);
+                CKR rv = pkcs11.C_Initialize(Settings.InitArgs4);
                 Assert.IsTrue(rv == CKR.CKR_OK);
 
                 // Get all slots

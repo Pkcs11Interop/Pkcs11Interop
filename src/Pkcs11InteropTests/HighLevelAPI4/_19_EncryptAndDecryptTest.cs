@@ -36,7 +36,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         {
             Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
 
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, false))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {
                 // Find first slot with token present
                 Slot slot = Helpers.GetUsableSlot(pkcs11);
@@ -83,7 +83,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         {
             Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
 
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, false))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {
                 // Find first slot with token present
                 Slot slot = Helpers.GetUsableSlot(pkcs11);
@@ -148,7 +148,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         {
             Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
 
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, false))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {
                 // Find first slot with token present
                 Slot slot = Helpers.GetUsableSlot(pkcs11);

@@ -37,7 +37,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             string uri = @"<pkcs11:serial=7BFF2737350B262C;
                             type=private;
                             object=John%20Doe
-                            ?module-path=siecap11.dll&
+                            ?module-path=pkcs11.dll&
                             pin-value=11111111>";
 
             // ...or it can be easily constructed with Pkcs11UriBuilder
@@ -45,7 +45,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             pkcs11UriBuilder.Serial = "7BFF2737350B262C";
             pkcs11UriBuilder.Type = CKO.CKO_PRIVATE_KEY;
             pkcs11UriBuilder.Object = "John Doe";
-            pkcs11UriBuilder.ModulePath = "siecap11.dll";
+            pkcs11UriBuilder.ModulePath = "pkcs11.dll";
             pkcs11UriBuilder.PinValue = "11111111";
             uri = pkcs11UriBuilder.ToString();
 
