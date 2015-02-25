@@ -13,11 +13,13 @@
  *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
-using System;
-using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI4;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using LLA4 = Net.Pkcs11Interop.LowLevelAPI4;
 
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
 {
@@ -198,24 +200,41 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         {
             Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
 
+            ObjectAttribute nestedAttribute1 = new ObjectAttribute(CKA.CKA_TOKEN, true);
+            ObjectAttribute nestedAttribute2 = new ObjectAttribute(CKA.CKA_PRIVATE, true);
+
             List<ObjectAttribute> originalValue = new List<ObjectAttribute>();
-            originalValue.Add(new ObjectAttribute(CKA.CKA_TOKEN, true));
-            originalValue.Add(new ObjectAttribute(CKA.CKA_PRIVATE, true));
+            originalValue.Add(nestedAttribute1);
+            originalValue.Add(nestedAttribute2);
 
             // Create attribute with attribute array value
             using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_WRAP_TEMPLATE, originalValue))
             {
                 Assert.IsTrue(attr.Type == (uint)CKA.CKA_WRAP_TEMPLATE);
 
-                try
-                {
-                    attr.GetValueAsObjectAttributeList();
-                }
-                catch (NotImplementedException)
-                {
-                    // Reading attribute value as List<ObjectAttribute> is currently not implemented in HighLevelAPI
-                }
+                List<ObjectAttribute> recoveredValue = attr.GetValueAsObjectAttributeList();
+                Assert.IsTrue(recoveredValue.Count == 2);
+                Assert.IsTrue(recoveredValue[0].Type == (uint)CKA.CKA_TOKEN);
+                Assert.IsTrue(recoveredValue[0].GetValueAsBool() == true);
+                Assert.IsTrue(recoveredValue[1].Type == (uint)CKA.CKA_PRIVATE);
+                Assert.IsTrue(recoveredValue[1].GetValueAsBool() == true);
             }
+
+            // There is the same pointer to unmanaged memory in both nestedAttribute1 and recoveredValue[0] instances
+            // therefore private low level attribute structure needs to be modified to prevent double free.
+            // This special handling is needed only in this synthetic test and should be avoided in real world application.
+            LLA4.CK_ATTRIBUTE ckAttribute1 = (LLA4.CK_ATTRIBUTE)typeof(ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute1);
+            ckAttribute1.value = IntPtr.Zero;
+            ckAttribute1.valueLen = 0;
+            typeof(ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(nestedAttribute1, ckAttribute1);
+
+            // There is the same pointer to unmanaged memory in both nestedAttribute2 and recoveredValue[1] instances
+            // therefore private low level attribute structure needs to be modified to prevent double free.
+            // This special handling is needed only in this synthetic test and should be avoided in real world application.
+            LLA4.CK_ATTRIBUTE ckAttribute2 = (LLA4.CK_ATTRIBUTE)typeof(ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute2);
+            ckAttribute2.value = IntPtr.Zero;
+            ckAttribute2.valueLen = 0;
+            typeof(ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(nestedAttribute2, ckAttribute2);
 
             originalValue = null;
 
@@ -223,15 +242,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
             using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_WRAP_TEMPLATE, originalValue))
             {
                 Assert.IsTrue(attr.Type == (uint)CKA.CKA_WRAP_TEMPLATE);
-
-                try
-                {
-                    attr.GetValueAsObjectAttributeList();
-                }
-                catch (NotImplementedException)
-                {
-                    // Reading attribute value as List<ObjectAttribute> is currently not implemented in HighLevelAPI
-                }
+                Assert.IsTrue(attr.GetValueAsObjectAttributeList() == originalValue);
             }
 
             originalValue = new List<ObjectAttribute>();
@@ -240,15 +251,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
             using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_WRAP_TEMPLATE, originalValue))
             {
                 Assert.IsTrue(attr.Type == (uint)CKA.CKA_WRAP_TEMPLATE);
-
-                try
-                {
-                    attr.GetValueAsObjectAttributeList();
-                }
-                catch (NotImplementedException)
-                {
-                    // Reading attribute value as List<ObjectAttribute> is currently not implemented in HighLevelAPI
-                }
+                Assert.IsTrue(attr.GetValueAsObjectAttributeList() == null);
             }
         }
 

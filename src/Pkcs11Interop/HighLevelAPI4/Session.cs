@@ -486,8 +486,6 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
                     template[i].value = Common.UnmanagedMemory.Allocate(Convert.ToInt32(template[i].valueLen));
             }
 
-            // TODO - Add support for CKA.CKA_WRAP_TEMPLATE and CKA.CKA_UNWRAP_TEMPLATE (CKF_ARRAY_ATTRIBUTE)
-
             // Read values of attributes
             _p11.C_GetAttributeValue(_sessionId, objectHandle.ObjectId, template, Convert.ToUInt32(template.Length));
             if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_ATTRIBUTE_SENSITIVE) && (rv != CKR.CKR_ATTRIBUTE_TYPE_INVALID))

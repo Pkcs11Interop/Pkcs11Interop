@@ -380,8 +380,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI8
         /// <returns>Value of attribute</returns>
         public List<ObjectAttribute> GetValueAsObjectAttributeList()
         {
-            // TODO : In order to implement and properly test this tricky method it is crucial to find PKCS#11 implementation that supports CKA.CKA_WRAP_TEMPLATE and CKA.CKA_UNWRAP_TEMPLATE
-            throw new NotImplementedException();
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
+            LowLevelAPI8.CK_ATTRIBUTE[] value = null;
+            LowLevelAPI8.CkaUtils.ConvertValue(ref _ckAttribute, out value);
+
+            List<ObjectAttribute> attributes = null;
+
+            if (value != null)
+            {
+                attributes = new List<ObjectAttribute>();
+                for (int i = 0; i < value.Length; i++)
+                    attributes.Add(new ObjectAttribute(value[i]));
+            }
+
+            return attributes;
         }
 
         #endregion

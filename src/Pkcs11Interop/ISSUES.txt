@@ -1,8 +1,6 @@
 Pkcs11Interop implements full PKCS#11 v2.20 specification with the following 
-mostly temporary exceptions and limitations:
+exceptions and limitations:
  
- - Reading value of CKA_WRAP_TEMPLATE and CKA_UNWRAP_TEMPLATE attributes 
-   is supported only in LowLevelAPIs.
  - Locking related types CK_CREATEMUTEX, CK_DESTROYMUTEX, CK_LOCKMUTEX 
    and CK_UNLOCKMUTEX are not supported, but native OS threading model 
    (CKF_OS_LOCKING_OK) can be used without any problems.
