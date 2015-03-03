@@ -487,7 +487,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI8
             }
 
             // Read values of attributes
-            _p11.C_GetAttributeValue(_sessionId, objectHandle.ObjectId, template, Convert.ToUInt64(template.Length));
+            rv = _p11.C_GetAttributeValue(_sessionId, objectHandle.ObjectId, template, Convert.ToUInt64(template.Length));
             if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_ATTRIBUTE_SENSITIVE) && (rv != CKR.CKR_ATTRIBUTE_TYPE_INVALID))
                 throw new Pkcs11Exception("C_GetAttributeValue", rv);
 
