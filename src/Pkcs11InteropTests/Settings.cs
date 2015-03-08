@@ -26,10 +26,17 @@ namespace Net.Pkcs11Interop.Tests
     {
         #region Properties that almost always need to be configured before the tests are executed
 
+#if __ANDROID__
         /// <summary>
-        /// Relative name or absolute path of unmanaged PKCS#11 library
+        /// Relative name or absolute path of unmanaged PKCS#11 library provided by smartcard or HSM vendor.
         /// </summary>
-        public static string Pkcs11LibraryPath = @"siecap11.dll";
+        public static string Pkcs11LibraryPath = @"libpkcs11-mock.so";
+#else
+        /// <summary>
+        /// Relative name or absolute path of unmanaged PKCS#11 library provided by smartcard or HSM vendor.
+        /// </summary>
+        public static string Pkcs11LibraryPath = @"pkcs11-mock-x86.dll";
+#endif
 
         /// <summary>
         /// Flag indicating whether PKCS#11 library should use its internal native threading model for locking.

@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pkcs11Interop.Android", "Pkcs11Interop.Android\Pkcs11Interop.Android.csproj", "{FB3C23DC-0637-4F1C-B7E7-662560F6D1C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pkcs11Interop.Android.Tests", "Pkcs11Interop.Android.Tests\Pkcs11Interop.Android.Tests.csproj", "{94C6840D-0C1C-4340-8A5D-B0715DE14123}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94C6840D-0C1C-4340-8A5D-B0715DE14123}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94C6840D-0C1C-4340-8A5D-B0715DE14123}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94C6840D-0C1C-4340-8A5D-B0715DE14123}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94C6840D-0C1C-4340-8A5D-B0715DE14123}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB3C23DC-0637-4F1C-B7E7-662560F6D1C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB3C23DC-0637-4F1C-B7E7-662560F6D1C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB3C23DC-0637-4F1C-B7E7-662560F6D1C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB3C23DC-0637-4F1C-B7E7-662560F6D1C1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
