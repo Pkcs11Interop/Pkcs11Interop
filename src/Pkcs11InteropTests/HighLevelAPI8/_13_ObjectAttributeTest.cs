@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI8;
 using NUnit.Framework;
-using LLA8 = Net.Pkcs11Interop.LowLevelAPI4;
+using LLA8 = Net.Pkcs11Interop.LowLevelAPI8;
 using System.Reflection;
 
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
