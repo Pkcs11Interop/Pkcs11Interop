@@ -32,7 +32,8 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI4
         [Test()]
         public void _01_ReadOnlySessionTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 4)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             CKR rv = CKR.CKR_OK;
             
@@ -69,7 +70,8 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI4
         [Test()]
         public void _02_ReadWriteSessionTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 4)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             CKR rv = CKR.CKR_OK;
             
@@ -106,7 +108,8 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI4
         [Test()]
         public void _03_SessionInfoTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 4)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             CKR rv = CKR.CKR_OK;
             

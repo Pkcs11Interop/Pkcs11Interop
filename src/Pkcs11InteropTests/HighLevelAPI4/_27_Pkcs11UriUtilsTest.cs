@@ -33,7 +33,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _01_Pkcs11UriInSignatureCreationApplication()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 4)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             // PKCS#11 URI can be acquired i.e. from configuration file as a simple string...
             string uri = @"<pkcs11:serial=7BFF2737350B262C;

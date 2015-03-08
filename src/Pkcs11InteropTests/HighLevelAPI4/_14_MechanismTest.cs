@@ -34,7 +34,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _01_DisposeMechanismTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 4)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             byte[] parameter = new byte[8];
             System.Random rng = new Random();
@@ -78,7 +79,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _02_EmptyParameterTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 4)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             // Create mechanism without the parameter
             Mechanism mechanism = new Mechanism(CKM.CKM_RSA_PKCS);
@@ -97,7 +99,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _03_ByteArrayParameterTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 4)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             byte[] parameter = new byte[16];
             System.Random rng = new Random();
@@ -132,7 +135,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _04_ObjectParameterTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 4)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             byte[] data = new byte[24];
             System.Random rng = new Random();

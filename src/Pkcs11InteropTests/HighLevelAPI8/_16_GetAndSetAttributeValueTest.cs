@@ -32,7 +32,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         [Test()]
         public void _01_GetAttributeValueTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 8, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 8)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {
@@ -71,7 +72,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         [Test()]
         public void _02_GetInvalidAttributeValueTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 8, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 8)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {
@@ -114,7 +116,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         [Test()]
         public void _03_SetAttributeValueTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 8, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 8)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {

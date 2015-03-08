@@ -35,7 +35,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         [Test()]
         public void _01_DisposeAttributeTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 8, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 8)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             // Unmanaged memory for attribute value stored in low level CK_ATTRIBUTE struct
             // is allocated by constructor of ObjectAttribute class.
@@ -74,7 +75,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         [Test()]
         public void _02_EmptyAttributeTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 8, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 8)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             // Create attribute without the value
             using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_CLASS))
@@ -90,7 +92,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         [Test()]
         public void _03_UintAttributeTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 8, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 8)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             ulong value = (ulong)CKO.CKO_DATA;
 
@@ -108,7 +111,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         [Test()]
         public void _04_BoolAttributeTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 8, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 8)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             bool value = true;
 
@@ -126,7 +130,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         [Test()]
         public void _05_StringAttributeTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 8, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 8)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             string value = "Hello world";
 
@@ -153,7 +158,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         [Test()]
         public void _06_ByteArrayAttributeTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 8, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 8)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             byte[] value = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 };
 
@@ -180,7 +186,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         [Test()]
         public void _07_DateTimeAttributeTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 8, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 8)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             DateTime value = new DateTime(2012, 1, 30, 0, 0, 0, DateTimeKind.Utc);
 
@@ -198,7 +205,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         [Test()]
         public void _08_AttributeArrayAttributeTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 8, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 8)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             ObjectAttribute nestedAttribute1 = new ObjectAttribute(CKA.CKA_TOKEN, true);
             ObjectAttribute nestedAttribute2 = new ObjectAttribute(CKA.CKA_PRIVATE, true);
@@ -261,7 +269,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         [Test()]
         public void _09_UintArrayAttributeTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 8, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 8)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             List<ulong> originalValue = new List<ulong>();
             originalValue.Add(333333);
@@ -302,7 +311,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         [Test()]
         public void _10_MechanismArrayAttributeTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 8, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 8)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             List<CKM> originalValue = new List<CKM>();
             originalValue.Add(CKM.CKM_RSA_PKCS);

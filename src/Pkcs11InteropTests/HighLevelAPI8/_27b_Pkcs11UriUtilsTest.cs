@@ -33,7 +33,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         [Test()]
         public void _02_LibraryInfoMatches()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 8, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 8)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {
@@ -87,7 +88,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         [Test()]
         public void _03_SlotInfoMatches()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 8, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 8)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {
@@ -143,7 +145,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         [Test()]
         public void _04_TokenInfoMatches()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 8, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 8)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {
@@ -212,7 +215,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         [Test()]
         public void _05_ObjectAttributesMatches()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 8, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 8)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             // Empty URI
             Pkcs11Uri pkcs11uri = new Pkcs11Uri(@"pkcs11:");
@@ -322,7 +326,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         [Test()]
         public void _06_GetMatchingSlotList()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 8, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 8)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {
@@ -375,7 +380,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         [Test()]
         public void _07_GetObjectAttributes()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 8, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 8)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             string uri = @"pkcs11:object=foo;type=private;id=%01%02%03";
 

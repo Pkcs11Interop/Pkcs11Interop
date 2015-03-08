@@ -31,7 +31,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _01_BasicSessionTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 4)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {
@@ -54,7 +55,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _02_UsingSessionTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 4)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {
@@ -76,7 +78,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _03_CloseSessionViaSlotTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 4)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {
@@ -99,7 +102,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _04_CloseAllSessionsTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 4)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {
@@ -123,7 +127,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _05_ReadOnlySessionTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 4)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {
@@ -144,7 +149,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _06_ReadWriteSessionTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 4)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {
@@ -165,7 +171,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _07_SessionInfoTest()
         {
-            Assert.IsTrue(UnmanagedLong.Size == 4, "Test cannot be executed on this platform");
+			if (UnmanagedLong.Size != 4)
+				Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {
