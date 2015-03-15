@@ -35,9 +35,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
         private IntPtr _libraryHandle = IntPtr.Zero;
 
         /// <summary>
-        /// Cryptoki function list
+        /// Delegates for PKCS#11 functions
         /// </summary>
-        private CK_FUNCTION_LIST _functionList;
+        private Delegates _delegates = null;
 
         /// <summary>
         /// Loads PCKS#11 library
@@ -45,13 +45,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
         /// <param name="libraryPath">Library name or path</param>
         public Pkcs11(string libraryPath)
         {
-            if (libraryPath == null)
-                throw new ArgumentNullException("libraryPath");
-
             try
             {
-                _libraryHandle = UnmanagedLibrary.Load(libraryPath);
-                C_GetFunctionList(out _functionList);
+                if (libraryPath != null)
+                    _libraryHandle = UnmanagedLibrary.Load(libraryPath);
+
+                _delegates = new Delegates(_libraryHandle, true);
             }
             catch
             {
@@ -67,17 +66,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
         /// <param name="useGetFunctionList">Flag indicating whether cryptoki function pointers should be acquired via C_GetFunctionList (true) or via platform native function (false)</param>
         public Pkcs11(string libraryPath, bool useGetFunctionList)
         {
-            if (libraryPath == null)
-                throw new ArgumentNullException("libraryPath");
-
             try
             {
-                _libraryHandle = UnmanagedLibrary.Load(libraryPath);
+                if (libraryPath != null)
+                    _libraryHandle = UnmanagedLibrary.Load(libraryPath);
 
-                if (useGetFunctionList)
-                    C_GetFunctionList(out _functionList);
-                else
-                    GetFunctionList(out _functionList);
+                _delegates = new Delegates(_libraryHandle, useGetFunctionList);
             }
             catch
             {
@@ -111,8 +105,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_InitializeDelegate cInitialize = (C_InitializeDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_Initialize, typeof(C_InitializeDelegate));
-            return cInitialize(initArgs);
+            return _delegates.C_Initialize(initArgs);
         }
 
         /// <summary>
@@ -125,8 +118,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_FinalizeDelegate cFinalize = (C_FinalizeDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_Finalize, typeof(C_FinalizeDelegate));
-            return cFinalize(reserved);
+            return _delegates.C_Finalize(reserved);
         }
 
         /// <summary>
@@ -139,128 +131,20 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_GetInfoDelegate cGetInfo = (C_GetInfoDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GetInfo, typeof(C_GetInfoDelegate));
-            return cGetInfo(ref info);
+            return _delegates.C_GetInfo(ref info);
         }
 
         /// <summary>
-        /// Obtains a pointer to the Cryptoki library's list of function pointers
+        /// Returns a pointer to the Cryptoki library's list of function pointers
         /// </summary>
-        /// <param name="functionList">Structure that receives function pointers for all the Cryptoki API routines in the library</param>
-        private void C_GetFunctionList(out CK_FUNCTION_LIST functionList)
+        /// <param name="functionList">Pointer to a value which will receive a pointer to the library's CK_FUNCTION_LIST structure</param>
+        /// <returns>CKR_ARGUMENTS_BAD, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK</returns>
+        public CKR C_GetFunctionList(out IntPtr functionList)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            // Get pointer to C_GetFunctionList function
-            IntPtr C_GetFunctionListPointer = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetFunctionList");
-
-            // Get delegate for C_GetFunctionList
-            C_GetFunctionListDelegate cGetFunctionList = (C_GetFunctionListDelegate)Marshal.GetDelegateForFunctionPointer(C_GetFunctionListPointer, typeof(C_GetFunctionListDelegate));
-
-            // Call C_GetFunctionList function via delegate
-            IntPtr functionListPointer = IntPtr.Zero;
-            CKR rv = cGetFunctionList(out functionListPointer);
-            if ((rv != CKR.CKR_OK) || (functionListPointer == IntPtr.Zero))
-                throw new Pkcs11Exception("C_GetFunctionList", rv);
-
-            if (Platform.IsLinux || Platform.IsMacOsX)
-            {
-                // Workaround for MONO on Linux and OS X where marshaling of CK_FUNCTION_LIST is not working correctly
-                CK_FUNCTION_LIST_UNIX functionListUnix = (CK_FUNCTION_LIST_UNIX)UnmanagedMemory.Read(functionListPointer, typeof(CK_FUNCTION_LIST_UNIX));
-
-                // Set output parameter
-                functionList = functionListUnix.ConvertToCkFunctionList();
-            }
-            else
-            {
-                // Set output parameter
-                functionList = (CK_FUNCTION_LIST)UnmanagedMemory.Read(functionListPointer, typeof(CK_FUNCTION_LIST));
-            }
-        }
-
-        /// <summary>
-        /// Obtains function pointers for all the Cryptoki API routines in the library
-        /// </summary>
-        /// <param name="functionList">Structure that receives function pointers for all the Cryptoki API routines in the library</param>
-        private void GetFunctionList(out CK_FUNCTION_LIST functionList)
-        {
-            if (this._disposed)
-                throw new ObjectDisposedException(this.GetType().FullName);
-
-            // Get function pointers for all the Cryptoki API routines in the library
-            CK_FUNCTION_LIST ckFunctionList = new CK_FUNCTION_LIST();
-            ckFunctionList.C_Initialize = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_Initialize");
-            ckFunctionList.C_Finalize = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_Finalize");
-            ckFunctionList.C_GetInfo = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetInfo");
-            ckFunctionList.C_GetFunctionList = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetFunctionList");
-            ckFunctionList.C_GetSlotList = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetSlotList");
-            ckFunctionList.C_GetSlotInfo = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetSlotInfo");
-            ckFunctionList.C_GetTokenInfo = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetTokenInfo");
-            ckFunctionList.C_GetMechanismList = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetMechanismList");
-            ckFunctionList.C_GetMechanismInfo = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetMechanismInfo");
-            ckFunctionList.C_InitToken = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_InitToken");
-            ckFunctionList.C_InitPIN = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_InitPIN");
-            ckFunctionList.C_SetPIN = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_SetPIN");
-            ckFunctionList.C_OpenSession = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_OpenSession");
-            ckFunctionList.C_CloseSession = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_CloseSession");
-            ckFunctionList.C_CloseAllSessions = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_CloseAllSessions");
-            ckFunctionList.C_GetSessionInfo = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetSessionInfo");
-            ckFunctionList.C_GetOperationState = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetOperationState");
-            ckFunctionList.C_SetOperationState = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_SetOperationState");
-            ckFunctionList.C_Login = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_Login");
-            ckFunctionList.C_Logout = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_Logout");
-            ckFunctionList.C_CreateObject = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_CreateObject");
-            ckFunctionList.C_CopyObject = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_CopyObject");
-            ckFunctionList.C_DestroyObject = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_DestroyObject");
-            ckFunctionList.C_GetObjectSize = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetObjectSize");
-            ckFunctionList.C_GetAttributeValue = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetAttributeValue");
-            ckFunctionList.C_SetAttributeValue = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_SetAttributeValue");
-            ckFunctionList.C_FindObjectsInit = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_FindObjectsInit");
-            ckFunctionList.C_FindObjects = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_FindObjects");
-            ckFunctionList.C_FindObjectsFinal = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_FindObjectsFinal");
-            ckFunctionList.C_EncryptInit = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_EncryptInit");
-            ckFunctionList.C_Encrypt = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_Encrypt");
-            ckFunctionList.C_EncryptUpdate = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_EncryptUpdate");
-            ckFunctionList.C_EncryptFinal = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_EncryptFinal");
-            ckFunctionList.C_DecryptInit = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_DecryptInit");
-            ckFunctionList.C_Decrypt = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_Decrypt");
-            ckFunctionList.C_DecryptUpdate = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_DecryptUpdate");
-            ckFunctionList.C_DecryptFinal = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_DecryptFinal");
-            ckFunctionList.C_DigestInit = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_DigestInit");
-            ckFunctionList.C_Digest = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_Digest");
-            ckFunctionList.C_DigestUpdate = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_DigestUpdate");
-            ckFunctionList.C_DigestKey = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_DigestKey");
-            ckFunctionList.C_DigestFinal = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_DigestFinal");
-            ckFunctionList.C_SignInit = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_SignInit");
-            ckFunctionList.C_Sign = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_Sign");
-            ckFunctionList.C_SignUpdate = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_SignUpdate");
-            ckFunctionList.C_SignFinal = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_SignFinal");
-            ckFunctionList.C_SignRecoverInit = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_SignRecoverInit");
-            ckFunctionList.C_SignRecover = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_SignRecover");
-            ckFunctionList.C_VerifyInit = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_VerifyInit");
-            ckFunctionList.C_Verify = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_Verify");
-            ckFunctionList.C_VerifyUpdate = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_VerifyUpdate");
-            ckFunctionList.C_VerifyFinal = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_VerifyFinal");
-            ckFunctionList.C_VerifyRecoverInit = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_VerifyRecoverInit");
-            ckFunctionList.C_VerifyRecover = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_VerifyRecover");
-            ckFunctionList.C_DigestEncryptUpdate = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_DigestEncryptUpdate");
-            ckFunctionList.C_DecryptDigestUpdate = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_DecryptDigestUpdate");
-            ckFunctionList.C_SignEncryptUpdate = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_SignEncryptUpdate");
-            ckFunctionList.C_DecryptVerifyUpdate = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_DecryptVerifyUpdate");
-            ckFunctionList.C_GenerateKey = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GenerateKey");
-            ckFunctionList.C_GenerateKeyPair = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GenerateKeyPair");
-            ckFunctionList.C_WrapKey = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_WrapKey");
-            ckFunctionList.C_UnwrapKey = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_UnwrapKey");
-            ckFunctionList.C_DeriveKey = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_DeriveKey");
-            ckFunctionList.C_SeedRandom = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_SeedRandom");
-            ckFunctionList.C_GenerateRandom = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GenerateRandom");
-            ckFunctionList.C_GetFunctionStatus = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetFunctionStatus");
-            ckFunctionList.C_CancelFunction = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_CancelFunction");
-            ckFunctionList.C_WaitForSlotEvent = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_WaitForSlotEvent");
-
-            // Set output parameter
-            functionList = ckFunctionList;
+            return _delegates.C_GetFunctionList(out functionList);
         }
 
         /// <summary>
@@ -278,8 +162,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_GetSlotListDelegate cGetSlotList = (C_GetSlotListDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GetSlotList, typeof(C_GetSlotListDelegate));
-            return cGetSlotList(tokenPresent, slotList, ref count);
+            return _delegates.C_GetSlotList(tokenPresent, slotList, ref count);
         }
 
         /// <summary>
@@ -293,8 +176,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_GetSlotInfoDelegate cGetSlotInfo = (C_GetSlotInfoDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GetSlotInfo, typeof(C_GetSlotInfoDelegate));
-            return cGetSlotInfo(slotId, ref info);
+            return _delegates.C_GetSlotInfo(slotId, ref info);
         }
 
         /// <summary>
@@ -308,8 +190,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_GetTokenInfoDelegate cGetTokenInfo = (C_GetTokenInfoDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GetTokenInfo, typeof(C_GetTokenInfoDelegate));
-            return cGetTokenInfo(slotId, ref info);
+            return _delegates.C_GetTokenInfo(slotId, ref info);
         }
 
         /// <summary>
@@ -331,8 +212,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (mechanismList != null)
                 uintList = new uint[mechanismList.Length];
 
-            C_GetMechanismListDelegate cGetMechanismList = (C_GetMechanismListDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GetMechanismList, typeof(C_GetMechanismListDelegate));
-            CKR rv = cGetMechanismList(slotId, uintList, ref count);
+            CKR rv = _delegates.C_GetMechanismList(slotId, uintList, ref count);
 
             if (mechanismList != null)
             {
@@ -355,8 +235,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_GetMechanismInfoDelegate cGetMechanismInfo = (C_GetMechanismInfoDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GetMechanismInfo, typeof(C_GetMechanismInfoDelegate));
-            return cGetMechanismInfo(slotId, (uint)type, ref info);
+            return _delegates.C_GetMechanismInfo(slotId, (uint)type, ref info);
         }
 
         /// <summary>
@@ -372,8 +251,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_InitTokenDelegate cInitToken = (C_InitTokenDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_InitToken, typeof(C_InitTokenDelegate));
-            return cInitToken(slotId, pin, pinLen, label);
+            return _delegates.C_InitToken(slotId, pin, pinLen, label);
         }
 
         /// <summary>
@@ -388,8 +266,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_InitPINDelegate cInitPIN = (C_InitPINDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_InitPIN, typeof(C_InitPINDelegate));
-            return cInitPIN(session, pin, pinLen);
+            return _delegates.C_InitPIN(session, pin, pinLen);
         }
 
         /// <summary>
@@ -406,8 +283,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_SetPINDelegate cSetPIN = (C_SetPINDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_SetPIN, typeof(C_SetPINDelegate));
-            return cSetPIN(session, oldPin, oldPinLen, newPin, newPinLen);
+            return _delegates.C_SetPIN(session, oldPin, oldPinLen, newPin, newPinLen);
         }
 
         /// <summary>
@@ -424,8 +300,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_OpenSessionDelegate cOpenSession = (C_OpenSessionDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_OpenSession, typeof(C_OpenSessionDelegate));
-            return cOpenSession(slotId, flags, application, notify, ref session);
+            return _delegates.C_OpenSession(slotId, flags, application, notify, ref session);
         }
 
         /// <summary>
@@ -438,8 +313,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_CloseSessionDelegate cCloseSession = (C_CloseSessionDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_CloseSession, typeof(C_CloseSessionDelegate));
-            return cCloseSession(session);
+            return _delegates.C_CloseSession(session);
         }
 
         /// <summary>
@@ -452,8 +326,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_CloseAllSessionsDelegate cCloseAllSessions = (C_CloseAllSessionsDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_CloseAllSessions, typeof(C_CloseAllSessionsDelegate));
-            return cCloseAllSessions(slotId);
+            return _delegates.C_CloseAllSessions(slotId);
         }
 
         /// <summary>
@@ -467,8 +340,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_GetSessionInfoDelegate cGetSessionInfo = (C_GetSessionInfoDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GetSessionInfo, typeof(C_GetSessionInfoDelegate));
-            return cGetSessionInfo(session, ref info);
+            return _delegates.C_GetSessionInfo(session, ref info);
         }
 
         /// <summary>
@@ -486,8 +358,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_GetOperationStateDelegate cGetOperationState = (C_GetOperationStateDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GetOperationState, typeof(C_GetOperationStateDelegate));
-            return cGetOperationState(session, operationState, ref operationStateLen);
+            return _delegates.C_GetOperationState(session, operationState, ref operationStateLen);
         }
 
         /// <summary>
@@ -504,8 +375,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_SetOperationStateDelegate cSetOperationState = (C_SetOperationStateDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_SetOperationState, typeof(C_SetOperationStateDelegate));
-            return cSetOperationState(session, operationState, operationStateLen, encryptionKey, authenticationKey);
+            return _delegates.C_SetOperationState(session, operationState, operationStateLen, encryptionKey, authenticationKey);
         }
 
         /// <summary>
@@ -521,8 +391,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_LoginDelegate cLogin = (C_LoginDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_Login, typeof(C_LoginDelegate));
-            return cLogin(session, (uint)userType, pin, pinLen);
+            return _delegates.C_Login(session, (uint)userType, pin, pinLen);
         }
 
         /// <summary>
@@ -535,8 +404,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_LogoutDelegate cLogout = (C_LogoutDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_Logout, typeof(C_LogoutDelegate));
-            return cLogout(session);
+            return _delegates.C_Logout(session);
         }
 
         /// <summary>
@@ -552,8 +420,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_CreateObjectDelegate cCreateObject = (C_CreateObjectDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_CreateObject, typeof(C_CreateObjectDelegate));
-            return cCreateObject(session, template, count, ref objectId);
+            return _delegates.C_CreateObject(session, template, count, ref objectId);
         }
 
         /// <summary>
@@ -570,8 +437,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_CopyObjectDelegate cCopyObject = (C_CopyObjectDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_CopyObject, typeof(C_CopyObjectDelegate));
-            return cCopyObject(session, objectId, template, count, ref newObjectId);
+            return _delegates.C_CopyObject(session, objectId, template, count, ref newObjectId);
         }
 
         /// <summary>
@@ -585,8 +451,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_DestroyObjectDelegate cDestroyObject = (C_DestroyObjectDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_DestroyObject, typeof(C_DestroyObjectDelegate));
-            return cDestroyObject(session, objectId);
+            return _delegates.C_DestroyObject(session, objectId);
         }
 
         /// <summary>
@@ -601,8 +466,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_GetObjectSizeDelegate cGetObjectSize = (C_GetObjectSizeDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GetObjectSize, typeof(C_GetObjectSizeDelegate));
-            return cGetObjectSize(session, objectId, ref size);
+            return _delegates.C_GetObjectSize(session, objectId, ref size);
         }
 
         /// <summary>
@@ -618,8 +482,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_GetAttributeValueDelegate cGetAttributeValue = (C_GetAttributeValueDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GetAttributeValue, typeof(C_GetAttributeValueDelegate));
-            return cGetAttributeValue(session, objectId, template, count);
+            return _delegates.C_GetAttributeValue(session, objectId, template, count);
         }
 
         /// <summary>
@@ -635,8 +498,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_SetAttributeValueDelegate cSetAttributeValue = (C_SetAttributeValueDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_SetAttributeValue, typeof(C_SetAttributeValueDelegate));
-            return cSetAttributeValue(session, objectId, template, count);
+            return _delegates.C_SetAttributeValue(session, objectId, template, count);
         }
 
         /// <summary>
@@ -651,8 +513,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_FindObjectsInitDelegate cFindObjectsInit = (C_FindObjectsInitDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_FindObjectsInit, typeof(C_FindObjectsInitDelegate));
-            return cFindObjectsInit(session, template, count);
+            return _delegates.C_FindObjectsInit(session, template, count);
         }
 
         /// <summary>
@@ -668,8 +529,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_FindObjectsDelegate cFindObjects = (C_FindObjectsDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_FindObjects, typeof(C_FindObjectsDelegate));
-            return cFindObjects(session, objectId, maxObjectCount, ref objectCount);
+            return _delegates.C_FindObjects(session, objectId, maxObjectCount, ref objectCount);
         }
 
         /// <summary>
@@ -682,8 +542,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_FindObjectsFinalDelegate cFindObjectsFinal = (C_FindObjectsFinalDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_FindObjectsFinal, typeof(C_FindObjectsFinalDelegate));
-            return cFindObjectsFinal(session);
+            return _delegates.C_FindObjectsFinal(session);
         }
 
         /// <summary>
@@ -698,8 +557,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_EncryptInitDelegate cEncryptInit = (C_EncryptInitDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_EncryptInit, typeof(C_EncryptInitDelegate));
-            return cEncryptInit(session, ref mechanism, key);
+            return _delegates.C_EncryptInit(session, ref mechanism, key);
         }
 
         /// <summary>
@@ -719,8 +577,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_EncryptDelegate cEncrypt = (C_EncryptDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_Encrypt, typeof(C_EncryptDelegate));
-            return cEncrypt(session, data, dataLen, encryptedData, ref encryptedDataLen);
+            return _delegates.C_Encrypt(session, data, dataLen, encryptedData, ref encryptedDataLen);
         }
 
         /// <summary>
@@ -740,8 +597,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_EncryptUpdateDelegate cEncryptUpdate = (C_EncryptUpdateDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_EncryptUpdate, typeof(C_EncryptUpdateDelegate));
-            return cEncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
+            return _delegates.C_EncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
         }
 
         /// <summary>
@@ -759,8 +615,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_EncryptFinalDelegate cEncryptFinal = (C_EncryptFinalDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_EncryptFinal, typeof(C_EncryptFinalDelegate));
-            return cEncryptFinal(session, lastEncryptedPart, ref lastEncryptedPartLen);
+            return _delegates.C_EncryptFinal(session, lastEncryptedPart, ref lastEncryptedPartLen);
         }
 
         /// <summary>
@@ -775,8 +630,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_DecryptInitDelegate cDecryptInit = (C_DecryptInitDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_DecryptInit, typeof(C_DecryptInitDelegate));
-            return cDecryptInit(session, ref mechanism, key);
+            return _delegates.C_DecryptInit(session, ref mechanism, key);
         }
 
         /// <summary>
@@ -796,8 +650,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_DecryptDelegate cDecrypt = (C_DecryptDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_Decrypt, typeof(C_DecryptDelegate));
-            return cDecrypt(session, encryptedData, encryptedDataLen, data, ref dataLen);
+            return _delegates.C_Decrypt(session, encryptedData, encryptedDataLen, data, ref dataLen);
         }
 
         /// <summary>
@@ -817,8 +670,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_DecryptUpdateDelegate cDecryptUpdate = (C_DecryptUpdateDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_DecryptUpdate, typeof(C_DecryptUpdateDelegate));
-            return cDecryptUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
+            return _delegates.C_DecryptUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
         }
 
         /// <summary>
@@ -836,8 +688,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_DecryptFinalDelegate cDecryptFinal = (C_DecryptFinalDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_DecryptFinal, typeof(C_DecryptFinalDelegate));
-            return cDecryptFinal(session, lastPart, ref lastPartLen);
+            return _delegates.C_DecryptFinal(session, lastPart, ref lastPartLen);
         }
 
         /// <summary>
@@ -851,8 +702,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_DigestInitDelegate cDigestInit = (C_DigestInitDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_DigestInit, typeof(C_DigestInitDelegate));
-            return cDigestInit(session, ref mechanism);
+            return _delegates.C_DigestInit(session, ref mechanism);
         }
 
         /// <summary>
@@ -872,8 +722,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_DigestDelegate cDigest = (C_DigestDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_Digest, typeof(C_DigestDelegate));
-            return cDigest(session, data, dataLen, digest, ref digestLen);
+            return _delegates.C_Digest(session, data, dataLen, digest, ref digestLen);
         }
 
         /// <summary>
@@ -888,8 +737,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_DigestUpdateDelegate cDigestUpdate = (C_DigestUpdateDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_DigestUpdate, typeof(C_DigestUpdateDelegate));
-            return cDigestUpdate(session, part, partLen);
+            return _delegates.C_DigestUpdate(session, part, partLen);
         }
 
         /// <summary>
@@ -903,8 +751,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_DigestKeyDelegate cDigestKey = (C_DigestKeyDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_DigestKey, typeof(C_DigestKeyDelegate));
-            return cDigestKey(session, key);
+            return _delegates.C_DigestKey(session, key);
         }
 
         /// <summary>
@@ -922,8 +769,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_DigestFinalDelegate cDigestFinal = (C_DigestFinalDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_DigestFinal, typeof(C_DigestFinalDelegate));
-            return cDigestFinal(session, digest, ref digestLen);
+            return _delegates.C_DigestFinal(session, digest, ref digestLen);
         }
 
         /// <summary>
@@ -938,8 +784,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_SignInitDelegate cSignInit = (C_SignInitDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_SignInit, typeof(C_SignInitDelegate));
-            return cSignInit(session, ref mechanism, key);
+            return _delegates.C_SignInit(session, ref mechanism, key);
         }
 
         /// <summary>
@@ -959,8 +804,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_SignDelegate cSign = (C_SignDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_Sign, typeof(C_SignDelegate));
-            return cSign(session, data, dataLen, signature, ref signatureLen);
+            return _delegates.C_Sign(session, data, dataLen, signature, ref signatureLen);
         }
 
         /// <summary>
@@ -975,8 +819,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_SignUpdateDelegate cSignUpdate = (C_SignUpdateDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_SignUpdate, typeof(C_SignUpdateDelegate));
-            return cSignUpdate(session, part, partLen);
+            return _delegates.C_SignUpdate(session, part, partLen);
         }
 
         /// <summary>
@@ -994,8 +837,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_SignFinalDelegate cSignFinal = (C_SignFinalDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_SignFinal, typeof(C_SignFinalDelegate));
-            return cSignFinal(session, signature, ref signatureLen);
+            return _delegates.C_SignFinal(session, signature, ref signatureLen);
         }
 
         /// <summary>
@@ -1010,8 +852,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_SignRecoverInitDelegate cSignRecoverInit = (C_SignRecoverInitDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_SignRecoverInit, typeof(C_SignRecoverInitDelegate));
-            return cSignRecoverInit(session, ref mechanism, key);
+            return _delegates.C_SignRecoverInit(session, ref mechanism, key);
         }
 
         /// <summary>
@@ -1031,8 +872,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_SignRecoverDelegate cSignRecover = (C_SignRecoverDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_SignRecover, typeof(C_SignRecoverDelegate));
-            return cSignRecover(session, data, dataLen, signature, ref signatureLen);
+            return _delegates.C_SignRecover(session, data, dataLen, signature, ref signatureLen);
         }
 
         /// <summary>
@@ -1047,8 +887,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_VerifyInitDelegate cVerifyInit = (C_VerifyInitDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_VerifyInit, typeof(C_VerifyInitDelegate));
-            return cVerifyInit(session, ref mechanism, key);
+            return _delegates.C_VerifyInit(session, ref mechanism, key);
         }
 
         /// <summary>
@@ -1065,8 +904,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_VerifyDelegate cVerify = (C_VerifyDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_Verify, typeof(C_VerifyDelegate));
-            return cVerify(session, data, dataLen, signature, signatureLen);
+            return _delegates.C_Verify(session, data, dataLen, signature, signatureLen);
         }
 
         /// <summary>
@@ -1081,8 +919,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_VerifyUpdateDelegate cVerifyUpdate = (C_VerifyUpdateDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_VerifyUpdate, typeof(C_VerifyUpdateDelegate));
-            return cVerifyUpdate(session, part, partLen);
+            return _delegates.C_VerifyUpdate(session, part, partLen);
         }
 
         /// <summary>
@@ -1097,8 +934,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_VerifyFinalDelegate cVerifyFinal = (C_VerifyFinalDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_VerifyFinal, typeof(C_VerifyFinalDelegate));
-            return cVerifyFinal(session, signature, signatureLen);
+            return _delegates.C_VerifyFinal(session, signature, signatureLen);
         }
 
         /// <summary>
@@ -1113,8 +949,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_VerifyRecoverInitDelegate cVerifyRecoverInit = (C_VerifyRecoverInitDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_VerifyRecoverInit, typeof(C_VerifyRecoverInitDelegate));
-            return cVerifyRecoverInit(session, ref mechanism, key);
+            return _delegates.C_VerifyRecoverInit(session, ref mechanism, key);
         }
 
         /// <summary>
@@ -1134,8 +969,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_VerifyRecoverDelegate cVerifyRecover = (C_VerifyRecoverDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_VerifyRecover, typeof(C_VerifyRecoverDelegate));
-            return cVerifyRecover(session, signature, signatureLen, data, ref dataLen);
+            return _delegates.C_VerifyRecover(session, signature, signatureLen, data, ref dataLen);
         }
 
         /// <summary>
@@ -1155,8 +989,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_DigestEncryptUpdateDelegate cDigestEncryptUpdate = (C_DigestEncryptUpdateDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_DigestEncryptUpdate, typeof(C_DigestEncryptUpdateDelegate));
-            return cDigestEncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
+            return _delegates.C_DigestEncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
         }
 
         /// <summary>
@@ -1176,8 +1009,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_DecryptDigestUpdateDelegate cDecryptDigestUpdate = (C_DecryptDigestUpdateDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_DecryptDigestUpdate, typeof(C_DecryptDigestUpdateDelegate));
-            return cDecryptDigestUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
+            return _delegates.C_DecryptDigestUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
         }
 
         /// <summary>
@@ -1197,8 +1029,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_SignEncryptUpdateDelegate cSignEncryptUpdate = (C_SignEncryptUpdateDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_SignEncryptUpdate, typeof(C_SignEncryptUpdateDelegate));
-            return cSignEncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
+            return _delegates.C_SignEncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
         }
 
         /// <summary>
@@ -1218,8 +1049,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_DecryptVerifyUpdateDelegate cDecryptVerifyUpdate = (C_DecryptVerifyUpdateDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_DecryptVerifyUpdate, typeof(C_DecryptVerifyUpdateDelegate));
-            return cDecryptVerifyUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
+            return _delegates.C_DecryptVerifyUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
         }
 
         /// <summary>
@@ -1236,8 +1066,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_GenerateKeyDelegate cGenerateKey = (C_GenerateKeyDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GenerateKey, typeof(C_GenerateKeyDelegate));
-            return cGenerateKey(session, ref mechanism, template, count, ref key);
+            return _delegates.C_GenerateKey(session, ref mechanism, template, count, ref key);
         }
 
         /// <summary>
@@ -1257,8 +1086,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_GenerateKeyPairDelegate cGenerateKeyPair = (C_GenerateKeyPairDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GenerateKeyPair, typeof(C_GenerateKeyPairDelegate));
-            return cGenerateKeyPair(session, ref mechanism, publicKeyTemplate, publicKeyAttributeCount, privateKeyTemplate, privateKeyAttributeCount, ref publicKey, ref privateKey);
+            return _delegates.C_GenerateKeyPair(session, ref mechanism, publicKeyTemplate, publicKeyAttributeCount, privateKeyTemplate, privateKeyAttributeCount, ref publicKey, ref privateKey);
         }
 
         /// <summary>
@@ -1279,8 +1107,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_WrapKeyDelegate cWrapKey = (C_WrapKeyDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_WrapKey, typeof(C_WrapKeyDelegate));
-            return cWrapKey(session, ref mechanism, wrappingKey, key, wrappedKey, ref wrappedKeyLen);
+            return _delegates.C_WrapKey(session, ref mechanism, wrappingKey, key, wrappedKey, ref wrappedKeyLen);
         }
 
         /// <summary>
@@ -1300,8 +1127,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_UnwrapKeyDelegate cUnwrapKey = (C_UnwrapKeyDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_UnwrapKey, typeof(C_UnwrapKeyDelegate));
-            return cUnwrapKey(session, ref mechanism, unwrappingKey, wrappedKey, wrappedKeyLen, template, attributeCount, ref key);
+            return _delegates.C_UnwrapKey(session, ref mechanism, unwrappingKey, wrappedKey, wrappedKeyLen, template, attributeCount, ref key);
         }
 
         /// <summary>
@@ -1319,8 +1145,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_DeriveKeyDelegate cDeriveKey = (C_DeriveKeyDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_DeriveKey, typeof(C_DeriveKeyDelegate));
-            return cDeriveKey(session, ref mechanism, baseKey, template, attributeCount, ref key);
+            return _delegates.C_DeriveKey(session, ref mechanism, baseKey, template, attributeCount, ref key);
         }
 
         /// <summary>
@@ -1335,8 +1160,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_SeedRandomDelegate cSeedRandom = (C_SeedRandomDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_SeedRandom, typeof(C_SeedRandomDelegate));
-            return cSeedRandom(session, seed, seedLen);
+            return _delegates.C_SeedRandom(session, seed, seedLen);
         }
 
         /// <summary>
@@ -1351,8 +1175,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_GenerateRandomDelegate cGenerateRandom = (C_GenerateRandomDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GenerateRandom, typeof(C_GenerateRandomDelegate));
-            return cGenerateRandom(session, randomData, randomLen);
+            return _delegates.C_GenerateRandom(session, randomData, randomLen);
         }
 
         /// <summary>
@@ -1365,8 +1188,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_GetFunctionStatusDelegate cGetFunctionStatus = (C_GetFunctionStatusDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_GetFunctionStatus, typeof(C_GetFunctionStatusDelegate));
-            return cGetFunctionStatus(session);
+            return _delegates.C_GetFunctionStatus(session);
         }
 
         /// <summary>
@@ -1379,8 +1201,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_CancelFunctionDelegate cCancelFunction = (C_CancelFunctionDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_CancelFunction, typeof(C_CancelFunctionDelegate));
-            return cCancelFunction(session);
+            return _delegates.C_CancelFunction(session);
         }
 
         /// <summary>
@@ -1395,8 +1216,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            C_WaitForSlotEventDelegate cWaitForSlotEvent = (C_WaitForSlotEventDelegate)Marshal.GetDelegateForFunctionPointer(_functionList.C_WaitForSlotEvent, typeof(C_WaitForSlotEventDelegate));
-            return cWaitForSlotEvent(flags, ref slot, reserved);
+            return _delegates.C_WaitForSlotEvent(flags, ref slot, reserved);
         }
 
         #region IDisposable

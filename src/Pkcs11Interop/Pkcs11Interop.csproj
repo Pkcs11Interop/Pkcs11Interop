@@ -415,6 +415,7 @@
     <Compile Include="LowLevelAPI4\MechanismParams\CK_X9_42_DH2_DERIVE_PARAMS.cs" />
     <Compile Include="LowLevelAPI4\MechanismParams\CK_X9_42_MQV_DERIVE_PARAMS.cs" />
     <Compile Include="Common\NativeMethods.cs" />
+    <Compile Include="LowLevelAPI4\NativeMethods.cs" />
     <Compile Include="LowLevelAPI4\Pkcs11.cs" />
     <Compile Include="Common\UnmanagedLibrary.cs" />
     <Compile Include="Common\UnmanagedMemory.cs" />
@@ -592,6 +593,7 @@
     <Compile Include="LowLevelAPI8\MechanismParams\CK_X9_42_MQV_DERIVE_PARAMS.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LowLevelAPI8\NativeMethods.cs" />
     <Compile Include="LowLevelAPI8\Pkcs11.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -31,6 +31,11 @@ namespace Net.Pkcs11Interop.Tests
         /// Relative name or absolute path of unmanaged PKCS#11 library provided by smartcard or HSM vendor.
         /// </summary>
         public static string Pkcs11LibraryPath = @"libpkcs11-mock.so";
+#elif __IOS__
+		/// <summary>
+		/// Relative name or absolute path of unmanaged PKCS#11 library provided by smartcard or HSM vendor.
+		/// </summary>
+		public static string Pkcs11LibraryPath = null;
 #else
         /// <summary>
         /// Relative name or absolute path of unmanaged PKCS#11 library provided by smartcard or HSM vendor.

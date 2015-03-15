@@ -46,9 +46,6 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="useOsLocking">Flag indicating whether PKCS#11 library can use the native operation system threading model for locking. Should be set to true in all multithreaded applications.</param>
         public Pkcs11(string libraryPath, bool useOsLocking)
         {
-            if (libraryPath == null)
-                throw new ArgumentNullException("libraryPath");
-
             if (UnmanagedLong.Size == 4)
                 _p11_4 = new HighLevelAPI4.Pkcs11(libraryPath, useOsLocking);
             else
@@ -63,9 +60,6 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="useGetFunctionList">Flag indicating whether cryptoki function pointers should be acquired via C_GetFunctionList (true) or via platform native function (false)</param>
         public Pkcs11(string libraryPath, bool useOsLocking, bool useGetFunctionList)
         {
-            if (libraryPath == null)
-                throw new ArgumentNullException("libraryPath");
-
             if (UnmanagedLong.Size == 4)
                 _p11_4 = new HighLevelAPI4.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
             else
