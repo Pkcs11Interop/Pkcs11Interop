@@ -877,6 +877,9 @@
     <Compile Include="..\Pkcs11Interop\LowLevelAPI4\MechanismParams\CK_X9_42_MQV_DERIVE_PARAMS.cs">
       <Link>LowLevelAPI4\MechanismParams\CK_X9_42_MQV_DERIVE_PARAMS.cs</Link>
     </Compile>
+    <Compile Include="..\Pkcs11Interop\LowLevelAPI4\NativeMethods.cs">
+      <Link>LowLevelAPI4\NativeMethods.cs</Link>
+    </Compile>
     <Compile Include="..\Pkcs11Interop\LowLevelAPI4\Pkcs11.cs">
       <Link>LowLevelAPI4\Pkcs11.cs</Link>
     </Compile>
@@ -1059,6 +1062,9 @@
     </Compile>
     <Compile Include="..\Pkcs11Interop\LowLevelAPI8\MechanismParams\CK_X9_42_MQV_DERIVE_PARAMS.cs">
       <Link>LowLevelAPI8\MechanismParams\CK_X9_42_MQV_DERIVE_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\Pkcs11Interop\LowLevelAPI8\NativeMethods.cs">
+      <Link>LowLevelAPI8\NativeMethods.cs</Link>
     </Compile>
     <Compile Include="..\Pkcs11Interop\LowLevelAPI8\Pkcs11.cs">
       <Link>LowLevelAPI8\Pkcs11.cs</Link>
