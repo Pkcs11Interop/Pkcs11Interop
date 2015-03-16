@@ -40,6 +40,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                             ?module-path=pkcs11.dll&
                             pin-value=11111111>";
 
+			Assert.IsNotNull(uri);
+
             // ...or it can be easily constructed with Pkcs11UriBuilder
             Pkcs11UriBuilder pkcs11UriBuilder = new Pkcs11UriBuilder();
             pkcs11UriBuilder.Serial = "7BFF2737350B262C";
@@ -49,6 +51,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             pkcs11UriBuilder.PinValue = "11111111";
             uri = pkcs11UriBuilder.ToString();
 
+			Assert.IsNotNull(uri);
+
             // Warning: Please note that PIN stored in PKCS#11 URI can pose a security risk and therefore other options
             //          should be carefully considered. For example an application may ask for a PIN with a GUI dialog etc.
 
@@ -56,6 +60,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             byte[] signature = SignData(ConvertUtils.Utf8StringToBytes("Hello world"), Settings.PrivateKeyUri);
 
             // Do something interesting with the signature
+			Assert.IsNotNull(signature);
         }
 
         /// <summary>

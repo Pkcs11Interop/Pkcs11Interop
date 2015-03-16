@@ -52,7 +52,7 @@ namespace Net.Pkcs11Interop.Tests.Common
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -71,7 +71,7 @@ namespace Net.Pkcs11Interop.Tests.Common
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -90,7 +90,7 @@ namespace Net.Pkcs11Interop.Tests.Common
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -109,7 +109,7 @@ namespace Net.Pkcs11Interop.Tests.Common
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -319,7 +319,7 @@ namespace Net.Pkcs11Interop.Tests.Common
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -338,7 +338,7 @@ namespace Net.Pkcs11Interop.Tests.Common
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -357,7 +357,7 @@ namespace Net.Pkcs11Interop.Tests.Common
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -517,7 +517,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -584,7 +584,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -622,7 +622,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -687,7 +687,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -725,7 +725,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -790,7 +790,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -828,7 +828,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -893,7 +893,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -931,7 +931,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -996,7 +996,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1034,7 +1034,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1099,7 +1099,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1137,7 +1137,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1212,7 +1212,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1241,7 +1241,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1270,7 +1270,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1318,7 +1318,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1347,7 +1347,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1366,7 +1366,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1431,7 +1431,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1469,7 +1469,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1534,7 +1534,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1572,7 +1572,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1627,7 +1627,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1642,7 +1642,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1661,7 +1661,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1680,7 +1680,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1735,7 +1735,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1773,7 +1773,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1835,7 +1835,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1854,7 +1854,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1873,7 +1873,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1940,7 +1940,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1959,7 +1959,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1978,7 +1978,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1997,7 +1997,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -2035,7 +2035,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -2070,7 +2070,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -2101,7 +2101,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -2141,7 +2141,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -2181,7 +2181,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -2227,7 +2227,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -2265,7 +2265,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -2307,7 +2307,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -2345,7 +2345,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -2387,7 +2387,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -2425,7 +2425,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -2467,7 +2467,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -2505,7 +2505,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -2540,7 +2540,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -2571,7 +2571,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -2612,7 +2612,7 @@ sollicitudin bibendum.";
             try
             {
                 // Parse URI
-                Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
+                new Pkcs11Uri(uri);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
