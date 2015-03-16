@@ -47,7 +47,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
         {
             try
             {
-                if (libraryPath != null)
+				if (!string.IsNullOrEmpty(libraryPath))
                     _libraryHandle = UnmanagedLibrary.Load(libraryPath);
 
                 _delegates = new Delegates(_libraryHandle, true);
@@ -68,7 +68,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
         {
             try
             {
-                if (libraryPath != null)
+				if (!string.IsNullOrEmpty(libraryPath))
                     _libraryHandle = UnmanagedLibrary.Load(libraryPath);
 
                 _delegates = new Delegates(_libraryHandle, useGetFunctionList);
