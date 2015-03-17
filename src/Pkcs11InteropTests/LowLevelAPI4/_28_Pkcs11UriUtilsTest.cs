@@ -32,8 +32,8 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI4
         [Test()]
         public void _01_Pkcs11UriInSignatureCreationApplication()
         {
-			if (UnmanagedLong.Size != 4)
-				Assert.Inconclusive("Test cannot be executed on this platform");
+            if (UnmanagedLong.Size != 4)
+                Assert.Inconclusive("Test cannot be executed on this platform");
 
             // PKCS#11 URI can be acquired i.e. from configuration file as a simple string...
             string uri = @"<pkcs11:serial=7BFF2737350B262C;
@@ -42,7 +42,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI4
                             ?module-path=pkcs11.dll&
                             pin-value=11111111>";
 
-			Assert.IsNotNull(uri);
+            Assert.IsNotNull(uri);
 
             // ...or it can be easily constructed with Pkcs11UriBuilder
             Pkcs11UriBuilder pkcs11UriBuilder = new Pkcs11UriBuilder();
@@ -53,7 +53,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI4
             pkcs11UriBuilder.PinValue = "11111111";
             uri = pkcs11UriBuilder.ToString();
 
-			Assert.IsNotNull(uri);
+            Assert.IsNotNull(uri);
 
             // Warning: Please note that PIN stored in PKCS#11 URI can pose a security risk and therefore other options
             //          should be carefully considered. For example an application may ask for a PIN with a GUI dialog etc.
@@ -62,7 +62,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI4
             byte[] signature = SignData(ConvertUtils.Utf8StringToBytes("Hello world"), Settings.PrivateKeyUri);
 
             // Do something interesting with the signature
-			Assert.IsNotNull(signature);
+            Assert.IsNotNull(signature);
         }
 
         /// <summary>

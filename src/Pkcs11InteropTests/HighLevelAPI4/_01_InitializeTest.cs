@@ -31,8 +31,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _01_BasicPkcs11DisposeTest()
         {
-			if (UnmanagedLong.Size != 4)
-				Assert.Inconclusive("Test cannot be executed on this platform");
+            if (UnmanagedLong.Size != 4)
+                Assert.Inconclusive("Test cannot be executed on this platform");
 
             // Unmanaged PKCS#11 library is loaded by the constructor of Pkcs11 class.
             // Every PKCS#11 library needs to be initialized with C_Initialize method
@@ -53,8 +53,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _02_UsingPkcs11DisposeTest()
         {
-			if (UnmanagedLong.Size != 4)
-				Assert.Inconclusive("Test cannot be executed on this platform");
+            if (UnmanagedLong.Size != 4)
+                Assert.Inconclusive("Test cannot be executed on this platform");
 
             // Pkcs11 class can be used in using statement which defines a scope 
             // at the end of which an object will be disposed.
@@ -70,8 +70,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _03_SingleThreadedInitializeTest()
         {
-			if (UnmanagedLong.Size != 4)
-				Assert.Inconclusive("Test cannot be executed on this platform");
+            if (UnmanagedLong.Size != 4)
+                Assert.Inconclusive("Test cannot be executed on this platform");
 
             // If an application will not be accessing PKCS#11 library from multiple threads
             // simultaneously, it should specify "false" as a value of "useOsLocking" parameter.
@@ -87,8 +87,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _04_MultiThreadedInitializeTest()
         {
-			if (UnmanagedLong.Size != 4)
-				Assert.Inconclusive("Test cannot be executed on this platform");
+            if (UnmanagedLong.Size != 4)
+                Assert.Inconclusive("Test cannot be executed on this platform");
 
             // If an application will be accessing PKCS#11 library from multiple threads
             // simultaneously, it should specify "true" as a value of "useOsLocking" parameter.
@@ -105,8 +105,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _05_Pkcs11WithGetFunctionListTest()
         {
-			if (UnmanagedLong.Size != 4)
-				Assert.Inconclusive("Test cannot be executed on this platform");
+            if (UnmanagedLong.Size != 4)
+                Assert.Inconclusive("Test cannot be executed on this platform");
 
             // Before an application can perform any cryptographic operations with Cryptoki library 
             // it has to obtain function pointers for all the Cryptoki API routines present in the library.
@@ -127,8 +127,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _06_Pkcs11WithoutGetFunctionListTest()
         {
-			if (UnmanagedLong.Size != 4)
-				Assert.Inconclusive("Test cannot be executed on this platform");
+            if (UnmanagedLong.Size != 4)
+                Assert.Inconclusive("Test cannot be executed on this platform");
 
             // Before an application can perform any cryptographic operations with Cryptoki library 
             // it has to obtain function pointers for all the Cryptoki API routines present in the library.
