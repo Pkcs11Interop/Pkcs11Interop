@@ -52,7 +52,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI8.MechanismParams
             _lowLevelStruct.PrfData = IntPtr.Zero;
             _lowLevelStruct.PrfDataLen = 0;
             _lowLevelStruct.Password = IntPtr.Zero;
-            _lowLevelStruct.PasswordLen = 0;
+            _lowLevelStruct.PasswordLen = IntPtr.Zero;
 
             _lowLevelStruct.SaltSource = saltSource;
 
@@ -78,7 +78,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI8.MechanismParams
             {
                 _lowLevelStruct.Password = Common.UnmanagedMemory.Allocate(password.Length);
                 Common.UnmanagedMemory.Write(_lowLevelStruct.Password, password);
-                _lowLevelStruct.PasswordLen = Convert.ToUInt64(password.Length);
+
+                ulong passwordLength = Convert.ToUInt32(password.Length);
+                _lowLevelStruct.PasswordLen = Common.UnmanagedMemory.Allocate(UnmanagedMemory.SizeOf(typeof(ulong)));
+                Common.UnmanagedMemory.Write(_lowLevelStruct.PasswordLen, BitConverter.GetBytes(passwordLength));
             }
         }
         
@@ -128,7 +131,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI8.MechanismParams
                 Common.UnmanagedMemory.Free(ref _lowLevelStruct.PrfData);
                 _lowLevelStruct.PrfDataLen = 0;
                 Common.UnmanagedMemory.Free(ref _lowLevelStruct.Password);
-                _lowLevelStruct.PasswordLen = 0;
+                Common.UnmanagedMemory.Free(ref _lowLevelStruct.PasswordLen);
 
                 _disposed = true;
             }

@@ -67,6 +67,6 @@ namespace Net.Pkcs11Interop.LowLevelAPI8.MechanismParams
         /// <summary>
         /// Length in bytes of the password information
         /// </summary>
-        public ulong PasswordLen;
+        public IntPtr PasswordLen;
     }
 }
