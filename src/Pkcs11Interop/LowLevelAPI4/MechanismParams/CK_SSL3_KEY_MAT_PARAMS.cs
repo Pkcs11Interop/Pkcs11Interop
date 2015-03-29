@@ -42,6 +42,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4.MechanismParams
         /// <summary>
         /// Flag which indicates whether the keys have to be derived for an export version of the protocol
         /// </summary>
+        [MarshalAs(UnmanagedType.U1)]
         public bool IsExport;
 
         /// <summary>

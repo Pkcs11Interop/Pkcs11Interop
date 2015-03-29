@@ -32,7 +32,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI4
     internal delegate CKR C_GetFunctionListDelegate(out IntPtr functionList);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_GetSlotListDelegate(bool tokenPresent, uint[] slotList, ref uint count);
+    internal delegate CKR C_GetSlotListDelegate([MarshalAs(UnmanagedType.U1)] bool tokenPresent, uint[] slotList, ref uint count);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     internal delegate CKR C_GetSlotInfoDelegate(uint slotId, ref CK_SLOT_INFO info);

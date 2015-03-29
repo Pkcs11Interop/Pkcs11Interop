@@ -27,6 +27,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI8.MechanismParams
         /// <summary>
         /// Option for generating the key (called a TEK). True if the sender (originator) generates the TEK, false if the recipient is regenerating the TEK.
         /// </summary>
+        [MarshalAs(UnmanagedType.U1)]
         public bool IsSender;
 
         /// <summary>
