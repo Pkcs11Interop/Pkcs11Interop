@@ -129,8 +129,46 @@ namespace Net.Pkcs11Interop.Common
                 if ((value != 4) && (value != 8))
                     throw new ArgumentException();
 
-                // Automatic platform detection can be overriden if needed
+                // Automatic value detection can be overriden if needed
                 _unmanagedLongSize = value;
+            }
+        }
+
+        /// <summary>
+        /// Controls the alignment of unmanaged struct fields
+        /// </summary>
+        public static int _structPackingSize = -1;
+
+        /// <summary>
+        /// Controls the alignment of unmanaged struct fields
+        /// </summary>
+        public static int StructPackingSize
+        {
+            get
+            {
+                if (_structPackingSize != -1)
+                    return _structPackingSize;
+
+                if (IsLinux || IsMacOsX)
+                {
+                    // On UNIX platforms CRYPTOKI structs are usually packed with the default byte alignment
+                    _structPackingSize = 0;
+                }
+                else
+                {
+                    // On Windows platforms CRYPTOKI structs are usually packed with 1-byte alignment
+                    _structPackingSize = 1;
+                }
+
+                return _structPackingSize;
+            }
+            set
+            {
+                if ((value != 0) && (value != 1))
+                    throw new ArgumentException();
+
+                // Automatic value detection can be overriden if needed
+                _structPackingSize = value;
             }
         }
 
