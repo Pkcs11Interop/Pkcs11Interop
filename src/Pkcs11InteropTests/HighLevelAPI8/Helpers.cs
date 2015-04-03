@@ -14,12 +14,12 @@
  */
 
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.HighLevelAPI8;
+using Net.Pkcs11Interop.HighLevelAPI81;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 
-namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
+namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
 {
     /// <summary>
     /// Helper methods for HighLevelAPI tests.

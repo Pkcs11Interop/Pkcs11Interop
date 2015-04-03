@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkRc2CbcParams
         /// </summary>
-        private HighLevelAPI8.MechanismParams.CkRc2CbcParams _params8 = null;
+        private HighLevelAPI81.MechanismParams.CkRc2CbcParams _params8 = null;
         
         /// <summary>
         /// Initializes a new instance of the CkRc2CbcParams class.
@@ -43,7 +43,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI41.MechanismParams.CkRc2CbcParams(Convert.ToUInt32(effectiveBits), iv);
             else
-                _params8 = new HighLevelAPI8.MechanismParams.CkRc2CbcParams(effectiveBits, iv);
+                _params8 = new HighLevelAPI81.MechanismParams.CkRc2CbcParams(effectiveBits, iv);
         }
         
         #region IMechanismParams

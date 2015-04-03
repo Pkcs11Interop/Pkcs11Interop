@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific TokenInfo
         /// </summary>
-        private HighLevelAPI8.TokenInfo _tokenInfo8 = null;
+        private HighLevelAPI81.TokenInfo _tokenInfo8 = null;
 
         /// <summary>
         /// PKCS#11 handle of slot
@@ -277,7 +277,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Converts platform specific TokenInfo to platfrom neutral TokenInfo
         /// </summary>
         /// <param name="tokenInfo">Platform specific TokenInfo</param>
-        internal TokenInfo(HighLevelAPI8.TokenInfo tokenInfo)
+        internal TokenInfo(HighLevelAPI81.TokenInfo tokenInfo)
         {
             if (tokenInfo == null)
                 throw new ArgumentNullException("tokenInfo");

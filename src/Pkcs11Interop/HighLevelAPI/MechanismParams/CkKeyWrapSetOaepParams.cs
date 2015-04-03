@@ -36,7 +36,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkKeyWrapSetOaepParams
         /// </summary>
-        private HighLevelAPI8.MechanismParams.CkKeyWrapSetOaepParams _params8 = null;
+        private HighLevelAPI81.MechanismParams.CkKeyWrapSetOaepParams _params8 = null;
 
         /// <summary>
         /// Initializes a new instance of the CkKeyWrapSetOaepParams class.
@@ -48,7 +48,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI41.MechanismParams.CkKeyWrapSetOaepParams(bc, x);
             else
-                _params8 = new HighLevelAPI8.MechanismParams.CkKeyWrapSetOaepParams(bc, x);
+                _params8 = new HighLevelAPI81.MechanismParams.CkKeyWrapSetOaepParams(bc, x);
         }
         
         #region IMechanismParams

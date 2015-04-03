@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific TokenFlags
         /// </summary>
-        private HighLevelAPI8.TokenFlags _tokenFlags8 = null;
+        private HighLevelAPI81.TokenFlags _tokenFlags8 = null;
 
         /// <summary>
         /// Bits flags indicating capabilities and status of the device
@@ -258,7 +258,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Converts platform specific TokenFlags to platfrom neutral TokenFlags
         /// </summary>
         /// <param name="tokenFlags">Platform specific TokenFlags</param>
-        internal TokenFlags(HighLevelAPI8.TokenFlags tokenFlags)
+        internal TokenFlags(HighLevelAPI81.TokenFlags tokenFlags)
         {
             if (tokenFlags == null)
                 throw new ArgumentNullException("tokenFlags");

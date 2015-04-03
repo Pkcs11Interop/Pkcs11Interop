@@ -15,10 +15,10 @@
 
 using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.HighLevelAPI8;
+using Net.Pkcs11Interop.HighLevelAPI81;
 using NUnit.Framework;
 
-namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
+namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
 {
     /// <summary>
     /// CreateObject, DestroyObject, CopyObject and GetObjectSize tests.

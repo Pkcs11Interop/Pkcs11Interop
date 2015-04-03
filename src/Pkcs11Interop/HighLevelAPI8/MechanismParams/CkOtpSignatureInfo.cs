@@ -17,7 +17,7 @@ using System;
 using System.Collections.Generic;
 using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
 
-namespace Net.Pkcs11Interop.HighLevelAPI8.MechanismParams
+namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 {
     /// <summary>
     /// Parameters returned by all OTP mechanisms in successful calls to Sign method

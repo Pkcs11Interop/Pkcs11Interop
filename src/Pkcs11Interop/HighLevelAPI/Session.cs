@@ -38,7 +38,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific Session
         /// </summary>
-        private HighLevelAPI8.Session _session8 = null;
+        private HighLevelAPI81.Session _session8 = null;
 
         /// <summary>
         /// PKCS#11 handle of session
@@ -70,7 +70,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Converts platform specific Session to platfrom neutral Session
         /// </summary>
         /// <param name="session">Platform specific Session</param>
-        internal Session(HighLevelAPI8.Session session)
+        internal Session(HighLevelAPI81.Session session)
         {
             if (session == null)
                 throw new ArgumentNullException("session");
@@ -170,7 +170,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             }
             else
             {
-                HighLevelAPI8.SessionInfo hlaSessionInfo = _session8.GetSessionInfo();
+                HighLevelAPI81.SessionInfo hlaSessionInfo = _session8.GetSessionInfo();
                 return new SessionInfo(hlaSessionInfo);
             }
         }
@@ -280,8 +280,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             }
             else
             {
-                List<HighLevelAPI8.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI8List(attributes);
-                HighLevelAPI8.ObjectHandle hlaObjectHandle = _session8.CreateObject(hlaAttributes);
+                List<HighLevelAPI81.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI8List(attributes);
+                HighLevelAPI81.ObjectHandle hlaObjectHandle = _session8.CreateObject(hlaAttributes);
                 return new ObjectHandle(hlaObjectHandle);
             }
         }
@@ -308,8 +308,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             }
             else
             {
-                List<HighLevelAPI8.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI8List(attributes);
-                HighLevelAPI8.ObjectHandle hlaObjectHandle = _session8.CopyObject(objectHandle.ObjectHandle8, hlaAttributes);
+                List<HighLevelAPI81.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI8List(attributes);
+                HighLevelAPI81.ObjectHandle hlaObjectHandle = _session8.CopyObject(objectHandle.ObjectHandle8, hlaAttributes);
                 return new ObjectHandle(hlaObjectHandle);
             }
         }
@@ -409,7 +409,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             }
             else
             {
-                List<HighLevelAPI8.ObjectAttribute> hlaAttributes = _session8.GetAttributeValue(objectHandle.ObjectHandle8, attributes);
+                List<HighLevelAPI81.ObjectAttribute> hlaAttributes = _session8.GetAttributeValue(objectHandle.ObjectHandle8, attributes);
                 return ObjectAttribute.ConvertFromHighLevelAPI8List(hlaAttributes);
             }
         }
@@ -440,7 +440,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             }
             else
             {
-                List<HighLevelAPI8.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI8List(attributes);
+                List<HighLevelAPI81.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI8List(attributes);
                 _session8.SetAttributeValue(objectHandle.ObjectHandle8, hlaAttributes);
             }
         }
@@ -461,7 +461,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             }
             else
             {
-                List<HighLevelAPI8.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI8List(attributes);
+                List<HighLevelAPI81.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI8List(attributes);
                 _session8.FindObjectsInit(hlaAttributes);
             }
         }
@@ -483,7 +483,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             }
             else
             {
-                List<HighLevelAPI8.ObjectHandle> hlaObjectHandles = _session8.FindObjects(objectCount);
+                List<HighLevelAPI81.ObjectHandle> hlaObjectHandles = _session8.FindObjects(objectCount);
                 return ObjectHandle.ConvertFromHighLevelAPI8List(hlaObjectHandles);
             }
         }
@@ -520,8 +520,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             }
             else
             {
-                List<HighLevelAPI8.ObjectAttribute> hlaObjectAttributes = ObjectAttribute.ConvertToHighLevelAPI8List(attributes);
-                List<HighLevelAPI8.ObjectHandle> hlaObjectHandles = _session8.FindAllObjects(hlaObjectAttributes);
+                List<HighLevelAPI81.ObjectAttribute> hlaObjectAttributes = ObjectAttribute.ConvertToHighLevelAPI8List(attributes);
+                List<HighLevelAPI81.ObjectHandle> hlaObjectHandles = _session8.FindAllObjects(hlaObjectAttributes);
                 return ObjectHandle.ConvertFromHighLevelAPI8List(hlaObjectHandles);
             }
         }
@@ -1500,8 +1500,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             }
             else
             {
-                List<HighLevelAPI8.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI8List(attributes);
-                HighLevelAPI8.ObjectHandle hlaObjectHandle = _session8.GenerateKey(mechanism.Mechanism8, hlaAttributes);
+                List<HighLevelAPI81.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI8List(attributes);
+                HighLevelAPI81.ObjectHandle hlaObjectHandle = _session8.GenerateKey(mechanism.Mechanism8, hlaAttributes);
                 return new ObjectHandle(hlaObjectHandle);
             }
         }
@@ -1537,11 +1537,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             }
             else
             {
-                List<HighLevelAPI8.ObjectAttribute> hlaPublicKeyAttributes = ObjectAttribute.ConvertToHighLevelAPI8List(publicKeyAttributes);
-                List<HighLevelAPI8.ObjectAttribute> hlaPrivateKeyAttributes = ObjectAttribute.ConvertToHighLevelAPI8List(privateKeyAttributes);
+                List<HighLevelAPI81.ObjectAttribute> hlaPublicKeyAttributes = ObjectAttribute.ConvertToHighLevelAPI8List(publicKeyAttributes);
+                List<HighLevelAPI81.ObjectAttribute> hlaPrivateKeyAttributes = ObjectAttribute.ConvertToHighLevelAPI8List(privateKeyAttributes);
 
-                HighLevelAPI8.ObjectHandle hlaPublicKeyHandle = null;
-                HighLevelAPI8.ObjectHandle hlaPrivateKeyHandle = null;
+                HighLevelAPI81.ObjectHandle hlaPublicKeyHandle = null;
+                HighLevelAPI81.ObjectHandle hlaPrivateKeyHandle = null;
 
                 _session8.GenerateKeyPair(mechanism.Mechanism8, hlaPublicKeyAttributes, hlaPrivateKeyAttributes, out hlaPublicKeyHandle, out hlaPrivateKeyHandle);
 
@@ -1607,8 +1607,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             }
             else
             {
-                List<HighLevelAPI8.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI8List(attributes);
-                HighLevelAPI8.ObjectHandle unwrappedKeyHandle = _session8.UnwrapKey(mechanism.Mechanism8, unwrappingKeyHandle.ObjectHandle8, wrappedKey, hlaAttributes);
+                List<HighLevelAPI81.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI8List(attributes);
+                HighLevelAPI81.ObjectHandle unwrappedKeyHandle = _session8.UnwrapKey(mechanism.Mechanism8, unwrappingKeyHandle.ObjectHandle8, wrappedKey, hlaAttributes);
                 return new ObjectHandle(unwrappedKeyHandle);
             }
         }
@@ -1639,8 +1639,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             }
             else
             {
-                List<HighLevelAPI8.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI8List(attributes);
-                HighLevelAPI8.ObjectHandle unwrappedKeyHandle = _session8.DeriveKey(mechanism.Mechanism8, baseKeyHandle.ObjectHandle8, hlaAttributes);
+                List<HighLevelAPI81.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI8List(attributes);
+                HighLevelAPI81.ObjectHandle unwrappedKeyHandle = _session8.DeriveKey(mechanism.Mechanism8, baseKeyHandle.ObjectHandle8, hlaAttributes);
                 return new ObjectHandle(unwrappedKeyHandle);
             }
         }

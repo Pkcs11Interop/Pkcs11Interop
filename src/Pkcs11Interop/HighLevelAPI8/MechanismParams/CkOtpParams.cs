@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
 
-namespace Net.Pkcs11Interop.HighLevelAPI8.MechanismParams
+namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 {
     /// <summary>
     /// Parameters for OTP mechanisms in a generic fashion

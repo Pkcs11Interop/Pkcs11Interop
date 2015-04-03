@@ -36,7 +36,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkSsl3KeyMatOut
         /// </summary>
-        private HighLevelAPI8.MechanismParams.CkSsl3KeyMatOut _params8 = null;
+        private HighLevelAPI81.MechanismParams.CkSsl3KeyMatOut _params8 = null;
 
         /// <summary>
         /// Key handle for the resulting Client MAC Secret key
@@ -138,7 +138,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// Initializes a new instance of the CkSsl3KeyMatOut class.
         /// </summary>
         /// <param name='ckSsl3KeyMatOut'>Platform specific CkSsl3KeyMatOut</param>
-        internal CkSsl3KeyMatOut(HighLevelAPI8.MechanismParams.CkSsl3KeyMatOut ckSsl3KeyMatOut)
+        internal CkSsl3KeyMatOut(HighLevelAPI81.MechanismParams.CkSsl3KeyMatOut ckSsl3KeyMatOut)
         {
             if (ckSsl3KeyMatOut == null)
                 throw new ArgumentNullException("ckSsl3KeyMatOut");

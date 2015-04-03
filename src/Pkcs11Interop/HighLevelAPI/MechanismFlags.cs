@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific MechanismFlags
         /// </summary>
-        private HighLevelAPI8.MechanismFlags _mechanismFlags8 = null;
+        private HighLevelAPI81.MechanismFlags _mechanismFlags8 = null;
 
         /// <summary>
         /// Bits flags specifying mechanism capabilities
@@ -284,7 +284,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Converts platform specific MechanismFlags to platfrom neutral MechanismFlags
         /// </summary>
         /// <param name="mechanismFlags">Platform specific MechanismFlags</param>
-        internal MechanismFlags(HighLevelAPI8.MechanismFlags mechanismFlags)
+        internal MechanismFlags(HighLevelAPI81.MechanismFlags mechanismFlags)
         {
             if (mechanismFlags == null)
                 throw new ArgumentNullException("mechanismFlags");

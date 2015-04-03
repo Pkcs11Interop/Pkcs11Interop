@@ -83,11 +83,11 @@
  * \namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
  * \brief Classes that can hold parameters for various mechanisms usable by LowLevelAPI81
  * 
- * \namespace Net.Pkcs11Interop.HighLevelAPI8
+ * \namespace Net.Pkcs11Interop.HighLevelAPI81
  * \brief High level .NET friendly API for platforms where C 'long' type is 8 bytes long (Unix64)
  * 
- * \namespace Net.Pkcs11Interop.HighLevelAPI8.MechanismParams
- * \brief Classes that can hold parameters for various mechanisms usable by HighLevelAPI8
+ * \namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
+ * \brief Classes that can hold parameters for various mechanisms usable by HighLevelAPI81
  * 
  * \namespace Net.Pkcs11Interop.HighLevelAPI
  * \brief High level .NET friendly API usable for multiplatform development

@@ -17,7 +17,7 @@ using System;
 using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
 
-namespace Net.Pkcs11Interop.HighLevelAPI8
+namespace Net.Pkcs11Interop.HighLevelAPI81
 {
     /// <summary>
     /// Logical reader that potentially contains a token

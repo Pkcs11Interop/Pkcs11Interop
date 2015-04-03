@@ -51,12 +51,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific ObjectAttribute
         /// </summary>
-        private HighLevelAPI8.ObjectAttribute _objectAttribute8 = null;
+        private HighLevelAPI81.ObjectAttribute _objectAttribute8 = null;
 
         /// <summary>
         /// Platform specific ObjectAttribute
         /// </summary>
-        internal HighLevelAPI8.ObjectAttribute ObjectAttribute8
+        internal HighLevelAPI81.ObjectAttribute ObjectAttribute8
         {
             get
             {
@@ -111,7 +111,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Converts platform specific ObjectAttribute to platfrom neutral ObjectAttribute
         /// </summary>
         /// <param name="objectAttribute">Platform specific ObjectAttribute</param>
-        internal ObjectAttribute(HighLevelAPI8.ObjectAttribute objectAttribute)
+        internal ObjectAttribute(HighLevelAPI81.ObjectAttribute objectAttribute)
         {
             if (objectAttribute == null)
                 throw new ArgumentNullException("objectAttribute");
@@ -130,7 +130,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(Convert.ToUInt32(type));
             else
-                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type);
+                _objectAttribute8 = new HighLevelAPI81.ObjectAttribute(type);
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(type);
             else
-                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type);
+                _objectAttribute8 = new HighLevelAPI81.ObjectAttribute(type);
         }
 
         #endregion
@@ -159,7 +159,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(Convert.ToUInt32(type), Convert.ToUInt32(value));
             else
-                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
+                _objectAttribute8 = new HighLevelAPI81.ObjectAttribute(type, value);
         }
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(type, Convert.ToUInt32(value));
             else
-                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
+                _objectAttribute8 = new HighLevelAPI81.ObjectAttribute(type, value);
         }
 
         /// <summary>
@@ -185,7 +185,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(type, value);
             else
-                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
+                _objectAttribute8 = new HighLevelAPI81.ObjectAttribute(type, value);
         }
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(type, value);
             else
-                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
+                _objectAttribute8 = new HighLevelAPI81.ObjectAttribute(type, value);
         }
 
         /// <summary>
@@ -211,7 +211,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(type, value);
             else
-                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
+                _objectAttribute8 = new HighLevelAPI81.ObjectAttribute(type, value);
         }
 
         /// <summary>
@@ -243,7 +243,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(Convert.ToUInt32(type), value);
             else
-                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
+                _objectAttribute8 = new HighLevelAPI81.ObjectAttribute(type, value);
         }
 
         /// <summary>
@@ -256,7 +256,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(type, value);
             else
-                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
+                _objectAttribute8 = new HighLevelAPI81.ObjectAttribute(type, value);
         }
 
         /// <summary>
@@ -288,7 +288,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(Convert.ToUInt32(type), value);
             else
-                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
+                _objectAttribute8 = new HighLevelAPI81.ObjectAttribute(type, value);
         }
 
         /// <summary>
@@ -301,7 +301,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(type, value);
             else
-                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
+                _objectAttribute8 = new HighLevelAPI81.ObjectAttribute(type, value);
         }
 
         /// <summary>
@@ -333,7 +333,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(Convert.ToUInt32(type), value);
             else
-                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
+                _objectAttribute8 = new HighLevelAPI81.ObjectAttribute(type, value);
         }
 
         /// <summary>
@@ -346,7 +346,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(type, value);
             else
-                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
+                _objectAttribute8 = new HighLevelAPI81.ObjectAttribute(type, value);
         }
 
         /// <summary>
@@ -378,7 +378,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(Convert.ToUInt32(type), value);
             else
-                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
+                _objectAttribute8 = new HighLevelAPI81.ObjectAttribute(type, value);
         }
 
         /// <summary>
@@ -391,7 +391,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(type, value);
             else
-                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
+                _objectAttribute8 = new HighLevelAPI81.ObjectAttribute(type, value);
         }
 
         /// <summary>
@@ -427,8 +427,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             }
             else
             {
-                List<HighLevelAPI8.ObjectAttribute> attributes = ConvertToHighLevelAPI8List(value);
-                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, attributes);
+                List<HighLevelAPI81.ObjectAttribute> attributes = ConvertToHighLevelAPI8List(value);
+                _objectAttribute8 = new HighLevelAPI81.ObjectAttribute(type, attributes);
             }
         }
 
@@ -446,8 +446,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             }
             else
             {
-                List<HighLevelAPI8.ObjectAttribute> attributes = ConvertToHighLevelAPI8List(value);
-                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, attributes);
+                List<HighLevelAPI81.ObjectAttribute> attributes = ConvertToHighLevelAPI8List(value);
+                _objectAttribute8 = new HighLevelAPI81.ObjectAttribute(type, attributes);
             }
         }
 
@@ -475,12 +475,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             }
             else
             {
-                List<HighLevelAPI8.ObjectAttribute> attrs = _objectAttribute8.GetValueAsObjectAttributeList();
+                List<HighLevelAPI81.ObjectAttribute> attrs = _objectAttribute8.GetValueAsObjectAttributeList();
 
                 if (attrs != null)
                 {
                     objectAttributes = new List<ObjectAttribute>();
-                    foreach (HighLevelAPI8.ObjectAttribute objectAttribute in attrs)
+                    foreach (HighLevelAPI81.ObjectAttribute objectAttribute in attrs)
                         objectAttributes.Add(new ObjectAttribute(objectAttribute));
                 }
             }
@@ -514,7 +514,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             }
             else
             {
-                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
+                _objectAttribute8 = new HighLevelAPI81.ObjectAttribute(type, value);
             }
         }
 
@@ -540,7 +540,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             }
             else
             {
-                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
+                _objectAttribute8 = new HighLevelAPI81.ObjectAttribute(type, value);
             }
         }
 
@@ -588,7 +588,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(Convert.ToUInt32(type), value);
             else
-                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
+                _objectAttribute8 = new HighLevelAPI81.ObjectAttribute(type, value);
         }
         
         /// <summary>
@@ -601,7 +601,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(type, value);
             else
-                _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
+                _objectAttribute8 = new HighLevelAPI81.ObjectAttribute(type, value);
         }
         
         /// <summary>
@@ -666,13 +666,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         /// <param name="attributes">Platfrom neutral ObjectAttributes</param>
         /// <returns>Platform specific ObjectAttributes</returns>
-        internal static List<HighLevelAPI8.ObjectAttribute> ConvertToHighLevelAPI8List(List<ObjectAttribute> attributes)
+        internal static List<HighLevelAPI81.ObjectAttribute> ConvertToHighLevelAPI8List(List<ObjectAttribute> attributes)
         {
-            List<HighLevelAPI8.ObjectAttribute> hlaAttributes = null;
+            List<HighLevelAPI81.ObjectAttribute> hlaAttributes = null;
 
             if (attributes != null)
             {
-                hlaAttributes = new List<HighLevelAPI8.ObjectAttribute>();
+                hlaAttributes = new List<HighLevelAPI81.ObjectAttribute>();
                 for (int i = 0; i < attributes.Count; i++)
                     hlaAttributes.Add(attributes[i].ObjectAttribute8);
             }
@@ -685,7 +685,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         /// <param name="hlaAttributes">Platform specific ObjectAttributes</param>
         /// <returns>Platfrom neutral ObjectAttributes</returns>
-        internal static List<ObjectAttribute> ConvertFromHighLevelAPI8List(List<HighLevelAPI8.ObjectAttribute> hlaAttributes)
+        internal static List<ObjectAttribute> ConvertFromHighLevelAPI8List(List<HighLevelAPI81.ObjectAttribute> hlaAttributes)
         {
             List<ObjectAttribute> attributes = null;
 

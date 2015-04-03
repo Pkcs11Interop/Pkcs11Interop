@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkMacGeneralParams
         /// </summary>
-        private HighLevelAPI8.MechanismParams.CkMacGeneralParams _params8 = null;
+        private HighLevelAPI81.MechanismParams.CkMacGeneralParams _params8 = null;
 
         /// <summary>
         /// Initializes a new instance of the CkMacGeneralParams class.
@@ -42,7 +42,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI41.MechanismParams.CkMacGeneralParams(Convert.ToUInt32(macLength));
             else
-                _params8 = new HighLevelAPI8.MechanismParams.CkMacGeneralParams(macLength);
+                _params8 = new HighLevelAPI81.MechanismParams.CkMacGeneralParams(macLength);
         }
         
         #region IMechanismParams

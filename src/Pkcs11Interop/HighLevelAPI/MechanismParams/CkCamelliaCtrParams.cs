@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkCamelliaCtrParams
         /// </summary>
-        private HighLevelAPI8.MechanismParams.CkCamelliaCtrParams _params8 = null;
+        private HighLevelAPI81.MechanismParams.CkCamelliaCtrParams _params8 = null;
         
         /// <summary>
         /// Initializes a new instance of the CkCamelliaCtrParams class.
@@ -43,7 +43,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI41.MechanismParams.CkCamelliaCtrParams(Convert.ToUInt32(counterBits), cb);
             else
-                _params8 = new HighLevelAPI8.MechanismParams.CkCamelliaCtrParams(counterBits, cb);
+                _params8 = new HighLevelAPI81.MechanismParams.CkCamelliaCtrParams(counterBits, cb);
         }
         
         #region IMechanismParams

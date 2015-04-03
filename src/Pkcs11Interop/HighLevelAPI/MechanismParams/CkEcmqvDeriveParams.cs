@@ -36,7 +36,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkEcmqvDeriveParams
         /// </summary>
-        private HighLevelAPI8.MechanismParams.CkEcmqvDeriveParams _params8 = null;
+        private HighLevelAPI81.MechanismParams.CkEcmqvDeriveParams _params8 = null;
 
         /// <summary>
         /// Initializes a new instance of the CkEcmqvDeriveParams class.
@@ -53,7 +53,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI41.MechanismParams.CkEcmqvDeriveParams(Convert.ToUInt32(kdf), sharedData, publicData, Convert.ToUInt32(privateDataLen), privateData.ObjectHandle4, publicData2, publicKey.ObjectHandle4);
             else
-                _params8 = new HighLevelAPI8.MechanismParams.CkEcmqvDeriveParams(kdf, sharedData, publicData, privateDataLen, privateData.ObjectHandle8, publicData2, publicKey.ObjectHandle8);
+                _params8 = new HighLevelAPI81.MechanismParams.CkEcmqvDeriveParams(kdf, sharedData, publicData, privateDataLen, privateData.ObjectHandle8, publicData2, publicKey.ObjectHandle8);
         }
         
         #region IMechanismParams

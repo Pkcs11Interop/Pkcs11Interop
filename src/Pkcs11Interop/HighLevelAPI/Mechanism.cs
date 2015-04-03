@@ -50,12 +50,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific Mechanism
         /// </summary>
-        private HighLevelAPI8.Mechanism _mechanism8 = null;
+        private HighLevelAPI81.Mechanism _mechanism8 = null;
 
         /// <summary>
         /// Platform specific Mechanism
         /// </summary>
-        internal HighLevelAPI8.Mechanism Mechanism8
+        internal HighLevelAPI81.Mechanism Mechanism8
         {
             get
             {
@@ -96,7 +96,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Converts platform specific Mechanism to platfrom neutral Mechanism
         /// </summary>
         /// <param name="mechanism">Platform specific Mechanism</param>
-        internal Mechanism(HighLevelAPI8.Mechanism mechanism)
+        internal Mechanism(HighLevelAPI81.Mechanism mechanism)
         {
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
@@ -113,7 +113,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _mechanism4 = new HighLevelAPI41.Mechanism(Convert.ToUInt32(type));
             else
-                _mechanism8 = new HighLevelAPI8.Mechanism(type);
+                _mechanism8 = new HighLevelAPI81.Mechanism(type);
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _mechanism4 = new HighLevelAPI41.Mechanism(type);
             else
-                _mechanism8 = new HighLevelAPI8.Mechanism(type);
+                _mechanism8 = new HighLevelAPI81.Mechanism(type);
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _mechanism4 = new HighLevelAPI41.Mechanism(Convert.ToUInt32(type), parameter);
             else
-                _mechanism8 = new HighLevelAPI8.Mechanism(type, parameter);
+                _mechanism8 = new HighLevelAPI81.Mechanism(type, parameter);
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _mechanism4 = new HighLevelAPI41.Mechanism(type, parameter);
             else
-                _mechanism8 = new HighLevelAPI8.Mechanism(type, parameter);
+                _mechanism8 = new HighLevelAPI81.Mechanism(type, parameter);
         }
 
         /// <summary>
@@ -167,7 +167,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _mechanism4 = new HighLevelAPI41.Mechanism(Convert.ToUInt32(type), parameter);
             else
-                _mechanism8 = new HighLevelAPI8.Mechanism(type, parameter);
+                _mechanism8 = new HighLevelAPI81.Mechanism(type, parameter);
         }
 
         /// <summary>
@@ -183,7 +183,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _mechanism4 = new HighLevelAPI41.Mechanism(type, parameter);
             else
-                _mechanism8 = new HighLevelAPI8.Mechanism(type, parameter);
+                _mechanism8 = new HighLevelAPI81.Mechanism(type, parameter);
         }
 
         #region IDisposable

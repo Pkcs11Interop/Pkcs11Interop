@@ -16,7 +16,7 @@
 using System;
 using Net.Pkcs11Interop.Common;
 
-namespace Net.Pkcs11Interop.HighLevelAPI8
+namespace Net.Pkcs11Interop.HighLevelAPI81
 {
     /// <summary>
     /// Mechanism and its parameters (CK_MECHANISM alternative)

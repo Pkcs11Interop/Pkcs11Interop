@@ -36,7 +36,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkCmsSigParams
         /// </summary>
-        private HighLevelAPI8.MechanismParams.CkCmsSigParams _params8 = null;
+        private HighLevelAPI81.MechanismParams.CkCmsSigParams _params8 = null;
 
         /// <summary>
         /// Initializes a new instance of the CkCmsSigParams class.
@@ -58,7 +58,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             }
             else
             {
-                _params8 = new HighLevelAPI8.MechanismParams.CkCmsSigParams(certificateHandle.ObjectHandle8, signingMechanism, digestMechanism, contentType, requestedAttributes, requiredAttributes);
+                _params8 = new HighLevelAPI81.MechanismParams.CkCmsSigParams(certificateHandle.ObjectHandle8, signingMechanism, digestMechanism, contentType, requestedAttributes, requiredAttributes);
             }
         }
         

@@ -36,7 +36,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkKipParams
         /// </summary>
-        private HighLevelAPI8.MechanismParams.CkKipParams _params8 = null;
+        private HighLevelAPI81.MechanismParams.CkKipParams _params8 = null;
 
         /// <summary>
         /// Initializes a new instance of the CkKipParams class.
@@ -54,7 +54,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             }
             else
             {
-                _params8 = new HighLevelAPI8.MechanismParams.CkKipParams(mechanism, key.ObjectHandle8, seed);
+                _params8 = new HighLevelAPI81.MechanismParams.CkKipParams(mechanism, key.ObjectHandle8, seed);
             }
         }
         

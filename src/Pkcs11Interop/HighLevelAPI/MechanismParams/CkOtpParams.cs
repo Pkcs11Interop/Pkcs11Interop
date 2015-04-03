@@ -37,7 +37,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkOtpParams
         /// </summary>
-        private HighLevelAPI8.MechanismParams.CkOtpParams _params8 = null;
+        private HighLevelAPI81.MechanismParams.CkOtpParams _params8 = null;
 
         /// <summary>
         /// Initializes a new instance of the CkOtpParams class.
@@ -59,7 +59,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             }
             else
             {
-                List<HighLevelAPI8.MechanismParams.CkOtpParam> hlaParameters = new List<HighLevelAPI8.MechanismParams.CkOtpParam>();
+                List<HighLevelAPI81.MechanismParams.CkOtpParam> hlaParameters = new List<HighLevelAPI81.MechanismParams.CkOtpParam>();
 
                 if ((parameters != null) && (parameters.Count > 0))
                 {
@@ -67,7 +67,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                         hlaParameters.Add(parameters[i]._params8);
                 }
 
-                _params8 = new HighLevelAPI8.MechanismParams.CkOtpParams(hlaParameters);
+                _params8 = new HighLevelAPI81.MechanismParams.CkOtpParams(hlaParameters);
             }
         }
         

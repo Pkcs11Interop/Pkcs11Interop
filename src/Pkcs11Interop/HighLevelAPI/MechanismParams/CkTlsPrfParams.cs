@@ -36,7 +36,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkTlsPrfParams
         /// </summary>
-        private HighLevelAPI8.MechanismParams.CkTlsPrfParams _params8 = null;
+        private HighLevelAPI81.MechanismParams.CkTlsPrfParams _params8 = null;
 
         /// <summary>
         /// Output of the operation
@@ -63,7 +63,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI41.MechanismParams.CkTlsPrfParams(seed, label, Convert.ToUInt32(outputLen));
             else
-                _params8 = new HighLevelAPI8.MechanismParams.CkTlsPrfParams(seed, label, outputLen);
+                _params8 = new HighLevelAPI81.MechanismParams.CkTlsPrfParams(seed, label, outputLen);
         }
         
         #region IMechanismParams

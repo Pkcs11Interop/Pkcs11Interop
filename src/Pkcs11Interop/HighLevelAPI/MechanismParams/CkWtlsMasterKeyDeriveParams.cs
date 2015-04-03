@@ -36,7 +36,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkSsl3MasterKeyDeriveParams
         /// </summary>
-        private HighLevelAPI8.MechanismParams.CkWtlsMasterKeyDeriveParams _params8 = null;
+        private HighLevelAPI81.MechanismParams.CkWtlsMasterKeyDeriveParams _params8 = null;
         
         /// <summary>
         /// WTLS protocol version information
@@ -77,7 +77,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI41.MechanismParams.CkWtlsMasterKeyDeriveParams(Convert.ToUInt32(digestMechanism), _randomInfo._params4, dh);
             else
-                _params8 = new HighLevelAPI8.MechanismParams.CkWtlsMasterKeyDeriveParams(digestMechanism, _randomInfo._params8, dh);
+                _params8 = new HighLevelAPI81.MechanismParams.CkWtlsMasterKeyDeriveParams(digestMechanism, _randomInfo._params8, dh);
         }
         
         #region IMechanismParams

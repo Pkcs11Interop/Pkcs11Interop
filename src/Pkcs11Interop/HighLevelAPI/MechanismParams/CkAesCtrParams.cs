@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkAesCtrParams
         /// </summary>
-        private HighLevelAPI8.MechanismParams.CkAesCtrParams _params8 = null;
+        private HighLevelAPI81.MechanismParams.CkAesCtrParams _params8 = null;
 
         /// <summary>
         /// Initializes a new instance of the CkAesCtrParams class.
@@ -43,7 +43,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI41.MechanismParams.CkAesCtrParams(Convert.ToUInt32(counterBits), cb);
             else
-                _params8 = new HighLevelAPI8.MechanismParams.CkAesCtrParams(counterBits, cb);
+                _params8 = new HighLevelAPI81.MechanismParams.CkAesCtrParams(counterBits, cb);
         }
         
         #region IMechanismParams

@@ -16,12 +16,12 @@
 using System;
 using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.HighLevelAPI8;
+using Net.Pkcs11Interop.HighLevelAPI81;
 using NUnit.Framework;
 using LLA8 = Net.Pkcs11Interop.LowLevelAPI81;
 using System.Reflection;
 
-namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
+namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
 {
     /// <summary>
     /// Object attributes tests.

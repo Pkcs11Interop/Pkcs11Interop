@@ -36,7 +36,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkSsl3KeyMatParams
         /// </summary>
-        private HighLevelAPI8.MechanismParams.CkSsl3KeyMatParams _params8 = null;
+        private HighLevelAPI81.MechanismParams.CkSsl3KeyMatParams _params8 = null;
 
         /// <summary>
         /// Flag indicating whether object with returned key material has left this instance
@@ -97,7 +97,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI41.MechanismParams.CkSsl3KeyMatParams(Convert.ToUInt32(macSizeInBits), Convert.ToUInt32(keySizeInBits), Convert.ToUInt32(ivSizeInBits), isExport, _randomInfo._params4);
             else
-                _params8 = new HighLevelAPI8.MechanismParams.CkSsl3KeyMatParams(macSizeInBits, keySizeInBits, ivSizeInBits, isExport, _randomInfo._params8);
+                _params8 = new HighLevelAPI81.MechanismParams.CkSsl3KeyMatParams(macSizeInBits, keySizeInBits, ivSizeInBits, isExport, _randomInfo._params8);
         }
         
         #region IMechanismParams

@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific SessionFlags
         /// </summary>
-        private HighLevelAPI8.SessionFlags _sessionFlags8 = null;
+        private HighLevelAPI81.SessionFlags _sessionFlags8 = null;
 
         /// <summary>
         /// Bit flags that define the type of session
@@ -82,7 +82,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Converts platform specific SessionFlags to platfrom neutral SessionFlags
         /// </summary>
         /// <param name="sessionFlags">Platform specific SessionFlags</param>
-        internal SessionFlags(HighLevelAPI8.SessionFlags sessionFlags)
+        internal SessionFlags(HighLevelAPI81.SessionFlags sessionFlags)
         {
             if (sessionFlags == null)
                 throw new ArgumentNullException("sessionFlags");

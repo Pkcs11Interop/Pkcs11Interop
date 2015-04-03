@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkRsaPkcsPssParams
         /// </summary>
-        private HighLevelAPI8.MechanismParams.CkRsaPkcsPssParams _params8 = null;
+        private HighLevelAPI81.MechanismParams.CkRsaPkcsPssParams _params8 = null;
         
         /// <summary>
         /// Initializes a new instance of the CkRsaPkcsPssParams class.
@@ -44,7 +44,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI41.MechanismParams.CkRsaPkcsPssParams(Convert.ToUInt32(hashAlg), Convert.ToUInt32(mgf), Convert.ToUInt32(len));
             else
-                _params8 = new HighLevelAPI8.MechanismParams.CkRsaPkcsPssParams(hashAlg, mgf, len);
+                _params8 = new HighLevelAPI81.MechanismParams.CkRsaPkcsPssParams(hashAlg, mgf, len);
         }
         
         #region IMechanismParams

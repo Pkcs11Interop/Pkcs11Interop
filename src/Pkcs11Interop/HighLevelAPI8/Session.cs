@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using System.IO;
 using Net.Pkcs11Interop.Common;
 
-namespace Net.Pkcs11Interop.HighLevelAPI8
+namespace Net.Pkcs11Interop.HighLevelAPI81
 {
     /// <summary>
     /// Class representing a logical connection between an application and a token

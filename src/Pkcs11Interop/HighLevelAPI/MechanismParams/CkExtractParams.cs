@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkExtractParams
         /// </summary>
-        private HighLevelAPI8.MechanismParams.CkExtractParams _params8 = null;
+        private HighLevelAPI81.MechanismParams.CkExtractParams _params8 = null;
 
         /// <summary>
         /// Initializes a new instance of the CkExtractParams class.
@@ -42,7 +42,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI41.MechanismParams.CkExtractParams(Convert.ToUInt32(bit));
             else
-                _params8 = new HighLevelAPI8.MechanismParams.CkExtractParams(bit);
+                _params8 = new HighLevelAPI81.MechanismParams.CkExtractParams(bit);
         }
         
         #region IMechanismParams

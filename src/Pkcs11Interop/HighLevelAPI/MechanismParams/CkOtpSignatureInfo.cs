@@ -37,7 +37,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkOtpSignatureInfo
         /// </summary>
-        private HighLevelAPI8.MechanismParams.CkOtpSignatureInfo _params8 = null;
+        private HighLevelAPI81.MechanismParams.CkOtpSignatureInfo _params8 = null;
 
         /// <summary>
         /// Flag indicating whether high level list of OTP parameters left this instance
@@ -81,9 +81,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             }
             else
             {
-                _params8 = new HighLevelAPI8.MechanismParams.CkOtpSignatureInfo(signature);
+                _params8 = new HighLevelAPI81.MechanismParams.CkOtpSignatureInfo(signature);
 
-                IList<HighLevelAPI8.MechanismParams.CkOtpParam> hlaParams = _params8.Params;
+                IList<HighLevelAPI81.MechanismParams.CkOtpParam> hlaParams = _params8.Params;
                 for (int i = 0; i < hlaParams.Count; i++)
                     _params.Add(new CkOtpParam(hlaParams[i]));
             }

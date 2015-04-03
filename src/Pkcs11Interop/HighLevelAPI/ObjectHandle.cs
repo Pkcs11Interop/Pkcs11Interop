@@ -43,12 +43,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific ObjectHandle
         /// </summary>
-        private HighLevelAPI8.ObjectHandle _objectHandle8 = null;
+        private HighLevelAPI81.ObjectHandle _objectHandle8 = null;
 
         /// <summary>
         /// Platform specific ObjectHandle
         /// </summary>
-        internal HighLevelAPI8.ObjectHandle ObjectHandle8
+        internal HighLevelAPI81.ObjectHandle ObjectHandle8
         {
             get
             {
@@ -75,7 +75,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _objectHandle4 = new HighLevelAPI41.ObjectHandle();
             else
-                _objectHandle8 = new HighLevelAPI8.ObjectHandle();
+                _objectHandle8 = new HighLevelAPI81.ObjectHandle();
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Converts platform specific ObjectHandle to platfrom neutral ObjectHandle
         /// </summary>
         /// <param name="objectHandle">Platform specific ObjectHandle</param>
-        internal ObjectHandle(HighLevelAPI8.ObjectHandle objectHandle)
+        internal ObjectHandle(HighLevelAPI81.ObjectHandle objectHandle)
         {
             if (objectHandle == null)
                 throw new ArgumentNullException("objectHandle");
@@ -147,13 +147,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         /// <param name="objectHandles">Platfrom neutral ObjectHandles</param>
         /// <returns>Platform specific ObjectHandles</returns>
-        internal static List<HighLevelAPI8.ObjectHandle> ConvertToHighLevelAPI8List(List<ObjectHandle> objectHandles)
+        internal static List<HighLevelAPI81.ObjectHandle> ConvertToHighLevelAPI8List(List<ObjectHandle> objectHandles)
         {
-            List<HighLevelAPI8.ObjectHandle> hlaObjectHandles = null;
+            List<HighLevelAPI81.ObjectHandle> hlaObjectHandles = null;
 
             if (objectHandles != null)
             {
-                hlaObjectHandles = new List<HighLevelAPI8.ObjectHandle>();
+                hlaObjectHandles = new List<HighLevelAPI81.ObjectHandle>();
                 for (int i = 0; i < objectHandles.Count; i++)
                     hlaObjectHandles.Add(objectHandles[i].ObjectHandle8);
             }
@@ -166,7 +166,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         /// <param name="hlaObjectHandles">Platform specific ObjectHandles</param>
         /// <returns>Platfrom neutral ObjectHandles</returns>
-        internal static List<ObjectHandle> ConvertFromHighLevelAPI8List(List<HighLevelAPI8.ObjectHandle> hlaObjectHandles)
+        internal static List<ObjectHandle> ConvertFromHighLevelAPI8List(List<HighLevelAPI81.ObjectHandle> hlaObjectHandles)
         {
             List<ObjectHandle> objectHandles = null;
 

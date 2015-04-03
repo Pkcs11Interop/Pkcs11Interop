@@ -36,7 +36,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkCamelliaCbcEncryptDataParams
         /// </summary>
-        private HighLevelAPI8.MechanismParams.CkCamelliaCbcEncryptDataParams _params8 = null;
+        private HighLevelAPI81.MechanismParams.CkCamelliaCbcEncryptDataParams _params8 = null;
         
         /// <summary>
         /// Initializes a new instance of the CkCamelliaCbcEncryptDataParams class.
@@ -48,7 +48,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI41.MechanismParams.CkCamelliaCbcEncryptDataParams(iv, data);
             else
-                _params8 = new HighLevelAPI8.MechanismParams.CkCamelliaCbcEncryptDataParams(iv, data);
+                _params8 = new HighLevelAPI81.MechanismParams.CkCamelliaCbcEncryptDataParams(iv, data);
         }
         
         #region IMechanismParams

@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific LibraryInfo
         /// </summary>
-        private HighLevelAPI8.LibraryInfo _libraryInfo8 = null;
+        private HighLevelAPI81.LibraryInfo _libraryInfo8 = null;
 
         /// <summary>
         /// Cryptoki interface version number
@@ -104,7 +104,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Converts platform specific LibraryInfo to platfrom neutral LibraryInfo
         /// </summary>
         /// <param name="libraryInfo">Platform specific LibraryInfo</param>
-        internal LibraryInfo(HighLevelAPI8.LibraryInfo libraryInfo)
+        internal LibraryInfo(HighLevelAPI81.LibraryInfo libraryInfo)
         {
             if (libraryInfo == null)
                 throw new ArgumentNullException("libraryInfo");

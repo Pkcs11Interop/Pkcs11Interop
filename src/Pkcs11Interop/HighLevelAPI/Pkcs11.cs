@@ -37,7 +37,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific high level PKCS#11 wrapper
         /// </summary>
-        private HighLevelAPI8.Pkcs11 _p11_8 = null;
+        private HighLevelAPI81.Pkcs11 _p11_8 = null;
 
         /// <summary>
         /// Loads and initializes PCKS#11 library
@@ -49,7 +49,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _p11_4 = new HighLevelAPI41.Pkcs11(libraryPath, useOsLocking);
             else
-                _p11_8 = new HighLevelAPI8.Pkcs11(libraryPath, useOsLocking);
+                _p11_8 = new HighLevelAPI81.Pkcs11(libraryPath, useOsLocking);
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
                 _p11_4 = new HighLevelAPI41.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
             else
-                _p11_8 = new HighLevelAPI8.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
+                _p11_8 = new HighLevelAPI81.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             }
             else
             {
-                HighLevelAPI8.LibraryInfo hlaLibraryInfo = _p11_8.GetInfo();
+                HighLevelAPI81.LibraryInfo hlaLibraryInfo = _p11_8.GetInfo();
                 return new LibraryInfo(hlaLibraryInfo);
             }
         }
@@ -107,9 +107,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             }
             else
             {
-                List<HighLevelAPI8.Slot> hlaSlotList = _p11_8.GetSlotList(tokenPresent);
+                List<HighLevelAPI81.Slot> hlaSlotList = _p11_8.GetSlotList(tokenPresent);
                 List<Slot> slotList = new List<Slot>();
-                foreach (HighLevelAPI8.Slot hlaSlot in hlaSlotList)
+                foreach (HighLevelAPI81.Slot hlaSlot in hlaSlotList)
                     slotList.Add(new Slot(hlaSlot));
                 return slotList;
             }

@@ -32,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific Slot
         /// </summary>
-        private HighLevelAPI8.Slot _slot8 = null;
+        private HighLevelAPI81.Slot _slot8 = null;
 
         /// <summary>
         /// PKCS#11 handle of slot
@@ -61,7 +61,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Converts platform specific Slot to platfrom neutral Slot
         /// </summary>
         /// <param name="slot">Platform specific Slot</param>
-        internal Slot(HighLevelAPI8.Slot slot)
+        internal Slot(HighLevelAPI81.Slot slot)
         {
             if (slot == null)
                 throw new ArgumentNullException("slot");
@@ -82,7 +82,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             }
             else
             {
-                HighLevelAPI8.SlotInfo hlaSlotInfo = _slot8.GetSlotInfo();
+                HighLevelAPI81.SlotInfo hlaSlotInfo = _slot8.GetSlotInfo();
                 return new SlotInfo(hlaSlotInfo);
             }
         }
@@ -100,7 +100,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             }
             else
             {
-                HighLevelAPI8.TokenInfo hlaTokenInfo = _slot8.GetTokenInfo();
+                HighLevelAPI81.TokenInfo hlaTokenInfo = _slot8.GetTokenInfo();
                 return new TokenInfo(hlaTokenInfo);
             }
         }
@@ -131,7 +131,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             }
             else
             {
-                HighLevelAPI8.MechanismInfo hlaMechanismInfo = _slot8.GetMechanismInfo(mechanism);
+                HighLevelAPI81.MechanismInfo hlaMechanismInfo = _slot8.GetMechanismInfo(mechanism);
                 return new MechanismInfo(hlaMechanismInfo);
             }
         }
@@ -176,7 +176,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             }
             else
             {
-                HighLevelAPI8.Session hlaSession = _slot8.OpenSession(readOnly);
+                HighLevelAPI81.Session hlaSession = _slot8.OpenSession(readOnly);
                 return new Session(hlaSession);
             }
         }

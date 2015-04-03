@@ -36,7 +36,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkDesCbcEncryptDataParams
         /// </summary>
-        private HighLevelAPI8.MechanismParams.CkDesCbcEncryptDataParams _params8 = null;
+        private HighLevelAPI81.MechanismParams.CkDesCbcEncryptDataParams _params8 = null;
         
         /// <summary>
         /// Initializes a new instance of the CkDesCbcEncryptDataParams class.
@@ -48,7 +48,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI41.MechanismParams.CkDesCbcEncryptDataParams(iv, data);
             else
-                _params8 = new HighLevelAPI8.MechanismParams.CkDesCbcEncryptDataParams(iv, data);
+                _params8 = new HighLevelAPI81.MechanismParams.CkDesCbcEncryptDataParams(iv, data);
         }
         
         #region IMechanismParams

@@ -36,7 +36,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkX942Dh1DeriveParams
         /// </summary>
-        private HighLevelAPI8.MechanismParams.CkX942Dh1DeriveParams _params8 = null;
+        private HighLevelAPI81.MechanismParams.CkX942Dh1DeriveParams _params8 = null;
         
         /// <summary>
         /// Initializes a new instance of the CkX942Dh1DeriveParams class.
@@ -49,7 +49,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI41.MechanismParams.CkX942Dh1DeriveParams(Convert.ToUInt32(kdf), otherInfo, publicData);
             else
-                _params8 = new HighLevelAPI8.MechanismParams.CkX942Dh1DeriveParams(kdf, otherInfo, publicData);
+                _params8 = new HighLevelAPI81.MechanismParams.CkX942Dh1DeriveParams(kdf, otherInfo, publicData);
         }
         
         #region IMechanismParams

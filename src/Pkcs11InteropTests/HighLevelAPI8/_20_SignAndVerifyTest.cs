@@ -15,10 +15,10 @@
 
 using System.IO;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.HighLevelAPI8;
+using Net.Pkcs11Interop.HighLevelAPI81;
 using NUnit.Framework;
 
-namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
+namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
 {
     /// <summary>
     /// Signing and verification (where the signature is an appendix to the data) tests.

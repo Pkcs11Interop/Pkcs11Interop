@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkRc5MacGeneralParams
         /// </summary>
-        private HighLevelAPI8.MechanismParams.CkRc5MacGeneralParams _params8 = null;
+        private HighLevelAPI81.MechanismParams.CkRc5MacGeneralParams _params8 = null;
         
         /// <summary>
         /// Initializes a new instance of the CkRc5MacGeneralParams class.
@@ -44,7 +44,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI41.MechanismParams.CkRc5MacGeneralParams(Convert.ToUInt32(wordsize), Convert.ToUInt32(rounds), Convert.ToUInt32(macLength));
             else
-                _params8 = new HighLevelAPI8.MechanismParams.CkRc5MacGeneralParams(wordsize, rounds, macLength);
+                _params8 = new HighLevelAPI81.MechanismParams.CkRc5MacGeneralParams(wordsize, rounds, macLength);
         }
         
         #region IMechanismParams

@@ -36,7 +36,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkWtlsKeyMatOut
         /// </summary>
-        private HighLevelAPI8.MechanismParams.CkWtlsKeyMatOut _params8 = null;
+        private HighLevelAPI81.MechanismParams.CkWtlsKeyMatOut _params8 = null;
         
         /// <summary>
         /// Key handle for the resulting MAC secret key
@@ -96,7 +96,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// Initializes a new instance of the CkWtlsKeyMatOut class.
         /// </summary>
         /// <param name='ckWtlsKeyMatOut'>Platform specific CkWtlsKeyMatOut</param>
-        internal CkWtlsKeyMatOut(HighLevelAPI8.MechanismParams.CkWtlsKeyMatOut ckWtlsKeyMatOut)
+        internal CkWtlsKeyMatOut(HighLevelAPI81.MechanismParams.CkWtlsKeyMatOut ckWtlsKeyMatOut)
         {
             if (ckWtlsKeyMatOut == null)
                 throw new ArgumentNullException("ckWtlsKeyMatOut");

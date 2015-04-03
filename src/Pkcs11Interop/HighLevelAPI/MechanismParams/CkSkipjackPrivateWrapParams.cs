@@ -36,7 +36,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkSkipjackPrivateWrapParams
         /// </summary>
-        private HighLevelAPI8.MechanismParams.CkSkipjackPrivateWrapParams _params8 = null;
+        private HighLevelAPI81.MechanismParams.CkSkipjackPrivateWrapParams _params8 = null;
         
         /// <summary>
         /// Initializes a new instance of the CkSkipjackPrivateWrapParams class.
@@ -52,7 +52,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI41.MechanismParams.CkSkipjackPrivateWrapParams(password, publicData, randomA, primeP, baseG, subprimeQ);
             else
-                _params8 = new HighLevelAPI8.MechanismParams.CkSkipjackPrivateWrapParams(password, publicData, randomA, primeP, baseG, subprimeQ);
+                _params8 = new HighLevelAPI81.MechanismParams.CkSkipjackPrivateWrapParams(password, publicData, randomA, primeP, baseG, subprimeQ);
         }
         
         #region IMechanismParams
