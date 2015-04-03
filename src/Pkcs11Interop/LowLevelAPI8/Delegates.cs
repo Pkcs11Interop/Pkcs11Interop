@@ -614,16 +614,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI8
             if ((rv != CKR.CKR_OK) || (functionList == IntPtr.Zero))
                 throw new Pkcs11Exception("C_GetFunctionList", rv);
 
-            if (Platform.IsLinux || Platform.IsMacOsX)
-            {
-                CK_FUNCTION_LIST_UNIX ckFunctionListUnix = (CK_FUNCTION_LIST_UNIX)UnmanagedMemory.Read(functionList, typeof(CK_FUNCTION_LIST_UNIX));
-                Initialize(ckFunctionListUnix.ConvertToCkFunctionList());
-            }
-            else
-            {
-                CK_FUNCTION_LIST ckFunctionList = (CK_FUNCTION_LIST)UnmanagedMemory.Read(functionList, typeof(CK_FUNCTION_LIST));
-                Initialize(ckFunctionList);
-            }
+            CK_FUNCTION_LIST ckFunctionList = (CK_FUNCTION_LIST)UnmanagedMemory.Read(functionList, typeof(CK_FUNCTION_LIST));
+            Initialize(ckFunctionList);
         }
 
         /// <summary>
@@ -637,16 +629,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI8
             if ((rv != CKR.CKR_OK) || (functionList == IntPtr.Zero))
                 throw new Pkcs11Exception("C_GetFunctionList", rv);
 
-            if (Platform.IsLinux || Platform.IsMacOsX)
-            {
-                CK_FUNCTION_LIST_UNIX ckFunctionListUnix = (CK_FUNCTION_LIST_UNIX)UnmanagedMemory.Read(functionList, typeof(CK_FUNCTION_LIST_UNIX));
-                Initialize(ckFunctionListUnix.ConvertToCkFunctionList());
-            }
-            else
-            {
-                CK_FUNCTION_LIST ckFunctionList = (CK_FUNCTION_LIST)UnmanagedMemory.Read(functionList, typeof(CK_FUNCTION_LIST));
-                Initialize(ckFunctionList);
-            }
+            CK_FUNCTION_LIST ckFunctionList = (CK_FUNCTION_LIST)UnmanagedMemory.Read(functionList, typeof(CK_FUNCTION_LIST));
+            Initialize(ckFunctionList);
         }
 
         /// <summary>

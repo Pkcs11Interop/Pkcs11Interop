@@ -360,7 +360,6 @@
     <Compile Include="LowLevelAPI4\CK_ATTRIBUTE_CLASS.cs" />
     <Compile Include="LowLevelAPI4\CK_C_INITIALIZE_ARGS.cs" />
     <Compile Include="LowLevelAPI4\CK_FUNCTION_LIST.cs" />
-    <Compile Include="LowLevelAPI4\CK_FUNCTION_LIST_UNIX.cs" />
     <Compile Include="LowLevelAPI4\CK_INFO.cs" />
     <Compile Include="LowLevelAPI4\CK_MECHANISM.cs" />
     <Compile Include="LowLevelAPI4\CK_MECHANISM_INFO.cs" />
@@ -433,9 +432,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LowLevelAPI8\CK_FUNCTION_LIST.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LowLevelAPI8\CK_FUNCTION_LIST_UNIX.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LowLevelAPI8\CK_INFO.cs">
