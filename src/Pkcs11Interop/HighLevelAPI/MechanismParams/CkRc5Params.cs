@@ -40,7 +40,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='rounds'>Number of rounds of RC5 encipherment</param>
         public CkRc5Params(ulong wordsize, ulong rounds)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI4.MechanismParams.CkRc5Params(Convert.ToUInt32(wordsize), Convert.ToUInt32(rounds));
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkRc5Params(wordsize, rounds);
@@ -54,7 +54,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <returns>A managed object holding the data to be marshaled. This object must be an instance of a formatted class.</returns>
         public object ToMarshalableStructure()
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _params4.ToMarshalableStructure();
             else
                 return _params8.ToMarshalableStructure();

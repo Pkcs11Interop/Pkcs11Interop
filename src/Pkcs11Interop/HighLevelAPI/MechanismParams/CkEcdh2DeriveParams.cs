@@ -49,7 +49,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='publicData2'>Other party's second EC public key value</param>
         public CkEcdh2DeriveParams(ulong kdf, byte[] sharedData, byte[] publicData, ulong privateDataLen, ObjectHandle privateData, byte[] publicData2)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI4.MechanismParams.CkEcdh2DeriveParams(Convert.ToUInt32(kdf), sharedData, publicData, Convert.ToUInt32(privateDataLen), privateData.ObjectHandle4, publicData2);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkEcdh2DeriveParams(kdf, sharedData, publicData, privateDataLen, privateData.ObjectHandle8, publicData2);
@@ -66,7 +66,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _params4.ToMarshalableStructure();
             else
                 return _params8.ToMarshalableStructure();

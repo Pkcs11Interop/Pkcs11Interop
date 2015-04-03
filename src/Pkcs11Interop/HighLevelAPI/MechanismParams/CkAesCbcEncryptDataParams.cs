@@ -45,7 +45,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='data'>Data value part that must be a multiple of 16 bytes long</param>
         public CkAesCbcEncryptDataParams(byte[] iv, byte[] data)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI4.MechanismParams.CkAesCbcEncryptDataParams(iv, data);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkAesCbcEncryptDataParams(iv, data);
@@ -62,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _params4.ToMarshalableStructure();
             else
                 return _params8.ToMarshalableStructure();

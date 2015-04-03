@@ -49,7 +49,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='password'>Password to be used in the PBE key generation</param>
         public CkPkcs5Pbkd2Params(ulong saltSource, byte[] saltSourceData, ulong iterations, ulong prf, byte[] prfData, byte[] password)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI4.MechanismParams.CkPkcs5Pbkd2Params(Convert.ToUInt32(saltSource), saltSourceData, Convert.ToUInt32(iterations), Convert.ToUInt32(prf), prfData, password);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkPkcs5Pbkd2Params(saltSource, saltSourceData, iterations, prf, prfData, password);
@@ -66,7 +66,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _params4.ToMarshalableStructure();
             else
                 return _params8.ToMarshalableStructure();

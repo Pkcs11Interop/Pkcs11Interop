@@ -49,7 +49,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='requiredAttributes'>DER-encoded list of CMS Attributes (with accompanying values) required to be included in the resulting signed attributes</param>
         public CkCmsSigParams(ObjectHandle certificateHandle, ulong? signingMechanism, ulong? digestMechanism, string contentType, byte[] requestedAttributes, byte[] requiredAttributes)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 uint? uintSigningMechanism = (signingMechanism == null) ? null : (uint?)Convert.ToUInt32(signingMechanism.Value);
                 uint? uintDigestMechanism = (digestMechanism == null) ? null : (uint?)Convert.ToUInt32(digestMechanism.Value);
@@ -73,7 +73,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _params4.ToMarshalableStructure();
             else
                 return _params8.ToMarshalableStructure();

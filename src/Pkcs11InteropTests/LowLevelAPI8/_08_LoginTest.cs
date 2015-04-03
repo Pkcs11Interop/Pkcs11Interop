@@ -32,7 +32,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI8
         [Test()]
         public void _01_NormalUserLoginTest()
         {
-            if (UnmanagedLong.Size != 8)
+            if (Platform.UnmanagedLongSize != 8)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             CKR rv = CKR.CKR_OK;
@@ -78,7 +78,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI8
         [Test()]
         public void _02_SecurityOfficerLoginTest()
         {
-            if (UnmanagedLong.Size != 8)
+            if (Platform.UnmanagedLongSize != 8)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             CKR rv = CKR.CKR_OK;

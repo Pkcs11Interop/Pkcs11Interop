@@ -47,7 +47,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='iteration'>Number of iterations required for the generation</param>
         public CkPbeParams(byte[] initVector, byte[] password, byte[] salt, ulong iteration)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI4.MechanismParams.CkPbeParams(initVector, password, salt, Convert.ToUInt32(iteration));
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkPbeParams(initVector, password, salt, iteration);
@@ -64,7 +64,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _params4.ToMarshalableStructure();
             else
                 return _params8.ToMarshalableStructure();

@@ -40,7 +40,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _slotInfo4.SlotId : _slotInfo8.SlotId;
+                return (Platform.UnmanagedLongSize == 4) ? _slotInfo4.SlotId : _slotInfo8.SlotId;
             }
         }
 
@@ -51,7 +51,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _slotInfo4.SlotDescription : _slotInfo8.SlotDescription;
+                return (Platform.UnmanagedLongSize == 4) ? _slotInfo4.SlotDescription : _slotInfo8.SlotDescription;
             }
         }
 
@@ -62,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _slotInfo4.ManufacturerId : _slotInfo8.ManufacturerId;
+                return (Platform.UnmanagedLongSize == 4) ? _slotInfo4.ManufacturerId : _slotInfo8.ManufacturerId;
             }
         }
 
@@ -79,7 +79,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             get
             {
                 if (_slotFlags == null)
-                    _slotFlags = (UnmanagedLong.Size == 4) ? new SlotFlags(_slotInfo4.SlotFlags) : new SlotFlags(_slotInfo8.SlotFlags);
+                    _slotFlags = (Platform.UnmanagedLongSize == 4) ? new SlotFlags(_slotInfo4.SlotFlags) : new SlotFlags(_slotInfo8.SlotFlags);
 
                 return _slotFlags;
             }
@@ -92,7 +92,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _slotInfo4.HardwareVersion : _slotInfo8.HardwareVersion;
+                return (Platform.UnmanagedLongSize == 4) ? _slotInfo4.HardwareVersion : _slotInfo8.HardwareVersion;
             }
         }
 
@@ -103,7 +103,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _slotInfo4.FirmwareVersion : _slotInfo8.FirmwareVersion;
+                return (Platform.UnmanagedLongSize == 4) ? _slotInfo4.FirmwareVersion : _slotInfo8.FirmwareVersion;
             }
         }
 

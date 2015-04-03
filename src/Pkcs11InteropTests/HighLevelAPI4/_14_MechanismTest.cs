@@ -34,7 +34,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _01_DisposeMechanismTest()
         {
-            if (UnmanagedLong.Size != 4)
+            if (Platform.UnmanagedLongSize != 4)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             byte[] parameter = new byte[8];
@@ -79,7 +79,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _02_EmptyParameterTest()
         {
-            if (UnmanagedLong.Size != 4)
+            if (Platform.UnmanagedLongSize != 4)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             // Create mechanism without the parameter
@@ -99,7 +99,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _03_ByteArrayParameterTest()
         {
-            if (UnmanagedLong.Size != 4)
+            if (Platform.UnmanagedLongSize != 4)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             byte[] parameter = new byte[16];
@@ -135,7 +135,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _04_ObjectParameterTest()
         {
-            if (UnmanagedLong.Size != 4)
+            if (Platform.UnmanagedLongSize != 4)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             byte[] data = new byte[24];

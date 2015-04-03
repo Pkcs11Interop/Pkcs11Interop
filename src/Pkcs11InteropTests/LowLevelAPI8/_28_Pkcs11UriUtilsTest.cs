@@ -32,7 +32,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI8
         [Test()]
         public void _01_Pkcs11UriInSignatureCreationApplication()
         {
-            if (UnmanagedLong.Size != 8)
+            if (Platform.UnmanagedLongSize != 8)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             // PKCS#11 URI can be acquired i.e. from configuration file as a simple string...

@@ -40,7 +40,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='macLength'>Length of the MAC produced, in bytes</param>
         public CkRc2MacGeneralParams(ulong effectiveBits, ulong macLength)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI4.MechanismParams.CkRc2MacGeneralParams(Convert.ToUInt32(effectiveBits), Convert.ToUInt32(macLength));
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkRc2MacGeneralParams(effectiveBits, macLength);
@@ -54,7 +54,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <returns>A managed object holding the data to be marshaled. This object must be an instance of a formatted class.</returns>
         public object ToMarshalableStructure()
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _params4.ToMarshalableStructure();
             else
                 return _params8.ToMarshalableStructure();

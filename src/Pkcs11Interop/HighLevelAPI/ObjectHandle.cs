@@ -63,7 +63,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _objectHandle4.ObjectId : _objectHandle8.ObjectId;
+                return (Platform.UnmanagedLongSize == 4) ? _objectHandle4.ObjectId : _objectHandle8.ObjectId;
             }
         }
 
@@ -72,7 +72,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         public ObjectHandle()
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _objectHandle4 = new HighLevelAPI4.ObjectHandle();
             else
                 _objectHandle8 = new HighLevelAPI8.ObjectHandle();

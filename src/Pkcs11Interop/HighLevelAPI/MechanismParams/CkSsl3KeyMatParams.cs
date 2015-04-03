@@ -60,7 +60,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
 
                 if (_returnedKeyMaterial == null)
                 {
-                    if (UnmanagedLong.Size == 4)
+                    if (Platform.UnmanagedLongSize == 4)
                         _returnedKeyMaterial = new CkSsl3KeyMatOut(_params4.ReturnedKeyMaterial);
                     else
                         _returnedKeyMaterial = new CkSsl3KeyMatOut(_params8.ReturnedKeyMaterial);
@@ -94,7 +94,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             // Keep reference to randomInfo so GC will not free it while this object exists
             _randomInfo = randomInfo;
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI4.MechanismParams.CkSsl3KeyMatParams(Convert.ToUInt32(macSizeInBits), Convert.ToUInt32(keySizeInBits), Convert.ToUInt32(ivSizeInBits), isExport, _randomInfo._params4);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkSsl3KeyMatParams(macSizeInBits, keySizeInBits, ivSizeInBits, isExport, _randomInfo._params8);
@@ -111,7 +111,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _params4.ToMarshalableStructure();
             else
                 return _params8.ToMarshalableStructure();

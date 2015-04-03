@@ -33,7 +33,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         [Test()]
         public void _01_DigestSinglePartTest()
         {
-            if (UnmanagedLong.Size != 8)
+            if (Platform.UnmanagedLongSize != 8)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
@@ -64,7 +64,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         [Test()]
         public void _02_DigestMultiPartTest()
         {
-            if (UnmanagedLong.Size != 8)
+            if (Platform.UnmanagedLongSize != 8)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
@@ -100,7 +100,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         [Test()]
         public void _03_DigestKeyTest() // TODO - Test on device that supports this method
         {
-            if (UnmanagedLong.Size != 8)
+            if (Platform.UnmanagedLongSize != 8)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))

@@ -34,7 +34,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _01_EncryptAndDecryptSinglePartTest()
         {
-            if (UnmanagedLong.Size != 4)
+            if (Platform.UnmanagedLongSize != 4)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
@@ -82,7 +82,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _02_EncryptAndDecryptMultiPartTest()
         {
-            if (UnmanagedLong.Size != 4)
+            if (Platform.UnmanagedLongSize != 4)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
@@ -148,7 +148,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
         [Test()]
         public void _03_EncryptAndDecryptSinglePartOaepTest()
         {
-            if (UnmanagedLong.Size != 4)
+            if (Platform.UnmanagedLongSize != 4)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))

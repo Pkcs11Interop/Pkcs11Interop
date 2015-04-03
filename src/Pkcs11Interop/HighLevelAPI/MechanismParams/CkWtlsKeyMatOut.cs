@@ -48,7 +48,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (UnmanagedLong.Size == 4) ? new ObjectHandle(_params4.MacSecret) : new ObjectHandle(_params8.MacSecret);
+                return (Platform.UnmanagedLongSize == 4) ? new ObjectHandle(_params4.MacSecret) : new ObjectHandle(_params8.MacSecret);
             }
         }
 
@@ -62,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (UnmanagedLong.Size == 4) ? new ObjectHandle(_params4.Key) : new ObjectHandle(_params8.Key);
+                return (Platform.UnmanagedLongSize == 4) ? new ObjectHandle(_params4.Key) : new ObjectHandle(_params8.Key);
             }
         }
 
@@ -76,7 +76,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (UnmanagedLong.Size == 4) ? _params4.IV : _params8.IV;
+                return (Platform.UnmanagedLongSize == 4) ? _params4.IV : _params8.IV;
             }
         }
         

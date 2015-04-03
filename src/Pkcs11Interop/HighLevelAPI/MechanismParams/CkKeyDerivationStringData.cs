@@ -44,7 +44,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='data'>Byte string used as the input for derivation mechanism</param>
         public CkKeyDerivationStringData(byte[] data)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI4.MechanismParams.CkKeyDerivationStringData(data);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkKeyDerivationStringData(data);
@@ -61,7 +61,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _params4.ToMarshalableStructure();
             else
                 return _params8.ToMarshalableStructure();

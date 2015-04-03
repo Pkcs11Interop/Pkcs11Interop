@@ -32,7 +32,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI8
         [Test()]
         public void _01_BasicPkcs11DisposeTest()
         {
-            if (UnmanagedLong.Size != 8)
+            if (Platform.UnmanagedLongSize != 8)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             // Unmanaged PKCS#11 library is loaded by the constructor of Pkcs11 class
@@ -50,7 +50,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI8
         [Test()]
         public void _02_UsingPkcs11DisposeTest()
         {
-            if (UnmanagedLong.Size != 8)
+            if (Platform.UnmanagedLongSize != 8)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             // Pkcs11 class can be used in using statement which defines a scope 
@@ -67,7 +67,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI8
         [Test()]
         public void _03_SingleThreadedInitializeTest()
         {
-            if (UnmanagedLong.Size != 8)
+            if (Platform.UnmanagedLongSize != 8)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             CKR rv = CKR.CKR_OK;
@@ -97,7 +97,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI8
         [Test()]
         public void _04_MultiThreadedInitializeTest()
         {
-            if (UnmanagedLong.Size != 8)
+            if (Platform.UnmanagedLongSize != 8)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             CKR rv = CKR.CKR_OK;
@@ -129,7 +129,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI8
         [Test()]
         public void _05_Pkcs11WithGetFunctionListTest()
         {
-            if (UnmanagedLong.Size != 8)
+            if (Platform.UnmanagedLongSize != 8)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             // Before an application can perform any cryptographic operations with Cryptoki library 
@@ -151,7 +151,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI8
         [Test()]
         public void _06_Pkcs11WithoutGetFunctionListTest()
         {
-            if (UnmanagedLong.Size != 8)
+            if (Platform.UnmanagedLongSize != 8)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             // Before an application can perform any cryptographic operations with Cryptoki library 

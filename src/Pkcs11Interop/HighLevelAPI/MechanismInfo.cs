@@ -40,7 +40,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _mechanismInfo4.Mechanism : _mechanismInfo8.Mechanism;
+                return (Platform.UnmanagedLongSize == 4) ? _mechanismInfo4.Mechanism : _mechanismInfo8.Mechanism;
             }
         }
 
@@ -51,7 +51,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _mechanismInfo4.MinKeySize : _mechanismInfo8.MinKeySize;
+                return (Platform.UnmanagedLongSize == 4) ? _mechanismInfo4.MinKeySize : _mechanismInfo8.MinKeySize;
             }
         }
 
@@ -62,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _mechanismInfo4.MaxKeySize : _mechanismInfo8.MaxKeySize;
+                return (Platform.UnmanagedLongSize == 4) ? _mechanismInfo4.MaxKeySize : _mechanismInfo8.MaxKeySize;
             }
         }
 
@@ -79,7 +79,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             get
             {
                 if (_mechanismFlags == null)
-                    _mechanismFlags = (UnmanagedLong.Size == 4) ? new MechanismFlags(_mechanismInfo4.MechanismFlags) : new MechanismFlags(_mechanismInfo8.MechanismFlags);
+                    _mechanismFlags = (Platform.UnmanagedLongSize == 4) ? new MechanismFlags(_mechanismInfo4.MechanismFlags) : new MechanismFlags(_mechanismInfo8.MechanismFlags);
 
                 return _mechanismFlags;
             }

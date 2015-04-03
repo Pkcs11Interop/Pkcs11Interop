@@ -49,7 +49,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='subprimeQ'>Subprime, q, value</param>
         public CkSkipjackPrivateWrapParams(byte[] password, byte[] publicData, byte[] randomA, byte[] primeP, byte[] baseG, byte[] subprimeQ)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI4.MechanismParams.CkSkipjackPrivateWrapParams(password, publicData, randomA, primeP, baseG, subprimeQ);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkSkipjackPrivateWrapParams(password, publicData, randomA, primeP, baseG, subprimeQ);
@@ -66,7 +66,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _params4.ToMarshalableStructure();
             else
                 return _params8.ToMarshalableStructure();

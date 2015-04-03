@@ -40,7 +40,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenInfo4.SlotId : _tokenInfo8.SlotId;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.SlotId : _tokenInfo8.SlotId;
             }
         }
 
@@ -51,7 +51,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenInfo4.Label : _tokenInfo8.Label;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.Label : _tokenInfo8.Label;
             }
         }
 
@@ -62,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenInfo4.ManufacturerId : _tokenInfo8.ManufacturerId;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.ManufacturerId : _tokenInfo8.ManufacturerId;
             }
         }
 
@@ -73,7 +73,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenInfo4.Model : _tokenInfo8.Model;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.Model : _tokenInfo8.Model;
             }
         }
 
@@ -84,7 +84,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenInfo4.SerialNumber : _tokenInfo8.SerialNumber;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.SerialNumber : _tokenInfo8.SerialNumber;
             }
         }
 
@@ -101,7 +101,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             get
             {
                 if (_tokenFlags == null)
-                    _tokenFlags = (UnmanagedLong.Size == 4) ? new TokenFlags(_tokenInfo4.TokenFlags) : new TokenFlags(_tokenInfo8.TokenFlags);
+                    _tokenFlags = (Platform.UnmanagedLongSize == 4) ? new TokenFlags(_tokenInfo4.TokenFlags) : new TokenFlags(_tokenInfo8.TokenFlags);
 
                 return _tokenFlags;
             }
@@ -114,7 +114,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenInfo4.MaxSessionCount : _tokenInfo8.MaxSessionCount;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.MaxSessionCount : _tokenInfo8.MaxSessionCount;
             }
         }
 
@@ -125,7 +125,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenInfo4.SessionCount : _tokenInfo8.SessionCount;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.SessionCount : _tokenInfo8.SessionCount;
             }
         }
 
@@ -136,7 +136,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenInfo4.MaxRwSessionCount : _tokenInfo8.MaxRwSessionCount;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.MaxRwSessionCount : _tokenInfo8.MaxRwSessionCount;
             }
         }
 
@@ -147,7 +147,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenInfo4.RwSessionCount : _tokenInfo8.RwSessionCount;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.RwSessionCount : _tokenInfo8.RwSessionCount;
             }
         }
 
@@ -158,7 +158,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenInfo4.MaxPinLen : _tokenInfo8.MaxPinLen;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.MaxPinLen : _tokenInfo8.MaxPinLen;
             }
         }
 
@@ -169,7 +169,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenInfo4.MinPinLen : _tokenInfo8.MinPinLen;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.MinPinLen : _tokenInfo8.MinPinLen;
             }
         }
 
@@ -180,7 +180,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenInfo4.TotalPublicMemory : _tokenInfo8.TotalPublicMemory;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.TotalPublicMemory : _tokenInfo8.TotalPublicMemory;
             }
         }
 
@@ -191,7 +191,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenInfo4.FreePublicMemory : _tokenInfo8.FreePublicMemory;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.FreePublicMemory : _tokenInfo8.FreePublicMemory;
             }
         }
 
@@ -202,7 +202,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenInfo4.TotalPrivateMemory : _tokenInfo8.TotalPrivateMemory;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.TotalPrivateMemory : _tokenInfo8.TotalPrivateMemory;
             }
         }
 
@@ -213,7 +213,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenInfo4.FreePrivateMemory : _tokenInfo8.FreePrivateMemory;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.FreePrivateMemory : _tokenInfo8.FreePrivateMemory;
             }
         }
 
@@ -224,7 +224,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenInfo4.HardwareVersion : _tokenInfo8.HardwareVersion;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.HardwareVersion : _tokenInfo8.HardwareVersion;
             }
         }
 
@@ -235,7 +235,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenInfo4.FirmwareVersion : _tokenInfo8.FirmwareVersion;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.FirmwareVersion : _tokenInfo8.FirmwareVersion;
             }
         }
 
@@ -246,7 +246,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenInfo4.UtcTimeString : _tokenInfo8.UtcTimeString;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.UtcTimeString : _tokenInfo8.UtcTimeString;
             }
         }
 
@@ -257,7 +257,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenInfo4.UtcTime : _tokenInfo8.UtcTime;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.UtcTime : _tokenInfo8.UtcTime;
             }
         }
 

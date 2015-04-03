@@ -32,7 +32,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
         [Test()]
         public void _01_BasicDeriveKeyTest()
         {
-            if (UnmanagedLong.Size != 8)
+            if (Platform.UnmanagedLongSize != 8)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))

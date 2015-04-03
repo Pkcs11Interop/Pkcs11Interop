@@ -48,7 +48,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (UnmanagedLong.Size == 4) ? new ObjectHandle(_params4.ClientMacSecret) : new ObjectHandle(_params8.ClientMacSecret);
+                return (Platform.UnmanagedLongSize == 4) ? new ObjectHandle(_params4.ClientMacSecret) : new ObjectHandle(_params8.ClientMacSecret);
             }
         }
 
@@ -62,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (UnmanagedLong.Size == 4) ? new ObjectHandle(_params4.ServerMacSecret) : new ObjectHandle(_params8.ServerMacSecret);
+                return (Platform.UnmanagedLongSize == 4) ? new ObjectHandle(_params4.ServerMacSecret) : new ObjectHandle(_params8.ServerMacSecret);
             }
         }
 
@@ -76,7 +76,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (UnmanagedLong.Size == 4) ? new ObjectHandle(_params4.ClientKey) : new ObjectHandle(_params8.ClientKey);
+                return (Platform.UnmanagedLongSize == 4) ? new ObjectHandle(_params4.ClientKey) : new ObjectHandle(_params8.ClientKey);
             }
         }
 
@@ -90,7 +90,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (UnmanagedLong.Size == 4) ? new ObjectHandle(_params4.ServerKey) : new ObjectHandle(_params8.ServerKey);
+                return (Platform.UnmanagedLongSize == 4) ? new ObjectHandle(_params4.ServerKey) : new ObjectHandle(_params8.ServerKey);
             }
         }
 
@@ -104,7 +104,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (UnmanagedLong.Size == 4) ? _params4.IVClient : _params8.IVClient;
+                return (Platform.UnmanagedLongSize == 4) ? _params4.IVClient : _params8.IVClient;
             }
         }
 
@@ -118,7 +118,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (UnmanagedLong.Size == 4) ? _params4.IVServer : _params8.IVServer;
+                return (Platform.UnmanagedLongSize == 4) ? _params4.IVServer : _params8.IVServer;
             }
         }
 

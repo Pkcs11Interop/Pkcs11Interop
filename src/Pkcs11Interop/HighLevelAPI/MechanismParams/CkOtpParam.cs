@@ -48,7 +48,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (UnmanagedLong.Size == 4) ? _params4.Type : _params8.Type;
+                return (Platform.UnmanagedLongSize == 4) ? _params4.Type : _params8.Type;
             }
         }
 
@@ -62,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (UnmanagedLong.Size == 4) ? _params4.Value : _params8.Value;
+                return (Platform.UnmanagedLongSize == 4) ? _params4.Value : _params8.Value;
             }
         }
 
@@ -73,7 +73,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='value'>Value of the parameter</param>
         public CkOtpParam(ulong type, byte[] value)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI4.MechanismParams.CkOtpParam(Convert.ToUInt32(type), value);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkOtpParam(type, value);
@@ -114,7 +114,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _params4.ToMarshalableStructure();
             else
                 return _params8.ToMarshalableStructure();

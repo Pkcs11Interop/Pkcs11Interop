@@ -40,7 +40,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         public static bool IsCkInformationUnavailable(ulong value)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return (value == CK_UNAVAILABLE_INFORMATION_4);
             else
                 return (value == CK_UNAVAILABLE_INFORMATION_8);

@@ -77,7 +77,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (UnmanagedLong.Size == 4) ? _objectAttribute4.Type : _objectAttribute8.Type;
+                return (Platform.UnmanagedLongSize == 4) ? _objectAttribute4.Type : _objectAttribute8.Type;
             }
         }
 
@@ -91,7 +91,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (UnmanagedLong.Size == 4) ? _objectAttribute4.CannotBeRead : _objectAttribute8.CannotBeRead;
+                return (Platform.UnmanagedLongSize == 4) ? _objectAttribute4.CannotBeRead : _objectAttribute8.CannotBeRead;
             }
         }
 
@@ -127,7 +127,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="type">Attribute type</param>
         public ObjectAttribute(ulong type)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type));
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type);
@@ -139,7 +139,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="type">Attribute type</param>
         public ObjectAttribute(CKA type)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type);
@@ -156,7 +156,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(ulong type, ulong value)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type), Convert.ToUInt32(value));
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
@@ -169,7 +169,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, ulong value)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, Convert.ToUInt32(value));
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
@@ -182,7 +182,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, CKC value)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
@@ -195,7 +195,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, CKK value)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
@@ -208,7 +208,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, CKO value)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
@@ -223,7 +223,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _objectAttribute4.GetValueAsUint();
             else
                 return _objectAttribute8.GetValueAsUlong();
@@ -240,7 +240,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(ulong type, bool value)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type), value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
@@ -253,7 +253,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, bool value)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
@@ -268,7 +268,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _objectAttribute4.GetValueAsBool();
             else
                 return _objectAttribute8.GetValueAsBool();
@@ -285,7 +285,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(ulong type, string value)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type), value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
@@ -298,7 +298,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, string value)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
@@ -313,7 +313,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _objectAttribute4.GetValueAsString();
             else
                 return _objectAttribute8.GetValueAsString();
@@ -330,7 +330,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(ulong type, byte[] value)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type), value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
@@ -343,7 +343,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, byte[] value)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
@@ -358,7 +358,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _objectAttribute4.GetValueAsByteArray();
             else
                 return _objectAttribute8.GetValueAsByteArray();
@@ -375,7 +375,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(ulong type, DateTime value)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type), value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
@@ -388,7 +388,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, DateTime value)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
@@ -403,7 +403,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _objectAttribute4.GetValueAsDateTime();
             else
                 return _objectAttribute8.GetValueAsDateTime();
@@ -420,7 +420,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(ulong type, List<ObjectAttribute> value)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 List<HighLevelAPI4.ObjectAttribute> attributes = ConvertToHighLevelAPI4List(value);
                 _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type), attributes);
@@ -439,7 +439,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, List<ObjectAttribute> value)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 List<HighLevelAPI4.ObjectAttribute> attributes = ConvertToHighLevelAPI4List(value);
                 _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, attributes);
@@ -462,7 +462,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
 
             List<ObjectAttribute> objectAttributes = null;
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 List<HighLevelAPI4.ObjectAttribute> attrs = _objectAttribute4.GetValueAsObjectAttributeList();
 
@@ -499,7 +499,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(ulong type, List<ulong> value)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 List<uint> uintList = null;
 
@@ -525,7 +525,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, List<ulong> value)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 List<uint> uintList = null;
 
@@ -553,7 +553,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 List<uint> uintList = _objectAttribute4.GetValueAsUintList();
 
@@ -585,7 +585,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(ulong type, List<CKM> value)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type), value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
@@ -598,7 +598,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, List<CKM> value)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
@@ -613,7 +613,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _objectAttribute4.GetValueAsCkmList();
             else
                 return _objectAttribute8.GetValueAsCkmList();

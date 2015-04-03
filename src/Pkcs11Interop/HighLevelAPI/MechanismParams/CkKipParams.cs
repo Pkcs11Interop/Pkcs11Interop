@@ -46,7 +46,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='seed'>Input seed</param>
         public CkKipParams(ulong? mechanism, ObjectHandle key, byte[] seed)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 uint? uintMechanism = (mechanism == null) ? null : (uint?)Convert.ToUInt32(mechanism.Value);
 
@@ -69,7 +69,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _params4.ToMarshalableStructure();
             else
                 return _params8.ToMarshalableStructure();

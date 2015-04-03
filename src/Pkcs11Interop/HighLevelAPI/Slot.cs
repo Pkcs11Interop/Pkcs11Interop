@@ -41,7 +41,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _slot4.SlotId : _slot8.SlotId;
+                return (Platform.UnmanagedLongSize == 4) ? _slot4.SlotId : _slot8.SlotId;
             }
         }
 
@@ -75,7 +75,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Slot information</returns>
         public SlotInfo GetSlotInfo()
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 HighLevelAPI4.SlotInfo hlaSlotInfo = _slot4.GetSlotInfo();
                 return new SlotInfo(hlaSlotInfo);
@@ -93,7 +93,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Token information</returns>
         public TokenInfo GetTokenInfo()
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 HighLevelAPI4.TokenInfo hlaTokenInfo = _slot4.GetTokenInfo();
                 return new TokenInfo(hlaTokenInfo);
@@ -111,7 +111,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>List of mechanism types supported by a token</returns>
         public List<CKM> GetMechanismList()
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _slot4.GetMechanismList();
             else
                 return _slot8.GetMechanismList();
@@ -124,7 +124,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Information about mechanism</returns>
         public MechanismInfo GetMechanismInfo(CKM mechanism)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 HighLevelAPI4.MechanismInfo hlaMechanismInfo = _slot4.GetMechanismInfo(mechanism);
                 return new MechanismInfo(hlaMechanismInfo);
@@ -143,7 +143,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="label">Label of the token</param>
         public void InitToken(string soPin, string label)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _slot4.InitToken(soPin, label);
             else
                 _slot8.InitToken(soPin, label);
@@ -156,7 +156,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="label">Label of the token</param>
         public void InitToken(byte[] soPin, byte[] label)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _slot4.InitToken(soPin, label);
             else
                 _slot8.InitToken(soPin, label);
@@ -169,7 +169,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <returns>Session</returns>
         public Session OpenSession(bool readOnly)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 HighLevelAPI4.Session hlaSession = _slot4.OpenSession(readOnly);
                 return new Session(hlaSession);
@@ -198,7 +198,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         public void CloseAllSessions()
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _slot4.CloseAllSessions();
             else
                 _slot8.CloseAllSessions();

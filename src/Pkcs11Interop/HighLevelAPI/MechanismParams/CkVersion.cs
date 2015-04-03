@@ -40,7 +40,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _params4.Major : _params8.Major;
+                return (Platform.UnmanagedLongSize == 4) ? _params4.Major : _params8.Major;
             }
         }
 
@@ -51,7 +51,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _params4.Minor : _params8.Minor;
+                return (Platform.UnmanagedLongSize == 4) ? _params4.Minor : _params8.Minor;
             }
         }
 
@@ -62,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='minor'>Minor version number (the hundredths portion of the version)</param>
         public CkVersion(byte major, byte minor)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI4.MechanismParams.CkVersion(major, minor);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkVersion(major, minor);
@@ -100,7 +100,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <returns>A managed object holding the data to be marshaled. This object must be an instance of a formatted class.</returns>
         public object ToMarshalableStructure()
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _params4.ToMarshalableStructure();
             else
                 return _params8.ToMarshalableStructure();
@@ -116,7 +116,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         {
             string version = null;
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 version = ConvertUtils.CkVersionToString((LowLevelAPI4.CK_VERSION)_params4.ToMarshalableStructure());
             else
                 version = ConvertUtils.CkVersionToString((LowLevelAPI8.CK_VERSION)_params8.ToMarshalableStructure());

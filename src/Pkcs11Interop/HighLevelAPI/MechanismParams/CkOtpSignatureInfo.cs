@@ -71,7 +71,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='signature'>Signature value returned by all OTP mechanisms in successful calls to Sign method</param>
         public CkOtpSignatureInfo(byte[] signature)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 _params4 = new HighLevelAPI4.MechanismParams.CkOtpSignatureInfo(signature);
 

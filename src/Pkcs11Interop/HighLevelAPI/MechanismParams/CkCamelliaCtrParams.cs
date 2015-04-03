@@ -40,7 +40,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='cb'>Specifies the counter block (16 bytes)</param>
         public CkCamelliaCtrParams(ulong counterBits, byte[] cb)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI4.MechanismParams.CkCamelliaCtrParams(Convert.ToUInt32(counterBits), cb);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkCamelliaCtrParams(counterBits, cb);
@@ -54,7 +54,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <returns>A managed object holding the data to be marshaled. This object must be an instance of a formatted class.</returns>
         public object ToMarshalableStructure()
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _params4.ToMarshalableStructure();
             else
                 return _params8.ToMarshalableStructure();

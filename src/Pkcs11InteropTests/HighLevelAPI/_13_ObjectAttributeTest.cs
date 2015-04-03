@@ -207,7 +207,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 Assert.IsTrue(recoveredValue[1].GetValueAsBool() == true);
             }
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 // There is the same pointer to unmanaged memory in both nestedAttribute1 and recoveredValue[0] instances
                 // therefore private low level attribute structure needs to be modified to prevent double free.

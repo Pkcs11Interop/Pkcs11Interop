@@ -46,7 +46,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="useOsLocking">Flag indicating whether PKCS#11 library can use the native operation system threading model for locking. Should be set to true in all multithreaded applications.</param>
         public Pkcs11(string libraryPath, bool useOsLocking)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _p11_4 = new HighLevelAPI4.Pkcs11(libraryPath, useOsLocking);
             else
                 _p11_8 = new HighLevelAPI8.Pkcs11(libraryPath, useOsLocking);
@@ -60,7 +60,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="useGetFunctionList">Flag indicating whether cryptoki function pointers should be acquired via C_GetFunctionList (true) or via platform native function (false)</param>
         public Pkcs11(string libraryPath, bool useOsLocking, bool useGetFunctionList)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _p11_4 = new HighLevelAPI4.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
             else
                 _p11_8 = new HighLevelAPI8.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
@@ -75,7 +75,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 HighLevelAPI4.LibraryInfo hlaLibraryInfo = _p11_4.GetInfo();
                 return new LibraryInfo(hlaLibraryInfo);
@@ -97,7 +97,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 List<HighLevelAPI4.Slot> hlaSlotList = _p11_4.GetSlotList(tokenPresent);
                 List<Slot> slotList = new List<Slot>();
@@ -126,7 +126,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 uint uintSlotId = CK.CK_INVALID_HANDLE;
                 _p11_4.WaitForSlotEvent(dontBlock, out eventOccured, out uintSlotId);

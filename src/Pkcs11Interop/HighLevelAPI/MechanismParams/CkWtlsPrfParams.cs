@@ -48,7 +48,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (UnmanagedLong.Size == 4) ? _params4.Output : _params8.Output;
+                return (Platform.UnmanagedLongSize == 4) ? _params4.Output : _params8.Output;
             }
         }
         
@@ -61,7 +61,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='outputLen'>Length in bytes that the output to be created shall have</param>
         public CkWtlsPrfParams(ulong digestMechanism, byte[] seed, byte[] label, ulong outputLen)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI4.MechanismParams.CkWtlsPrfParams(Convert.ToUInt32(digestMechanism), seed, label, Convert.ToUInt32(outputLen));
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkWtlsPrfParams(digestMechanism, seed, label, outputLen);
@@ -78,7 +78,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _params4.ToMarshalableStructure();
             else
                 return _params8.ToMarshalableStructure();

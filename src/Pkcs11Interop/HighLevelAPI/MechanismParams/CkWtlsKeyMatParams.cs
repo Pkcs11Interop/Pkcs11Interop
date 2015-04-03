@@ -60,7 +60,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
 
                 if (_returnedKeyMaterial == null)
                 {
-                    if (UnmanagedLong.Size == 4)
+                    if (Platform.UnmanagedLongSize == 4)
                         _returnedKeyMaterial = new CkWtlsKeyMatOut(_params4.ReturnedKeyMaterial);
                     else
                         _returnedKeyMaterial = new CkWtlsKeyMatOut(_params8.ReturnedKeyMaterial);
@@ -96,7 +96,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             // Keep reference to randomInfo so GC will not free it while this object exists
             _randomInfo = randomInfo;
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI4.MechanismParams.CkWtlsKeyMatParams(Convert.ToUInt32(digestMechanism), Convert.ToUInt32(macSizeInBits), Convert.ToUInt32(keySizeInBits), Convert.ToUInt32(ivSizeInBits), Convert.ToUInt32(sequenceNumber), isExport, _randomInfo._params4);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkWtlsKeyMatParams(digestMechanism, macSizeInBits, keySizeInBits, ivSizeInBits, sequenceNumber, isExport, _randomInfo._params8);
@@ -113,7 +113,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _params4.ToMarshalableStructure();
             else
                 return _params8.ToMarshalableStructure();

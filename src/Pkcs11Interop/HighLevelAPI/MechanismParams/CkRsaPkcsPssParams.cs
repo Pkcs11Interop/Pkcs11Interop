@@ -41,7 +41,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='len'>Length, in bytes, of the salt value used in the PSS encoding</param>
         public CkRsaPkcsPssParams(ulong hashAlg, ulong mgf, ulong len)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _params4 = new HighLevelAPI4.MechanismParams.CkRsaPkcsPssParams(Convert.ToUInt32(hashAlg), Convert.ToUInt32(mgf), Convert.ToUInt32(len));
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkRsaPkcsPssParams(hashAlg, mgf, len);
@@ -55,7 +55,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <returns>A managed object holding the data to be marshaled. This object must be an instance of a formatted class.</returns>
         public object ToMarshalableStructure()
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _params4.ToMarshalableStructure();
             else
                 return _params8.ToMarshalableStructure();

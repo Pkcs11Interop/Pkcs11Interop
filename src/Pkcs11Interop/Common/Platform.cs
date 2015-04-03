@@ -97,6 +97,44 @@ namespace Net.Pkcs11Interop.Common
         }
 
         /// <summary>
+        /// Size of unmanaged long type
+        /// </summary>
+        private static int _unmanagedLongSize = 0;
+
+        /// <summary>
+        /// Size of unmanaged long type
+        /// </summary>
+        public static int UnmanagedLongSize
+        {
+            get
+            {
+                if (_unmanagedLongSize != 0)
+                    return _unmanagedLongSize;
+
+                if (IsLinux || IsMacOsX)
+                {
+                    // CK_ULONG is 4 bytes long on 32-bit Unix and 8 bytes long 64-bit Unix
+                    _unmanagedLongSize = IntPtr.Size;
+                }
+                else
+                {
+                    // On Windows CK_ULONG is always 4 bytes long
+                    _unmanagedLongSize = 4;
+                }
+
+                return _unmanagedLongSize;
+            }
+            set
+            {
+                if ((value != 4) && (value != 8))
+                    throw new ArgumentException();
+
+                // Automatic platform detection can be overriden if needed
+                _unmanagedLongSize = value;
+            }
+        }
+
+        /// <summary>
         /// Performs platform detection
         /// </summary>
         private static void DetectPlatform()

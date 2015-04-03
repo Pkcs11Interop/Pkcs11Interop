@@ -40,7 +40,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _libraryInfo4.CryptokiVersion : _libraryInfo8.CryptokiVersion;
+                return (Platform.UnmanagedLongSize == 4) ? _libraryInfo4.CryptokiVersion : _libraryInfo8.CryptokiVersion;
             }
         }
 
@@ -51,7 +51,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _libraryInfo4.ManufacturerId : _libraryInfo8.ManufacturerId;
+                return (Platform.UnmanagedLongSize == 4) ? _libraryInfo4.ManufacturerId : _libraryInfo8.ManufacturerId;
             }
         }
 
@@ -62,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _libraryInfo4.Flags : _libraryInfo8.Flags;
+                return (Platform.UnmanagedLongSize == 4) ? _libraryInfo4.Flags : _libraryInfo8.Flags;
             }
         }
 
@@ -73,7 +73,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _libraryInfo4.LibraryDescription : _libraryInfo8.LibraryDescription;
+                return (Platform.UnmanagedLongSize == 4) ? _libraryInfo4.LibraryDescription : _libraryInfo8.LibraryDescription;
             }
         }
 
@@ -84,7 +84,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _libraryInfo4.LibraryVersion : _libraryInfo8.LibraryVersion;
+                return (Platform.UnmanagedLongSize == 4) ? _libraryInfo4.LibraryVersion : _libraryInfo8.LibraryVersion;
             }
         }
 

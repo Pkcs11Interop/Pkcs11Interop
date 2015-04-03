@@ -76,7 +76,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (UnmanagedLong.Size == 4) ? _mechanism4.Type : _mechanism8.Type;
+                return (Platform.UnmanagedLongSize == 4) ? _mechanism4.Type : _mechanism8.Type;
             }
         }
 
@@ -110,7 +110,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="type">Mechanism type</param>
         public Mechanism(ulong type)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _mechanism4 = new HighLevelAPI4.Mechanism(Convert.ToUInt32(type));
             else
                 _mechanism8 = new HighLevelAPI8.Mechanism(type);
@@ -122,7 +122,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="type">Mechanism type</param>
         public Mechanism(CKM type)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _mechanism4 = new HighLevelAPI4.Mechanism(type);
             else
                 _mechanism8 = new HighLevelAPI8.Mechanism(type);
@@ -135,7 +135,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="parameter">Mechanism parameter</param>
         public Mechanism(ulong type, byte[] parameter)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _mechanism4 = new HighLevelAPI4.Mechanism(Convert.ToUInt32(type), parameter);
             else
                 _mechanism8 = new HighLevelAPI8.Mechanism(type, parameter);
@@ -148,7 +148,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="parameter">Mechanism parameter</param>
         public Mechanism(CKM type, byte[] parameter)
         {
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _mechanism4 = new HighLevelAPI4.Mechanism(type, parameter);
             else
                 _mechanism8 = new HighLevelAPI8.Mechanism(type, parameter);
@@ -164,7 +164,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (parameter == null)
                 throw new ArgumentNullException("parameter");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _mechanism4 = new HighLevelAPI4.Mechanism(Convert.ToUInt32(type), parameter);
             else
                 _mechanism8 = new HighLevelAPI8.Mechanism(type, parameter);
@@ -180,7 +180,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (parameter == null)
                 throw new ArgumentNullException("parameter");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _mechanism4 = new HighLevelAPI4.Mechanism(type, parameter);
             else
                 _mechanism8 = new HighLevelAPI8.Mechanism(type, parameter);

@@ -40,7 +40,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenFlags4.Flags : _tokenFlags8.Flags;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenFlags4.Flags : _tokenFlags8.Flags;
             }
         }
 
@@ -51,7 +51,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenFlags4.Rng : _tokenFlags8.Rng;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenFlags4.Rng : _tokenFlags8.Rng;
             }
         }
 
@@ -62,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenFlags4.WriteProtected : _tokenFlags8.WriteProtected;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenFlags4.WriteProtected : _tokenFlags8.WriteProtected;
             }
         }
 
@@ -73,7 +73,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenFlags4.LoginRequired : _tokenFlags8.LoginRequired;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenFlags4.LoginRequired : _tokenFlags8.LoginRequired;
             }
         }
 
@@ -84,7 +84,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenFlags4.UserPinInitialized : _tokenFlags8.UserPinInitialized;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenFlags4.UserPinInitialized : _tokenFlags8.UserPinInitialized;
             }
         }
 
@@ -95,7 +95,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenFlags4.RestoreKeyNotNeeded : _tokenFlags8.RestoreKeyNotNeeded;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenFlags4.RestoreKeyNotNeeded : _tokenFlags8.RestoreKeyNotNeeded;
             }
         }
 
@@ -106,7 +106,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenFlags4.ClockOnToken : _tokenFlags8.ClockOnToken;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenFlags4.ClockOnToken : _tokenFlags8.ClockOnToken;
             }
         }
         
@@ -117,7 +117,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenFlags4.ProtectedAuthenticationPath : _tokenFlags8.ProtectedAuthenticationPath;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenFlags4.ProtectedAuthenticationPath : _tokenFlags8.ProtectedAuthenticationPath;
             }
         }
 
@@ -128,7 +128,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenFlags4.DualCryptoOperations : _tokenFlags8.DualCryptoOperations;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenFlags4.DualCryptoOperations : _tokenFlags8.DualCryptoOperations;
             }
         }
 
@@ -139,7 +139,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenFlags4.TokenInitialized : _tokenFlags8.TokenInitialized;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenFlags4.TokenInitialized : _tokenFlags8.TokenInitialized;
             }
         }
 
@@ -150,7 +150,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenFlags4.SecondaryAuthentication : _tokenFlags8.SecondaryAuthentication;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenFlags4.SecondaryAuthentication : _tokenFlags8.SecondaryAuthentication;
             }
         }
 
@@ -161,7 +161,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenFlags4.UserPinCountLow : _tokenFlags8.UserPinCountLow;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenFlags4.UserPinCountLow : _tokenFlags8.UserPinCountLow;
             }
         }
 
@@ -172,7 +172,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenFlags4.UserPinFinalTry : _tokenFlags8.UserPinFinalTry;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenFlags4.UserPinFinalTry : _tokenFlags8.UserPinFinalTry;
             }
         }
 
@@ -183,7 +183,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenFlags4.UserPinLocked : _tokenFlags8.UserPinLocked;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenFlags4.UserPinLocked : _tokenFlags8.UserPinLocked;
             }
         }
 
@@ -194,7 +194,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenFlags4.UserPinToBeChanged : _tokenFlags8.UserPinToBeChanged;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenFlags4.UserPinToBeChanged : _tokenFlags8.UserPinToBeChanged;
             }
         }
 
@@ -205,7 +205,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenFlags4.SoPinCountLow : _tokenFlags8.SoPinCountLow;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenFlags4.SoPinCountLow : _tokenFlags8.SoPinCountLow;
             }
         }
 
@@ -216,7 +216,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenFlags4.SoPinFinalTry : _tokenFlags8.SoPinFinalTry;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenFlags4.SoPinFinalTry : _tokenFlags8.SoPinFinalTry;
             }
         }
 
@@ -227,7 +227,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenFlags4.SoPinLocked : _tokenFlags8.SoPinLocked;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenFlags4.SoPinLocked : _tokenFlags8.SoPinLocked;
             }
         }
 
@@ -238,7 +238,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _tokenFlags4.SoPinToBeChanged : _tokenFlags8.SoPinToBeChanged;
+                return (Platform.UnmanagedLongSize == 4) ? _tokenFlags4.SoPinToBeChanged : _tokenFlags8.SoPinToBeChanged;
             }
         }
 

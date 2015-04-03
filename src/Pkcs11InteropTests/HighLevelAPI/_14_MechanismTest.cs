@@ -85,7 +85,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             Assert.IsTrue(mechanism.Type == (ulong)CKM.CKM_RSA_PKCS);
 
             // We access private Mechanism member just for the testing purposes
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 HLA4.Mechanism mechanism4 = (HLA4.Mechanism)typeof(Mechanism).GetField("_mechanism4", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
                 LLA4.CK_MECHANISM ckMechanism4 = (LLA4.CK_MECHANISM)typeof(HLA4.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism4);
@@ -118,7 +118,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             Assert.IsTrue(mechanism.Type == (ulong)CKM.CKM_AES_CBC);
 
             // We access private members here just for the testing purposes
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 HLA4.Mechanism mechanism4 = (HLA4.Mechanism)typeof(Mechanism).GetField("_mechanism4", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
                 LLA4.CK_MECHANISM ckMechanism4 = (LLA4.CK_MECHANISM)typeof(HLA4.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism4);
@@ -142,7 +142,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             Assert.IsTrue(mechanism.Type == (ulong)CKM.CKM_AES_CBC);
 
             // We access private members here just for the testing purposes
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 HLA4.Mechanism mechanism4 = (HLA4.Mechanism)typeof(Mechanism).GetField("_mechanism4", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
                 LLA4.CK_MECHANISM ckMechanism4 = (LLA4.CK_MECHANISM)typeof(HLA4.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism4);
@@ -178,7 +178,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             Assert.IsTrue(mechanism.Type == (ulong)CKM.CKM_XOR_BASE_AND_DATA);
 
             // We access private Mechanism member here just for the testing purposes
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 HLA4.Mechanism mechanism4 = (HLA4.Mechanism)typeof(Mechanism).GetField("_mechanism4", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
                 LLA4.CK_MECHANISM ckMechanism4 = (LLA4.CK_MECHANISM)typeof(HLA4.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism4);

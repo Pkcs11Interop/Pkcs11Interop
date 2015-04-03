@@ -50,7 +50,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (UnmanagedLong.Size == 4) ? _session4.SessionId : _session8.SessionId;
+                return (Platform.UnmanagedLongSize == 4) ? _session4.SessionId : _session8.SessionId;
             }
         }
 
@@ -86,7 +86,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _session4.CloseSession();
             else
                 _session8.CloseSession();
@@ -101,7 +101,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _session4.InitPin(userPin);
             else
                 _session8.InitPin(userPin);
@@ -116,7 +116,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _session4.InitPin(userPin);
             else
                 _session8.InitPin(userPin);
@@ -132,7 +132,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _session4.SetPin(oldPin, newPin);
             else
                 _session8.SetPin(oldPin, newPin);
@@ -148,7 +148,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _session4.SetPin(oldPin, newPin);
             else
                 _session8.SetPin(oldPin, newPin);
@@ -163,7 +163,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 HighLevelAPI4.SessionInfo hlaSessionInfo = _session4.GetSessionInfo();
                 return new SessionInfo(hlaSessionInfo);
@@ -184,7 +184,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _session4.GetOperationState();
             else
                 return _session8.GetOperationState();
@@ -210,7 +210,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (authenticationKey == null)
                 throw new ArgumentNullException("authenticationKey");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _session4.SetOperationState(state, encryptionKey.ObjectHandle4, authenticationKey.ObjectHandle4);
             else
                 _session8.SetOperationState(state, encryptionKey.ObjectHandle8, authenticationKey.ObjectHandle8);
@@ -226,7 +226,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _session4.Login(userType, pin);
             else
                 _session8.Login(userType, pin);
@@ -242,7 +242,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _session4.Login(userType, pin);
             else
                 _session8.Login(userType, pin);
@@ -256,7 +256,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _session4.Logout();
             else
                 _session8.Logout();
@@ -272,7 +272,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 List<HighLevelAPI4.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(attributes);
                 HighLevelAPI4.ObjectHandle hlaObjectHandle = _session4.CreateObject(hlaAttributes);
@@ -300,7 +300,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (objectHandle == null)
                 throw new ArgumentNullException("objectHandle");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 List<HighLevelAPI4.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(attributes);
                 HighLevelAPI4.ObjectHandle hlaObjectHandle = _session4.CopyObject(objectHandle.ObjectHandle4, hlaAttributes);
@@ -326,7 +326,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (objectHandle == null)
                 throw new ArgumentNullException("objectHandle");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _session4.DestroyObject(objectHandle.ObjectHandle4);
             else
                 _session8.DestroyObject(objectHandle.ObjectHandle8);
@@ -345,7 +345,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (objectHandle == null)
                 throw new ArgumentNullException("objectHandle");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _session4.GetObjectSize(objectHandle.ObjectHandle4);
             else
                 return _session8.GetObjectSize(objectHandle.ObjectHandle8);
@@ -398,7 +398,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (attributes.Count < 1)
                 throw new ArgumentException("No attributes specified", "attributes");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 List<uint> uintList = new List<uint>();
                 for (int i = 0; i < attributes.Count; i++)
@@ -433,7 +433,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (attributes.Count < 1)
                 throw new ArgumentException("No attributes specified", "attributes");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 List<HighLevelAPI4.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(attributes);
                 _session4.SetAttributeValue(objectHandle.ObjectHandle4, hlaAttributes);
@@ -454,7 +454,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 List<HighLevelAPI4.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(attributes);
                 _session4.FindObjectsInit(hlaAttributes);
@@ -476,7 +476,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 List<HighLevelAPI4.ObjectHandle> hlaObjectHandles = _session4.FindObjects(objectCount);
                 return ObjectHandle.ConvertFromHighLevelAPI4List(hlaObjectHandles);
@@ -496,7 +496,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _session4.FindObjectsFinal();
             else
                 _session8.FindObjectsFinal();
@@ -512,7 +512,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 List<HighLevelAPI4.ObjectAttribute> hlaObjectAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(attributes);
                 List<HighLevelAPI4.ObjectHandle> hlaObjectHandles = _session4.FindAllObjects(hlaObjectAttributes);
@@ -547,7 +547,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (data == null)
                 throw new ArgumentNullException("data");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _session4.Encrypt(mechanism.Mechanism4, keyHandle.ObjectHandle4, data);
             else
                 return _session8.Encrypt(mechanism.Mechanism8, keyHandle.ObjectHandle8, data);
@@ -608,7 +608,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (bufferLength < 1)
                 throw new ArgumentException("Value has to be positive number", "bufferLength");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _session4.Encrypt(mechanism.Mechanism4, keyHandle.ObjectHandle4, inputStream, outputStream, bufferLength);
             else
                 _session8.Encrypt(mechanism.Mechanism8, keyHandle.ObjectHandle8, inputStream, outputStream, bufferLength);
@@ -635,7 +635,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (encryptedData == null)
                 throw new ArgumentNullException("encryptedData");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _session4.Decrypt(mechanism.Mechanism4, keyHandle.ObjectHandle4, encryptedData);
             else
                 return _session8.Decrypt(mechanism.Mechanism8, keyHandle.ObjectHandle8, encryptedData);
@@ -696,7 +696,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (bufferLength < 1)
                 throw new ArgumentException("Value has to be positive number", "bufferLength");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _session4.Decrypt(mechanism.Mechanism4, keyHandle.ObjectHandle4, inputStream, outputStream, bufferLength);
             else
                 _session8.Decrypt(mechanism.Mechanism8, keyHandle.ObjectHandle8, inputStream, outputStream, bufferLength);
@@ -719,7 +719,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (keyHandle == null)
                 throw new ArgumentNullException("keyHandle");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _session4.DigestKey(mechanism.Mechanism4, keyHandle.ObjectHandle4);
             else
                 return _session8.DigestKey(mechanism.Mechanism8, keyHandle.ObjectHandle8);
@@ -742,7 +742,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (data == null)
                 throw new ArgumentNullException("data");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _session4.Digest(mechanism.Mechanism4, data);
             else
                 return _session8.Digest(mechanism.Mechanism8, data);
@@ -789,7 +789,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (bufferLength < 1)
                 throw new ArgumentException("Value has to be positive number", "bufferLength");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _session4.Digest(mechanism.Mechanism4, inputStream, bufferLength);
             else
                 return _session8.Digest(mechanism.Mechanism8, inputStream, bufferLength);
@@ -816,7 +816,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (data == null)
                 throw new ArgumentNullException("data");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _session4.Sign(mechanism.Mechanism4, keyHandle.ObjectHandle4, data);
             else
                 return _session8.Sign(mechanism.Mechanism8, keyHandle.ObjectHandle8, data);
@@ -871,7 +871,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (bufferLength < 1)
                 throw new ArgumentException("Value has to be positive number", "bufferLength");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _session4.Sign(mechanism.Mechanism4, keyHandle.ObjectHandle4, inputStream, bufferLength);
             else
                 return _session8.Sign(mechanism.Mechanism8, keyHandle.ObjectHandle8, inputStream, bufferLength);
@@ -898,7 +898,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (data == null)
                 throw new ArgumentNullException("data");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _session4.SignRecover(mechanism.Mechanism4, keyHandle.ObjectHandle4, data);
             else
                 return _session8.SignRecover(mechanism.Mechanism8, keyHandle.ObjectHandle8, data);
@@ -929,7 +929,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (signature == null)
                 throw new ArgumentNullException("signature");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _session4.Verify(mechanism.Mechanism4, keyHandle.ObjectHandle4, data, signature, out isValid);
             else
                 _session8.Verify(mechanism.Mechanism8, keyHandle.ObjectHandle8, data, signature, out isValid);
@@ -992,7 +992,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (bufferLength < 1)
                 throw new ArgumentException("Value has to be positive number", "bufferLength");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _session4.Verify(mechanism.Mechanism4, keyHandle.ObjectHandle4, inputStream, signature, out isValid, bufferLength);
             else
                 _session8.Verify(mechanism.Mechanism8, keyHandle.ObjectHandle8, inputStream, signature, out isValid, bufferLength);
@@ -1020,7 +1020,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (signature == null)
                 throw new ArgumentNullException("signature");
             
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _session4.VerifyRecover(mechanism.Mechanism4, keyHandle.ObjectHandle4, signature, out isValid);
             else
                 return _session8.VerifyRecover(mechanism.Mechanism8, keyHandle.ObjectHandle8, signature, out isValid);
@@ -1124,7 +1124,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (bufferLength < 1)
                 throw new ArgumentException("Value has to be positive number", "bufferLength");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _session4.DigestEncrypt(digestingMechanism.Mechanism4, encryptionMechanism.Mechanism4, keyHandle.ObjectHandle4, inputStream, outputStream, bufferLength);
             else
                 return _session8.DigestEncrypt(digestingMechanism.Mechanism8, encryptionMechanism.Mechanism8, keyHandle.ObjectHandle8, inputStream, outputStream, bufferLength);
@@ -1228,7 +1228,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (bufferLength < 1)
                 throw new ArgumentException("Value has to be positive number", "bufferLength");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _session4.DecryptDigest(digestingMechanism.Mechanism4, decryptionMechanism.Mechanism4, keyHandle.ObjectHandle4, inputStream, outputStream, bufferLength);
             else
                 return _session8.DecryptDigest(digestingMechanism.Mechanism8, decryptionMechanism.Mechanism8, keyHandle.ObjectHandle8, inputStream, outputStream, bufferLength);
@@ -1344,7 +1344,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (bufferLength < 1)
                 throw new ArgumentException("Value has to be positive number", "bufferLength");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _session4.SignEncrypt(signingMechanism.Mechanism4, signingKeyHandle.ObjectHandle4, encryptionMechanism.Mechanism4, encryptionKeyHandle.ObjectHandle4, inputStream, outputStream, bufferLength);
             else
                 return _session8.SignEncrypt(signingMechanism.Mechanism8, signingKeyHandle.ObjectHandle8, encryptionMechanism.Mechanism8, encryptionKeyHandle.ObjectHandle8, inputStream, outputStream, bufferLength);
@@ -1472,7 +1472,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (bufferLength < 1)
                 throw new ArgumentException("Value has to be positive number", "bufferLength");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _session4.DecryptVerify(verificationMechanism.Mechanism4, verificationKeyHandle.ObjectHandle4, decryptionMechanism.Mechanism4, decryptionKeyHandle.ObjectHandle4, inputStream, outputStream, signature, out isValid, bufferLength);
             else
                 _session8.DecryptVerify(verificationMechanism.Mechanism8, verificationKeyHandle.ObjectHandle8, decryptionMechanism.Mechanism8, decryptionKeyHandle.ObjectHandle8, inputStream, outputStream, signature, out isValid, bufferLength);
@@ -1492,7 +1492,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 List<HighLevelAPI4.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(attributes);
                 HighLevelAPI4.ObjectHandle hlaObjectHandle = _session4.GenerateKey(mechanism.Mechanism4, hlaAttributes);
@@ -1522,7 +1522,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 List<HighLevelAPI4.ObjectAttribute> hlaPublicKeyAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(publicKeyAttributes);
                 List<HighLevelAPI4.ObjectAttribute> hlaPrivateKeyAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(privateKeyAttributes);
@@ -1571,7 +1571,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (keyHandle == null)
                 throw new ArgumentNullException("keyHandle");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _session4.WrapKey(mechanism.Mechanism4, wrappingKeyHandle.ObjectHandle4, keyHandle.ObjectHandle4);
             else
                 return _session8.WrapKey(mechanism.Mechanism8, wrappingKeyHandle.ObjectHandle8, keyHandle.ObjectHandle8);
@@ -1599,7 +1599,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (wrappedKey == null)
                 throw new ArgumentNullException("wrappedKey");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 List<HighLevelAPI4.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(attributes);
                 HighLevelAPI4.ObjectHandle unwrappedKeyHandle = _session4.UnwrapKey(mechanism.Mechanism4, unwrappingKeyHandle.ObjectHandle4, wrappedKey, hlaAttributes);
@@ -1631,7 +1631,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (baseKeyHandle == null)
                 throw new ArgumentNullException("baseKeyHandle");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
             {
                 List<HighLevelAPI4.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(attributes);
                 HighLevelAPI4.ObjectHandle unwrappedKeyHandle = _session4.DeriveKey(mechanism.Mechanism4, baseKeyHandle.ObjectHandle4, hlaAttributes);
@@ -1657,7 +1657,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (seed == null)
                 throw new ArgumentNullException("seed");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _session4.SeedRandom(seed);
             else
                 _session8.SeedRandom(seed);
@@ -1676,7 +1676,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (length < 1)
                 throw new ArgumentException("Value has to be positive number", "length");
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 return _session4.GenerateRandom(length);
             else
                 return _session8.GenerateRandom(length);
@@ -1690,7 +1690,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _session4.GetFunctionStatus();
             else
                 _session8.GetFunctionStatus();
@@ -1704,7 +1704,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            if (UnmanagedLong.Size == 4)
+            if (Platform.UnmanagedLongSize == 4)
                 _session4.CancelFunction();
             else
                 _session8.CancelFunction();

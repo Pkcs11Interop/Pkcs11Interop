@@ -33,7 +33,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI4
         [Test()]
         public void _01_EmptyParameterTest()
         {
-            if (UnmanagedLong.Size != 4)
+            if (Platform.UnmanagedLongSize != 4)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             // Create mechanism without the parameter
@@ -49,7 +49,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI4
         [Test()]
         public void _02_ByteArrayParameterTest()
         {
-            if (UnmanagedLong.Size != 4)
+            if (Platform.UnmanagedLongSize != 4)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             byte[] parameter = new byte[16];
@@ -85,7 +85,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI4
         [Test()]
         public void _03_StructureParameterTest()
         {
-            if (UnmanagedLong.Size != 4)
+            if (Platform.UnmanagedLongSize != 4)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             byte[] data = new byte[24];

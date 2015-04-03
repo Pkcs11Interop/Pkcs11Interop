@@ -40,7 +40,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _slotFlags4.Flags : _slotFlags8.Flags;
+                return (Platform.UnmanagedLongSize == 4) ? _slotFlags4.Flags : _slotFlags8.Flags;
             }
         }
 
@@ -51,7 +51,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _slotFlags4.TokenPresent : _slotFlags8.TokenPresent;
+                return (Platform.UnmanagedLongSize == 4) ? _slotFlags4.TokenPresent : _slotFlags8.TokenPresent;
             }
         }
 
@@ -62,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _slotFlags4.RemovableDevice : _slotFlags8.RemovableDevice;
+                return (Platform.UnmanagedLongSize == 4) ? _slotFlags4.RemovableDevice : _slotFlags8.RemovableDevice;
             }
         }
 
@@ -73,7 +73,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _slotFlags4.HardwareSlot : _slotFlags8.HardwareSlot;
+                return (Platform.UnmanagedLongSize == 4) ? _slotFlags4.HardwareSlot : _slotFlags8.HardwareSlot;
             }
         }
 

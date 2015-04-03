@@ -40,7 +40,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _sessionFlags4.Flags : _sessionFlags8.Flags;
+                return (Platform.UnmanagedLongSize == 4) ? _sessionFlags4.Flags : _sessionFlags8.Flags;
             }
         }
 
@@ -51,7 +51,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _sessionFlags4.RwSession : _sessionFlags8.RwSession;
+                return (Platform.UnmanagedLongSize == 4) ? _sessionFlags4.RwSession : _sessionFlags8.RwSession;
             }
         }
 
@@ -62,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _sessionFlags4.SerialSession : _sessionFlags8.SerialSession;
+                return (Platform.UnmanagedLongSize == 4) ? _sessionFlags4.SerialSession : _sessionFlags8.SerialSession;
             }
         }
 

@@ -40,7 +40,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _sessionInfo4.SessionId : _sessionInfo8.SessionId;
+                return (Platform.UnmanagedLongSize == 4) ? _sessionInfo4.SessionId : _sessionInfo8.SessionId;
             }
         }
 
@@ -51,7 +51,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _sessionInfo4.SlotId : _sessionInfo8.SlotId;
+                return (Platform.UnmanagedLongSize == 4) ? _sessionInfo4.SlotId : _sessionInfo8.SlotId;
             }
         }
 
@@ -62,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _sessionInfo4.State : _sessionInfo8.State;
+                return (Platform.UnmanagedLongSize == 4) ? _sessionInfo4.State : _sessionInfo8.State;
             }
         }
 
@@ -79,7 +79,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             get
             {
                 if (_sessionFlags == null)
-                    _sessionFlags = (UnmanagedLong.Size == 4) ? new SessionFlags(_sessionInfo4.SessionFlags) : new SessionFlags(_sessionInfo8.SessionFlags);
+                    _sessionFlags = (Platform.UnmanagedLongSize == 4) ? new SessionFlags(_sessionInfo4.SessionFlags) : new SessionFlags(_sessionInfo8.SessionFlags);
 
                 return _sessionFlags;
             }
@@ -92,7 +92,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (UnmanagedLong.Size == 4) ? _sessionInfo4.DeviceError : _sessionInfo8.DeviceError;
+                return (Platform.UnmanagedLongSize == 4) ? _sessionInfo4.DeviceError : _sessionInfo8.DeviceError;
             }
         }
 
