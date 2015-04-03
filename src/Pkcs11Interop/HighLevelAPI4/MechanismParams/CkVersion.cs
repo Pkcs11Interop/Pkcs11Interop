@@ -25,7 +25,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI4.CK_VERSION _lowLevelStruct = new LowLevelAPI4.CK_VERSION();
+        private LowLevelAPI41.CK_VERSION _lowLevelStruct = new LowLevelAPI41.CK_VERSION();
 
         /// <summary>
         /// Major version number (the integer portion of the version)

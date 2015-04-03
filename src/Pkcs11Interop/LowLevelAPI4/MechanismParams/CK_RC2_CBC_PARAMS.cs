@@ -15,7 +15,7 @@
 
 using System.Runtime.InteropServices;
 
-namespace Net.Pkcs11Interop.LowLevelAPI4.MechanismParams
+namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
 {
     /// <summary>
     /// Structure that provides the parameters to the CKM_RC2_CBC and CKM_RC2_CBC_PAD mechanisms

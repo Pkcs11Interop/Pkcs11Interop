@@ -15,7 +15,7 @@
 
 using System.Runtime.InteropServices;
 
-namespace Net.Pkcs11Interop.LowLevelAPI4
+namespace Net.Pkcs11Interop.LowLevelAPI41
 {
     /// <summary>
     /// Provides information about a token

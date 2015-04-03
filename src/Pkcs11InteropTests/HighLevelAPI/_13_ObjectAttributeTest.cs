@@ -21,7 +21,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using HLA4 = Net.Pkcs11Interop.HighLevelAPI4;
 using HLA8 = Net.Pkcs11Interop.HighLevelAPI8;
-using LLA4 = Net.Pkcs11Interop.LowLevelAPI4;
+using LLA4 = Net.Pkcs11Interop.LowLevelAPI41;
 using LLA8 = Net.Pkcs11Interop.LowLevelAPI8;
 
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI

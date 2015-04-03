@@ -16,11 +16,11 @@
 using System;
 using System.IO;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI4;
-using Net.Pkcs11Interop.LowLevelAPI4.MechanismParams;
+using Net.Pkcs11Interop.LowLevelAPI41;
+using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
 using NUnit.Framework;
 
-namespace Net.Pkcs11Interop.Tests.LowLevelAPI4
+namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 {
     /// <summary>
     /// C_EncryptInit, C_Encrypt, C_EncryptUpdate, C_EncryptFinish, C_DecryptInit, C_Decrypt, C_DecryptUpdate and C_DecryptFinish tests.

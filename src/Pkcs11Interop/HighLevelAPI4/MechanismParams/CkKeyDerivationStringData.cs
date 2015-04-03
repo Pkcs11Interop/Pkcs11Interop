@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI4.MechanismParams.CK_KEY_DERIVATION_STRING_DATA _lowLevelStruct = new LowLevelAPI4.MechanismParams.CK_KEY_DERIVATION_STRING_DATA();
+        private LowLevelAPI41.MechanismParams.CK_KEY_DERIVATION_STRING_DATA _lowLevelStruct = new LowLevelAPI41.MechanismParams.CK_KEY_DERIVATION_STRING_DATA();
 
         /// <summary>
         /// Initializes a new instance of the CkKeyDerivationStringData class.

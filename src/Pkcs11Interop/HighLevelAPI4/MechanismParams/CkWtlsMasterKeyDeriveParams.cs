@@ -15,8 +15,8 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI4;
-using Net.Pkcs11Interop.LowLevelAPI4.MechanismParams;
+using Net.Pkcs11Interop.LowLevelAPI41;
+using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI4.MechanismParams
 {
@@ -33,7 +33,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI4.MechanismParams.CK_WTLS_MASTER_KEY_DERIVE_PARAMS _lowLevelStruct = new LowLevelAPI4.MechanismParams.CK_WTLS_MASTER_KEY_DERIVE_PARAMS();
+        private LowLevelAPI41.MechanismParams.CK_WTLS_MASTER_KEY_DERIVE_PARAMS _lowLevelStruct = new LowLevelAPI41.MechanismParams.CK_WTLS_MASTER_KEY_DERIVE_PARAMS();
         
         /// <summary>
         /// WTLS protocol version information

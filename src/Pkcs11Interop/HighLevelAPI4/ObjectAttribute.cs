@@ -32,12 +32,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// <summary>
         /// Low level attribute structure
         /// </summary>
-        private LowLevelAPI4.CK_ATTRIBUTE _ckAttribute;
+        private LowLevelAPI41.CK_ATTRIBUTE _ckAttribute;
 
         /// <summary>
         /// Low level attribute structure
         /// </summary>
-        internal LowLevelAPI4.CK_ATTRIBUTE CkAttribute
+        internal LowLevelAPI41.CK_ATTRIBUTE CkAttribute
         {
             get
             {
@@ -85,7 +85,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// Creates attribute defined by low level CK_ATTRIBUTE structure
         /// </summary>
         /// <param name="attribute">CK_ATTRIBUTE structure</param>
-        internal ObjectAttribute(LowLevelAPI4.CK_ATTRIBUTE attribute)
+        internal ObjectAttribute(LowLevelAPI41.CK_ATTRIBUTE attribute)
         {
             _ckAttribute = attribute;
         }
@@ -98,7 +98,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// <param name="type">Attribute type</param>
         public ObjectAttribute(uint type)
         {
-            _ckAttribute = LowLevelAPI4.CkaUtils.CreateAttribute(type);
+            _ckAttribute = LowLevelAPI41.CkaUtils.CreateAttribute(type);
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// <param name="type">Attribute type</param>
         public ObjectAttribute(CKA type)
         {
-            _ckAttribute = LowLevelAPI4.CkaUtils.CreateAttribute(type);
+            _ckAttribute = LowLevelAPI41.CkaUtils.CreateAttribute(type);
         }
 
         #endregion
@@ -121,7 +121,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(uint type, uint value)
         {
-            _ckAttribute = LowLevelAPI4.CkaUtils.CreateAttribute(type, value);
+            _ckAttribute = LowLevelAPI41.CkaUtils.CreateAttribute(type, value);
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, uint value)
         {
-            _ckAttribute = LowLevelAPI4.CkaUtils.CreateAttribute(type, value);
+            _ckAttribute = LowLevelAPI41.CkaUtils.CreateAttribute(type, value);
         }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, CKC value)
         {
-            _ckAttribute = LowLevelAPI4.CkaUtils.CreateAttribute(type, value);
+            _ckAttribute = LowLevelAPI41.CkaUtils.CreateAttribute(type, value);
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, CKK value)
         {
-            _ckAttribute = LowLevelAPI4.CkaUtils.CreateAttribute(type, value);
+            _ckAttribute = LowLevelAPI41.CkaUtils.CreateAttribute(type, value);
         }
 
         /// <summary>
@@ -161,7 +161,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, CKO value)
         {
-            _ckAttribute = LowLevelAPI4.CkaUtils.CreateAttribute(type, value);
+            _ckAttribute = LowLevelAPI41.CkaUtils.CreateAttribute(type, value);
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             uint value = 0;
-            LowLevelAPI4.CkaUtils.ConvertValue(ref _ckAttribute, out value);
+            LowLevelAPI41.CkaUtils.ConvertValue(ref _ckAttribute, out value);
             return value;
         }
 
@@ -189,7 +189,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(uint type, bool value)
         {
-            _ckAttribute = LowLevelAPI4.CkaUtils.CreateAttribute(type, value);
+            _ckAttribute = LowLevelAPI41.CkaUtils.CreateAttribute(type, value);
         }
 
         /// <summary>
@@ -199,7 +199,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, bool value)
         {
-            _ckAttribute = LowLevelAPI4.CkaUtils.CreateAttribute(type, value);
+            _ckAttribute = LowLevelAPI41.CkaUtils.CreateAttribute(type, value);
         }
 
         /// <summary>
@@ -212,7 +212,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             bool value = false;
-            LowLevelAPI4.CkaUtils.ConvertValue(ref _ckAttribute, out value);
+            LowLevelAPI41.CkaUtils.ConvertValue(ref _ckAttribute, out value);
             return value;
         }
 
@@ -227,7 +227,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(uint type, string value)
         {
-            _ckAttribute = LowLevelAPI4.CkaUtils.CreateAttribute(type, value);
+            _ckAttribute = LowLevelAPI41.CkaUtils.CreateAttribute(type, value);
         }
 
         /// <summary>
@@ -237,7 +237,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, string value)
         {
-            _ckAttribute = LowLevelAPI4.CkaUtils.CreateAttribute(type, value);
+            _ckAttribute = LowLevelAPI41.CkaUtils.CreateAttribute(type, value);
         }
 
         /// <summary>
@@ -250,7 +250,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             string value = null;
-            LowLevelAPI4.CkaUtils.ConvertValue(ref _ckAttribute, out value);
+            LowLevelAPI41.CkaUtils.ConvertValue(ref _ckAttribute, out value);
             return value;
         }
 
@@ -265,7 +265,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(uint type, byte[] value)
         {
-            _ckAttribute = LowLevelAPI4.CkaUtils.CreateAttribute(type, value);
+            _ckAttribute = LowLevelAPI41.CkaUtils.CreateAttribute(type, value);
         }
 
         /// <summary>
@@ -275,7 +275,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, byte[] value)
         {
-            _ckAttribute = LowLevelAPI4.CkaUtils.CreateAttribute(type, value);
+            _ckAttribute = LowLevelAPI41.CkaUtils.CreateAttribute(type, value);
         }
 
         /// <summary>
@@ -288,7 +288,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             byte[] value = null;
-            LowLevelAPI4.CkaUtils.ConvertValue(ref _ckAttribute, out value);
+            LowLevelAPI41.CkaUtils.ConvertValue(ref _ckAttribute, out value);
             return value;
         }
 
@@ -303,7 +303,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(uint type, DateTime value)
         {
-            _ckAttribute = LowLevelAPI4.CkaUtils.CreateAttribute(type, value);
+            _ckAttribute = LowLevelAPI41.CkaUtils.CreateAttribute(type, value);
         }
 
         /// <summary>
@@ -313,7 +313,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, DateTime value)
         {
-            _ckAttribute = LowLevelAPI4.CkaUtils.CreateAttribute(type, value);
+            _ckAttribute = LowLevelAPI41.CkaUtils.CreateAttribute(type, value);
         }
 
         /// <summary>
@@ -326,7 +326,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             DateTime? value = null;
-            LowLevelAPI4.CkaUtils.ConvertValue(ref _ckAttribute, out value);
+            LowLevelAPI41.CkaUtils.ConvertValue(ref _ckAttribute, out value);
             return value;
         }
 
@@ -341,17 +341,17 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(uint type, List<ObjectAttribute> value)
         {
-            LowLevelAPI4.CK_ATTRIBUTE[] attributes = null;
+            LowLevelAPI41.CK_ATTRIBUTE[] attributes = null;
 
             if (value != null)
             {
-                attributes = new LowLevelAPI4.CK_ATTRIBUTE[value.Count];
+                attributes = new LowLevelAPI41.CK_ATTRIBUTE[value.Count];
                 for (int i = 0; i < value.Count; i++)
                     attributes[i] = value[i].CkAttribute;
             }
 
             // Note: Each attribute in the input list still owns unmanaged memory used by its value and will free it when disposed.
-            _ckAttribute = LowLevelAPI4.CkaUtils.CreateAttribute(type, attributes);
+            _ckAttribute = LowLevelAPI41.CkaUtils.CreateAttribute(type, attributes);
         }
 
         /// <summary>
@@ -361,17 +361,17 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, List<ObjectAttribute> value)
         {
-            LowLevelAPI4.CK_ATTRIBUTE[] attributes = null;
+            LowLevelAPI41.CK_ATTRIBUTE[] attributes = null;
             
             if (value != null)
             {
-                attributes = new LowLevelAPI4.CK_ATTRIBUTE[value.Count];
+                attributes = new LowLevelAPI41.CK_ATTRIBUTE[value.Count];
                 for (int i = 0; i < value.Count; i++)
                     attributes[i] = value[i].CkAttribute;
             }
 
             // Note: Each attribute in the input list still owns unmanaged memory used by its value and will free it when disposed.
-            _ckAttribute = LowLevelAPI4.CkaUtils.CreateAttribute(type, attributes);
+            _ckAttribute = LowLevelAPI41.CkaUtils.CreateAttribute(type, attributes);
         }
 
         /// <summary>
@@ -383,8 +383,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            LowLevelAPI4.CK_ATTRIBUTE[] value = null;
-            LowLevelAPI4.CkaUtils.ConvertValue(ref _ckAttribute, out value);
+            LowLevelAPI41.CK_ATTRIBUTE[] value = null;
+            LowLevelAPI41.CkaUtils.ConvertValue(ref _ckAttribute, out value);
 
             List<ObjectAttribute> attributes = null;
             
@@ -414,7 +414,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (value != null)
                 uints = value.ToArray();
             
-            _ckAttribute = LowLevelAPI4.CkaUtils.CreateAttribute(type, uints);
+            _ckAttribute = LowLevelAPI41.CkaUtils.CreateAttribute(type, uints);
         }
 
         /// <summary>
@@ -429,7 +429,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (value != null)
                 uints = value.ToArray();
             
-            _ckAttribute = LowLevelAPI4.CkaUtils.CreateAttribute(type, uints);
+            _ckAttribute = LowLevelAPI41.CkaUtils.CreateAttribute(type, uints);
         }
 
         /// <summary>
@@ -442,7 +442,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             uint[] value = null;
-            LowLevelAPI4.CkaUtils.ConvertValue(ref _ckAttribute, out value);
+            LowLevelAPI41.CkaUtils.ConvertValue(ref _ckAttribute, out value);
             return (value == null) ? null : new List<uint>(value);
         }
 
@@ -462,7 +462,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (value != null)
                 mechanisms = value.ToArray();
             
-            _ckAttribute = LowLevelAPI4.CkaUtils.CreateAttribute(type, mechanisms);
+            _ckAttribute = LowLevelAPI41.CkaUtils.CreateAttribute(type, mechanisms);
         }
         
         /// <summary>
@@ -477,7 +477,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (value != null)
                 mechanisms = value.ToArray();
             
-            _ckAttribute = LowLevelAPI4.CkaUtils.CreateAttribute(type, mechanisms);
+            _ckAttribute = LowLevelAPI41.CkaUtils.CreateAttribute(type, mechanisms);
         }
         
         /// <summary>
@@ -490,7 +490,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             CKM[] value = null;
-            LowLevelAPI4.CkaUtils.ConvertValue(ref _ckAttribute, out value);
+            LowLevelAPI41.CkaUtils.ConvertValue(ref _ckAttribute, out value);
             return (value == null) ? null : new List<CKM>(value);
         }
 

@@ -32,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// <summary>
         /// Low level PKCS#11 wrapper
         /// </summary>
-        private LowLevelAPI4.Pkcs11 _p11 = null;
+        private LowLevelAPI41.Pkcs11 _p11 = null;
 
         /// <summary>
         /// Loads and initializes PCKS#11 library
@@ -41,14 +41,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// <param name="useOsLocking">Flag indicating whether PKCS#11 library can use the native operation system threading model for locking. Should be set to true in all multithreaded applications.</param>
         public Pkcs11(string libraryPath, bool useOsLocking)
         {
-            _p11 = new LowLevelAPI4.Pkcs11(libraryPath);
+            _p11 = new LowLevelAPI41.Pkcs11(libraryPath);
 
             try
             {
-                LowLevelAPI4.CK_C_INITIALIZE_ARGS initArgs = null;
+                LowLevelAPI41.CK_C_INITIALIZE_ARGS initArgs = null;
                 if (useOsLocking)
                 {
-                    initArgs = new LowLevelAPI4.CK_C_INITIALIZE_ARGS();
+                    initArgs = new LowLevelAPI41.CK_C_INITIALIZE_ARGS();
                     initArgs.Flags = CKF.CKF_OS_LOCKING_OK;
                 }
 
@@ -72,14 +72,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// <param name="useGetFunctionList">Flag indicating whether cryptoki function pointers should be acquired via C_GetFunctionList (true) or via platform native function (false)</param>
         public Pkcs11(string libraryPath, bool useOsLocking, bool useGetFunctionList)
         {
-            _p11 = new LowLevelAPI4.Pkcs11(libraryPath, useGetFunctionList);
+            _p11 = new LowLevelAPI41.Pkcs11(libraryPath, useGetFunctionList);
 
             try
             {
-                LowLevelAPI4.CK_C_INITIALIZE_ARGS initArgs = null;
+                LowLevelAPI41.CK_C_INITIALIZE_ARGS initArgs = null;
                 if (useOsLocking)
                 {
-                    initArgs = new LowLevelAPI4.CK_C_INITIALIZE_ARGS();
+                    initArgs = new LowLevelAPI41.CK_C_INITIALIZE_ARGS();
                     initArgs.Flags = CKF.CKF_OS_LOCKING_OK;
                 }
 
@@ -104,7 +104,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            LowLevelAPI4.CK_INFO info = new LowLevelAPI4.CK_INFO();
+            LowLevelAPI41.CK_INFO info = new LowLevelAPI41.CK_INFO();
             CKR rv = _p11.C_GetInfo(ref info);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetInfo", rv);

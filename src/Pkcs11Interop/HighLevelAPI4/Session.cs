@@ -33,7 +33,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// <summary>
         /// Low level PKCS#11 wrapper
         /// </summary>
-        private LowLevelAPI4.Pkcs11 _p11 = null;
+        private LowLevelAPI41.Pkcs11 _p11 = null;
 
         /// <summary>
         /// PKCS#11 handle of session
@@ -59,7 +59,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// </summary>
         /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
         /// <param name="sessionId">PKCS#11 handle of session</param>
-        internal Session(LowLevelAPI4.Pkcs11 pkcs11, uint sessionId)
+        internal Session(LowLevelAPI41.Pkcs11 pkcs11, uint sessionId)
         {
             if (pkcs11 == null)
                 throw new ArgumentNullException("pkcs11");
@@ -201,7 +201,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            LowLevelAPI4.CK_SESSION_INFO sessionInfo = new LowLevelAPI4.CK_SESSION_INFO();
+            LowLevelAPI41.CK_SESSION_INFO sessionInfo = new LowLevelAPI41.CK_SESSION_INFO();
             CKR rv = _p11.C_GetSessionInfo(_sessionId, ref sessionInfo);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetSessionInfo", rv);
@@ -327,13 +327,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
 
             uint objectId = CK.CK_INVALID_HANDLE;
 
-            LowLevelAPI4.CK_ATTRIBUTE[] template = null;
+            LowLevelAPI41.CK_ATTRIBUTE[] template = null;
             uint templateLength = 0;
             
             if (attributes != null)
             {
                 templateLength = Convert.ToUInt32(attributes.Count);
-                template = new LowLevelAPI4.CK_ATTRIBUTE[templateLength];
+                template = new LowLevelAPI41.CK_ATTRIBUTE[templateLength];
                 for (int i = 0; i < templateLength; i++)
                     template[i] = attributes[i].CkAttribute;
             }
@@ -361,13 +361,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
 
             uint objectId = CK.CK_INVALID_HANDLE;
 
-            LowLevelAPI4.CK_ATTRIBUTE[] template = null;
+            LowLevelAPI41.CK_ATTRIBUTE[] template = null;
             uint templateLength = 0;
 
             if (attributes != null)
             {
                 templateLength = Convert.ToUInt32(attributes.Count);
-                template = new LowLevelAPI4.CK_ATTRIBUTE[templateLength];
+                template = new LowLevelAPI41.CK_ATTRIBUTE[templateLength];
                 for (int i = 0; i < templateLength; i++)
                     template[i] = attributes[i].CkAttribute;
             }
@@ -465,9 +465,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
                 throw new ArgumentException("No attributes specified", "attributes");
 
             // Prepare array of CK_ATTRIBUTEs
-            LowLevelAPI4.CK_ATTRIBUTE[] template = new LowLevelAPI4.CK_ATTRIBUTE[attributes.Count];
+            LowLevelAPI41.CK_ATTRIBUTE[] template = new LowLevelAPI41.CK_ATTRIBUTE[attributes.Count];
             for (int i = 0; i < attributes.Count; i++)
-                template[i] = LowLevelAPI4.CkaUtils.CreateAttribute(attributes[i]);
+                template[i] = LowLevelAPI41.CkaUtils.CreateAttribute(attributes[i]);
 
             // Determine size of attribute values
             CKR rv = _p11.C_GetAttributeValue(_sessionId, objectHandle.ObjectId, template, Convert.ToUInt32(template.Length));
@@ -518,7 +518,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (attributes.Count < 1)
                 throw new ArgumentException("No attributes specified", "attributes");
 
-            LowLevelAPI4.CK_ATTRIBUTE[] template = new LowLevelAPI4.CK_ATTRIBUTE[attributes.Count];
+            LowLevelAPI41.CK_ATTRIBUTE[] template = new LowLevelAPI41.CK_ATTRIBUTE[attributes.Count];
             for (int i = 0; i < attributes.Count; i++)
                 template[i] = attributes[i].CkAttribute;
 
@@ -536,13 +536,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            LowLevelAPI4.CK_ATTRIBUTE[] template = null;
+            LowLevelAPI41.CK_ATTRIBUTE[] template = null;
             uint templateLength = 0;
             
             if (attributes != null)
             {
                 templateLength = Convert.ToUInt32(attributes.Count);
-                template = new LowLevelAPI4.CK_ATTRIBUTE[templateLength];
+                template = new LowLevelAPI41.CK_ATTRIBUTE[templateLength];
                 for (int i = 0; i < templateLength; i++)
                     template[i] = attributes[i].CkAttribute;
             }
@@ -601,13 +601,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
 
             List<ObjectHandle> foundObjects = new List<ObjectHandle>();
 
-            LowLevelAPI4.CK_ATTRIBUTE[] template = null;
+            LowLevelAPI41.CK_ATTRIBUTE[] template = null;
             uint templateLength = 0;
             
             if (attributes != null)
             {
                 templateLength = Convert.ToUInt32(attributes.Count);
-                template = new LowLevelAPI4.CK_ATTRIBUTE[templateLength];
+                template = new LowLevelAPI41.CK_ATTRIBUTE[templateLength];
                 for (int i = 0; i < templateLength; i++)
                     template[i] = attributes[i].CkAttribute;
             }
@@ -657,7 +657,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (data == null)
                 throw new ArgumentNullException("data");
 
-            LowLevelAPI4.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
 
             CKR rv = _p11.C_EncryptInit(_sessionId, ref ckMechanism, keyHandle.ObjectId);
             if (rv != CKR.CKR_OK)
@@ -734,7 +734,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (bufferLength < 1)
                 throw new ArgumentException("Value has to be positive number", "bufferLength");
 
-            LowLevelAPI4.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
 
             CKR rv = _p11.C_EncryptInit(_sessionId, ref ckMechanism, keyHandle.ObjectId);
             if (rv != CKR.CKR_OK)
@@ -791,7 +791,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (encryptedData == null)
                 throw new ArgumentNullException("encryptedData");
 
-            LowLevelAPI4.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
 
             CKR rv = _p11.C_DecryptInit(_sessionId, ref ckMechanism, keyHandle.ObjectId);
             if (rv != CKR.CKR_OK)
@@ -868,7 +868,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (bufferLength < 1)
                 throw new ArgumentException("Value has to be positive number", "bufferLength");
 
-            LowLevelAPI4.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
 
             CKR rv = _p11.C_DecryptInit(_sessionId, ref ckMechanism, keyHandle.ObjectId);
             if (rv != CKR.CKR_OK)
@@ -921,7 +921,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (keyHandle == null)
                 throw new ArgumentNullException("keyHandle");
 
-            LowLevelAPI4.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
             
             CKR rv = _p11.C_DigestInit(_sessionId, ref ckMechanism);
             if (rv != CKR.CKR_OK)
@@ -964,7 +964,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (data == null)
                 throw new ArgumentNullException("data");
 
-            LowLevelAPI4.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
 
             CKR rv = _p11.C_DigestInit(_sessionId, ref ckMechanism);
             if (rv != CKR.CKR_OK)
@@ -1027,7 +1027,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (bufferLength < 1)
                 throw new ArgumentException("Value has to be positive number", "bufferLength");
 
-            LowLevelAPI4.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
 
             CKR rv = _p11.C_DigestInit(_sessionId, ref ckMechanism);
             if (rv != CKR.CKR_OK)
@@ -1080,7 +1080,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (data == null)
                 throw new ArgumentNullException("data");
 
-            LowLevelAPI4.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
 
             CKR rv = _p11.C_SignInit(_sessionId, ref ckMechanism, keyHandle.ObjectId);
             if (rv != CKR.CKR_OK)
@@ -1151,7 +1151,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (bufferLength < 1)
                 throw new ArgumentException("Value has to be positive number", "bufferLength");
 
-            LowLevelAPI4.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
 
             CKR rv = _p11.C_SignInit(_sessionId, ref ckMechanism, keyHandle.ObjectId);
             if (rv != CKR.CKR_OK)
@@ -1204,7 +1204,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (data == null)
                 throw new ArgumentNullException("data");
 
-            LowLevelAPI4.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
 
             CKR rv = _p11.C_SignRecoverInit(_sessionId, ref ckMechanism, keyHandle.ObjectId);
             if (rv != CKR.CKR_OK)
@@ -1251,7 +1251,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (signature == null)
                 throw new ArgumentNullException("signature");
 
-            LowLevelAPI4.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
 
             CKR rv = _p11.C_VerifyInit(_sessionId, ref ckMechanism, keyHandle.ObjectId);
             if (rv != CKR.CKR_OK)
@@ -1323,7 +1323,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (bufferLength < 1)
                 throw new ArgumentException("Value has to be positive number", "bufferLength");
 
-            LowLevelAPI4.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
 
             CKR rv = _p11.C_VerifyInit(_sessionId, ref ckMechanism, keyHandle.ObjectId);
             if (rv != CKR.CKR_OK)
@@ -1370,7 +1370,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (signature == null)
                 throw new ArgumentNullException("signature");
             
-            LowLevelAPI4.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
 
             CKR rv = _p11.C_VerifyRecoverInit(_sessionId, ref ckMechanism, keyHandle.ObjectId);
             if (rv != CKR.CKR_OK)
@@ -1494,13 +1494,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (bufferLength < 1)
                 throw new ArgumentException("Value has to be positive number", "bufferLength");
 
-            LowLevelAPI4.CK_MECHANISM ckDigestingMechanism = digestingMechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckDigestingMechanism = digestingMechanism.CkMechanism;
 
             CKR rv = _p11.C_DigestInit(_sessionId, ref ckDigestingMechanism);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_DigestInit", rv);
 
-            LowLevelAPI4.CK_MECHANISM ckEncryptionMechanism = encryptionMechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckEncryptionMechanism = encryptionMechanism.CkMechanism;
 
             rv = _p11.C_EncryptInit(_sessionId, ref ckEncryptionMechanism, keyHandle.ObjectId);
             if (rv != CKR.CKR_OK)
@@ -1649,13 +1649,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (bufferLength < 1)
                 throw new ArgumentException("Value has to be positive number", "bufferLength");
 
-            LowLevelAPI4.CK_MECHANISM ckDigestingMechanism = digestingMechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckDigestingMechanism = digestingMechanism.CkMechanism;
 
             CKR rv = _p11.C_DigestInit(_sessionId, ref ckDigestingMechanism);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_DigestInit", rv);
 
-            LowLevelAPI4.CK_MECHANISM ckDecryptionMechanism = decryptionMechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckDecryptionMechanism = decryptionMechanism.CkMechanism;
 
             rv = _p11.C_DecryptInit(_sessionId, ref ckDecryptionMechanism, keyHandle.ObjectId);
             if (rv != CKR.CKR_OK)
@@ -1816,13 +1816,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (bufferLength < 1)
                 throw new ArgumentException("Value has to be positive number", "bufferLength");
 
-            LowLevelAPI4.CK_MECHANISM ckSigningMechanism = signingMechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckSigningMechanism = signingMechanism.CkMechanism;
 
             CKR rv = _p11.C_SignInit(_sessionId, ref ckSigningMechanism, signingKeyHandle.ObjectId);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_SignInit", rv);
 
-            LowLevelAPI4.CK_MECHANISM ckEncryptionMechanism = encryptionMechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckEncryptionMechanism = encryptionMechanism.CkMechanism;
 
             rv = _p11.C_EncryptInit(_sessionId, ref ckEncryptionMechanism, encryptionKeyHandle.ObjectId);
             if (rv != CKR.CKR_OK)
@@ -1995,13 +1995,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (bufferLength < 1)
                 throw new ArgumentException("Value has to be positive number", "bufferLength");
 
-            LowLevelAPI4.CK_MECHANISM ckVerificationMechanism = verificationMechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckVerificationMechanism = verificationMechanism.CkMechanism;
 
             CKR rv = _p11.C_VerifyInit(_sessionId, ref ckVerificationMechanism, verificationKeyHandle.ObjectId);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_VerifyInit", rv);
 
-            LowLevelAPI4.CK_MECHANISM ckDecryptionMechanism = decryptionMechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckDecryptionMechanism = decryptionMechanism.CkMechanism;
 
             rv = _p11.C_DecryptInit(_sessionId, ref ckDecryptionMechanism, decryptionKeyHandle.ObjectId);
             if (rv != CKR.CKR_OK)
@@ -2059,15 +2059,15 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
 
-            LowLevelAPI4.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
 
-            LowLevelAPI4.CK_ATTRIBUTE[] template = null;
+            LowLevelAPI41.CK_ATTRIBUTE[] template = null;
             uint templateLength = 0;
             
             if (attributes != null)
             {
                 templateLength = Convert.ToUInt32(attributes.Count);
-                template = new LowLevelAPI4.CK_ATTRIBUTE[templateLength];
+                template = new LowLevelAPI41.CK_ATTRIBUTE[templateLength];
                 for (int i = 0; i < templateLength; i++)
                     template[i] = attributes[i].CkAttribute;
             }
@@ -2096,26 +2096,26 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
 
-            LowLevelAPI4.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
 
-            LowLevelAPI4.CK_ATTRIBUTE[] publicKeyTemplate = null;
+            LowLevelAPI41.CK_ATTRIBUTE[] publicKeyTemplate = null;
             uint publicKeyTemplateLength = 0;
             
             if (publicKeyAttributes != null)
             {
                 publicKeyTemplateLength = Convert.ToUInt32(publicKeyAttributes.Count);
-                publicKeyTemplate = new LowLevelAPI4.CK_ATTRIBUTE[publicKeyTemplateLength];
+                publicKeyTemplate = new LowLevelAPI41.CK_ATTRIBUTE[publicKeyTemplateLength];
                 for (int i = 0; i < publicKeyTemplateLength; i++)
                     publicKeyTemplate[i] = publicKeyAttributes[i].CkAttribute;
             }
 
-            LowLevelAPI4.CK_ATTRIBUTE[] privateKeyTemplate = null;
+            LowLevelAPI41.CK_ATTRIBUTE[] privateKeyTemplate = null;
             uint privateKeyTemplateLength = 0;
             
             if (privateKeyAttributes != null)
             {
                 privateKeyTemplateLength = Convert.ToUInt32(privateKeyAttributes.Count);
-                privateKeyTemplate = new LowLevelAPI4.CK_ATTRIBUTE[privateKeyTemplateLength];
+                privateKeyTemplate = new LowLevelAPI41.CK_ATTRIBUTE[privateKeyTemplateLength];
                 for (int i = 0; i < privateKeyTemplateLength; i++)
                     privateKeyTemplate[i] = privateKeyAttributes[i].CkAttribute;
             }
@@ -2151,7 +2151,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (keyHandle == null)
                 throw new ArgumentNullException("keyHandle");
 
-            LowLevelAPI4.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
 
             uint wrappedKeyLen = 0;
             CKR rv = _p11.C_WrapKey(_sessionId, ref ckMechanism, wrappingKeyHandle.ObjectId, keyHandle.ObjectId, null, ref wrappedKeyLen);
@@ -2191,13 +2191,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (wrappedKey == null)
                 throw new ArgumentNullException("wrappedKey");
 
-            LowLevelAPI4.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
 
-            LowLevelAPI4.CK_ATTRIBUTE[] template = null;
+            LowLevelAPI41.CK_ATTRIBUTE[] template = null;
             uint templateLen = 0;
             if (attributes != null)
             {
-                template = new LowLevelAPI4.CK_ATTRIBUTE[attributes.Count];
+                template = new LowLevelAPI41.CK_ATTRIBUTE[attributes.Count];
                 for (int i = 0; i < attributes.Count; i++)
                     template[i] = attributes[i].CkAttribute;
                 templateLen = Convert.ToUInt32(attributes.Count);
@@ -2229,13 +2229,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
             if (baseKeyHandle == null)
                 throw new ArgumentNullException("baseKeyHandle");
 
-            LowLevelAPI4.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
+            LowLevelAPI41.CK_MECHANISM ckMechanism = mechanism.CkMechanism;
 
-            LowLevelAPI4.CK_ATTRIBUTE[] template = null;
+            LowLevelAPI41.CK_ATTRIBUTE[] template = null;
             uint templateLen = 0;
             if (attributes != null)
             {
-                template = new LowLevelAPI4.CK_ATTRIBUTE[attributes.Count];
+                template = new LowLevelAPI41.CK_ATTRIBUTE[attributes.Count];
                 for (int i = 0; i < attributes.Count; i++)
                     template[i] = attributes[i].CkAttribute;
                 templateLen = Convert.ToUInt32(attributes.Count);

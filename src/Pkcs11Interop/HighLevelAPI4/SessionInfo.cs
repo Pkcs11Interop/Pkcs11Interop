@@ -107,7 +107,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// </summary>
         /// <param name="sessionId">PKCS#11 handle of session</param>
         /// <param name="ck_session_info">Low level CK_SESSION_INFO structure</param>
-        internal SessionInfo(uint sessionId, LowLevelAPI4.CK_SESSION_INFO ck_session_info)
+        internal SessionInfo(uint sessionId, LowLevelAPI41.CK_SESSION_INFO ck_session_info)
         {
             _sessionId = sessionId;
             _slotId = ck_session_info.SlotId;

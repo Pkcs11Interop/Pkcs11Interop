@@ -17,7 +17,7 @@ using System;
 using System.Runtime.InteropServices;
 using Net.Pkcs11Interop.Common;
 
-namespace Net.Pkcs11Interop.LowLevelAPI4
+namespace Net.Pkcs11Interop.LowLevelAPI41
 {
     internal static class NativeMethods
     {

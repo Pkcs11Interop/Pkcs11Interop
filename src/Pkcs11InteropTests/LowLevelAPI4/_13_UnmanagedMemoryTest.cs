@@ -17,7 +17,7 @@ using System;
 using Net.Pkcs11Interop.Common;
 using NUnit.Framework;
 
-namespace Net.Pkcs11Interop.Tests.LowLevelAPI4
+namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 {
     /// <summary>
     /// Unmanaged memory tests.

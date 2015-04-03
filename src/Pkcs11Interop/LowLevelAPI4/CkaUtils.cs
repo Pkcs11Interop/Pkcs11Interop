@@ -16,7 +16,7 @@
 using System;
 using Net.Pkcs11Interop.Common;
 
-namespace Net.Pkcs11Interop.LowLevelAPI4
+namespace Net.Pkcs11Interop.LowLevelAPI41
 {
     /// <summary>
     /// Utility class that helps to manage CK_ATTRIBUTE structure

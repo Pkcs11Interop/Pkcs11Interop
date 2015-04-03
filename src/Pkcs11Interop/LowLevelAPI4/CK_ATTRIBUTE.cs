@@ -16,7 +16,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Net.Pkcs11Interop.LowLevelAPI4
+namespace Net.Pkcs11Interop.LowLevelAPI41
 {
     /// <summary>
     /// Defines the type, value, and length of an attribute

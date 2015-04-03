@@ -91,7 +91,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4
         /// </summary>
         /// <param name="mechanism">Mechanism</param>
         /// <param name="ck_mechanism_info">Low level CK_MECHANISM_INFO structure</param>
-        internal MechanismInfo(CKM mechanism, LowLevelAPI4.CK_MECHANISM_INFO ck_mechanism_info)
+        internal MechanismInfo(CKM mechanism, LowLevelAPI41.CK_MECHANISM_INFO ck_mechanism_info)
         {
             _mechanism = mechanism;
             _minKeySize = ck_mechanism_info.MinKeySize;

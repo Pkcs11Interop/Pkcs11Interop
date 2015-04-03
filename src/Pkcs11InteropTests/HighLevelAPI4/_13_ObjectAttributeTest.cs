@@ -19,7 +19,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using LLA4 = Net.Pkcs11Interop.LowLevelAPI4;
+using LLA4 = Net.Pkcs11Interop.LowLevelAPI41;
 
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
 {

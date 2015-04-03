@@ -16,7 +16,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Net.Pkcs11Interop.LowLevelAPI4.MechanismParams
+namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
 {
     /// <summary>
     /// Structure, which provides information about the random data of a client and a server in a WTLS context

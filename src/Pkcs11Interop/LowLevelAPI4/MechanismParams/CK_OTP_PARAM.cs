@@ -16,7 +16,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Net.Pkcs11Interop.LowLevelAPI4.MechanismParams
+namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
 {
     /// <summary>
     /// Structure that includes the type, value and length of an OTP parameter

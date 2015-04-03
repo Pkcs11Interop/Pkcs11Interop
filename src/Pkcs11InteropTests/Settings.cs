@@ -14,7 +14,7 @@
  */
 
 using Net.Pkcs11Interop.Common;
-using LLA4 = Net.Pkcs11Interop.LowLevelAPI4;
+using LLA4 = Net.Pkcs11Interop.LowLevelAPI41;
 using LLA8 = Net.Pkcs11Interop.LowLevelAPI8;
 
 namespace Net.Pkcs11Interop.Tests
@@ -81,7 +81,7 @@ namespace Net.Pkcs11Interop.Tests
         #region Properties that are set automatically in class constructor
 
         /// <summary>
-        /// Arguments passed to the C_Initialize function in LowLevelAPI4 tests.
+        /// Arguments passed to the C_Initialize function in LowLevelAPI41 tests.
         /// </summary>
         public static LLA4.CK_C_INITIALIZE_ARGS InitArgs4 = null;
 

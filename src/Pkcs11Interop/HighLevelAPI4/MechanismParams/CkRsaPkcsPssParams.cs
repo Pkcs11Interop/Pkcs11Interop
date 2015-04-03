@@ -25,7 +25,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI4.MechanismParams.CK_RSA_PKCS_PSS_PARAMS _lowLevelStruct = new LowLevelAPI4.MechanismParams.CK_RSA_PKCS_PSS_PARAMS();
+        private LowLevelAPI41.MechanismParams.CK_RSA_PKCS_PSS_PARAMS _lowLevelStruct = new LowLevelAPI41.MechanismParams.CK_RSA_PKCS_PSS_PARAMS();
         
         /// <summary>
         /// Initializes a new instance of the CkRsaPkcsPssParams class.

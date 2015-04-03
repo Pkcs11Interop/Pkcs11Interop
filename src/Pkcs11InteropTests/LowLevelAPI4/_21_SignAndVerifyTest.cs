@@ -16,10 +16,10 @@
 using System;
 using System.IO;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI4;
+using Net.Pkcs11Interop.LowLevelAPI41;
 using NUnit.Framework;
 
-namespace Net.Pkcs11Interop.Tests.LowLevelAPI4
+namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 {
     /// <summary>
     /// C_SignInit, C_Sign, C_SignUpdate, C_SignFinal, C_VerifyInit, C_Verify, C_VerifyUpdate and C_VerifyFinal tests.

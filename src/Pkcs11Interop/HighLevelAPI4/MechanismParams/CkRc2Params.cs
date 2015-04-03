@@ -25,7 +25,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI4.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI4.MechanismParams.CK_RC2_PARAMS _lowLevelStruct = new LowLevelAPI4.MechanismParams.CK_RC2_PARAMS();
+        private LowLevelAPI41.MechanismParams.CK_RC2_PARAMS _lowLevelStruct = new LowLevelAPI41.MechanismParams.CK_RC2_PARAMS();
         
         /// <summary>
         /// Initializes a new instance of the CkRc2Params class.
