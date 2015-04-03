@@ -17,7 +17,7 @@ using System;
 using System.Runtime.InteropServices;
 using Net.Pkcs11Interop.Common;
 
-namespace Net.Pkcs11Interop.LowLevelAPI8
+namespace Net.Pkcs11Interop.LowLevelAPI81
 {
     /// <summary>
     /// Low level PKCS#11 wrapper

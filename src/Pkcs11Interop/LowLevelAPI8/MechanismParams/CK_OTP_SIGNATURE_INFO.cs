@@ -16,7 +16,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Net.Pkcs11Interop.LowLevelAPI8.MechanismParams
+namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
 {
     /// <summary>
     /// Structure that is returned by all OTP mechanisms in successful calls to C_Sign (C_SignFinal)

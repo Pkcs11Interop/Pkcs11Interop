@@ -15,10 +15,10 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI8;
+using Net.Pkcs11Interop.LowLevelAPI81;
 using NUnit.Framework;
 
-namespace Net.Pkcs11Interop.Tests.LowLevelAPI8
+namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
 {
     /// <summary>
     /// Pkcs11 construct, dispose, initialize and finalize tests.
@@ -136,7 +136,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI8
             // it has to obtain function pointers for all the Cryptoki API routines present in the library.
             // This can be done either via C_GetFunctionList() function or via platform specific native 
             // function - GetProcAddress() on Windows and dlsym() on Unix.
-            // The most simple constructor of Net.Pkcs11Interop.LowLevelAPI8.Pkcs11 class uses 
+            // The most simple constructor of Net.Pkcs11Interop.LowLevelAPI81.Pkcs11 class uses 
             // C_GetFunctionList() approach but Pkcs11Interop also provides an alternative constructor 
             // that can specify which approach should be used.
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, true))
@@ -158,7 +158,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI8
             // it has to obtain function pointers for all the Cryptoki API routines present in the library.
             // This can be done either via C_GetFunctionList() function or via platform specific native 
             // function - GetProcAddress() on Windows and dlsym() on Unix.
-            // The most simple constructor of Net.Pkcs11Interop.LowLevelAPI8.Pkcs11 class uses 
+            // The most simple constructor of Net.Pkcs11Interop.LowLevelAPI81.Pkcs11 class uses 
             // C_GetFunctionList() approach but Pkcs11Interop also provides an alternative constructor 
             // that can specify which approach should be used.
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, false))

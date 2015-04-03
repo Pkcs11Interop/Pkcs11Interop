@@ -16,7 +16,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Net.Pkcs11Interop.LowLevelAPI8.MechanismParams
+namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
 {
     /// <summary>
     /// Structure, which provides the parameters to the CKM_WTLS_PRF mechanism

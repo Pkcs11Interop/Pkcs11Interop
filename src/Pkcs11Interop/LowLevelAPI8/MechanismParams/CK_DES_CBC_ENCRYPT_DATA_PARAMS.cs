@@ -16,7 +16,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Net.Pkcs11Interop.LowLevelAPI8.MechanismParams
+namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
 {
     /// <summary>
     /// Structure that provides the parameters to the CKM_DES_CBC_ENCRYPT_DATA and CKM_DES3_CBC_ENCRYPT_DATA mechanisms

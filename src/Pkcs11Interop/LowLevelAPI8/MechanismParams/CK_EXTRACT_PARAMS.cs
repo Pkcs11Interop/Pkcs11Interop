@@ -15,7 +15,7 @@
 
 using System.Runtime.InteropServices;
 
-namespace Net.Pkcs11Interop.LowLevelAPI8.MechanismParams
+namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
 {
     /// <summary>
     /// Provides the parameter to the CKM_EXTRACT_KEY_FROM_KEY mechanism

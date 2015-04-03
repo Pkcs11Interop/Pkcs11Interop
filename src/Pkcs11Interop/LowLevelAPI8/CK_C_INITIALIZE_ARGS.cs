@@ -16,7 +16,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Net.Pkcs11Interop.LowLevelAPI8
+namespace Net.Pkcs11Interop.LowLevelAPI81
 {
     /// <summary>
     /// Optional arguments for the C_Initialize function

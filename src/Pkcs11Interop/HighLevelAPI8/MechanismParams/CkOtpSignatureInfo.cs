@@ -15,7 +15,7 @@
 
 using System;
 using System.Collections.Generic;
-using Net.Pkcs11Interop.LowLevelAPI8.MechanismParams;
+using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI8.MechanismParams
 {
@@ -32,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI8.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI8.MechanismParams.CK_OTP_SIGNATURE_INFO _lowLevelStruct = new LowLevelAPI8.MechanismParams.CK_OTP_SIGNATURE_INFO();
+        private LowLevelAPI81.MechanismParams.CK_OTP_SIGNATURE_INFO _lowLevelStruct = new LowLevelAPI81.MechanismParams.CK_OTP_SIGNATURE_INFO();
 
         /// <summary>
         /// Flag indicating whether high level list of OTP parameters left this instance

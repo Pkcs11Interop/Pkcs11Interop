@@ -27,7 +27,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI8
         /// <summary>
         /// Low level PKCS#11 wrapper
         /// </summary>
-        private LowLevelAPI8.Pkcs11 _p11 = null;
+        private LowLevelAPI81.Pkcs11 _p11 = null;
 
         /// <summary>
         /// PKCS#11 handle of slot
@@ -50,7 +50,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI8
         /// </summary>
         /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
         /// <param name="slotId">PKCS#11 handle of slot</param>
-        internal Slot(LowLevelAPI8.Pkcs11 pkcs11, ulong slotId)
+        internal Slot(LowLevelAPI81.Pkcs11 pkcs11, ulong slotId)
         {
             if (pkcs11 == null)
                 throw new ArgumentNullException("pkcs11");
@@ -65,7 +65,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI8
         /// <returns>Slot information</returns>
         public SlotInfo GetSlotInfo()
         {
-            LowLevelAPI8.CK_SLOT_INFO slotInfo = new LowLevelAPI8.CK_SLOT_INFO();
+            LowLevelAPI81.CK_SLOT_INFO slotInfo = new LowLevelAPI81.CK_SLOT_INFO();
             CKR rv = _p11.C_GetSlotInfo(_slotId, ref slotInfo);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetSlotInfo", rv);
@@ -79,7 +79,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI8
         /// <returns>Token information</returns>
         public TokenInfo GetTokenInfo()
         {
-            LowLevelAPI8.CK_TOKEN_INFO tokenInfo = new LowLevelAPI8.CK_TOKEN_INFO();
+            LowLevelAPI81.CK_TOKEN_INFO tokenInfo = new LowLevelAPI81.CK_TOKEN_INFO();
             CKR rv = _p11.C_GetTokenInfo(_slotId, ref tokenInfo);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetTokenInfo", rv);
@@ -119,7 +119,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI8
         /// <returns>Information about mechanism</returns>
         public MechanismInfo GetMechanismInfo(CKM mechanism)
         {
-            LowLevelAPI8.CK_MECHANISM_INFO mechanismInfo = new LowLevelAPI8.CK_MECHANISM_INFO();
+            LowLevelAPI81.CK_MECHANISM_INFO mechanismInfo = new LowLevelAPI81.CK_MECHANISM_INFO();
             CKR rv = _p11.C_GetMechanismInfo(_slotId, mechanism, ref mechanismInfo);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetMechanismInfo", rv);

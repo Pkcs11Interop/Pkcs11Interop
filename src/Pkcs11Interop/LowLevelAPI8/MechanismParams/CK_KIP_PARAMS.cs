@@ -16,7 +16,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Net.Pkcs11Interop.LowLevelAPI8.MechanismParams
+namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
 {
     /// <summary>
     /// Structure that provides the parameters to CKM_KIP_DERIVE, CKM_KIP_WRAP and CKM_KIP_MAC mechanisms

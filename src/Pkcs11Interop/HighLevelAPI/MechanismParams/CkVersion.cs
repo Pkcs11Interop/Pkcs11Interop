@@ -119,7 +119,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (Platform.UnmanagedLongSize == 4)
                 version = ConvertUtils.CkVersionToString((LowLevelAPI41.CK_VERSION)_params4.ToMarshalableStructure());
             else
-                version = ConvertUtils.CkVersionToString((LowLevelAPI8.CK_VERSION)_params8.ToMarshalableStructure());
+                version = ConvertUtils.CkVersionToString((LowLevelAPI81.CK_VERSION)_params8.ToMarshalableStructure());
             
             return version;
         }

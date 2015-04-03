@@ -15,7 +15,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI8.MechanismParams;
+using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI8.MechanismParams
 {
@@ -32,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI8.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI8.MechanismParams.CK_SSL3_KEY_MAT_PARAMS _lowLevelStruct = new LowLevelAPI8.MechanismParams.CK_SSL3_KEY_MAT_PARAMS();
+        private LowLevelAPI81.MechanismParams.CK_SSL3_KEY_MAT_PARAMS _lowLevelStruct = new LowLevelAPI81.MechanismParams.CK_SSL3_KEY_MAT_PARAMS();
 
         /// <summary>
         /// Flag indicating whether object with returned key material has left this instance

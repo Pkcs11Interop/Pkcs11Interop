@@ -17,7 +17,7 @@ using System;
 using System.Runtime.InteropServices;
 using Net.Pkcs11Interop.Common;
 
-namespace Net.Pkcs11Interop.LowLevelAPI8
+namespace Net.Pkcs11Interop.LowLevelAPI81
 {
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     internal delegate CKR C_InitializeDelegate(CK_C_INITIALIZE_ARGS initArgs);

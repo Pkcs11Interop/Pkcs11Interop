@@ -31,12 +31,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI8
         /// <summary>
         /// Low level mechanism structure
         /// </summary>
-        private LowLevelAPI8.CK_MECHANISM _ckMechanism;
+        private LowLevelAPI81.CK_MECHANISM _ckMechanism;
 
         /// <summary>
         /// Low level mechanism structure
         /// </summary>
-        internal LowLevelAPI8.CK_MECHANISM CkMechanism
+        internal LowLevelAPI81.CK_MECHANISM CkMechanism
         {
             get
             {
@@ -72,7 +72,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI8
         /// <param name="type">Mechanism type</param>
         public Mechanism(ulong type)
         {
-            _ckMechanism = LowLevelAPI8.CkmUtils.CreateMechanism(type);
+            _ckMechanism = LowLevelAPI81.CkmUtils.CreateMechanism(type);
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI8
         /// <param name="type">Mechanism type</param>
         public Mechanism(CKM type)
         {
-            _ckMechanism = LowLevelAPI8.CkmUtils.CreateMechanism(type);
+            _ckMechanism = LowLevelAPI81.CkmUtils.CreateMechanism(type);
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI8
         /// <param name="parameter">Mechanism parameter</param>
         public Mechanism(ulong type, byte[] parameter)
         {
-            _ckMechanism = LowLevelAPI8.CkmUtils.CreateMechanism(type, parameter);
+            _ckMechanism = LowLevelAPI81.CkmUtils.CreateMechanism(type, parameter);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI8
         /// <param name="parameter">Mechanism parameter</param>
         public Mechanism(CKM type, byte[] parameter)
         {
-            _ckMechanism = LowLevelAPI8.CkmUtils.CreateMechanism(type, parameter);
+            _ckMechanism = LowLevelAPI81.CkmUtils.CreateMechanism(type, parameter);
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI8
             _mechanismParams = parameter;
 
             object lowLevelParams = _mechanismParams.ToMarshalableStructure();
-            _ckMechanism = LowLevelAPI8.CkmUtils.CreateMechanism(type, lowLevelParams);
+            _ckMechanism = LowLevelAPI81.CkmUtils.CreateMechanism(type, lowLevelParams);
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI8
             _mechanismParams = parameter;
 
             object lowLevelParams = _mechanismParams.ToMarshalableStructure();
-            _ckMechanism = LowLevelAPI8.CkmUtils.CreateMechanism(type, lowLevelParams);
+            _ckMechanism = LowLevelAPI81.CkmUtils.CreateMechanism(type, lowLevelParams);
         }
 
         #region IDisposable

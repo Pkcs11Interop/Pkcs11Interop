@@ -87,7 +87,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
             Assert.IsTrue(mechanism.Type == (ulong)CKM.CKM_RSA_PKCS);
 
             // We access private Mechanism member just for the testing purposes
-            Net.Pkcs11Interop.LowLevelAPI8.CK_MECHANISM ckMechanism = (Net.Pkcs11Interop.LowLevelAPI8.CK_MECHANISM)typeof(Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
+            Net.Pkcs11Interop.LowLevelAPI81.CK_MECHANISM ckMechanism = (Net.Pkcs11Interop.LowLevelAPI81.CK_MECHANISM)typeof(Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
             Assert.IsTrue(ckMechanism.Mechanism == (ulong)CKM.CKM_RSA_PKCS);
             Assert.IsTrue(ckMechanism.Parameter == IntPtr.Zero);
             Assert.IsTrue(ckMechanism.ParameterLen == 0);
@@ -111,7 +111,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
             Assert.IsTrue(mechanism.Type == (ulong)CKM.CKM_AES_CBC);
 
             // We access private Mechanism member here just for the testing purposes
-            Net.Pkcs11Interop.LowLevelAPI8.CK_MECHANISM ckMechanism = (Net.Pkcs11Interop.LowLevelAPI8.CK_MECHANISM)typeof(Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
+            Net.Pkcs11Interop.LowLevelAPI81.CK_MECHANISM ckMechanism = (Net.Pkcs11Interop.LowLevelAPI81.CK_MECHANISM)typeof(Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
             Assert.IsTrue(ckMechanism.Mechanism == (ulong)CKM.CKM_AES_CBC);
             Assert.IsTrue(ckMechanism.Parameter != IntPtr.Zero);
             Assert.IsTrue(ckMechanism.ParameterLen == (ulong)parameter.Length);
@@ -123,7 +123,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
             Assert.IsTrue(mechanism.Type == (ulong)CKM.CKM_AES_CBC);
 
             // We access private Mechanism member here just for the testing purposes
-            ckMechanism = (Net.Pkcs11Interop.LowLevelAPI8.CK_MECHANISM)typeof(Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
+            ckMechanism = (Net.Pkcs11Interop.LowLevelAPI81.CK_MECHANISM)typeof(Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
             Assert.IsTrue(ckMechanism.Mechanism == (ulong)CKM.CKM_AES_CBC);
             Assert.IsTrue(ckMechanism.Parameter == IntPtr.Zero);
             Assert.IsTrue(ckMechanism.ParameterLen == 0);
@@ -150,10 +150,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI8
             Assert.IsTrue(mechanism.Type == (ulong)CKM.CKM_XOR_BASE_AND_DATA);
 
             // We access private Mechanism member here just for the testing purposes
-            Net.Pkcs11Interop.LowLevelAPI8.CK_MECHANISM ckMechanism = (Net.Pkcs11Interop.LowLevelAPI8.CK_MECHANISM)typeof(Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
+            Net.Pkcs11Interop.LowLevelAPI81.CK_MECHANISM ckMechanism = (Net.Pkcs11Interop.LowLevelAPI81.CK_MECHANISM)typeof(Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
             Assert.IsTrue(ckMechanism.Mechanism == (ulong)CKM.CKM_XOR_BASE_AND_DATA);
             Assert.IsTrue(ckMechanism.Parameter != IntPtr.Zero);
-            Assert.IsTrue(Convert.ToInt32(ckMechanism.ParameterLen) == Net.Pkcs11Interop.Common.UnmanagedMemory.SizeOf(typeof(Net.Pkcs11Interop.LowLevelAPI8.MechanismParams.CK_KEY_DERIVATION_STRING_DATA)));
+            Assert.IsTrue(Convert.ToInt32(ckMechanism.ParameterLen) == Net.Pkcs11Interop.Common.UnmanagedMemory.SizeOf(typeof(Net.Pkcs11Interop.LowLevelAPI81.MechanismParams.CK_KEY_DERIVATION_STRING_DATA)));
         }
     }
 }

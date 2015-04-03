@@ -15,7 +15,7 @@
 
 using System.Runtime.InteropServices;
 
-namespace Net.Pkcs11Interop.LowLevelAPI8
+namespace Net.Pkcs11Interop.LowLevelAPI81
 {
     /// <summary>
     /// Provides general information about Cryptoki

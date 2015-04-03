@@ -16,7 +16,7 @@
 using System;
 using Net.Pkcs11Interop.Common;
 
-namespace Net.Pkcs11Interop.LowLevelAPI8
+namespace Net.Pkcs11Interop.LowLevelAPI81
 {
     /// <summary>
     /// Utility class that helps to manage CK_MECHANISM structure

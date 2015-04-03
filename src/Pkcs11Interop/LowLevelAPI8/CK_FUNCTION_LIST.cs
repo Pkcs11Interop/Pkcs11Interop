@@ -16,7 +16,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Net.Pkcs11Interop.LowLevelAPI8
+namespace Net.Pkcs11Interop.LowLevelAPI81
 {
     /// <summary>
     /// Structure which contains a Cryptoki version and a function pointer to each function in the Cryptoki API

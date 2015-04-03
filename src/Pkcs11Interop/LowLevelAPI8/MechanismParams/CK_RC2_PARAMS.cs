@@ -15,7 +15,7 @@
 
 using System.Runtime.InteropServices;
 
-namespace Net.Pkcs11Interop.LowLevelAPI8.MechanismParams
+namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
 {
     /// <summary>
     /// Provides the parameters to the CKM_RC2_ECB and CKM_RC2_MAC mechanisms

@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI8.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI8.MechanismParams.CK_SKIPJACK_RELAYX_PARAMS _lowLevelStruct = new LowLevelAPI8.MechanismParams.CK_SKIPJACK_RELAYX_PARAMS();
+        private LowLevelAPI81.MechanismParams.CK_SKIPJACK_RELAYX_PARAMS _lowLevelStruct = new LowLevelAPI81.MechanismParams.CK_SKIPJACK_RELAYX_PARAMS();
         
         /// <summary>
         /// Initializes a new instance of the CkSkipjackRelayxParams class.

@@ -16,10 +16,10 @@
 using System;
 using System.IO;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI8;
+using Net.Pkcs11Interop.LowLevelAPI81;
 using NUnit.Framework;
 
-namespace Net.Pkcs11Interop.Tests.LowLevelAPI8
+namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
 {
     /// <summary>
     /// C_DigestInit, C_Digest, C_DigestUpdate, C_DigestFinal and C_DigestKey tests.

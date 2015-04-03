@@ -15,7 +15,7 @@
 
 using Net.Pkcs11Interop.Common;
 using LLA4 = Net.Pkcs11Interop.LowLevelAPI41;
-using LLA8 = Net.Pkcs11Interop.LowLevelAPI8;
+using LLA8 = Net.Pkcs11Interop.LowLevelAPI81;
 
 namespace Net.Pkcs11Interop.Tests
 {
@@ -86,7 +86,7 @@ namespace Net.Pkcs11Interop.Tests
         public static LLA4.CK_C_INITIALIZE_ARGS InitArgs4 = null;
 
         /// <summary>
-        /// Arguments passed to the C_Initialize function in LowLevelAPI8 tests.
+        /// Arguments passed to the C_Initialize function in LowLevelAPI81 tests.
         /// </summary>
         public static LLA8.CK_C_INITIALIZE_ARGS InitArgs8 = null;
 

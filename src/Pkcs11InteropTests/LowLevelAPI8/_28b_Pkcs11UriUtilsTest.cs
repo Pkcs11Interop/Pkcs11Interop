@@ -14,12 +14,12 @@
  */
 
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI8;
+using Net.Pkcs11Interop.LowLevelAPI81;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 
-namespace Net.Pkcs11Interop.Tests.LowLevelAPI8
+namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
 {
     /// <summary>
     /// Pkcs11UriUtils tests

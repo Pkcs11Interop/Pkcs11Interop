@@ -17,7 +17,7 @@ using Net.Pkcs11Interop.Common;
 using System;
 using System.Collections.Generic;
 
-namespace Net.Pkcs11Interop.LowLevelAPI8
+namespace Net.Pkcs11Interop.LowLevelAPI81
 {
     /// <summary>
     /// Utility class connecting PKCS#11 URI and Pkcs11Interop types

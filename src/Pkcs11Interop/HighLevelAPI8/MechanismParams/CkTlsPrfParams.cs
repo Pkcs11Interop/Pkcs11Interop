@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI8.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI8.MechanismParams.CK_TLS_PRF_PARAMS _lowLevelStruct = new LowLevelAPI8.MechanismParams.CK_TLS_PRF_PARAMS();
+        private LowLevelAPI81.MechanismParams.CK_TLS_PRF_PARAMS _lowLevelStruct = new LowLevelAPI81.MechanismParams.CK_TLS_PRF_PARAMS();
 
         /// <summary>
         /// Output of the operation

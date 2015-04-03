@@ -15,11 +15,11 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI8;
-using Net.Pkcs11Interop.LowLevelAPI8.MechanismParams;
+using Net.Pkcs11Interop.LowLevelAPI81;
+using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
 using NUnit.Framework;
 
-namespace Net.Pkcs11Interop.Tests.LowLevelAPI8
+namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
 {
     /// <summary>
     /// Mechanism tests.
