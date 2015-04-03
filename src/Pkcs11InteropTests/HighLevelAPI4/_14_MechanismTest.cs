@@ -16,11 +16,11 @@
 using System;
 using System.Reflection;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.HighLevelAPI4;
-using Net.Pkcs11Interop.HighLevelAPI4.MechanismParams;
+using Net.Pkcs11Interop.HighLevelAPI41;
+using Net.Pkcs11Interop.HighLevelAPI41.MechanismParams;
 using NUnit.Framework;
 
-namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
+namespace Net.Pkcs11Interop.Tests.HighLevelAPI41
 {
     /// <summary>
     /// Mechanism tests.

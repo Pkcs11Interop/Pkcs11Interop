@@ -26,7 +26,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific TokenFlags
         /// </summary>
-        private HighLevelAPI4.TokenFlags _tokenFlags4 = null;
+        private HighLevelAPI41.TokenFlags _tokenFlags4 = null;
 
         /// <summary>
         /// Platform specific TokenFlags
@@ -246,7 +246,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Converts platform specific TokenFlags to platfrom neutral TokenFlags
         /// </summary>
         /// <param name="tokenFlags">Platform specific TokenFlags</param>
-        internal TokenFlags(HighLevelAPI4.TokenFlags tokenFlags)
+        internal TokenFlags(HighLevelAPI41.TokenFlags tokenFlags)
         {
             if (tokenFlags == null)
                 throw new ArgumentNullException("tokenFlags");

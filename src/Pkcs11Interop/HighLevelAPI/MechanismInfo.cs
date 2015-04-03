@@ -26,7 +26,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific MechanismInfo
         /// </summary>
-        private HighLevelAPI4.MechanismInfo _mechanismInfo4 = null;
+        private HighLevelAPI41.MechanismInfo _mechanismInfo4 = null;
 
         /// <summary>
         /// Platform specific MechanismInfo
@@ -89,7 +89,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Converts platform specific MechanismInfo to platfrom neutral MechanismInfo
         /// </summary>
         /// <param name="mechanismInfo">Platform specific MechanismInfo</param>
-        internal MechanismInfo(HighLevelAPI4.MechanismInfo mechanismInfo)
+        internal MechanismInfo(HighLevelAPI41.MechanismInfo mechanismInfo)
         {
             if (mechanismInfo == null)
                 throw new ArgumentNullException("mechanismInfo");

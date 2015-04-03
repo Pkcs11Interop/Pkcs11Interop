@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkCmsSigParams
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkCmsSigParams _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkCmsSigParams _params4 = null;
 
         /// <summary>
         /// Platform specific CkCmsSigParams
@@ -54,7 +54,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 uint? uintSigningMechanism = (signingMechanism == null) ? null : (uint?)Convert.ToUInt32(signingMechanism.Value);
                 uint? uintDigestMechanism = (digestMechanism == null) ? null : (uint?)Convert.ToUInt32(digestMechanism.Value);
 
-                _params4 = new HighLevelAPI4.MechanismParams.CkCmsSigParams(certificateHandle.ObjectHandle4, uintSigningMechanism, uintDigestMechanism, contentType, requestedAttributes, requiredAttributes);
+                _params4 = new HighLevelAPI41.MechanismParams.CkCmsSigParams(certificateHandle.ObjectHandle4, uintSigningMechanism, uintDigestMechanism, contentType, requestedAttributes, requiredAttributes);
             }
             else
             {

@@ -32,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkOtpParams
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkOtpParams _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkOtpParams _params4 = null;
 
         /// <summary>
         /// Platform specific CkOtpParams
@@ -47,7 +47,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         {
             if (Platform.UnmanagedLongSize == 4)
             {
-                List<HighLevelAPI4.MechanismParams.CkOtpParam> hlaParameters = new List<HighLevelAPI4.MechanismParams.CkOtpParam>();
+                List<HighLevelAPI41.MechanismParams.CkOtpParam> hlaParameters = new List<HighLevelAPI41.MechanismParams.CkOtpParam>();
 
                 if ((parameters != null) && (parameters.Count > 0))
                 {
@@ -55,7 +55,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                         hlaParameters.Add(parameters[i]._params4);
                 }
 
-                _params4 = new HighLevelAPI4.MechanismParams.CkOtpParams(hlaParameters);
+                _params4 = new HighLevelAPI41.MechanismParams.CkOtpParams(hlaParameters);
             }
             else
             {

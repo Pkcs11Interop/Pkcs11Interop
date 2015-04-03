@@ -16,10 +16,10 @@
 using System;
 using System.IO;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.HighLevelAPI4;
+using Net.Pkcs11Interop.HighLevelAPI41;
 using NUnit.Framework;
 
-namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
+namespace Net.Pkcs11Interop.Tests.HighLevelAPI41
 {
     /// <summary>
     /// Digesting tests.

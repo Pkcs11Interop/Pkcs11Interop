@@ -19,7 +19,7 @@ using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
 using NUnit.Framework;
 using HLA = Net.Pkcs11Interop.HighLevelAPI;
-using HLA4 = Net.Pkcs11Interop.HighLevelAPI4;
+using HLA4 = Net.Pkcs11Interop.HighLevelAPI41;
 using HLA8 = Net.Pkcs11Interop.HighLevelAPI8;
 using LLA4 = Net.Pkcs11Interop.LowLevelAPI41;
 using LLA8 = Net.Pkcs11Interop.LowLevelAPI81;

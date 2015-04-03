@@ -32,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific high level PKCS#11 wrapper
         /// </summary>
-        private HighLevelAPI4.Pkcs11 _p11_4 = null;
+        private HighLevelAPI41.Pkcs11 _p11_4 = null;
 
         /// <summary>
         /// Platform specific high level PKCS#11 wrapper
@@ -47,7 +47,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public Pkcs11(string libraryPath, bool useOsLocking)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _p11_4 = new HighLevelAPI4.Pkcs11(libraryPath, useOsLocking);
+                _p11_4 = new HighLevelAPI41.Pkcs11(libraryPath, useOsLocking);
             else
                 _p11_8 = new HighLevelAPI8.Pkcs11(libraryPath, useOsLocking);
         }
@@ -61,7 +61,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public Pkcs11(string libraryPath, bool useOsLocking, bool useGetFunctionList)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _p11_4 = new HighLevelAPI4.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
+                _p11_4 = new HighLevelAPI41.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
             else
                 _p11_8 = new HighLevelAPI8.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
         }
@@ -77,7 +77,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
 
             if (Platform.UnmanagedLongSize == 4)
             {
-                HighLevelAPI4.LibraryInfo hlaLibraryInfo = _p11_4.GetInfo();
+                HighLevelAPI41.LibraryInfo hlaLibraryInfo = _p11_4.GetInfo();
                 return new LibraryInfo(hlaLibraryInfo);
             }
             else
@@ -99,9 +99,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
 
             if (Platform.UnmanagedLongSize == 4)
             {
-                List<HighLevelAPI4.Slot> hlaSlotList = _p11_4.GetSlotList(tokenPresent);
+                List<HighLevelAPI41.Slot> hlaSlotList = _p11_4.GetSlotList(tokenPresent);
                 List<Slot> slotList = new List<Slot>();
-                foreach (HighLevelAPI4.Slot hlaSlot in hlaSlotList)
+                foreach (HighLevelAPI41.Slot hlaSlot in hlaSlotList)
                     slotList.Add(new Slot(hlaSlot));
                 return slotList;
             }

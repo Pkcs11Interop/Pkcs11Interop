@@ -16,7 +16,7 @@
 using System;
 using Net.Pkcs11Interop.Common;
 
-namespace Net.Pkcs11Interop.HighLevelAPI4.MechanismParams
+namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_CONCATENATE_BASE_AND_DATA, CKM_CONCATENATE_DATA_AND_BASE and CKM_XOR_BASE_AND_DATA mechanisms

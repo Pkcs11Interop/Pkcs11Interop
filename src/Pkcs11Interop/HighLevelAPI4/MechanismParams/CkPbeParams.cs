@@ -16,7 +16,7 @@
 using System;
 using Net.Pkcs11Interop.Common;
 
-namespace Net.Pkcs11Interop.HighLevelAPI4.MechanismParams
+namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_PBE mechanisms and the CKM_PBA_SHA1_WITH_SHA1_HMAC mechanism

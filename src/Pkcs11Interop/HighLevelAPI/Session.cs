@@ -33,7 +33,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific Session
         /// </summary>
-        private HighLevelAPI4.Session _session4 = null;
+        private HighLevelAPI41.Session _session4 = null;
 
         /// <summary>
         /// Platform specific Session
@@ -58,7 +58,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Converts platform specific Session to platfrom neutral Session
         /// </summary>
         /// <param name="session">Platform specific Session</param>
-        internal Session(HighLevelAPI4.Session session)
+        internal Session(HighLevelAPI41.Session session)
         {
             if (session == null)
                 throw new ArgumentNullException("session");
@@ -165,7 +165,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
 
             if (Platform.UnmanagedLongSize == 4)
             {
-                HighLevelAPI4.SessionInfo hlaSessionInfo = _session4.GetSessionInfo();
+                HighLevelAPI41.SessionInfo hlaSessionInfo = _session4.GetSessionInfo();
                 return new SessionInfo(hlaSessionInfo);
             }
             else
@@ -274,8 +274,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI
 
             if (Platform.UnmanagedLongSize == 4)
             {
-                List<HighLevelAPI4.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(attributes);
-                HighLevelAPI4.ObjectHandle hlaObjectHandle = _session4.CreateObject(hlaAttributes);
+                List<HighLevelAPI41.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(attributes);
+                HighLevelAPI41.ObjectHandle hlaObjectHandle = _session4.CreateObject(hlaAttributes);
                 return new ObjectHandle(hlaObjectHandle);
             }
             else
@@ -302,8 +302,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI
 
             if (Platform.UnmanagedLongSize == 4)
             {
-                List<HighLevelAPI4.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(attributes);
-                HighLevelAPI4.ObjectHandle hlaObjectHandle = _session4.CopyObject(objectHandle.ObjectHandle4, hlaAttributes);
+                List<HighLevelAPI41.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(attributes);
+                HighLevelAPI41.ObjectHandle hlaObjectHandle = _session4.CopyObject(objectHandle.ObjectHandle4, hlaAttributes);
                 return new ObjectHandle(hlaObjectHandle);
             }
             else
@@ -404,7 +404,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                 for (int i = 0; i < attributes.Count; i++)
                     uintList.Add(Convert.ToUInt32(attributes[i]));
 
-                List<HighLevelAPI4.ObjectAttribute> hlaAttributes = _session4.GetAttributeValue(objectHandle.ObjectHandle4, uintList);
+                List<HighLevelAPI41.ObjectAttribute> hlaAttributes = _session4.GetAttributeValue(objectHandle.ObjectHandle4, uintList);
                 return ObjectAttribute.ConvertFromHighLevelAPI4List(hlaAttributes);
             }
             else
@@ -435,7 +435,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
 
             if (Platform.UnmanagedLongSize == 4)
             {
-                List<HighLevelAPI4.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(attributes);
+                List<HighLevelAPI41.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(attributes);
                 _session4.SetAttributeValue(objectHandle.ObjectHandle4, hlaAttributes);
             }
             else
@@ -456,7 +456,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
 
             if (Platform.UnmanagedLongSize == 4)
             {
-                List<HighLevelAPI4.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(attributes);
+                List<HighLevelAPI41.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(attributes);
                 _session4.FindObjectsInit(hlaAttributes);
             }
             else
@@ -478,7 +478,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
 
             if (Platform.UnmanagedLongSize == 4)
             {
-                List<HighLevelAPI4.ObjectHandle> hlaObjectHandles = _session4.FindObjects(objectCount);
+                List<HighLevelAPI41.ObjectHandle> hlaObjectHandles = _session4.FindObjects(objectCount);
                 return ObjectHandle.ConvertFromHighLevelAPI4List(hlaObjectHandles);
             }
             else
@@ -514,8 +514,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI
 
             if (Platform.UnmanagedLongSize == 4)
             {
-                List<HighLevelAPI4.ObjectAttribute> hlaObjectAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(attributes);
-                List<HighLevelAPI4.ObjectHandle> hlaObjectHandles = _session4.FindAllObjects(hlaObjectAttributes);
+                List<HighLevelAPI41.ObjectAttribute> hlaObjectAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(attributes);
+                List<HighLevelAPI41.ObjectHandle> hlaObjectHandles = _session4.FindAllObjects(hlaObjectAttributes);
                 return ObjectHandle.ConvertFromHighLevelAPI4List(hlaObjectHandles);
             }
             else
@@ -1494,8 +1494,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI
 
             if (Platform.UnmanagedLongSize == 4)
             {
-                List<HighLevelAPI4.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(attributes);
-                HighLevelAPI4.ObjectHandle hlaObjectHandle = _session4.GenerateKey(mechanism.Mechanism4, hlaAttributes);
+                List<HighLevelAPI41.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(attributes);
+                HighLevelAPI41.ObjectHandle hlaObjectHandle = _session4.GenerateKey(mechanism.Mechanism4, hlaAttributes);
                 return new ObjectHandle(hlaObjectHandle);
             }
             else
@@ -1524,11 +1524,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI
 
             if (Platform.UnmanagedLongSize == 4)
             {
-                List<HighLevelAPI4.ObjectAttribute> hlaPublicKeyAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(publicKeyAttributes);
-                List<HighLevelAPI4.ObjectAttribute> hlaPrivateKeyAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(privateKeyAttributes);
+                List<HighLevelAPI41.ObjectAttribute> hlaPublicKeyAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(publicKeyAttributes);
+                List<HighLevelAPI41.ObjectAttribute> hlaPrivateKeyAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(privateKeyAttributes);
 
-                HighLevelAPI4.ObjectHandle hlaPublicKeyHandle = null;
-                HighLevelAPI4.ObjectHandle hlaPrivateKeyHandle = null;
+                HighLevelAPI41.ObjectHandle hlaPublicKeyHandle = null;
+                HighLevelAPI41.ObjectHandle hlaPrivateKeyHandle = null;
 
                 _session4.GenerateKeyPair(mechanism.Mechanism4, hlaPublicKeyAttributes, hlaPrivateKeyAttributes, out hlaPublicKeyHandle, out hlaPrivateKeyHandle);
 
@@ -1601,8 +1601,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI
 
             if (Platform.UnmanagedLongSize == 4)
             {
-                List<HighLevelAPI4.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(attributes);
-                HighLevelAPI4.ObjectHandle unwrappedKeyHandle = _session4.UnwrapKey(mechanism.Mechanism4, unwrappingKeyHandle.ObjectHandle4, wrappedKey, hlaAttributes);
+                List<HighLevelAPI41.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(attributes);
+                HighLevelAPI41.ObjectHandle unwrappedKeyHandle = _session4.UnwrapKey(mechanism.Mechanism4, unwrappingKeyHandle.ObjectHandle4, wrappedKey, hlaAttributes);
                 return new ObjectHandle(unwrappedKeyHandle);
             }
             else
@@ -1633,8 +1633,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI
 
             if (Platform.UnmanagedLongSize == 4)
             {
-                List<HighLevelAPI4.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(attributes);
-                HighLevelAPI4.ObjectHandle unwrappedKeyHandle = _session4.DeriveKey(mechanism.Mechanism4, baseKeyHandle.ObjectHandle4, hlaAttributes);
+                List<HighLevelAPI41.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI4List(attributes);
+                HighLevelAPI41.ObjectHandle unwrappedKeyHandle = _session4.DeriveKey(mechanism.Mechanism4, baseKeyHandle.ObjectHandle4, hlaAttributes);
                 return new ObjectHandle(unwrappedKeyHandle);
             }
             else

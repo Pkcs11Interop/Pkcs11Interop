@@ -26,7 +26,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific SlotInfo
         /// </summary>
-        private HighLevelAPI4.SlotInfo _slotInfo4 = null;
+        private HighLevelAPI41.SlotInfo _slotInfo4 = null;
 
         /// <summary>
         /// Platform specific SlotInfo
@@ -111,7 +111,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Converts platform specific SlotInfo to platfrom neutral SlotInfo
         /// </summary>
         /// <param name="slotInfo">Platform specific SlotInfo</param>
-        internal SlotInfo(HighLevelAPI4.SlotInfo slotInfo)
+        internal SlotInfo(HighLevelAPI41.SlotInfo slotInfo)
         {
             if (slotInfo == null)
                 throw new ArgumentNullException("slotInfo");

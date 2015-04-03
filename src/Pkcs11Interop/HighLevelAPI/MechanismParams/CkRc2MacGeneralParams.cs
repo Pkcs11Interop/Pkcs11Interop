@@ -26,7 +26,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkRc2MacGeneralParams
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkRc2MacGeneralParams _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkRc2MacGeneralParams _params4 = null;
 
         /// <summary>
         /// Platform specific CkRc2MacGeneralParams
@@ -41,7 +41,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkRc2MacGeneralParams(ulong effectiveBits, ulong macLength)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI4.MechanismParams.CkRc2MacGeneralParams(Convert.ToUInt32(effectiveBits), Convert.ToUInt32(macLength));
+                _params4 = new HighLevelAPI41.MechanismParams.CkRc2MacGeneralParams(Convert.ToUInt32(effectiveBits), Convert.ToUInt32(macLength));
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkRc2MacGeneralParams(effectiveBits, macLength);
         }

@@ -17,7 +17,7 @@ using System;
 using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
 
-namespace Net.Pkcs11Interop.HighLevelAPI4
+namespace Net.Pkcs11Interop.HighLevelAPI41
 {
     /// <summary>
     /// Attribute of cryptoki object (CK_ATTRIBUTE alternative)

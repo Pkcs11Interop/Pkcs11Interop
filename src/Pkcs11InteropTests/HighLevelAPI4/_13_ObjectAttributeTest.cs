@@ -14,14 +14,14 @@
  */
 
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.HighLevelAPI4;
+using Net.Pkcs11Interop.HighLevelAPI41;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using LLA4 = Net.Pkcs11Interop.LowLevelAPI41;
 
-namespace Net.Pkcs11Interop.Tests.HighLevelAPI4
+namespace Net.Pkcs11Interop.Tests.HighLevelAPI41
 {
     /// <summary>
     /// Object attributes tests.

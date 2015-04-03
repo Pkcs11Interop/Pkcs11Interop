@@ -26,7 +26,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkRsaPkcsPssParams
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkRsaPkcsPssParams _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkRsaPkcsPssParams _params4 = null;
 
         /// <summary>
         /// Platform specific CkRsaPkcsPssParams
@@ -42,7 +42,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkRsaPkcsPssParams(ulong hashAlg, ulong mgf, ulong len)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI4.MechanismParams.CkRsaPkcsPssParams(Convert.ToUInt32(hashAlg), Convert.ToUInt32(mgf), Convert.ToUInt32(len));
+                _params4 = new HighLevelAPI41.MechanismParams.CkRsaPkcsPssParams(Convert.ToUInt32(hashAlg), Convert.ToUInt32(mgf), Convert.ToUInt32(len));
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkRsaPkcsPssParams(hashAlg, mgf, len);
         }

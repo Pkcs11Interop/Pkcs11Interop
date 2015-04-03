@@ -26,7 +26,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific SlotFlags
         /// </summary>
-        private HighLevelAPI4.SlotFlags _slotFlags4 = null;
+        private HighLevelAPI41.SlotFlags _slotFlags4 = null;
 
         /// <summary>
         /// Platform specific SlotFlags
@@ -81,7 +81,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Converts platform specific SlotFlags to platfrom neutral SlotFlags
         /// </summary>
         /// <param name="slotFlags">Platform specific SlotFlags</param>
-        internal SlotFlags(HighLevelAPI4.SlotFlags slotFlags)
+        internal SlotFlags(HighLevelAPI41.SlotFlags slotFlags)
         {
             if (slotFlags == null)
                 throw new ArgumentNullException("slotFlags");

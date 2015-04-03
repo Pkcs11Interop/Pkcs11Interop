@@ -15,7 +15,7 @@
 
 using Net.Pkcs11Interop.Common;
 
-namespace Net.Pkcs11Interop.HighLevelAPI4
+namespace Net.Pkcs11Interop.HighLevelAPI41
 {
     /// <summary>
     /// Flags that provide capabilities of the slot

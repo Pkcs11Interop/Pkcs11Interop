@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkSsl3KeyMatOut
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkSsl3KeyMatOut _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkSsl3KeyMatOut _params4 = null;
 
         /// <summary>
         /// Platform specific CkSsl3KeyMatOut
@@ -126,7 +126,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// Initializes a new instance of the CkSsl3KeyMatOut class.
         /// </summary>
         /// <param name='ckSsl3KeyMatOut'>Platform specific CkSsl3KeyMatOut</param>
-        internal CkSsl3KeyMatOut(HighLevelAPI4.MechanismParams.CkSsl3KeyMatOut ckSsl3KeyMatOut)
+        internal CkSsl3KeyMatOut(HighLevelAPI41.MechanismParams.CkSsl3KeyMatOut ckSsl3KeyMatOut)
         {
             if (ckSsl3KeyMatOut == null)
                 throw new ArgumentNullException("ckSsl3KeyMatOut");

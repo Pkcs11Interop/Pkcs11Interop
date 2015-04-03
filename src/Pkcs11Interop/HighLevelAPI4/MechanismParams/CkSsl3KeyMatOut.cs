@@ -15,7 +15,7 @@
 
 using System;
 
-namespace Net.Pkcs11Interop.HighLevelAPI4.MechanismParams
+namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
     /// <summary>
     /// Resulting key handles and initialization vectors after performing a DeriveKey method with the CKM_SSL3_KEY_AND_MAC_DERIVE mechanism

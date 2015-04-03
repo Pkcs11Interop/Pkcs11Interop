@@ -30,7 +30,7 @@
  *
  * You may be wondering why there is more than one LowLevelAPI and what do numbers 4 and 8 in the namespaces mean:
  * 
- * The C 'long' type is extensively used throughout the PKCS#11 ANSI C API as CK_ULONG type and unfortunately it is the most difficult type to marshal since there is no type in .NET that matches its size. The problem is that the C 'long' type can be 4 bytes long on some platforms (Win32, Win64 and Unix32) and in the same time it can be 8 bytes long on the other platforms (Unix64). In .NET there is 'int' type which is 4 bytes long regardless of platform and there is 'long' type which is 8 bytes long regardless of platform. Neither of them can be used as a multiplatform alternative for C 'long' type and the only solution is to use and marshal two different sets of structures, one with 'int' .NET type for platforms where C 'long' type is 4 bytes long (LowLevelAPI41 and HighLevelAPI4) and the other with 'long' .NET type for platforms where C 'long' type is 8 bytes long (LowLevelAPI81 and HighLevel8).
+ * The C 'long' type is extensively used throughout the PKCS#11 ANSI C API as CK_ULONG type and unfortunately it is the most difficult type to marshal since there is no type in .NET that matches its size. The problem is that the C 'long' type can be 4 bytes long on some platforms (Win32, Win64 and Unix32) and in the same time it can be 8 bytes long on the other platforms (Unix64). In .NET there is 'int' type which is 4 bytes long regardless of platform and there is 'long' type which is 8 bytes long regardless of platform. Neither of them can be used as a multiplatform alternative for C 'long' type and the only solution is to use and marshal two different sets of structures, one with 'int' .NET type for platforms where C 'long' type is 4 bytes long (LowLevelAPI41 and HighLevelAPI41) and the other with 'long' .NET type for platforms where C 'long' type is 8 bytes long (LowLevelAPI81 and HighLevel8).
  * 
  * <b>When developing your application you should always prefer Net.Pkcs11Interop.HighLevelAPI that automatically uses correct set of platform dependent APIs.</b>
  * 
@@ -71,11 +71,11 @@
  * \namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
  * \brief Classes that can hold parameters for various mechanisms usable by LowLevelAPI41
  * 
- * \namespace Net.Pkcs11Interop.HighLevelAPI4
+ * \namespace Net.Pkcs11Interop.HighLevelAPI41
  * \brief High level .NET friendly API for platforms where C 'long' type is 4 bytes long (Win32, Win64 and Unix32)
  * 
- * \namespace Net.Pkcs11Interop.HighLevelAPI4.MechanismParams
- * \brief Classes that can hold parameters for various mechanisms usable by HighLevelAPI4
+ * \namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
+ * \brief Classes that can hold parameters for various mechanisms usable by HighLevelAPI41
  * 
  * \namespace Net.Pkcs11Interop.LowLevelAPI81
  * \brief Low level C-like API for platforms where C 'long' type is 8 bytes long (Unix64)

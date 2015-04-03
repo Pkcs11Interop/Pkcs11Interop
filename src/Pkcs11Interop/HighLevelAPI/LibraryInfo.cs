@@ -26,7 +26,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific LibraryInfo
         /// </summary>
-        private HighLevelAPI4.LibraryInfo _libraryInfo4 = null;
+        private HighLevelAPI41.LibraryInfo _libraryInfo4 = null;
 
         /// <summary>
         /// Platform specific LibraryInfo
@@ -92,7 +92,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Converts platform specific LibraryInfo to platfrom neutral LibraryInfo
         /// </summary>
         /// <param name="libraryInfo">Platform specific LibraryInfo</param>
-        internal LibraryInfo(HighLevelAPI4.LibraryInfo libraryInfo)
+        internal LibraryInfo(HighLevelAPI41.LibraryInfo libraryInfo)
         {
             if (libraryInfo == null)
                 throw new ArgumentNullException("libraryInfo");

@@ -16,7 +16,7 @@
 using System;
 using Net.Pkcs11Interop.Common;
 
-namespace Net.Pkcs11Interop.HighLevelAPI4
+namespace Net.Pkcs11Interop.HighLevelAPI41
 {
     /// <summary>
     /// Information about a token

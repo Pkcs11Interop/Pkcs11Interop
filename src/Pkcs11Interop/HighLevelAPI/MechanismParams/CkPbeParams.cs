@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkPbeParams
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkPbeParams _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkPbeParams _params4 = null;
 
         /// <summary>
         /// Platform specific CkPbeParams
@@ -48,7 +48,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkPbeParams(byte[] initVector, byte[] password, byte[] salt, ulong iteration)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI4.MechanismParams.CkPbeParams(initVector, password, salt, Convert.ToUInt32(iteration));
+                _params4 = new HighLevelAPI41.MechanismParams.CkPbeParams(initVector, password, salt, Convert.ToUInt32(iteration));
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkPbeParams(initVector, password, salt, iteration);
         }

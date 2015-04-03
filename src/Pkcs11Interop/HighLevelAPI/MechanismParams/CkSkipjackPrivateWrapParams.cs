@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkSkipjackPrivateWrapParams
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkSkipjackPrivateWrapParams _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkSkipjackPrivateWrapParams _params4 = null;
 
         /// <summary>
         /// Platform specific CkSkipjackPrivateWrapParams
@@ -50,7 +50,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkSkipjackPrivateWrapParams(byte[] password, byte[] publicData, byte[] randomA, byte[] primeP, byte[] baseG, byte[] subprimeQ)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI4.MechanismParams.CkSkipjackPrivateWrapParams(password, publicData, randomA, primeP, baseG, subprimeQ);
+                _params4 = new HighLevelAPI41.MechanismParams.CkSkipjackPrivateWrapParams(password, publicData, randomA, primeP, baseG, subprimeQ);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkSkipjackPrivateWrapParams(password, publicData, randomA, primeP, baseG, subprimeQ);
         }

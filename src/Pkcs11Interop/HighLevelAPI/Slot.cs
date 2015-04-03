@@ -27,7 +27,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific Slot
         /// </summary>
-        private HighLevelAPI4.Slot _slot4 = null;
+        private HighLevelAPI41.Slot _slot4 = null;
 
         /// <summary>
         /// Platform specific Slot
@@ -49,7 +49,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Converts platform specific Slot to platfrom neutral Slot
         /// </summary>
         /// <param name="slot">Platform specific Slot</param>
-        internal Slot(HighLevelAPI4.Slot slot)
+        internal Slot(HighLevelAPI41.Slot slot)
         {
             if (slot == null)
                 throw new ArgumentNullException("slot");
@@ -77,7 +77,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             if (Platform.UnmanagedLongSize == 4)
             {
-                HighLevelAPI4.SlotInfo hlaSlotInfo = _slot4.GetSlotInfo();
+                HighLevelAPI41.SlotInfo hlaSlotInfo = _slot4.GetSlotInfo();
                 return new SlotInfo(hlaSlotInfo);
             }
             else
@@ -95,7 +95,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             if (Platform.UnmanagedLongSize == 4)
             {
-                HighLevelAPI4.TokenInfo hlaTokenInfo = _slot4.GetTokenInfo();
+                HighLevelAPI41.TokenInfo hlaTokenInfo = _slot4.GetTokenInfo();
                 return new TokenInfo(hlaTokenInfo);
             }
             else
@@ -126,7 +126,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             if (Platform.UnmanagedLongSize == 4)
             {
-                HighLevelAPI4.MechanismInfo hlaMechanismInfo = _slot4.GetMechanismInfo(mechanism);
+                HighLevelAPI41.MechanismInfo hlaMechanismInfo = _slot4.GetMechanismInfo(mechanism);
                 return new MechanismInfo(hlaMechanismInfo);
             }
             else
@@ -171,7 +171,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             if (Platform.UnmanagedLongSize == 4)
             {
-                HighLevelAPI4.Session hlaSession = _slot4.OpenSession(readOnly);
+                HighLevelAPI41.Session hlaSession = _slot4.OpenSession(readOnly);
                 return new Session(hlaSession);
             }
             else

@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkOtpParam
         /// </summary>
-        internal HighLevelAPI4.MechanismParams.CkOtpParam _params4 = null;
+        internal HighLevelAPI41.MechanismParams.CkOtpParam _params4 = null;
 
         /// <summary>
         /// Platform specific CkOtpParam
@@ -74,7 +74,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkOtpParam(ulong type, byte[] value)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI4.MechanismParams.CkOtpParam(Convert.ToUInt32(type), value);
+                _params4 = new HighLevelAPI41.MechanismParams.CkOtpParam(Convert.ToUInt32(type), value);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkOtpParam(type, value);
         }
@@ -83,7 +83,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// Initializes a new instance of the CkOtpParam class.
         /// </summary>
         /// <param name='ckOtpParam'>Platform specific CkOtpParam</param>
-        internal CkOtpParam(HighLevelAPI4.MechanismParams.CkOtpParam ckOtpParam)
+        internal CkOtpParam(HighLevelAPI41.MechanismParams.CkOtpParam ckOtpParam)
         {
             if (ckOtpParam == null)
                 throw new ArgumentNullException("ckOtpParam");

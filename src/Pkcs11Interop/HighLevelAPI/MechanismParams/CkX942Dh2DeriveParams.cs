@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkX942Dh2DeriveParams
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkX942Dh2DeriveParams _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkX942Dh2DeriveParams _params4 = null;
 
         /// <summary>
         /// Platform specific CkX942Dh2DeriveParams
@@ -50,7 +50,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkX942Dh2DeriveParams(ulong kdf, byte[] otherInfo, byte[] publicData, ulong privateDataLen, ObjectHandle privateData, byte[] publicData2)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI4.MechanismParams.CkX942Dh2DeriveParams(Convert.ToUInt32(kdf), otherInfo, publicData, Convert.ToUInt32(privateDataLen), privateData.ObjectHandle4, publicData2);
+                _params4 = new HighLevelAPI41.MechanismParams.CkX942Dh2DeriveParams(Convert.ToUInt32(kdf), otherInfo, publicData, Convert.ToUInt32(privateDataLen), privateData.ObjectHandle4, publicData2);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkX942Dh2DeriveParams(kdf, otherInfo, publicData, privateDataLen, privateData.ObjectHandle8, publicData2);
         }

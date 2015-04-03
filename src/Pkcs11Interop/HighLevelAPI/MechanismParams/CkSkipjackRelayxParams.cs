@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkSkipjackRelayxParams
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkSkipjackRelayxParams _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkSkipjackRelayxParams _params4 = null;
 
         /// <summary>
         /// Platform specific CkSkipjackRelayxParams
@@ -51,7 +51,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkSkipjackRelayxParams(byte[] oldWrappedX, byte[] oldPassword, byte[] oldPublicData, byte[] oldRandomA, byte[] newPassword, byte[] newPublicData, byte[] newRandomA)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI4.MechanismParams.CkSkipjackRelayxParams(oldWrappedX, oldPassword, oldPublicData, oldRandomA, newPassword, newPublicData, newRandomA);
+                _params4 = new HighLevelAPI41.MechanismParams.CkSkipjackRelayxParams(oldWrappedX, oldPassword, oldPublicData, oldRandomA, newPassword, newPublicData, newRandomA);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkSkipjackRelayxParams(oldWrappedX, oldPassword, oldPublicData, oldRandomA, newPassword, newPublicData, newRandomA);
         }

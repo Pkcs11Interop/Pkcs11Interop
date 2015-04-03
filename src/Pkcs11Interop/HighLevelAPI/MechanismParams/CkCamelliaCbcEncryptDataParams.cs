@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkCamelliaCbcEncryptDataParams
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkCamelliaCbcEncryptDataParams _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkCamelliaCbcEncryptDataParams _params4 = null;
 
         /// <summary>
         /// Platform specific CkCamelliaCbcEncryptDataParams
@@ -46,7 +46,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkCamelliaCbcEncryptDataParams(byte[] iv, byte[] data)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI4.MechanismParams.CkCamelliaCbcEncryptDataParams(iv, data);
+                _params4 = new HighLevelAPI41.MechanismParams.CkCamelliaCbcEncryptDataParams(iv, data);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkCamelliaCbcEncryptDataParams(iv, data);
         }

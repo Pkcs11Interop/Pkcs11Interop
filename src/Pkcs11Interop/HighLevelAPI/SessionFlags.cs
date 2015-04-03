@@ -26,7 +26,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific SessionFlags
         /// </summary>
-        private HighLevelAPI4.SessionFlags _sessionFlags4 = null;
+        private HighLevelAPI41.SessionFlags _sessionFlags4 = null;
 
         /// <summary>
         /// Platform specific SessionFlags
@@ -70,7 +70,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Converts platform specific SessionFlags to platfrom neutral SessionFlags
         /// </summary>
         /// <param name="sessionFlags">Platform specific SessionFlags</param>
-        internal SessionFlags(HighLevelAPI4.SessionFlags sessionFlags)
+        internal SessionFlags(HighLevelAPI41.SessionFlags sessionFlags)
         {
             if (sessionFlags == null)
                 throw new ArgumentNullException("sessionFlags");

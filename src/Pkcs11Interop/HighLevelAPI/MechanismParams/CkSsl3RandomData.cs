@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkSsl3RandomData
         /// </summary>
-        internal HighLevelAPI4.MechanismParams.CkSsl3RandomData _params4 = null;
+        internal HighLevelAPI41.MechanismParams.CkSsl3RandomData _params4 = null;
 
         /// <summary>
         /// Platform specific CkSsl3RandomData
@@ -46,7 +46,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkSsl3RandomData(byte[] clientRandom, byte[] serverRandom)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI4.MechanismParams.CkSsl3RandomData(clientRandom, serverRandom);
+                _params4 = new HighLevelAPI41.MechanismParams.CkSsl3RandomData(clientRandom, serverRandom);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkSsl3RandomData(clientRandom, serverRandom);
         }

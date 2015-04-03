@@ -32,12 +32,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific ObjectAttribute
         /// </summary>
-        private HighLevelAPI4.ObjectAttribute _objectAttribute4 = null;
+        private HighLevelAPI41.ObjectAttribute _objectAttribute4 = null;
 
         /// <summary>
         /// Platform specific ObjectAttribute
         /// </summary>
-        internal HighLevelAPI4.ObjectAttribute ObjectAttribute4
+        internal HighLevelAPI41.ObjectAttribute ObjectAttribute4
         {
             get
             {
@@ -99,7 +99,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Converts platform specific ObjectAttribute to platfrom neutral ObjectAttribute
         /// </summary>
         /// <param name="objectAttribute">Platform specific ObjectAttribute</param>
-        internal ObjectAttribute(HighLevelAPI4.ObjectAttribute objectAttribute)
+        internal ObjectAttribute(HighLevelAPI41.ObjectAttribute objectAttribute)
         {
             if (objectAttribute == null)
                 throw new ArgumentNullException("objectAttribute");
@@ -128,7 +128,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public ObjectAttribute(ulong type)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type));
+                _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(Convert.ToUInt32(type));
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type);
         }
@@ -140,7 +140,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public ObjectAttribute(CKA type)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type);
+                _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(type);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type);
         }
@@ -157,7 +157,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public ObjectAttribute(ulong type, ulong value)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type), Convert.ToUInt32(value));
+                _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(Convert.ToUInt32(type), Convert.ToUInt32(value));
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
@@ -170,7 +170,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public ObjectAttribute(CKA type, ulong value)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, Convert.ToUInt32(value));
+                _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(type, Convert.ToUInt32(value));
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
@@ -183,7 +183,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public ObjectAttribute(CKA type, CKC value)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, value);
+                _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(type, value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
@@ -196,7 +196,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public ObjectAttribute(CKA type, CKK value)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, value);
+                _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(type, value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
@@ -209,7 +209,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public ObjectAttribute(CKA type, CKO value)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, value);
+                _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(type, value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
@@ -241,7 +241,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public ObjectAttribute(ulong type, bool value)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type), value);
+                _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(Convert.ToUInt32(type), value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
@@ -254,7 +254,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public ObjectAttribute(CKA type, bool value)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, value);
+                _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(type, value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
@@ -286,7 +286,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public ObjectAttribute(ulong type, string value)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type), value);
+                _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(Convert.ToUInt32(type), value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
@@ -299,7 +299,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public ObjectAttribute(CKA type, string value)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, value);
+                _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(type, value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
@@ -331,7 +331,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public ObjectAttribute(ulong type, byte[] value)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type), value);
+                _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(Convert.ToUInt32(type), value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
@@ -344,7 +344,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public ObjectAttribute(CKA type, byte[] value)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, value);
+                _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(type, value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
@@ -376,7 +376,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public ObjectAttribute(ulong type, DateTime value)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type), value);
+                _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(Convert.ToUInt32(type), value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
@@ -389,7 +389,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public ObjectAttribute(CKA type, DateTime value)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, value);
+                _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(type, value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
@@ -422,8 +422,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             if (Platform.UnmanagedLongSize == 4)
             {
-                List<HighLevelAPI4.ObjectAttribute> attributes = ConvertToHighLevelAPI4List(value);
-                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type), attributes);
+                List<HighLevelAPI41.ObjectAttribute> attributes = ConvertToHighLevelAPI4List(value);
+                _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(Convert.ToUInt32(type), attributes);
             }
             else
             {
@@ -441,8 +441,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             if (Platform.UnmanagedLongSize == 4)
             {
-                List<HighLevelAPI4.ObjectAttribute> attributes = ConvertToHighLevelAPI4List(value);
-                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, attributes);
+                List<HighLevelAPI41.ObjectAttribute> attributes = ConvertToHighLevelAPI4List(value);
+                _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(type, attributes);
             }
             else
             {
@@ -464,12 +464,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI
 
             if (Platform.UnmanagedLongSize == 4)
             {
-                List<HighLevelAPI4.ObjectAttribute> attrs = _objectAttribute4.GetValueAsObjectAttributeList();
+                List<HighLevelAPI41.ObjectAttribute> attrs = _objectAttribute4.GetValueAsObjectAttributeList();
 
                 if (attrs != null)
                 {
                     objectAttributes = new List<ObjectAttribute>();
-                    foreach (HighLevelAPI4.ObjectAttribute objectAttribute in attrs)
+                    foreach (HighLevelAPI41.ObjectAttribute objectAttribute in attrs)
                         objectAttributes.Add(new ObjectAttribute(objectAttribute));
                 }
             }
@@ -510,7 +510,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                         uintList.Add(Convert.ToUInt32(value[i]));
                 }
 
-                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type), uintList);
+                _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(Convert.ToUInt32(type), uintList);
             }
             else
             {
@@ -536,7 +536,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                         uintList.Add(Convert.ToUInt32(value[i]));
                 }
 
-                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, uintList);
+                _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(type, uintList);
             }
             else
             {
@@ -586,7 +586,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public ObjectAttribute(ulong type, List<CKM> value)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(Convert.ToUInt32(type), value);
+                _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(Convert.ToUInt32(type), value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
@@ -599,7 +599,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public ObjectAttribute(CKA type, List<CKM> value)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _objectAttribute4 = new HighLevelAPI4.ObjectAttribute(type, value);
+                _objectAttribute4 = new HighLevelAPI41.ObjectAttribute(type, value);
             else
                 _objectAttribute8 = new HighLevelAPI8.ObjectAttribute(type, value);
         }
@@ -628,13 +628,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         /// <param name="attributes">Platfrom neutral ObjectAttributes</param>
         /// <returns>Platform specific ObjectAttributes</returns>
-        internal static List<HighLevelAPI4.ObjectAttribute> ConvertToHighLevelAPI4List(List<ObjectAttribute> attributes)
+        internal static List<HighLevelAPI41.ObjectAttribute> ConvertToHighLevelAPI4List(List<ObjectAttribute> attributes)
         {
-            List<HighLevelAPI4.ObjectAttribute> hlaAttributes = null;
+            List<HighLevelAPI41.ObjectAttribute> hlaAttributes = null;
 
             if (attributes != null)
             {
-                hlaAttributes = new List<HighLevelAPI4.ObjectAttribute>();
+                hlaAttributes = new List<HighLevelAPI41.ObjectAttribute>();
                 for (int i = 0; i < attributes.Count; i++)
                     hlaAttributes.Add(attributes[i].ObjectAttribute4);
             }
@@ -647,7 +647,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         /// <param name="hlaAttributes">Platform specific ObjectAttributes</param>
         /// <returns>Platfrom neutral ObjectAttributes</returns>
-        internal static List<ObjectAttribute> ConvertFromHighLevelAPI4List(List<HighLevelAPI4.ObjectAttribute> hlaAttributes)
+        internal static List<ObjectAttribute> ConvertFromHighLevelAPI4List(List<HighLevelAPI41.ObjectAttribute> hlaAttributes)
         {
             List<ObjectAttribute> attributes = null;
 

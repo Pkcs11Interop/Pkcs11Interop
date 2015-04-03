@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkRsaPkcsOaepParams
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkRsaPkcsOaepParams _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkRsaPkcsOaepParams _params4 = null;
 
         /// <summary>
         /// Platform specific CkRsaPkcsOaepParams
@@ -48,7 +48,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkRsaPkcsOaepParams(ulong hashAlg, ulong mgf, ulong source, byte[] sourceData)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI4.MechanismParams.CkRsaPkcsOaepParams(Convert.ToUInt32(hashAlg), Convert.ToUInt32(mgf), Convert.ToUInt32(source), sourceData);
+                _params4 = new HighLevelAPI41.MechanismParams.CkRsaPkcsOaepParams(Convert.ToUInt32(hashAlg), Convert.ToUInt32(mgf), Convert.ToUInt32(source), sourceData);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkRsaPkcsOaepParams(hashAlg, mgf, source, sourceData);
         }

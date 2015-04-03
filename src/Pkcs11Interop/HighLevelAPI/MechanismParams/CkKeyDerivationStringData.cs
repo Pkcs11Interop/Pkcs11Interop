@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkKeyDerivationStringData
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkKeyDerivationStringData _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkKeyDerivationStringData _params4 = null;
 
         /// <summary>
         /// Platform specific CkKeyDerivationStringData
@@ -45,7 +45,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkKeyDerivationStringData(byte[] data)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI4.MechanismParams.CkKeyDerivationStringData(data);
+                _params4 = new HighLevelAPI41.MechanismParams.CkKeyDerivationStringData(data);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkKeyDerivationStringData(data);
         }

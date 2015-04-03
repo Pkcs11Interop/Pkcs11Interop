@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkAesCbcEncryptDataParams
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkAesCbcEncryptDataParams _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkAesCbcEncryptDataParams _params4 = null;
 
         /// <summary>
         /// Platform specific CkAesCbcEncryptDataParams
@@ -46,7 +46,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkAesCbcEncryptDataParams(byte[] iv, byte[] data)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI4.MechanismParams.CkAesCbcEncryptDataParams(iv, data);
+                _params4 = new HighLevelAPI41.MechanismParams.CkAesCbcEncryptDataParams(iv, data);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkAesCbcEncryptDataParams(iv, data);
         }

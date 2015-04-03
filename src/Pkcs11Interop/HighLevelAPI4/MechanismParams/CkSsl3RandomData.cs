@@ -16,7 +16,7 @@
 using System;
 using Net.Pkcs11Interop.Common;
 
-namespace Net.Pkcs11Interop.HighLevelAPI4.MechanismParams
+namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
     /// <summary>
     /// Information about the random data of a client and a server in an SSL context

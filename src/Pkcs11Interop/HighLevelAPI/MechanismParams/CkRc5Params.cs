@@ -26,7 +26,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkRc5Params
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkRc5Params _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkRc5Params _params4 = null;
 
         /// <summary>
         /// Platform specific CkRc5Params
@@ -41,7 +41,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkRc5Params(ulong wordsize, ulong rounds)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI4.MechanismParams.CkRc5Params(Convert.ToUInt32(wordsize), Convert.ToUInt32(rounds));
+                _params4 = new HighLevelAPI41.MechanismParams.CkRc5Params(Convert.ToUInt32(wordsize), Convert.ToUInt32(rounds));
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkRc5Params(wordsize, rounds);
         }

@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkPkcs5Pbkd2Params
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkPkcs5Pbkd2Params _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkPkcs5Pbkd2Params _params4 = null;
 
         /// <summary>
         /// Platform specific CkPkcs5Pbkd2Params
@@ -50,7 +50,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkPkcs5Pbkd2Params(ulong saltSource, byte[] saltSourceData, ulong iterations, ulong prf, byte[] prfData, byte[] password)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI4.MechanismParams.CkPkcs5Pbkd2Params(Convert.ToUInt32(saltSource), saltSourceData, Convert.ToUInt32(iterations), Convert.ToUInt32(prf), prfData, password);
+                _params4 = new HighLevelAPI41.MechanismParams.CkPkcs5Pbkd2Params(Convert.ToUInt32(saltSource), saltSourceData, Convert.ToUInt32(iterations), Convert.ToUInt32(prf), prfData, password);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkPkcs5Pbkd2Params(saltSource, saltSourceData, iterations, prf, prfData, password);
         }

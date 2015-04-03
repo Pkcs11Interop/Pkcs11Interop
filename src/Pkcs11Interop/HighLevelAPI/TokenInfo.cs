@@ -26,7 +26,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific TokenInfo
         /// </summary>
-        private HighLevelAPI4.TokenInfo _tokenInfo4 = null;
+        private HighLevelAPI41.TokenInfo _tokenInfo4 = null;
 
         /// <summary>
         /// Platform specific TokenInfo
@@ -265,7 +265,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Converts platform specific TokenInfo to platfrom neutral TokenInfo
         /// </summary>
         /// <param name="tokenInfo">Platform specific TokenInfo</param>
-        internal TokenInfo(HighLevelAPI4.TokenInfo tokenInfo)
+        internal TokenInfo(HighLevelAPI41.TokenInfo tokenInfo)
         {
             if (tokenInfo == null)
                 throw new ArgumentNullException("tokenInfo");

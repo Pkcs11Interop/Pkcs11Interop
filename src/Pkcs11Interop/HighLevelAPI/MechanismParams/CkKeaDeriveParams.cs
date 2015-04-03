@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkKeaDeriveParams
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkKeaDeriveParams _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkKeaDeriveParams _params4 = null;
 
         /// <summary>
         /// Platform specific CkKeaDeriveParams
@@ -48,7 +48,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkKeaDeriveParams(bool isSender, byte[] randomA, byte[] randomB, byte[] publicData)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI4.MechanismParams.CkKeaDeriveParams(isSender, randomA, randomB, publicData);
+                _params4 = new HighLevelAPI41.MechanismParams.CkKeaDeriveParams(isSender, randomA, randomB, publicData);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkKeaDeriveParams(isSender, randomA, randomB, publicData);
         }

@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkWtlsPrfParams
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkWtlsPrfParams _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkWtlsPrfParams _params4 = null;
 
         /// <summary>
         /// Platform specific CkWtlsPrfParams
@@ -62,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkWtlsPrfParams(ulong digestMechanism, byte[] seed, byte[] label, ulong outputLen)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI4.MechanismParams.CkWtlsPrfParams(Convert.ToUInt32(digestMechanism), seed, label, Convert.ToUInt32(outputLen));
+                _params4 = new HighLevelAPI41.MechanismParams.CkWtlsPrfParams(Convert.ToUInt32(digestMechanism), seed, label, Convert.ToUInt32(outputLen));
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkWtlsPrfParams(digestMechanism, seed, label, outputLen);
         }

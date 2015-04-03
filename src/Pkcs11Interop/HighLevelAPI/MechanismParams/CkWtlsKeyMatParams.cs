@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkWtlsKeyMatParams
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkWtlsKeyMatParams _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkWtlsKeyMatParams _params4 = null;
 
         /// <summary>
         /// Platform specific CkWtlsKeyMatParams
@@ -97,7 +97,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             _randomInfo = randomInfo;
 
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI4.MechanismParams.CkWtlsKeyMatParams(Convert.ToUInt32(digestMechanism), Convert.ToUInt32(macSizeInBits), Convert.ToUInt32(keySizeInBits), Convert.ToUInt32(ivSizeInBits), Convert.ToUInt32(sequenceNumber), isExport, _randomInfo._params4);
+                _params4 = new HighLevelAPI41.MechanismParams.CkWtlsKeyMatParams(Convert.ToUInt32(digestMechanism), Convert.ToUInt32(macSizeInBits), Convert.ToUInt32(keySizeInBits), Convert.ToUInt32(ivSizeInBits), Convert.ToUInt32(sequenceNumber), isExport, _randomInfo._params4);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkWtlsKeyMatParams(digestMechanism, macSizeInBits, keySizeInBits, ivSizeInBits, sequenceNumber, isExport, _randomInfo._params8);
         }

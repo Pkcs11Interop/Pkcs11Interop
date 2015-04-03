@@ -26,7 +26,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkRc2Params
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkRc2Params _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkRc2Params _params4 = null;
 
         /// <summary>
         /// Platform specific CkRc2Params
@@ -40,7 +40,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkRc2Params(ulong effectiveBits)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI4.MechanismParams.CkRc2Params(Convert.ToUInt32(effectiveBits));
+                _params4 = new HighLevelAPI41.MechanismParams.CkRc2Params(Convert.ToUInt32(effectiveBits));
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkRc2Params(effectiveBits);
         }

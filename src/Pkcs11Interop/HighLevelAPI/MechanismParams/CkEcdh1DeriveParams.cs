@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkEcdh1DeriveParams
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkEcdh1DeriveParams _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkEcdh1DeriveParams _params4 = null;
 
         /// <summary>
         /// Platform specific CkEcdh1DeriveParams
@@ -47,7 +47,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkEcdh1DeriveParams(ulong kdf, byte[] sharedData, byte[] publicData)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI4.MechanismParams.CkEcdh1DeriveParams(Convert.ToUInt32(kdf), sharedData, publicData);
+                _params4 = new HighLevelAPI41.MechanismParams.CkEcdh1DeriveParams(Convert.ToUInt32(kdf), sharedData, publicData);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkEcdh1DeriveParams(kdf, sharedData, publicData);
         }

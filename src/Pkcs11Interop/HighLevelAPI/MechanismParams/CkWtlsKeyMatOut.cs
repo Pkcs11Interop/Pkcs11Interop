@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkWtlsKeyMatOut
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkWtlsKeyMatOut _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkWtlsKeyMatOut _params4 = null;
 
         /// <summary>
         /// Platform specific CkWtlsKeyMatOut
@@ -84,7 +84,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// Initializes a new instance of the CkWtlsKeyMatOut class.
         /// </summary>
         /// <param name='ckWtlsKeyMatOut'>Platform specific CkWtlsKeyMatOut</param>
-        internal CkWtlsKeyMatOut(HighLevelAPI4.MechanismParams.CkWtlsKeyMatOut ckWtlsKeyMatOut)
+        internal CkWtlsKeyMatOut(HighLevelAPI41.MechanismParams.CkWtlsKeyMatOut ckWtlsKeyMatOut)
         {
             if (ckWtlsKeyMatOut == null)
                 throw new ArgumentNullException("ckWtlsKeyMatOut");

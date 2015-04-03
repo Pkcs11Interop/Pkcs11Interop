@@ -26,7 +26,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific SessionInfo
         /// </summary>
-        private HighLevelAPI4.SessionInfo _sessionInfo4 = null;
+        private HighLevelAPI41.SessionInfo _sessionInfo4 = null;
 
         /// <summary>
         /// Platform specific SessionInfo
@@ -100,7 +100,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Converts platform specific SessionInfo to platfrom neutral SessionInfo
         /// </summary>
         /// <param name="sessionInfo">Platform specific SessionInfo</param>
-        internal SessionInfo(HighLevelAPI4.SessionInfo sessionInfo)
+        internal SessionInfo(HighLevelAPI41.SessionInfo sessionInfo)
         {
             if (sessionInfo == null)
                 throw new ArgumentNullException("sessionInfo");

@@ -32,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkOtpSignatureInfo
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkOtpSignatureInfo _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkOtpSignatureInfo _params4 = null;
 
         /// <summary>
         /// Platform specific CkOtpSignatureInfo
@@ -73,9 +73,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         {
             if (Platform.UnmanagedLongSize == 4)
             {
-                _params4 = new HighLevelAPI4.MechanismParams.CkOtpSignatureInfo(signature);
+                _params4 = new HighLevelAPI41.MechanismParams.CkOtpSignatureInfo(signature);
 
-                IList<HighLevelAPI4.MechanismParams.CkOtpParam> hlaParams = _params4.Params;
+                IList<HighLevelAPI41.MechanismParams.CkOtpParam> hlaParams = _params4.Params;
                 for (int i = 0; i < hlaParams.Count; i++)
                     _params.Add(new CkOtpParam(hlaParams[i]));
             }

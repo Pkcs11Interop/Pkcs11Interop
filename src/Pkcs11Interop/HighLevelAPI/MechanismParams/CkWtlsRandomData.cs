@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkWtlsRandomData
         /// </summary>
-        internal HighLevelAPI4.MechanismParams.CkWtlsRandomData _params4 = null;
+        internal HighLevelAPI41.MechanismParams.CkWtlsRandomData _params4 = null;
 
         /// <summary>
         /// Platform specific CkWtlsRandomData
@@ -46,7 +46,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkWtlsRandomData(byte[] clientRandom, byte[] serverRandom)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI4.MechanismParams.CkWtlsRandomData(clientRandom, serverRandom);
+                _params4 = new HighLevelAPI41.MechanismParams.CkWtlsRandomData(clientRandom, serverRandom);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkWtlsRandomData(clientRandom, serverRandom);
         }

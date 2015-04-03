@@ -26,7 +26,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkVersion
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkVersion _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkVersion _params4 = null;
 
         /// <summary>
         /// Platform specific CkVersion
@@ -63,7 +63,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkVersion(byte major, byte minor)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI4.MechanismParams.CkVersion(major, minor);
+                _params4 = new HighLevelAPI41.MechanismParams.CkVersion(major, minor);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkVersion(major, minor);
         }
@@ -72,7 +72,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// Initializes a new instance of the CkVersion class.
         /// </summary>
         /// <param name='ckVersion'>Platform specific CkVersion</param>
-        internal CkVersion(HighLevelAPI4.MechanismParams.CkVersion ckVersion)
+        internal CkVersion(HighLevelAPI41.MechanismParams.CkVersion ckVersion)
         {
             if (ckVersion == null)
                 throw new ArgumentNullException("ckVersion");

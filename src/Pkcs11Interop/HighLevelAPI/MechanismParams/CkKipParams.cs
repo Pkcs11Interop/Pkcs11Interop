@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkKipParams
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkKipParams _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkKipParams _params4 = null;
 
         /// <summary>
         /// Platform specific CkKipParams
@@ -50,7 +50,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             {
                 uint? uintMechanism = (mechanism == null) ? null : (uint?)Convert.ToUInt32(mechanism.Value);
 
-                _params4 = new HighLevelAPI4.MechanismParams.CkKipParams(uintMechanism, key.ObjectHandle4, seed);
+                _params4 = new HighLevelAPI41.MechanismParams.CkKipParams(uintMechanism, key.ObjectHandle4, seed);
             }
             else
             {

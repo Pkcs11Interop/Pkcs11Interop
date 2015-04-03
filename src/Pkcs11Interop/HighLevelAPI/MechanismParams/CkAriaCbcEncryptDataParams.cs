@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkAriaCbcEncryptDataParams
         /// </summary>
-        private HighLevelAPI4.MechanismParams.CkAriaCbcEncryptDataParams _params4 = null;
+        private HighLevelAPI41.MechanismParams.CkAriaCbcEncryptDataParams _params4 = null;
 
         /// <summary>
         /// Platform specific CkAriaCbcEncryptDataParams
@@ -46,7 +46,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkAriaCbcEncryptDataParams(byte[] iv, byte[] data)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI4.MechanismParams.CkAriaCbcEncryptDataParams(iv, data);
+                _params4 = new HighLevelAPI41.MechanismParams.CkAriaCbcEncryptDataParams(iv, data);
             else
                 _params8 = new HighLevelAPI8.MechanismParams.CkAriaCbcEncryptDataParams(iv, data);
         }
