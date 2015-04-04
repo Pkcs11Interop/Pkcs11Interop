@@ -32,7 +32,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         [Test()]
         public void _01_GetAttributeValueTest()
         {
-            if (Platform.UnmanagedLongSize != 4)
+            if (Platform.UnmanagedLongSize != 4 && Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             CKR rv = CKR.CKR_OK;
@@ -116,7 +116,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         [Test()]
         public void _02_SetAttributeValueTest()
         {
-            if (Platform.UnmanagedLongSize != 4)
+            if (Platform.UnmanagedLongSize != 4 && Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             CKR rv = CKR.CKR_OK;

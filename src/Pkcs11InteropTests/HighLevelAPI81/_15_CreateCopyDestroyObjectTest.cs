@@ -32,7 +32,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _01_CreateDestroyObjectTest()
         {
-            if (Platform.UnmanagedLongSize != 8)
+            if (Platform.UnmanagedLongSize != 8 && Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
@@ -73,7 +73,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _02_CopyObjectTest()
         {
-            if (Platform.UnmanagedLongSize != 8)
+            if (Platform.UnmanagedLongSize != 8 && Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
@@ -108,7 +108,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _03_GetObjectSizeTest()
         {
-            if (Platform.UnmanagedLongSize != 8)
+            if (Platform.UnmanagedLongSize != 8 && Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))

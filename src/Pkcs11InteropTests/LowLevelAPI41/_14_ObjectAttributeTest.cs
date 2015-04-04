@@ -32,7 +32,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         [Test()]
         public void _01_EmptyAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 4)
+            if (Platform.UnmanagedLongSize != 4 && Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             // Create attribute without the value
@@ -48,7 +48,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         [Test()]
         public void _02_UintAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 4)
+            if (Platform.UnmanagedLongSize != 4 && Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             uint originalValue = (uint)CKO.CKO_DATA;
@@ -77,7 +77,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         [Test()]
         public void _03_BoolAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 4)
+            if (Platform.UnmanagedLongSize != 4 && Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             bool originalValue = true;
@@ -106,7 +106,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         [Test()]
         public void _04_StringAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 4)
+            if (Platform.UnmanagedLongSize != 4 && Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             string originalValue = "Hello world";
@@ -141,7 +141,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         [Test()]
         public void _05_ByteArrayAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 4)
+            if (Platform.UnmanagedLongSize != 4 && Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             byte[] originalValue = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 };
@@ -176,7 +176,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         [Test()]
         public void _06_DateTimeAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 4)
+            if (Platform.UnmanagedLongSize != 4 && Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             DateTime originalValue = new DateTime(2012, 1, 30, 0, 0, 0, DateTimeKind.Utc);
@@ -205,7 +205,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         [Test()]
         public void _07_AttributeArrayAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 4)
+            if (Platform.UnmanagedLongSize != 4 && Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             CK_ATTRIBUTE[] originalValue = new CK_ATTRIBUTE[2];
@@ -272,7 +272,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         [Test()]
         public void _08_UintArrayAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 4)
+            if (Platform.UnmanagedLongSize != 4 && Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             uint[] originalValue = new uint[2];
@@ -319,7 +319,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         [Test()]
         public void _09_MechanismArrayAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 4)
+            if (Platform.UnmanagedLongSize != 4 && Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             CKM[] originalValue = new CKM[2];
@@ -366,7 +366,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         [Test()]
         public void _10_CustomAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 4)
+            if (Platform.UnmanagedLongSize != 4 && Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             byte[] originalValue = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 };
