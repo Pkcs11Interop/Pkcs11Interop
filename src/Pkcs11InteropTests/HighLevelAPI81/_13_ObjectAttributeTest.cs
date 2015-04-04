@@ -35,7 +35,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _01_DisposeAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 8 && Platform.StructPackingSize != 1)
+            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             // Unmanaged memory for attribute value stored in low level CK_ATTRIBUTE struct
@@ -75,7 +75,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _02_EmptyAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 8 && Platform.StructPackingSize != 1)
+            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             // Create attribute without the value
@@ -92,7 +92,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _03_UintAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 8 && Platform.StructPackingSize != 1)
+            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             ulong value = (ulong)CKO.CKO_DATA;
@@ -111,7 +111,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _04_BoolAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 8 && Platform.StructPackingSize != 1)
+            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             bool value = true;
@@ -130,7 +130,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _05_StringAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 8 && Platform.StructPackingSize != 1)
+            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             string value = "Hello world";
@@ -158,7 +158,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _06_ByteArrayAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 8 && Platform.StructPackingSize != 1)
+            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             byte[] value = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 };
@@ -186,7 +186,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _07_DateTimeAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 8 && Platform.StructPackingSize != 1)
+            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             DateTime value = new DateTime(2012, 1, 30, 0, 0, 0, DateTimeKind.Utc);
@@ -205,7 +205,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _08_AttributeArrayAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 8 && Platform.StructPackingSize != 1)
+            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             ObjectAttribute nestedAttribute1 = new ObjectAttribute(CKA.CKA_TOKEN, true);
@@ -269,7 +269,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _09_UintArrayAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 8 && Platform.StructPackingSize != 1)
+            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             List<ulong> originalValue = new List<ulong>();
@@ -311,7 +311,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _10_MechanismArrayAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 8 && Platform.StructPackingSize != 1)
+            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             List<CKM> originalValue = new List<CKM>();

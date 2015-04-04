@@ -32,7 +32,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI40
         [Test()]
         public void _01_SignAndVerifySinglePartTest()
         {
-            if (Platform.UnmanagedLongSize != 4 && Platform.StructPackingSize != 0)
+            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 0)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
@@ -81,7 +81,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI40
         [Test()]
         public void _02_SignAndVerifyMultiPartTest()
         {
-            if (Platform.UnmanagedLongSize != 4 && Platform.StructPackingSize != 0)
+            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 0)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))

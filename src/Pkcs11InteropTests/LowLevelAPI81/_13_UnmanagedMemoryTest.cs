@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         [Test()]
         public void _01_AllocateAndFreeTest()
         {
-            if (Platform.UnmanagedLongSize != 8 && Platform.StructPackingSize != 1)
+            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             byte[] originalValue = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 };

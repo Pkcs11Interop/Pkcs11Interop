@@ -32,7 +32,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
         [Test()]
         public void _01_SeedRandomTest() // TODO - Test on device that supports this method
         {
-            if (Platform.UnmanagedLongSize != 8 && Platform.StructPackingSize != 0)
+            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             CKR rv = CKR.CKR_OK;
@@ -76,7 +76,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
         [Test()]
         public void _02_GenerateRandomTest()
         {
-            if (Platform.UnmanagedLongSize != 8 && Platform.StructPackingSize != 0)
+            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             CKR rv = CKR.CKR_OK;

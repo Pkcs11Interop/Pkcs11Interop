@@ -34,7 +34,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         [Test()]
         public void _01_EncryptAndDecryptSinglePartTest()
         {
-            if (Platform.UnmanagedLongSize != 8 && Platform.StructPackingSize != 1)
+            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             CKR rv = CKR.CKR_OK;
@@ -151,7 +151,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         [Test()]
         public void _02_EncryptAndDecryptMultiPartTest()
         {
-            if (Platform.UnmanagedLongSize != 8 && Platform.StructPackingSize != 1)
+            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             CKR rv = CKR.CKR_OK;
@@ -334,7 +334,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         [Test()]
         public void _03_EncryptAndDecryptSinglePartOaepTest()
         {
-            if (Platform.UnmanagedLongSize != 8 && Platform.StructPackingSize != 1)
+            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             CKR rv = CKR.CKR_OK;

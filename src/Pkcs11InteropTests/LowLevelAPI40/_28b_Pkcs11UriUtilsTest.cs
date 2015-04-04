@@ -33,7 +33,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
         [Test()]
         public void _02_LibraryInfoMatches()
         {
-            if (Platform.UnmanagedLongSize != 4 && Platform.StructPackingSize != 0)
+            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 0)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             // Empty URI
@@ -99,7 +99,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
         [Test()]
         public void _03_SlotInfoMatches()
         {
-            if (Platform.UnmanagedLongSize != 4 && Platform.StructPackingSize != 0)
+            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 0)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             // Empty URI
@@ -165,7 +165,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
         [Test()]
         public void _04_TokenInfoMatches()
         {
-            if (Platform.UnmanagedLongSize != 4 && Platform.StructPackingSize != 0)
+            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 0)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             // Empty URI
@@ -247,7 +247,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
         [Test()]
         public void _05_ObjectAttributesMatches()
         {
-            if (Platform.UnmanagedLongSize != 4 && Platform.StructPackingSize != 0)
+            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 0)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             // Empty URI
@@ -358,7 +358,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
         [Test()]
         public void _06_GetMatchingSlotList()
         {
-            if (Platform.UnmanagedLongSize != 4 && Platform.StructPackingSize != 0)
+            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 0)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
@@ -434,7 +434,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
         [Test()]
         public void _07_GetObjectAttributes()
         {
-            if (Platform.UnmanagedLongSize != 4 && Platform.StructPackingSize != 0)
+            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 0)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             string uri = @"pkcs11:object=foo;type=private;id=%01%02%03";
