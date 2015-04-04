@@ -16,7 +16,7 @@
 using System;
 using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
+using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
@@ -33,7 +33,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI41.MechanismParams.CK_OTP_PARAMS _lowLevelStruct = new LowLevelAPI41.MechanismParams.CK_OTP_PARAMS();
+        private LowLevelAPI40.MechanismParams.CK_OTP_PARAMS _lowLevelStruct = new LowLevelAPI40.MechanismParams.CK_OTP_PARAMS();
 
         /// <summary>
         /// Initializes a new instance of the CkOtpParams class.

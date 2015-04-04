@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI81.MechanismParams.CK_SSL3_RANDOM_DATA _lowLevelStruct = new LowLevelAPI81.MechanismParams.CK_SSL3_RANDOM_DATA();
+        private LowLevelAPI80.MechanismParams.CK_SSL3_RANDOM_DATA _lowLevelStruct = new LowLevelAPI80.MechanismParams.CK_SSL3_RANDOM_DATA();
 
         /// <summary>
         /// Initializes a new instance of the CkSsl3RandomData class.

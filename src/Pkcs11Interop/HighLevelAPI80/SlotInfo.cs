@@ -123,7 +123,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// </summary>
         /// <param name="slotId">PKCS#11 handle of slot</param>
         /// <param name="ck_slot_info">Low level CK_SLOT_INFO structure</param>
-        internal SlotInfo(ulong slotId, LowLevelAPI81.CK_SLOT_INFO ck_slot_info)
+        internal SlotInfo(ulong slotId, LowLevelAPI80.CK_SLOT_INFO ck_slot_info)
         {
             _slotId = slotId;
             _slotDescription = ConvertUtils.BytesToUtf8String(ck_slot_info.SlotDescription, true);

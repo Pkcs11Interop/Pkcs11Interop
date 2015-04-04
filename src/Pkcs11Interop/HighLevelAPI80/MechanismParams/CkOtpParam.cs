@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI81.MechanismParams.CK_OTP_PARAM _lowLevelStruct = new LowLevelAPI81.MechanismParams.CK_OTP_PARAM();
+        private LowLevelAPI80.MechanismParams.CK_OTP_PARAM _lowLevelStruct = new LowLevelAPI80.MechanismParams.CK_OTP_PARAM();
 
         /// <summary>
         /// Parameter type

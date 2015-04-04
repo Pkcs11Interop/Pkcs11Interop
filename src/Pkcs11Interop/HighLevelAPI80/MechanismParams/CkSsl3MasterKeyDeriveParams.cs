@@ -15,8 +15,8 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI81;
-using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
+using Net.Pkcs11Interop.LowLevelAPI80;
+using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
@@ -33,7 +33,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI81.MechanismParams.CK_SSL3_MASTER_KEY_DERIVE_PARAMS _lowLevelStruct = new LowLevelAPI81.MechanismParams.CK_SSL3_MASTER_KEY_DERIVE_PARAMS();
+        private LowLevelAPI80.MechanismParams.CK_SSL3_MASTER_KEY_DERIVE_PARAMS _lowLevelStruct = new LowLevelAPI80.MechanismParams.CK_SSL3_MASTER_KEY_DERIVE_PARAMS();
 
         /// <summary>
         /// SSL protocol version information

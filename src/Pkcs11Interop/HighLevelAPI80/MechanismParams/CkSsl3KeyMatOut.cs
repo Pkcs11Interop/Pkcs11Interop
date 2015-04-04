@@ -30,7 +30,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
         /// <summary>
         /// Low level structure
         /// </summary>
-        internal LowLevelAPI81.MechanismParams.CK_SSL3_KEY_MAT_OUT _lowLevelStruct = new LowLevelAPI81.MechanismParams.CK_SSL3_KEY_MAT_OUT();
+        internal LowLevelAPI80.MechanismParams.CK_SSL3_KEY_MAT_OUT _lowLevelStruct = new LowLevelAPI80.MechanismParams.CK_SSL3_KEY_MAT_OUT();
 
         /// <summary>
         /// Key handle for the resulting Client MAC Secret key

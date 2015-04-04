@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI81.MechanismParams.CK_WTLS_PRF_PARAMS _lowLevelStruct = new LowLevelAPI81.MechanismParams.CK_WTLS_PRF_PARAMS();
+        private LowLevelAPI80.MechanismParams.CK_WTLS_PRF_PARAMS _lowLevelStruct = new LowLevelAPI80.MechanismParams.CK_WTLS_PRF_PARAMS();
         
         /// <summary>
         /// Output of the operation

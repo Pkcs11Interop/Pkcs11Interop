@@ -30,7 +30,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <summary>
         /// Low level structure
         /// </summary>
-        internal LowLevelAPI41.MechanismParams.CK_WTLS_KEY_MAT_OUT _lowLevelStruct = new LowLevelAPI41.MechanismParams.CK_WTLS_KEY_MAT_OUT();
+        internal LowLevelAPI40.MechanismParams.CK_WTLS_KEY_MAT_OUT _lowLevelStruct = new LowLevelAPI40.MechanismParams.CK_WTLS_KEY_MAT_OUT();
         
         /// <summary>
         /// Key handle for the resulting MAC secret key

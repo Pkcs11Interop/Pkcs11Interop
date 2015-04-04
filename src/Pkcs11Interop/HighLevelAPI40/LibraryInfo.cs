@@ -106,7 +106,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// Converts low level CK_INFO structure to high level LibraryInfo class
         /// </summary>
         /// <param name="ck_info">Low level CK_INFO structure</param>
-        internal LibraryInfo(LowLevelAPI41.CK_INFO ck_info)
+        internal LibraryInfo(LowLevelAPI40.CK_INFO ck_info)
         {
             _cryptokiVersion = ConvertUtils.CkVersionToString(ck_info.CryptokiVersion);
             _manufacturerId = ConvertUtils.BytesToUtf8String(ck_info.ManufacturerId, true);

@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI81.MechanismParams.CK_X9_42_DH1_DERIVE_PARAMS _lowLevelStruct = new LowLevelAPI81.MechanismParams.CK_X9_42_DH1_DERIVE_PARAMS();
+        private LowLevelAPI80.MechanismParams.CK_X9_42_DH1_DERIVE_PARAMS _lowLevelStruct = new LowLevelAPI80.MechanismParams.CK_X9_42_DH1_DERIVE_PARAMS();
         
         /// <summary>
         /// Initializes a new instance of the CkX942Dh1DeriveParams class.
