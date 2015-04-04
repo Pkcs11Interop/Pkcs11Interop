@@ -137,7 +137,7 @@ namespace Net.Pkcs11Interop.Common
         /// <summary>
         /// Controls the alignment of unmanaged struct fields
         /// </summary>
-        public static int _structPackingSize = -1;
+        private static int _structPackingSize = -1;
 
         /// <summary>
         /// Controls the alignment of unmanaged struct fields
