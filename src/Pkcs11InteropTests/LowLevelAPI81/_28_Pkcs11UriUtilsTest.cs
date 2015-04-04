@@ -98,7 +98,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
 
             using (Pkcs11 pkcs11 = new Pkcs11(pkcs11Uri.ModulePath, true))
             {
-                rv = pkcs11.C_Initialize(Settings.InitArgs8);
+                rv = pkcs11.C_Initialize(Settings.InitArgs81);
                 if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
                     Assert.Fail(rv.ToString());
 

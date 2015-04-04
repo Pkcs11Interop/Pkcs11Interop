@@ -363,7 +363,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {
-                CKR rv = pkcs11.C_Initialize(Settings.InitArgs8);
+                CKR rv = pkcs11.C_Initialize(Settings.InitArgs81);
                 Assert.IsTrue(rv == CKR.CKR_OK);
 
                 // Get all slots

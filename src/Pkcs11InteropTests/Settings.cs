@@ -14,8 +14,10 @@
  */
 
 using Net.Pkcs11Interop.Common;
-using LLA4 = Net.Pkcs11Interop.LowLevelAPI41;
-using LLA8 = Net.Pkcs11Interop.LowLevelAPI81;
+using LLA40 = Net.Pkcs11Interop.LowLevelAPI40;
+using LLA41 = Net.Pkcs11Interop.LowLevelAPI41;
+using LLA80 = Net.Pkcs11Interop.LowLevelAPI80;
+using LLA81 = Net.Pkcs11Interop.LowLevelAPI81;
 
 namespace Net.Pkcs11Interop.Tests
 {
@@ -81,14 +83,24 @@ namespace Net.Pkcs11Interop.Tests
         #region Properties that are set automatically in class constructor
 
         /// <summary>
+        /// Arguments passed to the C_Initialize function in LowLevelAPI40 tests.
+        /// </summary>
+        public static LLA40.CK_C_INITIALIZE_ARGS InitArgs40 = null;
+
+        /// <summary>
         /// Arguments passed to the C_Initialize function in LowLevelAPI41 tests.
         /// </summary>
-        public static LLA4.CK_C_INITIALIZE_ARGS InitArgs4 = null;
+        public static LLA41.CK_C_INITIALIZE_ARGS InitArgs41 = null;
+
+        /// <summary>
+        /// Arguments passed to the C_Initialize function in LowLevelAPI80 tests.
+        /// </summary>
+        public static LLA80.CK_C_INITIALIZE_ARGS InitArgs80 = null;
 
         /// <summary>
         /// Arguments passed to the C_Initialize function in LowLevelAPI81 tests.
         /// </summary>
-        public static LLA8.CK_C_INITIALIZE_ARGS InitArgs8 = null;
+        public static LLA81.CK_C_INITIALIZE_ARGS InitArgs81 = null;
 
         /// <summary>
         /// PIN of the SO user a.k.a. PUK.
@@ -125,11 +137,17 @@ namespace Net.Pkcs11Interop.Tests
             // Setup arguments passed to the C_Initialize function
             if (UseOsLocking)
             {
-                InitArgs4 = new LLA4.CK_C_INITIALIZE_ARGS();
-                InitArgs4.Flags = CKF.CKF_OS_LOCKING_OK;
+                InitArgs40 = new LLA40.CK_C_INITIALIZE_ARGS();
+                InitArgs40.Flags = CKF.CKF_OS_LOCKING_OK;
 
-                InitArgs8 = new LLA8.CK_C_INITIALIZE_ARGS();
-                InitArgs8.Flags = CKF.CKF_OS_LOCKING_OK;
+                InitArgs41 = new LLA41.CK_C_INITIALIZE_ARGS();
+                InitArgs41.Flags = CKF.CKF_OS_LOCKING_OK;
+
+                InitArgs80 = new LLA80.CK_C_INITIALIZE_ARGS();
+                InitArgs80.Flags = CKF.CKF_OS_LOCKING_OK;
+
+                InitArgs81 = new LLA81.CK_C_INITIALIZE_ARGS();
+                InitArgs81.Flags = CKF.CKF_OS_LOCKING_OK;
             }
 
             // Convert strings to byte arrays
