@@ -26,12 +26,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific SlotFlags
         /// </summary>
-        private HighLevelAPI41.SlotFlags _slotFlags4 = null;
+        private HighLevelAPI40.SlotFlags _slotFlags40 = null;
 
         /// <summary>
         /// Platform specific SlotFlags
         /// </summary>
-        private HighLevelAPI81.SlotFlags _slotFlags8 = null;
+        private HighLevelAPI41.SlotFlags _slotFlags41 = null;
+
+        /// <summary>
+        /// Platform specific SlotFlags
+        /// </summary>
+        private HighLevelAPI80.SlotFlags _slotFlags80 = null;
+
+        /// <summary>
+        /// Platform specific SlotFlags
+        /// </summary>
+        private HighLevelAPI81.SlotFlags _slotFlags81 = null;
 
         /// <summary>
         /// Bits flags that provide capabilities of the slot
@@ -40,7 +50,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _slotFlags4.Flags : _slotFlags8.Flags;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _slotFlags40.Flags : _slotFlags41.Flags;
+                else
+                    return (Platform.StructPackingSize == 0) ? _slotFlags80.Flags : _slotFlags81.Flags;
             }
         }
 
@@ -51,7 +64,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _slotFlags4.TokenPresent : _slotFlags8.TokenPresent;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _slotFlags40.TokenPresent : _slotFlags41.TokenPresent;
+                else
+                    return (Platform.StructPackingSize == 0) ? _slotFlags80.TokenPresent : _slotFlags81.TokenPresent;
             }
         }
 
@@ -62,7 +78,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _slotFlags4.RemovableDevice : _slotFlags8.RemovableDevice;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _slotFlags40.RemovableDevice : _slotFlags41.RemovableDevice;
+                else
+                    return (Platform.StructPackingSize == 0) ? _slotFlags80.RemovableDevice : _slotFlags81.RemovableDevice;
             }
         }
 
@@ -73,8 +92,23 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _slotFlags4.HardwareSlot : _slotFlags8.HardwareSlot;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _slotFlags40.HardwareSlot : _slotFlags41.HardwareSlot;
+                else
+                    return (Platform.StructPackingSize == 0) ? _slotFlags80.HardwareSlot : _slotFlags81.HardwareSlot;
             }
+        }
+
+        /// <summary>
+        /// Converts platform specific SlotFlags to platfrom neutral SlotFlags
+        /// </summary>
+        /// <param name="slotFlags">Platform specific SlotFlags</param>
+        internal SlotFlags(HighLevelAPI40.SlotFlags slotFlags)
+        {
+            if (slotFlags == null)
+                throw new ArgumentNullException("slotFlags");
+
+            _slotFlags40 = slotFlags;
         }
 
         /// <summary>
@@ -86,7 +120,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (slotFlags == null)
                 throw new ArgumentNullException("slotFlags");
 
-            _slotFlags4 = slotFlags;
+            _slotFlags41 = slotFlags;
+        }
+
+        /// <summary>
+        /// Converts platform specific SlotFlags to platfrom neutral SlotFlags
+        /// </summary>
+        /// <param name="slotFlags">Platform specific SlotFlags</param>
+        internal SlotFlags(HighLevelAPI80.SlotFlags slotFlags)
+        {
+            if (slotFlags == null)
+                throw new ArgumentNullException("slotFlags");
+
+            _slotFlags80 = slotFlags;
         }
 
         /// <summary>
@@ -98,7 +144,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (slotFlags == null)
                 throw new ArgumentNullException("slotFlags");
 
-            _slotFlags8 = slotFlags;
+            _slotFlags81 = slotFlags;
         }
     }
 }

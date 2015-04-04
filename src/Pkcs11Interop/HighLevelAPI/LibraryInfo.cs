@@ -26,12 +26,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific LibraryInfo
         /// </summary>
-        private HighLevelAPI41.LibraryInfo _libraryInfo4 = null;
+        private HighLevelAPI40.LibraryInfo _libraryInfo40 = null;
 
         /// <summary>
         /// Platform specific LibraryInfo
         /// </summary>
-        private HighLevelAPI81.LibraryInfo _libraryInfo8 = null;
+        private HighLevelAPI41.LibraryInfo _libraryInfo41 = null;
+
+        /// <summary>
+        /// Platform specific LibraryInfo
+        /// </summary>
+        private HighLevelAPI80.LibraryInfo _libraryInfo80 = null;
+
+        /// <summary>
+        /// Platform specific LibraryInfo
+        /// </summary>
+        private HighLevelAPI81.LibraryInfo _libraryInfo81 = null;
 
         /// <summary>
         /// Cryptoki interface version number
@@ -40,7 +50,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _libraryInfo4.CryptokiVersion : _libraryInfo8.CryptokiVersion;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _libraryInfo40.CryptokiVersion : _libraryInfo41.CryptokiVersion;
+                else
+                    return (Platform.StructPackingSize == 0) ? _libraryInfo80.CryptokiVersion : _libraryInfo81.CryptokiVersion;
             }
         }
 
@@ -51,7 +64,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _libraryInfo4.ManufacturerId : _libraryInfo8.ManufacturerId;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _libraryInfo40.ManufacturerId : _libraryInfo41.ManufacturerId;
+                else
+                    return (Platform.StructPackingSize == 0) ? _libraryInfo80.ManufacturerId : _libraryInfo81.ManufacturerId;
             }
         }
 
@@ -62,7 +78,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _libraryInfo4.Flags : _libraryInfo8.Flags;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _libraryInfo40.Flags : _libraryInfo41.Flags;
+                else
+                    return (Platform.StructPackingSize == 0) ? _libraryInfo80.Flags : _libraryInfo81.Flags;
             }
         }
 
@@ -73,7 +92,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _libraryInfo4.LibraryDescription : _libraryInfo8.LibraryDescription;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _libraryInfo40.LibraryDescription : _libraryInfo41.LibraryDescription;
+                else
+                    return (Platform.StructPackingSize == 0) ? _libraryInfo80.LibraryDescription : _libraryInfo81.LibraryDescription;
             }
         }
 
@@ -84,8 +106,23 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _libraryInfo4.LibraryVersion : _libraryInfo8.LibraryVersion;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _libraryInfo40.LibraryVersion : _libraryInfo41.LibraryVersion;
+                else
+                    return (Platform.StructPackingSize == 0) ? _libraryInfo80.LibraryVersion : _libraryInfo81.LibraryVersion;
             }
+        }
+
+        /// <summary>
+        /// Converts platform specific LibraryInfo to platfrom neutral LibraryInfo
+        /// </summary>
+        /// <param name="libraryInfo">Platform specific LibraryInfo</param>
+        internal LibraryInfo(HighLevelAPI40.LibraryInfo libraryInfo)
+        {
+            if (libraryInfo == null)
+                throw new ArgumentNullException("libraryInfo");
+
+            _libraryInfo40 = libraryInfo;
         }
 
         /// <summary>
@@ -97,7 +134,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (libraryInfo == null)
                 throw new ArgumentNullException("libraryInfo");
 
-            _libraryInfo4 = libraryInfo;
+            _libraryInfo41 = libraryInfo;
+        }
+
+        /// <summary>
+        /// Converts platform specific LibraryInfo to platfrom neutral LibraryInfo
+        /// </summary>
+        /// <param name="libraryInfo">Platform specific LibraryInfo</param>
+        internal LibraryInfo(HighLevelAPI80.LibraryInfo libraryInfo)
+        {
+            if (libraryInfo == null)
+                throw new ArgumentNullException("libraryInfo");
+
+            _libraryInfo80 = libraryInfo;
         }
 
         /// <summary>
@@ -109,7 +158,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (libraryInfo == null)
                 throw new ArgumentNullException("libraryInfo");
 
-            _libraryInfo8 = libraryInfo;
+            _libraryInfo81 = libraryInfo;
         }
     }
 }

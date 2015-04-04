@@ -31,38 +31,76 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific Mechanism
         /// </summary>
-        private HighLevelAPI41.Mechanism _mechanism4 = null;
+        private HighLevelAPI40.Mechanism _mechanism40 = null;
 
         /// <summary>
         /// Platform specific Mechanism
         /// </summary>
-        internal HighLevelAPI41.Mechanism Mechanism4
+        internal HighLevelAPI40.Mechanism Mechanism40
         {
             get
             {
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return _mechanism4;
+                return _mechanism40;
             }
         }
 
         /// <summary>
         /// Platform specific Mechanism
         /// </summary>
-        private HighLevelAPI81.Mechanism _mechanism8 = null;
+        private HighLevelAPI41.Mechanism _mechanism41 = null;
 
         /// <summary>
         /// Platform specific Mechanism
         /// </summary>
-        internal HighLevelAPI81.Mechanism Mechanism8
+        internal HighLevelAPI41.Mechanism Mechanism41
         {
             get
             {
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return _mechanism8;
+                return _mechanism41;
+            }
+        }
+
+        /// <summary>
+        /// Platform specific Mechanism
+        /// </summary>
+        private HighLevelAPI80.Mechanism _mechanism80 = null;
+
+        /// <summary>
+        /// Platform specific Mechanism
+        /// </summary>
+        internal HighLevelAPI80.Mechanism Mechanism80
+        {
+            get
+            {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
+                return _mechanism80;
+            }
+        }
+
+        /// <summary>
+        /// Platform specific Mechanism
+        /// </summary>
+        private HighLevelAPI81.Mechanism _mechanism81 = null;
+
+        /// <summary>
+        /// Platform specific Mechanism
+        /// </summary>
+        internal HighLevelAPI81.Mechanism Mechanism81
+        {
+            get
+            {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
+                return _mechanism81;
             }
         }
 
@@ -76,8 +114,23 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (Platform.UnmanagedLongSize == 4) ? _mechanism4.Type : _mechanism8.Type;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanism40.Type : _mechanism41.Type;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanism80.Type : _mechanism81.Type;
             }
+        }
+
+        /// <summary>
+        /// Converts platform specific Mechanism to platfrom neutral Mechanism
+        /// </summary>
+        /// <param name="mechanism">Platform specific Mechanism</param>
+        internal Mechanism(HighLevelAPI40.Mechanism mechanism)
+        {
+            if (mechanism == null)
+                throw new ArgumentNullException("mechanism");
+
+            _mechanism40 = mechanism;
         }
 
         /// <summary>
@@ -89,7 +142,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
 
-            _mechanism4 = mechanism;
+            _mechanism41 = mechanism;
+        }
+
+        /// <summary>
+        /// Converts platform specific Mechanism to platfrom neutral Mechanism
+        /// </summary>
+        /// <param name="mechanism">Platform specific Mechanism</param>
+        internal Mechanism(HighLevelAPI80.Mechanism mechanism)
+        {
+            if (mechanism == null)
+                throw new ArgumentNullException("mechanism");
+
+            _mechanism80 = mechanism;
         }
 
         /// <summary>
@@ -101,7 +166,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
 
-            _mechanism8 = mechanism;
+            _mechanism81 = mechanism;
         }
 
         /// <summary>
@@ -111,9 +176,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public Mechanism(ulong type)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _mechanism4 = new HighLevelAPI41.Mechanism(Convert.ToUInt32(type));
+            {
+                if (Platform.StructPackingSize == 0)
+                    _mechanism40 = new HighLevelAPI40.Mechanism(Convert.ToUInt32(type));
+                else
+                    _mechanism41 = new HighLevelAPI41.Mechanism(Convert.ToUInt32(type));
+            }
             else
-                _mechanism8 = new HighLevelAPI81.Mechanism(type);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _mechanism80 = new HighLevelAPI80.Mechanism(type);
+                else
+                    _mechanism81 = new HighLevelAPI81.Mechanism(type);
+            }
         }
 
         /// <summary>
@@ -123,9 +198,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public Mechanism(CKM type)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _mechanism4 = new HighLevelAPI41.Mechanism(type);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _mechanism40 = new HighLevelAPI40.Mechanism(Convert.ToUInt32(type));
+                else
+                    _mechanism41 = new HighLevelAPI41.Mechanism(Convert.ToUInt32(type));
+            }
             else
-                _mechanism8 = new HighLevelAPI81.Mechanism(type);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _mechanism80 = new HighLevelAPI80.Mechanism(type);
+                else
+                    _mechanism81 = new HighLevelAPI81.Mechanism(type);
+            }
         }
 
         /// <summary>
@@ -136,9 +221,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public Mechanism(ulong type, byte[] parameter)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _mechanism4 = new HighLevelAPI41.Mechanism(Convert.ToUInt32(type), parameter);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _mechanism40 = new HighLevelAPI40.Mechanism(Convert.ToUInt32(type), parameter);
+                else
+                    _mechanism41 = new HighLevelAPI41.Mechanism(Convert.ToUInt32(type), parameter);
+            }
             else
-                _mechanism8 = new HighLevelAPI81.Mechanism(type, parameter);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _mechanism80 = new HighLevelAPI80.Mechanism(type, parameter);
+                else
+                    _mechanism81 = new HighLevelAPI81.Mechanism(type, parameter);
+            }
         }
 
         /// <summary>
@@ -149,9 +244,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public Mechanism(CKM type, byte[] parameter)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _mechanism4 = new HighLevelAPI41.Mechanism(type, parameter);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _mechanism40 = new HighLevelAPI40.Mechanism(Convert.ToUInt32(type), parameter);
+                else
+                    _mechanism41 = new HighLevelAPI41.Mechanism(Convert.ToUInt32(type), parameter);
+            }
             else
-                _mechanism8 = new HighLevelAPI81.Mechanism(type, parameter);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _mechanism80 = new HighLevelAPI80.Mechanism(type, parameter);
+                else
+                    _mechanism81 = new HighLevelAPI81.Mechanism(type, parameter);
+            }
         }
 
         /// <summary>
@@ -165,9 +270,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                 throw new ArgumentNullException("parameter");
 
             if (Platform.UnmanagedLongSize == 4)
-                _mechanism4 = new HighLevelAPI41.Mechanism(Convert.ToUInt32(type), parameter);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _mechanism40 = new HighLevelAPI40.Mechanism(Convert.ToUInt32(type), parameter);
+                else
+                    _mechanism41 = new HighLevelAPI41.Mechanism(Convert.ToUInt32(type), parameter);
+            }
             else
-                _mechanism8 = new HighLevelAPI81.Mechanism(type, parameter);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _mechanism80 = new HighLevelAPI80.Mechanism(type, parameter);
+                else
+                    _mechanism81 = new HighLevelAPI81.Mechanism(type, parameter);
+            }
         }
 
         /// <summary>
@@ -181,9 +296,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                 throw new ArgumentNullException("parameter");
 
             if (Platform.UnmanagedLongSize == 4)
-                _mechanism4 = new HighLevelAPI41.Mechanism(type, parameter);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _mechanism40 = new HighLevelAPI40.Mechanism(Convert.ToUInt32(type), parameter);
+                else
+                    _mechanism41 = new HighLevelAPI41.Mechanism(Convert.ToUInt32(type), parameter);
+            }
             else
-                _mechanism8 = new HighLevelAPI81.Mechanism(type, parameter);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _mechanism80 = new HighLevelAPI80.Mechanism(type, parameter);
+                else
+                    _mechanism81 = new HighLevelAPI81.Mechanism(type, parameter);
+            }
         }
 
         #region IDisposable
@@ -208,16 +333,28 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                 if (disposing)
                 {
                     // Dispose managed objects
-                    if (_mechanism4 != null)
+                    if (_mechanism40 != null)
                     {
-                        _mechanism4.Dispose();
-                        _mechanism4 = null;
+                        _mechanism40.Dispose();
+                        _mechanism40 = null;
                     }
-                          
-                    if (_mechanism8 != null)
+
+                    if (_mechanism41 != null)
                     {
-                        _mechanism8.Dispose();
-                        _mechanism8 = null;
+                        _mechanism41.Dispose();
+                        _mechanism41 = null;
+                    }
+
+                    if (_mechanism80 != null)
+                    {
+                        _mechanism80.Dispose();
+                        _mechanism80 = null;
+                    }
+
+                    if (_mechanism81 != null)
+                    {
+                        _mechanism81.Dispose();
+                        _mechanism81 = null;
                     }
                 }
                 

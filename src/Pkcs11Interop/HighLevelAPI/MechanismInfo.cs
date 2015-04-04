@@ -26,12 +26,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific MechanismInfo
         /// </summary>
-        private HighLevelAPI41.MechanismInfo _mechanismInfo4 = null;
+        private HighLevelAPI40.MechanismInfo _mechanismInfo40 = null;
 
         /// <summary>
         /// Platform specific MechanismInfo
         /// </summary>
-        private HighLevelAPI81.MechanismInfo _mechanismInfo8 = null;
+        private HighLevelAPI41.MechanismInfo _mechanismInfo41 = null;
+
+        /// <summary>
+        /// Platform specific MechanismInfo
+        /// </summary>
+        private HighLevelAPI80.MechanismInfo _mechanismInfo80 = null;
+
+        /// <summary>
+        /// Platform specific MechanismInfo
+        /// </summary>
+        private HighLevelAPI81.MechanismInfo _mechanismInfo81 = null;
 
         /// <summary>
         /// Mechanism
@@ -40,7 +50,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _mechanismInfo4.Mechanism : _mechanismInfo8.Mechanism;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanismInfo40.Mechanism : _mechanismInfo41.Mechanism;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanismInfo80.Mechanism : _mechanismInfo81.Mechanism;
             }
         }
 
@@ -51,7 +64,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _mechanismInfo4.MinKeySize : _mechanismInfo8.MinKeySize;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanismInfo40.MinKeySize : _mechanismInfo41.MinKeySize;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanismInfo80.MinKeySize : _mechanismInfo81.MinKeySize;
             }
         }
 
@@ -62,7 +78,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _mechanismInfo4.MaxKeySize : _mechanismInfo8.MaxKeySize;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanismInfo40.MaxKeySize : _mechanismInfo41.MaxKeySize;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanismInfo80.MaxKeySize : _mechanismInfo81.MaxKeySize;
             }
         }
 
@@ -79,10 +98,27 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             get
             {
                 if (_mechanismFlags == null)
-                    _mechanismFlags = (Platform.UnmanagedLongSize == 4) ? new MechanismFlags(_mechanismInfo4.MechanismFlags) : new MechanismFlags(_mechanismInfo8.MechanismFlags);
+                {
+                    if (Platform.UnmanagedLongSize == 4)
+                        _mechanismFlags = (Platform.StructPackingSize == 0) ? new MechanismFlags(_mechanismInfo40.MechanismFlags) : new MechanismFlags(_mechanismInfo41.MechanismFlags);
+                    else
+                        _mechanismFlags = (Platform.StructPackingSize == 0) ? new MechanismFlags(_mechanismInfo80.MechanismFlags) : new MechanismFlags(_mechanismInfo81.MechanismFlags);
+                }
 
                 return _mechanismFlags;
             }
+        }
+
+        /// <summary>
+        /// Converts platform specific MechanismInfo to platfrom neutral MechanismInfo
+        /// </summary>
+        /// <param name="mechanismInfo">Platform specific MechanismInfo</param>
+        internal MechanismInfo(HighLevelAPI40.MechanismInfo mechanismInfo)
+        {
+            if (mechanismInfo == null)
+                throw new ArgumentNullException("mechanismInfo");
+
+            _mechanismInfo40 = mechanismInfo;
         }
 
         /// <summary>
@@ -94,7 +130,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (mechanismInfo == null)
                 throw new ArgumentNullException("mechanismInfo");
 
-            _mechanismInfo4 = mechanismInfo;
+            _mechanismInfo41 = mechanismInfo;
+        }
+
+        /// <summary>
+        /// Converts platform specific MechanismInfo to platfrom neutral MechanismInfo
+        /// </summary>
+        /// <param name="mechanismInfo">Platform specific MechanismInfo</param>
+        internal MechanismInfo(HighLevelAPI80.MechanismInfo mechanismInfo)
+        {
+            if (mechanismInfo == null)
+                throw new ArgumentNullException("mechanismInfo");
+
+            _mechanismInfo80 = mechanismInfo;
         }
 
         /// <summary>
@@ -106,7 +154,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (mechanismInfo == null)
                 throw new ArgumentNullException("mechanismInfo");
 
-            _mechanismInfo8 = mechanismInfo;
+            _mechanismInfo81 = mechanismInfo;
         }
     }
 }

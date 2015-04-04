@@ -50,9 +50,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkEcdh2DeriveParams(ulong kdf, byte[] sharedData, byte[] publicData, ulong privateDataLen, ObjectHandle privateData, byte[] publicData2)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI41.MechanismParams.CkEcdh2DeriveParams(Convert.ToUInt32(kdf), sharedData, publicData, Convert.ToUInt32(privateDataLen), privateData.ObjectHandle4, publicData2);
+                _params4 = new HighLevelAPI41.MechanismParams.CkEcdh2DeriveParams(Convert.ToUInt32(kdf), sharedData, publicData, Convert.ToUInt32(privateDataLen), privateData.ObjectHandle41, publicData2);
             else
-                _params8 = new HighLevelAPI81.MechanismParams.CkEcdh2DeriveParams(kdf, sharedData, publicData, privateDataLen, privateData.ObjectHandle8, publicData2);
+                _params8 = new HighLevelAPI81.MechanismParams.CkEcdh2DeriveParams(kdf, sharedData, publicData, privateDataLen, privateData.ObjectHandle81, publicData2);
         }
         
         #region IMechanismParams

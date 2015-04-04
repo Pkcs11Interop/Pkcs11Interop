@@ -27,12 +27,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific Slot
         /// </summary>
-        private HighLevelAPI41.Slot _slot4 = null;
+        private HighLevelAPI40.Slot _slot40 = null;
 
         /// <summary>
         /// Platform specific Slot
         /// </summary>
-        private HighLevelAPI81.Slot _slot8 = null;
+        private HighLevelAPI41.Slot _slot41 = null;
+
+        /// <summary>
+        /// Platform specific Slot
+        /// </summary>
+        private HighLevelAPI80.Slot _slot80 = null;
+
+        /// <summary>
+        /// Platform specific Slot
+        /// </summary>
+        private HighLevelAPI81.Slot _slot81 = null;
 
         /// <summary>
         /// PKCS#11 handle of slot
@@ -41,8 +51,23 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _slot4.SlotId : _slot8.SlotId;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _slot40.SlotId : _slot41.SlotId;
+                else
+                    return (Platform.StructPackingSize == 0) ? _slot80.SlotId : _slot81.SlotId;
             }
+        }
+
+        /// <summary>
+        /// Converts platform specific Slot to platfrom neutral Slot
+        /// </summary>
+        /// <param name="slot">Platform specific Slot</param>
+        internal Slot(HighLevelAPI40.Slot slot)
+        {
+            if (slot == null)
+                throw new ArgumentNullException("slot");
+
+            _slot40 = slot;
         }
 
         /// <summary>
@@ -54,7 +79,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (slot == null)
                 throw new ArgumentNullException("slot");
 
-            _slot4 = slot;
+            _slot41 = slot;
+        }
+
+        /// <summary>
+        /// Converts platform specific Slot to platfrom neutral Slot
+        /// </summary>
+        /// <param name="slot">Platform specific Slot</param>
+        internal Slot(HighLevelAPI80.Slot slot)
+        {
+            if (slot == null)
+                throw new ArgumentNullException("slot");
+
+            _slot80 = slot;
         }
 
         /// <summary>
@@ -66,7 +103,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (slot == null)
                 throw new ArgumentNullException("slot");
 
-            _slot8 = slot;
+            _slot81 = slot;
         }
 
         /// <summary>
@@ -76,15 +113,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public SlotInfo GetSlotInfo()
         {
             if (Platform.UnmanagedLongSize == 4)
-            {
-                HighLevelAPI41.SlotInfo hlaSlotInfo = _slot4.GetSlotInfo();
-                return new SlotInfo(hlaSlotInfo);
-            }
+                return (Platform.StructPackingSize == 0) ? new SlotInfo(_slot40.GetSlotInfo()) : new SlotInfo(_slot41.GetSlotInfo());
             else
-            {
-                HighLevelAPI81.SlotInfo hlaSlotInfo = _slot8.GetSlotInfo();
-                return new SlotInfo(hlaSlotInfo);
-            }
+                return (Platform.StructPackingSize == 0) ? new SlotInfo(_slot80.GetSlotInfo()) : new SlotInfo(_slot81.GetSlotInfo());
         }
 
         /// <summary>
@@ -94,15 +125,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public TokenInfo GetTokenInfo()
         {
             if (Platform.UnmanagedLongSize == 4)
-            {
-                HighLevelAPI41.TokenInfo hlaTokenInfo = _slot4.GetTokenInfo();
-                return new TokenInfo(hlaTokenInfo);
-            }
+                return (Platform.StructPackingSize == 0) ? new TokenInfo(_slot40.GetTokenInfo()) : new TokenInfo(_slot41.GetTokenInfo());
             else
-            {
-                HighLevelAPI81.TokenInfo hlaTokenInfo = _slot8.GetTokenInfo();
-                return new TokenInfo(hlaTokenInfo);
-            }
+                return (Platform.StructPackingSize == 0) ? new TokenInfo(_slot80.GetTokenInfo()) : new TokenInfo(_slot81.GetTokenInfo());
         }
 
         /// <summary>
@@ -112,9 +137,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public List<CKM> GetMechanismList()
         {
             if (Platform.UnmanagedLongSize == 4)
-                return _slot4.GetMechanismList();
+                return (Platform.StructPackingSize == 0) ? _slot40.GetMechanismList() : _slot41.GetMechanismList();
             else
-                return _slot8.GetMechanismList();
+                return (Platform.StructPackingSize == 0) ? _slot80.GetMechanismList() : _slot81.GetMechanismList();
         }
 
         /// <summary>
@@ -125,15 +150,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public MechanismInfo GetMechanismInfo(CKM mechanism)
         {
             if (Platform.UnmanagedLongSize == 4)
-            {
-                HighLevelAPI41.MechanismInfo hlaMechanismInfo = _slot4.GetMechanismInfo(mechanism);
-                return new MechanismInfo(hlaMechanismInfo);
-            }
+                return (Platform.StructPackingSize == 0) ? new MechanismInfo(_slot40.GetMechanismInfo(mechanism)) : new MechanismInfo(_slot41.GetMechanismInfo(mechanism));
             else
-            {
-                HighLevelAPI81.MechanismInfo hlaMechanismInfo = _slot8.GetMechanismInfo(mechanism);
-                return new MechanismInfo(hlaMechanismInfo);
-            }
+                return (Platform.StructPackingSize == 0) ? new MechanismInfo(_slot80.GetMechanismInfo(mechanism)) : new MechanismInfo(_slot81.GetMechanismInfo(mechanism));
         }
 
         /// <summary>
@@ -144,9 +163,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public void InitToken(string soPin, string label)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _slot4.InitToken(soPin, label);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _slot40.InitToken(soPin, label);
+                else
+                    _slot41.InitToken(soPin, label);
+            }
             else
-                _slot8.InitToken(soPin, label);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _slot80.InitToken(soPin, label);
+                else
+                    _slot81.InitToken(soPin, label);
+            }
         }
 
         /// <summary>
@@ -157,9 +186,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public void InitToken(byte[] soPin, byte[] label)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _slot4.InitToken(soPin, label);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _slot40.InitToken(soPin, label);
+                else
+                    _slot41.InitToken(soPin, label);
+            }
             else
-                _slot8.InitToken(soPin, label);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _slot80.InitToken(soPin, label);
+                else
+                    _slot81.InitToken(soPin, label);
+            }
         }
 
         /// <summary>
@@ -170,15 +209,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public Session OpenSession(bool readOnly)
         {
             if (Platform.UnmanagedLongSize == 4)
-            {
-                HighLevelAPI41.Session hlaSession = _slot4.OpenSession(readOnly);
-                return new Session(hlaSession);
-            }
+                return (Platform.StructPackingSize == 0) ? new Session(_slot40.OpenSession(readOnly)) : new Session(_slot41.OpenSession(readOnly));
             else
-            {
-                HighLevelAPI81.Session hlaSession = _slot8.OpenSession(readOnly);
-                return new Session(hlaSession);
-            }
+                return (Platform.StructPackingSize == 0) ? new Session(_slot80.OpenSession(readOnly)) : new Session(_slot81.OpenSession(readOnly));
         }
 
         /// <summary>
@@ -199,9 +232,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public void CloseAllSessions()
         {
             if (Platform.UnmanagedLongSize == 4)
-                _slot4.CloseAllSessions();
+            {
+                if (Platform.StructPackingSize == 0)
+                    _slot40.CloseAllSessions();
+                else
+                    _slot41.CloseAllSessions();
+            }
             else
-                _slot8.CloseAllSessions();
+            {
+                if (Platform.StructPackingSize == 0)
+                    _slot80.CloseAllSessions();
+                else
+                    _slot81.CloseAllSessions();
+            }
         }
     }
 }

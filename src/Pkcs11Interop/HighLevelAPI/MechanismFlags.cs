@@ -26,12 +26,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific MechanismFlags
         /// </summary>
-        private HighLevelAPI41.MechanismFlags _mechanismFlags4 = null;
+        private HighLevelAPI40.MechanismFlags _mechanismFlags40 = null;
 
         /// <summary>
         /// Platform specific MechanismFlags
         /// </summary>
-        private HighLevelAPI81.MechanismFlags _mechanismFlags8 = null;
+        private HighLevelAPI41.MechanismFlags _mechanismFlags41 = null;
+
+        /// <summary>
+        /// Platform specific MechanismFlags
+        /// </summary>
+        private HighLevelAPI80.MechanismFlags _mechanismFlags80 = null;
+
+        /// <summary>
+        /// Platform specific MechanismFlags
+        /// </summary>
+        private HighLevelAPI81.MechanismFlags _mechanismFlags81 = null;
 
         /// <summary>
         /// Bits flags specifying mechanism capabilities
@@ -40,7 +50,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _mechanismFlags4.Flags : _mechanismFlags8.Flags;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags40.Flags : _mechanismFlags41.Flags;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags80.Flags : _mechanismFlags81.Flags;
             }
         }
 
@@ -51,7 +64,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _mechanismFlags4.Hw : _mechanismFlags8.Hw;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags40.Hw : _mechanismFlags41.Hw;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags80.Hw : _mechanismFlags81.Hw;
             }
         }
 
@@ -62,7 +78,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _mechanismFlags4.Encrypt : _mechanismFlags8.Encrypt;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags40.Encrypt : _mechanismFlags41.Encrypt;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags80.Encrypt : _mechanismFlags81.Encrypt;
             }
         }
 
@@ -73,7 +92,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _mechanismFlags4.Decrypt : _mechanismFlags8.Decrypt;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags40.Decrypt : _mechanismFlags41.Decrypt;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags80.Decrypt : _mechanismFlags81.Decrypt;
             }
         }
 
@@ -84,7 +106,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _mechanismFlags4.Digest : _mechanismFlags8.Digest;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags40.Digest : _mechanismFlags41.Digest;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags80.Digest : _mechanismFlags81.Digest;
             }
         }
 
@@ -95,7 +120,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _mechanismFlags4.Sign : _mechanismFlags8.Sign;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags40.Sign : _mechanismFlags41.Sign;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags80.Sign : _mechanismFlags81.Sign;
             }
         }
 
@@ -106,7 +134,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _mechanismFlags4.SignRecover : _mechanismFlags8.SignRecover;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags40.SignRecover : _mechanismFlags41.SignRecover;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags80.SignRecover : _mechanismFlags81.SignRecover;
             }
         }
 
@@ -117,7 +148,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _mechanismFlags4.Verify : _mechanismFlags8.Verify;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags40.Verify : _mechanismFlags41.Verify;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags80.Verify : _mechanismFlags81.Verify;
             }
         }
 
@@ -128,7 +162,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _mechanismFlags4.VerifyRecover : _mechanismFlags8.VerifyRecover;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags40.VerifyRecover : _mechanismFlags41.VerifyRecover;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags80.VerifyRecover : _mechanismFlags81.VerifyRecover;
             }
         }
 
@@ -139,7 +176,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _mechanismFlags4.Generate : _mechanismFlags8.Generate;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags40.Generate : _mechanismFlags41.Generate;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags80.Generate : _mechanismFlags81.Generate;
             }
         }
 
@@ -150,7 +190,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _mechanismFlags4.GenerateKeyPair : _mechanismFlags8.GenerateKeyPair;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags40.GenerateKeyPair : _mechanismFlags41.GenerateKeyPair;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags80.GenerateKeyPair : _mechanismFlags81.GenerateKeyPair;
             }
         }
 
@@ -161,7 +204,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _mechanismFlags4.Wrap : _mechanismFlags8.Wrap;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags40.Wrap : _mechanismFlags41.Wrap;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags80.Wrap : _mechanismFlags81.Wrap;
             }
         }
 
@@ -172,7 +218,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _mechanismFlags4.Unwrap : _mechanismFlags8.Unwrap;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags40.Unwrap : _mechanismFlags41.Unwrap;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags80.Unwrap : _mechanismFlags81.Unwrap;
             }
         }
 
@@ -183,7 +232,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _mechanismFlags4.Derive : _mechanismFlags8.Derive;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags40.Derive : _mechanismFlags41.Derive;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags80.Derive : _mechanismFlags81.Derive;
             }
         }
 
@@ -194,7 +246,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _mechanismFlags4.Extension : _mechanismFlags8.Extension;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags40.Extension : _mechanismFlags41.Extension;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags80.Extension : _mechanismFlags81.Extension;
             }
         }
 
@@ -207,7 +262,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _mechanismFlags4.EcFp : _mechanismFlags8.EcFp;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags40.EcFp : _mechanismFlags41.EcFp;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags80.EcFp : _mechanismFlags81.EcFp;
             }
         }
 
@@ -218,7 +276,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _mechanismFlags4.EcF2m : _mechanismFlags8.EcF2m;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags40.EcF2m : _mechanismFlags41.EcF2m;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags80.EcF2m : _mechanismFlags81.EcF2m;
             }
         }
 
@@ -229,7 +290,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _mechanismFlags4.EcEcParameters : _mechanismFlags8.EcEcParameters;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags40.EcEcParameters : _mechanismFlags41.EcEcParameters;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags80.EcEcParameters : _mechanismFlags81.EcEcParameters;
             }
         }
 
@@ -240,7 +304,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _mechanismFlags4.EcNamedCurve : _mechanismFlags8.EcNamedCurve;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags40.EcNamedCurve : _mechanismFlags41.EcNamedCurve;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags80.EcNamedCurve : _mechanismFlags81.EcNamedCurve;
             }
         }
 
@@ -251,7 +318,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _mechanismFlags4.EcUncompress : _mechanismFlags8.EcUncompress;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags40.EcUncompress : _mechanismFlags41.EcUncompress;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags80.EcUncompress : _mechanismFlags81.EcUncompress;
             }
         }
 
@@ -262,11 +332,26 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _mechanismFlags4.EcCompress : _mechanismFlags8.EcCompress;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags40.EcCompress : _mechanismFlags41.EcCompress;
+                else
+                    return (Platform.StructPackingSize == 0) ? _mechanismFlags80.EcCompress : _mechanismFlags81.EcCompress;
             }
         }
 
         #endregion
+
+        /// <summary>
+        /// Converts platform specific MechanismFlags to platfrom neutral MechanismFlags
+        /// </summary>
+        /// <param name="mechanismFlags">Platform specific MechanismFlags</param>
+        internal MechanismFlags(HighLevelAPI40.MechanismFlags mechanismFlags)
+        {
+            if (mechanismFlags == null)
+                throw new ArgumentNullException("mechanismFlags");
+
+            _mechanismFlags40 = mechanismFlags;
+        }
 
         /// <summary>
         /// Converts platform specific MechanismFlags to platfrom neutral MechanismFlags
@@ -277,7 +362,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (mechanismFlags == null)
                 throw new ArgumentNullException("mechanismFlags");
 
-            _mechanismFlags4 = mechanismFlags;
+            _mechanismFlags41 = mechanismFlags;
+        }
+
+        /// <summary>
+        /// Converts platform specific MechanismFlags to platfrom neutral MechanismFlags
+        /// </summary>
+        /// <param name="mechanismFlags">Platform specific MechanismFlags</param>
+        internal MechanismFlags(HighLevelAPI80.MechanismFlags mechanismFlags)
+        {
+            if (mechanismFlags == null)
+                throw new ArgumentNullException("mechanismFlags");
+
+            _mechanismFlags80 = mechanismFlags;
         }
 
         /// <summary>
@@ -289,7 +386,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (mechanismFlags == null)
                 throw new ArgumentNullException("mechanismFlags");
 
-            _mechanismFlags8 = mechanismFlags;
+            _mechanismFlags81 = mechanismFlags;
         }
     }
 }

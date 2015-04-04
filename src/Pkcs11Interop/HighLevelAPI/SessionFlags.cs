@@ -26,12 +26,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific SessionFlags
         /// </summary>
-        private HighLevelAPI41.SessionFlags _sessionFlags4 = null;
+        private HighLevelAPI40.SessionFlags _sessionFlags40 = null;
 
         /// <summary>
         /// Platform specific SessionFlags
         /// </summary>
-        private HighLevelAPI81.SessionFlags _sessionFlags8 = null;
+        private HighLevelAPI41.SessionFlags _sessionFlags41 = null;
+
+        /// <summary>
+        /// Platform specific SessionFlags
+        /// </summary>
+        private HighLevelAPI80.SessionFlags _sessionFlags80 = null;
+
+        /// <summary>
+        /// Platform specific SessionFlags
+        /// </summary>
+        private HighLevelAPI81.SessionFlags _sessionFlags81 = null;
 
         /// <summary>
         /// Bit flags that define the type of session
@@ -40,7 +50,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _sessionFlags4.Flags : _sessionFlags8.Flags;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _sessionFlags40.Flags : _sessionFlags41.Flags;
+                else
+                    return (Platform.StructPackingSize == 0) ? _sessionFlags80.Flags : _sessionFlags81.Flags;
             }
         }
 
@@ -51,7 +64,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _sessionFlags4.RwSession : _sessionFlags8.RwSession;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _sessionFlags40.RwSession : _sessionFlags41.RwSession;
+                else
+                    return (Platform.StructPackingSize == 0) ? _sessionFlags80.RwSession : _sessionFlags81.RwSession;
             }
         }
 
@@ -62,8 +78,23 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _sessionFlags4.SerialSession : _sessionFlags8.SerialSession;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _sessionFlags40.SerialSession : _sessionFlags41.SerialSession;
+                else
+                    return (Platform.StructPackingSize == 0) ? _sessionFlags80.SerialSession : _sessionFlags81.SerialSession;
             }
+        }
+
+        /// <summary>
+        /// Converts platform specific SessionFlags to platfrom neutral SessionFlags
+        /// </summary>
+        /// <param name="sessionFlags">Platform specific SessionFlags</param>
+        internal SessionFlags(HighLevelAPI40.SessionFlags sessionFlags)
+        {
+            if (sessionFlags == null)
+                throw new ArgumentNullException("sessionFlags");
+
+            _sessionFlags40 = sessionFlags;
         }
 
         /// <summary>
@@ -75,7 +106,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (sessionFlags == null)
                 throw new ArgumentNullException("sessionFlags");
 
-            _sessionFlags4 = sessionFlags;
+            _sessionFlags41 = sessionFlags;
+        }
+
+        /// <summary>
+        /// Converts platform specific SessionFlags to platfrom neutral SessionFlags
+        /// </summary>
+        /// <param name="sessionFlags">Platform specific SessionFlags</param>
+        internal SessionFlags(HighLevelAPI80.SessionFlags sessionFlags)
+        {
+            if (sessionFlags == null)
+                throw new ArgumentNullException("sessionFlags");
+
+            _sessionFlags80 = sessionFlags;
         }
 
         /// <summary>
@@ -87,7 +130,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (sessionFlags == null)
                 throw new ArgumentNullException("sessionFlags");
 
-            _sessionFlags8 = sessionFlags;
+            _sessionFlags81 = sessionFlags;
         }
     }
 }

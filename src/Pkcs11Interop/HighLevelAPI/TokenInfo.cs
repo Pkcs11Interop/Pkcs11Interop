@@ -26,12 +26,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific TokenInfo
         /// </summary>
-        private HighLevelAPI41.TokenInfo _tokenInfo4 = null;
+        private HighLevelAPI40.TokenInfo _tokenInfo40 = null;
 
         /// <summary>
         /// Platform specific TokenInfo
         /// </summary>
-        private HighLevelAPI81.TokenInfo _tokenInfo8 = null;
+        private HighLevelAPI41.TokenInfo _tokenInfo41 = null;
+
+        /// <summary>
+        /// Platform specific TokenInfo
+        /// </summary>
+        private HighLevelAPI80.TokenInfo _tokenInfo80 = null;
+
+        /// <summary>
+        /// Platform specific TokenInfo
+        /// </summary>
+        private HighLevelAPI81.TokenInfo _tokenInfo81 = null;
 
         /// <summary>
         /// PKCS#11 handle of slot
@@ -40,7 +50,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.SlotId : _tokenInfo8.SlotId;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo40.SlotId : _tokenInfo41.SlotId;
+                else
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo80.SlotId : _tokenInfo81.SlotId;
             }
         }
 
@@ -51,7 +64,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.Label : _tokenInfo8.Label;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo40.Label : _tokenInfo41.Label;
+                else
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo80.Label : _tokenInfo81.Label;
             }
         }
 
@@ -62,7 +78,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.ManufacturerId : _tokenInfo8.ManufacturerId;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo40.ManufacturerId : _tokenInfo41.ManufacturerId;
+                else
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo80.ManufacturerId : _tokenInfo81.ManufacturerId;
             }
         }
 
@@ -73,7 +92,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.Model : _tokenInfo8.Model;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo40.Model : _tokenInfo41.Model;
+                else
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo80.Model : _tokenInfo81.Model;
             }
         }
 
@@ -84,7 +106,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.SerialNumber : _tokenInfo8.SerialNumber;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo40.SerialNumber : _tokenInfo41.SerialNumber;
+                else
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo80.SerialNumber : _tokenInfo81.SerialNumber;
             }
         }
 
@@ -101,7 +126,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             get
             {
                 if (_tokenFlags == null)
-                    _tokenFlags = (Platform.UnmanagedLongSize == 4) ? new TokenFlags(_tokenInfo4.TokenFlags) : new TokenFlags(_tokenInfo8.TokenFlags);
+                {
+                    if (Platform.UnmanagedLongSize == 4)
+                        _tokenFlags = (Platform.StructPackingSize == 0) ? new TokenFlags(_tokenInfo40.TokenFlags) : new TokenFlags(_tokenInfo41.TokenFlags);
+                    else
+                        _tokenFlags = (Platform.StructPackingSize == 0) ? new TokenFlags(_tokenInfo80.TokenFlags) : new TokenFlags(_tokenInfo81.TokenFlags);
+                }
 
                 return _tokenFlags;
             }
@@ -114,7 +144,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.MaxSessionCount : _tokenInfo8.MaxSessionCount;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo40.MaxSessionCount : _tokenInfo41.MaxSessionCount;
+                else
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo80.MaxSessionCount : _tokenInfo81.MaxSessionCount;
             }
         }
 
@@ -125,7 +158,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.SessionCount : _tokenInfo8.SessionCount;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo40.SessionCount : _tokenInfo41.SessionCount;
+                else
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo80.SessionCount : _tokenInfo81.SessionCount;
             }
         }
 
@@ -136,7 +172,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.MaxRwSessionCount : _tokenInfo8.MaxRwSessionCount;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo40.MaxRwSessionCount : _tokenInfo41.MaxRwSessionCount;
+                else
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo80.MaxRwSessionCount : _tokenInfo81.MaxRwSessionCount;
             }
         }
 
@@ -147,7 +186,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.RwSessionCount : _tokenInfo8.RwSessionCount;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo40.RwSessionCount : _tokenInfo41.RwSessionCount;
+                else
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo80.RwSessionCount : _tokenInfo81.RwSessionCount;
             }
         }
 
@@ -158,7 +200,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.MaxPinLen : _tokenInfo8.MaxPinLen;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo40.MaxPinLen : _tokenInfo41.MaxPinLen;
+                else
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo80.MaxPinLen : _tokenInfo81.MaxPinLen;
             }
         }
 
@@ -169,7 +214,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.MinPinLen : _tokenInfo8.MinPinLen;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo40.MinPinLen : _tokenInfo41.MinPinLen;
+                else
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo80.MinPinLen : _tokenInfo81.MinPinLen;
             }
         }
 
@@ -180,7 +228,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.TotalPublicMemory : _tokenInfo8.TotalPublicMemory;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo40.TotalPublicMemory : _tokenInfo41.TotalPublicMemory;
+                else
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo80.TotalPublicMemory : _tokenInfo81.TotalPublicMemory;
             }
         }
 
@@ -191,7 +242,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.FreePublicMemory : _tokenInfo8.FreePublicMemory;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo40.FreePublicMemory : _tokenInfo41.FreePublicMemory;
+                else
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo80.FreePublicMemory : _tokenInfo81.FreePublicMemory;
             }
         }
 
@@ -202,7 +256,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.TotalPrivateMemory : _tokenInfo8.TotalPrivateMemory;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo40.TotalPrivateMemory : _tokenInfo41.TotalPrivateMemory;
+                else
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo80.TotalPrivateMemory : _tokenInfo81.TotalPrivateMemory;
             }
         }
 
@@ -213,7 +270,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.FreePrivateMemory : _tokenInfo8.FreePrivateMemory;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo40.FreePrivateMemory : _tokenInfo41.FreePrivateMemory;
+                else
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo80.FreePrivateMemory : _tokenInfo81.FreePrivateMemory;
             }
         }
 
@@ -224,7 +284,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.HardwareVersion : _tokenInfo8.HardwareVersion;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo40.HardwareVersion : _tokenInfo41.HardwareVersion;
+                else
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo80.HardwareVersion : _tokenInfo81.HardwareVersion;
             }
         }
 
@@ -235,7 +298,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.FirmwareVersion : _tokenInfo8.FirmwareVersion;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo40.FirmwareVersion : _tokenInfo41.FirmwareVersion;
+                else
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo80.FirmwareVersion : _tokenInfo81.FirmwareVersion;
             }
         }
 
@@ -246,7 +312,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.UtcTimeString : _tokenInfo8.UtcTimeString;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo40.UtcTimeString : _tokenInfo41.UtcTimeString;
+                else
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo80.UtcTimeString : _tokenInfo81.UtcTimeString;
             }
         }
 
@@ -257,8 +326,23 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _tokenInfo4.UtcTime : _tokenInfo8.UtcTime;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo40.UtcTime : _tokenInfo41.UtcTime;
+                else
+                    return (Platform.StructPackingSize == 0) ? _tokenInfo80.UtcTime : _tokenInfo81.UtcTime;
             }
+        }
+
+        /// <summary>
+        /// Converts platform specific TokenInfo to platfrom neutral TokenInfo
+        /// </summary>
+        /// <param name="tokenInfo">Platform specific TokenInfo</param>
+        internal TokenInfo(HighLevelAPI40.TokenInfo tokenInfo)
+        {
+            if (tokenInfo == null)
+                throw new ArgumentNullException("tokenInfo");
+
+            _tokenInfo40 = tokenInfo;
         }
 
         /// <summary>
@@ -270,7 +354,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (tokenInfo == null)
                 throw new ArgumentNullException("tokenInfo");
 
-            _tokenInfo4 = tokenInfo;
+            _tokenInfo41 = tokenInfo;
+        }
+
+        /// <summary>
+        /// Converts platform specific TokenInfo to platfrom neutral TokenInfo
+        /// </summary>
+        /// <param name="tokenInfo">Platform specific TokenInfo</param>
+        internal TokenInfo(HighLevelAPI80.TokenInfo tokenInfo)
+        {
+            if (tokenInfo == null)
+                throw new ArgumentNullException("tokenInfo");
+
+            _tokenInfo80 = tokenInfo;
         }
 
         /// <summary>
@@ -282,7 +378,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (tokenInfo == null)
                 throw new ArgumentNullException("tokenInfo");
 
-            _tokenInfo8 = tokenInfo;
+            _tokenInfo81 = tokenInfo;
         }
     }
 }

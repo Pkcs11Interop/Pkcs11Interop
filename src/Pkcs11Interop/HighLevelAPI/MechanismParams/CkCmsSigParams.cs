@@ -54,11 +54,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 uint? uintSigningMechanism = (signingMechanism == null) ? null : (uint?)Convert.ToUInt32(signingMechanism.Value);
                 uint? uintDigestMechanism = (digestMechanism == null) ? null : (uint?)Convert.ToUInt32(digestMechanism.Value);
 
-                _params4 = new HighLevelAPI41.MechanismParams.CkCmsSigParams(certificateHandle.ObjectHandle4, uintSigningMechanism, uintDigestMechanism, contentType, requestedAttributes, requiredAttributes);
+                _params4 = new HighLevelAPI41.MechanismParams.CkCmsSigParams(certificateHandle.ObjectHandle41, uintSigningMechanism, uintDigestMechanism, contentType, requestedAttributes, requiredAttributes);
             }
             else
             {
-                _params8 = new HighLevelAPI81.MechanismParams.CkCmsSigParams(certificateHandle.ObjectHandle8, signingMechanism, digestMechanism, contentType, requestedAttributes, requiredAttributes);
+                _params8 = new HighLevelAPI81.MechanismParams.CkCmsSigParams(certificateHandle.ObjectHandle81, signingMechanism, digestMechanism, contentType, requestedAttributes, requiredAttributes);
             }
         }
         

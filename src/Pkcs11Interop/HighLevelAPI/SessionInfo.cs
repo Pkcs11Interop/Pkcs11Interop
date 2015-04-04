@@ -22,16 +22,26 @@ namespace Net.Pkcs11Interop.HighLevelAPI
     /// Information about a session
     /// </summary>
     public class SessionInfo
-    {   
+    {
         /// <summary>
         /// Platform specific SessionInfo
         /// </summary>
-        private HighLevelAPI41.SessionInfo _sessionInfo4 = null;
+        private HighLevelAPI40.SessionInfo _sessionInfo40 = null;
 
         /// <summary>
         /// Platform specific SessionInfo
         /// </summary>
-        private HighLevelAPI81.SessionInfo _sessionInfo8 = null;
+        private HighLevelAPI41.SessionInfo _sessionInfo41 = null;
+
+        /// <summary>
+        /// Platform specific SessionInfo
+        /// </summary>
+        private HighLevelAPI80.SessionInfo _sessionInfo80 = null;
+
+        /// <summary>
+        /// Platform specific SessionInfo
+        /// </summary>
+        private HighLevelAPI81.SessionInfo _sessionInfo81 = null;
 
         /// <summary>
         /// PKCS#11 handle of session
@@ -40,7 +50,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _sessionInfo4.SessionId : _sessionInfo8.SessionId;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _sessionInfo40.SessionId : _sessionInfo41.SessionId;
+                else
+                    return (Platform.StructPackingSize == 0) ? _sessionInfo80.SessionId : _sessionInfo81.SessionId;
             }
         }
 
@@ -51,7 +64,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _sessionInfo4.SlotId : _sessionInfo8.SlotId;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _sessionInfo40.SlotId : _sessionInfo41.SlotId;
+                else
+                    return (Platform.StructPackingSize == 0) ? _sessionInfo80.SlotId : _sessionInfo81.SlotId;
             }
         }
 
@@ -62,7 +78,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _sessionInfo4.State : _sessionInfo8.State;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _sessionInfo40.State : _sessionInfo41.State;
+                else
+                    return (Platform.StructPackingSize == 0) ? _sessionInfo80.State : _sessionInfo81.State;
             }
         }
 
@@ -79,7 +98,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             get
             {
                 if (_sessionFlags == null)
-                    _sessionFlags = (Platform.UnmanagedLongSize == 4) ? new SessionFlags(_sessionInfo4.SessionFlags) : new SessionFlags(_sessionInfo8.SessionFlags);
+                {
+                    if (Platform.UnmanagedLongSize == 4)
+                        _sessionFlags = (Platform.StructPackingSize == 0) ? new SessionFlags(_sessionInfo40.SessionFlags) : new SessionFlags(_sessionInfo41.SessionFlags);
+                    else
+                        _sessionFlags = (Platform.StructPackingSize == 0) ? new SessionFlags(_sessionInfo80.SessionFlags) : new SessionFlags(_sessionInfo81.SessionFlags);
+                }
 
                 return _sessionFlags;
             }
@@ -92,8 +116,23 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _sessionInfo4.DeviceError : _sessionInfo8.DeviceError;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _sessionInfo40.DeviceError : _sessionInfo41.DeviceError;
+                else
+                    return (Platform.StructPackingSize == 0) ? _sessionInfo80.DeviceError : _sessionInfo81.DeviceError;
             }
+        }
+
+        /// <summary>
+        /// Converts platform specific SessionInfo to platfrom neutral SessionInfo
+        /// </summary>
+        /// <param name="sessionInfo">Platform specific SessionInfo</param>
+        internal SessionInfo(HighLevelAPI40.SessionInfo sessionInfo)
+        {
+            if (sessionInfo == null)
+                throw new ArgumentNullException("sessionInfo");
+
+            _sessionInfo40 = sessionInfo;
         }
 
         /// <summary>
@@ -105,7 +144,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (sessionInfo == null)
                 throw new ArgumentNullException("sessionInfo");
 
-            _sessionInfo4 = sessionInfo;
+            _sessionInfo41 = sessionInfo;
+        }
+
+        /// <summary>
+        /// Converts platform specific SessionInfo to platfrom neutral SessionInfo
+        /// </summary>
+        /// <param name="sessionInfo">Platform specific SessionInfo</param>
+        internal SessionInfo(HighLevelAPI80.SessionInfo sessionInfo)
+        {
+            if (sessionInfo == null)
+                throw new ArgumentNullException("sessionInfo");
+
+            _sessionInfo80 = sessionInfo;
         }
 
         /// <summary>
@@ -117,7 +168,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (sessionInfo == null)
                 throw new ArgumentNullException("sessionInfo");
 
-            _sessionInfo8 = sessionInfo;
+            _sessionInfo81 = sessionInfo;
         }
     }
 }

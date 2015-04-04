@@ -32,12 +32,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific high level PKCS#11 wrapper
         /// </summary>
-        private HighLevelAPI41.Pkcs11 _p11_4 = null;
+        private HighLevelAPI40.Pkcs11 _p11_40 = null;
 
         /// <summary>
         /// Platform specific high level PKCS#11 wrapper
         /// </summary>
-        private HighLevelAPI81.Pkcs11 _p11_8 = null;
+        private HighLevelAPI41.Pkcs11 _p11_41 = null;
+
+        /// <summary>
+        /// Platform specific high level PKCS#11 wrapper
+        /// </summary>
+        private HighLevelAPI80.Pkcs11 _p11_80 = null;
+
+        /// <summary>
+        /// Platform specific high level PKCS#11 wrapper
+        /// </summary>
+        private HighLevelAPI81.Pkcs11 _p11_81 = null;
 
         /// <summary>
         /// Loads and initializes PCKS#11 library
@@ -47,9 +57,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public Pkcs11(string libraryPath, bool useOsLocking)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _p11_4 = new HighLevelAPI41.Pkcs11(libraryPath, useOsLocking);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _p11_40 = new HighLevelAPI40.Pkcs11(libraryPath, useOsLocking);
+                else
+                    _p11_41 = new HighLevelAPI41.Pkcs11(libraryPath, useOsLocking);
+            }
             else
-                _p11_8 = new HighLevelAPI81.Pkcs11(libraryPath, useOsLocking);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _p11_80 = new HighLevelAPI80.Pkcs11(libraryPath, useOsLocking);
+                else
+                    _p11_81 = new HighLevelAPI81.Pkcs11(libraryPath, useOsLocking);
+            }
         }
 
         /// <summary>
@@ -61,9 +81,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         public Pkcs11(string libraryPath, bool useOsLocking, bool useGetFunctionList)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _p11_4 = new HighLevelAPI41.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _p11_40 = new HighLevelAPI40.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
+                else
+                    _p11_41 = new HighLevelAPI41.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
+            }
             else
-                _p11_8 = new HighLevelAPI81.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _p11_80 = new HighLevelAPI80.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
+                else
+                    _p11_81 = new HighLevelAPI81.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
+            }
         }
 
         /// <summary>
@@ -77,13 +107,17 @@ namespace Net.Pkcs11Interop.HighLevelAPI
 
             if (Platform.UnmanagedLongSize == 4)
             {
-                HighLevelAPI41.LibraryInfo hlaLibraryInfo = _p11_4.GetInfo();
-                return new LibraryInfo(hlaLibraryInfo);
+                if (Platform.StructPackingSize == 0)
+                    return new LibraryInfo(_p11_40.GetInfo());
+                else
+                    return new LibraryInfo(_p11_41.GetInfo());
             }
             else
             {
-                HighLevelAPI81.LibraryInfo hlaLibraryInfo = _p11_8.GetInfo();
-                return new LibraryInfo(hlaLibraryInfo);
+                if (Platform.StructPackingSize == 0)
+                    return new LibraryInfo(_p11_80.GetInfo());
+                else
+                    return new LibraryInfo(_p11_81.GetInfo());
             }
         }
 
@@ -99,18 +133,40 @@ namespace Net.Pkcs11Interop.HighLevelAPI
 
             if (Platform.UnmanagedLongSize == 4)
             {
-                List<HighLevelAPI41.Slot> hlaSlotList = _p11_4.GetSlotList(tokenPresent);
                 List<Slot> slotList = new List<Slot>();
-                foreach (HighLevelAPI41.Slot hlaSlot in hlaSlotList)
-                    slotList.Add(new Slot(hlaSlot));
+
+                if (Platform.StructPackingSize == 0)
+                {
+                    List<HighLevelAPI40.Slot> hlaSlotList = _p11_40.GetSlotList(tokenPresent);
+                    foreach (HighLevelAPI40.Slot hlaSlot in hlaSlotList)
+                        slotList.Add(new Slot(hlaSlot));
+                }
+                else
+                {
+                    List<HighLevelAPI41.Slot> hlaSlotList = _p11_41.GetSlotList(tokenPresent);
+                    foreach (HighLevelAPI41.Slot hlaSlot in hlaSlotList)
+                        slotList.Add(new Slot(hlaSlot));
+                }
+
                 return slotList;
             }
             else
             {
-                List<HighLevelAPI81.Slot> hlaSlotList = _p11_8.GetSlotList(tokenPresent);
                 List<Slot> slotList = new List<Slot>();
-                foreach (HighLevelAPI81.Slot hlaSlot in hlaSlotList)
-                    slotList.Add(new Slot(hlaSlot));
+
+                if (Platform.StructPackingSize == 0)
+                {
+                    List<HighLevelAPI80.Slot> hlaSlotList = _p11_80.GetSlotList(tokenPresent);
+                    foreach (HighLevelAPI80.Slot hlaSlot in hlaSlotList)
+                        slotList.Add(new Slot(hlaSlot));
+                }
+                else
+                {
+                    List<HighLevelAPI81.Slot> hlaSlotList = _p11_81.GetSlotList(tokenPresent);
+                    foreach (HighLevelAPI81.Slot hlaSlot in hlaSlotList)
+                        slotList.Add(new Slot(hlaSlot));
+                }
+
                 return slotList;
             }
         }
@@ -129,12 +185,20 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (Platform.UnmanagedLongSize == 4)
             {
                 uint uintSlotId = CK.CK_INVALID_HANDLE;
-                _p11_4.WaitForSlotEvent(dontBlock, out eventOccured, out uintSlotId);
+
+                if (Platform.StructPackingSize == 0)
+                    _p11_40.WaitForSlotEvent(dontBlock, out eventOccured, out uintSlotId);
+                else
+                    _p11_41.WaitForSlotEvent(dontBlock, out eventOccured, out uintSlotId);
+                
                 slotId = uintSlotId;
             }
             else
             {
-                _p11_8.WaitForSlotEvent(dontBlock, out eventOccured, out slotId);
+                if (Platform.StructPackingSize == 0)
+                    _p11_80.WaitForSlotEvent(dontBlock, out eventOccured, out slotId);
+                else
+                    _p11_81.WaitForSlotEvent(dontBlock, out eventOccured, out slotId);
             }
         }
 
@@ -160,16 +224,28 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                 if (disposing)
                 {
                     // Dispose managed objects
-                    if (_p11_4 != null)
+                    if (_p11_40 != null)
                     {
-                        _p11_4.Dispose();
-                        _p11_4 = null;
+                        _p11_40.Dispose();
+                        _p11_40 = null;
                     }
 
-                    if (_p11_8 != null)
+                    if (_p11_41 != null)
                     {
-                        _p11_8.Dispose();
-                        _p11_8 = null;
+                        _p11_41.Dispose();
+                        _p11_41 = null;
+                    }
+
+                    if (_p11_80 != null)
+                    {
+                        _p11_80.Dispose();
+                        _p11_80 = null;
+                    }
+
+                    if (_p11_81 != null)
+                    {
+                        _p11_81.Dispose();
+                        _p11_81 = null;
                     }
                 }
 

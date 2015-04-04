@@ -26,12 +26,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Platform specific SlotInfo
         /// </summary>
-        private HighLevelAPI41.SlotInfo _slotInfo4 = null;
+        private HighLevelAPI40.SlotInfo _slotInfo40 = null;
 
         /// <summary>
         /// Platform specific SlotInfo
         /// </summary>
-        private HighLevelAPI81.SlotInfo _slotInfo8 = null;
+        private HighLevelAPI41.SlotInfo _slotInfo41 = null;
+
+        /// <summary>
+        /// Platform specific SlotInfo
+        /// </summary>
+        private HighLevelAPI80.SlotInfo _slotInfo80 = null;
+
+        /// <summary>
+        /// Platform specific SlotInfo
+        /// </summary>
+        private HighLevelAPI81.SlotInfo _slotInfo81 = null;
 
         /// <summary>
         /// PKCS#11 handle of slot
@@ -40,7 +50,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _slotInfo4.SlotId : _slotInfo8.SlotId;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _slotInfo40.SlotId : _slotInfo41.SlotId;
+                else
+                    return (Platform.StructPackingSize == 0) ? _slotInfo80.SlotId : _slotInfo81.SlotId;
             }
         }
 
@@ -51,7 +64,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _slotInfo4.SlotDescription : _slotInfo8.SlotDescription;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _slotInfo40.SlotDescription : _slotInfo41.SlotDescription;
+                else
+                    return (Platform.StructPackingSize == 0) ? _slotInfo80.SlotDescription : _slotInfo81.SlotDescription;
             }
         }
 
@@ -62,7 +78,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _slotInfo4.ManufacturerId : _slotInfo8.ManufacturerId;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _slotInfo40.ManufacturerId : _slotInfo41.ManufacturerId;
+                else
+                    return (Platform.StructPackingSize == 0) ? _slotInfo80.ManufacturerId : _slotInfo81.ManufacturerId;
             }
         }
 
@@ -79,7 +98,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             get
             {
                 if (_slotFlags == null)
-                    _slotFlags = (Platform.UnmanagedLongSize == 4) ? new SlotFlags(_slotInfo4.SlotFlags) : new SlotFlags(_slotInfo8.SlotFlags);
+                {
+                    if (Platform.UnmanagedLongSize == 4)
+                        _slotFlags = (Platform.StructPackingSize == 0) ? new SlotFlags(_slotInfo40.SlotFlags) : new SlotFlags(_slotInfo41.SlotFlags);
+                    else
+                        _slotFlags = (Platform.StructPackingSize == 0) ? new SlotFlags(_slotInfo80.SlotFlags) : new SlotFlags(_slotInfo81.SlotFlags);
+                }
 
                 return _slotFlags;
             }
@@ -92,7 +116,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _slotInfo4.HardwareVersion : _slotInfo8.HardwareVersion;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _slotInfo40.HardwareVersion : _slotInfo41.HardwareVersion;
+                else
+                    return (Platform.StructPackingSize == 0) ? _slotInfo80.HardwareVersion : _slotInfo81.HardwareVersion;
             }
         }
 
@@ -103,8 +130,23 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _slotInfo4.FirmwareVersion : _slotInfo8.FirmwareVersion;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _slotInfo40.FirmwareVersion : _slotInfo41.FirmwareVersion;
+                else
+                    return (Platform.StructPackingSize == 0) ? _slotInfo80.FirmwareVersion : _slotInfo81.FirmwareVersion;
             }
+        }
+
+        /// <summary>
+        /// Converts platform specific SlotInfo to platfrom neutral SlotInfo
+        /// </summary>
+        /// <param name="slotInfo">Platform specific SlotInfo</param>
+        internal SlotInfo(HighLevelAPI40.SlotInfo slotInfo)
+        {
+            if (slotInfo == null)
+                throw new ArgumentNullException("slotInfo");
+
+            _slotInfo40 = slotInfo;
         }
 
         /// <summary>
@@ -116,7 +158,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (slotInfo == null)
                 throw new ArgumentNullException("slotInfo");
 
-            _slotInfo4 = slotInfo;
+            _slotInfo41 = slotInfo;
+        }
+
+        /// <summary>
+        /// Converts platform specific SlotInfo to platfrom neutral SlotInfo
+        /// </summary>
+        /// <param name="slotInfo">Platform specific SlotInfo</param>
+        internal SlotInfo(HighLevelAPI80.SlotInfo slotInfo)
+        {
+            if (slotInfo == null)
+                throw new ArgumentNullException("slotInfo");
+
+            _slotInfo80 = slotInfo;
         }
 
         /// <summary>
@@ -128,7 +182,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             if (slotInfo == null)
                 throw new ArgumentNullException("slotInfo");
 
-            _slotInfo8 = slotInfo;
+            _slotInfo81 = slotInfo;
         }
     }
 }
