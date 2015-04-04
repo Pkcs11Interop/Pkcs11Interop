@@ -29,7 +29,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         /// SeedRandom test.
         /// </summary>
         [Test()]
-        public void _01_SeedRandomTest() // TODO - Test on device that supports this method
+        public void _01_SeedRandomTest()
         {
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {

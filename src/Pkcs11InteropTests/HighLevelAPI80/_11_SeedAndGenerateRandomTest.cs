@@ -29,7 +29,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
         /// SeedRandom test.
         /// </summary>
         [Test()]
-        public void _01_SeedRandomTest() // TODO - Test on device that supports this method
+        public void _01_SeedRandomTest()
         {
             if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)
                 Assert.Inconclusive("Test cannot be executed on this platform");

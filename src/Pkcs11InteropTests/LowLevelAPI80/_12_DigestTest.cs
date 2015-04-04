@@ -176,7 +176,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
         /// C_DigestInit, C_DigestKey and C_DigestFinal test.
         /// </summary>
         [Test()]
-        public void _03_DigestKeyTest() // TODO - Test on device that supports this method
+        public void _03_DigestKeyTest()
         {
             if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)
                 Assert.Inconclusive("Test cannot be executed on this platform");

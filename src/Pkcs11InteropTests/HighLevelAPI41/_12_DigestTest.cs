@@ -98,7 +98,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI41
         /// DigestKey test.
         /// </summary>
         [Test()]
-        public void _03_DigestKeyTest() // TODO - Test on device that supports this method
+        public void _03_DigestKeyTest()
         {
             if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
