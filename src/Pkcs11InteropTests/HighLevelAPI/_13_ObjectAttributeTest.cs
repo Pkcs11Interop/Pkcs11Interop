@@ -19,10 +19,14 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using HLA4 = Net.Pkcs11Interop.HighLevelAPI41;
-using HLA8 = Net.Pkcs11Interop.HighLevelAPI81;
-using LLA4 = Net.Pkcs11Interop.LowLevelAPI41;
-using LLA8 = Net.Pkcs11Interop.LowLevelAPI81;
+using HLA40 = Net.Pkcs11Interop.HighLevelAPI40;
+using HLA41 = Net.Pkcs11Interop.HighLevelAPI41;
+using HLA80 = Net.Pkcs11Interop.HighLevelAPI80;
+using HLA81 = Net.Pkcs11Interop.HighLevelAPI81;
+using LLA40 = Net.Pkcs11Interop.LowLevelAPI40;
+using LLA41 = Net.Pkcs11Interop.LowLevelAPI41;
+using LLA80 = Net.Pkcs11Interop.LowLevelAPI80;
+using LLA81 = Net.Pkcs11Interop.LowLevelAPI81;
 
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 {
@@ -209,43 +213,89 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
             if (Platform.UnmanagedLongSize == 4)
             {
-                // There is the same pointer to unmanaged memory in both nestedAttribute1 and recoveredValue[0] instances
-                // therefore private low level attribute structure needs to be modified to prevent double free.
-                // This special handling is needed only in this synthetic test and should be avoided in real world application.
-                HLA4.ObjectAttribute objectAttribute41 = (HLA4.ObjectAttribute)typeof(ObjectAttribute).GetField("_objectAttribute4", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute1);
-                LLA4.CK_ATTRIBUTE ckAttribute1 = (LLA4.CK_ATTRIBUTE)typeof(HLA4.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(objectAttribute41);
-                ckAttribute1.value = IntPtr.Zero;
-                ckAttribute1.valueLen = 0;
-                typeof(HLA4.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(objectAttribute41, ckAttribute1);
+                if (Platform.StructPackingSize == 0)
+                {
+                    // There is the same pointer to unmanaged memory in both nestedAttribute1 and recoveredValue[0] instances
+                    // therefore private low level attribute structure needs to be modified to prevent double free.
+                    // This special handling is needed only in this synthetic test and should be avoided in real world application.
+                    HLA40.ObjectAttribute objectAttribute40a = (HLA40.ObjectAttribute)typeof(ObjectAttribute).GetField("_objectAttribute4", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute1);
+                    LLA40.CK_ATTRIBUTE ckAttribute40a = (LLA40.CK_ATTRIBUTE)typeof(HLA40.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(objectAttribute40a);
+                    ckAttribute40a.value = IntPtr.Zero;
+                    ckAttribute40a.valueLen = 0;
+                    typeof(HLA40.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(objectAttribute40a, ckAttribute40a);
 
-                // There is the same pointer to unmanaged memory in both nestedAttribute2 and recoveredValue[1] instances
-                // therefore private low level attribute structure needs to be modified to prevent double free.
-                // This special handling is needed only in this synthetic test and should be avoided in real world application.
-                HLA4.ObjectAttribute objectAttribute42 = (HLA4.ObjectAttribute)typeof(ObjectAttribute).GetField("_objectAttribute4", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute2);
-                LLA4.CK_ATTRIBUTE ckAttribute2 = (LLA4.CK_ATTRIBUTE)typeof(HLA4.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(objectAttribute42);
-                ckAttribute2.value = IntPtr.Zero;
-                ckAttribute2.valueLen = 0;
-                typeof(HLA4.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(objectAttribute42, ckAttribute2);
+                    // There is the same pointer to unmanaged memory in both nestedAttribute2 and recoveredValue[1] instances
+                    // therefore private low level attribute structure needs to be modified to prevent double free.
+                    // This special handling is needed only in this synthetic test and should be avoided in real world application.
+                    HLA40.ObjectAttribute objectAttribute40b = (HLA40.ObjectAttribute)typeof(ObjectAttribute).GetField("_objectAttribute4", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute2);
+                    LLA40.CK_ATTRIBUTE ckAttribute40b = (LLA40.CK_ATTRIBUTE)typeof(HLA40.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(objectAttribute40b);
+                    ckAttribute40b.value = IntPtr.Zero;
+                    ckAttribute40b.valueLen = 0;
+                    typeof(HLA40.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(objectAttribute40b, ckAttribute40b);
+                }
+                else
+                {
+                    // There is the same pointer to unmanaged memory in both nestedAttribute1 and recoveredValue[0] instances
+                    // therefore private low level attribute structure needs to be modified to prevent double free.
+                    // This special handling is needed only in this synthetic test and should be avoided in real world application.
+                    HLA41.ObjectAttribute objectAttribute41a = (HLA41.ObjectAttribute)typeof(ObjectAttribute).GetField("_objectAttribute4", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute1);
+                    LLA41.CK_ATTRIBUTE ckAttribute41a = (LLA41.CK_ATTRIBUTE)typeof(HLA41.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(objectAttribute41a);
+                    ckAttribute41a.value = IntPtr.Zero;
+                    ckAttribute41a.valueLen = 0;
+                    typeof(HLA41.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(objectAttribute41a, ckAttribute41a);
+
+                    // There is the same pointer to unmanaged memory in both nestedAttribute2 and recoveredValue[1] instances
+                    // therefore private low level attribute structure needs to be modified to prevent double free.
+                    // This special handling is needed only in this synthetic test and should be avoided in real world application.
+                    HLA41.ObjectAttribute objectAttribute41b = (HLA41.ObjectAttribute)typeof(ObjectAttribute).GetField("_objectAttribute4", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute2);
+                    LLA41.CK_ATTRIBUTE ckAttribute41b = (LLA41.CK_ATTRIBUTE)typeof(HLA41.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(objectAttribute41b);
+                    ckAttribute41b.value = IntPtr.Zero;
+                    ckAttribute41b.valueLen = 0;
+                    typeof(HLA41.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(objectAttribute41b, ckAttribute41b);
+                }
             }
             else
             {
-                // There is the same pointer to unmanaged memory in both nestedAttribute1 and recoveredValue[0] instances
-                // therefore private low level attribute structure needs to be modified to prevent double free.
-                // This special handling is needed only in this synthetic test and should be avoided in real world application.
-                HLA8.ObjectAttribute objectAttribute81 = (HLA8.ObjectAttribute)typeof(ObjectAttribute).GetField("_objectAttribute8", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute1);
-                LLA8.CK_ATTRIBUTE ckAttribute1 = (LLA8.CK_ATTRIBUTE)typeof(HLA8.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(objectAttribute81);
-                ckAttribute1.value = IntPtr.Zero;
-                ckAttribute1.valueLen = 0;
-                typeof(HLA8.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(objectAttribute81, ckAttribute1);
+                if (Platform.StructPackingSize == 0)
+                {
+                    // There is the same pointer to unmanaged memory in both nestedAttribute1 and recoveredValue[0] instances
+                    // therefore private low level attribute structure needs to be modified to prevent double free.
+                    // This special handling is needed only in this synthetic test and should be avoided in real world application.
+                    HLA80.ObjectAttribute objectAttribute80a = (HLA80.ObjectAttribute)typeof(ObjectAttribute).GetField("_objectAttribute8", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute1);
+                    LLA80.CK_ATTRIBUTE ckAttribute80a = (LLA80.CK_ATTRIBUTE)typeof(HLA80.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(objectAttribute80a);
+                    ckAttribute80a.value = IntPtr.Zero;
+                    ckAttribute80a.valueLen = 0;
+                    typeof(HLA80.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(objectAttribute80a, ckAttribute80a);
 
-                // There is the same pointer to unmanaged memory in both nestedAttribute2 and recoveredValue[1] instances
-                // therefore private low level attribute structure needs to be modified to prevent double free.
-                // This special handling is needed only in this synthetic test and should be avoided in real world application.
-                HLA8.ObjectAttribute objectAttribute82 = (HLA8.ObjectAttribute)typeof(ObjectAttribute).GetField("_objectAttribute8", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute2);
-                LLA8.CK_ATTRIBUTE ckAttribute2 = (LLA8.CK_ATTRIBUTE)typeof(HLA8.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(objectAttribute82);
-                ckAttribute2.value = IntPtr.Zero;
-                ckAttribute2.valueLen = 0;
-                typeof(HLA8.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(objectAttribute82, ckAttribute2);
+                    // There is the same pointer to unmanaged memory in both nestedAttribute2 and recoveredValue[1] instances
+                    // therefore private low level attribute structure needs to be modified to prevent double free.
+                    // This special handling is needed only in this synthetic test and should be avoided in real world application.
+                    HLA80.ObjectAttribute objectAttribute80b = (HLA80.ObjectAttribute)typeof(ObjectAttribute).GetField("_objectAttribute8", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute2);
+                    LLA80.CK_ATTRIBUTE ckAttribute80b = (LLA80.CK_ATTRIBUTE)typeof(HLA80.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(objectAttribute80b);
+                    ckAttribute80b.value = IntPtr.Zero;
+                    ckAttribute80b.valueLen = 0;
+                    typeof(HLA80.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(objectAttribute80b, ckAttribute80b);
+                }
+                else
+                {
+                    // There is the same pointer to unmanaged memory in both nestedAttribute1 and recoveredValue[0] instances
+                    // therefore private low level attribute structure needs to be modified to prevent double free.
+                    // This special handling is needed only in this synthetic test and should be avoided in real world application.
+                    HLA81.ObjectAttribute objectAttribute81a = (HLA81.ObjectAttribute)typeof(ObjectAttribute).GetField("_objectAttribute8", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute1);
+                    LLA81.CK_ATTRIBUTE ckAttribute81a = (LLA81.CK_ATTRIBUTE)typeof(HLA81.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(objectAttribute81a);
+                    ckAttribute81a.value = IntPtr.Zero;
+                    ckAttribute81a.valueLen = 0;
+                    typeof(HLA81.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(objectAttribute81a, ckAttribute81a);
+
+                    // There is the same pointer to unmanaged memory in both nestedAttribute2 and recoveredValue[1] instances
+                    // therefore private low level attribute structure needs to be modified to prevent double free.
+                    // This special handling is needed only in this synthetic test and should be avoided in real world application.
+                    HLA81.ObjectAttribute objectAttribute81b = (HLA81.ObjectAttribute)typeof(ObjectAttribute).GetField("_objectAttribute8", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute2);
+                    LLA81.CK_ATTRIBUTE ckAttribute81b = (LLA81.CK_ATTRIBUTE)typeof(HLA81.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(objectAttribute81b);
+                    ckAttribute81b.value = IntPtr.Zero;
+                    ckAttribute81b.valueLen = 0;
+                    typeof(HLA81.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(objectAttribute81b, ckAttribute81b);
+                }
             }
 
             originalValue = null;

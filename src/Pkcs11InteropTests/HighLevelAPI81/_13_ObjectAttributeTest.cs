@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI81;
 using NUnit.Framework;
-using LLA8 = Net.Pkcs11Interop.LowLevelAPI81;
+using LLA81 = Net.Pkcs11Interop.LowLevelAPI81;
 using System.Reflection;
 
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
@@ -231,7 +231,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
             // There is the same pointer to unmanaged memory in both nestedAttribute1 and recoveredValue[0] instances
             // therefore private low level attribute structure needs to be modified to prevent double free.
             // This special handling is needed only in this synthetic test and should be avoided in real world application.
-            LLA8.CK_ATTRIBUTE ckAttribute1 = (LLA8.CK_ATTRIBUTE)typeof(ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute1);
+            LLA81.CK_ATTRIBUTE ckAttribute1 = (LLA81.CK_ATTRIBUTE)typeof(ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute1);
             ckAttribute1.value = IntPtr.Zero;
             ckAttribute1.valueLen = 0;
             typeof(ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(nestedAttribute1, ckAttribute1);
@@ -239,7 +239,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
             // There is the same pointer to unmanaged memory in both nestedAttribute2 and recoveredValue[1] instances
             // therefore private low level attribute structure needs to be modified to prevent double free.
             // This special handling is needed only in this synthetic test and should be avoided in real world application.
-            LLA8.CK_ATTRIBUTE ckAttribute2 = (LLA8.CK_ATTRIBUTE)typeof(ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute2);
+            LLA81.CK_ATTRIBUTE ckAttribute2 = (LLA81.CK_ATTRIBUTE)typeof(ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute2);
             ckAttribute2.value = IntPtr.Zero;
             ckAttribute2.valueLen = 0;
             typeof(ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(nestedAttribute2, ckAttribute2);
