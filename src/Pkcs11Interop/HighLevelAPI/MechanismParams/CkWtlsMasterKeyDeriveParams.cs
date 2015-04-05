@@ -31,12 +31,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkWtlsMasterKeyDeriveParams
         /// </summary>
-        private HighLevelAPI41.MechanismParams.CkWtlsMasterKeyDeriveParams _params4 = null;
+        private HighLevelAPI40.MechanismParams.CkWtlsMasterKeyDeriveParams _params40 = null;
+
+        /// <summary>
+        /// Platform specific CkWtlsMasterKeyDeriveParams
+        /// </summary>
+        private HighLevelAPI41.MechanismParams.CkWtlsMasterKeyDeriveParams _params41 = null;
 
         /// <summary>
         /// Platform specific CkSsl3MasterKeyDeriveParams
         /// </summary>
-        private HighLevelAPI81.MechanismParams.CkWtlsMasterKeyDeriveParams _params8 = null;
+        private HighLevelAPI80.MechanismParams.CkWtlsMasterKeyDeriveParams _params80 = null;
+
+        /// <summary>
+        /// Platform specific CkSsl3MasterKeyDeriveParams
+        /// </summary>
+        private HighLevelAPI81.MechanismParams.CkWtlsMasterKeyDeriveParams _params81 = null;
         
         /// <summary>
         /// WTLS protocol version information
@@ -49,9 +59,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                     throw new ObjectDisposedException(this.GetType().FullName);
 
                 if (Platform.UnmanagedLongSize == 4)
-                    return (_params4.Version == null) ? null : new CkVersion(_params4.Version);
+                {
+                    if (Platform.StructPackingSize == 0)
+                        return (_params40.Version == null) ? null : new CkVersion(_params40.Version);
+                    else
+                        return (_params41.Version == null) ? null : new CkVersion(_params41.Version);
+                }
                 else
-                    return (_params8.Version == null) ? null : new CkVersion(_params8.Version);
+                {
+                    if (Platform.StructPackingSize == 0)
+                        return (_params80.Version == null) ? null : new CkVersion(_params80.Version);
+                    else
+                        return (_params81.Version == null) ? null : new CkVersion(_params81.Version);
+                }
             }
         }
         
@@ -75,9 +95,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             _randomInfo = randomInfo;
 
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI41.MechanismParams.CkWtlsMasterKeyDeriveParams(Convert.ToUInt32(digestMechanism), _randomInfo._params4, dh);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _params40 = new HighLevelAPI40.MechanismParams.CkWtlsMasterKeyDeriveParams(Convert.ToUInt32(digestMechanism), _randomInfo._params40, dh);
+                else
+                    _params41 = new HighLevelAPI41.MechanismParams.CkWtlsMasterKeyDeriveParams(Convert.ToUInt32(digestMechanism), _randomInfo._params41, dh);
+            }
             else
-                _params8 = new HighLevelAPI81.MechanismParams.CkWtlsMasterKeyDeriveParams(digestMechanism, _randomInfo._params8, dh);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _params80 = new HighLevelAPI80.MechanismParams.CkWtlsMasterKeyDeriveParams(digestMechanism, _randomInfo._params80, dh);
+                else
+                    _params81 = new HighLevelAPI81.MechanismParams.CkWtlsMasterKeyDeriveParams(digestMechanism, _randomInfo._params81, dh);
+            }
         }
         
         #region IMechanismParams
@@ -92,9 +122,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             if (Platform.UnmanagedLongSize == 4)
-                return _params4.ToMarshalableStructure();
+                return (Platform.StructPackingSize == 0) ? _params40.ToMarshalableStructure() : _params41.ToMarshalableStructure();
             else
-                return _params8.ToMarshalableStructure();
+                return (Platform.StructPackingSize == 0) ? _params80.ToMarshalableStructure() : _params81.ToMarshalableStructure();
         }
         
         #endregion
@@ -121,16 +151,28 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (disposing)
                 {
                     // Dispose managed objects
-                    if (_params4 != null)
+                    if (_params40 != null)
                     {
-                        _params4.Dispose();
-                        _params4 = null;
+                        _params40.Dispose();
+                        _params40 = null;
                     }
 
-                    if (_params8 != null)
+                    if (_params41 != null)
                     {
-                        _params8.Dispose();
-                        _params8 = null;
+                        _params41.Dispose();
+                        _params41 = null;
+                    }
+
+                    if (_params80 != null)
+                    {
+                        _params80.Dispose();
+                        _params80 = null;
+                    }
+
+                    if (_params81 != null)
+                    {
+                        _params81.Dispose();
+                        _params81 = null;
                     }
                 }
                 

@@ -31,12 +31,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkWtlsKeyMatOut
         /// </summary>
-        private HighLevelAPI41.MechanismParams.CkWtlsKeyMatOut _params4 = null;
+        private HighLevelAPI40.MechanismParams.CkWtlsKeyMatOut _params40 = null;
 
         /// <summary>
         /// Platform specific CkWtlsKeyMatOut
         /// </summary>
-        private HighLevelAPI81.MechanismParams.CkWtlsKeyMatOut _params8 = null;
+        private HighLevelAPI41.MechanismParams.CkWtlsKeyMatOut _params41 = null;
+
+        /// <summary>
+        /// Platform specific CkWtlsKeyMatOut
+        /// </summary>
+        private HighLevelAPI80.MechanismParams.CkWtlsKeyMatOut _params80 = null;
+
+        /// <summary>
+        /// Platform specific CkWtlsKeyMatOut
+        /// </summary>
+        private HighLevelAPI81.MechanismParams.CkWtlsKeyMatOut _params81 = null;
         
         /// <summary>
         /// Key handle for the resulting MAC secret key
@@ -48,7 +58,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (Platform.UnmanagedLongSize == 4) ? new ObjectHandle(_params4.MacSecret) : new ObjectHandle(_params8.MacSecret);
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? new ObjectHandle(_params40.MacSecret) : new ObjectHandle(_params41.MacSecret);
+                else
+                    return (Platform.StructPackingSize == 0) ? new ObjectHandle(_params80.MacSecret) : new ObjectHandle(_params81.MacSecret);
             }
         }
 
@@ -62,7 +75,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (Platform.UnmanagedLongSize == 4) ? new ObjectHandle(_params4.Key) : new ObjectHandle(_params8.Key);
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? new ObjectHandle(_params40.Key) : new ObjectHandle(_params41.Key);
+                else
+                    return (Platform.StructPackingSize == 0) ? new ObjectHandle(_params80.Key) : new ObjectHandle(_params81.Key);
             }
         }
 
@@ -76,10 +92,25 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (Platform.UnmanagedLongSize == 4) ? _params4.IV : _params8.IV;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _params40.IV : _params41.IV;
+                else
+                    return (Platform.StructPackingSize == 0) ? _params80.IV : _params81.IV;
             }
         }
-        
+
+        /// <summary>
+        /// Initializes a new instance of the CkWtlsKeyMatOut class.
+        /// </summary>
+        /// <param name='ckWtlsKeyMatOut'>Platform specific CkWtlsKeyMatOut</param>
+        internal CkWtlsKeyMatOut(HighLevelAPI40.MechanismParams.CkWtlsKeyMatOut ckWtlsKeyMatOut)
+        {
+            if (ckWtlsKeyMatOut == null)
+                throw new ArgumentNullException("ckWtlsKeyMatOut");
+
+            _params40 = ckWtlsKeyMatOut;
+        }
+
         /// <summary>
         /// Initializes a new instance of the CkWtlsKeyMatOut class.
         /// </summary>
@@ -89,7 +120,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (ckWtlsKeyMatOut == null)
                 throw new ArgumentNullException("ckWtlsKeyMatOut");
 
-            _params4 = ckWtlsKeyMatOut;
+            _params41 = ckWtlsKeyMatOut;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the CkWtlsKeyMatOut class.
+        /// </summary>
+        /// <param name='ckWtlsKeyMatOut'>Platform specific CkWtlsKeyMatOut</param>
+        internal CkWtlsKeyMatOut(HighLevelAPI80.MechanismParams.CkWtlsKeyMatOut ckWtlsKeyMatOut)
+        {
+            if (ckWtlsKeyMatOut == null)
+                throw new ArgumentNullException("ckWtlsKeyMatOut");
+
+            _params80 = ckWtlsKeyMatOut;
         }
 
         /// <summary>
@@ -101,7 +144,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (ckWtlsKeyMatOut == null)
                 throw new ArgumentNullException("ckWtlsKeyMatOut");
 
-            _params8 = ckWtlsKeyMatOut;
+            _params81 = ckWtlsKeyMatOut;
         }
 
         #region IDisposable
@@ -126,16 +169,28 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (disposing)
                 {
                     // Dispose managed objects
-                    if (_params4 != null)
+                    if (_params40 != null)
                     {
-                        _params4.Dispose();
-                        _params4 = null;
+                        _params40.Dispose();
+                        _params40 = null;
                     }
 
-                    if (_params8 != null)
+                    if (_params41 != null)
                     {
-                        _params8.Dispose();
-                        _params8 = null;
+                        _params41.Dispose();
+                        _params41 = null;
+                    }
+
+                    if (_params80 != null)
+                    {
+                        _params80.Dispose();
+                        _params80 = null;
+                    }
+
+                    if (_params81 != null)
+                    {
+                        _params81.Dispose();
+                        _params81 = null;
                     }
                 }
                 

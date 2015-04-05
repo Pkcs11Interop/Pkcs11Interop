@@ -32,12 +32,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkOtpParams
         /// </summary>
-        private HighLevelAPI41.MechanismParams.CkOtpParams _params4 = null;
+        private HighLevelAPI40.MechanismParams.CkOtpParams _params40 = null;
 
         /// <summary>
         /// Platform specific CkOtpParams
         /// </summary>
-        private HighLevelAPI81.MechanismParams.CkOtpParams _params8 = null;
+        private HighLevelAPI41.MechanismParams.CkOtpParams _params41 = null;
+
+        /// <summary>
+        /// Platform specific CkOtpParams
+        /// </summary>
+        private HighLevelAPI80.MechanismParams.CkOtpParams _params80 = null;
+
+        /// <summary>
+        /// Platform specific CkOtpParams
+        /// </summary>
+        private HighLevelAPI81.MechanismParams.CkOtpParams _params81 = null;
 
         /// <summary>
         /// Initializes a new instance of the CkOtpParams class.
@@ -47,27 +57,57 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         {
             if (Platform.UnmanagedLongSize == 4)
             {
-                List<HighLevelAPI41.MechanismParams.CkOtpParam> hlaParameters = new List<HighLevelAPI41.MechanismParams.CkOtpParam>();
-
-                if ((parameters != null) && (parameters.Count > 0))
+                if (Platform.StructPackingSize == 0)
                 {
-                    for (int i = 0; i < parameters.Count; i++)
-                        hlaParameters.Add(parameters[i]._params4);
-                }
+                    List<HighLevelAPI40.MechanismParams.CkOtpParam> hlaParameters = new List<HighLevelAPI40.MechanismParams.CkOtpParam>();
 
-                _params4 = new HighLevelAPI41.MechanismParams.CkOtpParams(hlaParameters);
+                    if ((parameters != null) && (parameters.Count > 0))
+                    {
+                        for (int i = 0; i < parameters.Count; i++)
+                            hlaParameters.Add(parameters[i]._params40);
+                    }
+
+                    _params40 = new HighLevelAPI40.MechanismParams.CkOtpParams(hlaParameters);
+                }
+                else
+                {
+                    List<HighLevelAPI41.MechanismParams.CkOtpParam> hlaParameters = new List<HighLevelAPI41.MechanismParams.CkOtpParam>();
+
+                    if ((parameters != null) && (parameters.Count > 0))
+                    {
+                        for (int i = 0; i < parameters.Count; i++)
+                            hlaParameters.Add(parameters[i]._params41);
+                    }
+
+                    _params41 = new HighLevelAPI41.MechanismParams.CkOtpParams(hlaParameters);
+                }
             }
             else
             {
-                List<HighLevelAPI81.MechanismParams.CkOtpParam> hlaParameters = new List<HighLevelAPI81.MechanismParams.CkOtpParam>();
-
-                if ((parameters != null) && (parameters.Count > 0))
+                if (Platform.StructPackingSize == 0)
                 {
-                    for (int i = 0; i < parameters.Count; i++)
-                        hlaParameters.Add(parameters[i]._params8);
-                }
+                    List<HighLevelAPI80.MechanismParams.CkOtpParam> hlaParameters = new List<HighLevelAPI80.MechanismParams.CkOtpParam>();
 
-                _params8 = new HighLevelAPI81.MechanismParams.CkOtpParams(hlaParameters);
+                    if ((parameters != null) && (parameters.Count > 0))
+                    {
+                        for (int i = 0; i < parameters.Count; i++)
+                            hlaParameters.Add(parameters[i]._params80);
+                    }
+
+                    _params80 = new HighLevelAPI80.MechanismParams.CkOtpParams(hlaParameters);
+                }
+                else
+                {
+                    List<HighLevelAPI81.MechanismParams.CkOtpParam> hlaParameters = new List<HighLevelAPI81.MechanismParams.CkOtpParam>();
+
+                    if ((parameters != null) && (parameters.Count > 0))
+                    {
+                        for (int i = 0; i < parameters.Count; i++)
+                            hlaParameters.Add(parameters[i]._params81);
+                    }
+
+                    _params81 = new HighLevelAPI81.MechanismParams.CkOtpParams(hlaParameters);
+                }
             }
         }
         
@@ -83,9 +123,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             if (Platform.UnmanagedLongSize == 4)
-                return _params4.ToMarshalableStructure();
+                return (Platform.StructPackingSize == 0) ? _params40.ToMarshalableStructure() : _params41.ToMarshalableStructure();
             else
-                return _params8.ToMarshalableStructure();
+                return (Platform.StructPackingSize == 0) ? _params80.ToMarshalableStructure() : _params81.ToMarshalableStructure();
         }
         
         #endregion
@@ -112,16 +152,28 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (disposing)
                 {
                     // Dispose managed objects
-                    if (_params4 != null)
+                    if (_params40 != null)
                     {
-                        _params4.Dispose();
-                        _params4 = null;
+                        _params40.Dispose();
+                        _params40 = null;
                     }
 
-                    if (_params8 != null)
+                    if (_params41 != null)
                     {
-                        _params8.Dispose();
-                        _params8 = null;
+                        _params41.Dispose();
+                        _params41 = null;
+                    }
+
+                    if (_params80 != null)
+                    {
+                        _params80.Dispose();
+                        _params80 = null;
+                    }
+
+                    if (_params81 != null)
+                    {
+                        _params81.Dispose();
+                        _params81 = null;
                     }
                 }
                 

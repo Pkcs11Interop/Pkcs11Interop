@@ -26,12 +26,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkVersion
         /// </summary>
-        private HighLevelAPI41.MechanismParams.CkVersion _params4 = null;
+        private HighLevelAPI40.MechanismParams.CkVersion _params40 = null;
 
         /// <summary>
         /// Platform specific CkVersion
         /// </summary>
-        private HighLevelAPI81.MechanismParams.CkVersion _params8 = null;
+        private HighLevelAPI41.MechanismParams.CkVersion _params41 = null;
+
+        /// <summary>
+        /// Platform specific CkVersion
+        /// </summary>
+        private HighLevelAPI80.MechanismParams.CkVersion _params80 = null;
+
+        /// <summary>
+        /// Platform specific CkVersion
+        /// </summary>
+        private HighLevelAPI81.MechanismParams.CkVersion _params81 = null;
 
         /// <summary>
         /// Major version number (the integer portion of the version)
@@ -40,7 +50,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _params4.Major : _params8.Major;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _params40.Major : _params41.Major;
+                else
+                    return (Platform.StructPackingSize == 0) ? _params80.Major : _params81.Major;
             }
         }
 
@@ -51,7 +64,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         {
             get
             {
-                return (Platform.UnmanagedLongSize == 4) ? _params4.Minor : _params8.Minor;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _params40.Minor : _params41.Minor;
+                else
+                    return (Platform.StructPackingSize == 0) ? _params80.Minor : _params81.Minor;
             }
         }
 
@@ -63,9 +79,31 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkVersion(byte major, byte minor)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI41.MechanismParams.CkVersion(major, minor);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _params40 = new HighLevelAPI40.MechanismParams.CkVersion(major, minor);
+                else
+                    _params41 = new HighLevelAPI41.MechanismParams.CkVersion(major, minor);
+            }
             else
-                _params8 = new HighLevelAPI81.MechanismParams.CkVersion(major, minor);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _params80 = new HighLevelAPI80.MechanismParams.CkVersion(major, minor);
+                else
+                    _params81 = new HighLevelAPI81.MechanismParams.CkVersion(major, minor);
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the CkVersion class.
+        /// </summary>
+        /// <param name='ckVersion'>Platform specific CkVersion</param>
+        internal CkVersion(HighLevelAPI40.MechanismParams.CkVersion ckVersion)
+        {
+            if (ckVersion == null)
+                throw new ArgumentNullException("ckVersion");
+
+            _params40 = ckVersion;
         }
 
         /// <summary>
@@ -77,7 +115,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (ckVersion == null)
                 throw new ArgumentNullException("ckVersion");
 
-            _params4 = ckVersion;
+            _params41 = ckVersion;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the CkVersion class.
+        /// </summary>
+        /// <param name='ckVersion'>Platform specific CkVersion</param>
+        internal CkVersion(HighLevelAPI80.MechanismParams.CkVersion ckVersion)
+        {
+            if (ckVersion == null)
+                throw new ArgumentNullException("ckVersion");
+
+            _params80 = ckVersion;
         }
 
         /// <summary>
@@ -89,7 +139,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (ckVersion == null)
                 throw new ArgumentNullException("ckVersion");
 
-            _params8 = ckVersion;
+            _params81 = ckVersion;
         }
         
         #region IMechanismParams
@@ -101,9 +151,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public object ToMarshalableStructure()
         {
             if (Platform.UnmanagedLongSize == 4)
-                return _params4.ToMarshalableStructure();
+                return (Platform.StructPackingSize == 0) ? _params40.ToMarshalableStructure() : _params41.ToMarshalableStructure();
             else
-                return _params8.ToMarshalableStructure();
+                return (Platform.StructPackingSize == 0) ? _params80.ToMarshalableStructure() : _params81.ToMarshalableStructure();
         }
         
         #endregion
@@ -117,9 +167,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             string version = null;
 
             if (Platform.UnmanagedLongSize == 4)
-                version = ConvertUtils.CkVersionToString((LowLevelAPI40.CK_VERSION)_params4.ToMarshalableStructure());
+            {
+                if (Platform.StructPackingSize == 0)
+                    version = ConvertUtils.CkVersionToString((LowLevelAPI40.CK_VERSION)_params40.ToMarshalableStructure());
+                else
+                    version = ConvertUtils.CkVersionToString((LowLevelAPI41.CK_VERSION)_params41.ToMarshalableStructure());
+            }
             else
-                version = ConvertUtils.CkVersionToString((LowLevelAPI81.CK_VERSION)_params8.ToMarshalableStructure());
+            {
+                if (Platform.StructPackingSize == 0)
+                    version = ConvertUtils.CkVersionToString((LowLevelAPI80.CK_VERSION)_params80.ToMarshalableStructure());
+                else
+                    version = ConvertUtils.CkVersionToString((LowLevelAPI81.CK_VERSION)_params81.ToMarshalableStructure());
+            }
             
             return version;
         }

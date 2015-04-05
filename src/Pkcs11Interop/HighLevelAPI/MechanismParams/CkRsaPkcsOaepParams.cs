@@ -31,12 +31,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkRsaPkcsOaepParams
         /// </summary>
-        private HighLevelAPI41.MechanismParams.CkRsaPkcsOaepParams _params4 = null;
+        private HighLevelAPI40.MechanismParams.CkRsaPkcsOaepParams _params40 = null;
 
         /// <summary>
         /// Platform specific CkRsaPkcsOaepParams
         /// </summary>
-        private HighLevelAPI81.MechanismParams.CkRsaPkcsOaepParams _params8 = null;
+        private HighLevelAPI41.MechanismParams.CkRsaPkcsOaepParams _params41 = null;
+
+        /// <summary>
+        /// Platform specific CkRsaPkcsOaepParams
+        /// </summary>
+        private HighLevelAPI80.MechanismParams.CkRsaPkcsOaepParams _params80 = null;
+
+        /// <summary>
+        /// Platform specific CkRsaPkcsOaepParams
+        /// </summary>
+        private HighLevelAPI81.MechanismParams.CkRsaPkcsOaepParams _params81 = null;
 
         /// <summary>
         /// Initializes a new instance of the CkRsaPkcsOaepParams class.
@@ -48,9 +58,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkRsaPkcsOaepParams(ulong hashAlg, ulong mgf, ulong source, byte[] sourceData)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI41.MechanismParams.CkRsaPkcsOaepParams(Convert.ToUInt32(hashAlg), Convert.ToUInt32(mgf), Convert.ToUInt32(source), sourceData);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _params40 = new HighLevelAPI40.MechanismParams.CkRsaPkcsOaepParams(Convert.ToUInt32(hashAlg), Convert.ToUInt32(mgf), Convert.ToUInt32(source), sourceData);
+                else
+                    _params41 = new HighLevelAPI41.MechanismParams.CkRsaPkcsOaepParams(Convert.ToUInt32(hashAlg), Convert.ToUInt32(mgf), Convert.ToUInt32(source), sourceData);
+            }
             else
-                _params8 = new HighLevelAPI81.MechanismParams.CkRsaPkcsOaepParams(hashAlg, mgf, source, sourceData);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _params80 = new HighLevelAPI80.MechanismParams.CkRsaPkcsOaepParams(hashAlg, mgf, source, sourceData);
+                else
+                    _params81 = new HighLevelAPI81.MechanismParams.CkRsaPkcsOaepParams(hashAlg, mgf, source, sourceData);
+            }
         }
         
         #region IMechanismParams
@@ -65,9 +85,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             if (Platform.UnmanagedLongSize == 4)
-                return _params4.ToMarshalableStructure();
+                return (Platform.StructPackingSize == 0) ? _params40.ToMarshalableStructure() : _params41.ToMarshalableStructure();
             else
-                return _params8.ToMarshalableStructure();
+                return (Platform.StructPackingSize == 0) ? _params80.ToMarshalableStructure() : _params81.ToMarshalableStructure();
         }
         
         #endregion
@@ -94,16 +114,28 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (disposing)
                 {
                     // Dispose managed objects
-                    if (_params4 != null)
+                    if (_params40 != null)
                     {
-                        _params4.Dispose();
-                        _params4 = null;
+                        _params40.Dispose();
+                        _params40 = null;
                     }
 
-                    if (_params8 != null)
+                    if (_params41 != null)
                     {
-                        _params8.Dispose();
-                        _params8 = null;
+                        _params41.Dispose();
+                        _params41 = null;
+                    }
+
+                    if (_params80 != null)
+                    {
+                        _params80.Dispose();
+                        _params80 = null;
+                    }
+
+                    if (_params81 != null)
+                    {
+                        _params81.Dispose();
+                        _params81 = null;
                     }
                 }
                 

@@ -32,12 +32,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkOtpSignatureInfo
         /// </summary>
-        private HighLevelAPI41.MechanismParams.CkOtpSignatureInfo _params4 = null;
+        private HighLevelAPI40.MechanismParams.CkOtpSignatureInfo _params40 = null;
 
         /// <summary>
         /// Platform specific CkOtpSignatureInfo
         /// </summary>
-        private HighLevelAPI81.MechanismParams.CkOtpSignatureInfo _params8 = null;
+        private HighLevelAPI41.MechanismParams.CkOtpSignatureInfo _params41 = null;
+
+        /// <summary>
+        /// Platform specific CkOtpSignatureInfo
+        /// </summary>
+        private HighLevelAPI80.MechanismParams.CkOtpSignatureInfo _params80 = null;
+
+        /// <summary>
+        /// Platform specific CkOtpSignatureInfo
+        /// </summary>
+        private HighLevelAPI81.MechanismParams.CkOtpSignatureInfo _params81 = null;
 
         /// <summary>
         /// Flag indicating whether high level list of OTP parameters left this instance
@@ -73,19 +83,41 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         {
             if (Platform.UnmanagedLongSize == 4)
             {
-                _params4 = new HighLevelAPI41.MechanismParams.CkOtpSignatureInfo(signature);
+                if (Platform.StructPackingSize == 0)
+                {
+                    _params40 = new HighLevelAPI40.MechanismParams.CkOtpSignatureInfo(signature);
 
-                IList<HighLevelAPI41.MechanismParams.CkOtpParam> hlaParams = _params4.Params;
-                for (int i = 0; i < hlaParams.Count; i++)
-                    _params.Add(new CkOtpParam(hlaParams[i]));
+                    IList<HighLevelAPI40.MechanismParams.CkOtpParam> hlaParams = _params40.Params;
+                    for (int i = 0; i < hlaParams.Count; i++)
+                        _params.Add(new CkOtpParam(hlaParams[i]));
+                }
+                else
+                {
+                    _params41 = new HighLevelAPI41.MechanismParams.CkOtpSignatureInfo(signature);
+
+                    IList<HighLevelAPI41.MechanismParams.CkOtpParam> hlaParams = _params41.Params;
+                    for (int i = 0; i < hlaParams.Count; i++)
+                        _params.Add(new CkOtpParam(hlaParams[i]));
+                }
             }
             else
             {
-                _params8 = new HighLevelAPI81.MechanismParams.CkOtpSignatureInfo(signature);
+                if (Platform.StructPackingSize == 0)
+                {
+                    _params80 = new HighLevelAPI80.MechanismParams.CkOtpSignatureInfo(signature);
 
-                IList<HighLevelAPI81.MechanismParams.CkOtpParam> hlaParams = _params8.Params;
-                for (int i = 0; i < hlaParams.Count; i++)
-                    _params.Add(new CkOtpParam(hlaParams[i]));
+                    IList<HighLevelAPI80.MechanismParams.CkOtpParam> hlaParams = _params80.Params;
+                    for (int i = 0; i < hlaParams.Count; i++)
+                        _params.Add(new CkOtpParam(hlaParams[i]));
+                }
+                else
+                {
+                    _params81 = new HighLevelAPI81.MechanismParams.CkOtpSignatureInfo(signature);
+
+                    IList<HighLevelAPI81.MechanismParams.CkOtpParam> hlaParams = _params81.Params;
+                    for (int i = 0; i < hlaParams.Count; i++)
+                        _params.Add(new CkOtpParam(hlaParams[i]));
+                }
             }
         }
 
@@ -111,16 +143,28 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (disposing)
                 {
                     // Dispose managed objects
-                    if (_params4 != null)
+                    if (_params40 != null)
                     {
-                        _params4.Dispose();
-                        _params4 = null;
+                        _params40.Dispose();
+                        _params40 = null;
                     }
 
-                    if (_params8 != null)
+                    if (_params41 != null)
                     {
-                        _params8.Dispose();
-                        _params8 = null;
+                        _params41.Dispose();
+                        _params41 = null;
+                    }
+
+                    if (_params80 != null)
+                    {
+                        _params80.Dispose();
+                        _params80 = null;
+                    }
+
+                    if (_params81 != null)
+                    {
+                        _params81.Dispose();
+                        _params81 = null;
                     }
 
                     if (_paramsLeftInstance == false)

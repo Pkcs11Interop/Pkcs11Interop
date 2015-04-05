@@ -31,12 +31,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkSsl3KeyMatParams
         /// </summary>
-        private HighLevelAPI41.MechanismParams.CkSsl3KeyMatParams _params4 = null;
+        private HighLevelAPI40.MechanismParams.CkSsl3KeyMatParams _params40 = null;
 
         /// <summary>
         /// Platform specific CkSsl3KeyMatParams
         /// </summary>
-        private HighLevelAPI81.MechanismParams.CkSsl3KeyMatParams _params8 = null;
+        private HighLevelAPI41.MechanismParams.CkSsl3KeyMatParams _params41 = null;
+
+        /// <summary>
+        /// Platform specific CkSsl3KeyMatParams
+        /// </summary>
+        private HighLevelAPI80.MechanismParams.CkSsl3KeyMatParams _params80 = null;
+
+        /// <summary>
+        /// Platform specific CkSsl3KeyMatParams
+        /// </summary>
+        private HighLevelAPI81.MechanismParams.CkSsl3KeyMatParams _params81 = null;
 
         /// <summary>
         /// Flag indicating whether object with returned key material has left this instance
@@ -61,9 +71,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (_returnedKeyMaterial == null)
                 {
                     if (Platform.UnmanagedLongSize == 4)
-                        _returnedKeyMaterial = new CkSsl3KeyMatOut(_params4.ReturnedKeyMaterial);
+                        _returnedKeyMaterial = (Platform.StructPackingSize == 0) ? new CkSsl3KeyMatOut(_params40.ReturnedKeyMaterial) : new CkSsl3KeyMatOut(_params41.ReturnedKeyMaterial);
                     else
-                        _returnedKeyMaterial = new CkSsl3KeyMatOut(_params8.ReturnedKeyMaterial);
+                        _returnedKeyMaterial = (Platform.StructPackingSize == 0) ? new CkSsl3KeyMatOut(_params80.ReturnedKeyMaterial) : new CkSsl3KeyMatOut(_params81.ReturnedKeyMaterial);
 
                     // Since now it is the caller's responsibility to dispose returned key material
                     _returnedKeyMaterialLeftInstance = true;
@@ -95,9 +105,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             _randomInfo = randomInfo;
 
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI41.MechanismParams.CkSsl3KeyMatParams(Convert.ToUInt32(macSizeInBits), Convert.ToUInt32(keySizeInBits), Convert.ToUInt32(ivSizeInBits), isExport, _randomInfo._params4);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _params40 = new HighLevelAPI40.MechanismParams.CkSsl3KeyMatParams(Convert.ToUInt32(macSizeInBits), Convert.ToUInt32(keySizeInBits), Convert.ToUInt32(ivSizeInBits), isExport, _randomInfo._params40);
+                else
+                    _params41 = new HighLevelAPI41.MechanismParams.CkSsl3KeyMatParams(Convert.ToUInt32(macSizeInBits), Convert.ToUInt32(keySizeInBits), Convert.ToUInt32(ivSizeInBits), isExport, _randomInfo._params41);
+            }
             else
-                _params8 = new HighLevelAPI81.MechanismParams.CkSsl3KeyMatParams(macSizeInBits, keySizeInBits, ivSizeInBits, isExport, _randomInfo._params8);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _params80 = new HighLevelAPI80.MechanismParams.CkSsl3KeyMatParams(macSizeInBits, keySizeInBits, ivSizeInBits, isExport, _randomInfo._params80);
+                else
+                    _params81 = new HighLevelAPI81.MechanismParams.CkSsl3KeyMatParams(macSizeInBits, keySizeInBits, ivSizeInBits, isExport, _randomInfo._params81);
+            }
         }
         
         #region IMechanismParams
@@ -112,9 +132,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             if (Platform.UnmanagedLongSize == 4)
-                return _params4.ToMarshalableStructure();
+                return (Platform.StructPackingSize == 0) ? _params40.ToMarshalableStructure() : _params41.ToMarshalableStructure();
             else
-                return _params8.ToMarshalableStructure();
+                return (Platform.StructPackingSize == 0) ? _params80.ToMarshalableStructure() : _params81.ToMarshalableStructure();
         }
         
         #endregion
@@ -141,16 +161,28 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (disposing)
                 {
                     // Dispose managed objects
-                    if (_params4 != null)
+                    if (_params40 != null)
                     {
-                        _params4.Dispose();
-                        _params4 = null;
+                        _params40.Dispose();
+                        _params40 = null;
                     }
 
-                    if (_params8 != null)
+                    if (_params41 != null)
                     {
-                        _params8.Dispose();
-                        _params8 = null;
+                        _params41.Dispose();
+                        _params41 = null;
+                    }
+
+                    if (_params80 != null)
+                    {
+                        _params80.Dispose();
+                        _params80 = null;
+                    }
+
+                    if (_params81 != null)
+                    {
+                        _params81.Dispose();
+                        _params81 = null;
                     }
 
                     if (_returnedKeyMaterialLeftInstance == false)

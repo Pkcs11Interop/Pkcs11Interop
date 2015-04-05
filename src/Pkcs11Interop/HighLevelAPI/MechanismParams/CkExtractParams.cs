@@ -26,12 +26,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkExtractParams
         /// </summary>
-        private HighLevelAPI41.MechanismParams.CkExtractParams _params4 = null;
+        private HighLevelAPI40.MechanismParams.CkExtractParams _params40 = null;
 
         /// <summary>
         /// Platform specific CkExtractParams
         /// </summary>
-        private HighLevelAPI81.MechanismParams.CkExtractParams _params8 = null;
+        private HighLevelAPI41.MechanismParams.CkExtractParams _params41 = null;
+
+        /// <summary>
+        /// Platform specific CkExtractParams
+        /// </summary>
+        private HighLevelAPI80.MechanismParams.CkExtractParams _params80 = null;
+
+        /// <summary>
+        /// Platform specific CkExtractParams
+        /// </summary>
+        private HighLevelAPI81.MechanismParams.CkExtractParams _params81 = null;
 
         /// <summary>
         /// Initializes a new instance of the CkExtractParams class.
@@ -40,9 +50,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkExtractParams(ulong bit)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI41.MechanismParams.CkExtractParams(Convert.ToUInt32(bit));
+            {
+                if (Platform.StructPackingSize == 0)
+                    _params40 = new HighLevelAPI40.MechanismParams.CkExtractParams(Convert.ToUInt32(bit));
+                else
+                    _params41 = new HighLevelAPI41.MechanismParams.CkExtractParams(Convert.ToUInt32(bit));
+            }
             else
-                _params8 = new HighLevelAPI81.MechanismParams.CkExtractParams(bit);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _params80 = new HighLevelAPI80.MechanismParams.CkExtractParams(bit);
+                else
+                    _params81 = new HighLevelAPI81.MechanismParams.CkExtractParams(bit);
+            }
         }
         
         #region IMechanismParams
@@ -54,9 +74,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public object ToMarshalableStructure()
         {
             if (Platform.UnmanagedLongSize == 4)
-                return _params4.ToMarshalableStructure();
+                return (Platform.StructPackingSize == 0) ? _params40.ToMarshalableStructure() : _params41.ToMarshalableStructure();
             else
-                return _params8.ToMarshalableStructure();
+                return (Platform.StructPackingSize == 0) ? _params80.ToMarshalableStructure() : _params81.ToMarshalableStructure();
         }
         
         #endregion

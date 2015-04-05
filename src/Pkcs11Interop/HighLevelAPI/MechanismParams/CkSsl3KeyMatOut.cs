@@ -31,12 +31,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkSsl3KeyMatOut
         /// </summary>
-        private HighLevelAPI41.MechanismParams.CkSsl3KeyMatOut _params4 = null;
+        private HighLevelAPI40.MechanismParams.CkSsl3KeyMatOut _params40 = null;
 
         /// <summary>
         /// Platform specific CkSsl3KeyMatOut
         /// </summary>
-        private HighLevelAPI81.MechanismParams.CkSsl3KeyMatOut _params8 = null;
+        private HighLevelAPI41.MechanismParams.CkSsl3KeyMatOut _params41 = null;
+
+        /// <summary>
+        /// Platform specific CkSsl3KeyMatOut
+        /// </summary>
+        private HighLevelAPI80.MechanismParams.CkSsl3KeyMatOut _params80 = null;
+
+        /// <summary>
+        /// Platform specific CkSsl3KeyMatOut
+        /// </summary>
+        private HighLevelAPI81.MechanismParams.CkSsl3KeyMatOut _params81 = null;
 
         /// <summary>
         /// Key handle for the resulting Client MAC Secret key
@@ -48,7 +58,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (Platform.UnmanagedLongSize == 4) ? new ObjectHandle(_params4.ClientMacSecret) : new ObjectHandle(_params8.ClientMacSecret);
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? new ObjectHandle(_params40.ClientMacSecret) : new ObjectHandle(_params41.ClientMacSecret);
+                else
+                    return (Platform.StructPackingSize == 0) ? new ObjectHandle(_params80.ClientMacSecret) : new ObjectHandle(_params81.ClientMacSecret);
             }
         }
 
@@ -62,7 +75,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (Platform.UnmanagedLongSize == 4) ? new ObjectHandle(_params4.ServerMacSecret) : new ObjectHandle(_params8.ServerMacSecret);
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? new ObjectHandle(_params40.ServerMacSecret) : new ObjectHandle(_params41.ServerMacSecret);
+                else
+                    return (Platform.StructPackingSize == 0) ? new ObjectHandle(_params80.ServerMacSecret) : new ObjectHandle(_params81.ServerMacSecret);
             }
         }
 
@@ -76,7 +92,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (Platform.UnmanagedLongSize == 4) ? new ObjectHandle(_params4.ClientKey) : new ObjectHandle(_params8.ClientKey);
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? new ObjectHandle(_params40.ClientKey) : new ObjectHandle(_params41.ClientKey);
+                else
+                    return (Platform.StructPackingSize == 0) ? new ObjectHandle(_params80.ClientKey) : new ObjectHandle(_params81.ClientKey);
             }
         }
 
@@ -90,7 +109,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (Platform.UnmanagedLongSize == 4) ? new ObjectHandle(_params4.ServerKey) : new ObjectHandle(_params8.ServerKey);
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? new ObjectHandle(_params40.ServerKey) : new ObjectHandle(_params41.ServerKey);
+                else
+                    return (Platform.StructPackingSize == 0) ? new ObjectHandle(_params80.ServerKey) : new ObjectHandle(_params81.ServerKey);
             }
         }
 
@@ -104,7 +126,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (Platform.UnmanagedLongSize == 4) ? _params4.IVClient : _params8.IVClient;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _params40.IVClient : _params41.IVClient;
+                else
+                    return (Platform.StructPackingSize == 0) ? _params80.IVClient : _params81.IVClient;
             }
         }
 
@@ -118,8 +143,23 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (Platform.UnmanagedLongSize == 4) ? _params4.IVServer : _params8.IVServer;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _params40.IVServer : _params41.IVServer;
+                else
+                    return (Platform.StructPackingSize == 0) ? _params80.IVServer : _params81.IVServer;
             }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the CkSsl3KeyMatOut class.
+        /// </summary>
+        /// <param name='ckSsl3KeyMatOut'>Platform specific CkSsl3KeyMatOut</param>
+        internal CkSsl3KeyMatOut(HighLevelAPI40.MechanismParams.CkSsl3KeyMatOut ckSsl3KeyMatOut)
+        {
+            if (ckSsl3KeyMatOut == null)
+                throw new ArgumentNullException("ckSsl3KeyMatOut");
+
+            _params40 = ckSsl3KeyMatOut;
         }
 
         /// <summary>
@@ -131,7 +171,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (ckSsl3KeyMatOut == null)
                 throw new ArgumentNullException("ckSsl3KeyMatOut");
 
-            _params4 = ckSsl3KeyMatOut;
+            _params41 = ckSsl3KeyMatOut;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the CkSsl3KeyMatOut class.
+        /// </summary>
+        /// <param name='ckSsl3KeyMatOut'>Platform specific CkSsl3KeyMatOut</param>
+        internal CkSsl3KeyMatOut(HighLevelAPI80.MechanismParams.CkSsl3KeyMatOut ckSsl3KeyMatOut)
+        {
+            if (ckSsl3KeyMatOut == null)
+                throw new ArgumentNullException("ckSsl3KeyMatOut");
+
+            _params80 = ckSsl3KeyMatOut;
         }
 
         /// <summary>
@@ -143,7 +195,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (ckSsl3KeyMatOut == null)
                 throw new ArgumentNullException("ckSsl3KeyMatOut");
 
-            _params8 = ckSsl3KeyMatOut;
+            _params81 = ckSsl3KeyMatOut;
         }
 
         #region IDisposable
@@ -168,16 +220,28 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (disposing)
                 {
                     // Dispose managed objects
-                    if (_params4 != null)
+                    if (_params40 != null)
                     {
-                        _params4.Dispose();
-                        _params4 = null;
+                        _params40.Dispose();
+                        _params40 = null;
                     }
 
-                    if (_params8 != null)
+                    if (_params41 != null)
                     {
-                        _params8.Dispose();
-                        _params8 = null;
+                        _params41.Dispose();
+                        _params41 = null;
+                    }
+
+                    if (_params80 != null)
+                    {
+                        _params80.Dispose();
+                        _params80 = null;
+                    }
+
+                    if (_params81 != null)
+                    {
+                        _params81.Dispose();
+                        _params81 = null;
                     }
                 }
                 

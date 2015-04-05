@@ -31,12 +31,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkOtpParam
         /// </summary>
-        internal HighLevelAPI41.MechanismParams.CkOtpParam _params4 = null;
+        internal HighLevelAPI40.MechanismParams.CkOtpParam _params40 = null;
 
         /// <summary>
         /// Platform specific CkOtpParam
         /// </summary>
-        internal HighLevelAPI81.MechanismParams.CkOtpParam _params8 = null;
+        internal HighLevelAPI41.MechanismParams.CkOtpParam _params41 = null;
+
+        /// <summary>
+        /// Platform specific CkOtpParam
+        /// </summary>
+        internal HighLevelAPI80.MechanismParams.CkOtpParam _params80 = null;
+
+        /// <summary>
+        /// Platform specific CkOtpParam
+        /// </summary>
+        internal HighLevelAPI81.MechanismParams.CkOtpParam _params81 = null;
 
         /// <summary>
         /// Parameter type
@@ -48,7 +58,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (Platform.UnmanagedLongSize == 4) ? _params4.Type : _params8.Type;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _params40.Type : _params41.Type;
+                else
+                    return (Platform.StructPackingSize == 0) ? _params80.Type : _params81.Type;
             }
         }
 
@@ -62,7 +75,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (Platform.UnmanagedLongSize == 4) ? _params4.Value : _params8.Value;
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _params40.Value : _params41.Value;
+                else
+                    return (Platform.StructPackingSize == 0) ? _params80.Value : _params81.Value;
             }
         }
 
@@ -74,9 +90,31 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkOtpParam(ulong type, byte[] value)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI41.MechanismParams.CkOtpParam(Convert.ToUInt32(type), value);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _params40 = new HighLevelAPI40.MechanismParams.CkOtpParam(Convert.ToUInt32(type), value);
+                else
+                    _params41 = new HighLevelAPI41.MechanismParams.CkOtpParam(Convert.ToUInt32(type), value);
+            }
             else
-                _params8 = new HighLevelAPI81.MechanismParams.CkOtpParam(type, value);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _params80 = new HighLevelAPI80.MechanismParams.CkOtpParam(type, value);
+                else
+                    _params81 = new HighLevelAPI81.MechanismParams.CkOtpParam(type, value);
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the CkOtpParam class.
+        /// </summary>
+        /// <param name='ckOtpParam'>Platform specific CkOtpParam</param>
+        internal CkOtpParam(HighLevelAPI40.MechanismParams.CkOtpParam ckOtpParam)
+        {
+            if (ckOtpParam == null)
+                throw new ArgumentNullException("ckOtpParam");
+
+            _params40 = ckOtpParam;
         }
 
         /// <summary>
@@ -88,7 +126,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (ckOtpParam == null)
                 throw new ArgumentNullException("ckOtpParam");
             
-            _params4 = ckOtpParam;
+            _params41 = ckOtpParam;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the CkOtpParam class.
+        /// </summary>
+        /// <param name='ckOtpParam'>Platform specific CkOtpParam</param>
+        internal CkOtpParam(HighLevelAPI80.MechanismParams.CkOtpParam ckOtpParam)
+        {
+            if (ckOtpParam == null)
+                throw new ArgumentNullException("ckOtpParam");
+
+            _params80 = ckOtpParam;
         }
 
         /// <summary>
@@ -100,7 +150,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (ckOtpParam == null)
                 throw new ArgumentNullException("ckOtpParam");
             
-            _params8 = ckOtpParam;
+            _params81 = ckOtpParam;
         }
 
         #region IMechanismParams
@@ -115,9 +165,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             if (Platform.UnmanagedLongSize == 4)
-                return _params4.ToMarshalableStructure();
+                return (Platform.StructPackingSize == 0) ? _params40.ToMarshalableStructure() : _params41.ToMarshalableStructure();
             else
-                return _params8.ToMarshalableStructure();
+                return (Platform.StructPackingSize == 0) ? _params80.ToMarshalableStructure() : _params81.ToMarshalableStructure();
         }
         
         #endregion
@@ -144,16 +194,28 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
                 if (disposing)
                 {
                     // Dispose managed objects
-                    if (_params4 != null)
+                    if (_params40 != null)
                     {
-                        _params4.Dispose();
-                        _params4 = null;
+                        _params40.Dispose();
+                        _params40 = null;
                     }
 
-                    if (_params8 != null)
+                    if (_params41 != null)
                     {
-                        _params8.Dispose();
-                        _params8 = null;
+                        _params41.Dispose();
+                        _params41 = null;
+                    }
+
+                    if (_params80 != null)
+                    {
+                        _params80.Dispose();
+                        _params80 = null;
+                    }
+
+                    if (_params81 != null)
+                    {
+                        _params81.Dispose();
+                        _params81 = null;
                     }
                 }
                 

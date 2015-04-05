@@ -26,12 +26,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkRc2MacGeneralParams
         /// </summary>
-        private HighLevelAPI41.MechanismParams.CkRc2MacGeneralParams _params4 = null;
+        private HighLevelAPI40.MechanismParams.CkRc2MacGeneralParams _params40 = null;
 
         /// <summary>
         /// Platform specific CkRc2MacGeneralParams
         /// </summary>
-        private HighLevelAPI81.MechanismParams.CkRc2MacGeneralParams _params8 = null;
+        private HighLevelAPI41.MechanismParams.CkRc2MacGeneralParams _params41 = null;
+
+        /// <summary>
+        /// Platform specific CkRc2MacGeneralParams
+        /// </summary>
+        private HighLevelAPI80.MechanismParams.CkRc2MacGeneralParams _params80 = null;
+
+        /// <summary>
+        /// Platform specific CkRc2MacGeneralParams
+        /// </summary>
+        private HighLevelAPI81.MechanismParams.CkRc2MacGeneralParams _params81 = null;
         
         /// <summary>
         /// Initializes a new instance of the CkRc2MacGeneralParams class.
@@ -41,9 +51,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public CkRc2MacGeneralParams(ulong effectiveBits, ulong macLength)
         {
             if (Platform.UnmanagedLongSize == 4)
-                _params4 = new HighLevelAPI41.MechanismParams.CkRc2MacGeneralParams(Convert.ToUInt32(effectiveBits), Convert.ToUInt32(macLength));
+            {
+                if (Platform.StructPackingSize == 0)
+                    _params40 = new HighLevelAPI40.MechanismParams.CkRc2MacGeneralParams(Convert.ToUInt32(effectiveBits), Convert.ToUInt32(macLength));
+                else
+                    _params41 = new HighLevelAPI41.MechanismParams.CkRc2MacGeneralParams(Convert.ToUInt32(effectiveBits), Convert.ToUInt32(macLength));
+            }
             else
-                _params8 = new HighLevelAPI81.MechanismParams.CkRc2MacGeneralParams(effectiveBits, macLength);
+            {
+                if (Platform.StructPackingSize == 0)
+                    _params80 = new HighLevelAPI80.MechanismParams.CkRc2MacGeneralParams(effectiveBits, macLength);
+                else
+                    _params81 = new HighLevelAPI81.MechanismParams.CkRc2MacGeneralParams(effectiveBits, macLength);
+            }
         }
         
         #region IMechanismParams
@@ -55,9 +75,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         public object ToMarshalableStructure()
         {
             if (Platform.UnmanagedLongSize == 4)
-                return _params4.ToMarshalableStructure();
+                return (Platform.StructPackingSize == 0) ? _params40.ToMarshalableStructure() : _params41.ToMarshalableStructure();
             else
-                return _params8.ToMarshalableStructure();
+                return (Platform.StructPackingSize == 0) ? _params80.ToMarshalableStructure() : _params81.ToMarshalableStructure();
         }
         
         #endregion
