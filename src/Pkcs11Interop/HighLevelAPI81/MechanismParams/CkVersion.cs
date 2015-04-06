@@ -79,7 +79,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <returns>String that represents the current CkVersion object.</returns>
         public override string ToString()
         {
-            return ConvertUtils.CkVersionToString(_lowLevelStruct);
+            return _lowLevelStruct.ToString();
         }
     }
 }

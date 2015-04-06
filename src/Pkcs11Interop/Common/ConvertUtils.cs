@@ -189,46 +189,6 @@ namespace Net.Pkcs11Interop.Common
         }
 
         /// <summary>
-        /// Converts CK_VERSION to string
-        /// </summary>
-        /// <param name='ck_version'>CK_VERSION structure that should be converted.</param>
-        /// <returns>String with version information.</returns>
-        public static string CkVersionToString(LowLevelAPI40.CK_VERSION ck_version)
-        {
-            return string.Format("{0}.{1}", ck_version.Major[0], ck_version.Minor[0]);
-        }
-
-        /// <summary>
-        /// Converts CK_VERSION to string
-        /// </summary>
-        /// <param name='ck_version'>CK_VERSION structure that should be converted.</param>
-        /// <returns>String with version information.</returns>
-        public static string CkVersionToString(LowLevelAPI41.CK_VERSION ck_version)
-        {
-            return string.Format("{0}.{1}", ck_version.Major[0], ck_version.Minor[0]);
-        }
-
-        /// <summary>
-        /// Converts CK_VERSION to string
-        /// </summary>
-        /// <param name='ck_version'>CK_VERSION structure that should be converted.</param>
-        /// <returns>String with version information.</returns>
-        public static string CkVersionToString(LowLevelAPI80.CK_VERSION ck_version)
-        {
-            return string.Format("{0}.{1}", ck_version.Major[0], ck_version.Minor[0]);
-        }
-
-        /// <summary>
-        /// Converts CK_VERSION to string
-        /// </summary>
-        /// <param name='ck_version'>CK_VERSION structure that should be converted.</param>
-        /// <returns>String with version information.</returns>
-        public static string CkVersionToString(LowLevelAPI81.CK_VERSION ck_version)
-        {
-            return string.Format("{0}.{1}", ck_version.Major[0], ck_version.Minor[0]);
-        }
-
-        /// <summary>
         /// Converts string with UTC time to DateTime
         /// </summary>
         /// <param name='utcTime'>UTC time that should be converted (formatted as string of length 16 represented in the format YYYYMMDDhhmmssxx).</param>

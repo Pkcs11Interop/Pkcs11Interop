@@ -366,8 +366,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             _freePublicMemory = ck_token_info.FreePublicMemory;
             _totalPrivateMemory = ck_token_info.TotalPrivateMemory;
             _freePrivateMemory = ck_token_info.FreePrivateMemory;
-            _hardwareVersion = ConvertUtils.CkVersionToString(ck_token_info.HardwareVersion);
-            _firmwareVersion = ConvertUtils.CkVersionToString(ck_token_info.FirmwareVersion);
+            _hardwareVersion = ck_token_info.HardwareVersion.ToString();
+            _firmwareVersion = ck_token_info.FirmwareVersion.ToString();
             _utcTimeString = ConvertUtils.BytesToUtf8String(ck_token_info.UtcTime, true);
 
             try

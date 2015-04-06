@@ -129,8 +129,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             _slotDescription = ConvertUtils.BytesToUtf8String(ck_slot_info.SlotDescription, true);
             _manufacturerId = ConvertUtils.BytesToUtf8String(ck_slot_info.ManufacturerId, true);
             _slotFlags = new SlotFlags(ck_slot_info.Flags);
-            _hardwareVersion = ConvertUtils.CkVersionToString(ck_slot_info.HardwareVersion);
-            _firmwareVersion = ConvertUtils.CkVersionToString(ck_slot_info.FirmwareVersion);
+            _hardwareVersion = ck_slot_info.HardwareVersion.ToString();
+            _firmwareVersion = ck_slot_info.FirmwareVersion.ToString();
         }
     }
 }

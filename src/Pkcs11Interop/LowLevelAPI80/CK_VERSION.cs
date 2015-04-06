@@ -39,5 +39,14 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </summary>
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1)]
         public byte[] Minor;
+
+        /// <summary>
+        /// Returns a string that represents the current CK_VERSION structure.
+        /// </summary>
+        /// <returns>String that represents the current CK_VERSION structure.</returns>
+        public override string ToString()
+        {
+            return string.Format("{0}.{1}", Major[0], Minor[0]);
+        }
     }
 }

@@ -37,7 +37,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
 
             string manufacturer = ConvertUtils.BytesToUtf8String(libraryInfo.ManufacturerId, true);
             string description = ConvertUtils.BytesToUtf8String(libraryInfo.LibraryDescription, true);
-            string version = ConvertUtils.CkVersionToString(libraryInfo.LibraryVersion);
+            string version = libraryInfo.LibraryVersion.ToString();
 
             return Pkcs11UriSharedUtils.Matches(pkcs11Uri, manufacturer, description, version);
         }

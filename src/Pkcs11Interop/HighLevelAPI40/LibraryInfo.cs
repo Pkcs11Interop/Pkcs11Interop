@@ -108,11 +108,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <param name="ck_info">Low level CK_INFO structure</param>
         internal LibraryInfo(LowLevelAPI40.CK_INFO ck_info)
         {
-            _cryptokiVersion = ConvertUtils.CkVersionToString(ck_info.CryptokiVersion);
+            _cryptokiVersion = ck_info.CryptokiVersion.ToString();
             _manufacturerId = ConvertUtils.BytesToUtf8String(ck_info.ManufacturerId, true);
             _flags = ck_info.Flags;
             _libraryDescription = ConvertUtils.BytesToUtf8String(ck_info.LibraryDescription, true);
-            _libraryVersion = ConvertUtils.CkVersionToString(ck_info.LibraryVersion);
+            _libraryVersion = ck_info.LibraryVersion.ToString();
         }
     }
 }

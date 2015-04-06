@@ -402,7 +402,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                 Pkcs11UriBuilder pkcs11UriBuilder = new Pkcs11UriBuilder();
                 pkcs11UriBuilder.LibraryManufacturer = ConvertUtils.BytesToUtf8String(libraryInfo.ManufacturerId, true);
                 pkcs11UriBuilder.LibraryDescription = ConvertUtils.BytesToUtf8String(libraryInfo.LibraryDescription, true);
-                pkcs11UriBuilder.LibraryVersion = ConvertUtils.CkVersionToString(libraryInfo.LibraryVersion);
+                pkcs11UriBuilder.LibraryVersion = libraryInfo.LibraryVersion.ToString();
                 pkcs11UriBuilder.SlotManufacturer = ConvertUtils.BytesToUtf8String(slotInfo.ManufacturerId, true);
                 pkcs11UriBuilder.SlotDescription = ConvertUtils.BytesToUtf8String(slotInfo.SlotDescription, true);
                 pkcs11UriBuilder.SlotId = allSlots[0];

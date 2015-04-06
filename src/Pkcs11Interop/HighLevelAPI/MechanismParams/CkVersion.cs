@@ -169,16 +169,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
             if (Platform.UnmanagedLongSize == 4)
             {
                 if (Platform.StructPackingSize == 0)
-                    version = ConvertUtils.CkVersionToString((LowLevelAPI40.CK_VERSION)_params40.ToMarshalableStructure());
+                    version = ((LowLevelAPI40.CK_VERSION)_params40.ToMarshalableStructure()).ToString();
                 else
-                    version = ConvertUtils.CkVersionToString((LowLevelAPI41.CK_VERSION)_params41.ToMarshalableStructure());
+                    version = ((LowLevelAPI41.CK_VERSION)_params41.ToMarshalableStructure()).ToString();
             }
             else
             {
                 if (Platform.StructPackingSize == 0)
-                    version = ConvertUtils.CkVersionToString((LowLevelAPI80.CK_VERSION)_params80.ToMarshalableStructure());
+                    version = ((LowLevelAPI80.CK_VERSION)_params80.ToMarshalableStructure()).ToString();
                 else
-                    version = ConvertUtils.CkVersionToString((LowLevelAPI81.CK_VERSION)_params81.ToMarshalableStructure());
+                    version = ((LowLevelAPI81.CK_VERSION)_params81.ToMarshalableStructure()).ToString();
             }
             
             return version;
