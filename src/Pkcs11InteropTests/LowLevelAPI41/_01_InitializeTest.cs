@@ -24,7 +24,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
     /// Pkcs11 construct, dispose, initialize and finalize tests.
     /// </summary>
     [TestFixture()]
-    public class _01_InitializeTest
+    public partial class _01_InitializeTest
     {
         /// <summary>
         /// Basic construct and dispose test.

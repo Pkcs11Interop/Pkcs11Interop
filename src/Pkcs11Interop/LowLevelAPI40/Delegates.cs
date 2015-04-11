@@ -223,6 +223,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     internal delegate CKR C_WaitForSlotEventDelegate(uint flags, ref uint slot, IntPtr reserved);
 
+#if TESTING_WITH_PKCS11_MOCK
+
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    internal delegate CKR C_GetUnmanagedStructSizeListDelegate(uint[] sizeList, ref uint count);
+
+#endif
+
     /// <summary>
     /// Holds delegates for all PKCS#11 functions
     /// </summary>
