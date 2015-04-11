@@ -685,8 +685,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                 }
                 else
                 {
-                    List<HighLevelAPI80.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI80List(attributes);
-                    _session80.FindObjectsInit(hlaAttributes);
+                    List<HighLevelAPI81.ObjectAttribute> hlaAttributes = ObjectAttribute.ConvertToHighLevelAPI81List(attributes);
+                    _session81.FindObjectsInit(hlaAttributes);
                 }
             }
         }
@@ -2202,9 +2202,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             else
             {
                 if (Platform.StructPackingSize == 0)
-                    _session81.SeedRandom(seed);
-                else
                     _session80.SeedRandom(seed);
+                else
+                    _session81.SeedRandom(seed);
             }
         }
 
