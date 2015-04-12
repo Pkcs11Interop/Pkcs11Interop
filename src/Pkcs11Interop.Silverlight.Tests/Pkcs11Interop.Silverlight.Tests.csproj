@@ -528,6 +528,9 @@
     <Compile Include="..\Pkcs11InteropTests\LowLevelAPI40\_01_InitializeTest.cs">
       <Link>LowLevelAPI40\_01_InitializeTest.cs</Link>
     </Compile>
+    <Compile Include="..\Pkcs11InteropTests\LowLevelAPI40\_01b_InitializeTest.cs">
+      <Link>LowLevelAPI40\_01b_InitializeTest.cs</Link>
+    </Compile>
     <Compile Include="..\Pkcs11InteropTests\LowLevelAPI40\_02_GetInfoTest.cs">
       <Link>LowLevelAPI40\_02_GetInfoTest.cs</Link>
     </Compile>
@@ -617,6 +620,9 @@
     </Compile>
     <Compile Include="..\Pkcs11InteropTests\LowLevelAPI41\_01_InitializeTest.cs">
       <Link>LowLevelAPI41\_01_InitializeTest.cs</Link>
+    </Compile>
+    <Compile Include="..\Pkcs11InteropTests\LowLevelAPI41\_01b_InitializeTest.cs">
+      <Link>LowLevelAPI41\_01b_InitializeTest.cs</Link>
     </Compile>
     <Compile Include="..\Pkcs11InteropTests\LowLevelAPI41\_02_GetInfoTest.cs">
       <Link>LowLevelAPI41\_02_GetInfoTest.cs</Link>
@@ -708,6 +714,9 @@
     <Compile Include="..\Pkcs11InteropTests\LowLevelAPI80\_01_InitializeTest.cs">
       <Link>LowLevelAPI80\_01_InitializeTest.cs</Link>
     </Compile>
+    <Compile Include="..\Pkcs11InteropTests\LowLevelAPI80\_01b_InitializeTest.cs">
+      <Link>LowLevelAPI80\_01b_InitializeTest.cs</Link>
+    </Compile>
     <Compile Include="..\Pkcs11InteropTests\LowLevelAPI80\_02_GetInfoTest.cs">
       <Link>LowLevelAPI80\_02_GetInfoTest.cs</Link>
     </Compile>
@@ -797,6 +806,9 @@
     </Compile>
     <Compile Include="..\Pkcs11InteropTests\LowLevelAPI81\_01_InitializeTest.cs">
       <Link>LowLevelAPI81\_01_InitializeTest.cs</Link>
+    </Compile>
+    <Compile Include="..\Pkcs11InteropTests\LowLevelAPI81\_01b_InitializeTest.cs">
+      <Link>LowLevelAPI81\_01b_InitializeTest.cs</Link>
     </Compile>
     <Compile Include="..\Pkcs11InteropTests\LowLevelAPI81\_02_GetInfoTest.cs">
       <Link>LowLevelAPI81\_02_GetInfoTest.cs</Link>
@@ -891,6 +903,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Pkcs11InteropTests\README.txt">
+      <Link>README.txt</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -911,11 +928,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\InBrowserSettings.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Pkcs11InteropTests\README.txt">
-      <Link>README.txt</Link>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
