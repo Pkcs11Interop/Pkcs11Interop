@@ -1236,8 +1236,17 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            IntPtr cGetUnmanagedStructSizeListPtr = UnmanagedLibrary.GetFunctionPointer(_libraryHandle, "C_GetUnmanagedStructSizeList");
-            C_GetUnmanagedStructSizeListDelegate cGetUnmanagedStructSizeList = (C_GetUnmanagedStructSizeListDelegate)Marshal.GetDelegateForFunctionPointer(cGetUnmanagedStructSizeListPtr, typeof(C_GetUnmanagedStructSizeListDelegate));
+            C_GetUnmanagedStructSizeListDelegate cGetUnmanagedStructSizeList = null;
+
+            if (_libraryHandle != IntPtr.Zero)
+            {
+                IntPtr cGetUnmanagedStructSizeListPtr = UnmanagedLibrary.GetFunctionPointer (_libraryHandle, "C_GetUnmanagedStructSizeList");
+                cGetUnmanagedStructSizeList = (C_GetUnmanagedStructSizeListDelegate)Marshal.GetDelegateForFunctionPointer (cGetUnmanagedStructSizeListPtr, typeof(C_GetUnmanagedStructSizeListDelegate));
+            }
+            else
+            {
+                cGetUnmanagedStructSizeList = NativeMethods.C_GetUnmanagedStructSizeList;
+            }
 
             return cGetUnmanagedStructSizeList(sizeList, ref count);
         }
