@@ -36,7 +36,7 @@ namespace Net.Pkcs11Interop.Common
             if (pkcs11Uri == null)
                 throw new ArgumentNullException("pkcs11Uri");
 
-            if (pkcs11Uri.UnknownPathAttributes != null)
+            if (pkcs11Uri.UnknownPathAttributes.Count > 0)
                 return false;
 
             if (!SimpleStringsMatch(pkcs11Uri.LibraryManufacturer, libraryManufacturer))
@@ -64,7 +64,7 @@ namespace Net.Pkcs11Interop.Common
             if (pkcs11Uri == null)
                 throw new ArgumentNullException("pkcs11Uri");
 
-            if (pkcs11Uri.UnknownPathAttributes != null)
+            if (pkcs11Uri.UnknownPathAttributes.Count > 0)
                 return false;
 
             if (!SimpleStringsMatch(pkcs11Uri.SlotManufacturer, slotManufacturer))
@@ -93,7 +93,7 @@ namespace Net.Pkcs11Interop.Common
             if (pkcs11Uri == null)
                 throw new ArgumentNullException("pkcs11Uri");
 
-            if (pkcs11Uri.UnknownPathAttributes != null)
+            if (pkcs11Uri.UnknownPathAttributes.Count > 0)
                 return false;
 
             if (!SimpleStringsMatch(pkcs11Uri.Token, tokenLabel))
@@ -124,7 +124,7 @@ namespace Net.Pkcs11Interop.Common
             if (pkcs11Uri == null)
                 throw new ArgumentNullException("pkcs11Uri");
 
-            if (pkcs11Uri.UnknownPathAttributes != null)
+            if (pkcs11Uri.UnknownPathAttributes.Count > 0)
                 return false;
 
             if (!ObjectTypesMatch(pkcs11Uri.Type, ckaClass))

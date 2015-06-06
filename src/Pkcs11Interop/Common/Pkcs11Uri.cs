@@ -342,7 +342,7 @@ namespace Net.Pkcs11Interop.Common
         /// <summary>
         /// Collection of unknown vendor specific path attributes
         /// </summary>
-        private Dictionary<string, string> _unknownPathAttributes = null;
+        private Dictionary<string, string> _unknownPathAttributes = new Dictionary<string,string>();
 
         /// <summary>
         /// Collection of unknown vendor specific path attributes
@@ -426,7 +426,7 @@ namespace Net.Pkcs11Interop.Common
         /// <summary>
         /// Collection of unknown vendor specific query attributes
         /// </summary>
-        private Dictionary<string, List<string>> _unknownQueryAttributes = null;
+        private Dictionary<string, List<string>> _unknownQueryAttributes = new Dictionary<string,List<string>>();
 
         /// <summary>
         /// Collection of unknown vendor specific query attributes
@@ -864,9 +864,6 @@ namespace Net.Pkcs11Interop.Common
                         attributeValue = ConvertUtils.BytesToUtf8String(vendorAttrValue);
                     }
 
-                    if (_unknownPathAttributes == null)
-                        _unknownPathAttributes = new Dictionary<string, string>();
-
                     if (_unknownPathAttributes.ContainsKey(attributeName))
                         throw new Pkcs11UriException("Duplicate attribute " + attributeName + " found in the path component");
                     else
@@ -972,9 +969,6 @@ namespace Net.Pkcs11Interop.Common
                         byte[] vendorAttrValue = DecodePk11String(attributeName, attributeValue, Pkcs11UriSpec.Pk11QueryAttrValueChars, true);
                         attributeValue = ConvertUtils.BytesToUtf8String(vendorAttrValue);
                     }
-
-                    if (_unknownQueryAttributes == null)
-                        _unknownQueryAttributes = new Dictionary<string, List<string>>();
 
                     if (_unknownQueryAttributes.ContainsKey(attributeName))
                         _unknownQueryAttributes[attributeName].Add(attributeValue);

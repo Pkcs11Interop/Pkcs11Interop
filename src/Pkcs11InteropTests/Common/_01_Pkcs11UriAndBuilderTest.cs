@@ -132,8 +132,8 @@ namespace Net.Pkcs11Interop.Tests.Common
             Assert.IsTrue(pkcs11uri.DefinesLibrary == false);
             Assert.IsTrue(pkcs11uri.DefinesToken == false);
             Assert.IsTrue(pkcs11uri.DefinesObject == false);
-            Assert.IsTrue(pkcs11uri.UnknownPathAttributes == null);
-            Assert.IsTrue(pkcs11uri.UnknownQueryAttributes == null);
+            Assert.IsTrue(pkcs11uri.UnknownPathAttributes.Count == 0);
+            Assert.IsTrue(pkcs11uri.UnknownQueryAttributes.Count == 0);
             Assert.IsTrue(pkcs11uri.LibraryManufacturer == null);
             Assert.IsTrue(pkcs11uri.LibraryDescription == null);
             Assert.IsTrue(pkcs11uri.LibraryVersion == null);
@@ -191,8 +191,8 @@ namespace Net.Pkcs11Interop.Tests.Common
             Assert.IsTrue(pkcs11uri.DefinesLibrary == true);
             Assert.IsTrue(pkcs11uri.DefinesToken == true);
             Assert.IsTrue(pkcs11uri.DefinesObject == true);
-            Assert.IsTrue(pkcs11uri.UnknownPathAttributes == null);
-            Assert.IsTrue(pkcs11uri.UnknownQueryAttributes == null);
+            Assert.IsTrue(pkcs11uri.UnknownPathAttributes.Count == 0);
+            Assert.IsTrue(pkcs11uri.UnknownQueryAttributes.Count == 0);
             Assert.IsTrue(pkcs11uri.LibraryManufacturer == "foo");
             Assert.IsTrue(pkcs11uri.LibraryDescription == "bar");
             Assert.IsTrue(pkcs11uri.LibraryVersion == "1.0");
@@ -233,8 +233,8 @@ namespace Net.Pkcs11Interop.Tests.Common
             Assert.IsTrue(pkcs11uri.DefinesLibrary == false);
             Assert.IsTrue(pkcs11uri.DefinesToken == false);
             Assert.IsTrue(pkcs11uri.DefinesObject == false);
-            Assert.IsTrue(pkcs11uri.UnknownPathAttributes == null);
-            Assert.IsTrue(pkcs11uri.UnknownQueryAttributes == null);
+            Assert.IsTrue(pkcs11uri.UnknownPathAttributes.Count == 0);
+            Assert.IsTrue(pkcs11uri.UnknownQueryAttributes.Count == 0);
             Assert.IsTrue(pkcs11uri.LibraryManufacturer == null);
             Assert.IsTrue(pkcs11uri.LibraryDescription == null);
             Assert.IsTrue(pkcs11uri.LibraryVersion == null);
@@ -285,8 +285,8 @@ namespace Net.Pkcs11Interop.Tests.Common
             Assert.IsTrue(pkcs11uri.DefinesLibrary == true);
             Assert.IsTrue(pkcs11uri.DefinesToken == true);
             Assert.IsTrue(pkcs11uri.DefinesObject == true);
-            Assert.IsTrue(pkcs11uri.UnknownPathAttributes == null);
-            Assert.IsTrue(pkcs11uri.UnknownQueryAttributes == null);
+            Assert.IsTrue(pkcs11uri.UnknownPathAttributes.Count == 0);
+            Assert.IsTrue(pkcs11uri.UnknownQueryAttributes.Count == 0);
             Assert.IsTrue(pkcs11uri.LibraryManufacturer == "foo");
             Assert.IsTrue(pkcs11uri.LibraryDescription == "bar");
             Assert.IsTrue(pkcs11uri.LibraryVersion == "1.0");
@@ -387,8 +387,8 @@ type=private;object=foo;id=%62%61%72    ?    module-path=foo&module-name=bar&pin
             Assert.IsTrue(pkcs11uri.DefinesLibrary == true);
             Assert.IsTrue(pkcs11uri.DefinesToken == true);
             Assert.IsTrue(pkcs11uri.DefinesObject == true);
-            Assert.IsTrue(pkcs11uri.UnknownPathAttributes == null);
-            Assert.IsTrue(pkcs11uri.UnknownQueryAttributes == null);
+            Assert.IsTrue(pkcs11uri.UnknownPathAttributes.Count == 0);
+            Assert.IsTrue(pkcs11uri.UnknownQueryAttributes.Count == 0);
             Assert.IsTrue(pkcs11uri.LibraryManufacturer == "foo");
             Assert.IsTrue(pkcs11uri.LibraryDescription == "bar");
             Assert.IsTrue(pkcs11uri.LibraryVersion == "1.0");
@@ -431,8 +431,8 @@ sollicitudin bibendum.";
             Assert.IsTrue(pkcs11uri.DefinesLibrary == true);
             Assert.IsTrue(pkcs11uri.DefinesToken == true);
             Assert.IsTrue(pkcs11uri.DefinesObject == true);
-            Assert.IsTrue(pkcs11uri.UnknownPathAttributes == null);
-            Assert.IsTrue(pkcs11uri.UnknownQueryAttributes == null);
+            Assert.IsTrue(pkcs11uri.UnknownPathAttributes.Count == 0);
+            Assert.IsTrue(pkcs11uri.UnknownQueryAttributes.Count == 0);
             Assert.IsTrue(pkcs11uri.LibraryManufacturer == "foo");
             Assert.IsTrue(pkcs11uri.LibraryDescription == "bar");
             Assert.IsTrue(pkcs11uri.LibraryVersion == "1.0");
@@ -475,8 +475,8 @@ sollicitudin bibendum.";
             Assert.IsTrue(pkcs11uri.DefinesLibrary == true);
             Assert.IsTrue(pkcs11uri.DefinesToken == true);
             Assert.IsTrue(pkcs11uri.DefinesObject == true);
-            Assert.IsTrue(pkcs11uri.UnknownPathAttributes == null);
-            Assert.IsTrue(pkcs11uri.UnknownQueryAttributes == null);
+            Assert.IsTrue(pkcs11uri.UnknownPathAttributes.Count == 0);
+            Assert.IsTrue(pkcs11uri.UnknownQueryAttributes.Count == 0);
             Assert.IsTrue(pkcs11uri.LibraryManufacturer == "foo");
             Assert.IsTrue(pkcs11uri.LibraryDescription == "bar");
             Assert.IsTrue(pkcs11uri.LibraryVersion == "1.0");
@@ -2057,7 +2057,6 @@ sollicitudin bibendum.";
             {
                 // Build URI
                 Pkcs11UriBuilder pkcs11UriBuilder = new Pkcs11UriBuilder();
-                pkcs11UriBuilder.UnknownPathAttributes = new Dictionary<string, string>();
                 pkcs11UriBuilder.UnknownPathAttributes.Add(string.Empty, _pk11PathChars + _unicodeChar);
                 Assert.IsTrue(uri == pkcs11UriBuilder.ToString());
                 Assert.Fail("Exception expected but not thrown");
@@ -2088,7 +2087,6 @@ sollicitudin bibendum.";
             {
                 // Build URI
                 Pkcs11UriBuilder pkcs11UriBuilder = new Pkcs11UriBuilder();
-                pkcs11UriBuilder.UnknownPathAttributes = new Dictionary<string, string>();
                 pkcs11UriBuilder.UnknownPathAttributes.Add(".", _pk11PathChars + _unicodeChar);
                 Assert.IsTrue(uri == pkcs11UriBuilder.ToString());
                 Assert.Fail("Exception expected but not thrown");
@@ -2117,7 +2115,6 @@ sollicitudin bibendum.";
 
             // Build URI
             Pkcs11UriBuilder pkcs11UriBuilder = new Pkcs11UriBuilder();
-            pkcs11UriBuilder.UnknownPathAttributes = new Dictionary<string, string>();
             pkcs11UriBuilder.UnknownPathAttributes.Add(_pk11VendorAttrNameChars, _pk11PathChars + _unicodeChar);
             Assert.IsTrue(uri == pkcs11UriBuilder.ToString());
 
@@ -2127,7 +2124,7 @@ sollicitudin bibendum.";
             Assert.IsTrue(pkcs11uri.DefinesSlot == false);
             Assert.IsTrue(pkcs11uri.DefinesToken == false);
             Assert.IsTrue(pkcs11uri.DefinesObject == false);
-            Assert.IsTrue(pkcs11uri.UnknownPathAttributes != null && pkcs11uri.UnknownPathAttributes.Count == 1);
+            Assert.IsTrue(pkcs11uri.UnknownPathAttributes.Count == 1);
             Assert.IsTrue(pkcs11uri.UnknownPathAttributes[_pk11VendorAttrNameChars] == _pk11PathChars + _unicodeChar);
         }
         
@@ -2157,7 +2154,6 @@ sollicitudin bibendum.";
 
             // Build URI
             Pkcs11UriBuilder pkcs11UriBuilder = new Pkcs11UriBuilder();
-            pkcs11UriBuilder.UnknownPathAttributes = new Dictionary<string, string>();
             pkcs11UriBuilder.UnknownPathAttributes.Add("vendor", string.Empty);
             Assert.IsTrue(uri == pkcs11UriBuilder.ToString());
 
@@ -2167,7 +2163,7 @@ sollicitudin bibendum.";
             Assert.IsTrue(pkcs11uri.DefinesSlot == false);
             Assert.IsTrue(pkcs11uri.DefinesToken == false);
             Assert.IsTrue(pkcs11uri.DefinesObject == false);
-            Assert.IsTrue(pkcs11uri.UnknownPathAttributes != null && pkcs11uri.UnknownPathAttributes.Count == 1);
+            Assert.IsTrue(pkcs11uri.UnknownPathAttributes.Count == 1);
             Assert.IsTrue(pkcs11uri.UnknownPathAttributes["vendor"] == string.Empty);
         }
 
@@ -2527,7 +2523,6 @@ sollicitudin bibendum.";
             {
                 // Build URI
                 Pkcs11UriBuilder pkcs11UriBuilder = new Pkcs11UriBuilder();
-                pkcs11UriBuilder.UnknownQueryAttributes = new Dictionary<string, List<string>>();
                 pkcs11UriBuilder.UnknownQueryAttributes.Add(string.Empty, new List<string> { _pk11QueryChars + _unicodeChar });
                 Assert.IsTrue(uri == pkcs11UriBuilder.ToString());
                 Assert.Fail("Exception expected but not thrown");
@@ -2558,7 +2553,6 @@ sollicitudin bibendum.";
             {
                 // Build URI
                 Pkcs11UriBuilder pkcs11UriBuilder = new Pkcs11UriBuilder();
-                pkcs11UriBuilder.UnknownQueryAttributes = new Dictionary<string, List<string>>();
                 pkcs11UriBuilder.UnknownQueryAttributes.Add(".", new List<string> { _pk11QueryChars + _unicodeChar });
                 Assert.IsTrue(uri == pkcs11UriBuilder.ToString());
                 Assert.Fail("Exception expected but not thrown");
@@ -2587,7 +2581,6 @@ sollicitudin bibendum.";
 
             // Build URI
             Pkcs11UriBuilder pkcs11UriBuilder = new Pkcs11UriBuilder();
-            pkcs11UriBuilder.UnknownQueryAttributes = new Dictionary<string, List<string>>();
             pkcs11UriBuilder.UnknownQueryAttributes.Add(_pk11VendorAttrNameChars, new List<string> { _pk11QueryChars + _unicodeChar });
             Assert.IsTrue(uri == pkcs11UriBuilder.ToString());
 
@@ -2597,7 +2590,7 @@ sollicitudin bibendum.";
             Assert.IsTrue(pkcs11uri.DefinesSlot == false);
             Assert.IsTrue(pkcs11uri.DefinesToken == false);
             Assert.IsTrue(pkcs11uri.DefinesObject == false);
-            Assert.IsTrue(pkcs11uri.UnknownQueryAttributes != null && pkcs11uri.UnknownQueryAttributes.Count == 1);
+            Assert.IsTrue(pkcs11uri.UnknownQueryAttributes.Count == 1);
             Assert.IsTrue(pkcs11uri.UnknownQueryAttributes[_pk11VendorAttrNameChars].Count == 1);
             Assert.IsTrue(pkcs11uri.UnknownQueryAttributes[_pk11VendorAttrNameChars][0] == _pk11QueryChars + _unicodeChar);
         }
@@ -2628,7 +2621,6 @@ sollicitudin bibendum.";
 
             // Build URI
             Pkcs11UriBuilder pkcs11UriBuilder = new Pkcs11UriBuilder();
-            pkcs11UriBuilder.UnknownQueryAttributes = new Dictionary<string, List<string>>();
             pkcs11UriBuilder.UnknownQueryAttributes.Add("vendor", new List<string> { string.Empty });
             Assert.IsTrue(uri == pkcs11UriBuilder.ToString());
 
@@ -2638,7 +2630,7 @@ sollicitudin bibendum.";
             Assert.IsTrue(pkcs11uri.DefinesSlot == false);
             Assert.IsTrue(pkcs11uri.DefinesToken == false);
             Assert.IsTrue(pkcs11uri.DefinesObject == false);
-            Assert.IsTrue(pkcs11uri.UnknownQueryAttributes != null && pkcs11uri.UnknownQueryAttributes.Count == 1);
+            Assert.IsTrue(pkcs11uri.UnknownQueryAttributes.Count == 1);
             Assert.IsTrue(pkcs11uri.UnknownQueryAttributes["vendor"].Count == 1);
             Assert.IsTrue(pkcs11uri.UnknownQueryAttributes["vendor"][0] == string.Empty);
         }
@@ -2650,7 +2642,6 @@ sollicitudin bibendum.";
 
             // Build URI
             Pkcs11UriBuilder pkcs11UriBuilder = new Pkcs11UriBuilder();
-            pkcs11UriBuilder.UnknownQueryAttributes = new Dictionary<string, List<string>>();
             pkcs11UriBuilder.UnknownQueryAttributes.Add("vendor", new List<string> { "foo", "bar" });
             Assert.IsTrue(uri == pkcs11UriBuilder.ToString());
 
@@ -2659,7 +2650,7 @@ sollicitudin bibendum.";
             Assert.IsTrue(pkcs11uri.DefinesLibrary == false);
             Assert.IsTrue(pkcs11uri.DefinesToken == false);
             Assert.IsTrue(pkcs11uri.DefinesObject == false);
-            Assert.IsTrue(pkcs11uri.UnknownQueryAttributes != null && pkcs11uri.UnknownQueryAttributes.Count == 1);
+            Assert.IsTrue(pkcs11uri.UnknownQueryAttributes.Count == 1);
             Assert.IsTrue(pkcs11uri.UnknownQueryAttributes["vendor"].Count == 2);
             Assert.IsTrue(pkcs11uri.UnknownQueryAttributes["vendor"][0] == "foo");
             Assert.IsTrue(pkcs11uri.UnknownQueryAttributes["vendor"][1] == "bar");

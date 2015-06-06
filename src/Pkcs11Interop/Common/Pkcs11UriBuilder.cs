@@ -676,7 +676,7 @@ namespace Net.Pkcs11Interop.Common
         /// <summary>
         /// Collection of unknown vendor specific path attributes that is validated when ToString() or ToPkcs11Uri() method is called
         /// </summary>
-        private Dictionary<string, string> _unknownPathAttributes = null;
+        private Dictionary<string, string> _unknownPathAttributes = new Dictionary<string,string>();
 
         /// <summary>
         /// Collection of unknown vendor specific path attributes that is validated when ToString() or ToPkcs11Uri() method is called
@@ -874,7 +874,7 @@ namespace Net.Pkcs11Interop.Common
         /// <summary>
         /// Collection of unknown vendor specific query attributes that is validated when ToString() or ToPkcs11Uri() method is called
         /// </summary>
-        private Dictionary<string, List<string>> _unknownQueryAttributes = null;
+        private Dictionary<string, List<string>> _unknownQueryAttributes = new Dictionary<string,List<string>>();
 
         /// <summary>
         /// Collection of unknown vendor specific query attributes that is validated when ToString() or ToPkcs11Uri() method is called
@@ -978,7 +978,7 @@ namespace Net.Pkcs11Interop.Common
             if (_idEncoded != null)
                 pathAttributes.Add(Pkcs11UriSpec.Pk11Id + Pkcs11UriSpec.Pk11PathAttributeNameAndValueSeparator + _idEncoded);
             // Vendor specific attributes
-            if (_unknownPathAttributes != null)
+            if (_unknownPathAttributes != null && _unknownPathAttributes.Count > 0)
                 pathAttributes.AddRange(EncodeUnknownPathAttributes());
 
             List<string> queryAttributes = new List<string>();
@@ -993,7 +993,7 @@ namespace Net.Pkcs11Interop.Common
             if (_pinSourceEncoded != null)
                 queryAttributes.Add(Pkcs11UriSpec.Pk11PinSource + Pkcs11UriSpec.Pk11QueryAttributeNameAndValueSeparator + _pinSourceEncoded);
             // Vendor specific attributes
-            if (_unknownQueryAttributes != null)
+            if (_unknownQueryAttributes != null && _unknownQueryAttributes.Count > 0)
                 queryAttributes.AddRange(EncodeUnknownQueryAttributes());
 
             string path = string.Join(Pkcs11UriSpec.Pk11PathAttributesSeparator, pathAttributes.ToArray());
