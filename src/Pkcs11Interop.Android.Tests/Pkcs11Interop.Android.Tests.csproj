@@ -73,6 +73,9 @@
     <Compile Include="..\Pkcs11InteropTests\Common\_01_Pkcs11UriAndBuilderTest.cs">
       <Link>Common\_01_Pkcs11UriAndBuilderTest.cs</Link>
     </Compile>
+    <Compile Include="..\Pkcs11InteropTests\Common\_02_CustomExceptionsTest.cs">
+      <Link>Common\_02_CustomExceptionsTest.cs</Link>
+    </Compile>
     <Compile Include="..\Pkcs11InteropTests\HighLevelAPI40\Helpers.cs">
       <Link>HighLevelAPI40\Helpers.cs</Link>
     </Compile>
