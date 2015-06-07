@@ -21,7 +21,9 @@ namespace Net.Pkcs11Interop.Common
     /// <summary>
     /// Exception indicating that Pkcs11Interop is being used on an unsupported platform
     /// </summary>
+#if !SILVERLIGHT
     [Serializable]
+#endif
     public class UnsupportedPlatformException : Exception
     {
         /// <summary>
@@ -34,6 +36,7 @@ namespace Net.Pkcs11Interop.Common
 
         }
 
+#if !SILVERLIGHT
         /// <summary>
         /// Initializes new instance of UnsupportedPlatformException class with serialized data
         /// </summary>
@@ -44,5 +47,6 @@ namespace Net.Pkcs11Interop.Common
         {
 
         }
+#endif
     }
 }

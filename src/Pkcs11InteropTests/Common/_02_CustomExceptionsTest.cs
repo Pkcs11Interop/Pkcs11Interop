@@ -13,6 +13,8 @@
  *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
+#if !SILVERLIGHT
+
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Net.Pkcs11Interop.Common;
@@ -119,3 +121,5 @@ namespace Net.Pkcs11Interop.Tests.Common
         }
     }
 }
+
+#endif

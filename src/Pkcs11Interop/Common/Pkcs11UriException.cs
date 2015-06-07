@@ -21,7 +21,9 @@ namespace Net.Pkcs11Interop.Common
     /// <summary>
     /// Exception that indicates error in PKCS#11 URI parsing or building process
     /// </summary>
+#if !SILVERLIGHT
     [Serializable]
+#endif
     public class Pkcs11UriException : Exception
     {
         /// <summary>
@@ -45,6 +47,7 @@ namespace Net.Pkcs11Interop.Common
 
         }
 
+#if !SILVERLIGHT
         /// <summary>
         /// Initializes new instance of Pkcs11UriException class with serialized data
         /// </summary>
@@ -55,5 +58,6 @@ namespace Net.Pkcs11Interop.Common
         {
 
         }
+#endif
     }
 }

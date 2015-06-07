@@ -22,7 +22,9 @@ namespace Net.Pkcs11Interop.Common
     /// <summary>
     /// Exception indicating that unmanaged function has returned error
     /// </summary>
+#if !SILVERLIGHT
     [Serializable]
+#endif
     public class UnmanagedException : Exception
     {
         /// <summary>
@@ -62,6 +64,7 @@ namespace Net.Pkcs11Interop.Common
             _errorCode = errorCode;
         }
 
+#if !SILVERLIGHT
         /// <summary>
         /// Initializes new instance of UnmanagedException class with serialized data
         /// </summary>
@@ -95,5 +98,6 @@ namespace Net.Pkcs11Interop.Common
 
             base.GetObjectData(info, context);
         }
+#endif
     }
 }

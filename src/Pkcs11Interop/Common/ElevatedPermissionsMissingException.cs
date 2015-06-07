@@ -21,7 +21,9 @@ namespace Net.Pkcs11Interop.Common
     /// <summary>
     /// Exception indicating that Silverlight version of Pkcs11Interop is missing elevated trust
     /// </summary>
+#if !SILVERLIGHT
     [Serializable]
+#endif
     public class ElevatedPermissionsMissingException : Exception
     {
         /// <summary>
@@ -34,6 +36,7 @@ namespace Net.Pkcs11Interop.Common
 
         }
 
+#if !SILVERLIGHT
         /// <summary>
         /// Initializes new instance of ElevatedPermissionsMissingException class with serialized data
         /// </summary>
@@ -44,5 +47,6 @@ namespace Net.Pkcs11Interop.Common
         {
 
         }
+#endif
     }
 }
