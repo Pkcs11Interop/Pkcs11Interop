@@ -14,12 +14,15 @@
  */
 
 using System;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
 
 namespace Net.Pkcs11Interop.Common
 {
     /// <summary>
     /// Exception indicating that unmanaged function has returned error
     /// </summary>
+    [Serializable]
     public class UnmanagedException : Exception
     {
         /// <summary>
@@ -57,6 +60,40 @@ namespace Net.Pkcs11Interop.Common
             : base(message)
         {
             _errorCode = errorCode;
+        }
+
+        /// <summary>
+        /// Initializes new instance of UnmanagedException class with serialized data
+        /// </summary>
+        /// <param name="info">SerializationInfo that holds the serialized object data about the exception being thrown</param>
+        /// <param name="context">StreamingContext that contains contextual information about the source or destination</param>
+        protected UnmanagedException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+            if (info != null)
+            {
+                bool errorCodeSet = info.GetBoolean("ErrorCodeSet");
+                if (errorCodeSet)
+                    _errorCode = info.GetInt32("ErrorCode");
+            }
+        }
+
+        /// <summary>
+        /// Populates a SerializationInfo with the data needed to serialize the target object
+        /// </summary>
+        /// <param name="info">SerializationInfo to populate with data</param>
+        /// <param name="context">The destination for this serialization</param>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            if (info != null)
+            {
+                bool errorCodeSet = (_errorCode != null);
+                info.AddValue("ErrorCodeSet", errorCodeSet);
+                if (errorCodeSet)
+                    info.AddValue("ErrorCode", _errorCode.Value);
+            }
+
+            base.GetObjectData(info, context);
         }
     }
 }

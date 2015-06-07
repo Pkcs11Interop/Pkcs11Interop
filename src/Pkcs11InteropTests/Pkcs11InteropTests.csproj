@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="Common\Helpers.cs" />
     <Compile Include="Common\_01_Pkcs11UriAndBuilderTest.cs" />
+    <Compile Include="Common\_02_CustomExceptionsTest.cs" />
     <Compile Include="HighLevelAPI40\Helpers.cs" />
     <Compile Include="HighLevelAPI40\_01_InitializeTest.cs" />
     <Compile Include="HighLevelAPI40\_02_GetInfoTest.cs" />

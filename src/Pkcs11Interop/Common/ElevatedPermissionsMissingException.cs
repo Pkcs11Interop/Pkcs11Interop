@@ -14,12 +14,14 @@
  */
 
 using System;
+using System.Runtime.Serialization;
 
 namespace Net.Pkcs11Interop.Common
 {
     /// <summary>
     /// Exception indicating that Silverlight version of Pkcs11Interop is missing elevated trust
     /// </summary>
+    [Serializable]
     public class ElevatedPermissionsMissingException : Exception
     {
         /// <summary>
@@ -28,6 +30,17 @@ namespace Net.Pkcs11Interop.Common
         /// <param name="message">Message that describes the error</param>
         public ElevatedPermissionsMissingException(string message)
             : base(message)
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes new instance of ElevatedPermissionsMissingException class with serialized data
+        /// </summary>
+        /// <param name="info">SerializationInfo that holds the serialized object data about the exception being thrown</param>
+        /// <param name="context">StreamingContext that contains contextual information about the source or destination</param>
+        protected ElevatedPermissionsMissingException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
         {
 
         }

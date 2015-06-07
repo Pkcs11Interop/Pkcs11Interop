@@ -14,12 +14,15 @@
  */
 
 using System;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
 
 namespace Net.Pkcs11Interop.Common
 {
     /// <summary>
     /// Exception with the name of PKCS#11 method that failed and its return value
     /// </summary>
+    [Serializable]
     public class Pkcs11Exception : Exception
     {
         /// <summary>
@@ -64,6 +67,37 @@ namespace Net.Pkcs11Interop.Common
         {
             _method = method;
             _rv = rv;
+        }
+
+        /// <summary>
+        /// Initializes new instance of Pkcs11Exception class with serialized data
+        /// </summary>
+        /// <param name="info">SerializationInfo that holds the serialized object data about the exception being thrown</param>
+        /// <param name="context">StreamingContext that contains contextual information about the source or destination</param>
+        protected Pkcs11Exception(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+            if (info != null)
+            {
+                _method = info.GetString("Method");
+                _rv = (CKR)info.GetUInt32("RV");
+            }
+        }
+
+        /// <summary>
+        /// Populates a SerializationInfo with the data needed to serialize the target object
+        /// </summary>
+        /// <param name="info">SerializationInfo to populate with data</param>
+        /// <param name="context">The destination for this serialization</param>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            if (info != null)
+            {
+                info.AddValue("Method", _method);
+                info.AddValue("RV", _rv);
+            }
+
+            base.GetObjectData(info, context);
         }
     }
 }
