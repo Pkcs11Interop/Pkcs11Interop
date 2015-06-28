@@ -30,9 +30,31 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         private HighLevelAPI40.Slot _slot40 = null;
 
         /// <summary>
+        /// Platform specific Slot. Use with caution!
+        /// </summary>
+        public HighLevelAPI40.Slot HLA40Slot
+        {
+            get
+            {
+                return _slot40;
+            }
+        }
+
+        /// <summary>
         /// Platform specific Slot
         /// </summary>
         private HighLevelAPI41.Slot _slot41 = null;
+
+        /// <summary>
+        /// Platform specific Slot. Use with caution!
+        /// </summary>
+        public HighLevelAPI41.Slot HLA41Slot
+        {
+            get
+            {
+                return _slot41;
+            }
+        }
 
         /// <summary>
         /// Platform specific Slot
@@ -40,9 +62,31 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         private HighLevelAPI80.Slot _slot80 = null;
 
         /// <summary>
+        /// Platform specific Slot. Use with caution!
+        /// </summary>
+        public HighLevelAPI80.Slot HLA80Slot
+        {
+            get
+            {
+                return _slot80;
+            }
+        }
+
+        /// <summary>
         /// Platform specific Slot
         /// </summary>
         private HighLevelAPI81.Slot _slot81 = null;
+
+        /// <summary>
+        /// Platform specific Slot. Use with caution!
+        /// </summary>
+        public HighLevelAPI81.Slot HLA81Slot
+        {
+            get
+            {
+                return _slot81;
+            }
+        }
 
         /// <summary>
         /// PKCS#11 handle of slot

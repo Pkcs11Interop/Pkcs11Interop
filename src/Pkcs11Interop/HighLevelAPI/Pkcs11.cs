@@ -30,9 +30,34 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         private bool _disposed = false;
 
         /// <summary>
+        /// Flag indicating whether instance has been disposed
+        /// </summary>
+        public bool Disposed
+        {
+            get
+            {
+                return _disposed;
+            }
+        }
+
+        /// <summary>
         /// Platform specific high level PKCS#11 wrapper
         /// </summary>
         private HighLevelAPI40.Pkcs11 _p11_40 = null;
+
+        /// <summary>
+        /// Platform specific high level PKCS#11 wrapper. Use with caution!
+        /// </summary>
+        public HighLevelAPI40.Pkcs11 HLA40Pkcs11
+        {
+            get
+            {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
+                return _p11_40;
+            }
+        }
 
         /// <summary>
         /// Platform specific high level PKCS#11 wrapper
@@ -40,14 +65,56 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         private HighLevelAPI41.Pkcs11 _p11_41 = null;
 
         /// <summary>
+        /// Platform specific high level PKCS#11 wrapper. Use with caution!
+        /// </summary>
+        public HighLevelAPI41.Pkcs11 HLA41Pkcs11
+        {
+            get
+            {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
+                return _p11_41;
+            }
+        }
+
+        /// <summary>
         /// Platform specific high level PKCS#11 wrapper
         /// </summary>
         private HighLevelAPI80.Pkcs11 _p11_80 = null;
 
         /// <summary>
+        /// Platform specific high level PKCS#11 wrapper. Use with caution!
+        /// </summary>
+        public HighLevelAPI80.Pkcs11 HLA80Pkcs11
+        {
+            get
+            {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
+                return _p11_80;
+            }
+        }
+
+        /// <summary>
         /// Platform specific high level PKCS#11 wrapper
         /// </summary>
         private HighLevelAPI81.Pkcs11 _p11_81 = null;
+
+        /// <summary>
+        /// Platform specific high level PKCS#11 wrapper. Use with caution!
+        /// </summary>
+        public HighLevelAPI81.Pkcs11 HLA81Pkcs11
+        {
+            get
+            {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
+                return _p11_81;
+            }
+        }
 
         /// <summary>
         /// Loads and initializes PCKS#11 library

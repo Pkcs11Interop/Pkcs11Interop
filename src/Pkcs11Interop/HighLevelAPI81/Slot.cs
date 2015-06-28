@@ -30,6 +30,17 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         private LowLevelAPI81.Pkcs11 _p11 = null;
 
         /// <summary>
+        /// Low level PKCS#11 wrapper. Use with caution!
+        /// </summary>
+        public LowLevelAPI81.Pkcs11 LowLevelPkcs11
+        {
+            get
+            {
+                return _p11;
+            }
+        }
+
+        /// <summary>
         /// PKCS#11 handle of slot
         /// </summary>
         private ulong _slotId = 0;

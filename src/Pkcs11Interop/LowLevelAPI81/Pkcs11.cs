@@ -30,9 +30,34 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         private bool _disposed = false;
 
         /// <summary>
+        /// Flag indicating whether instance has been disposed
+        /// </summary>
+        public bool Disposed
+        {
+            get
+            {
+                return _disposed;
+            }
+        }
+
+        /// <summary>
         /// Handle to the PKCS#11 library
         /// </summary>
         private IntPtr _libraryHandle = IntPtr.Zero;
+
+        /// <summary>
+        /// Handle to the PKCS#11 library. Use with caution!
+        /// </summary>
+        public IntPtr LibraryHandle
+        {
+            get
+            {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
+                return _libraryHandle;
+            }
+        }
 
         /// <summary>
         /// Delegates for PKCS#11 functions

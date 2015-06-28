@@ -31,9 +31,34 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         private bool _disposed = false;
 
         /// <summary>
+        /// Flag indicating whether instance has been disposed
+        /// </summary>
+        public bool Disposed
+        {
+            get
+            {
+                return _disposed;
+            }
+        }
+
+        /// <summary>
         /// Platform specific Session
         /// </summary>
         private HighLevelAPI40.Session _session40 = null;
+
+        /// <summary>
+        /// Platform specific Session. Use with caution!
+        /// </summary>
+        public HighLevelAPI40.Session HLA40Session
+        {
+            get
+            {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
+                return _session40;
+            }
+        }
 
         /// <summary>
         /// Platform specific Session
@@ -41,14 +66,56 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         private HighLevelAPI41.Session _session41 = null;
 
         /// <summary>
+        /// Platform specific Session. Use with caution!
+        /// </summary>
+        public HighLevelAPI41.Session HLA41Session
+        {
+            get
+            {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
+                return _session41;
+            }
+        }
+
+        /// <summary>
         /// Platform specific Session
         /// </summary>
         private HighLevelAPI80.Session _session80 = null;
 
         /// <summary>
+        /// Platform specific Session. Use with caution!
+        /// </summary>
+        public HighLevelAPI80.Session HLA80Session
+        {
+            get
+            {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
+                return _session80;
+            }
+        }
+
+        /// <summary>
         /// Platform specific Session
         /// </summary>
         private HighLevelAPI81.Session _session81 = null;
+
+        /// <summary>
+        /// Platform specific Session. Use with caution!
+        /// </summary>
+        public HighLevelAPI81.Session HLA81Session
+        {
+            get
+            {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
+                return _session81;
+            }
+        }
 
         /// <summary>
         /// PKCS#11 handle of session

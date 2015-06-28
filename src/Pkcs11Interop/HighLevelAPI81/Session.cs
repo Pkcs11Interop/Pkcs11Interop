@@ -31,9 +31,34 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         private bool _disposed = false;
 
         /// <summary>
+        /// Flag indicating whether instance has been disposed
+        /// </summary>
+        public bool Disposed
+        {
+            get
+            {
+                return _disposed;
+            }
+        }
+
+        /// <summary>
         /// Low level PKCS#11 wrapper
         /// </summary>
         private LowLevelAPI81.Pkcs11 _p11 = null;
+
+        /// <summary>
+        /// Low level PKCS#11 wrapper. Use with caution!
+        /// </summary>
+        public LowLevelAPI81.Pkcs11 LowLevelPkcs11
+        {
+            get
+            {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
+                return _p11;
+            }
+        }
 
         /// <summary>
         /// PKCS#11 handle of session
