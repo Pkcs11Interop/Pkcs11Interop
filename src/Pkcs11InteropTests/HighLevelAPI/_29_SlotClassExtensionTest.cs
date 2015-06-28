@@ -263,7 +263,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
     /// Tests the possibility to extend Slot classes with a vendor specific function
     /// </summary>
     [TestFixture()]
-    public class _29_SlotClassExtensionsTest
+    public class _29_SlotClassExtensionTest
     {
         /// <summary>
         /// C_EjectToken vendor specific function test
