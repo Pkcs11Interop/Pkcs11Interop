@@ -356,13 +356,13 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
     /// Tests the possibility to extend Pkcs11 classes with a vendor specific function
     /// </summary>
     [TestFixture()]
-    public partial class _28_Pkcs11ClassExtensionTest
+    public class _28_Pkcs11ClassExtensionTest
     {
         /// <summary>
         /// C_GetUnmanagedStructSizeList vendor specific function test
         /// </summary>
         [Test()]
-        public void _01_LibraryInfoMatches()
+        public void _01_StructSizeListTest()
         {
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
             {
