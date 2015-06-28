@@ -299,6 +299,7 @@
     <Compile Include="HighLevelAPI\_27b_Pkcs11UriUtilsTest.cs" />
     <Compile Include="HighLevelAPI\_27_Pkcs11UriUtilsTest.cs" />
     <Compile Include="HighLevelAPI\_28_Pkcs11ClassExtensionTest.cs" />
+    <Compile Include="HighLevelAPI\_30_SessionClassExtensionTest.cs" />
     <Compile Include="LowLevelAPI40\Helpers.cs" />
     <Compile Include="LowLevelAPI40\_01_InitializeTest.cs" />
     <Compile Include="LowLevelAPI40\_02_GetInfoTest.cs" />
