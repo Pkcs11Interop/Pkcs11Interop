@@ -141,10 +141,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         /// </summary>
         private static class NativeMethods
         {
-            [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+            [DllImport("__Internal", EntryPoint = "C_EjectToken", CallingConvention = CallingConvention.Cdecl)]
             internal static extern CKR C_EjectToken4x(uint slotId);
 
-            [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+            [DllImport("__Internal", EntryPoint = "C_EjectToken", CallingConvention = CallingConvention.Cdecl)]
             internal static extern CKR C_EjectToken8x(ulong slotId);
         }
 

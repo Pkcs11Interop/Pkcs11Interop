@@ -141,10 +141,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         /// </summary>
         private static class NativeMethods
         {
-            [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+            [DllImport("__Internal", EntryPoint = "C_InteractiveLogin", CallingConvention = CallingConvention.Cdecl)]
             internal static extern CKR C_InteractiveLogin4x(uint session);
 
-            [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+            [DllImport("__Internal", EntryPoint = "C_InteractiveLogin", CallingConvention = CallingConvention.Cdecl)]
             internal static extern CKR C_InteractiveLogin8x(ulong session);
         }
 
