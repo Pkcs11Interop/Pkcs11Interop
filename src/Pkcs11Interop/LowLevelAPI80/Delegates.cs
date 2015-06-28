@@ -223,13 +223,6 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     internal delegate CKR C_WaitForSlotEventDelegate(ulong flags, ref ulong slot, IntPtr reserved);
 
-#if TESTING_WITH_PKCS11_MOCK
-
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_GetUnmanagedStructSizeListDelegate(ulong[] sizeList, ref ulong count);
-
-#endif
-
     /// <summary>
     /// Holds delegates for all PKCS#11 functions
     /// </summary>

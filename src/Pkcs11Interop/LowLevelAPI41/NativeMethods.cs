@@ -224,12 +224,5 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
     
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
         internal static extern CKR C_WaitForSlotEvent(uint flags, ref uint slot, IntPtr reserved);
-
-#if TESTING_WITH_PKCS11_MOCK
-
-        [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern CKR C_GetUnmanagedStructSizeList(uint[] sizeList, ref uint count);
-
-#endif
     }
 }

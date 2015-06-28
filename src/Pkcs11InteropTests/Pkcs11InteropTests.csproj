@@ -41,6 +41,7 @@
     <Compile Include="Common\Helpers.cs" />
     <Compile Include="Common\_01_Pkcs11UriAndBuilderTest.cs" />
     <Compile Include="Common\_02_CustomExceptionsTest.cs" />
+    <Compile Include="ExtensionAttribute.cs" />
     <Compile Include="HighLevelAPI40\Helpers.cs" />
     <Compile Include="HighLevelAPI40\_01_InitializeTest.cs" />
     <Compile Include="HighLevelAPI40\_02_GetInfoTest.cs" />
@@ -296,8 +297,8 @@
     <Compile Include="HighLevelAPI\_26_LegacyParallelFunctionsTest.cs" />
     <Compile Include="HighLevelAPI\_27b_Pkcs11UriUtilsTest.cs" />
     <Compile Include="HighLevelAPI\_27_Pkcs11UriUtilsTest.cs" />
+    <Compile Include="HighLevelAPI\_28_Pkcs11ClassExtensionTest.cs" />
     <Compile Include="LowLevelAPI40\Helpers.cs" />
-    <Compile Include="LowLevelAPI40\_01b_InitializeTest.cs" />
     <Compile Include="LowLevelAPI40\_01_InitializeTest.cs" />
     <Compile Include="LowLevelAPI40\_02_GetInfoTest.cs" />
     <Compile Include="LowLevelAPI40\_03_SlotListInfoAndEventTest.cs" />
@@ -328,7 +329,6 @@
     <Compile Include="LowLevelAPI40\_28b_Pkcs11UriUtilsTest.cs" />
     <Compile Include="LowLevelAPI40\_28_Pkcs11UriUtilsTest.cs" />
     <Compile Include="LowLevelAPI41\Helpers.cs" />
-    <Compile Include="LowLevelAPI41\_01b_InitializeTest.cs" />
     <Compile Include="LowLevelAPI41\_01_InitializeTest.cs" />
     <Compile Include="LowLevelAPI41\_02_GetInfoTest.cs" />
     <Compile Include="LowLevelAPI41\_03_SlotListInfoAndEventTest.cs" />
@@ -359,7 +359,6 @@
     <Compile Include="LowLevelAPI41\_28b_Pkcs11UriUtilsTest.cs" />
     <Compile Include="LowLevelAPI41\_28_Pkcs11UriUtilsTest.cs" />
     <Compile Include="LowLevelAPI80\Helpers.cs" />
-    <Compile Include="LowLevelAPI80\_01b_InitializeTest.cs" />
     <Compile Include="LowLevelAPI80\_01_InitializeTest.cs" />
     <Compile Include="LowLevelAPI80\_02_GetInfoTest.cs" />
     <Compile Include="LowLevelAPI80\_03_SlotListInfoAndEventTest.cs" />
@@ -390,7 +389,6 @@
     <Compile Include="LowLevelAPI80\_28b_Pkcs11UriUtilsTest.cs" />
     <Compile Include="LowLevelAPI80\_28_Pkcs11UriUtilsTest.cs" />
     <Compile Include="LowLevelAPI81\Helpers.cs" />
-    <Compile Include="LowLevelAPI81\_01b_InitializeTest.cs" />
     <Compile Include="LowLevelAPI81\_01_InitializeTest.cs" />
     <Compile Include="LowLevelAPI81\_02_GetInfoTest.cs" />
     <Compile Include="LowLevelAPI81\_03_SlotListInfoAndEventTest.cs" />
