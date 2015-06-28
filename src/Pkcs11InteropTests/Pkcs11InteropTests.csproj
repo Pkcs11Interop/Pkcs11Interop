@@ -267,6 +267,7 @@
     <Compile Include="HighLevelAPI81\_27b_Pkcs11UriUtilsTest.cs" />
     <Compile Include="HighLevelAPI81\_27_Pkcs11UriUtilsTest.cs" />
     <Compile Include="HighLevelAPI\Helpers.cs" />
+    <Compile Include="HighLevelAPI\_29_SlotClassExtensionsTest.cs" />
     <Compile Include="HighLevelAPI\_01_InitializeTest.cs" />
     <Compile Include="HighLevelAPI\_02_GetInfoTest.cs" />
     <Compile Include="HighLevelAPI\_03_SlotListInfoAndEventTest.cs" />
