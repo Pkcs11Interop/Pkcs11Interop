@@ -33,7 +33,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI81.MechanismParams.CK_WTLS_MASTER_KEY_DERIVE_PARAMS _lowLevelStruct = new LowLevelAPI81.MechanismParams.CK_WTLS_MASTER_KEY_DERIVE_PARAMS();
+        private CK_WTLS_MASTER_KEY_DERIVE_PARAMS _lowLevelStruct = new CK_WTLS_MASTER_KEY_DERIVE_PARAMS();
         
         /// <summary>
         /// WTLS protocol version information
@@ -50,7 +50,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
                 if (_lowLevelStruct.Version != IntPtr.Zero)
                 {
                     CK_VERSION ckVersion = new CK_VERSION();
-                    Common.UnmanagedMemory.Read(_lowLevelStruct.Version, ckVersion);
+                    UnmanagedMemory.Read(_lowLevelStruct.Version, ckVersion);
                     version = new CkVersion(ckVersion.Major[0], ckVersion.Minor[0]);
                 }
                 
@@ -79,7 +79,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 
             _lowLevelStruct.DigestMechanism = digestMechanism;
             _lowLevelStruct.RandomInfo = (CK_WTLS_RANDOM_DATA)_randomInfo.ToMarshalableStructure();
-            _lowLevelStruct.Version = (dh) ? IntPtr.Zero : Common.UnmanagedMemory.Allocate(Common.UnmanagedMemory.SizeOf(typeof(CK_VERSION)));
+            _lowLevelStruct.Version = (dh) ? IntPtr.Zero : UnmanagedMemory.Allocate(UnmanagedMemory.SizeOf(typeof(CK_VERSION)));
         }
         
         #region IMechanismParams
@@ -123,7 +123,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.Version);
+                UnmanagedMemory.Free(ref _lowLevelStruct.Version);
                 
                 _disposed = true;
             }

@@ -14,6 +14,7 @@
  */
 
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI81;
 
 namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 {
@@ -25,7 +26,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI81.CK_VERSION _lowLevelStruct = new LowLevelAPI81.CK_VERSION();
+        private CK_VERSION _lowLevelStruct = new CK_VERSION();
 
         /// <summary>
         /// Major version number (the integer portion of the version)

@@ -15,6 +15,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
@@ -31,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI41.MechanismParams.CK_CMS_SIG_PARAMS _lowLevelStruct = new LowLevelAPI41.MechanismParams.CK_CMS_SIG_PARAMS();
+        private CK_CMS_SIG_PARAMS _lowLevelStruct = new CK_CMS_SIG_PARAMS();
 
         /// <summary>
         /// Initializes a new instance of the CkCmsSigParams class.
@@ -60,16 +61,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 
             if (signingMechanism != null)
             {
-                byte[] bytes = Common.ConvertUtils.UIntToBytes(signingMechanism.Value);
-                _lowLevelStruct.SigningMechanism = Common.UnmanagedMemory.Allocate(bytes.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.SigningMechanism, bytes);
+                byte[] bytes = ConvertUtils.UIntToBytes(signingMechanism.Value);
+                _lowLevelStruct.SigningMechanism = UnmanagedMemory.Allocate(bytes.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.SigningMechanism, bytes);
             }
 
             if (digestMechanism != null)
             {
-                byte[] bytes = Common.ConvertUtils.UIntToBytes(digestMechanism.Value);
-                _lowLevelStruct.DigestMechanism = Common.UnmanagedMemory.Allocate(bytes.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.DigestMechanism, bytes);
+                byte[] bytes = ConvertUtils.UIntToBytes(digestMechanism.Value);
+                _lowLevelStruct.DigestMechanism = UnmanagedMemory.Allocate(bytes.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.DigestMechanism, bytes);
             }
 
             if (contentType != null)
@@ -78,21 +79,21 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
                 Array.Resize(ref bytes, bytes.Length + 1);
                 bytes[bytes.Length - 1] = 0;
                 
-                _lowLevelStruct.ContentType = Common.UnmanagedMemory.Allocate(bytes.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.ContentType, bytes);
+                _lowLevelStruct.ContentType = UnmanagedMemory.Allocate(bytes.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.ContentType, bytes);
             }
 
             if (requestedAttributes != null)
             {
-                _lowLevelStruct.RequestedAttributes = Common.UnmanagedMemory.Allocate(requestedAttributes.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.RequestedAttributes, requestedAttributes);
+                _lowLevelStruct.RequestedAttributes = UnmanagedMemory.Allocate(requestedAttributes.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.RequestedAttributes, requestedAttributes);
                 _lowLevelStruct.RequestedAttributesLen = Convert.ToUInt32(requestedAttributes.Length);
             }
 
             if (requiredAttributes != null)
             {
-                _lowLevelStruct.RequiredAttributes = Common.UnmanagedMemory.Allocate(requiredAttributes.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.RequiredAttributes, requiredAttributes);
+                _lowLevelStruct.RequiredAttributes = UnmanagedMemory.Allocate(requiredAttributes.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.RequiredAttributes, requiredAttributes);
                 _lowLevelStruct.RequiredAttributesLen = Convert.ToUInt32(requiredAttributes.Length);
             }
         }
@@ -138,12 +139,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.SigningMechanism);
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.DigestMechanism);
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.ContentType);
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.RequestedAttributes);
+                UnmanagedMemory.Free(ref _lowLevelStruct.SigningMechanism);
+                UnmanagedMemory.Free(ref _lowLevelStruct.DigestMechanism);
+                UnmanagedMemory.Free(ref _lowLevelStruct.ContentType);
+                UnmanagedMemory.Free(ref _lowLevelStruct.RequestedAttributes);
                 _lowLevelStruct.RequestedAttributesLen = 0;
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.RequiredAttributes);
+                UnmanagedMemory.Free(ref _lowLevelStruct.RequiredAttributes);
                 _lowLevelStruct.RequiredAttributesLen = 0;
 
                 _disposed = true;

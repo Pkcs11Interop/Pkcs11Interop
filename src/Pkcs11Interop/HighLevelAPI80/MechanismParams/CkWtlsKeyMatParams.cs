@@ -32,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI80.MechanismParams.CK_WTLS_KEY_MAT_PARAMS _lowLevelStruct = new LowLevelAPI80.MechanismParams.CK_WTLS_KEY_MAT_PARAMS();
+        private CK_WTLS_KEY_MAT_PARAMS _lowLevelStruct = new CK_WTLS_KEY_MAT_PARAMS();
 
         /// <summary>
         /// Flag indicating whether object with returned key material has left this instance
@@ -55,7 +55,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
                     throw new ObjectDisposedException(this.GetType().FullName);
 
                 // Abrakadabra :)
-                Common.UnmanagedMemory.Read(_lowLevelStruct.ReturnedKeyMaterial, _returnedKeyMaterial._lowLevelStruct);
+                UnmanagedMemory.Read(_lowLevelStruct.ReturnedKeyMaterial, _returnedKeyMaterial._lowLevelStruct);
 
                 // Since now it is the caller's responsibility to dispose returned key material
                 _returnedKeyMaterialLeftInstance = true;
@@ -102,8 +102,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             _lowLevelStruct.RandomInfo = (CK_WTLS_RANDOM_DATA)_randomInfo.ToMarshalableStructure();
             
             // Abrakadabra :)
-            _lowLevelStruct.ReturnedKeyMaterial = Common.UnmanagedMemory.Allocate(Common.UnmanagedMemory.SizeOf(typeof(CK_WTLS_KEY_MAT_OUT)));
-            Common.UnmanagedMemory.Write(_lowLevelStruct.ReturnedKeyMaterial, _returnedKeyMaterial._lowLevelStruct);
+            _lowLevelStruct.ReturnedKeyMaterial = UnmanagedMemory.Allocate(UnmanagedMemory.SizeOf(typeof(CK_WTLS_KEY_MAT_OUT)));
+            UnmanagedMemory.Write(_lowLevelStruct.ReturnedKeyMaterial, _returnedKeyMaterial._lowLevelStruct);
         }
         
         #region IMechanismParams
@@ -155,7 +155,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.ReturnedKeyMaterial);
+                UnmanagedMemory.Free(ref _lowLevelStruct.ReturnedKeyMaterial);
                 
                 _disposed = true;
             }

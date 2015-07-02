@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
@@ -32,7 +33,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI40.MechanismParams.CK_OTP_SIGNATURE_INFO _lowLevelStruct = new LowLevelAPI40.MechanismParams.CK_OTP_SIGNATURE_INFO();
+        private CK_OTP_SIGNATURE_INFO _lowLevelStruct = new CK_OTP_SIGNATURE_INFO();
 
         /// <summary>
         /// Flag indicating whether high level list of OTP parameters left this instance
@@ -87,27 +88,27 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             IntPtr tmpSignature = IntPtr.Zero;
             try
             {
-                tmpSignature = Common.UnmanagedMemory.Allocate(signature.Length);
-                Common.UnmanagedMemory.Write(tmpSignature, signature);
-                Common.UnmanagedMemory.Read(tmpSignature, _lowLevelStruct);
+                tmpSignature = UnmanagedMemory.Allocate(signature.Length);
+                UnmanagedMemory.Write(tmpSignature, signature);
+                UnmanagedMemory.Read(tmpSignature, _lowLevelStruct);
             }
             finally
             {
-                Common.UnmanagedMemory.Free(ref tmpSignature);
+                UnmanagedMemory.Free(ref tmpSignature);
             }
 
             // Read all CK_OTP_PARAMs from CK_OTP_SIGNATURE_INFO
-            int ckOtpParamSize = Common.UnmanagedMemory.SizeOf(typeof(CK_OTP_PARAM));
+            int ckOtpParamSize = UnmanagedMemory.SizeOf(typeof(CK_OTP_PARAM));
             for (int i = 0; i < _lowLevelStruct.Count; i++)
             {
                 // Read CK_OTP_PARAM from CK_OTP_SIGNATURE_INFO
                 IntPtr tempPointer = new IntPtr(_lowLevelStruct.Params.ToInt32() + (i * ckOtpParamSize));
                 CK_OTP_PARAM ckOtpParam = new CK_OTP_PARAM();
-                Common.UnmanagedMemory.Read(tempPointer, ckOtpParam);
+                UnmanagedMemory.Read(tempPointer, ckOtpParam);
 
                 // Read members of CK_OTP_PARAM structure
                 uint ckOtpParamType = ckOtpParam.Type;
-                byte[] ckOtpParamValue = Common.UnmanagedMemory.Read(ckOtpParam.Value, Convert.ToInt32(ckOtpParam.ValueLen));
+                byte[] ckOtpParamValue = UnmanagedMemory.Read(ckOtpParam.Value, Convert.ToInt32(ckOtpParam.ValueLen));
 
                 // Construct new high level CkOtpParam object (creates copy of CK_OTP_PARAM structure which is good)
                 _params.Add(new CkOtpParam(ckOtpParamType, ckOtpParamValue));

@@ -14,6 +14,7 @@
  */
 
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
@@ -25,7 +26,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI80.MechanismParams.CK_MAC_GENERAL_PARAMS _lowLevelStruct = new LowLevelAPI80.MechanismParams.CK_MAC_GENERAL_PARAMS();
+        private CK_MAC_GENERAL_PARAMS _lowLevelStruct = new CK_MAC_GENERAL_PARAMS();
 
         /// <summary>
         /// Initializes a new instance of the CkMacGeneralParams class.

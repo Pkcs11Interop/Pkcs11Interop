@@ -15,6 +15,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
@@ -31,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI41.MechanismParams.CK_TLS_PRF_PARAMS _lowLevelStruct = new LowLevelAPI41.MechanismParams.CK_TLS_PRF_PARAMS();
+        private CK_TLS_PRF_PARAMS _lowLevelStruct = new CK_TLS_PRF_PARAMS();
 
         /// <summary>
         /// Output of the operation
@@ -43,10 +44,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                int uintSize = Common.UnmanagedMemory.SizeOf(typeof(uint));
-                byte[] outputLenBytes = Common.UnmanagedMemory.Read(_lowLevelStruct.OutputLen, uintSize);
-                uint outputLen = Common.ConvertUtils.BytesToUInt(outputLenBytes);
-                return Common.UnmanagedMemory.Read(_lowLevelStruct.Output, Convert.ToInt32(outputLen));
+                int uintSize = UnmanagedMemory.SizeOf(typeof(uint));
+                byte[] outputLenBytes = UnmanagedMemory.Read(_lowLevelStruct.OutputLen, uintSize);
+                uint outputLen = ConvertUtils.BytesToUInt(outputLenBytes);
+                return UnmanagedMemory.Read(_lowLevelStruct.Output, Convert.ToInt32(outputLen));
             }
         }
 
@@ -67,26 +68,26 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 
             if (seed != null)
             {
-                _lowLevelStruct.Seed = Common.UnmanagedMemory.Allocate(seed.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.Seed, seed);
+                _lowLevelStruct.Seed = UnmanagedMemory.Allocate(seed.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.Seed, seed);
                 _lowLevelStruct.SeedLen = Convert.ToUInt32(seed.Length);
             }
             
             if (label != null)
             {
-                _lowLevelStruct.Label = Common.UnmanagedMemory.Allocate(label.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.Label, label);
+                _lowLevelStruct.Label = UnmanagedMemory.Allocate(label.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.Label, label);
                 _lowLevelStruct.LabelLen = Convert.ToUInt32(label.Length);
             }
 
             if (outputLen < 1)
                 throw new ArgumentException("Value has to be positive number", "outputLen");
 
-            _lowLevelStruct.Output = Common.UnmanagedMemory.Allocate(Convert.ToInt32(outputLen));
+            _lowLevelStruct.Output = UnmanagedMemory.Allocate(Convert.ToInt32(outputLen));
 
-            byte[] outputLenBytes = Common.ConvertUtils.UIntToBytes(outputLen);
-            _lowLevelStruct.OutputLen = Common.UnmanagedMemory.Allocate(outputLenBytes.Length);
-            Common.UnmanagedMemory.Write(_lowLevelStruct.OutputLen, outputLenBytes);
+            byte[] outputLenBytes = ConvertUtils.UIntToBytes(outputLen);
+            _lowLevelStruct.OutputLen = UnmanagedMemory.Allocate(outputLenBytes.Length);
+            UnmanagedMemory.Write(_lowLevelStruct.OutputLen, outputLenBytes);
         }
         
         #region IMechanismParams
@@ -130,12 +131,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.Seed);
+                UnmanagedMemory.Free(ref _lowLevelStruct.Seed);
                 _lowLevelStruct.SeedLen = 0;
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.Label);
+                UnmanagedMemory.Free(ref _lowLevelStruct.Label);
                 _lowLevelStruct.LabelLen = 0;
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.Output);
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.OutputLen);
+                UnmanagedMemory.Free(ref _lowLevelStruct.Output);
+                UnmanagedMemory.Free(ref _lowLevelStruct.OutputLen);
 
                 _disposed = true;
             }

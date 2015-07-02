@@ -15,6 +15,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
@@ -31,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI40.MechanismParams.CK_KEA_DERIVE_PARAMS _lowLevelStruct = new LowLevelAPI40.MechanismParams.CK_KEA_DERIVE_PARAMS();
+        private CK_KEA_DERIVE_PARAMS _lowLevelStruct = new CK_KEA_DERIVE_PARAMS();
 
         /// <summary>
         /// Initializes a new instance of the CkKeaDeriveParams class.
@@ -59,22 +60,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             
             if (randomA != null)
             {
-                _lowLevelStruct.RandomA = Common.UnmanagedMemory.Allocate(randomA.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.RandomA, randomA);
+                _lowLevelStruct.RandomA = UnmanagedMemory.Allocate(randomA.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.RandomA, randomA);
                 _lowLevelStruct.RandomLen = Convert.ToUInt32(randomA.Length);
             }
             
             if (randomB != null)
             {
-                _lowLevelStruct.RandomB = Common.UnmanagedMemory.Allocate(randomB.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.RandomB, randomB);
+                _lowLevelStruct.RandomB = UnmanagedMemory.Allocate(randomB.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.RandomB, randomB);
                 _lowLevelStruct.RandomLen = Convert.ToUInt32(randomB.Length);
             }
 
             if (publicData != null)
             {
-                _lowLevelStruct.PublicData = Common.UnmanagedMemory.Allocate(publicData.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
+                _lowLevelStruct.PublicData = UnmanagedMemory.Allocate(publicData.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
                 _lowLevelStruct.PublicDataLen = Convert.ToUInt32(publicData.Length);
             }
         }
@@ -120,10 +121,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.RandomA);
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.RandomB);
+                UnmanagedMemory.Free(ref _lowLevelStruct.RandomA);
+                UnmanagedMemory.Free(ref _lowLevelStruct.RandomB);
                 _lowLevelStruct.RandomLen = 0;
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.PublicData);
+                UnmanagedMemory.Free(ref _lowLevelStruct.PublicData);
                 _lowLevelStruct.PublicDataLen = 0;
 
                 _disposed = true;

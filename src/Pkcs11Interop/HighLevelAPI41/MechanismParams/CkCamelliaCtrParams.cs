@@ -15,6 +15,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
@@ -26,7 +27,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI41.MechanismParams.CK_CAMELLIA_CTR_PARAMS _lowLevelStruct = new LowLevelAPI41.MechanismParams.CK_CAMELLIA_CTR_PARAMS();
+        private CK_CAMELLIA_CTR_PARAMS _lowLevelStruct = new CK_CAMELLIA_CTR_PARAMS();
         
         /// <summary>
         /// Initializes a new instance of the CkCamelliaCtrParams class.

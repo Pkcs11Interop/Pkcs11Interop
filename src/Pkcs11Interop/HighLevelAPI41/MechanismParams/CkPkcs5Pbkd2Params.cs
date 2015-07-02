@@ -15,6 +15,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
@@ -31,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI41.MechanismParams.CK_PKCS5_PBKD2_PARAMS _lowLevelStruct = new LowLevelAPI41.MechanismParams.CK_PKCS5_PBKD2_PARAMS();
+        private CK_PKCS5_PBKD2_PARAMS _lowLevelStruct = new CK_PKCS5_PBKD2_PARAMS();
         
         /// <summary>
         /// Initializes a new instance of the CkPkcs5Pbkd2Params class.
@@ -58,8 +59,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 
             if (saltSourceData != null)
             {
-                _lowLevelStruct.SaltSourceData = Common.UnmanagedMemory.Allocate(saltSourceData.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.SaltSourceData, saltSourceData);
+                _lowLevelStruct.SaltSourceData = UnmanagedMemory.Allocate(saltSourceData.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.SaltSourceData, saltSourceData);
                 _lowLevelStruct.SaltSourceDataLen = Convert.ToUInt32(saltSourceData.Length);
             }
 
@@ -69,19 +70,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 
             if (prfData != null)
             {
-                _lowLevelStruct.PrfData = Common.UnmanagedMemory.Allocate(prfData.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.PrfData, prfData);
+                _lowLevelStruct.PrfData = UnmanagedMemory.Allocate(prfData.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.PrfData, prfData);
                 _lowLevelStruct.PrfDataLen = Convert.ToUInt32(prfData.Length);
             }
 
             if (password != null)
             {
-                _lowLevelStruct.Password = Common.UnmanagedMemory.Allocate(password.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.Password, password);
+                _lowLevelStruct.Password = UnmanagedMemory.Allocate(password.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.Password, password);
 
                 uint passwordLength = Convert.ToUInt32(password.Length);
-                _lowLevelStruct.PasswordLen = Common.UnmanagedMemory.Allocate(UnmanagedMemory.SizeOf(typeof(uint)));
-                Common.UnmanagedMemory.Write(_lowLevelStruct.PasswordLen, BitConverter.GetBytes(passwordLength));
+                _lowLevelStruct.PasswordLen = UnmanagedMemory.Allocate(UnmanagedMemory.SizeOf(typeof(uint)));
+                UnmanagedMemory.Write(_lowLevelStruct.PasswordLen, BitConverter.GetBytes(passwordLength));
             }
         }
         
@@ -126,12 +127,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.SaltSourceData);
+                UnmanagedMemory.Free(ref _lowLevelStruct.SaltSourceData);
                 _lowLevelStruct.SaltSourceDataLen = 0;
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.PrfData);
+                UnmanagedMemory.Free(ref _lowLevelStruct.PrfData);
                 _lowLevelStruct.PrfDataLen = 0;
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.Password);
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.PasswordLen);
+                UnmanagedMemory.Free(ref _lowLevelStruct.Password);
+                UnmanagedMemory.Free(ref _lowLevelStruct.PasswordLen);
 
                 _disposed = true;
             }

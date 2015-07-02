@@ -14,6 +14,8 @@
  */
 
 using System;
+using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
@@ -30,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
         /// <summary>
         /// Low level structure
         /// </summary>
-        internal LowLevelAPI80.MechanismParams.CK_SSL3_KEY_MAT_OUT _lowLevelStruct = new LowLevelAPI80.MechanismParams.CK_SSL3_KEY_MAT_OUT();
+        internal CK_SSL3_KEY_MAT_OUT _lowLevelStruct = new CK_SSL3_KEY_MAT_OUT();
 
         /// <summary>
         /// Key handle for the resulting Client MAC Secret key
@@ -98,7 +100,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (_ivLength < 1) ? null : Common.UnmanagedMemory.Read(_lowLevelStruct.IVClient, Convert.ToInt32(_ivLength));
+                return (_ivLength < 1) ? null : UnmanagedMemory.Read(_lowLevelStruct.IVClient, Convert.ToInt32(_ivLength));
             }
         }
 
@@ -112,7 +114,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (_ivLength < 1) ? null : Common.UnmanagedMemory.Read(_lowLevelStruct.IVServer, Convert.ToInt32(_ivLength));
+                return (_ivLength < 1) ? null : UnmanagedMemory.Read(_lowLevelStruct.IVServer, Convert.ToInt32(_ivLength));
             }
         }
 
@@ -138,8 +140,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 
             if (_ivLength > 0)
             {
-                _lowLevelStruct.IVClient = Common.UnmanagedMemory.Allocate(Convert.ToInt32(_ivLength));
-                _lowLevelStruct.IVServer = Common.UnmanagedMemory.Allocate(Convert.ToInt32(_ivLength));
+                _lowLevelStruct.IVClient = UnmanagedMemory.Allocate(Convert.ToInt32(_ivLength));
+                _lowLevelStruct.IVServer = UnmanagedMemory.Allocate(Convert.ToInt32(_ivLength));
             }
         }
 
@@ -168,8 +170,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.IVClient);
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.IVServer);
+                UnmanagedMemory.Free(ref _lowLevelStruct.IVClient);
+                UnmanagedMemory.Free(ref _lowLevelStruct.IVServer);
 
                 _disposed = true;
             }

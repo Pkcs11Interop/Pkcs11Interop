@@ -33,7 +33,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI81.MechanismParams.CK_OTP_PARAMS _lowLevelStruct = new LowLevelAPI81.MechanismParams.CK_OTP_PARAMS();
+        private CK_OTP_PARAMS _lowLevelStruct = new CK_OTP_PARAMS();
 
         /// <summary>
         /// Initializes a new instance of the CkOtpParams class.
@@ -47,15 +47,15 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
             if ((parameters != null) && (parameters.Count > 0))
             {
                 // Allocate memory for parameters
-                int ckOtpParamSize = Common.UnmanagedMemory.SizeOf(typeof(CK_OTP_PARAM));
-                _lowLevelStruct.Params = Common.UnmanagedMemory.Allocate(ckOtpParamSize * parameters.Count);
+                int ckOtpParamSize = UnmanagedMemory.SizeOf(typeof(CK_OTP_PARAM));
+                _lowLevelStruct.Params = UnmanagedMemory.Allocate(ckOtpParamSize * parameters.Count);
                 _lowLevelStruct.Count = Convert.ToUInt64(parameters.Count);
 
                 // Copy paramaters to allocated memory
                 for (int i = 0; i < parameters.Count; i++)
                 {
                     IntPtr tempPointer = new IntPtr(_lowLevelStruct.Params.ToInt64() + (i * ckOtpParamSize));
-                    Common.UnmanagedMemory.Write(tempPointer, parameters[i].ToMarshalableStructure());
+                    UnmanagedMemory.Write(tempPointer, parameters[i].ToMarshalableStructure());
                 }
             }
         }
@@ -101,7 +101,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.Params);
+                UnmanagedMemory.Free(ref _lowLevelStruct.Params);
                 _lowLevelStruct.Count = 0;
                 
                 _disposed = true;

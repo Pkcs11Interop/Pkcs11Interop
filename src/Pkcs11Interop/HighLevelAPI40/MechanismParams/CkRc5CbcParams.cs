@@ -15,6 +15,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
@@ -31,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI40.MechanismParams.CK_RC5_CBC_PARAMS _lowLevelStruct = new LowLevelAPI40.MechanismParams.CK_RC5_CBC_PARAMS();
+        private CK_RC5_CBC_PARAMS _lowLevelStruct = new CK_RC5_CBC_PARAMS();
         
         /// <summary>
         /// Initializes a new instance of the CkRc5CbcParams class.
@@ -52,8 +53,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 
             if (iv != null)
             {
-                _lowLevelStruct.Iv = Common.UnmanagedMemory.Allocate(iv.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.Iv, iv);
+                _lowLevelStruct.Iv = UnmanagedMemory.Allocate(iv.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.Iv, iv);
                 _lowLevelStruct.IvLen = Convert.ToUInt32(iv.Length);
             }
         }
@@ -99,7 +100,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.Iv);
+                UnmanagedMemory.Free(ref _lowLevelStruct.Iv);
                 _lowLevelStruct.IvLen = 0;
                 
                 _disposed = true;

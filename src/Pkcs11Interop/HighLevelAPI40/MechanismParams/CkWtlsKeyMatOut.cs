@@ -14,6 +14,8 @@
  */
 
 using System;
+using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
@@ -30,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <summary>
         /// Low level structure
         /// </summary>
-        internal LowLevelAPI40.MechanismParams.CK_WTLS_KEY_MAT_OUT _lowLevelStruct = new LowLevelAPI40.MechanismParams.CK_WTLS_KEY_MAT_OUT();
+        internal CK_WTLS_KEY_MAT_OUT _lowLevelStruct = new CK_WTLS_KEY_MAT_OUT();
         
         /// <summary>
         /// Key handle for the resulting MAC secret key
@@ -70,7 +72,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (_ivLength < 1) ? null : Common.UnmanagedMemory.Read(_lowLevelStruct.IV, Convert.ToInt32(_ivLength));
+                return (_ivLength < 1) ? null : UnmanagedMemory.Read(_lowLevelStruct.IV, Convert.ToInt32(_ivLength));
             }
         }
         
@@ -93,7 +95,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             
             if (_ivLength > 0)
             {
-                _lowLevelStruct.IV = Common.UnmanagedMemory.Allocate(Convert.ToInt32(_ivLength));
+                _lowLevelStruct.IV = UnmanagedMemory.Allocate(Convert.ToInt32(_ivLength));
             }
         }
         
@@ -122,7 +124,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.IV);
+                UnmanagedMemory.Free(ref _lowLevelStruct.IV);
 
                 _disposed = true;
             }

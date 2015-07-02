@@ -15,6 +15,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
@@ -31,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI80.MechanismParams.CK_KIP_PARAMS _lowLevelStruct = new LowLevelAPI80.MechanismParams.CK_KIP_PARAMS();
+        private CK_KIP_PARAMS _lowLevelStruct = new CK_KIP_PARAMS();
 
         /// <summary>
         /// Initializes a new instance of the CkKipParams class.
@@ -49,8 +50,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             if (mechanism != null)
             {
                 byte[] bytes = ConvertUtils.ULongToBytes(mechanism.Value);
-                _lowLevelStruct.Mechanism = Common.UnmanagedMemory.Allocate(bytes.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.Mechanism, bytes);
+                _lowLevelStruct.Mechanism = UnmanagedMemory.Allocate(bytes.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.Mechanism, bytes);
             }
 
             if (key == null)
@@ -60,8 +61,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 
             if (seed != null)
             {
-                _lowLevelStruct.Seed = Common.UnmanagedMemory.Allocate(seed.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.Seed, seed);
+                _lowLevelStruct.Seed = UnmanagedMemory.Allocate(seed.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.Seed, seed);
                 _lowLevelStruct.SeedLen = Convert.ToUInt64(seed.Length);
             }
         }
@@ -107,8 +108,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.Mechanism);
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.Seed);
+                UnmanagedMemory.Free(ref _lowLevelStruct.Mechanism);
+                UnmanagedMemory.Free(ref _lowLevelStruct.Seed);
                 _lowLevelStruct.SeedLen = 0;
 
                 _disposed = true;

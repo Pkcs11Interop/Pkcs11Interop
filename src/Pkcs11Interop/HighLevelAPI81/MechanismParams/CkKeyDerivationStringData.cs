@@ -15,6 +15,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 {
@@ -31,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI81.MechanismParams.CK_KEY_DERIVATION_STRING_DATA _lowLevelStruct = new LowLevelAPI81.MechanismParams.CK_KEY_DERIVATION_STRING_DATA();
+        private CK_KEY_DERIVATION_STRING_DATA _lowLevelStruct = new CK_KEY_DERIVATION_STRING_DATA();
 
         /// <summary>
         /// Initializes a new instance of the CkKeyDerivationStringData class.
@@ -44,8 +45,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 
             if (data != null)
             {
-                _lowLevelStruct.Data = Common.UnmanagedMemory.Allocate(data.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.Data, data);
+                _lowLevelStruct.Data = UnmanagedMemory.Allocate(data.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.Data, data);
                 _lowLevelStruct.Len = Convert.ToUInt64(data.Length);
             }
         }
@@ -91,7 +92,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.Data);
+                UnmanagedMemory.Free(ref _lowLevelStruct.Data);
                 _lowLevelStruct.Len = 0;
                 
                 _disposed = true;

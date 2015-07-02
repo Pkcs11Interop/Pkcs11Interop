@@ -15,6 +15,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
@@ -31,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI40.MechanismParams.CK_SKIPJACK_PRIVATE_WRAP_PARAMS _lowLevelStruct = new LowLevelAPI40.MechanismParams.CK_SKIPJACK_PRIVATE_WRAP_PARAMS();
+        private CK_SKIPJACK_PRIVATE_WRAP_PARAMS _lowLevelStruct = new CK_SKIPJACK_PRIVATE_WRAP_PARAMS();
         
         /// <summary>
         /// Initializes a new instance of the CkSkipjackPrivateWrapParams class.
@@ -58,22 +59,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 
             if (password != null)
             {
-                _lowLevelStruct.Password = Common.UnmanagedMemory.Allocate(password.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.Password, password);
+                _lowLevelStruct.Password = UnmanagedMemory.Allocate(password.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.Password, password);
                 _lowLevelStruct.PasswordLen = Convert.ToUInt32(password.Length);
             }
 
             if (publicData != null)
             {
-                _lowLevelStruct.PublicData = Common.UnmanagedMemory.Allocate(publicData.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
+                _lowLevelStruct.PublicData = UnmanagedMemory.Allocate(publicData.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
                 _lowLevelStruct.PublicDataLen = Convert.ToUInt32(publicData.Length);
             }
 
             if (randomA != null)
             {
-                _lowLevelStruct.RandomA = Common.UnmanagedMemory.Allocate(randomA.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.RandomA, randomA);
+                _lowLevelStruct.RandomA = UnmanagedMemory.Allocate(randomA.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.RandomA, randomA);
                 _lowLevelStruct.RandomLen = Convert.ToUInt32(randomA.Length);
             }
 
@@ -85,22 +86,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 
             if (primeP != null)
             {
-                _lowLevelStruct.PrimeP = Common.UnmanagedMemory.Allocate(primeP.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.PrimeP, primeP);
+                _lowLevelStruct.PrimeP = UnmanagedMemory.Allocate(primeP.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.PrimeP, primeP);
                 _lowLevelStruct.PAndGLen = Convert.ToUInt32(primeP.Length);
             }
 
             if (baseG != null)
             {
-                _lowLevelStruct.BaseG = Common.UnmanagedMemory.Allocate(baseG.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.BaseG, baseG);
+                _lowLevelStruct.BaseG = UnmanagedMemory.Allocate(baseG.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.BaseG, baseG);
                 _lowLevelStruct.PAndGLen = Convert.ToUInt32(baseG.Length);
             }
 
             if (subprimeQ != null)
             {
-                _lowLevelStruct.SubprimeQ = Common.UnmanagedMemory.Allocate(subprimeQ.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.SubprimeQ, subprimeQ);
+                _lowLevelStruct.SubprimeQ = UnmanagedMemory.Allocate(subprimeQ.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.SubprimeQ, subprimeQ);
                 _lowLevelStruct.QLen = Convert.ToUInt32(subprimeQ.Length);
             }
         }
@@ -146,16 +147,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.Password);
+                UnmanagedMemory.Free(ref _lowLevelStruct.Password);
                 _lowLevelStruct.PasswordLen = 0;
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.PublicData);
+                UnmanagedMemory.Free(ref _lowLevelStruct.PublicData);
                 _lowLevelStruct.PublicDataLen = 0;
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.RandomA);
+                UnmanagedMemory.Free(ref _lowLevelStruct.RandomA);
                 _lowLevelStruct.RandomLen = 0;
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.PrimeP);
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.BaseG);
+                UnmanagedMemory.Free(ref _lowLevelStruct.PrimeP);
+                UnmanagedMemory.Free(ref _lowLevelStruct.BaseG);
                 _lowLevelStruct.PAndGLen = 0;
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.SubprimeQ);
+                UnmanagedMemory.Free(ref _lowLevelStruct.SubprimeQ);
                 _lowLevelStruct.QLen = 0;
 
                 _disposed = true;

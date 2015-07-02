@@ -15,6 +15,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
@@ -31,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI80.MechanismParams.CK_RSA_PKCS_OAEP_PARAMS _lowLevelStruct = new LowLevelAPI80.MechanismParams.CK_RSA_PKCS_OAEP_PARAMS();
+        private CK_RSA_PKCS_OAEP_PARAMS _lowLevelStruct = new CK_RSA_PKCS_OAEP_PARAMS();
 
         /// <summary>
         /// Initializes a new instance of the CkRsaPkcsOaepParams class.
@@ -54,8 +55,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 
             if (sourceData != null)
             {
-                _lowLevelStruct.SourceData = Common.UnmanagedMemory.Allocate(sourceData.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.SourceData, sourceData);
+                _lowLevelStruct.SourceData = UnmanagedMemory.Allocate(sourceData.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.SourceData, sourceData);
                 _lowLevelStruct.SourceDataLen = Convert.ToUInt64(sourceData.Length);
             }
         }
@@ -101,7 +102,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.SourceData);
+                UnmanagedMemory.Free(ref _lowLevelStruct.SourceData);
                 _lowLevelStruct.SourceDataLen = 0;
 
                 _disposed = true;

@@ -15,6 +15,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
@@ -31,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI40.MechanismParams.CK_KEY_WRAP_SET_OAEP_PARAMS _lowLevelStruct = new LowLevelAPI40.MechanismParams.CK_KEY_WRAP_SET_OAEP_PARAMS();
+        private CK_KEY_WRAP_SET_OAEP_PARAMS _lowLevelStruct = new CK_KEY_WRAP_SET_OAEP_PARAMS();
 
         /// <summary>
         /// Initializes a new instance of the CkKeyWrapSetOaepParams class.
@@ -48,8 +49,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 
             if (x != null)
             {
-                _lowLevelStruct.X = Common.UnmanagedMemory.Allocate(x.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.X, x);
+                _lowLevelStruct.X = UnmanagedMemory.Allocate(x.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.X, x);
                 _lowLevelStruct.XLen = Convert.ToUInt32(x.Length);
             }
         }
@@ -95,7 +96,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.X);
+                UnmanagedMemory.Free(ref _lowLevelStruct.X);
                 _lowLevelStruct.XLen = 0;
 
                 _disposed = true;

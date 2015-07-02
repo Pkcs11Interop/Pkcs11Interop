@@ -15,6 +15,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
@@ -31,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI41.MechanismParams.CK_WTLS_RANDOM_DATA _lowLevelStruct = new LowLevelAPI41.MechanismParams.CK_WTLS_RANDOM_DATA();
+        private CK_WTLS_RANDOM_DATA _lowLevelStruct = new CK_WTLS_RANDOM_DATA();
         
         /// <summary>
         /// Initializes a new instance of the CkWtlsRandomData class.
@@ -47,15 +48,15 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
             
             if (clientRandom != null)
             {
-                _lowLevelStruct.ClientRandom = Common.UnmanagedMemory.Allocate(clientRandom.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.ClientRandom, clientRandom);
+                _lowLevelStruct.ClientRandom = UnmanagedMemory.Allocate(clientRandom.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.ClientRandom, clientRandom);
                 _lowLevelStruct.ClientRandomLen = Convert.ToUInt32(clientRandom.Length);
             }
             
             if (serverRandom != null)
             {
-                _lowLevelStruct.ServerRandom = Common.UnmanagedMemory.Allocate(serverRandom.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.ServerRandom, serverRandom);
+                _lowLevelStruct.ServerRandom = UnmanagedMemory.Allocate(serverRandom.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.ServerRandom, serverRandom);
                 _lowLevelStruct.ServerRandomLen = Convert.ToUInt32(serverRandom.Length);
             }
         }
@@ -101,9 +102,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.ClientRandom);
+                UnmanagedMemory.Free(ref _lowLevelStruct.ClientRandom);
                 _lowLevelStruct.ClientRandomLen = 0;
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.ServerRandom);
+                UnmanagedMemory.Free(ref _lowLevelStruct.ServerRandom);
                 _lowLevelStruct.ServerRandomLen = 0;
                 
                 _disposed = true;

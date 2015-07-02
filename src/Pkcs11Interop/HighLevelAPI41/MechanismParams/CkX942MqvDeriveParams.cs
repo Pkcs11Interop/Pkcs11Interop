@@ -15,6 +15,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
@@ -31,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI41.MechanismParams.CK_X9_42_MQV_DERIVE_PARAMS _lowLevelStruct = new LowLevelAPI41.MechanismParams.CK_X9_42_MQV_DERIVE_PARAMS();
+        private CK_X9_42_MQV_DERIVE_PARAMS _lowLevelStruct = new CK_X9_42_MQV_DERIVE_PARAMS();
         
         /// <summary>
         /// Initializes a new instance of the CkX942MqvDeriveParams class.
@@ -60,15 +61,15 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
             
             if (otherInfo != null)
             {
-                _lowLevelStruct.OtherInfo = Common.UnmanagedMemory.Allocate(otherInfo.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.OtherInfo, otherInfo);
+                _lowLevelStruct.OtherInfo = UnmanagedMemory.Allocate(otherInfo.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.OtherInfo, otherInfo);
                 _lowLevelStruct.OtherInfoLen = Convert.ToUInt32(otherInfo.Length);
             }
             
             if (publicData != null)
             {
-                _lowLevelStruct.PublicData = Common.UnmanagedMemory.Allocate(publicData.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
+                _lowLevelStruct.PublicData = UnmanagedMemory.Allocate(publicData.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
                 _lowLevelStruct.PublicDataLen = Convert.ToUInt32(publicData.Length);
             }
             
@@ -81,8 +82,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
             
             if (publicData2 != null)
             {
-                _lowLevelStruct.PublicData2 = Common.UnmanagedMemory.Allocate(publicData2.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.PublicData2, publicData2);
+                _lowLevelStruct.PublicData2 = UnmanagedMemory.Allocate(publicData2.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.PublicData2, publicData2);
                 _lowLevelStruct.PublicDataLen2 = Convert.ToUInt32(publicData2.Length);
             }
             
@@ -133,11 +134,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.OtherInfo);
+                UnmanagedMemory.Free(ref _lowLevelStruct.OtherInfo);
                 _lowLevelStruct.OtherInfoLen = 0;
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.PublicData);
+                UnmanagedMemory.Free(ref _lowLevelStruct.PublicData);
                 _lowLevelStruct.PublicDataLen = 0;
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.PublicData2);
+                UnmanagedMemory.Free(ref _lowLevelStruct.PublicData2);
                 _lowLevelStruct.PublicDataLen2 = 0;
                 
                 _disposed = true;

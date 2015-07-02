@@ -14,6 +14,7 @@
  */
 
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
@@ -25,7 +26,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI41.MechanismParams.CK_RC5_PARAMS _lowLevelStruct = new LowLevelAPI41.MechanismParams.CK_RC5_PARAMS();
+        private CK_RC5_PARAMS _lowLevelStruct = new CK_RC5_PARAMS();
         
         /// <summary>
         /// Initializes a new instance of the CkRc5Params class.

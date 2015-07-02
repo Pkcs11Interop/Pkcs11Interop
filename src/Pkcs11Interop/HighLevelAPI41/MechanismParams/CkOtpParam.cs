@@ -15,6 +15,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
@@ -31,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI41.MechanismParams.CK_OTP_PARAM _lowLevelStruct = new LowLevelAPI41.MechanismParams.CK_OTP_PARAM();
+        private CK_OTP_PARAM _lowLevelStruct = new CK_OTP_PARAM();
 
         /// <summary>
         /// Parameter type
@@ -57,7 +58,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (_lowLevelStruct.Value == IntPtr.Zero) ? null : Common.UnmanagedMemory.Read(_lowLevelStruct.Value, Convert.ToInt32(_lowLevelStruct.ValueLen));
+                return (_lowLevelStruct.Value == IntPtr.Zero) ? null : UnmanagedMemory.Read(_lowLevelStruct.Value, Convert.ToInt32(_lowLevelStruct.ValueLen));
             }
         }
 
@@ -76,8 +77,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 
             if (value != null)
             {
-                _lowLevelStruct.Value = Common.UnmanagedMemory.Allocate(value.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.Value, value);
+                _lowLevelStruct.Value = UnmanagedMemory.Allocate(value.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.Value, value);
                 _lowLevelStruct.ValueLen = Convert.ToUInt32(value.Length);
             }
         }
@@ -123,7 +124,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.Value);
+                UnmanagedMemory.Free(ref _lowLevelStruct.Value);
                 _lowLevelStruct.ValueLen = 0;
 
                 _disposed = true;

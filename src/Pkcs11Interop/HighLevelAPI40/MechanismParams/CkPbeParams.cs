@@ -15,6 +15,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
@@ -31,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI40.MechanismParams.CK_PBE_PARAMS _lowLevelStruct = new LowLevelAPI40.MechanismParams.CK_PBE_PARAMS();
+        private CK_PBE_PARAMS _lowLevelStruct = new CK_PBE_PARAMS();
         
         /// <summary>
         /// Initializes a new instance of the CkPbeParams class.
@@ -54,21 +55,21 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
                 if (initVector.Length != 8)
                     throw new ArgumentOutOfRangeException("initVector", "Array has to be 8 bytes long");
 
-                _lowLevelStruct.InitVector = Common.UnmanagedMemory.Allocate(initVector.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.InitVector, initVector);
+                _lowLevelStruct.InitVector = UnmanagedMemory.Allocate(initVector.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.InitVector, initVector);
             }
 
             if (password != null)
             {
-                _lowLevelStruct.Password = Common.UnmanagedMemory.Allocate(password.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.Password, password);
+                _lowLevelStruct.Password = UnmanagedMemory.Allocate(password.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.Password, password);
                 _lowLevelStruct.PasswordLen = Convert.ToUInt32(password.Length);
             }
 
             if (salt != null)
             {
-                _lowLevelStruct.Salt = Common.UnmanagedMemory.Allocate(salt.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.Salt, salt);
+                _lowLevelStruct.Salt = UnmanagedMemory.Allocate(salt.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.Salt, salt);
                 _lowLevelStruct.SaltLen = Convert.ToUInt32(salt.Length);
             }
 
@@ -116,10 +117,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.InitVector);
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.Password);
+                UnmanagedMemory.Free(ref _lowLevelStruct.InitVector);
+                UnmanagedMemory.Free(ref _lowLevelStruct.Password);
                 _lowLevelStruct.PasswordLen = 0;
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.Salt);
+                UnmanagedMemory.Free(ref _lowLevelStruct.Salt);
                 _lowLevelStruct.SaltLen = 0;
 
                 _disposed = true;

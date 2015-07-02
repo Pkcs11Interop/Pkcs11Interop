@@ -15,6 +15,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 {
@@ -31,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI81.MechanismParams.CK_SKIPJACK_RELAYX_PARAMS _lowLevelStruct = new LowLevelAPI81.MechanismParams.CK_SKIPJACK_RELAYX_PARAMS();
+        private CK_SKIPJACK_RELAYX_PARAMS _lowLevelStruct = new CK_SKIPJACK_RELAYX_PARAMS();
         
         /// <summary>
         /// Initializes a new instance of the CkSkipjackRelayxParams class.
@@ -62,50 +63,50 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 
             if (oldWrappedX != null)
             {
-                _lowLevelStruct.OldWrappedX = Common.UnmanagedMemory.Allocate(oldWrappedX.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.OldWrappedX, oldWrappedX);
+                _lowLevelStruct.OldWrappedX = UnmanagedMemory.Allocate(oldWrappedX.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.OldWrappedX, oldWrappedX);
                 _lowLevelStruct.OldWrappedXLen = Convert.ToUInt64(oldWrappedX.Length);
             }
 
             if (oldPassword != null)
             {
-                _lowLevelStruct.OldPassword = Common.UnmanagedMemory.Allocate(oldPassword.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.OldPassword, oldPassword);
+                _lowLevelStruct.OldPassword = UnmanagedMemory.Allocate(oldPassword.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.OldPassword, oldPassword);
                 _lowLevelStruct.OldPasswordLen = Convert.ToUInt64(oldPassword.Length);
             }
 
             if (oldPublicData != null)
             {
-                _lowLevelStruct.OldPublicData = Common.UnmanagedMemory.Allocate(oldPublicData.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.OldPublicData, oldPublicData);
+                _lowLevelStruct.OldPublicData = UnmanagedMemory.Allocate(oldPublicData.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.OldPublicData, oldPublicData);
                 _lowLevelStruct.OldPublicDataLen = Convert.ToUInt64(oldPublicData.Length);
             }
 
             if (oldRandomA != null)
             {
-                _lowLevelStruct.OldRandomA = Common.UnmanagedMemory.Allocate(oldRandomA.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.OldRandomA, oldRandomA);
+                _lowLevelStruct.OldRandomA = UnmanagedMemory.Allocate(oldRandomA.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.OldRandomA, oldRandomA);
                 _lowLevelStruct.OldRandomLen = Convert.ToUInt64(oldRandomA.Length);
             }
 
             if (newPassword != null)
             {
-                _lowLevelStruct.NewPassword = Common.UnmanagedMemory.Allocate(newPassword.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.NewPassword, newPassword);
+                _lowLevelStruct.NewPassword = UnmanagedMemory.Allocate(newPassword.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.NewPassword, newPassword);
                 _lowLevelStruct.NewPasswordLen = Convert.ToUInt64(newPassword.Length);
             }
 
             if (newPublicData != null)
             {
-                _lowLevelStruct.NewPublicData = Common.UnmanagedMemory.Allocate(newPublicData.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.NewPublicData, newPublicData);
+                _lowLevelStruct.NewPublicData = UnmanagedMemory.Allocate(newPublicData.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.NewPublicData, newPublicData);
                 _lowLevelStruct.NewPublicDataLen = Convert.ToUInt64(newPublicData.Length);
             }
 
             if (newRandomA != null)
             {
-                _lowLevelStruct.NewRandomA = Common.UnmanagedMemory.Allocate(newRandomA.Length);
-                Common.UnmanagedMemory.Write(_lowLevelStruct.NewRandomA, newRandomA);
+                _lowLevelStruct.NewRandomA = UnmanagedMemory.Allocate(newRandomA.Length);
+                UnmanagedMemory.Write(_lowLevelStruct.NewRandomA, newRandomA);
                 _lowLevelStruct.NewRandomLen = Convert.ToUInt64(newRandomA.Length);
             }
         }
@@ -151,19 +152,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.OldWrappedX);
+                UnmanagedMemory.Free(ref _lowLevelStruct.OldWrappedX);
                 _lowLevelStruct.OldWrappedXLen = 0;
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.OldPassword);
+                UnmanagedMemory.Free(ref _lowLevelStruct.OldPassword);
                 _lowLevelStruct.OldPasswordLen = 0;
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.OldPublicData);
+                UnmanagedMemory.Free(ref _lowLevelStruct.OldPublicData);
                 _lowLevelStruct.OldPublicDataLen = 0;
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.OldRandomA);
+                UnmanagedMemory.Free(ref _lowLevelStruct.OldRandomA);
                 _lowLevelStruct.OldRandomLen = 0;
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.NewPassword);
+                UnmanagedMemory.Free(ref _lowLevelStruct.NewPassword);
                 _lowLevelStruct.NewPasswordLen = 0;
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.NewPublicData);
+                UnmanagedMemory.Free(ref _lowLevelStruct.NewPublicData);
                 _lowLevelStruct.NewPublicDataLen = 0;
-                Common.UnmanagedMemory.Free(ref _lowLevelStruct.NewRandomA);
+                UnmanagedMemory.Free(ref _lowLevelStruct.NewRandomA);
                 _lowLevelStruct.NewRandomLen = 0;
 
                 _disposed = true;

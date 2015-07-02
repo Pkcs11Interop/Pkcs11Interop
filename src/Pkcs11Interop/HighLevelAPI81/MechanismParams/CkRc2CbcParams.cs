@@ -15,6 +15,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 {
@@ -26,7 +27,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
-        private LowLevelAPI81.MechanismParams.CK_RC2_CBC_PARAMS _lowLevelStruct = new LowLevelAPI81.MechanismParams.CK_RC2_CBC_PARAMS();
+        private CK_RC2_CBC_PARAMS _lowLevelStruct = new CK_RC2_CBC_PARAMS();
         
         /// <summary>
         /// Initializes a new instance of the CkRc2CbcParams class.
