@@ -14,6 +14,7 @@
  */
 
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI41;
 
 namespace Net.Pkcs11Interop.HighLevelAPI41
 {
@@ -106,7 +107,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// Converts low level CK_INFO structure to high level LibraryInfo class
         /// </summary>
         /// <param name="ck_info">Low level CK_INFO structure</param>
-        internal LibraryInfo(LowLevelAPI41.CK_INFO ck_info)
+        internal LibraryInfo(CK_INFO ck_info)
         {
             _cryptokiVersion = ck_info.CryptokiVersion.ToString();
             _manufacturerId = ConvertUtils.BytesToUtf8String(ck_info.ManufacturerId, true);

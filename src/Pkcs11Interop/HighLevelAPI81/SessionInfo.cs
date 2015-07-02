@@ -14,6 +14,7 @@
  */
 
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI81;
 
 namespace Net.Pkcs11Interop.HighLevelAPI81
 {
@@ -107,7 +108,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// </summary>
         /// <param name="sessionId">PKCS#11 handle of session</param>
         /// <param name="ck_session_info">Low level CK_SESSION_INFO structure</param>
-        internal SessionInfo(ulong sessionId, LowLevelAPI81.CK_SESSION_INFO ck_session_info)
+        internal SessionInfo(ulong sessionId, CK_SESSION_INFO ck_session_info)
         {
             _sessionId = sessionId;
             _slotId = ck_session_info.SlotId;

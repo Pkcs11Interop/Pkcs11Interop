@@ -13,9 +13,9 @@
  *  Please contact JWC s.r.o. at <info@pkcs11interop.net> for more details.
  */
 
-using Net.Pkcs11Interop.Common;
 using System;
 using System.Collections.Generic;
+using Net.Pkcs11Interop.Common;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40
 {

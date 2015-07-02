@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI40;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40
 {
@@ -76,7 +77,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <returns>Slot information</returns>
         public SlotInfo GetSlotInfo()
         {
-            LowLevelAPI40.CK_SLOT_INFO slotInfo = new LowLevelAPI40.CK_SLOT_INFO();
+            CK_SLOT_INFO slotInfo = new CK_SLOT_INFO();
             CKR rv = _p11.C_GetSlotInfo(_slotId, ref slotInfo);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetSlotInfo", rv);
@@ -90,7 +91,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <returns>Token information</returns>
         public TokenInfo GetTokenInfo()
         {
-            LowLevelAPI40.CK_TOKEN_INFO tokenInfo = new LowLevelAPI40.CK_TOKEN_INFO();
+            CK_TOKEN_INFO tokenInfo = new CK_TOKEN_INFO();
             CKR rv = _p11.C_GetTokenInfo(_slotId, ref tokenInfo);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetTokenInfo", rv);
@@ -130,7 +131,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <returns>Information about mechanism</returns>
         public MechanismInfo GetMechanismInfo(CKM mechanism)
         {
-            LowLevelAPI40.CK_MECHANISM_INFO mechanismInfo = new LowLevelAPI40.CK_MECHANISM_INFO();
+            CK_MECHANISM_INFO mechanismInfo = new CK_MECHANISM_INFO();
             CKR rv = _p11.C_GetMechanismInfo(_slotId, mechanism, ref mechanismInfo);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetMechanismInfo", rv);

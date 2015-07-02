@@ -15,6 +15,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI81;
 
 namespace Net.Pkcs11Interop.HighLevelAPI81
 {
@@ -348,7 +349,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// </summary>
         /// <param name="slotId">PKCS#11 handle of slot</param>
         /// <param name="ck_token_info">Low level CK_TOKEN_INFO structure</param>
-        internal TokenInfo(ulong slotId, LowLevelAPI81.CK_TOKEN_INFO ck_token_info)
+        internal TokenInfo(ulong slotId, CK_TOKEN_INFO ck_token_info)
         {
             _slotId = slotId;
             _label = ConvertUtils.BytesToUtf8String(ck_token_info.Label, true);

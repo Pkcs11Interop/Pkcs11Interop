@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI81;
 
 namespace Net.Pkcs11Interop.HighLevelAPI81
 {
@@ -70,10 +71,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
 
             try
             {
-                LowLevelAPI81.CK_C_INITIALIZE_ARGS initArgs = null;
+                CK_C_INITIALIZE_ARGS initArgs = null;
                 if (useOsLocking)
                 {
-                    initArgs = new LowLevelAPI81.CK_C_INITIALIZE_ARGS();
+                    initArgs = new CK_C_INITIALIZE_ARGS();
                     initArgs.Flags = CKF.CKF_OS_LOCKING_OK;
                 }
 
@@ -101,10 +102,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
 
             try
             {
-                LowLevelAPI81.CK_C_INITIALIZE_ARGS initArgs = null;
+                CK_C_INITIALIZE_ARGS initArgs = null;
                 if (useOsLocking)
                 {
-                    initArgs = new LowLevelAPI81.CK_C_INITIALIZE_ARGS();
+                    initArgs = new CK_C_INITIALIZE_ARGS();
                     initArgs.Flags = CKF.CKF_OS_LOCKING_OK;
                 }
 
@@ -129,7 +130,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            LowLevelAPI81.CK_INFO info = new LowLevelAPI81.CK_INFO();
+            CK_INFO info = new CK_INFO();
             CKR rv = _p11.C_GetInfo(ref info);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetInfo", rv);
