@@ -584,14 +584,20 @@
     <Compile Include="..\Pkcs11InteropTests\HighLevelAPI\_27_Pkcs11UriUtilsTest.cs">
       <Link>HighLevelAPI\_27_Pkcs11UriUtilsTest.cs</Link>
     </Compile>
+    <Compile Include="..\Pkcs11InteropTests\HighLevelAPI\_28_Pkcs11ClassExtensionTest.cs">
+      <Link>HighLevelAPI\_28_Pkcs11ClassExtensionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\Pkcs11InteropTests\HighLevelAPI\_29_SlotClassExtensionTest.cs">
+      <Link>HighLevelAPI\_29_SlotClassExtensionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\Pkcs11InteropTests\HighLevelAPI\_30_SessionClassExtensionTest.cs">
+      <Link>HighLevelAPI\_30_SessionClassExtensionTest.cs</Link>
+    </Compile>
     <Compile Include="..\Pkcs11InteropTests\LowLevelAPI40\Helpers.cs">
       <Link>LowLevelAPI40\Helpers.cs</Link>
     </Compile>
     <Compile Include="..\Pkcs11InteropTests\LowLevelAPI40\_01_InitializeTest.cs">
       <Link>LowLevelAPI40\_01_InitializeTest.cs</Link>
-    </Compile>
-    <Compile Include="..\Pkcs11InteropTests\LowLevelAPI40\_01b_InitializeTest.cs">
-      <Link>LowLevelAPI40\_01b_InitializeTest.cs</Link>
     </Compile>
     <Compile Include="..\Pkcs11InteropTests\LowLevelAPI40\_02_GetInfoTest.cs">
       <Link>LowLevelAPI40\_02_GetInfoTest.cs</Link>
@@ -683,9 +689,6 @@
     <Compile Include="..\Pkcs11InteropTests\LowLevelAPI41\_01_InitializeTest.cs">
       <Link>LowLevelAPI41\_01_InitializeTest.cs</Link>
     </Compile>
-    <Compile Include="..\Pkcs11InteropTests\LowLevelAPI41\_01b_InitializeTest.cs">
-      <Link>LowLevelAPI41\_01b_InitializeTest.cs</Link>
-    </Compile>
     <Compile Include="..\Pkcs11InteropTests\LowLevelAPI41\_02_GetInfoTest.cs">
       <Link>LowLevelAPI41\_02_GetInfoTest.cs</Link>
     </Compile>
@@ -776,9 +779,6 @@
     <Compile Include="..\Pkcs11InteropTests\LowLevelAPI80\_01_InitializeTest.cs">
       <Link>LowLevelAPI80\_01_InitializeTest.cs</Link>
     </Compile>
-    <Compile Include="..\Pkcs11InteropTests\LowLevelAPI80\_01b_InitializeTest.cs">
-      <Link>LowLevelAPI80\_01b_InitializeTest.cs</Link>
-    </Compile>
     <Compile Include="..\Pkcs11InteropTests\LowLevelAPI80\_02_GetInfoTest.cs">
       <Link>LowLevelAPI80\_02_GetInfoTest.cs</Link>
     </Compile>
@@ -868,9 +868,6 @@
     </Compile>
     <Compile Include="..\Pkcs11InteropTests\LowLevelAPI81\_01_InitializeTest.cs">
       <Link>LowLevelAPI81\_01_InitializeTest.cs</Link>
-    </Compile>
-    <Compile Include="..\Pkcs11InteropTests\LowLevelAPI81\_01b_InitializeTest.cs">
-      <Link>LowLevelAPI81\_01b_InitializeTest.cs</Link>
     </Compile>
     <Compile Include="..\Pkcs11InteropTests\LowLevelAPI81\_02_GetInfoTest.cs">
       <Link>LowLevelAPI81\_02_GetInfoTest.cs</Link>
