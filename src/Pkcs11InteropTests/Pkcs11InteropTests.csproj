@@ -71,87 +71,33 @@
     <Compile Include="HighLevelAPI40\_26_LegacyParallelFunctionsTest.cs" />
     <Compile Include="HighLevelAPI40\_27b_Pkcs11UriUtilsTest.cs" />
     <Compile Include="HighLevelAPI40\_27_Pkcs11UriUtilsTest.cs" />
-    <Compile Include="HighLevelAPI41\Helpers.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_01_InitializeTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_02_GetInfoTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_03_SlotListInfoAndEventTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_04_TokenInfoTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_05_MechanismListAndInfoTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_06_SessionTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_07_OperationStateTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_08_LoginTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_09_InitTokenAndPinTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_10_SetPinTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_11_SeedAndGenerateRandomTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_12_DigestTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_13_ObjectAttributeTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_14_MechanismTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_15_CreateCopyDestroyObjectTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_16_GetAndSetAttributeValueTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_17_ObjectFindingTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_18_GenerateKeyAndKeyPairTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_19_EncryptAndDecryptTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_20_SignAndVerifyTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_21_SignAndVerifyRecoverTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_22_DigestEncryptAndDecryptDigestTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_23_SignEncryptAndDecryptVerifyTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_24_WrapAndUnwrapKeyTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_25_DeriveKeyTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI41\_26_LegacyParallelFunctionsTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="HighLevelAPI41\Helpers.cs" />
+    <Compile Include="HighLevelAPI41\_01_InitializeTest.cs" />
+    <Compile Include="HighLevelAPI41\_02_GetInfoTest.cs" />
+    <Compile Include="HighLevelAPI41\_03_SlotListInfoAndEventTest.cs" />
+    <Compile Include="HighLevelAPI41\_04_TokenInfoTest.cs" />
+    <Compile Include="HighLevelAPI41\_05_MechanismListAndInfoTest.cs" />
+    <Compile Include="HighLevelAPI41\_06_SessionTest.cs" />
+    <Compile Include="HighLevelAPI41\_07_OperationStateTest.cs" />
+    <Compile Include="HighLevelAPI41\_08_LoginTest.cs" />
+    <Compile Include="HighLevelAPI41\_09_InitTokenAndPinTest.cs" />
+    <Compile Include="HighLevelAPI41\_10_SetPinTest.cs" />
+    <Compile Include="HighLevelAPI41\_11_SeedAndGenerateRandomTest.cs" />
+    <Compile Include="HighLevelAPI41\_12_DigestTest.cs" />
+    <Compile Include="HighLevelAPI41\_13_ObjectAttributeTest.cs" />
+    <Compile Include="HighLevelAPI41\_14_MechanismTest.cs" />
+    <Compile Include="HighLevelAPI41\_15_CreateCopyDestroyObjectTest.cs" />
+    <Compile Include="HighLevelAPI41\_16_GetAndSetAttributeValueTest.cs" />
+    <Compile Include="HighLevelAPI41\_17_ObjectFindingTest.cs" />
+    <Compile Include="HighLevelAPI41\_18_GenerateKeyAndKeyPairTest.cs" />
+    <Compile Include="HighLevelAPI41\_19_EncryptAndDecryptTest.cs" />
+    <Compile Include="HighLevelAPI41\_20_SignAndVerifyTest.cs" />
+    <Compile Include="HighLevelAPI41\_21_SignAndVerifyRecoverTest.cs" />
+    <Compile Include="HighLevelAPI41\_22_DigestEncryptAndDecryptDigestTest.cs" />
+    <Compile Include="HighLevelAPI41\_23_SignEncryptAndDecryptVerifyTest.cs" />
+    <Compile Include="HighLevelAPI41\_24_WrapAndUnwrapKeyTest.cs" />
+    <Compile Include="HighLevelAPI41\_25_DeriveKeyTest.cs" />
+    <Compile Include="HighLevelAPI41\_26_LegacyParallelFunctionsTest.cs" />
     <Compile Include="HighLevelAPI41\_27b_Pkcs11UriUtilsTest.cs" />
     <Compile Include="HighLevelAPI41\_27_Pkcs11UriUtilsTest.cs" />
     <Compile Include="HighLevelAPI80\Helpers.cs" />
@@ -183,91 +129,36 @@
     <Compile Include="HighLevelAPI80\_26_LegacyParallelFunctionsTest.cs" />
     <Compile Include="HighLevelAPI80\_27b_Pkcs11UriUtilsTest.cs" />
     <Compile Include="HighLevelAPI80\_27_Pkcs11UriUtilsTest.cs" />
-    <Compile Include="HighLevelAPI81\Helpers.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_01_InitializeTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_02_GetInfoTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_03_SlotListInfoAndEventTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_04_TokenInfoTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_05_MechanismListAndInfoTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_06_SessionTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_07_OperationStateTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_08_LoginTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_09_InitTokenAndPinTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_10_SetPinTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_11_SeedAndGenerateRandomTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_12_DigestTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_13_ObjectAttributeTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_14_MechanismTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_15_CreateCopyDestroyObjectTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_16_GetAndSetAttributeValueTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_17_ObjectFindingTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_18_GenerateKeyAndKeyPairTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_19_EncryptAndDecryptTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_20_SignAndVerifyTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_21_SignAndVerifyRecoverTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_22_DigestEncryptAndDecryptDigestTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_23_SignEncryptAndDecryptVerifyTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_24_WrapAndUnwrapKeyTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_25_DeriveKeyTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HighLevelAPI81\_26_LegacyParallelFunctionsTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="HighLevelAPI81\Helpers.cs" />
+    <Compile Include="HighLevelAPI81\_01_InitializeTest.cs" />
+    <Compile Include="HighLevelAPI81\_02_GetInfoTest.cs" />
+    <Compile Include="HighLevelAPI81\_03_SlotListInfoAndEventTest.cs" />
+    <Compile Include="HighLevelAPI81\_04_TokenInfoTest.cs" />
+    <Compile Include="HighLevelAPI81\_05_MechanismListAndInfoTest.cs" />
+    <Compile Include="HighLevelAPI81\_06_SessionTest.cs" />
+    <Compile Include="HighLevelAPI81\_07_OperationStateTest.cs" />
+    <Compile Include="HighLevelAPI81\_08_LoginTest.cs" />
+    <Compile Include="HighLevelAPI81\_09_InitTokenAndPinTest.cs" />
+    <Compile Include="HighLevelAPI81\_10_SetPinTest.cs" />
+    <Compile Include="HighLevelAPI81\_11_SeedAndGenerateRandomTest.cs" />
+    <Compile Include="HighLevelAPI81\_12_DigestTest.cs" />
+    <Compile Include="HighLevelAPI81\_13_ObjectAttributeTest.cs" />
+    <Compile Include="HighLevelAPI81\_14_MechanismTest.cs" />
+    <Compile Include="HighLevelAPI81\_15_CreateCopyDestroyObjectTest.cs" />
+    <Compile Include="HighLevelAPI81\_16_GetAndSetAttributeValueTest.cs" />
+    <Compile Include="HighLevelAPI81\_17_ObjectFindingTest.cs" />
+    <Compile Include="HighLevelAPI81\_18_GenerateKeyAndKeyPairTest.cs" />
+    <Compile Include="HighLevelAPI81\_19_EncryptAndDecryptTest.cs" />
+    <Compile Include="HighLevelAPI81\_20_SignAndVerifyTest.cs" />
+    <Compile Include="HighLevelAPI81\_21_SignAndVerifyRecoverTest.cs" />
+    <Compile Include="HighLevelAPI81\_22_DigestEncryptAndDecryptDigestTest.cs" />
+    <Compile Include="HighLevelAPI81\_23_SignEncryptAndDecryptVerifyTest.cs" />
+    <Compile Include="HighLevelAPI81\_24_WrapAndUnwrapKeyTest.cs" />
+    <Compile Include="HighLevelAPI81\_25_DeriveKeyTest.cs" />
+    <Compile Include="HighLevelAPI81\_26_LegacyParallelFunctionsTest.cs" />
     <Compile Include="HighLevelAPI81\_27b_Pkcs11UriUtilsTest.cs" />
     <Compile Include="HighLevelAPI81\_27_Pkcs11UriUtilsTest.cs" />
     <Compile Include="HighLevelAPI\Helpers.cs" />
-    <Compile Include="HighLevelAPI\_29_SlotClassExtensionTest.cs" />
     <Compile Include="HighLevelAPI\_01_InitializeTest.cs" />
     <Compile Include="HighLevelAPI\_02_GetInfoTest.cs" />
     <Compile Include="HighLevelAPI\_03_SlotListInfoAndEventTest.cs" />
@@ -281,9 +172,7 @@
     <Compile Include="HighLevelAPI\_11_SeedAndGenerateRandomTest.cs" />
     <Compile Include="HighLevelAPI\_12_DigestTest.cs" />
     <Compile Include="HighLevelAPI\_13_ObjectAttributeTest.cs" />
-    <Compile Include="HighLevelAPI\_14_MechanismTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="HighLevelAPI\_14_MechanismTest.cs" />
     <Compile Include="HighLevelAPI\_15_CreateCopyDestroyObjectTest.cs" />
     <Compile Include="HighLevelAPI\_16_GetAndSetAttributeValueTest.cs" />
     <Compile Include="HighLevelAPI\_17_ObjectFindingTest.cs" />
@@ -299,6 +188,7 @@
     <Compile Include="HighLevelAPI\_27b_Pkcs11UriUtilsTest.cs" />
     <Compile Include="HighLevelAPI\_27_Pkcs11UriUtilsTest.cs" />
     <Compile Include="HighLevelAPI\_28_Pkcs11ClassExtensionTest.cs" />
+    <Compile Include="HighLevelAPI\_29_SlotClassExtensionTest.cs" />
     <Compile Include="HighLevelAPI\_30_SessionClassExtensionTest.cs" />
     <Compile Include="LowLevelAPI40\Helpers.cs" />
     <Compile Include="LowLevelAPI40\_01_InitializeTest.cs" />
