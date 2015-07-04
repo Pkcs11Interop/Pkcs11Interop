@@ -18,6 +18,7 @@ namespace System.Runtime.CompilerServices
     [AttributeUsageAttribute(AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Method)]
     public class ExtensionAttribute : Attribute
     {
-        // TODO - Conditionally compile only with .NET 2.0
+        // Note: This class is compiled only when target framework is .NET 2.0.
+        //       See csproj file for more details.
     }
 }
