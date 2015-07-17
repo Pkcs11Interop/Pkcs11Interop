@@ -1,22 +1,53 @@
+Pkcs11Interop 3.0.0 (2015-xx-xx)
+ - Added support for PKCS#11 URI scheme defined in RFC 7512
+ - Added support for Silverlight 5, Xamarin.Android and Xamarin.iOS
+ - PKCS11-MOCK module can be used for testing on all supported platforms
+ - APIs can now be easily extended to support vendor specific unmanaged 
+   functions
+ - Value of array attributes (e.g. CKA_WRAP_TEMPLATE and CKA_UNWRAP_TEMPLATE) 
+   can now be read also in HighLevelAPIs
+ - Fixed GetAttributeValue() method in HighLevelAPIs
+ - Fixed marshalling of unmanaged CK_BBOOL type in C_GetSlotList() function 
+   and in CK_KEA_DERIVE_PARAMS, CK_SSL3_KEY_MAT_PARAMS 
+   and CK_WTLS_KEY_MAT_PARAMS structs
+ - Fixed marshalling of PasswordLen member in CK_PKCS5_PBKD2_PARAMS struct
+ - Class Net.Pkcs11Interop.Common.UnmanagedLong has been replaced with 
+   UnmanagedLongSize property of Net.Pkcs11Interop.Common.Platform class
+ - PKCS#11 libraries which are not using structs packed with 1-byte alignment 
+   are now supported via LowLevelAPI40 and HighLevelAPI40 on platforms where 
+   C 'long' type is 4 bytes long and via LowLevelAPI80 and HighLevelAPI80 
+   on platforms where C 'long' type is 8 bytes long
+ - LowLevelAPI4 and HighLevelAPI4 known from previous versions support only 
+   PKCS#11 libraries which are using structs packed with 1-byte alignment 
+   on platforms where C 'long' type is 4 bytes long and therefore they have 
+   been renamed to LowLevelAPI41 and HighLevelAPI41
+ - LowLevelAPI8 and HighLevelAPI8 known from previous versions support only 
+   PKCS#11 libraries which are using structs packed with 1-byte alignment 
+   on platforms where C 'long' type is 8 bytes long and therefore they have 
+   been renamed to LowLevelAPI81 and HighLevelAPI81
+ - Multiplatform HighLevelAPI is now built on top of HighLevelAPI40, 
+   HighLevelAPI41, HighLevelAPI80 and HighLevelAPI81 and it automatically uses 
+   correct set of platform dependent APIs
+
 Pkcs11Interop 2.0.2 (2015-01-12)
- - Fixed DecryptDigest method in HighLevelAPI
+ - Fixed DecryptDigest() method in HighLevelAPI
  - Calls C_GetSlotList() only once with no slots present
  - Added CK_UNAVAILABLE_INFORMATION and CK_EFFECTIVELY_INFINITE constants
 
 Pkcs11Interop 2.0.1 (2014-02-09)
- - Fixed C_GetMechanismList delegate on Linux64
- - Throws Pkcs11Exception when C_GetFunctionList fails
- - Unmanaged library is correctly unloaded when C_GetFunctionList fails
+ - Fixed C_GetMechanismList() delegate on Linux64
+ - Throws Pkcs11Exception when C_GetFunctionList() fails
+ - Unmanaged library is correctly unloaded when C_GetFunctionList() fails
  - Resolved Mac OS X detection and unmanaged library loading issues
 
 Pkcs11Interop 2.0 (2013-09-27)
- - Platforms where C 'long' type is 8 bytes long (Linux x86_64) are now 
-   supported via LowLevelAPI8 and HighLevel8
+ - Fix #3: Platforms where C 'long' type is 8 bytes long (Linux x86_64) 
+   are now supported via LowLevelAPI8 and HighLevelAPI8
  - LowLevelAPI and HighLevelAPI known from previous versions of library 
    support only platforms where C 'long' type is 4 bytes long and they have 
    been renamed to LowLevelAPI4 and HighLevelAPI4
  - New HighLevelAPI is now built on top of HighLevelAPI4 and HighLevelAPI8 
-   and automatically uses correct set of platform dependent APIs
+   and it automatically uses correct set of platform dependent APIs
  - System.Convert is used instead of explicit type casting where appropriate
  - Pkcs11InteropException has been removed
 
