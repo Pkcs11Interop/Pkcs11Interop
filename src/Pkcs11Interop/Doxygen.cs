@@ -2,59 +2,63 @@
  * 
  * \tableofcontents
  * 
- * \section sec_overview Overview
+ * \section Overview Overview
  * 
- * <a href="https://www.oasis-open.org/committees/pkcs11/">PKCS#11</a> is cryptography standard originally published by RSA Laboratories that defines ANSI C API to access smart cards and other types of cryptographic hardware. Standard is currently being maintained and developed by the OASIS PKCS 11 Technical Committee.
+ * <b>PKCS#11</b> is cryptography standard maintained by the OASIS PKCS 11 Technical Committee (originally published by RSA Laboratories) that defines ANSI C API to access smart cards and other types of cryptographic hardware.
  * 
- * <a href="http://www.pkcs11interop.net">Pkcs11interop</a> is managed library written in C# that brings full power of PKCS#11 API to the .NET environment. It uses System.Runtime.InteropServices to define platform invoke methods for accessing unmanaged PKCS#11 API and specifies how data is marshaled between managed and unmanaged memory. Pkcs11Interop library supports both 32-bit and 64-bit platforms and can be used with <a href="http://www.microsoft.com/net">.NET Framework</a> 2.0 or higher on Microsoft Windows or with <a href="http://www.mono-project.com/">Mono</a> on Linux, Mac OS X, BSD and others.
+ * <b>Pkcs11interop</b> is managed library written in C# that brings the full power of PKCS#11 API to the .NET environment.
  * 
- * \section sec_library_desing Library design
- *
- * Pkcs11Interop API is logically divided into the set of <b>LowLevelAPIs</b> and the set of <b>HighLevelAPIs.</b>
+ * Pkcs11Interop library:
  * 
-  * \subsection sec_library_desing_lowlevelaapi LowLevelAPI
+ * - implements .NET wrapper for unmanaged PKCS#11 libraries
+ * - is compliant with PKCS#11 v2.20 specification and PKCS#11 URI scheme defined in RFC 7512
+ * - is compatible with .NET Framework 2.0 (and higher), Mono, Xamarin and Silverlight
+ * - is supported on Windows, Linux, Mac OS X, Android and iOS
+ * - is supported on both 32-bit and 64-bit platforms
+ * - is available under both open-source and commercial licenses
+ * - uses 100% managed and fully documented code
+ * - contains code samples covering all methods of PKCS#11 API
  * 
- * - Provides exact PKCS#11 interface as defined by RSA Laboratories
- * - Gives the developer a full power of PKCS#11 ANSI C API
- * - Requires C style coding with manual management of unmanaged memory
+ * \section Architecture Architecture
  * 
- * \subsection sec_library_desing_highlevelaapi HighLevelAPI
+ * Pkcs11Interop forms a bridge between the unmanaged ANSI C and managed .NET worlds. It loads unmanaged PKCS#11 library provided by the cryptographic device vendor and makes its functions accessible to .NET application.
  * 
- * - Built on top of LowLevelAPI
- * - Utilizes developer friendly constructs and supports Streams
- * - Garbage collector takes care of unmanaged memory handling
- * 
- * The following figure shows the architecture of Pkcs11Interop:
+ * Following figure presents the typical usage of Pkcs11Interop library in .NET application (left side) and internal architecture of Pkcs11Interop library (right side):
  * 
  * \image html pkcs11interop-architecture.png 
- *
- * You may be wondering why there is more than one LowLevelAPI and what do numbers 4 and 8 in the namespaces mean:
  * 
- * The C 'long' type is extensively used throughout the PKCS#11 ANSI C API as CK_ULONG type and unfortunately it is the most difficult type to marshal since there is no type in .NET that matches its size. The problem is that the C 'long' type can be 4 bytes long on some platforms (Win32, Win64 and Unix32) and in the same time it can be 8 bytes long on the other platforms (Unix64). In .NET there is 'int' type which is 4 bytes long regardless of platform and there is 'long' type which is 8 bytes long regardless of platform. Neither of them can be used as a multiplatform alternative for C 'long' type and the only solution is to use and marshal two different sets of structures, one with 'int' .NET type for platforms where C 'long' type is 4 bytes long (LowLevelAPI41 and HighLevelAPI41) and the other with 'long' .NET type for platforms where C 'long' type is 8 bytes long (LowLevelAPI81 and HighLevel8).
+ * Pkcs11interop uses System.Runtime.InteropServices to define platform invoke methods for unmanaged PKCS#11 API and specifies how data is marshaled between managed and unmanaged memory. 
  * 
- * <b>When developing your application you should always prefer Net.Pkcs11Interop.HighLevelAPI that automatically uses correct set of platform dependent APIs.</b>
+ * <b>LowLevelAPIs and HighLevelAPIs</b>: Pkcs11Interop API is logically divided into the set of LowLevelAPIs and the set of HighLevelAPIs. In order to bring the full power of PKCS#11 API to the .NET environment LowLevelAPIs follow ANSI C API defined by PKCS#11 specification as closely as possible and because of that require C-like coding style with a manual memory management. On the other hand HighLevelAPIs, which are built on top of LowLevelAPIs, use garbage collector for automatic memory management and utilize developer friendly constructs such as collections or streams.
  * 
- * \section sec_supported_features Supported features
+ * <b>Fours and eights in the APIs</b>: The C 'long' type is extensively used throughout the PKCS#11 ANSI C API as CK_ULONG type and unfortunately it is one of the most difficult types to marshal since there is no equivalent type in .NET that universally matches its size. The problem is that the C 'long' type can be 4 bytes long on some platforms (Win32, Win64 and Unix32) and in the same time it can be 8 bytes long on the other platforms (Unix64). In .NET there is 'int' type which is 4 bytes long regardless of platform and there is 'long' type which is 8 bytes long regardless of platform. Neither of them can be used as a multiplatform alternative for C 'long' type and the only option is to use and marshal two different sets of functions and structures - one with 'int' .NET type for platforms where <b>C 'long' type is 4 bytes long</b> (LowLevelAPI<b>4</b>0, LowLevelAPI<b>4</b>1, HighLevelAPI<b>4</b>0 and HighLevelAPI<b>4</b>1) and the other with 'long' .NET type for platforms where <b>C 'long' type is 8 bytes long</b> (LowLevelAPI<b>8</b>0, LowLevelAPI<b>8</b>1, HighLevelAPI<b>8</b>0 and HighLevelAPI<b>8</b>1).
  * 
- * Pkcs11Interop implements full PKCS#11 v2.20 specification with the following mostly temporary exceptions and limitations:
+ * <b>Zeros and ones in the APIs</b>: PKCS#11 v2.20 specification vaguely states that <i>"Cryptoki structures are packed to occupy as little space as is possible. In particular, on the Win32 and Win16 platforms, Cryptoki structures should be packed with 1-byte alignment. In a UNIX environment, it may or may not be necessary (or even possible) to alter the byte-alignment of structures."</i>. One could say that packing with 1-byte alignment should be preferred on all platforms but most of the implementations for Unix platforms use the default byte alignment instead. Structure packing in .NET is controlled by the Pack field of System.Runtime.InteropServices.StructLayoutAttribute which cannot be modified in the runtime so the only option is to use and marshal two different sets of structures - one with <b>Pack field set to 1</b> to indicate 1-byte alignment (LowLevelAPI4<b>1</b>, LowLevelAPI8<b>1</b>, HighLevelAPI4<b>1</b> and HighLevelAPI8<b>1</b>) and the other with <b>Pack field set to 0</b> to indicate the default byte alignment (LowLevelAPI4<b>0</b>, LowLevelAPI8<b>0</b>, HighLevelAPI4<b>0</b> and HighLevelAPI8<b>0</b>).
  * 
- * - Reading the value of CKA_WRAP_TEMPLATE and CKA_UNWRAP_TEMPLATE attributes is supported only in LowLevelAPIs.
- * - Locking related types CK_CREATEMUTEX, CK_DESTROYMUTEX, CK_LOCKMUTEX and CK_UNLOCKMUTEX are not supported, but native OS threading model (CKF_OS_LOCKING_OK) can be used without any problems.
+ * <b>Note: Net.Pkcs11Interop.HighLevelAPI automagically uses correct set of platform dependent APIs and is recommended API for most use cases.</b>
+ * 
+ * \section SupportedFeatures Supported features
+ * 
+ * Pkcs11Interop implements full <a href="https://github.com/jariq/PKCS11-SPECS/tree/master/v2.20">PKCS#11&nbsp;v2.20&nbsp;specification</a> with the following exceptions and limitations:
+ * 
  * - CK_NOTIFY notification callbacks are not supported.
+ * - Locking related types CK_CREATEMUTEX, CK_DESTROYMUTEX, CK_LOCKMUTEX and CK_UNLOCKMUTEX are not supported. However native OS threading model identified with CKF_OS_LOCKING_OK flag can be used without any problems.
  * 
- * \section sec_documentation Documentation
+ * \section Documentation Documentation
  * 
- * Before you start using Pkcs11Interop you should at least read "Chapter 2 - Scope", "Chapter 6 - General overview" and "Chapter 10 - Objects" of <a href="/rsa-pkcs11-2.20/pkcs-11v2-20.pdf">PKCS#11&nbsp;standard</a> which has later been extended by <a href="/rsa-pkcs11-2.20/pkcs-11v2-20a1.pdf">Amendment&nbsp;1</a>, <a href="/rsa-pkcs11-2.20/pkcs-11v2-20a2.pdf">Amendment&nbsp;2</a> and <a href="/rsa-pkcs11-2.20/pkcs-11v2-20a3.pdf">Amendment&nbsp;3</a>.
+ * Pkcs11Interop API is fully documented with inline XML documentation that can be displayed by the most of the modern IDEs during the application development. Detailed <a href="annotated.html">Pkcs11Interop API documentation</a> is also available online.
  * 
- * \section sec_code_samples Code samples
+ * <b>Note: Before you start using Pkcs11Interop you should at least read and understand "Chapter 2 - Scope", "Chapter 6 - General overview" and "Chapter 10 - Objects" of <a href="https://github.com/jariq/PKCS11-SPECS/tree/master/v2.20"><b>PKCS#11&nbsp;v2.20&nbsp;specification</b></a>.</b>
+ * 
+ * \section CodeSamples Code samples
  * 
  * Pkcs11Interop source code contains unit tests covering all methods of PKCS#11 API. Unit tests are well documented and they also serve as <a href="examples.html">official code samples</a>.
  * 
  * <b>WARNING: Our documentation and code samples do not cover the theory of security/cryptography or the strengths/weaknesses of specific algorithms. You should always understand what you are doing and why. Please do not simply copy our code samples and expect it to fully solve your usage scenario. Cryptography is an advanced topic and one should consult a solid and preferably recent reference in order to make the best of it.</b>
  * 
- * \section sec_more_info More info
+ * \section MoreInfo More info
  * 
- * Please visit project website - <a class="el" href="http://www.pkcs11interop.net">www.pkcs11interop.net</a> - for more information regarding updates, licensing, support etc.
+ * Please visit project website - <a class="el" href="https://www.pkcs11interop.net">www.pkcs11interop.net</a> - for more information.
  */
 
 
@@ -62,42 +66,73 @@
  * \namespace Net.Pkcs11Interop
  * \brief Base namespace of Pkcs11Interop project
  * 
+ * 
  * \namespace Net.Pkcs11Interop.Common
  * \brief Components shared by all the LowLevelAPIs and HighLevelAPIs
  * 
+ * 
+ * \namespace Net.Pkcs11Interop.HighLevelAPI
+ * \brief High level .NET friendly API recommended for multiplatform development
+ * 
+ * \namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
+ * \brief Classes that can hold parameters for various mechanisms usable by HighLevelAPI
+ * 
+ * 
+ * \namespace Net.Pkcs11Interop.LowLevelAPI40
+ * \brief Low level C-like API for platforms where C 'long' type is 4 bytes long (Win32, Win64 and Unix32) and structs are packed with the default byte alignment
+ * 
+ * \namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
+ * \brief Classes that can hold parameters for various mechanisms usable by LowLevelAPI40
+ * 
+ * \namespace Net.Pkcs11Interop.HighLevelAPI40
+ * \brief High level .NET friendly API for platforms where C 'long' type is 4 bytes long (Win32, Win64 and Unix32) and structs are packed with the default byte alignment
+ * 
+ * \namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
+ * \brief Classes that can hold parameters for various mechanisms usable by HighLevelAPI40
+ * 
+ * 
  * \namespace Net.Pkcs11Interop.LowLevelAPI41
- * \brief Low level C-like API for platforms where C 'long' type is 4 bytes long (Win32, Win64 and Unix32)
+ * \brief Low level C-like API for platforms where C 'long' type is 4 bytes long (Win32, Win64 and Unix32) and structs are packed with 1-byte alignment
  * 
  * \namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
  * \brief Classes that can hold parameters for various mechanisms usable by LowLevelAPI41
  * 
  * \namespace Net.Pkcs11Interop.HighLevelAPI41
- * \brief High level .NET friendly API for platforms where C 'long' type is 4 bytes long (Win32, Win64 and Unix32)
+ * \brief High level .NET friendly API for platforms where C 'long' type is 4 bytes long (Win32, Win64 and Unix32) and structs are packed with 1-byte alignment
  * 
  * \namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
  * \brief Classes that can hold parameters for various mechanisms usable by HighLevelAPI41
  * 
+ * 
+ * \namespace Net.Pkcs11Interop.LowLevelAPI80
+ * \brief Low level C-like API for platforms where C 'long' type is 8 bytes long (Unix64) and structs are packed with the default byte alignment
+ * 
+ * \namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
+ * \brief Classes that can hold parameters for various mechanisms usable by LowLevelAPI80
+ * 
+ * \namespace Net.Pkcs11Interop.HighLevelAPI80
+ * \brief High level .NET friendly API for platforms where C 'long' type is 8 bytes long (Unix64) and structs are packed with the default byte alignment
+ * 
+ * \namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
+ * \brief Classes that can hold parameters for various mechanisms usable by HighLevelAPI80
+ * 
+ * 
  * \namespace Net.Pkcs11Interop.LowLevelAPI81
- * \brief Low level C-like API for platforms where C 'long' type is 8 bytes long (Unix64)
+ * \brief Low level C-like API for platforms where C 'long' type is 8 bytes long (Unix64) and structs are packed with 1-byte alignment
  * 
  * \namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
  * \brief Classes that can hold parameters for various mechanisms usable by LowLevelAPI81
  * 
  * \namespace Net.Pkcs11Interop.HighLevelAPI81
- * \brief High level .NET friendly API for platforms where C 'long' type is 8 bytes long (Unix64)
+ * \brief High level .NET friendly API for platforms where C 'long' type is 8 bytes long (Unix64) and structs are packed with 1-byte alignment
  * 
  * \namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
  * \brief Classes that can hold parameters for various mechanisms usable by HighLevelAPI81
- * 
- * \namespace Net.Pkcs11Interop.HighLevelAPI
- * \brief High level .NET friendly API usable for multiplatform development
- * 
- * \namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
- * \brief Classes that can hold parameters for various mechanisms usable by HighLevelAPI
  */
 
 
 /*!
+ * \example Settings.cs
  * \example HighLevelAPI/_01_InitializeTest.cs
  * \example HighLevelAPI/_02_GetInfoTest.cs
  * \example HighLevelAPI/_03_SlotListInfoAndEventTest.cs
@@ -125,5 +160,8 @@
  * \example HighLevelAPI/_25_DeriveKeyTest.cs
  * \example HighLevelAPI/_26_LegacyParallelFunctionsTest.cs
  * \example HighLevelAPI/_27_Pkcs11UriUtilsTest.cs
+ * \example HighLevelAPI/_28_Pkcs11ClassExtensionTest.cs
+ * \example HighLevelAPI/_29_SlotClassExtensionTest.cs
+ * \example HighLevelAPI/_30_SessionClassExtensionTest.cs
  * \example HighLevelAPI/Helpers.cs
  */
