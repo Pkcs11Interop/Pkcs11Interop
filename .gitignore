@@ -4,3 +4,4 @@
 test-results/
 *.suo
 *.user
+doxygen-output/
