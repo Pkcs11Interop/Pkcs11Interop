@@ -6,14 +6,10 @@
 	<string>Pkcs11Interop.iOS.Tests</string>
 	<key>CFBundleIdentifier</key>
 	<string>Pkcs11Interop.iOS.Tests</string>
-	<key>CFBundleShortVersionString</key>
-	<string>2.0.2</string>
-	<key>CFBundleVersion</key>
-	<string>2.0.2</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MinimumOSVersion</key>
-	<string>8.0</string>
+	<string>9.1</string>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
@@ -40,5 +36,9 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Resources/Images.xcassets/AppIcons.appiconset</string>
+	<key>CFBundleShortVersionString</key>
+	<string>3.0.0</string>
+	<key>CFBundleVersion</key>
+	<string>3.0.0</string>
 </dict>
 </plist>
