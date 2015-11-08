@@ -66,7 +66,7 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>23B56C8D405E49347D1B17CA1DAB1977F79F25C2</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>501DB72834B4B32704A5E0E97B9CB0A38B5A85CA</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestTimestampUrl>http://time.certum.pl/</ManifestTimestampUrl>
