@@ -21,16 +21,14 @@ namespace Net.Pkcs11Interop.Common
 {
     /// <summary>
     /// PKCS#11 URI builder
-    /// 
-    /// Implementation notes:
-    /// - As recommended by PKCS#11 URI specification Pkcs11UriBuilder class 
+    /// <para>Implementation note: As recommended by PKCS#11 URI specification Pkcs11UriBuilder class 
     ///   percent-encodes the whole value of the "id" attribute which is supposed 
     ///   to be handled as arbitrary binary data. Therefore it is not possible to 
-    ///   construct URIs with arbitrary string value of the "id" attribute.
-    /// - Validation of each individual attribute value is performed by the setter 
+    ///   construct URIs with arbitrary string value of the "id" attribute.</para>
+    /// <para>Implementation note: Validation of each individual attribute value is performed by the setter 
     ///   of corresponding Pkcs11UriBuilder class property with the exception to 
     ///   UnknownPathAttributes and UnknownQueryAttributes properties whose values 
-    ///   are validated when ToString() or ToPkcs11Uri() method is called.
+    ///   are validated when ToString() or ToPkcs11Uri() method is called.</para>
     /// </summary>
     public class Pkcs11UriBuilder
     {
@@ -686,7 +684,7 @@ namespace Net.Pkcs11Interop.Common
         /// <summary>
         /// Collection of unknown vendor specific path attributes that is validated when ToString() or ToPkcs11Uri() method is called
         /// </summary>
-        private Dictionary<string, string> _unknownPathAttributes = new Dictionary<string,string>();
+        private Dictionary<string, string> _unknownPathAttributes = new Dictionary<string, string>();
 
         /// <summary>
         /// Collection of unknown vendor specific path attributes that is validated when ToString() or ToPkcs11Uri() method is called
@@ -884,7 +882,7 @@ namespace Net.Pkcs11Interop.Common
         /// <summary>
         /// Collection of unknown vendor specific query attributes that is validated when ToString() or ToPkcs11Uri() method is called
         /// </summary>
-        private Dictionary<string, List<string>> _unknownQueryAttributes = new Dictionary<string,List<string>>();
+        private Dictionary<string, List<string>> _unknownQueryAttributes = new Dictionary<string, List<string>>();
 
         /// <summary>
         /// Collection of unknown vendor specific query attributes that is validated when ToString() or ToPkcs11Uri() method is called

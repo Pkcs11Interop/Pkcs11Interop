@@ -102,7 +102,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
                     Assert.Fail(rv.ToString());
 
-                //  Obtain a list of all slots with tokens that match URI
+                // Obtain a list of all slots with tokens that match URI
                 uint[] slots = null;
                 
                 rv = Pkcs11UriUtils.GetMatchingSlotList(pkcs11Uri, pkcs11, true, out slots);

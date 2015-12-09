@@ -342,7 +342,7 @@ namespace Net.Pkcs11Interop.Common
         /// <summary>
         /// Collection of unknown vendor specific path attributes
         /// </summary>
-        private Dictionary<string, string> _unknownPathAttributes = new Dictionary<string,string>();
+        private Dictionary<string, string> _unknownPathAttributes = new Dictionary<string, string>();
 
         /// <summary>
         /// Collection of unknown vendor specific path attributes
@@ -426,7 +426,7 @@ namespace Net.Pkcs11Interop.Common
         /// <summary>
         /// Collection of unknown vendor specific query attributes
         /// </summary>
-        private Dictionary<string, List<string>> _unknownQueryAttributes = new Dictionary<string,List<string>>();
+        private Dictionary<string, List<string>> _unknownQueryAttributes = new Dictionary<string, List<string>>();
 
         /// <summary>
         /// Collection of unknown vendor specific query attributes

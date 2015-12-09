@@ -147,7 +147,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     uint digestLen = 0;
                     rv = pkcs11.C_DigestFinal(session, null, ref digestLen);
                     if (rv != CKR.CKR_OK)
-                        Assert.Fail(rv.ToString());;
+                        Assert.Fail(rv.ToString());
 
                     Assert.IsTrue(digestLen > 0);
                     
@@ -225,7 +225,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                 uint digestLen = 0;
                 rv = pkcs11.C_DigestFinal(session, null, ref digestLen);
                 if (rv != CKR.CKR_OK)
-                    Assert.Fail(rv.ToString());;
+                    Assert.Fail(rv.ToString());
                 
                 Assert.IsTrue(digestLen > 0);
                 

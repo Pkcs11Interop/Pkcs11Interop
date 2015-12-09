@@ -1429,8 +1429,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <param name="encryptionMechanism">Encryption mechanism</param>
         /// <param name="keyHandle">Handle of the encryption key</param>
         /// <param name="data">Data to be processed</param>
-        /// <param name="encryptedData">Encrypted data</param>
         /// <param name="digest">Digest</param>
+        /// <param name="encryptedData">Encrypted data</param>
         public void DigestEncrypt(Mechanism digestingMechanism, Mechanism encryptionMechanism, ObjectHandle keyHandle, byte[] data, out byte[] digest, out byte[] encryptedData)
         {
             if (this._disposed)

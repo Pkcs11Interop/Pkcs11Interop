@@ -123,8 +123,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                     rv = pkcs11.C_DigestFinal(session, null, ref digestLen);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
-                    ;
-                    
+
                     Assert.IsTrue(digestLen > 0);
                     
                     // Allocate array for digest value
@@ -221,8 +220,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                     rv = pkcs11.C_DigestFinal(session, null, ref digestLen);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
-                    ;
-                    
+
                     Assert.IsTrue(digestLen > 0);
                     
                     // Allocate array for digest value

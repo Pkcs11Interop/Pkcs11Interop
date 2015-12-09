@@ -27,6 +27,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// Platform specific CkMacGeneralParams
         /// </summary>
         private HighLevelAPI40.MechanismParams.CkMacGeneralParams _params40 = null;
+
         /// <summary>
         /// Platform specific CkMacGeneralParams
         /// </summary>

@@ -181,7 +181,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             // blank characters, and which must not be null-terminated).
             byte[] tokenLabel = new byte[32];
             for (int i = 0; i < tokenLabel.Length; i++)
-                tokenLabel [i] = 0x20;
+                tokenLabel[i] = 0x20;
             
             if (label != null)
             {

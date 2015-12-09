@@ -136,7 +136,7 @@ namespace Net.Pkcs11Interop.Common
 
             byte[] output = new byte[outputLength];
             for (int i = 0; i < outputLength; i++)
-                output [i] = paddingByte;
+                output[i] = paddingByte;
 
             if (value != null)
             {

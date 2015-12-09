@@ -38,6 +38,8 @@ namespace Net.Pkcs11Interop.Common
         /// <summary>
         /// Checks whether provided number has value of CK_UNAVAILABLE_INFORMATION constant
         /// </summary>
+        /// <param name="value">Number to be checked</param>
+        /// <returns>True if number has value of CK_UNAVAILABLE_INFORMATION constant false otherwise</returns>
         public static bool IsCkInformationUnavailable(ulong value)
         {
             if (Platform.UnmanagedLongSize == 4)
