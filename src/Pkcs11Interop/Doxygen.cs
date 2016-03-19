@@ -12,10 +12,9 @@
  * 
  * - implements .NET wrapper for unmanaged PKCS#11 libraries
  * - is compliant with PKCS#11 v2.20 specification and PKCS#11 URI scheme defined in RFC 7512
- * - is compatible with .NET Framework 2.0 (and higher), Mono, Xamarin and Silverlight
+ * - is compatible with .NET Framework 2.0 (and higher), Mono, Xamarin and Silverlight5
  * - is supported on Windows, Linux, Mac OS X, Android and iOS
  * - is supported on both 32-bit and 64-bit platforms
- * - is available under both open-source and commercial licenses
  * - uses 100% managed and fully documented code
  * - contains code samples covering all methods of PKCS#11 API
  * 

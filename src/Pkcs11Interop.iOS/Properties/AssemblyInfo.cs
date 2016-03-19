@@ -7,11 +7,11 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyTitle ("Pkcs11Interop.iOS")]
 [assembly: AssemblyDescription("Managed .NET wrapper for unmanaged PKCS#11 libraries")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("JWC s.r.o.")]
-[assembly: AssemblyProduct("Pkcs11Interop (AGPL)")]
-[assembly: AssemblyCopyright("Copyright © 2012-2015 JWC s.r.o. All Rights Reserved.")]
-[assembly: AssemblyTrademark ("")]
-[assembly: AssemblyCulture ("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Pkcs11Interop")]
+[assembly: AssemblyCopyright("Copyright 2012-2016 The Pkcs11Interop Project")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
 
 // The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".
 // The form "{Major}.{Minor}.*" will automatically update the build and revision,

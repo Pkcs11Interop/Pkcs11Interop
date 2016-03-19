@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Pkcs11Interop.Silverlight.Tests")]
 [assembly: AssemblyDescription("Managed .NET wrapper for unmanaged PKCS#11 libraries")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("JWC s.r.o.")]
-[assembly: AssemblyProduct("Pkcs11Interop (AGPL)")]
-[assembly: AssemblyCopyright("Copyright © 2012-2015 JWC s.r.o. All Rights Reserved.")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Pkcs11Interop")]
+[assembly: AssemblyCopyright("Copyright 2012-2016 The Pkcs11Interop Project")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

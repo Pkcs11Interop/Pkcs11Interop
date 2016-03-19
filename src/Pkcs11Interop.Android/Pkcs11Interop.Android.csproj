@@ -1806,5 +1806,8 @@
     <None Include="..\Pkcs11Interop\LICENSE.txt">
       <Link>LICENSE.txt</Link>
     </None>
+    <None Include="..\Pkcs11Interop\NOTICE.txt">
+      <Link>NOTICE.txt</Link>
+    </None>
   </ItemGroup>
 </Project>
