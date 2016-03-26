@@ -1,28 +1,6 @@
 ﻿/*! \mainpage Managed .NET wrapper for unmanaged PKCS#11 libraries
  * 
- * \tableofcontents
- * 
- * \section Overview Overview
- * 
- * <b>PKCS#11</b> is cryptography standard maintained by the OASIS PKCS 11 Technical Committee (originally published by RSA Laboratories) that defines ANSI C API to access smart cards and other types of cryptographic hardware.
- * 
- * <b>Pkcs11interop</b> is managed library written in C# that brings the full power of PKCS#11 API to the .NET environment.
- * 
- * Pkcs11Interop library:
- * 
- * - implements .NET wrapper for unmanaged PKCS#11 libraries
- * - is compliant with PKCS#11 v2.20 specification and PKCS#11 URI scheme defined in RFC 7512
- * - is compatible with .NET Framework 2.0 (and higher), Mono, Xamarin and Silverlight5
- * - is supported on Windows, Linux, Mac OS X, Android and iOS
- * - is supported on both 32-bit and 64-bit platforms
- * - uses 100% managed and fully documented code
- * - contains code samples covering all methods of PKCS#11 API
- * 
- * \section Architecture Architecture
- * 
- * Pkcs11Interop forms a bridge between the unmanaged ANSI C and managed .NET worlds. It loads unmanaged PKCS#11 library provided by the cryptographic device vendor and makes its functions accessible to .NET application.
- * 
- * Following figure presents the typical usage of Pkcs11Interop library in .NET application (left side) and internal architecture of Pkcs11Interop library (right side):
+ * <a class="el" href="https://www.pkcs11interop.net">Pkcs11Interop</a> forms a bridge between the unmanaged ANSI C and managed .NET worlds. It loads unmanaged PKCS#11 library provided by the cryptographic device vendor and makes its functions accessible to .NET application. Following figure presents the typical usage of Pkcs11Interop library in .NET application (left side) and internal architecture of Pkcs11Interop library (right side):
  * 
  * \image html pkcs11interop-architecture.png 
  * 
@@ -34,30 +12,7 @@
  * 
  * <b>Zeros and ones in the APIs</b>: PKCS#11 v2.20 specification vaguely states that <i>"Cryptoki structures are packed to occupy as little space as is possible. In particular, on the Win32 and Win16 platforms, Cryptoki structures should be packed with 1-byte alignment. In a UNIX environment, it may or may not be necessary (or even possible) to alter the byte-alignment of structures."</i>. One could say that packing with 1-byte alignment should be preferred on all platforms but most of the implementations for Unix platforms use the default byte alignment instead. Structure packing in .NET is controlled by the Pack field of System.Runtime.InteropServices.StructLayoutAttribute which cannot be modified in the runtime so the only option is to use and marshal two different sets of structures - one with <b>Pack field set to 1</b> to indicate 1-byte alignment (LowLevelAPI4<b>1</b>, LowLevelAPI8<b>1</b>, HighLevelAPI4<b>1</b> and HighLevelAPI8<b>1</b>) and the other with <b>Pack field set to 0</b> to indicate the default byte alignment (LowLevelAPI4<b>0</b>, LowLevelAPI8<b>0</b>, HighLevelAPI4<b>0</b> and HighLevelAPI8<b>0</b>).
  * 
- * <b>Note: Net.Pkcs11Interop.HighLevelAPI automagically uses correct set of platform dependent APIs and is recommended API for most use cases.</b>
- * 
- * \section SupportedFeatures Supported features
- * 
- * Pkcs11Interop implements full <a href="https://github.com/jariq/PKCS11-SPECS/tree/master/v2.20">PKCS#11&nbsp;v2.20&nbsp;specification</a> with the following exceptions and limitations:
- * 
- * - CK_NOTIFY notification callbacks are not supported.
- * - Locking related types CK_CREATEMUTEX, CK_DESTROYMUTEX, CK_LOCKMUTEX and CK_UNLOCKMUTEX are not supported. However native OS threading model identified with CKF_OS_LOCKING_OK flag can be used without any problems.
- * 
- * \section Documentation Documentation
- * 
- * Pkcs11Interop API is fully documented with inline XML documentation that can be displayed by the most of the modern IDEs during the application development. Detailed <a href="annotated.html">Pkcs11Interop API documentation</a> is also available online.
- * 
- * <b>Note: Before you start using Pkcs11Interop you should at least read and understand "Chapter 2 - Scope", "Chapter 6 - General overview" and "Chapter 10 - Objects" of <a href="https://github.com/jariq/PKCS11-SPECS/tree/master/v2.20"><b>PKCS#11&nbsp;v2.20&nbsp;specification</b></a>.</b>
- * 
- * \section CodeSamples Code samples
- * 
- * Pkcs11Interop source code contains unit tests covering all methods of PKCS#11 API. Unit tests are well documented and they also serve as <a href="examples.html">official code samples</a>.
- * 
- * <b>WARNING: Our documentation and code samples do not cover the theory of security/cryptography or the strengths/weaknesses of specific algorithms. You should always understand what you are doing and why. Please do not simply copy our code samples and expect it to fully solve your usage scenario. Cryptography is an advanced topic and one should consult a solid and preferably recent reference in order to make the best of it.</b>
- * 
- * \section MoreInfo More info
- * 
- * Please visit project website - <a class="el" href="https://www.pkcs11interop.net">www.pkcs11interop.net</a> - for more information.
+ * <b>Please note that Net.Pkcs11Interop.HighLevelAPI automagically uses correct set of platform dependent APIs and is recommended API for most use cases.</b>
  */
 
 
