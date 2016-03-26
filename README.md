@@ -34,7 +34,7 @@ Pkcs11Interop library:
 * is supported on Windows, Linux, Mac OS X, Android and iOS
 * is supported on both 32-bit and 64-bit platforms
 * is open source and completely free for commercial use
-* is used in production by several information security and banking organizations
+* is used in production by several information security and financial organizations
 * uses 100% managed and fully documented code
 * contains code samples covering all methods of PKCS#11 API
 
@@ -144,7 +144,7 @@ Archives with the source code and binaries can be downloaded from [our releases 
 ## License
 
 Pkcs11Interop is available under the terms of the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).  
-[Human friendly license summary](https://www.tldrlegal.com/l/apache2) is available at tldrlegal.com but the full license text always prevails.
+[Human friendly license summary](https://www.tldrlegal.com/l/apache2) is available at tldrlegal.com but the [full license text](LICENSE.md) always prevails.
 
 ## Support
 
