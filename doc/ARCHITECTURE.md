@@ -1,4 +1,4 @@
-## Pkcs11Interop library architecture
+# Pkcs11Interop library architecture
 
 Pkcs11Interop forms a bridge between the unmanaged ANSI C and managed .NET worlds. It loads unmanaged PKCS#11 library provided by the cryptographic device vendor and makes its functions accessible to .NET application.
 

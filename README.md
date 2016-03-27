@@ -7,9 +7,7 @@ Pkcs11Interop
 ## Table of Contents
 
 * [Overview](#overview)
-* [Getting started](#getting-started)
 * [Documentation](#documentation)
-* [Code samples](#code-samples)
 * [Download](#download)
 * [License](#license)
 * [Support](#support)
@@ -50,92 +48,16 @@ Pkcs11Interop has been confirmed to be working with the following devices:
 * Belgian and Slovak eID cards
 * SmartCard-HSM
 
-## Getting started
-
-Follow the instructions provided by the vendor of your cryptographic device to install and configure the device along with all the required support software. Consult device documentation to determine the exact location of unmanaged PKCS#11 library provided by the device vendor.
-
-Create new C# console application project in Visual Studio and install Pkcs11Interop with the following command issued in the [NuGet Package Manager Console](http://docs.nuget.org/docs/start-here/using-the-package-manager-console):
-
-```
-PM> Install-Package Pkcs11Interop
-```
-
-Use the following code to display basic information about your unmanaged PKCS#11 library and all available slots. Don't forget to replace the value of `pkcs11LibraryPath` field.
-
-```csharp
-using System;
-using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.HighLevelAPI;
-
-namespace ConsoleApplication1
-{
-    class Program
-    {
-        // Defines path to unmanaged PKCS#11 library provided by the cryptographic device vendor
-        static string pkcs11LibraryPath = @"c:\SoftHSM2\lib\softhsm2.dll";
-
-        static void Main(string[] args)
-        {
-            // Load unmanaged PKCS#11 library
-            using (Pkcs11 pkcs11 = new Pkcs11(pkcs11LibraryPath, true))
-            {
-                // Show general information about loaded library
-                LibraryInfo libraryInfo = pkcs11.GetInfo();
-
-                Console.WriteLine("Library" );
-                Console.WriteLine("  Manufacturer:       " + libraryInfo.ManufacturerId);
-                Console.WriteLine("  Description:        " + libraryInfo.LibraryDescription);
-                Console.WriteLine("  Version:            " + libraryInfo.LibraryVersion);
-
-                // Get list of all available slots
-                foreach (Slot slot in pkcs11.GetSlotList(false))
-                {
-                    // Show basic information about slot
-                    SlotInfo slotInfo = slot.GetSlotInfo();
-
-                    Console.WriteLine();
-                    Console.WriteLine("Slot");
-                    Console.WriteLine("  Manufacturer:       " + slotInfo.ManufacturerId);
-                    Console.WriteLine("  Description:        " + slotInfo.SlotDescription);
-                    Console.WriteLine("  Token present:      " + slotInfo.SlotFlags.TokenPresent);
-
-                    if (slotInfo.SlotFlags.TokenPresent)
-                    {
-                        // Show basic information about token present in the slot
-                        TokenInfo tokenInfo = slot.GetTokenInfo();
-
-                        Console.WriteLine("Token");
-                        Console.WriteLine("  Manufacturer:       " + tokenInfo.ManufacturerId);
-                        Console.WriteLine("  Model:              " + tokenInfo.Model);
-                        Console.WriteLine("  Serial number:      " + tokenInfo.SerialNumber);
-                        Console.WriteLine("  Label:              " + tokenInfo.Label);
-
-                        // Show list of mechanisms supported by the token
-                        Console.WriteLine("Supported mechanisms: ");
-                        foreach (CKM mechanism in slot.GetMechanismList())
-                            Console.WriteLine("  " + mechanism);
-                    }
-                }
-            }
-        }
-    }
-}
-
-```
 ## Documentation
 
-Pkcs11Interop API is fully documented with the inline XML documentation that can be displayed by the most of the modern IDEs during the application development. Detailed [Pkcs11Interop API documentation](http://pkcs11interop.net/doc/) is also available online.
+It is highly recommended that before you start using Pkcs11Interop you should get familiar at least with *"Chapter 2 - Scope"*, *"Chapter 6 - General overview"* and *"Chapter 10 - Objects"* of [PKCS#11 v2.20](doc/rsa-pkcs11-2.20/) specification.
 
-Before you start using Pkcs11Interop you should be familiar at least with "Chapter 2 - Scope", "Chapter 6 - General overview" and "Chapter 10 - Objects" of [PKCS#11 v2.20](doc/rsa-pkcs11-2.20/) specification.
+Pkcs11Interop API is fully documented with the inline XML documentation that is displayed by the most of the modern IDEs during the application development. Detailed [Pkcs11Interop API documentation](http://pkcs11interop.net/doc/) is also available online.
 
-Following topics were isolated to standalone pages:
+Following topics are covered by standalone documents:
 * [Pkcs11Interop library architecture](doc/ARCHITECTURE.md)
-
-## Code samples
-
-Pkcs11Interop source code contains unit tests covering all methods of PKCS#11 API. Unit tests are well documented and they also serve as [official code samples](src/Pkcs11InteropTests/HighLevelAPI/).
-
-**WARNING: Our documentation and code samples do not cover the theory of security/cryptography or the strengths/weaknesses of specific algorithms. You should always understand what you are doing and why. Please do not simply copy our code samples and expect it to fully solve your usage scenario. Cryptography is an advanced topic and one should consult a solid and preferably recent reference in order to make the best of it.**
+* [Getting started with Pkcs11Interop](doc/GETTING_STARTED.md)
+* [Pkcs11Interop code samples](doc/CODE_SAMPLES.md)
 
 ## Download
 
