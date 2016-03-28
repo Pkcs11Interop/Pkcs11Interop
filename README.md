@@ -58,6 +58,7 @@ Following topics are covered by standalone documents:
 * [Pkcs11Interop library architecture](doc/ARCHITECTURE.md)
 * [Getting started with Pkcs11Interop](doc/GETTING_STARTED.md)
 * [Pkcs11Interop code samples](doc/CODE_SAMPLES.md)
+* [Troubleshooting Pkcs11Interop with PKCS11-LOGGER](doc/TROUBLESHOOTING.md)
 
 ## Download
 
