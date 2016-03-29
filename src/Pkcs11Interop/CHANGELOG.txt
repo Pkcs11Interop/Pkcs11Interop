@@ -1,3 +1,6 @@
+Pkcs11Interop 3.1.0 (2016-03-29)
+ - License changed to the Apache License, Version 2.0
+
 Pkcs11Interop 3.0.0 (2015-08-11)
  - Added support for PKCS#11 URI scheme defined in RFC 7512
  - Added support for Silverlight 5, Xamarin.Android and Xamarin.iOS
