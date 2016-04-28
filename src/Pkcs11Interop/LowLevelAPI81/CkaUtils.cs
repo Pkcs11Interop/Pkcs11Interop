@@ -279,7 +279,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         {
             byte[] bytes = ConvertValue(ref attribute);
 
-            if (bytes.Length == 0)
+            if ((bytes == null) || (bytes.Length == 0))
             {
                 // PKCS#11 v2.20:
                 // When a Cryptoki object carries an attribute of this type, and the default value of the
@@ -288,7 +288,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
                 return;
             }
 
-            if ((bytes == null) || (bytes.Length != 8))
+            if (bytes.Length != 8)
                 throw new Exception("Unable to convert attribute value to DateTime");
 
             string year = ConvertUtils.BytesToUtf8String(bytes, 0, 4);
