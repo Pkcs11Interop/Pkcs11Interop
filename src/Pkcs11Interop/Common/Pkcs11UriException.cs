@@ -20,14 +20,16 @@
  */
 
 using System;
+#if (!SILVERLIGHT && !COREFX)
 using System.Runtime.Serialization;
+#endif
 
 namespace Net.Pkcs11Interop.Common
 {
     /// <summary>
     /// Exception that indicates error in PKCS#11 URI parsing or building process
     /// </summary>
-#if !SILVERLIGHT
+#if (!SILVERLIGHT && !COREFX)
     [Serializable]
 #endif
     public class Pkcs11UriException : Exception
@@ -53,7 +55,7 @@ namespace Net.Pkcs11Interop.Common
 
         }
 
-#if !SILVERLIGHT
+#if (!SILVERLIGHT && !COREFX)
         /// <summary>
         /// Initializes new instance of Pkcs11UriException class with serialized data
         /// </summary>

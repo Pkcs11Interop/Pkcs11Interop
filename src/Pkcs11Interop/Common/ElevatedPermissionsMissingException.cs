@@ -20,14 +20,16 @@
  */
 
 using System;
+#if (!SILVERLIGHT && !COREFX)
 using System.Runtime.Serialization;
+#endif
 
 namespace Net.Pkcs11Interop.Common
 {
     /// <summary>
     /// Exception indicating that Silverlight version of Pkcs11Interop is missing elevated trust
     /// </summary>
-#if !SILVERLIGHT
+#if (!SILVERLIGHT && !COREFX)
     [Serializable]
 #endif
     public class ElevatedPermissionsMissingException : Exception
@@ -42,7 +44,7 @@ namespace Net.Pkcs11Interop.Common
 
         }
 
-#if !SILVERLIGHT
+#if (!SILVERLIGHT && !COREFX)
         /// <summary>
         /// Initializes new instance of ElevatedPermissionsMissingException class with serialized data
         /// </summary>

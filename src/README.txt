@@ -11,3 +11,6 @@ Available solutions:
 
   Pkcs11Interop.iOS.sln
     Xamarin.iOS solution created in Xamarin Studio
+
+  Pkcs11Interop.DotNetCore\Pkcs11Interop.DotNetCore.sln
+    DotNetCore.1.0.0.RC2 solution created in Visual Studio

@@ -20,15 +20,16 @@
  */
 
 using System;
+#if (!SILVERLIGHT && !COREFX)
 using System.Runtime.Serialization;
-using System.Security.Permissions;
+#endif
 
 namespace Net.Pkcs11Interop.Common
 {
     /// <summary>
     /// Exception indicating that unmanaged function has returned error
     /// </summary>
-#if !SILVERLIGHT
+#if (!SILVERLIGHT && !COREFX)
     [Serializable]
 #endif
     public class UnmanagedException : Exception
@@ -70,7 +71,7 @@ namespace Net.Pkcs11Interop.Common
             _errorCode = errorCode;
         }
 
-#if !SILVERLIGHT
+#if (!SILVERLIGHT && !COREFX)
         /// <summary>
         /// Initializes new instance of UnmanagedException class with serialized data
         /// </summary>

@@ -187,6 +187,8 @@ namespace Net.Pkcs11Interop.Common
             if (_isWindows || _isLinux || _isMacOsX)
                 return;
 
+#if SILVERLIGHT
+
             int platformId = (int)System.Environment.OSVersion.Platform;
 
             //   4 - Unix   - Almost everything else than Windows
@@ -194,9 +196,46 @@ namespace Net.Pkcs11Interop.Common
             // 128 - Unix   - Used by a few ancient versions of Mono
             if (platformId == 4 || platformId == 6 || platformId == 128)
             {
-#if SILVERLIGHT
                 throw new UnsupportedPlatformException("Silverlight version of Pkcs11Interop is supported only on Windows platform");
+            }
+            else
+            {
+                if (!System.Windows.Application.Current.HasElevatedPermissions)
+                    throw new ElevatedPermissionsMissingException("Silverlight version of Pkcs11Interop requires elevated trust");
+
+                _isWindows = true;
+            }
+
+#endif
+
+#if COREFX
+
+            if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+            {
+                _isWindows = true;
+            }
+            else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux))
+            {
+                _isLinux = true;
+            }
+            else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
+            {
+                _isMacOsX = true;
+            }
+            else
+            {
+                throw new UnsupportedPlatformException("Pkcs11Interop is not supported on this platform");
+            }
+
 #else
+
+            int platformId = (int)System.Environment.OSVersion.Platform;
+
+            //   4 - Unix   - Almost everything else than Windows
+            //   6 - MacOSX - Correctly detected (or not) only by newer versions of Mono
+            // 128 - Unix   - Used by a few ancient versions of Mono
+            if (platformId == 4 || platformId == 6 || platformId == 128)
+            {
                 // Note: I don't like the idea of pinvoking uname() function (via mono.posix or directly)
                 //       or executing uname app so let's try this slightly higher level approach
                 if (File.Exists(@"/proc/sys/kernel/ostype"))
@@ -215,16 +254,13 @@ namespace Net.Pkcs11Interop.Common
                 {
                     throw new UnsupportedPlatformException("Pkcs11Interop is not supported on this platform");
                 }
-#endif
             }
             else
             {
-#if SILVERLIGHT
-                if (!System.Windows.Application.Current.HasElevatedPermissions)
-                    throw new ElevatedPermissionsMissingException("Silverlight version of Pkcs11Interop requires elevated trust");
-#endif
                 _isWindows = true;
             }
+
+#endif
         }
     }
 }

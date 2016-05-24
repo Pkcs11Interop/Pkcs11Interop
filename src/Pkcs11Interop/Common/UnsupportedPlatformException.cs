@@ -20,14 +20,16 @@
  */
 
 using System;
+#if (!SILVERLIGHT && !COREFX)
 using System.Runtime.Serialization;
+#endif
 
 namespace Net.Pkcs11Interop.Common
 {
     /// <summary>
     /// Exception indicating that Pkcs11Interop is being used on an unsupported platform
     /// </summary>
-#if !SILVERLIGHT
+#if (!SILVERLIGHT && !COREFX)
     [Serializable]
 #endif
     public class UnsupportedPlatformException : Exception
@@ -42,7 +44,7 @@ namespace Net.Pkcs11Interop.Common
 
         }
 
-#if !SILVERLIGHT
+#if (!SILVERLIGHT && !COREFX)
         /// <summary>
         /// Initializes new instance of UnsupportedPlatformException class with serialized data
         /// </summary>
