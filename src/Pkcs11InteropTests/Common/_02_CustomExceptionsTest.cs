@@ -19,7 +19,7 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
-#if !SILVERLIGHT
+#if (!SILVERLIGHT && !COREFX)
 
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;

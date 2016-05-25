@@ -1,0 +1,38 @@
+{
+  "title": "Pkcs11Interop.DotNetCore.Tests",
+  "copyright": "Copyright 2012-2016 The Pkcs11Interop Project",
+  "description": "Managed .NET wrapper for unmanaged PKCS#11 libraries",
+  "version": "3.1.0",
+  "buildOptions": {
+    "emitEntryPoint": true,
+    "compile": [
+      "../../../Pkcs11InteropTests/Common/**/*.cs",
+      "../../../Pkcs11InteropTests/HighLevelAPI/**/*.cs",
+      "../../../Pkcs11InteropTests/HighLevelAPI40/**/*.cs",
+      "../../../Pkcs11InteropTests/HighLevelAPI41/**/*.cs",
+      "../../../Pkcs11InteropTests/HighLevelAPI80/**/*.cs",
+      "../../../Pkcs11InteropTests/HighLevelAPI81/**/*.cs",
+      "../../../Pkcs11InteropTests/LowLevelAPI40/**/*.cs",
+      "../../../Pkcs11InteropTests/LowLevelAPI41/**/*.cs",
+      "../../../Pkcs11InteropTests/LowLevelAPI80/**/*.cs",
+      "../../../Pkcs11InteropTests/LowLevelAPI81/**/*.cs",
+      "../../../Pkcs11InteropTests/Settings.cs"
+    ],
+    "define": [ "COREFX" ]
+  },
+
+  "dependencies": {
+    "Microsoft.NETCore.App": {
+      "type": "platform",
+      "version": "1.0.0-rc2-3002702"
+    },
+    "NUnitLite": "3.2.1",
+    "Pkcs11Interop.DotNetCore": "3.1.0"
+  },
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": "dnxcore50"
+    }
+  }
+}
