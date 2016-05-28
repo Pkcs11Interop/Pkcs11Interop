@@ -339,7 +339,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
                 attribute.value = UnmanagedMemory.Allocate(ckAttributeSize * value.Length);
                 for (int i = 0; i < value.Length; i++)
                 {
-                    IntPtr tempPointer = new IntPtr(attribute.value.ToInt32() + (i * ckAttributeSize));
+                    IntPtr tempPointer = new IntPtr(attribute.value.ToInt64() + (i * ckAttributeSize));
                     UnmanagedMemory.Write(tempPointer, value[i]);
                 }
                 attribute.valueLen = Convert.ToUInt32(ckAttributeSize * value.Length);
@@ -377,7 +377,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
 
                 for (int i = 0; i < attrCount; i++)
                 {
-                    IntPtr tempPointer = new IntPtr(attribute.value.ToInt32() + (i * ckAttributeSize));
+                    IntPtr tempPointer = new IntPtr(attribute.value.ToInt64() + (i * ckAttributeSize));
 #if SILVERLIGHT
                     CK_ATTRIBUTE_CLASS attrClass = (CK_ATTRIBUTE_CLASS)UnmanagedMemory.Read(tempPointer, typeof(CK_ATTRIBUTE_CLASS));
                     attrClass.ToCkAttributeStruct(ref attrs[i]);
@@ -421,7 +421,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
                 attribute.value = UnmanagedMemory.Allocate(ckmSize * value.Length);
                 for (int i = 0; i < value.Length; i++)
                 {
-                    IntPtr tempPointer = new IntPtr(attribute.value.ToInt32() + (i * ckmSize));
+                    IntPtr tempPointer = new IntPtr(attribute.value.ToInt64() + (i * ckmSize));
                     UnmanagedMemory.Write(tempPointer, ConvertUtils.UIntToBytes(value[i]));
                 }
                 attribute.valueLen = Convert.ToUInt32(ckmSize * value.Length);
@@ -459,7 +459,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
                 
                 for (int i = 0; i < attrCount; i++)
                 {
-                    IntPtr tempPointer = new IntPtr(attribute.value.ToInt32() + (i * ckmSize));
+                    IntPtr tempPointer = new IntPtr(attribute.value.ToInt64() + (i * ckmSize));
                     attrs[i] = ConvertUtils.BytesToUInt(UnmanagedMemory.Read(tempPointer, ckmSize));
                 }
                 

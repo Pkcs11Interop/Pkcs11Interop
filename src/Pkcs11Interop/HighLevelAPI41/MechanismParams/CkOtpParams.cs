@@ -60,7 +60,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
                 // Copy paramaters to allocated memory
                 for (int i = 0; i < parameters.Count; i++)
                 {
-                    IntPtr tempPointer = new IntPtr(_lowLevelStruct.Params.ToInt32() + (i * ckOtpParamSize));
+                    IntPtr tempPointer = new IntPtr(_lowLevelStruct.Params.ToInt64() + (i * ckOtpParamSize));
                     UnmanagedMemory.Write(tempPointer, parameters[i].ToMarshalableStructure());
                 }
             }

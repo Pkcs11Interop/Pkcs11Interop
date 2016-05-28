@@ -108,7 +108,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             for (int i = 0; i < _lowLevelStruct.Count; i++)
             {
                 // Read CK_OTP_PARAM from CK_OTP_SIGNATURE_INFO
-                IntPtr tempPointer = new IntPtr(_lowLevelStruct.Params.ToInt32() + (i * ckOtpParamSize));
+                IntPtr tempPointer = new IntPtr(_lowLevelStruct.Params.ToInt64() + (i * ckOtpParamSize));
                 CK_OTP_PARAM ckOtpParam = new CK_OTP_PARAM();
                 UnmanagedMemory.Read(tempPointer, ckOtpParam);
 
