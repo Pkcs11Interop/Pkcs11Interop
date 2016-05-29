@@ -206,7 +206,7 @@ namespace Net.Pkcs11Interop.Common
                 _isWindows = true;
             }
 
-#endif
+#else // SILVERLIGHT
 
 #if COREFX
 
@@ -227,7 +227,7 @@ namespace Net.Pkcs11Interop.Common
                 throw new UnsupportedPlatformException("Pkcs11Interop is not supported on this platform");
             }
 
-#else
+#else // COREFX
 
             int platformId = (int)System.Environment.OSVersion.Platform;
 
@@ -260,7 +260,10 @@ namespace Net.Pkcs11Interop.Common
                 _isWindows = true;
             }
 
-#endif
+#endif // COREFX
+
+#endif // SILVERLIGHT
+
         }
     }
 }
