@@ -77,7 +77,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
 
                 // Since now it is the caller's responsibility to dispose parameters
                 _paramsLeftInstance = true;
-                return _params.AsReadOnly();
+                return _params;
             }
         }
 

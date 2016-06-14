@@ -65,15 +65,7 @@ namespace Net.Pkcs11Interop.Common
             {
                 libraryHandle = NativeMethods.LoadLibrary(fileName);
                 if (libraryHandle == IntPtr.Zero)
-                {
-#if SILVERLIGHT
                     throw new UnmanagedException("Unable to load library", Marshal.GetLastWin32Error());
-#else
-                    int errorCode = Marshal.GetLastWin32Error();
-                    string errorMessage = new Win32Exception(errorCode).Message;
-                    throw new UnmanagedException(string.Format("Unable to load library: {0}", errorMessage), errorCode);
-#endif
-                }
             }
 
             return libraryHandle;
@@ -102,15 +94,7 @@ namespace Net.Pkcs11Interop.Common
             else
             {
                 if (false == NativeMethods.FreeLibrary(libraryHandle))
-                {
-#if SILVERLIGHT
                     throw new UnmanagedException("Unable to unload library", Marshal.GetLastWin32Error());
-#else
-                    int errorCode = Marshal.GetLastWin32Error();
-                    string errorMessage = new Win32Exception(errorCode).Message;
-                    throw new UnmanagedException(string.Format("Unable to unload library: {0}", errorMessage), errorCode);
-#endif
-                }
             }
         }
 
@@ -146,15 +130,7 @@ namespace Net.Pkcs11Interop.Common
             {
                 functionPointer = NativeMethods.GetProcAddress(libraryHandle, function);
                 if (functionPointer == IntPtr.Zero)
-                {
-#if SILVERLIGHT
                     throw new UnmanagedException("Unable to get function pointer", Marshal.GetLastWin32Error());
-#else
-                    int errorCode = Marshal.GetLastWin32Error();
-                    string errorMessage = new Win32Exception(errorCode).Message;
-                    throw new UnmanagedException(string.Format("Unable to get function pointer: {0}", errorMessage), errorCode);
-#endif
-                }
             }
 
             return functionPointer;
