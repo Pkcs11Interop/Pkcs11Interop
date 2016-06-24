@@ -20,7 +20,7 @@
  */
 
 using System;
-using System.ComponentModel;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace Net.Pkcs11Interop.Common
@@ -44,6 +44,24 @@ namespace Net.Pkcs11Interop.Common
 
             if (Platform.IsLinux || Platform.IsMacOsX)
             {
+                // Note: If filename contains a slash ("/"), then it is interpreted by dlopen() as a (relative or absolute) pathname.
+                //       Otherwise, the dynamic linker searches for the library following complicated rules.
+                if (Platform.IsLinux && fileName.Contains("/") && File.Exists(fileName))
+                {
+                    using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+                    {
+                        // Note: Each ELF file is made up of one ELF header.
+                        //       First byte 0x7F is followed by ELF(45 4c 46) in ASCII; these four bytes constitute the magic number.
+                        //       Fifth byte is set to either 1 or 2 to signify 32-bit or 64-bit format.
+                        byte[] elfHeader = new byte[5];
+                        if (fs.Read(elfHeader, 0, 5) == 5 && elfHeader[0] == 0x7F && elfHeader[1] == 0x45 && elfHeader[2] == 0x4c && elfHeader[3] == 0x46)
+                        {
+                            if ((Platform.Uses64BitRuntime && elfHeader[4] == 0x01) || (Platform.Uses32BitRuntime && elfHeader[4] == 0x02))
+                                throw new LibraryArchitectureException();
+                        }
+                    }
+                }
+
                 int flags = 0;
 
                 if (Platform.IsLinux)
