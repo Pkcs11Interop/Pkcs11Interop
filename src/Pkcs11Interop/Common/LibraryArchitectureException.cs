@@ -38,9 +38,17 @@ namespace Net.Pkcs11Interop.Common
         /// Initializes new instance of LibraryArchitectureException class
         /// </summary>
         public LibraryArchitectureException()
-            : this((Platform.Uses64BitRuntime) ? 
-                "Unable to load 32-bit unmanaged library into 64-bit runtime" : 
-                "Unable to load 64-bit unmanaged library into 32-bit runtime")
+            : this(Platform.Uses64BitRuntime ? "Unable to load 32-bit unmanaged library into 64-bit runtime" : "Unable to load 64-bit unmanaged library into 32-bit runtime")
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of LibraryArchitectureException class with a specified error message and a reference to the inner exception that is the cause of this exception
+        /// </summary>
+        /// <param name="innerException">The exception that is the cause of the current exception</param>
+        public LibraryArchitectureException(Exception innerException)
+            : this(Platform.Uses64BitRuntime ? "Unable to load 32-bit unmanaged library into 64-bit runtime" : "Unable to load 64-bit unmanaged library into 32-bit runtime", innerException)
         {
 
         }
@@ -51,6 +59,17 @@ namespace Net.Pkcs11Interop.Common
         /// <param name="message">Message that describes the error</param>
         public LibraryArchitectureException(string message)
             : base(message)
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of LibraryArchitectureException class with a specified error message and a reference to the inner exception that is the cause of this exception
+        /// </summary>
+        /// <param name="message">The message that describes the error</param>
+        /// <param name="innerException">The exception that is the cause of the current exception</param>
+        public LibraryArchitectureException(string message, Exception innerException)
+            : base(message, innerException)
         {
 
         }

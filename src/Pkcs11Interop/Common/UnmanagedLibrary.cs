@@ -62,6 +62,15 @@ namespace Net.Pkcs11Interop.Common
                     }
                 }
 
+                if (Platform.IsMacOsX && !NativeMethods.dlopen_preflight(fileName))
+                {
+                    IntPtr error = NativeMethods.dlerror();
+                    if (error != IntPtr.Zero)
+                        throw new LibraryArchitectureException(new UnmanagedException(Marshal.PtrToStringAnsi(error)));
+                    else
+                        throw new LibraryArchitectureException();
+                }
+
                 int flags = 0;
 
                 if (Platform.IsLinux)
