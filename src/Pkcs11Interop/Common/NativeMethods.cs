@@ -30,7 +30,12 @@ namespace Net.Pkcs11Interop.Common
     internal static class NativeMethods
     {
         #region Windows
-        
+
+        /// <summary>
+        /// Error indicating an attempt to load unmanaged library designated for a different architecture
+        /// </summary>
+        internal const int ERROR_BAD_EXE_FORMAT = 0xC1;
+
         /// <summary>
         /// Loads the specified module into the address space of the calling process.
         /// </summary>

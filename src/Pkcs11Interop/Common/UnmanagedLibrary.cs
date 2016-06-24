@@ -65,7 +65,13 @@ namespace Net.Pkcs11Interop.Common
             {
                 libraryHandle = NativeMethods.LoadLibrary(fileName);
                 if (libraryHandle == IntPtr.Zero)
-                    throw new UnmanagedException("Unable to load library", Marshal.GetLastWin32Error());
+                {
+                    int win32Error = Marshal.GetLastWin32Error();
+                    if (win32Error == NativeMethods.ERROR_BAD_EXE_FORMAT)
+                        throw new LibraryArchitectureException();
+                    else
+                        throw new UnmanagedException("Unable to load library", win32Error);
+                }
             }
 
             return libraryHandle;

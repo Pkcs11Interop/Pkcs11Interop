@@ -56,6 +56,7 @@
     <Compile Include="Common\ConvertUtils.cs" />
     <Compile Include="Common\ElevatedPermissionsMissingException.cs" />
     <Compile Include="Common\IMechanismParams.cs" />
+    <Compile Include="Common\LibraryArchitectureException.cs" />
     <Compile Include="Common\NativeMethods.cs" />
     <Compile Include="Common\Pkcs11Exception.cs" />
     <Compile Include="Common\Pkcs11Uri.cs" />
