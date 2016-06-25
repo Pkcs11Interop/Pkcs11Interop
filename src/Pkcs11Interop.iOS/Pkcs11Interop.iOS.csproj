@@ -98,6 +98,9 @@
     <Compile Include="..\Pkcs11Interop\Common\IMechanismParams.cs">
       <Link>Common\IMechanismParams.cs</Link>
     </Compile>
+    <Compile Include="..\Pkcs11Interop\Common\LibraryArchitectureException.cs">
+      <Link>Common\LibraryArchitectureException.cs</Link>
+    </Compile>
     <Compile Include="..\Pkcs11Interop\Common\NativeMethods.cs">
       <Link>Common\NativeMethods.cs</Link>
     </Compile>
