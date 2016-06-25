@@ -44,6 +44,7 @@ namespace Net.Pkcs11Interop.Common
 
             if (Platform.IsLinux || Platform.IsMacOsX)
             {
+                // Perform Linux specific library compatibility checks
                 // Note: If filename contains a slash ("/"), then it is interpreted by dlopen() as a (relative or absolute) pathname.
                 //       Otherwise, the dynamic linker searches for the library following complicated rules.
                 if (Platform.IsLinux && fileName.Contains("/") && File.Exists(fileName))
@@ -62,34 +63,31 @@ namespace Net.Pkcs11Interop.Common
                     }
                 }
 
+                // Perform Mac OS X specific library compatibility checks
                 if (Platform.IsMacOsX && !NativeMethods.dlopen_preflight(fileName))
                 {
                     IntPtr error = NativeMethods.dlerror();
-                    if (error != IntPtr.Zero)
-                        throw new LibraryArchitectureException(new UnmanagedException(Marshal.PtrToStringAnsi(error)));
-                    else
+                    if (error == IntPtr.Zero)
                         throw new LibraryArchitectureException();
+                    else
+                        throw new LibraryArchitectureException(new UnmanagedException(Marshal.PtrToStringAnsi(error)));
                 }
 
-                int flags = 0;
-
-                if (Platform.IsLinux)
-                    flags = NativeMethods.RTLD_NOW_LINUX | NativeMethods.RTLD_LOCAL_LINUX;
-                else
-                    flags = NativeMethods.RTLD_NOW_MACOSX | NativeMethods.RTLD_LOCAL_MACOSX;
-
+                // Load library
+                int flags = Platform.IsLinux ? (NativeMethods.RTLD_NOW_LINUX | NativeMethods.RTLD_LOCAL_LINUX) : (NativeMethods.RTLD_NOW_MACOSX | NativeMethods.RTLD_LOCAL_MACOSX);
                 libraryHandle = NativeMethods.dlopen(fileName, flags);
                 if (libraryHandle == IntPtr.Zero)
                 {
                     IntPtr error = NativeMethods.dlerror();
-                    if (error != IntPtr.Zero)
-                        throw new UnmanagedException(string.Format("Unable to load library: {0}", Marshal.PtrToStringAnsi(error)));
-                    else
+                    if (error == IntPtr.Zero)
                         throw new UnmanagedException("Unable to load library");
+                    else
+                        throw new UnmanagedException(string.Format("Unable to load library. Error detail: {0}", Marshal.PtrToStringAnsi(error)));
                 }
             }
             else
             {
+                // Load library
                 libraryHandle = NativeMethods.LoadLibrary(fileName);
                 if (libraryHandle == IntPtr.Zero)
                 {
@@ -97,7 +95,7 @@ namespace Net.Pkcs11Interop.Common
                     if (win32Error == NativeMethods.ERROR_BAD_EXE_FORMAT)
                         throw new LibraryArchitectureException();
                     else
-                        throw new UnmanagedException("Unable to load library", win32Error);
+                        throw new UnmanagedException(string.Format("Unable to load library. Error code: {0:X8}", win32Error), win32Error);
                 }
             }
 
@@ -118,16 +116,19 @@ namespace Net.Pkcs11Interop.Common
                 if (0 != NativeMethods.dlclose(libraryHandle))
                 {
                     IntPtr error = NativeMethods.dlerror();
-                    if (error != IntPtr.Zero)
-                        throw new UnmanagedException(string.Format("Unable to unload library: {0}", Marshal.PtrToStringAnsi(error)));
-                    else
+                    if (error == IntPtr.Zero)
                         throw new UnmanagedException("Unable to unload library");
+                    else
+                        throw new UnmanagedException(string.Format("Unable to unload library. Error detail: {0}", Marshal.PtrToStringAnsi(error)));
                 }
             }
             else
             {
-                if (false == NativeMethods.FreeLibrary(libraryHandle))
-                    throw new UnmanagedException("Unable to unload library", Marshal.GetLastWin32Error());
+                if (!NativeMethods.FreeLibrary(libraryHandle))
+                {
+                    int win32Error = Marshal.GetLastWin32Error();
+                    throw new UnmanagedException(string.Format("Unable to unload library. Error code: {0:X8}", win32Error), win32Error);
+                }
             }
         }
 
@@ -142,7 +143,7 @@ namespace Net.Pkcs11Interop.Common
             if (libraryHandle == IntPtr.Zero)
                 throw new ArgumentNullException("libraryHandle");
 
-            if (function == null)
+            if (string.IsNullOrEmpty(function))
                 throw new ArgumentNullException("function");
 
             IntPtr functionPointer = IntPtr.Zero;
@@ -153,17 +154,20 @@ namespace Net.Pkcs11Interop.Common
                 if (functionPointer == IntPtr.Zero)
                 {
                     IntPtr error = NativeMethods.dlerror();
-                    if (error != IntPtr.Zero)
-                        throw new UnmanagedException(string.Format("Unable to get function pointer: {0}", Marshal.PtrToStringAnsi(error)));
+                    if (error == IntPtr.Zero)
+                        throw new UnmanagedException(string.Format("Unable to get pointer for {0} function", function));
                     else
-                        throw new UnmanagedException("Unable to get function pointer");
+                        throw new UnmanagedException(string.Format("Unable to get pointer for {0} function. Error detail: {1}", function, Marshal.PtrToStringAnsi(error)));
                 }
             }
             else
             {
                 functionPointer = NativeMethods.GetProcAddress(libraryHandle, function);
                 if (functionPointer == IntPtr.Zero)
-                    throw new UnmanagedException("Unable to get function pointer", Marshal.GetLastWin32Error());
+                {
+                    int win32Error = Marshal.GetLastWin32Error();
+                    throw new UnmanagedException(string.Format("Unable to get pointer for {0} function. Error code: {1:X8}", function, win32Error), win32Error);
+                }
             }
 
             return functionPointer;
