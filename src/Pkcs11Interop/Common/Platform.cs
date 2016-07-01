@@ -108,7 +108,9 @@ namespace Net.Pkcs11Interop.Common
         private static int _unmanagedLongSize = 0;
 
         /// <summary>
-        /// Size of unmanaged long type
+        /// Size of unmanaged long type.
+        /// This property is used by HighLevelAPI to choose correct set of LowLevelAPIs.
+        /// Value of this property can be changed if needed.
         /// </summary>
         public static int UnmanagedLongSize
         {
@@ -146,7 +148,9 @@ namespace Net.Pkcs11Interop.Common
         private static int _structPackingSize = -1;
 
         /// <summary>
-        /// Controls the alignment of unmanaged struct fields
+        /// Controls the alignment of unmanaged struct fields.
+        /// This property is used by HighLevelAPI to choose correct set of LowLevelAPIs.
+        /// Value of this property can be changed if needed.
         /// </summary>
         public static int StructPackingSize
         {
@@ -189,37 +193,59 @@ namespace Net.Pkcs11Interop.Common
 
 #if SILVERLIGHT
 
-            int platformId = (int)System.Environment.OSVersion.Platform;
-
-            //   4 - Unix   - Almost everything else than Windows
-            //   6 - MacOSX - Correctly detected (or not) only by newer versions of Mono
-            // 128 - Unix   - Used by a few ancient versions of Mono
-            if (platformId == 4 || platformId == 6 || platformId == 128)
+            if (System.Windows.Application.Current.HasElevatedPermissions)
             {
-                throw new UnsupportedPlatformException("Silverlight version of Pkcs11Interop is supported only on Windows platform");
+                // Note: Silverlight supports elevated trust only on Windows platform
+                _isWindows = true;
             }
             else
             {
-                if (!System.Windows.Application.Current.HasElevatedPermissions)
-                    throw new ElevatedPermissionsMissingException("Silverlight version of Pkcs11Interop requires elevated trust");
-
-                _isWindows = true;
+                // Note: See https://msdn.microsoft.com/en-us/library/gg192793%28v=vs.95%29.aspx for more details
+                throw new ElevatedPermissionsMissingException("Silverlight version of Pkcs11Interop is supported only on Windows platform and requires elevated trust");
             }
 
-#else // SILVERLIGHT
+#else
 
-#if COREFX
+            // Detect platform
+            //
+            // System.Environment.OSVersion.Platform is not used because:
+            // - Mac OS X detection almost never works under Mono
+            // - it is not implemented by .NET Core
+            //
+            // System.Runtime.InteropServices.RuntimeInformation is not used because:
+            // - it is not implemented by full .NET and Mono
+            // - it does not perform platform detection in runtime but uses hardcoded information instead
+            //   See https://github.com/dotnet/corefx/issues/3032 for more info
+            //
+            // Pinvoking of platform specific unmanaged functions is not used because:
+            // - it may cause segmentation fault on unknown platforms
+            //
+            // Following code may look silly but:
+            // - it is 100% managed code
+            // - it works under .NET, Mono and .NET Core
+            // - it works like a charm so far
 
-            if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+            string windir = Environment.GetEnvironmentVariable("windir");
+            if (!string.IsNullOrEmpty(windir) && windir.Contains(@"\") && Directory.Exists(windir))
             {
                 _isWindows = true;
             }
-            else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux))
+            else if (File.Exists(@"/proc/sys/kernel/ostype"))
             {
-                _isLinux = true;
+                string osType = File.ReadAllText(@"/proc/sys/kernel/ostype");
+                if (osType.StartsWith("Linux", StringComparison.OrdinalIgnoreCase))
+                {
+                    // Note: Android gets here too
+                    _isLinux = true;
+                }
+                else
+                {
+                    throw new UnsupportedPlatformException(string.Format("Pkcs11Interop is not supported on \"{0}\" platform", osType));
+                }
             }
-            else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
+            else if (File.Exists(@"/System/Library/CoreServices/SystemVersion.plist"))
             {
+                // Note: iOS gets here too
                 _isMacOsX = true;
             }
             else
@@ -227,42 +253,7 @@ namespace Net.Pkcs11Interop.Common
                 throw new UnsupportedPlatformException("Pkcs11Interop is not supported on this platform");
             }
 
-#else // COREFX
-
-            int platformId = (int)System.Environment.OSVersion.Platform;
-
-            //   4 - Unix   - Almost everything else than Windows
-            //   6 - MacOSX - Correctly detected (or not) only by newer versions of Mono
-            // 128 - Unix   - Used by a few ancient versions of Mono
-            if (platformId == 4 || platformId == 6 || platformId == 128)
-            {
-                // Note: I don't like the idea of pinvoking uname() function (via mono.posix or directly)
-                //       or executing uname app so let's try this slightly higher level approach
-                if (File.Exists(@"/proc/sys/kernel/ostype"))
-                {
-                    string osType = File.ReadAllText(@"/proc/sys/kernel/ostype");
-                    if (osType.StartsWith("Linux", StringComparison.OrdinalIgnoreCase))
-                        _isLinux = true;
-                    else
-                        throw new UnsupportedPlatformException("Pkcs11Interop is not supported on this platform - " + osType);
-                }
-                else if (File.Exists(@"/System/Library/CoreServices/SystemVersion.plist"))
-                {
-                    _isMacOsX = true;
-                }
-                else
-                {
-                    throw new UnsupportedPlatformException("Pkcs11Interop is not supported on this platform");
-                }
-            }
-            else
-            {
-                _isWindows = true;
-            }
-
-#endif // COREFX
-
-#endif // SILVERLIGHT
+#endif
 
         }
     }
