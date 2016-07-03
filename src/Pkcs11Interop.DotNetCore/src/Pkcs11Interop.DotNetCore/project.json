@@ -16,16 +16,16 @@
   "buildOptions": {
     "xmlDoc": true,
     "compile": [
-      "../../../Pkcs11Interop/Common/**/*.cs",
-      "../../../Pkcs11Interop/HighLevelAPI/**/*.cs",
-      "../../../Pkcs11Interop/HighLevelAPI40/**/*.cs",
-      "../../../Pkcs11Interop/HighLevelAPI41/**/*.cs",
-      "../../../Pkcs11Interop/HighLevelAPI80/**/*.cs",
-      "../../../Pkcs11Interop/HighLevelAPI81/**/*.cs",
-      "../../../Pkcs11Interop/LowLevelAPI40/**/*.cs",
-      "../../../Pkcs11Interop/LowLevelAPI41/**/*.cs",
-      "../../../Pkcs11Interop/LowLevelAPI80/**/*.cs",
-      "../../../Pkcs11Interop/LowLevelAPI81/**/*.cs"
+      "../../../Pkcs11Interop/Pkcs11Interop/Common/**/*.cs",
+      "../../../Pkcs11Interop/Pkcs11Interop/HighLevelAPI/**/*.cs",
+      "../../../Pkcs11Interop/Pkcs11Interop/HighLevelAPI40/**/*.cs",
+      "../../../Pkcs11Interop/Pkcs11Interop/HighLevelAPI41/**/*.cs",
+      "../../../Pkcs11Interop/Pkcs11Interop/HighLevelAPI80/**/*.cs",
+      "../../../Pkcs11Interop/Pkcs11Interop/HighLevelAPI81/**/*.cs",
+      "../../../Pkcs11Interop/Pkcs11Interop/LowLevelAPI40/**/*.cs",
+      "../../../Pkcs11Interop/Pkcs11Interop/LowLevelAPI41/**/*.cs",
+      "../../../Pkcs11Interop/Pkcs11Interop/LowLevelAPI80/**/*.cs",
+      "../../../Pkcs11Interop/Pkcs11Interop/LowLevelAPI81/**/*.cs"
     ]
   }
 }
