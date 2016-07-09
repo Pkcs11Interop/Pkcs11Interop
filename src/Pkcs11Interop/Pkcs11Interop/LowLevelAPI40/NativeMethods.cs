@@ -40,7 +40,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         internal static extern CKR C_GetFunctionList(out IntPtr functionList);
     
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern CKR C_GetSlotList(bool tokenPresent, uint[] slotList, ref uint count);
+        internal static extern CKR C_GetSlotList([MarshalAs(UnmanagedType.U1)] bool tokenPresent, uint[] slotList, ref uint count);
     
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
         internal static extern CKR C_GetSlotInfo(uint slotId, ref CK_SLOT_INFO info);
