@@ -29,17 +29,36 @@ namespace Net.Pkcs11Interop.Common
         /// <summary>
         /// Characters allowed in value of path attribute
         /// </summary>
-        internal static readonly char[] Pk11PathAttrValueChars = null;
+        internal static readonly char[] Pk11PathAttrValueChars = new char[] {
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', // RFC 3986 unreserved
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', // RFC 3986 unreserved
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', // RFC 3986 unreserved
+            '-', '.', '_', '~',  // RFC 3986 unreserved
+            ':', '[', ']', '@', '!', '$', '\'', '(', ')', '*', '+', ',', '=', '&' // pk11-path-res-avail
+            // pct-encoded characters are handled in Pkcs11Uri class
+        };
 
         /// <summary>
         /// Characters allowed in name of vendor specific attribute
         /// </summary>
-        internal static readonly char[] Pk11VendorAttrNameChars = null;
+        internal static readonly char[] Pk11VendorAttrNameChars = new char[] {
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', // RFC 2234 ALPHA
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', // RFC 2234 ALPHA
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', // RFC 2234 DIGIT
+            '-', '_' // pk11-v-attr-nm-char
+        };
 
         /// <summary>
         /// Characters allowed in value of query attribute
         /// </summary>
-        internal static readonly char[] Pk11QueryAttrValueChars = null;
+        internal static readonly char[] Pk11QueryAttrValueChars = new char[] {
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', // RFC 3986 unreserved
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', // RFC 3986 unreserved
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', // RFC 3986 unreserved
+            '-', '.', '_', '~',  // RFC 3986 unreserved
+            ':', '[', ']', '@', '!', '$', '\'', '(', ')', '*', '+', ',', '=', '/', '?', '|' // pk11-query-res-avail
+            // pct-encoded characters are handled in Pkcs11Uri class
+        };
 
         /// <summary>
         /// PKCS#11 URI scheme name
@@ -225,39 +244,5 @@ namespace Net.Pkcs11Interop.Common
         /// Name of "module-path" query attribute
         /// </summary>
         internal const string Pk11ModulePath = "module-path";
-
-        /// <summary>
-        /// Static constructor for Net.Pkcs11Interop.URI.Pkcs11UriSpec class
-        /// </summary>
-        static Pkcs11UriSpec()
-        {
-            // Set characters allowed in value of path attribute
-            Pk11PathAttrValueChars = new char[] {
-                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', // RFC 3986 unreserved
-                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', // RFC 3986 unreserved
-                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', // RFC 3986 unreserved
-                '-', '.', '_', '~',  // RFC 3986 unreserved
-                ':', '[', ']', '@', '!', '$', '\'', '(', ')', '*', '+', ',', '=', '&' // pk11-path-res-avail
-                // pct-encoded characters are handled in Pkcs11Uri class
-            };
-
-            // Set characters allowed in name of vendor specific attribute
-            Pk11VendorAttrNameChars = new char[] {
-                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', // RFC 2234 ALPHA
-                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', // RFC 2234 ALPHA
-                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', // RFC 2234 DIGIT
-                '-', '_' // pk11-v-attr-nm-char
-            };
-
-            // Set characters allowed in value of query attribute
-            Pk11QueryAttrValueChars = new char[] {
-                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', // RFC 3986 unreserved
-                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', // RFC 3986 unreserved
-                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', // RFC 3986 unreserved
-                '-', '.', '_', '~',  // RFC 3986 unreserved
-                ':', '[', ']', '@', '!', '$', '\'', '(', ')', '*', '+', ',', '=', '/', '?', '|' // pk11-query-res-avail
-                // pct-encoded characters are handled in Pkcs11Uri class
-            };
-        }
     }
 }
