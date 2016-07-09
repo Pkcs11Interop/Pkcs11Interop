@@ -55,6 +55,7 @@ namespace Net.Pkcs11Interop.Common
         /// <param name="hModule">A handle to the loaded library module.</param>
         /// <returns>If the function succeeds, the return value is nonzero. If the function fails, the return value is zero.</returns>
         [DllImport("kernel32", CallingConvention = CallingConvention.Winapi, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool FreeLibrary(IntPtr hModule);
 
         /// <summary>
