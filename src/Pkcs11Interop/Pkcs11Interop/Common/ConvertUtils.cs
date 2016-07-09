@@ -229,6 +229,9 @@ namespace Net.Pkcs11Interop.Common
         /// <returns>String with hex encoded value from byte array</returns>
         public static string BytesToHexString(byte[] value)
         {
+            if (value == null)
+                return null;
+
             return BitConverter.ToString(value).Replace("-", "");
         }
 
@@ -239,6 +242,12 @@ namespace Net.Pkcs11Interop.Common
         /// <returns>Byte array decoded from string</returns>
         public static byte[] HexStringToBytes(string value)
         {
+            if (value == null)
+                return null;
+
+            if ((value.Length % 2) != 0)
+                throw new ArgumentException("Hex encoded string must contain an even number of characters", "value");
+
             byte[] bytes = new byte[value.Length / 2];
 
             for (int i = 0; i < value.Length; i += 2)
