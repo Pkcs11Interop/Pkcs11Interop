@@ -24,7 +24,7 @@ namespace Net.Pkcs11Interop.Common
     /// <summary>
     /// General constants
     /// </summary>
-    public class CK
+    public static class CK
     {
         /// <summary>
         /// The following value is always invalid if used as a session handle or object handle

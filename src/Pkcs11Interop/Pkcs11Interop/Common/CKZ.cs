@@ -24,7 +24,7 @@ namespace Net.Pkcs11Interop.Common
     /// <summary>
     /// Salt/Encoding parameter sources
     /// </summary>
-    public class CKZ
+    public static class CKZ
     {
         /// <summary>
         /// PKCS #1 RSA OAEP: Encoding parameter specified

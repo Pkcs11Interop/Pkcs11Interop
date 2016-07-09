@@ -24,7 +24,7 @@ namespace Net.Pkcs11Interop.Common
     /// <summary>
     /// Bit flags
     /// </summary>
-    public class CKF
+    public static class CKF
     {
         /// <summary>
         /// True if a token is present in the slot
