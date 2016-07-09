@@ -65,7 +65,7 @@ namespace Net.Pkcs11Interop.Common
         public Pkcs11UriBuilder(Pkcs11Uri pkcs11Uri)
         {
             if (pkcs11Uri == null)
-                throw new ArgumentException("pkcs11Uri");
+                throw new ArgumentNullException("pkcs11Uri");
 
             ConstructFromPkcs11Uri(pkcs11Uri, pkcs11Uri.ChecksLengths);
         }
@@ -78,7 +78,7 @@ namespace Net.Pkcs11Interop.Common
         public Pkcs11UriBuilder(Pkcs11Uri pkcs11Uri, bool checkLengths)
         {
             if (pkcs11Uri == null)
-                throw new ArgumentException("pkcs11Uri");
+                throw new ArgumentNullException("pkcs11Uri");
 
             ConstructFromPkcs11Uri(pkcs11Uri, checkLengths);
         }
@@ -91,7 +91,7 @@ namespace Net.Pkcs11Interop.Common
         private void ConstructFromPkcs11Uri(Pkcs11Uri pkcs11Uri, bool checkLengths)
         {
             if (pkcs11Uri == null)
-                throw new ArgumentException("pkcs11Uri");
+                throw new ArgumentNullException("pkcs11Uri");
 
             _checkLengths = checkLengths;
 
