@@ -26,208 +26,208 @@ using Net.Pkcs11Interop.Common;
 namespace Net.Pkcs11Interop.LowLevelAPI81
 {
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_InitializeDelegate(CK_C_INITIALIZE_ARGS initArgs);
+    internal delegate ulong C_InitializeDelegate(CK_C_INITIALIZE_ARGS initArgs);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_FinalizeDelegate(IntPtr reserved);
+    internal delegate ulong C_FinalizeDelegate(IntPtr reserved);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_GetInfoDelegate(ref CK_INFO info);
+    internal delegate ulong C_GetInfoDelegate(ref CK_INFO info);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_GetFunctionListDelegate(out IntPtr functionList);
+    internal delegate ulong C_GetFunctionListDelegate(out IntPtr functionList);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_GetSlotListDelegate([MarshalAs(UnmanagedType.U1)] bool tokenPresent, ulong[] slotList, ref ulong count);
+    internal delegate ulong C_GetSlotListDelegate([MarshalAs(UnmanagedType.U1)] bool tokenPresent, ulong[] slotList, ref ulong count);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_GetSlotInfoDelegate(ulong slotId, ref CK_SLOT_INFO info);
+    internal delegate ulong C_GetSlotInfoDelegate(ulong slotId, ref CK_SLOT_INFO info);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_GetTokenInfoDelegate(ulong slotId, ref CK_TOKEN_INFO info);
+    internal delegate ulong C_GetTokenInfoDelegate(ulong slotId, ref CK_TOKEN_INFO info);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_GetMechanismListDelegate(ulong slotId, ulong[] mechanismList, ref ulong count);
+    internal delegate ulong C_GetMechanismListDelegate(ulong slotId, ulong[] mechanismList, ref ulong count);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_GetMechanismInfoDelegate(ulong slotId, ulong type, ref CK_MECHANISM_INFO info);
+    internal delegate ulong C_GetMechanismInfoDelegate(ulong slotId, ulong type, ref CK_MECHANISM_INFO info);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_InitTokenDelegate(ulong slotId, byte[] pin, ulong pinLen, byte[] label);
+    internal delegate ulong C_InitTokenDelegate(ulong slotId, byte[] pin, ulong pinLen, byte[] label);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_InitPINDelegate(ulong session, byte[] pin, ulong pinLen);
+    internal delegate ulong C_InitPINDelegate(ulong session, byte[] pin, ulong pinLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_SetPINDelegate(ulong session, byte[] oldPin, ulong oldPinLen, byte[] newPin, ulong newPinLen);
+    internal delegate ulong C_SetPINDelegate(ulong session, byte[] oldPin, ulong oldPinLen, byte[] newPin, ulong newPinLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_OpenSessionDelegate(ulong slotId, ulong flags, IntPtr application, IntPtr notify, ref ulong session);
+    internal delegate ulong C_OpenSessionDelegate(ulong slotId, ulong flags, IntPtr application, IntPtr notify, ref ulong session);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_CloseSessionDelegate(ulong session);
+    internal delegate ulong C_CloseSessionDelegate(ulong session);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_CloseAllSessionsDelegate(ulong slotId);
+    internal delegate ulong C_CloseAllSessionsDelegate(ulong slotId);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_GetSessionInfoDelegate(ulong session, ref CK_SESSION_INFO info);
+    internal delegate ulong C_GetSessionInfoDelegate(ulong session, ref CK_SESSION_INFO info);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_GetOperationStateDelegate(ulong session, byte[] operationState, ref ulong operationStateLen);
+    internal delegate ulong C_GetOperationStateDelegate(ulong session, byte[] operationState, ref ulong operationStateLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_SetOperationStateDelegate(ulong session, byte[] operationState, ulong operationStateLen, ulong encryptionKey, ulong authenticationKey);
+    internal delegate ulong C_SetOperationStateDelegate(ulong session, byte[] operationState, ulong operationStateLen, ulong encryptionKey, ulong authenticationKey);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_LoginDelegate(ulong session, ulong userType, byte[] pin, ulong pinLen);
+    internal delegate ulong C_LoginDelegate(ulong session, ulong userType, byte[] pin, ulong pinLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_LogoutDelegate(ulong session);
+    internal delegate ulong C_LogoutDelegate(ulong session);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_CreateObjectDelegate(ulong session, CK_ATTRIBUTE[] template, ulong count, ref ulong objectId);
+    internal delegate ulong C_CreateObjectDelegate(ulong session, CK_ATTRIBUTE[] template, ulong count, ref ulong objectId);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_CopyObjectDelegate(ulong session, ulong objectId, CK_ATTRIBUTE[] template, ulong count, ref ulong newObjectId);
+    internal delegate ulong C_CopyObjectDelegate(ulong session, ulong objectId, CK_ATTRIBUTE[] template, ulong count, ref ulong newObjectId);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_DestroyObjectDelegate(ulong session, ulong objectId);
+    internal delegate ulong C_DestroyObjectDelegate(ulong session, ulong objectId);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_GetObjectSizeDelegate(ulong session, ulong objectId, ref ulong size);
+    internal delegate ulong C_GetObjectSizeDelegate(ulong session, ulong objectId, ref ulong size);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_GetAttributeValueDelegate(ulong session, ulong objectId, [In, Out] CK_ATTRIBUTE[] template, ulong count);
+    internal delegate ulong C_GetAttributeValueDelegate(ulong session, ulong objectId, [In, Out] CK_ATTRIBUTE[] template, ulong count);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_SetAttributeValueDelegate(ulong session, ulong objectId, CK_ATTRIBUTE[] template, ulong count);
+    internal delegate ulong C_SetAttributeValueDelegate(ulong session, ulong objectId, CK_ATTRIBUTE[] template, ulong count);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_FindObjectsInitDelegate(ulong session, CK_ATTRIBUTE[] template, ulong count);
+    internal delegate ulong C_FindObjectsInitDelegate(ulong session, CK_ATTRIBUTE[] template, ulong count);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_FindObjectsDelegate(ulong session, ulong[] objectId, ulong maxObjectCount, ref ulong objectCount);
+    internal delegate ulong C_FindObjectsDelegate(ulong session, ulong[] objectId, ulong maxObjectCount, ref ulong objectCount);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_FindObjectsFinalDelegate(ulong session);
+    internal delegate ulong C_FindObjectsFinalDelegate(ulong session);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_EncryptInitDelegate(ulong session, ref CK_MECHANISM mechanism, ulong key);
+    internal delegate ulong C_EncryptInitDelegate(ulong session, ref CK_MECHANISM mechanism, ulong key);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_EncryptDelegate(ulong session, byte[] data, ulong dataLen, byte[] encryptedData, ref ulong encryptedDataLen);
+    internal delegate ulong C_EncryptDelegate(ulong session, byte[] data, ulong dataLen, byte[] encryptedData, ref ulong encryptedDataLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_EncryptUpdateDelegate(ulong session, byte[] part, ulong partLen, byte[] encryptedPart, ref ulong encryptedPartLen);
+    internal delegate ulong C_EncryptUpdateDelegate(ulong session, byte[] part, ulong partLen, byte[] encryptedPart, ref ulong encryptedPartLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_EncryptFinalDelegate(ulong session, byte[] lastEncryptedPart, ref ulong lastEncryptedPartLen);
+    internal delegate ulong C_EncryptFinalDelegate(ulong session, byte[] lastEncryptedPart, ref ulong lastEncryptedPartLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_DecryptInitDelegate(ulong session, ref CK_MECHANISM mechanism, ulong key);
+    internal delegate ulong C_DecryptInitDelegate(ulong session, ref CK_MECHANISM mechanism, ulong key);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_DecryptDelegate(ulong session, byte[] encryptedData, ulong encryptedDataLen, byte[] data, ref ulong dataLen);
+    internal delegate ulong C_DecryptDelegate(ulong session, byte[] encryptedData, ulong encryptedDataLen, byte[] data, ref ulong dataLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_DecryptUpdateDelegate(ulong session, byte[] encryptedPart, ulong encryptedPartLen, byte[] part, ref ulong partLen);
+    internal delegate ulong C_DecryptUpdateDelegate(ulong session, byte[] encryptedPart, ulong encryptedPartLen, byte[] part, ref ulong partLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_DecryptFinalDelegate(ulong session, byte[] lastPart, ref ulong lastPartLen);
+    internal delegate ulong C_DecryptFinalDelegate(ulong session, byte[] lastPart, ref ulong lastPartLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_DigestInitDelegate(ulong session, ref CK_MECHANISM mechanism);
+    internal delegate ulong C_DigestInitDelegate(ulong session, ref CK_MECHANISM mechanism);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_DigestDelegate(ulong session, byte[] data, ulong dataLen, byte[] digest, ref ulong digestLen);
+    internal delegate ulong C_DigestDelegate(ulong session, byte[] data, ulong dataLen, byte[] digest, ref ulong digestLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_DigestUpdateDelegate(ulong session, byte[] part, ulong partLen);
+    internal delegate ulong C_DigestUpdateDelegate(ulong session, byte[] part, ulong partLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_DigestKeyDelegate(ulong session, ulong key);
+    internal delegate ulong C_DigestKeyDelegate(ulong session, ulong key);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_DigestFinalDelegate(ulong session, byte[] digest, ref ulong digestLen);
+    internal delegate ulong C_DigestFinalDelegate(ulong session, byte[] digest, ref ulong digestLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_SignInitDelegate(ulong session, ref CK_MECHANISM mechanism, ulong key);
+    internal delegate ulong C_SignInitDelegate(ulong session, ref CK_MECHANISM mechanism, ulong key);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_SignDelegate(ulong session, byte[] data, ulong dataLen, byte[] signature, ref ulong signatureLen);
+    internal delegate ulong C_SignDelegate(ulong session, byte[] data, ulong dataLen, byte[] signature, ref ulong signatureLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_SignUpdateDelegate(ulong session, byte[] part, ulong partLen);
+    internal delegate ulong C_SignUpdateDelegate(ulong session, byte[] part, ulong partLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_SignFinalDelegate(ulong session, byte[] signature, ref ulong signatureLen);
+    internal delegate ulong C_SignFinalDelegate(ulong session, byte[] signature, ref ulong signatureLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_SignRecoverInitDelegate(ulong session, ref CK_MECHANISM mechanism, ulong key);
+    internal delegate ulong C_SignRecoverInitDelegate(ulong session, ref CK_MECHANISM mechanism, ulong key);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_SignRecoverDelegate(ulong session, byte[] data, ulong dataLen, byte[] signature, ref ulong signatureLen);
+    internal delegate ulong C_SignRecoverDelegate(ulong session, byte[] data, ulong dataLen, byte[] signature, ref ulong signatureLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_VerifyInitDelegate(ulong session, ref CK_MECHANISM mechanism, ulong key);
+    internal delegate ulong C_VerifyInitDelegate(ulong session, ref CK_MECHANISM mechanism, ulong key);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_VerifyDelegate(ulong session, byte[] data, ulong dataLen, byte[] signature, ulong signatureLen);
+    internal delegate ulong C_VerifyDelegate(ulong session, byte[] data, ulong dataLen, byte[] signature, ulong signatureLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_VerifyUpdateDelegate(ulong session, byte[] part, ulong partLen);
+    internal delegate ulong C_VerifyUpdateDelegate(ulong session, byte[] part, ulong partLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_VerifyFinalDelegate(ulong session, byte[] signature, ulong signatureLen);
+    internal delegate ulong C_VerifyFinalDelegate(ulong session, byte[] signature, ulong signatureLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_VerifyRecoverInitDelegate(ulong session, ref CK_MECHANISM mechanism, ulong key);
+    internal delegate ulong C_VerifyRecoverInitDelegate(ulong session, ref CK_MECHANISM mechanism, ulong key);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_VerifyRecoverDelegate(ulong session, byte[] signature, ulong signatureLen, byte[] data, ref ulong dataLen);
+    internal delegate ulong C_VerifyRecoverDelegate(ulong session, byte[] signature, ulong signatureLen, byte[] data, ref ulong dataLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_DigestEncryptUpdateDelegate(ulong session, byte[] part, ulong partLen, byte[] encryptedPart, ref ulong encryptedPartLen);
+    internal delegate ulong C_DigestEncryptUpdateDelegate(ulong session, byte[] part, ulong partLen, byte[] encryptedPart, ref ulong encryptedPartLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_DecryptDigestUpdateDelegate(ulong session, byte[] encryptedPart, ulong encryptedPartLen, byte[] part, ref ulong partLen);
+    internal delegate ulong C_DecryptDigestUpdateDelegate(ulong session, byte[] encryptedPart, ulong encryptedPartLen, byte[] part, ref ulong partLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_SignEncryptUpdateDelegate(ulong session, byte[] part, ulong partLen, byte[] encryptedPart, ref ulong encryptedPartLen);
+    internal delegate ulong C_SignEncryptUpdateDelegate(ulong session, byte[] part, ulong partLen, byte[] encryptedPart, ref ulong encryptedPartLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_DecryptVerifyUpdateDelegate(ulong session, byte[] encryptedPart, ulong encryptedPartLen, byte[] part, ref ulong partLen);
+    internal delegate ulong C_DecryptVerifyUpdateDelegate(ulong session, byte[] encryptedPart, ulong encryptedPartLen, byte[] part, ref ulong partLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_GenerateKeyDelegate(ulong session, ref CK_MECHANISM mechanism, CK_ATTRIBUTE[] template, ulong count, ref ulong key);
+    internal delegate ulong C_GenerateKeyDelegate(ulong session, ref CK_MECHANISM mechanism, CK_ATTRIBUTE[] template, ulong count, ref ulong key);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_GenerateKeyPairDelegate(ulong session, ref CK_MECHANISM mechanism, CK_ATTRIBUTE[] publicKeyTemplate, ulong publicKeyAttributeCount, CK_ATTRIBUTE[] privateKeyTemplate, ulong privateKeyAttributeCount, ref ulong publicKey, ref ulong privateKey);
+    internal delegate ulong C_GenerateKeyPairDelegate(ulong session, ref CK_MECHANISM mechanism, CK_ATTRIBUTE[] publicKeyTemplate, ulong publicKeyAttributeCount, CK_ATTRIBUTE[] privateKeyTemplate, ulong privateKeyAttributeCount, ref ulong publicKey, ref ulong privateKey);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_WrapKeyDelegate(ulong session, ref CK_MECHANISM mechanism, ulong wrappingKey, ulong key, byte[] wrappedKey, ref ulong wrappedKeyLen);
+    internal delegate ulong C_WrapKeyDelegate(ulong session, ref CK_MECHANISM mechanism, ulong wrappingKey, ulong key, byte[] wrappedKey, ref ulong wrappedKeyLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_UnwrapKeyDelegate(ulong session, ref CK_MECHANISM mechanism, ulong unwrappingKey, byte[] wrappedKey, ulong wrappedKeyLen, CK_ATTRIBUTE[] template, ulong attributeCount, ref ulong key);
+    internal delegate ulong C_UnwrapKeyDelegate(ulong session, ref CK_MECHANISM mechanism, ulong unwrappingKey, byte[] wrappedKey, ulong wrappedKeyLen, CK_ATTRIBUTE[] template, ulong attributeCount, ref ulong key);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_DeriveKeyDelegate(ulong session, ref CK_MECHANISM mechanism, ulong baseKey, CK_ATTRIBUTE[] template, ulong attributeCount, ref ulong key);
+    internal delegate ulong C_DeriveKeyDelegate(ulong session, ref CK_MECHANISM mechanism, ulong baseKey, CK_ATTRIBUTE[] template, ulong attributeCount, ref ulong key);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_SeedRandomDelegate(ulong session, byte[] seed, ulong seedLen);
+    internal delegate ulong C_SeedRandomDelegate(ulong session, byte[] seed, ulong seedLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_GenerateRandomDelegate(ulong session, byte[] randomData, ulong randomLen);
+    internal delegate ulong C_GenerateRandomDelegate(ulong session, byte[] randomData, ulong randomLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_GetFunctionStatusDelegate(ulong session);
+    internal delegate ulong C_GetFunctionStatusDelegate(ulong session);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_CancelFunctionDelegate(ulong session);
+    internal delegate ulong C_CancelFunctionDelegate(ulong session);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate CKR C_WaitForSlotEventDelegate(ulong flags, ref ulong slot, IntPtr reserved);
+    internal delegate ulong C_WaitForSlotEventDelegate(ulong flags, ref ulong slot, IntPtr reserved);
 
     /// <summary>
     /// Holds delegates for all PKCS#11 functions
@@ -616,7 +616,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
 
             IntPtr functionList = IntPtr.Zero;
 
-            CKR rv = cGetFunctionList(out functionList);
+            CKR rv = (CKR)Convert.ToUInt32(cGetFunctionList(out functionList));
             if ((rv != CKR.CKR_OK) || (functionList == IntPtr.Zero))
                 throw new Pkcs11Exception("C_GetFunctionList", rv);
 
@@ -631,7 +631,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         {
             IntPtr functionList = IntPtr.Zero;
 
-            CKR rv = NativeMethods.C_GetFunctionList(out functionList);
+            CKR rv = (CKR)Convert.ToUInt32(NativeMethods.C_GetFunctionList(out functionList));
             if ((rv != CKR.CKR_OK) || (functionList == IntPtr.Zero))
                 throw new Pkcs11Exception("C_GetFunctionList", rv);
 

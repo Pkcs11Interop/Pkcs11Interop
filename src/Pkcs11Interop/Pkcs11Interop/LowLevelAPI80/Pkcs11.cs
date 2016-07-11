@@ -136,7 +136,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_Initialize(initArgs);
+            ulong rv = _delegates.C_Initialize(initArgs);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -149,7 +150,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_Finalize(reserved);
+            ulong rv = _delegates.C_Finalize(reserved);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -162,7 +164,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_GetInfo(ref info);
+            ulong rv = _delegates.C_GetInfo(ref info);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -175,7 +178,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_GetFunctionList(out functionList);
+            ulong rv = _delegates.C_GetFunctionList(out functionList);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -193,7 +197,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_GetSlotList(tokenPresent, slotList, ref count);
+            ulong rv = _delegates.C_GetSlotList(tokenPresent, slotList, ref count);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -207,7 +212,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_GetSlotInfo(slotId, ref info);
+            ulong rv = _delegates.C_GetSlotInfo(slotId, ref info);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -221,7 +227,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_GetTokenInfo(slotId, ref info);
+            ulong rv = _delegates.C_GetTokenInfo(slotId, ref info);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -243,7 +250,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (mechanismList != null)
                 ulongList = new ulong[mechanismList.Length];
 
-            CKR rv = _delegates.C_GetMechanismList(slotId, ulongList, ref count);
+            ulong rv = _delegates.C_GetMechanismList(slotId, ulongList, ref count);
 
             if (mechanismList != null)
             {
@@ -251,7 +258,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
                     mechanismList[i] = (CKM)Convert.ToUInt32(ulongList[i]);
             }
 
-            return rv;
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -266,7 +273,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_GetMechanismInfo(slotId, Convert.ToUInt64(type), ref info);
+            ulong rv = _delegates.C_GetMechanismInfo(slotId, Convert.ToUInt64(type), ref info);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -282,7 +290,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_InitToken(slotId, pin, pinLen, label);
+            ulong rv = _delegates.C_InitToken(slotId, pin, pinLen, label);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -297,7 +306,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_InitPIN(session, pin, pinLen);
+            ulong rv = _delegates.C_InitPIN(session, pin, pinLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -314,7 +324,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_SetPIN(session, oldPin, oldPinLen, newPin, newPinLen);
+            ulong rv = _delegates.C_SetPIN(session, oldPin, oldPinLen, newPin, newPinLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -331,7 +342,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_OpenSession(slotId, flags, application, notify, ref session);
+            ulong rv = _delegates.C_OpenSession(slotId, flags, application, notify, ref session);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -344,7 +356,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_CloseSession(session);
+            ulong rv = _delegates.C_CloseSession(session);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -357,7 +370,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_CloseAllSessions(slotId);
+            ulong rv = _delegates.C_CloseAllSessions(slotId);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -371,7 +385,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_GetSessionInfo(session, ref info);
+            ulong rv = _delegates.C_GetSessionInfo(session, ref info);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -389,7 +404,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_GetOperationState(session, operationState, ref operationStateLen);
+            ulong rv = _delegates.C_GetOperationState(session, operationState, ref operationStateLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -406,7 +422,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_SetOperationState(session, operationState, operationStateLen, encryptionKey, authenticationKey);
+            ulong rv = _delegates.C_SetOperationState(session, operationState, operationStateLen, encryptionKey, authenticationKey);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -422,7 +439,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_Login(session, Convert.ToUInt64(userType), pin, pinLen);
+            ulong rv = _delegates.C_Login(session, Convert.ToUInt64(userType), pin, pinLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -435,7 +453,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_Logout(session);
+            ulong rv = _delegates.C_Logout(session);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -451,7 +470,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_CreateObject(session, template, count, ref objectId);
+            ulong rv = _delegates.C_CreateObject(session, template, count, ref objectId);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -468,7 +488,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_CopyObject(session, objectId, template, count, ref newObjectId);
+            ulong rv = _delegates.C_CopyObject(session, objectId, template, count, ref newObjectId);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -482,7 +503,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_DestroyObject(session, objectId);
+            ulong rv = _delegates.C_DestroyObject(session, objectId);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -497,7 +519,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_GetObjectSize(session, objectId, ref size);
+            ulong rv = _delegates.C_GetObjectSize(session, objectId, ref size);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -513,7 +536,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_GetAttributeValue(session, objectId, template, count);
+            ulong rv = _delegates.C_GetAttributeValue(session, objectId, template, count);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -529,7 +553,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_SetAttributeValue(session, objectId, template, count);
+            ulong rv = _delegates.C_SetAttributeValue(session, objectId, template, count);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -544,7 +569,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_FindObjectsInit(session, template, count);
+            ulong rv = _delegates.C_FindObjectsInit(session, template, count);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -560,7 +586,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_FindObjects(session, objectId, maxObjectCount, ref objectCount);
+            ulong rv = _delegates.C_FindObjects(session, objectId, maxObjectCount, ref objectCount);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -573,7 +600,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_FindObjectsFinal(session);
+            ulong rv = _delegates.C_FindObjectsFinal(session);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -588,7 +616,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_EncryptInit(session, ref mechanism, key);
+            ulong rv = _delegates.C_EncryptInit(session, ref mechanism, key);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -608,7 +637,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_Encrypt(session, data, dataLen, encryptedData, ref encryptedDataLen);
+            ulong rv = _delegates.C_Encrypt(session, data, dataLen, encryptedData, ref encryptedDataLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -628,7 +658,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_EncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
+            ulong rv = _delegates.C_EncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -646,7 +677,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_EncryptFinal(session, lastEncryptedPart, ref lastEncryptedPartLen);
+            ulong rv = _delegates.C_EncryptFinal(session, lastEncryptedPart, ref lastEncryptedPartLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -661,7 +693,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_DecryptInit(session, ref mechanism, key);
+            ulong rv = _delegates.C_DecryptInit(session, ref mechanism, key);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -681,7 +714,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_Decrypt(session, encryptedData, encryptedDataLen, data, ref dataLen);
+            ulong rv = _delegates.C_Decrypt(session, encryptedData, encryptedDataLen, data, ref dataLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -701,7 +735,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_DecryptUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
+            ulong rv = _delegates.C_DecryptUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -719,7 +754,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_DecryptFinal(session, lastPart, ref lastPartLen);
+            ulong rv = _delegates.C_DecryptFinal(session, lastPart, ref lastPartLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -733,7 +769,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_DigestInit(session, ref mechanism);
+            ulong rv = _delegates.C_DigestInit(session, ref mechanism);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -753,7 +790,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_Digest(session, data, dataLen, digest, ref digestLen);
+            ulong rv = _delegates.C_Digest(session, data, dataLen, digest, ref digestLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -768,7 +806,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_DigestUpdate(session, part, partLen);
+            ulong rv = _delegates.C_DigestUpdate(session, part, partLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -782,7 +821,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_DigestKey(session, key);
+            ulong rv = _delegates.C_DigestKey(session, key);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -800,7 +840,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_DigestFinal(session, digest, ref digestLen);
+            ulong rv = _delegates.C_DigestFinal(session, digest, ref digestLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -815,7 +856,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_SignInit(session, ref mechanism, key);
+            ulong rv = _delegates.C_SignInit(session, ref mechanism, key);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -835,7 +877,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_Sign(session, data, dataLen, signature, ref signatureLen);
+            ulong rv = _delegates.C_Sign(session, data, dataLen, signature, ref signatureLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -850,7 +893,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_SignUpdate(session, part, partLen);
+            ulong rv = _delegates.C_SignUpdate(session, part, partLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -868,7 +912,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_SignFinal(session, signature, ref signatureLen);
+            ulong rv = _delegates.C_SignFinal(session, signature, ref signatureLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -883,7 +928,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_SignRecoverInit(session, ref mechanism, key);
+            ulong rv = _delegates.C_SignRecoverInit(session, ref mechanism, key);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -903,7 +949,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_SignRecover(session, data, dataLen, signature, ref signatureLen);
+            ulong rv = _delegates.C_SignRecover(session, data, dataLen, signature, ref signatureLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -918,7 +965,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_VerifyInit(session, ref mechanism, key);
+            ulong rv = _delegates.C_VerifyInit(session, ref mechanism, key);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -935,7 +983,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_Verify(session, data, dataLen, signature, signatureLen);
+            ulong rv = _delegates.C_Verify(session, data, dataLen, signature, signatureLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -950,7 +999,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_VerifyUpdate(session, part, partLen);
+            ulong rv = _delegates.C_VerifyUpdate(session, part, partLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -965,7 +1015,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_VerifyFinal(session, signature, signatureLen);
+            ulong rv = _delegates.C_VerifyFinal(session, signature, signatureLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -980,7 +1031,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_VerifyRecoverInit(session, ref mechanism, key);
+            ulong rv = _delegates.C_VerifyRecoverInit(session, ref mechanism, key);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -1000,7 +1052,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_VerifyRecover(session, signature, signatureLen, data, ref dataLen);
+            ulong rv = _delegates.C_VerifyRecover(session, signature, signatureLen, data, ref dataLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -1020,7 +1073,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_DigestEncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
+            ulong rv = _delegates.C_DigestEncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -1040,7 +1094,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_DecryptDigestUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
+            ulong rv = _delegates.C_DecryptDigestUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -1060,7 +1115,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_SignEncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
+            ulong rv = _delegates.C_SignEncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -1080,7 +1136,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_DecryptVerifyUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
+            ulong rv = _delegates.C_DecryptVerifyUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -1097,7 +1154,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_GenerateKey(session, ref mechanism, template, count, ref key);
+            ulong rv = _delegates.C_GenerateKey(session, ref mechanism, template, count, ref key);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -1117,7 +1175,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_GenerateKeyPair(session, ref mechanism, publicKeyTemplate, publicKeyAttributeCount, privateKeyTemplate, privateKeyAttributeCount, ref publicKey, ref privateKey);
+            ulong rv = _delegates.C_GenerateKeyPair(session, ref mechanism, publicKeyTemplate, publicKeyAttributeCount, privateKeyTemplate, privateKeyAttributeCount, ref publicKey, ref privateKey);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -1138,7 +1197,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_WrapKey(session, ref mechanism, wrappingKey, key, wrappedKey, ref wrappedKeyLen);
+            ulong rv = _delegates.C_WrapKey(session, ref mechanism, wrappingKey, key, wrappedKey, ref wrappedKeyLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -1158,7 +1218,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_UnwrapKey(session, ref mechanism, unwrappingKey, wrappedKey, wrappedKeyLen, template, attributeCount, ref key);
+            ulong rv = _delegates.C_UnwrapKey(session, ref mechanism, unwrappingKey, wrappedKey, wrappedKeyLen, template, attributeCount, ref key);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -1176,7 +1237,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_DeriveKey(session, ref mechanism, baseKey, template, attributeCount, ref key);
+            ulong rv = _delegates.C_DeriveKey(session, ref mechanism, baseKey, template, attributeCount, ref key);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -1191,7 +1253,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_SeedRandom(session, seed, seedLen);
+            ulong rv = _delegates.C_SeedRandom(session, seed, seedLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -1206,7 +1269,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_GenerateRandom(session, randomData, randomLen);
+            ulong rv = _delegates.C_GenerateRandom(session, randomData, randomLen);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -1219,7 +1283,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_GetFunctionStatus(session);
+            ulong rv = _delegates.C_GetFunctionStatus(session);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -1232,7 +1297,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_CancelFunction(session);
+            ulong rv = _delegates.C_CancelFunction(session);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -1247,7 +1313,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            return _delegates.C_WaitForSlotEvent(flags, ref slot, reserved);
+            ulong rv = _delegates.C_WaitForSlotEvent(flags, ref slot, reserved);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         #region IDisposable
