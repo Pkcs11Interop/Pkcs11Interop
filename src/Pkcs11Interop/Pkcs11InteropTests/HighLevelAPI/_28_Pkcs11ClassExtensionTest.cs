@@ -214,10 +214,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         private static class Delegates
         {
             [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-            internal delegate CKR C_GetUnmanagedStructSizeListDelegate4x(uint[] sizeList, ref uint count);
+            internal delegate uint C_GetUnmanagedStructSizeListDelegate4x(uint[] sizeList, ref uint count);
 
             [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-            internal delegate CKR C_GetUnmanagedStructSizeListDelegate8x(ulong[] sizeList, ref ulong count);
+            internal delegate ulong C_GetUnmanagedStructSizeListDelegate8x(ulong[] sizeList, ref ulong count);
         }
 
         /// <summary>
@@ -226,10 +226,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         private static class NativeMethods
         {
             [DllImport("__Internal", EntryPoint = "C_GetUnmanagedStructSizeList", CallingConvention = CallingConvention.Cdecl)]
-            internal static extern CKR C_GetUnmanagedStructSizeList4x(uint[] sizeList, ref uint count);
+            internal static extern uint C_GetUnmanagedStructSizeList4x(uint[] sizeList, ref uint count);
 
             [DllImport("__Internal", EntryPoint = "C_GetUnmanagedStructSizeList", CallingConvention = CallingConvention.Cdecl)]
-            internal static extern CKR C_GetUnmanagedStructSizeList8x(ulong[] sizeList, ref ulong count);
+            internal static extern ulong C_GetUnmanagedStructSizeList8x(ulong[] sizeList, ref ulong count);
         }
 
         /// <summary>
@@ -260,7 +260,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 cGetUnmanagedStructSizeList = NativeMethods.C_GetUnmanagedStructSizeList4x;
             }
 
-            return cGetUnmanagedStructSizeList(sizeList, ref count);
+            uint rv = cGetUnmanagedStructSizeList(sizeList, ref count);
+            return (CKR)rv;
         }
 
         /// <summary>
@@ -291,7 +292,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 cGetUnmanagedStructSizeList = NativeMethods.C_GetUnmanagedStructSizeList4x;
             }
 
-            return cGetUnmanagedStructSizeList(sizeList, ref count);
+            uint rv = cGetUnmanagedStructSizeList(sizeList, ref count);
+            return (CKR)rv;
         }
 
         /// <summary>
@@ -322,7 +324,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 cGetUnmanagedStructSizeList = NativeMethods.C_GetUnmanagedStructSizeList8x;
             }
 
-            return cGetUnmanagedStructSizeList(sizeList, ref count);
+            ulong rv = cGetUnmanagedStructSizeList(sizeList, ref count);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -353,7 +356,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 cGetUnmanagedStructSizeList = NativeMethods.C_GetUnmanagedStructSizeList8x;
             }
 
-            return cGetUnmanagedStructSizeList(sizeList, ref count);
+            ulong rv = cGetUnmanagedStructSizeList(sizeList, ref count);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         #endregion

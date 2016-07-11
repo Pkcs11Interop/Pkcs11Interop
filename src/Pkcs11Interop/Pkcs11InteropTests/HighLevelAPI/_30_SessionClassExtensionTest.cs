@@ -136,10 +136,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         private static class Delegates
         {
             [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-            internal delegate CKR C_InteractiveLogin4x(uint session);
+            internal delegate uint C_InteractiveLogin4x(uint session);
 
             [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-            internal delegate CKR C_InteractiveLogin8x(ulong session);
+            internal delegate ulong C_InteractiveLogin8x(ulong session);
         }
 
         /// <summary>
@@ -148,10 +148,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         private static class NativeMethods
         {
             [DllImport("__Internal", EntryPoint = "C_InteractiveLogin", CallingConvention = CallingConvention.Cdecl)]
-            internal static extern CKR C_InteractiveLogin4x(uint session);
+            internal static extern uint C_InteractiveLogin4x(uint session);
 
             [DllImport("__Internal", EntryPoint = "C_InteractiveLogin", CallingConvention = CallingConvention.Cdecl)]
-            internal static extern CKR C_InteractiveLogin8x(ulong session);
+            internal static extern ulong C_InteractiveLogin8x(ulong session);
         }
 
         /// <summary>
@@ -178,7 +178,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 cInteractiveLogin = NativeMethods.C_InteractiveLogin4x;
             }
 
-            return cInteractiveLogin(session);
+            uint rv = cInteractiveLogin(session);
+            return (CKR)rv;
         }
 
         /// <summary>
@@ -205,7 +206,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 cInteractiveLogin = NativeMethods.C_InteractiveLogin4x;
             }
 
-            return cInteractiveLogin(session);
+            uint rv = cInteractiveLogin(session);
+            return (CKR)rv;
         }
 
         /// <summary>
@@ -232,7 +234,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 cInteractiveLogin = NativeMethods.C_InteractiveLogin8x;
             }
 
-            return cInteractiveLogin(session);
+            ulong rv = cInteractiveLogin(session);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -259,7 +262,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 cInteractiveLogin = NativeMethods.C_InteractiveLogin8x;
             }
 
-            return cInteractiveLogin(session);
+            ulong rv = cInteractiveLogin(session);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         #endregion

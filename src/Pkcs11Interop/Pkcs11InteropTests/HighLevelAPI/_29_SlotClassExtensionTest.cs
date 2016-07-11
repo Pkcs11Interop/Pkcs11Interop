@@ -136,10 +136,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         private static class Delegates
         {
             [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-            internal delegate CKR C_EjectToken4x(uint slotId);
+            internal delegate uint C_EjectToken4x(uint slotId);
 
             [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-            internal delegate CKR C_EjectToken8x(ulong slotId);
+            internal delegate ulong C_EjectToken8x(ulong slotId);
         }
 
         /// <summary>
@@ -148,10 +148,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         private static class NativeMethods
         {
             [DllImport("__Internal", EntryPoint = "C_EjectToken", CallingConvention = CallingConvention.Cdecl)]
-            internal static extern CKR C_EjectToken4x(uint slotId);
+            internal static extern uint C_EjectToken4x(uint slotId);
 
             [DllImport("__Internal", EntryPoint = "C_EjectToken", CallingConvention = CallingConvention.Cdecl)]
-            internal static extern CKR C_EjectToken8x(ulong slotId);
+            internal static extern ulong C_EjectToken8x(ulong slotId);
         }
 
         /// <summary>
@@ -178,7 +178,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 cEjectToken = NativeMethods.C_EjectToken4x;
             }
 
-            return cEjectToken(slotId);
+            uint rv = cEjectToken(slotId);
+            return (CKR)rv;
         }
 
         /// <summary>
@@ -205,7 +206,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 cEjectToken = NativeMethods.C_EjectToken4x;
             }
 
-            return cEjectToken(slotId);
+            uint rv = cEjectToken(slotId);
+            return (CKR)rv;
         }
 
         /// <summary>
@@ -232,7 +234,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 cEjectToken = NativeMethods.C_EjectToken8x;
             }
 
-            return cEjectToken(slotId);
+            ulong rv = cEjectToken(slotId);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         /// <summary>
@@ -259,7 +262,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 cEjectToken = NativeMethods.C_EjectToken8x;
             }
 
-            return cEjectToken(slotId);
+            ulong rv = cEjectToken(slotId);
+            return (CKR)Convert.ToUInt32(rv);
         }
 
         #endregion
