@@ -1,7 +1,7 @@
 @setlocal
 
 @rem Delete output directory
-rmdir /S /Q netstandard-1.3
+rmdir /S /Q netstandard1.3
 
 @rem Clean project
 rmdir /S /Q ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore\bin
@@ -13,9 +13,9 @@ dotnet restore ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore\ || 
 dotnet build ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore\ --configuration Release || goto :error
 
 @rem Copy result to output directory
-mkdir netstandard-1.3 || goto :error
-copy ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore\bin\Release\netstandard1.3\Pkcs11Interop.DotNetCore.dll netstandard-1.3 || goto :error
-copy ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore\bin\Release\netstandard1.3\Pkcs11Interop.DotNetCore.xml netstandard-1.3 || goto :error
+mkdir netstandard1.3 || goto :error
+copy ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore\bin\Release\netstandard1.3\Pkcs11Interop.DotNetCore.dll netstandard1.3 || goto :error
+copy ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore\bin\Release\netstandard1.3\Pkcs11Interop.DotNetCore.xml netstandard1.3 || goto :error
 
 @echo *** BUILD NETSTANDARD1.3 SUCCESSFUL ***
 @endlocal
