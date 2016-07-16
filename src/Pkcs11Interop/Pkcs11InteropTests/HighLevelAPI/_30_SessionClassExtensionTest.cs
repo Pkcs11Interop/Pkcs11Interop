@@ -171,7 +171,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             if (pkcs11.LibraryHandle != IntPtr.Zero)
             {
                 IntPtr cInteractiveLoginPtr = UnmanagedLibrary.GetFunctionPointer(pkcs11.LibraryHandle, "C_InteractiveLogin");
-                cInteractiveLogin = (Delegates.C_InteractiveLogin4x)Marshal.GetDelegateForFunctionPointer(cInteractiveLoginPtr, typeof(Delegates.C_InteractiveLogin4x));
+                cInteractiveLogin = UnmanagedLibrary.GetDelegateForFunctionPointer<Delegates.C_InteractiveLogin4x>(cInteractiveLoginPtr);
             }
             else
             {
@@ -199,7 +199,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             if (pkcs11.LibraryHandle != IntPtr.Zero)
             {
                 IntPtr cInteractiveLoginPtr = UnmanagedLibrary.GetFunctionPointer(pkcs11.LibraryHandle, "C_InteractiveLogin");
-                cInteractiveLogin = (Delegates.C_InteractiveLogin4x)Marshal.GetDelegateForFunctionPointer(cInteractiveLoginPtr, typeof(Delegates.C_InteractiveLogin4x));
+                cInteractiveLogin = UnmanagedLibrary.GetDelegateForFunctionPointer<Delegates.C_InteractiveLogin4x>(cInteractiveLoginPtr);
             }
             else
             {
@@ -227,7 +227,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             if (pkcs11.LibraryHandle != IntPtr.Zero)
             {
                 IntPtr cInteractiveLoginPtr = UnmanagedLibrary.GetFunctionPointer(pkcs11.LibraryHandle, "C_InteractiveLogin");
-                cInteractiveLogin = (Delegates.C_InteractiveLogin8x)Marshal.GetDelegateForFunctionPointer(cInteractiveLoginPtr, typeof(Delegates.C_InteractiveLogin8x));
+                cInteractiveLogin = UnmanagedLibrary.GetDelegateForFunctionPointer<Delegates.C_InteractiveLogin8x>(cInteractiveLoginPtr);
             }
             else
             {
@@ -255,7 +255,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             if (pkcs11.LibraryHandle != IntPtr.Zero)
             {
                 IntPtr cInteractiveLoginPtr = UnmanagedLibrary.GetFunctionPointer(pkcs11.LibraryHandle, "C_InteractiveLogin");
-                cInteractiveLogin = (Delegates.C_InteractiveLogin8x)Marshal.GetDelegateForFunctionPointer(cInteractiveLoginPtr, typeof(Delegates.C_InteractiveLogin8x));
+                cInteractiveLogin = UnmanagedLibrary.GetDelegateForFunctionPointer<Delegates.C_InteractiveLogin8x>(cInteractiveLoginPtr);
             }
             else
             {

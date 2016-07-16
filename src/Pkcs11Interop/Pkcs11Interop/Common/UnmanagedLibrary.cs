@@ -172,5 +172,20 @@ namespace Net.Pkcs11Interop.Common
 
             return functionPointer;
         }
+
+        /// <summary>
+        /// Converts function pointer to a delegate
+        /// </summary>
+        /// <typeparam name="T">Type of delegate</typeparam>
+        /// <param name="functionPointer">Function pointer</param>
+        /// <returns>Delegate</returns>
+        public static T GetDelegateForFunctionPointer<T>(IntPtr functionPointer)
+        {
+#if !COREFX
+            return (T)(object)Marshal.GetDelegateForFunctionPointer(functionPointer, typeof(T));
+#else
+            return Marshal.GetDelegateForFunctionPointer<T>(functionPointer);
+#endif
+        }
     }
 }

@@ -171,7 +171,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             if (pkcs11.LibraryHandle != IntPtr.Zero)
             {
                 IntPtr cEjectTokenPtr = UnmanagedLibrary.GetFunctionPointer(pkcs11.LibraryHandle, "C_EjectToken");
-                cEjectToken = (Delegates.C_EjectToken4x)Marshal.GetDelegateForFunctionPointer(cEjectTokenPtr, typeof(Delegates.C_EjectToken4x));
+                cEjectToken = UnmanagedLibrary.GetDelegateForFunctionPointer<Delegates.C_EjectToken4x>(cEjectTokenPtr);
             }
             else
             {
@@ -199,7 +199,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             if (pkcs11.LibraryHandle != IntPtr.Zero)
             {
                 IntPtr cEjectTokenPtr = UnmanagedLibrary.GetFunctionPointer(pkcs11.LibraryHandle, "C_EjectToken");
-                cEjectToken = (Delegates.C_EjectToken4x)Marshal.GetDelegateForFunctionPointer(cEjectTokenPtr, typeof(Delegates.C_EjectToken4x));
+                cEjectToken = UnmanagedLibrary.GetDelegateForFunctionPointer<Delegates.C_EjectToken4x>(cEjectTokenPtr);
             }
             else
             {
@@ -227,7 +227,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             if (pkcs11.LibraryHandle != IntPtr.Zero)
             {
                 IntPtr cEjectTokenPtr = UnmanagedLibrary.GetFunctionPointer(pkcs11.LibraryHandle, "C_EjectToken");
-                cEjectToken = (Delegates.C_EjectToken8x)Marshal.GetDelegateForFunctionPointer(cEjectTokenPtr, typeof(Delegates.C_EjectToken8x));
+                cEjectToken = UnmanagedLibrary.GetDelegateForFunctionPointer<Delegates.C_EjectToken8x>(cEjectTokenPtr);
             }
             else
             {
@@ -255,7 +255,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             if (pkcs11.LibraryHandle != IntPtr.Zero)
             {
                 IntPtr cEjectTokenPtr = UnmanagedLibrary.GetFunctionPointer(pkcs11.LibraryHandle, "C_EjectToken");
-                cEjectToken = (Delegates.C_EjectToken8x)Marshal.GetDelegateForFunctionPointer(cEjectTokenPtr, typeof(Delegates.C_EjectToken8x));
+                cEjectToken = UnmanagedLibrary.GetDelegateForFunctionPointer<Delegates.C_EjectToken8x>(cEjectTokenPtr);
             }
             else
             {

@@ -253,7 +253,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             if (pkcs11.LibraryHandle != IntPtr.Zero)
             {
                 IntPtr cGetUnmanagedStructSizeListPtr = UnmanagedLibrary.GetFunctionPointer(pkcs11.LibraryHandle, "C_GetUnmanagedStructSizeList");
-                cGetUnmanagedStructSizeList = (Delegates.C_GetUnmanagedStructSizeListDelegate4x)Marshal.GetDelegateForFunctionPointer(cGetUnmanagedStructSizeListPtr, typeof(Delegates.C_GetUnmanagedStructSizeListDelegate4x));
+                cGetUnmanagedStructSizeList = UnmanagedLibrary.GetDelegateForFunctionPointer<Delegates.C_GetUnmanagedStructSizeListDelegate4x>(cGetUnmanagedStructSizeListPtr);
             }
             else
             {
@@ -285,7 +285,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             if (pkcs11.LibraryHandle != IntPtr.Zero)
             {
                 IntPtr cGetUnmanagedStructSizeListPtr = UnmanagedLibrary.GetFunctionPointer(pkcs11.LibraryHandle, "C_GetUnmanagedStructSizeList");
-                cGetUnmanagedStructSizeList = (Delegates.C_GetUnmanagedStructSizeListDelegate4x)Marshal.GetDelegateForFunctionPointer(cGetUnmanagedStructSizeListPtr, typeof(Delegates.C_GetUnmanagedStructSizeListDelegate4x));
+                cGetUnmanagedStructSizeList = UnmanagedLibrary.GetDelegateForFunctionPointer<Delegates.C_GetUnmanagedStructSizeListDelegate4x>(cGetUnmanagedStructSizeListPtr);
             }
             else
             {
@@ -317,7 +317,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             if (pkcs11.LibraryHandle != IntPtr.Zero)
             {
                 IntPtr cGetUnmanagedStructSizeListPtr = UnmanagedLibrary.GetFunctionPointer(pkcs11.LibraryHandle, "C_GetUnmanagedStructSizeList");
-                cGetUnmanagedStructSizeList = (Delegates.C_GetUnmanagedStructSizeListDelegate8x)Marshal.GetDelegateForFunctionPointer(cGetUnmanagedStructSizeListPtr, typeof(Delegates.C_GetUnmanagedStructSizeListDelegate8x));
+                cGetUnmanagedStructSizeList = UnmanagedLibrary.GetDelegateForFunctionPointer<Delegates.C_GetUnmanagedStructSizeListDelegate8x>(cGetUnmanagedStructSizeListPtr);
             }
             else
             {
@@ -349,7 +349,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             if (pkcs11.LibraryHandle != IntPtr.Zero)
             {
                 IntPtr cGetUnmanagedStructSizeListPtr = UnmanagedLibrary.GetFunctionPointer(pkcs11.LibraryHandle, "C_GetUnmanagedStructSizeList");
-                cGetUnmanagedStructSizeList = (Delegates.C_GetUnmanagedStructSizeListDelegate8x)Marshal.GetDelegateForFunctionPointer(cGetUnmanagedStructSizeListPtr, typeof(Delegates.C_GetUnmanagedStructSizeListDelegate8x));
+                cGetUnmanagedStructSizeList = UnmanagedLibrary.GetDelegateForFunctionPointer<Delegates.C_GetUnmanagedStructSizeListDelegate8x>(cGetUnmanagedStructSizeListPtr);
             }
             else
             {
