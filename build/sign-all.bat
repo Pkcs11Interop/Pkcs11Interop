@@ -16,8 +16,8 @@ net40\Pkcs11Interop.dll ^
 net45\Pkcs11Interop.dll ^
 sl5\Pkcs11Interop.Silverlight.dll ^
 netstandard1.3\Pkcs11Interop.DotNetCore.dll ^
-MonoAndroid23\Pkcs11Interop.Android.dll ^
-Xamarin.iOS10\Pkcs11Interop.iOS.dll || goto :error
+monoandroid2.3\Pkcs11Interop.Android.dll ^
+xamarinios1.0\Pkcs11Interop.iOS.dll || goto :error
 
 @rem Sign all assemblies using SHA256withRSA algorithm
 signtool sign /sha1 %CERTHASH% /as /fd sha256 /tr %TSAURL% /td sha256 /d %LIBNAME% /du %LIBURL% ^
@@ -26,8 +26,8 @@ net40\Pkcs11Interop.dll ^
 net45\Pkcs11Interop.dll ^
 sl5\Pkcs11Interop.Silverlight.dll ^
 netstandard1.3\Pkcs11Interop.DotNetCore.dll ^
-MonoAndroid23\Pkcs11Interop.Android.dll ^
-Xamarin.iOS10\Pkcs11Interop.iOS.dll || goto :error
+monoandroid2.3\Pkcs11Interop.Android.dll ^
+xamarinios1.0\Pkcs11Interop.iOS.dll || goto :error
 
 @echo *** SIGNING SUCCESSFUL ***
 @endlocal
