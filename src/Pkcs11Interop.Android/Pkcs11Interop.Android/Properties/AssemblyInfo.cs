@@ -13,5 +13,5 @@ using Android.App;
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 [assembly: Guid("7102332a-1ac0-4823-8fcc-5037550e715d")]
-[assembly: AssemblyVersion("3.1.0")]
-[assembly: AssemblyFileVersion("3.1.0")]
+[assembly: AssemblyVersion("3.2.0")]
+[assembly: AssemblyFileVersion("3.2.0")]

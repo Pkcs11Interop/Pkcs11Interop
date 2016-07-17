@@ -1,3 +1,24 @@
+Pkcs11Interop 3.2.0 (2016-07-17)
+ - Added support for .NET Core 1.0 RTM / .NET Standard 1.3
+ - Refreshed Xamarin.Android and Xamarin.iOS solutions for VS 2015
+ - Xamarin.Android targets Android 2.3 API 10 as a minimum SDK version
+ - Added build scripts for convenient releasing and NuGet packaging
+ - Fix #28: Introduced Net.Pkcs11Interop.Common.LibraryArchitectureException 
+   which indicates an attempt to load unmanaged PKCS#11 library designated 
+   for a different architecture
+ - Fixed reading of empty CK_DATE attributes
+ - Fixed pointer arithmetics in the processing of array attributes
+ - Unified runtime OS detection in Net.Pkcs11Interop.Common.Platform class
+ - Net.Pkcs11Interop.Common.CK, Net.Pkcs11Interop.Common.CKF 
+   and Net.Pkcs11Interop.Common.CKZ classes are now static
+ - Improved HexString conversions
+ - Improved return value marshaling of all unmanaged PKCS#11 functions
+   by using uint/ulong types instead of Net.Pkcs11Interop.Common.CKR type
+ - Improved return value marshaling of FreeLibrary() function
+ - Improved marshaling of C_GetSLotList() function parameters in cases 
+   when it is being invoked directly instead of being invoked via the pointer 
+   returned by C_GetFunctionList() function
+
 Pkcs11Interop 3.1.0 (2016-03-29)
  - License changed to the Apache License, Version 2.0
 
@@ -10,10 +31,10 @@ Pkcs11Interop 3.0.0 (2015-08-11)
  - Value of array attributes (e.g. CKA_WRAP_TEMPLATE and CKA_UNWRAP_TEMPLATE) 
    can now be read also in HighLevelAPIs
  - Fixed GetAttributeValue() method in HighLevelAPIs
- - Fixed marshalling of unmanaged CK_BBOOL type in C_GetSlotList() function 
+ - Fixed marshaling of unmanaged CK_BBOOL type in C_GetSlotList() function 
    and in CK_KEA_DERIVE_PARAMS, CK_SSL3_KEY_MAT_PARAMS 
    and CK_WTLS_KEY_MAT_PARAMS structs
- - Fixed marshalling of PasswordLen member in CK_PKCS5_PBKD2_PARAMS struct
+ - Fixed marshaling of PasswordLen member in CK_PKCS5_PBKD2_PARAMS struct
  - Class Net.Pkcs11Interop.Common.UnmanagedLong has been replaced with 
    UnmanagedLongSize property of Net.Pkcs11Interop.Common.Platform class
  - PKCS#11 libraries which are not using structs packed with 1-byte alignment 
