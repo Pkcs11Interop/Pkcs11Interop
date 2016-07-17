@@ -28,7 +28,7 @@ Pkcs11Interop library:
 
 * implements .NET wrapper for unmanaged PKCS#11 libraries
 * is compliant with [PKCS#11 v2.20](doc/rsa-pkcs11-2.20/) specification and PKCS#11 URI scheme defined in [RFC 7512](doc/pkcs11-uri-scheme)
-* is compatible with .NET Framework 2.0 (and higher), Mono, Xamarin and Silverlight5
+* is compatible with .NET Framework 2.0 and higher, .NET Core, Mono, Xamarin and Silverlight5
 * is supported on Windows, Linux, Mac OS X, Android and iOS
 * is supported on both 32-bit and 64-bit platforms
 * is open source and completely free for commercial use
