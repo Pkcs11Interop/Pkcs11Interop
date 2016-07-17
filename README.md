@@ -2,8 +2,6 @@ Pkcs11Interop
 =============
 **Managed .NET wrapper for unmanaged PKCS#11 libraries**
 
-[![Build status](https://ci.appveyor.com/api/projects/status/ksk9xtspv938q4n4?svg=true)](https://ci.appveyor.com/project/JaroslavImrich/pkcs11interop)
-
 ## Table of Contents
 
 * [Overview](#overview)
