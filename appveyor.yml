@@ -1,4 +1,7 @@
 version: 1.0.{build}
+branches:
+  only:
+  - appveyor-integration
 init:
 - ps: 
 environment:
@@ -11,10 +14,11 @@ environment:
   - Platform: monoandroid2.3
   - Platform: xamarinios1.0
 install:
-- ps: ./build/appveyor-install-android-sdk.ps1
+- cmd: IF "%Platform%"=="monoandroid2.3" (powershell -File ./build/appveyor-install-android-sdk.ps1)
 build_script:
 - cmd: >-
     cd build
+
     ./build-%Platform%.bat
 artifacts:
 - path: build/$(Platform)
