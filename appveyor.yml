@@ -1,4 +1,4 @@
-version: 3.2.0-{build}
+version: 1.0.{build}
 init:
 - ps: 
 environment:
@@ -11,11 +11,10 @@ environment:
   - Platform: monoandroid2.3
   - Platform: xamarinios1.0
 install:
-- ps: "If ($env:Platform -Match \"monoandroid2.3\") {\n$AndroidToolPath = \"${env:ProgramFiles(x86)}\\Android\\android-sdk\\tools\\android\" \n#$AndroidToolPath = \"$env:localappdata\\Android\\android-sdk\\tools\\android\"\n\nFunction Get-AndroidSDKs() { \n    $output = & $AndroidToolPath list sdk --all \n    $sdks = $output |% { \n        if ($_ -match '(?<index>\\d+)- (?<sdk>.+), revision (?<revision>[\\d\\.]+)') { \n            $sdk = New-Object PSObject \n            Add-Member -InputObject $sdk -MemberType NoteProperty -Name Index -Value $Matches.index \n            Add-Member -InputObject $sdk -MemberType NoteProperty -Name Name -Value $Matches.sdk \n            Add-Member -InputObject $sdk -MemberType NoteProperty -Name Revision -Value $Matches.revision \n            $sdk \n        } \n    } \n    $sdks \n}\n\nFunction Install-AndroidSDK() { \n    [CmdletBinding()] \n    Param( \n        [Parameter(Mandatory=$true, Position=0)] \n        [PSObject[]]$sdks \n    )\n\n    $sdkIndexes = $sdks |% { $_.Index } \n    $sdkIndexArgument = [string]::Join(',', $sdkIndexes) \n    Echo 'y' | & $AndroidToolPath update sdk -u -a -t $sdkIndexArgument \n}\n\n$sdks = Get-AndroidSDKs |? { $_.name -like 'sdk platform*API 10*' -or $_.name -like 'google apis*api 10' } \nInstall-AndroidSDK -sdks $sdks\n}"
+- ps: ./build/appveyor-install-android-sdk.ps1
 build_script:
 - cmd: >-
     cd build
-
     ./build-%Platform%.bat
 artifacts:
 - path: build/$(Platform)
