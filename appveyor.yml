@@ -1,0 +1,22 @@
+version: 3.2.0-{build}
+init:
+- ps: 
+environment:
+  matrix:
+  - Platform: net20
+  - Platform: net40
+  - Platform: net45
+  - Platform: sl5
+  - Platform: netstandard1.3
+  - Platform: monoandroid2.3
+  - Platform: xamarinios1.0
+install:
+- cmd: IF "%Platform%"=="monoandroid2.3" (powershell -File ./build/appveyor-install-android-sdk.ps1)
+build_script:
+- cmd: >-
+    cd build
+
+    ./build-%Platform%.bat
+artifacts:
+- path: build/$(Platform)
+  name: $(Platform)
