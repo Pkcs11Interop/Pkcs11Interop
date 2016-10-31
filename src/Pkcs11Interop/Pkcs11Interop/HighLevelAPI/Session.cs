@@ -141,6 +141,43 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         }
 
         /// <summary>
+        /// Flag indicating whether session should be closed when object is disposed
+        /// </summary>
+        public bool CloseWhenDisposed
+        {
+            get
+            {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
+                if (Platform.UnmanagedLongSize == 4)
+                    return (Platform.StructPackingSize == 0) ? _session40.CloseWhenDisposed : _session41.CloseWhenDisposed;
+                else
+                    return (Platform.StructPackingSize == 0) ? _session80.CloseWhenDisposed : _session81.CloseWhenDisposed;
+            }
+            set
+            {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
+                if (Platform.UnmanagedLongSize == 4)
+                {
+                    if (Platform.StructPackingSize == 0)
+                        _session40.CloseWhenDisposed = value;
+                    else
+                        _session41.CloseWhenDisposed = value;
+                }
+                else
+                {
+                    if (Platform.StructPackingSize == 0)
+                        _session80.CloseWhenDisposed = value;
+                    else
+                        _session81.CloseWhenDisposed = value;
+                }
+            }
+        }
+
+        /// <summary>
         /// Converts platform specific Session to platfrom neutral Session
         /// </summary>
         /// <param name="session">Platform specific Session</param>

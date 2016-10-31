@@ -87,6 +87,32 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         }
 
         /// <summary>
+        /// Flag indicating whether session should be closed when object is disposed
+        /// </summary>
+        private bool _closeWhenDisposed = true;
+
+        /// <summary>
+        /// Flag indicating whether session should be closed when object is disposed
+        /// </summary>
+        public bool CloseWhenDisposed
+        {
+            get
+            {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
+                return _closeWhenDisposed;
+            }
+            set
+            {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
+                _closeWhenDisposed = value;
+            }
+        }
+
+        /// <summary>
         /// Initializes new instance of Session class
         /// </summary>
         /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
@@ -2367,7 +2393,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
                 if (disposing)
                 {
                     // Dispose managed objects
-                    if (_sessionId != CK.CK_INVALID_HANDLE)
+                    if (_sessionId != CK.CK_INVALID_HANDLE && _closeWhenDisposed == true)
                         CloseSession();
                 }
 
