@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pkcs11Interop.Silverlight", "Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight.csproj", "{E4B6E4B2-8248-4F9F-8E6F-71C487D9C050}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pkcs11Interop.Silverlight.Tests", "Pkcs11Interop.Silverlight.Tests\Pkcs11Interop.Silverlight.Tests.csproj", "{65E0C9A3-964C-4442-B695-2A18CEFFC3F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pkcs11Interop.Silverlight.StrongName", "Pkcs11Interop.Silverlight.StrongName\Pkcs11Interop.Silverlight.StrongName.csproj", "{7D35B4EB-BBC2-4042-AFAD-CDE293D53258}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{65E0C9A3-964C-4442-B695-2A18CEFFC3F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65E0C9A3-964C-4442-B695-2A18CEFFC3F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65E0C9A3-964C-4442-B695-2A18CEFFC3F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D35B4EB-BBC2-4042-AFAD-CDE293D53258}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D35B4EB-BBC2-4042-AFAD-CDE293D53258}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D35B4EB-BBC2-4042-AFAD-CDE293D53258}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D35B4EB-BBC2-4042-AFAD-CDE293D53258}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
