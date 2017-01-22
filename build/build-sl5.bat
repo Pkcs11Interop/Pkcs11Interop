@@ -9,15 +9,21 @@ rmdir /S /Q sl5
 @rem Clean project
 msbuild ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight.csproj ^
 /p:Configuration=Release /p:Platform=AnyCPU /target:Clean || goto :error
+msbuild ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight.StrongName\Pkcs11Interop.Silverlight.StrongName.csproj ^
+/p:Configuration=Release /p:Platform=AnyCPU /target:Clean || goto :error
 
 @rem Build project
 msbuild ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight.csproj ^
+/p:Configuration=Release /p:Platform=AnyCPU /target:Build || goto :error
+msbuild ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight.StrongName\Pkcs11Interop.Silverlight.StrongName.csproj ^
 /p:Configuration=Release /p:Platform=AnyCPU /target:Build || goto :error
 
 @rem Copy result to output directory
 mkdir sl5 || goto :error
 copy ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight\bin\Release\Pkcs11Interop.Silverlight.dll sl5 || goto :error
 copy ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight\bin\Release\Pkcs11Interop.Silverlight.xml sl5 || goto :error
+copy ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight.StrongName\bin\Release\Pkcs11Interop.Silverlight.StrongName.dll sl5 || goto :error
+copy ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight.StrongName\bin\Release\Pkcs11Interop.Silverlight.StrongName.xml sl5 || goto :error
 
 @echo *** BUILD SL5 SUCCESSFUL ***
 @endlocal

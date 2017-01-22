@@ -10,9 +10,15 @@ rmdir /S /Q net20
 msbuild ..\src\Pkcs11Interop\Pkcs11Interop\Pkcs11Interop.csproj ^
 /p:Configuration=Release /p:Platform=AnyCPU /p:TargetFrameworkVersion=v2.0 ^
 /target:Clean || goto :error
+msbuild ..\src\Pkcs11Interop\Pkcs11Interop.StrongName\Pkcs11Interop.StrongName.csproj ^
+/p:Configuration=Release /p:Platform=AnyCPU /p:TargetFrameworkVersion=v2.0 ^
+/target:Clean || goto :error
 
 @rem Build project
 msbuild ..\src\Pkcs11Interop\Pkcs11Interop\Pkcs11Interop.csproj ^
+/p:Configuration=Release /p:Platform=AnyCPU /p:TargetFrameworkVersion=v2.0 ^
+/target:Build || goto :error
+msbuild ..\src\Pkcs11Interop\Pkcs11Interop.StrongName\Pkcs11Interop.StrongName.csproj ^
 /p:Configuration=Release /p:Platform=AnyCPU /p:TargetFrameworkVersion=v2.0 ^
 /target:Build || goto :error
 
@@ -20,6 +26,8 @@ msbuild ..\src\Pkcs11Interop\Pkcs11Interop\Pkcs11Interop.csproj ^
 mkdir net20 || goto :error
 copy ..\src\Pkcs11Interop\Pkcs11Interop\bin\Release\Pkcs11Interop.dll net20 || goto :error
 copy ..\src\Pkcs11Interop\Pkcs11Interop\bin\Release\Pkcs11Interop.xml net20 || goto :error
+copy ..\src\Pkcs11Interop\Pkcs11Interop.StrongName\bin\Release\Pkcs11Interop.StrongName.dll net20 || goto :error
+copy ..\src\Pkcs11Interop\Pkcs11Interop.StrongName\bin\Release\Pkcs11Interop.StrongName.xml net20 || goto :error
 
 @echo *** BUILD NET20 SUCCESSFUL ***
 @endlocal

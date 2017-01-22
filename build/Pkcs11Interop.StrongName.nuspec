@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
-    <id>Pkcs11Interop</id>
+    <id>Pkcs11Interop.StrongName</id>
     <version>3.2.0</version>
-    <title>Pkcs11Interop</title>
+    <title>Pkcs11Interop.StrongName</title>
     <authors>Jaroslav Imrich</authors>
     <owners>Jaroslav Imrich</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -23,8 +23,6 @@
       <group targetFramework=".NETStandard1.3">
         <dependency id="NETStandard.Library" version="1.6.0" />
       </group>
-      <group targetFramework="MonoAndroid2.3" />
-      <group targetFramework="Xamarin.iOS1.0" />
     </dependencies>
   </metadata>
 </package>
