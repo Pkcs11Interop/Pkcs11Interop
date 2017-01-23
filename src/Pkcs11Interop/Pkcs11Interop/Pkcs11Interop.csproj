@@ -37,6 +37,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\AttributeValueException.cs" />
     <Compile Include="Common\CK.cs" />
     <Compile Include="Common\CKA.cs" />
     <Compile Include="Common\CKC.cs" />

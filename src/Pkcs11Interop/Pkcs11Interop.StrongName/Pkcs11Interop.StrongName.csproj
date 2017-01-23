@@ -41,6 +41,9 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Pkcs11Interop\Common\AttributeValueException.cs">
+      <Link>Common\AttributeValueException.cs</Link>
+    </Compile>
     <Compile Include="..\Pkcs11Interop\Common\CK.cs">
       <Link>Common\CK.cs</Link>
     </Compile>

@@ -180,9 +180,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong value = 0;
-            CkaUtils.ConvertValue(ref _ckAttribute, out value);
-            return value;
+            if (this.CannotBeRead)
+                throw new AttributeValueException(this.Type);
+
+            try
+            {
+                ulong value = 0;
+                CkaUtils.ConvertValue(ref _ckAttribute, out value);
+                return value;
+            }
+            catch (Exception ex)
+            {
+                throw new AttributeValueException(this.Type, ex);
+            }
         }
 
         #endregion
@@ -218,9 +228,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            bool value = false;
-            CkaUtils.ConvertValue(ref _ckAttribute, out value);
-            return value;
+            if (this.CannotBeRead)
+                throw new AttributeValueException(this.Type);
+
+            try
+            {
+                bool value = false;
+                CkaUtils.ConvertValue(ref _ckAttribute, out value);
+                return value;
+            }
+            catch (Exception ex)
+            {
+                throw new AttributeValueException(this.Type, ex);
+            }
         }
 
         #endregion
@@ -256,9 +276,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            string value = null;
-            CkaUtils.ConvertValue(ref _ckAttribute, out value);
-            return value;
+            if (this.CannotBeRead)
+                throw new AttributeValueException(this.Type);
+
+            try
+            {
+                string value = null;
+                CkaUtils.ConvertValue(ref _ckAttribute, out value);
+                return value;
+            }
+            catch (Exception ex)
+            {
+                throw new AttributeValueException(this.Type, ex);
+            }
         }
 
         #endregion
@@ -294,9 +324,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            byte[] value = null;
-            CkaUtils.ConvertValue(ref _ckAttribute, out value);
-            return value;
+            if (this.CannotBeRead)
+                throw new AttributeValueException(this.Type);
+
+            try
+            {
+                byte[] value = null;
+                CkaUtils.ConvertValue(ref _ckAttribute, out value);
+                return value;
+            }
+            catch (Exception ex)
+            {
+                throw new AttributeValueException(this.Type, ex);
+            }
         }
 
         #endregion
@@ -332,9 +372,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            DateTime? value = null;
-            CkaUtils.ConvertValue(ref _ckAttribute, out value);
-            return value;
+            if (this.CannotBeRead)
+                throw new AttributeValueException(this.Type);
+
+            try
+            {
+                DateTime? value = null;
+                CkaUtils.ConvertValue(ref _ckAttribute, out value);
+                return value;
+            }
+            catch (Exception ex)
+            {
+                throw new AttributeValueException(this.Type, ex);
+            }
         }
 
         #endregion
@@ -390,19 +440,29 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            CK_ATTRIBUTE[] value = null;
-            CkaUtils.ConvertValue(ref _ckAttribute, out value);
+            if (this.CannotBeRead)
+                throw new AttributeValueException(this.Type);
 
-            List<ObjectAttribute> attributes = null;
-
-            if (value != null)
+            try
             {
-                attributes = new List<ObjectAttribute>();
-                for (int i = 0; i < value.Length; i++)
-                    attributes.Add(new ObjectAttribute(value[i]));
-            }
+                CK_ATTRIBUTE[] value = null;
+                CkaUtils.ConvertValue(ref _ckAttribute, out value);
 
-            return attributes;
+                List<ObjectAttribute> attributes = null;
+
+                if (value != null)
+                {
+                    attributes = new List<ObjectAttribute>();
+                    for (int i = 0; i < value.Length; i++)
+                        attributes.Add(new ObjectAttribute(value[i]));
+                }
+
+                return attributes;
+            }
+            catch (Exception ex)
+            {
+                throw new AttributeValueException(this.Type, ex);
+            }
         }
 
         #endregion
@@ -448,9 +508,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong[] value = null;
-            CkaUtils.ConvertValue(ref _ckAttribute, out value);
-            return (value == null) ? null : new List<ulong>(value);
+            if (this.CannotBeRead)
+                throw new AttributeValueException(this.Type);
+
+            try
+            {
+                ulong[] value = null;
+                CkaUtils.ConvertValue(ref _ckAttribute, out value);
+                return (value == null) ? null : new List<ulong>(value);
+            }
+            catch (Exception ex)
+            {
+                throw new AttributeValueException(this.Type, ex);
+            }
         }
 
         #endregion
@@ -496,9 +566,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            CKM[] value = null;
-            CkaUtils.ConvertValue(ref _ckAttribute, out value);
-            return (value == null) ? null : new List<CKM>(value);
+            if (this.CannotBeRead)
+                throw new AttributeValueException(this.Type);
+
+            try
+            {
+                CKM[] value = null;
+                CkaUtils.ConvertValue(ref _ckAttribute, out value);
+                return (value == null) ? null : new List<CKM>(value);
+            }
+            catch (Exception ex)
+            {
+                throw new AttributeValueException(this.Type, ex);
+            }
         }
 
         #endregion
