@@ -1,3 +1,13 @@
+Pkcs11Interop 3.3.0 (2017-01-24)
+ - AppVeyor continuous integration service setup contributed 
+   by Peter Polačko
+ - Added Session::CloseWhenDisposed property which brings more control 
+   over the session lifetime to HighLevelAPIs
+ - Fix #41: Added *.StrongName projects that produce strongly named 
+   assemblies which are published in a separate nuget package
+ - Introduced AttributeValueException that should provide more useful 
+   information when reading or conversion of attribute value fails
+
 Pkcs11Interop 3.2.0 (2016-07-17)
  - Added support for .NET Core 1.0 RTM / .NET Standard 1.3
  - Refreshed Xamarin.Android and Xamarin.iOS solutions for VS 2015
