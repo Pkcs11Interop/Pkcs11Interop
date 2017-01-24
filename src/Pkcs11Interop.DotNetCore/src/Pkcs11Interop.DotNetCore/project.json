@@ -1,6 +1,6 @@
 {
   "title": "Pkcs11Interop",
-  "copyright": "Copyright 2012-2016 The Pkcs11Interop Project",
+  "copyright": "Copyright 2012-2017 The Pkcs11Interop Project",
   "description": "Managed .NET wrapper for unmanaged PKCS#11 libraries",
   "version": "3.2.0",
   "frameworks": {

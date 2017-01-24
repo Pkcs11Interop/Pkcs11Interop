@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Pkcs11Interop")]
-[assembly: AssemblyCopyright("Copyright 2012-2016 The Pkcs11Interop Project")]
+[assembly: AssemblyCopyright("Copyright 2012-2017 The Pkcs11Interop Project")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
