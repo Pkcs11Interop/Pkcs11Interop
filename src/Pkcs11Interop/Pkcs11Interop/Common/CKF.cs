@@ -132,6 +132,11 @@ namespace Net.Pkcs11Interop.Common
         public const uint CKF_SO_PIN_TO_BE_CHANGED = 0x00800000;
 
         /// <summary>
+        /// True if the token failed a FIPS 140-2 self-test and entered an error state.
+        /// </summary>
+        public const uint CKF_ERROR_STATE = 0x01000000;
+
+        /// <summary>
         /// True if the session is read/write; false if the session is read-only
         /// </summary>
         public const uint CKF_RW_SESSION = 0x00000002;

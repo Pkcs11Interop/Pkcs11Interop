@@ -117,6 +117,26 @@ namespace Net.Pkcs11Interop.Common
         CKM_DSA_SHA1 = 0x00000012,
 
         /// <summary>
+        /// The DSA with SHA-224 mechanism
+        /// </summary>
+        CKM_DSA_SHA224 = 0x00000013,
+
+        /// <summary>
+        /// The DSA with SHA-256 mechanism
+        /// </summary>
+        CKM_DSA_SHA256 = 0x00000014,
+
+        /// <summary>
+        /// The DSA with SHA-384 mechanism
+        /// </summary>
+        CKM_DSA_SHA384 = 0x00000015,
+
+        /// <summary>
+        /// The DSA with SHA-512 mechanism
+        /// </summary>
+        CKM_DSA_SHA512 = 0x00000016,
+
+        /// <summary>
         /// The PKCS #3 Diffie-Hellman key pair generation mechanism
         /// </summary>
         CKM_DH_PKCS_KEY_PAIR_GEN = 0x00000020,
@@ -185,6 +205,66 @@ namespace Net.Pkcs11Interop.Common
         /// The PKCS #1 RSA PSS signature with SHA-224 mechanism
         /// </summary>
         CKM_SHA224_RSA_PKCS_PSS = 0x00000047,
+
+        /// <summary>
+        /// The SHA-512/224 digesting mechanism
+        /// </summary>
+        CKM_SHA512_224 = 0x00000048,
+
+        /// <summary>
+        /// Special case of the general-length SHA-512/224-HMAC mechanism
+        /// </summary>
+        CKM_SHA512_224_HMAC = 0x00000049,
+
+        /// <summary>
+        /// The general-length SHA-512/224-HMAC mechanism that uses the HMAC construction, based on the SHA-512/224 hash function
+        /// </summary>
+        CKM_SHA512_224_HMAC_GENERAL = 0x0000004A,
+
+        /// <summary>
+        /// Key derivation based on the SHA-512/224 hash function
+        /// </summary>
+        CKM_SHA512_224_KEY_DERIVATION = 0x0000004B,
+
+        /// <summary>
+        /// The SHA-512/256 digesting mechanism
+        /// </summary>
+        CKM_SHA512_256 = 0x0000004C,
+
+        /// <summary>
+        /// Special case of the general-length SHA-512/256-HMAC mechanism
+        /// </summary>
+        CKM_SHA512_256_HMAC = 0x0000004D,
+
+        /// <summary>
+        /// The general-length SHA-512/256-HMAC mechanism that uses the HMAC construction, based on the SHA-512/256 hash function
+        /// </summary>
+        CKM_SHA512_256_HMAC_GENERAL = 0x0000004E,
+
+        /// <summary>
+        /// Key derivation based on the SHA-512/256 hash function
+        /// </summary>
+        CKM_SHA512_256_KEY_DERIVATION = 0x0000004F,
+
+        /// <summary>
+        /// The SHA-512/t digesting mechanism
+        /// </summary>
+        CKM_SHA512_T = 0x00000050,
+
+        /// <summary>
+        /// Special case of the general-length SHA-512/t-HMAC mechanism
+        /// </summary>
+        CKM_SHA512_T_HMAC = 0x00000051,
+
+        /// <summary>
+        /// The general-length SHA-512/t-HMAC mechanism that uses the HMAC construction, based on the SHA-512/t hash function
+        /// </summary>
+        CKM_SHA512_T_HMAC_GENERAL = 0x00000052,
+
+        /// <summary>
+        /// Key derivation based on the SHA-512/t hash function
+        /// </summary>
+        CKM_SHA512_T_KEY_DERIVATION = 0x00000053,
 
         /// <summary>
         /// The RC2 key generation mechanism
@@ -290,6 +370,16 @@ namespace Net.Pkcs11Interop.Common
         /// DES3-CBC encryption mechanism with cipher-block chaining mode (CBC) and PKCS#7 padding
         /// </summary>
         CKM_DES3_CBC_PAD = 0x00000136,
+
+        /// <summary>
+        /// General-length DES3-CMAC mechanism based on Cipher-based Message Authenticate Code as defined in NIST SP 800-38B and RFC 4493
+        /// </summary>
+        CKM_DES3_CMAC_GENERAL = 0x00000137,
+
+        /// <summary>
+        /// Special case of general-length DES3-CMAC mechanism based on Cipher-based Message Authenticate Code as defined in NIST SP 800-38B and RFC 4493
+        /// </summary>
+        CKM_DES3_CMAC = 0x00000138,
 
         /// <summary>
         /// Single-length CDMF key generation mechanism
@@ -917,6 +1007,56 @@ namespace Net.Pkcs11Interop.Common
         CKM_WTLS_CLIENT_KEY_AND_MAC_DERIVE = 0x000003D5,
 
         /// <summary>
+        /// Mechanism is defined in PKCS#11 v2.40e1 headers but the description is not present in the specification
+        /// </summary>
+        CKM_TLS10_MAC_SERVER = 0x000003D6, // TODO - Fix description when fixed in PKCS#11 specification
+
+        /// <summary>
+        /// Mechanism is defined in PKCS#11 v2.40e1 headers but the description is not present in the specification
+        /// </summary>
+        CKM_TLS10_MAC_CLIENT = 0x000003D7, // TODO - Fix description when fixed in PKCS#11 specification
+
+        /// <summary>
+        /// Mechanism is defined in PKCS#11 v2.40e1 headers but the description is not present in the specification
+        /// </summary>
+        CKM_TLS12_MAC = 0x000003D8, // TODO - Fix description when fixed in PKCS#11 specification
+
+        /// <summary>
+        /// Mechanism is defined in PKCS#11 v2.40e1 headers but the description is not present in the specification
+        /// </summary>
+        CKM_TLS12_KDF = 0x000003D9, // TODO - Fix description when fixed in PKCS#11 specification
+
+        /// <summary>
+        /// Mechanism for master key derivation in TLS 1.2
+        /// </summary>
+        CKM_TLS12_MASTER_KEY_DERIVE = 0x000003E0,
+
+        /// <summary>
+        /// Mechanism for key, MAC and IV derivation in TLS 1.2
+        /// </summary>
+        CKM_TLS12_KEY_AND_MAC_DERIVE = 0x000003E1,
+
+        /// <summary>
+        /// Mechanism for master key derivation for Diffie-Hellman in TLS 1.2
+        /// </summary>
+        CKM_TLS12_MASTER_KEY_DERIVE_DH = 0x000003E2,
+
+        /// <summary>
+        /// Mechanism that is identical to CKM_TLS12_KEY_AND_MAC_DERIVE except that it shall never produce IV data
+        /// </summary>
+        CKM_TLS12_KEY_SAFE_DERIVE = 0x000003E3,
+
+        /// <summary>
+        /// Mechanism for generation of integrity tags for the TLS "finished" message
+        /// </summary>
+        CKM_TLS_MAC = 0x000003E4,
+
+        /// <summary>
+        /// Mechanism that uses the TLS key material and TLS PRF function to produce additional key material for protocols that want to leverage the TLS key negotiation mechanism
+        /// </summary>
+        CKM_TLS_KDF = 0x000003E5,
+
+        /// <summary>
         /// The LYNKS key wrapping mechanism
         /// </summary>
         CKM_KEY_WRAP_LYNKS = 0x00000400,
@@ -1030,7 +1170,47 @@ namespace Net.Pkcs11Interop.Common
         /// Key derivation mechanism based on ARIA-CBC encryption mechanism with cipher-block chaining mode (CBC)
         /// </summary>
         CKM_ARIA_CBC_ENCRYPT_DATA = 0x00000567,
-        
+
+        /// <summary>
+        /// The SEED key generation mechanism
+        /// </summary>
+        CKM_SEED_KEY_GEN = 0x00000650,
+
+        /// <summary>
+        /// SEED-ECB encryption mechanims with electronic codebook mode (ECB)
+        /// </summary>
+        CKM_SEED_ECB = 0x00000651,
+
+        /// <summary>
+        /// SEED-CBC encryption mechanism with cipher-block chaining mode (CBC)
+        /// </summary>
+        CKM_SEED_CBC = 0x00000652,
+
+        /// <summary>
+        /// Special case of general-length SEED-MAC mechanism
+        /// </summary>
+        CKM_SEED_MAC = 0x00000653,
+
+        /// <summary>
+        /// General-length SEED-MAC mechanism based on data authentication as defined in FIPS PUB 113
+        /// </summary>
+        CKM_SEED_MAC_GENERAL = 0x00000654,
+
+        /// <summary>
+        /// SEED-CBC encryption mechanism with cipher-block chaining mode (CBC) and PKCS#7 padding
+        /// </summary>
+        CKM_SEED_CBC_PAD = 0x00000655,
+
+        /// <summary>
+        /// Key derivation mechanism based on SEED-ECB encryption mechanism with electronic codebook mode (ECB)
+        /// </summary>
+        CKM_SEED_ECB_ENCRYPT_DATA = 0x00000656,
+
+        /// <summary>
+        /// Key derivation mechanism based on SEED-CBC encryption mechanism with cipher-block chaining mode (CBC)
+        /// </summary>
+        CKM_SEED_CBC_ENCRYPT_DATA = 0x00000657,
+
         /// <summary>
         /// The SKIPJACK key generation mechanism
         /// </summary>
@@ -1095,7 +1275,12 @@ namespace Net.Pkcs11Interop.Common
         /// The KEA key derivation mechanism
         /// </summary>
         CKM_KEA_KEY_DERIVE = 0x00001011,
-        
+
+        /// <summary>
+        /// The KEA key derivation mechanism
+        /// </summary>
+        CKM_KEA_DERIVE = 0x00001012,
+
         /// <summary>
         /// The FORTEZZA timestamp mechanism
         /// </summary>
@@ -1157,6 +1342,26 @@ namespace Net.Pkcs11Interop.Common
         CKM_ECDSA_SHA1 = 0x00001042,
 
         /// <summary>
+        /// The ECDSA with SHA-224 mechanism
+        /// </summary>
+        CKM_ECDSA_SHA224 = 0x00001043,
+
+        /// <summary>
+        /// The ECDSA with SHA-256 mechanism
+        /// </summary>
+        CKM_ECDSA_SHA256 = 0x00001044,
+
+        /// <summary>
+        /// The ECDSA with SHA-384 mechanism
+        /// </summary>
+        CKM_ECDSA_SHA384 = 0x00001045,
+
+        /// <summary>
+        /// The ECDSA with SHA-512 mechanism
+        /// </summary>
+        CKM_ECDSA_SHA512 = 0x00001046,
+
+        /// <summary>
         /// The elliptic curve Diffie-Hellman (ECDH) key derivation mechanism
         /// </summary>
         CKM_ECDH1_DERIVE = 0x00001050,
@@ -1170,6 +1375,16 @@ namespace Net.Pkcs11Interop.Common
         /// The elliptic curve Menezes-Qu-Vanstone (ECMQV) key derivation mechanism
         /// </summary>
         CKM_ECMQV_DERIVE = 0x00001052,
+
+        /// <summary>
+        /// Mechanism based on the EC public-key cryptosystem and the AES key wrap mechanism
+        /// </summary>
+        CKM_ECDH_AES_KEY_WRAP = 0x00001053,
+
+        /// <summary>
+        /// Mechanism based on the RSA public-key cryptosystem and the AES key wrap mechanism
+        /// </summary>
+        CKM_RSA_AES_KEY_WRAP = 0x00001054,
 
         /// <summary>
         /// The JUNIPER key generation mechanism
@@ -1237,10 +1452,50 @@ namespace Net.Pkcs11Interop.Common
         CKM_AES_CBC_PAD = 0x00001085,
 
         /// <summary>
-        /// AES-CTR encryption mechanism with AES in counter mode.
+        /// AES-CTR encryption mechanism with AES in counter mode
         /// </summary>
         CKM_AES_CTR = 0x00001086,
-        
+
+        /// <summary>
+        /// AES-GCM authenticated encryption
+        /// </summary>
+        CKM_AES_GCM = 0x00001087,
+
+        /// <summary>
+        /// AES-CCM authenticated encryption
+        /// </summary>
+        CKM_AES_CCM = 0x00001088,
+
+        /// <summary>
+        /// AES CBC encryption with Cipher Text Stealing CTS
+        /// </summary>
+        CKM_AES_CTS = 0x00001089,
+
+        /// <summary>
+        /// Special case of general-length AES-CMAC mechanism based on Cipher-based Message Authenticate Code as defined in NIST SP 800-38B and RFC 4493
+        /// </summary>
+        CKM_AES_CMAC = 0x0000108A,
+
+        /// <summary>
+        /// General-length AES-CMAC mechanism based on Cipher-based Message Authenticate Code as defined in NIST SP 800-38B and RFC 4493
+        /// </summary>
+        CKM_AES_CMAC_GENERAL = 0x0000108B,
+
+        /// <summary>
+        /// AES-XCBC-MAC signing and verification mechanism based on NIST AES and RFC 3566
+        /// </summary>
+        CKM_AES_XCBC_MAC = 0x0000108C,
+
+        /// <summary>
+        /// AES-XCBC-MAC-96 signing and verification mechanism based on NIST AES and RFC 3566
+        /// </summary>
+        CKM_AES_XCBC_MAC_96 = 0x0000108D,
+
+        /// <summary>
+        /// AES-GMAC signing and verification mechanism described in NIST SP 800-38D
+        /// </summary>
+        CKM_AES_GMAC = 0x0000108E,
+
         /// <summary>
         /// The Blowfish key generation mechanism
         /// </summary>
@@ -1260,6 +1515,16 @@ namespace Net.Pkcs11Interop.Common
         /// Twofish-CBC mechanism for encryption and decryption; key wrapping; and key unwrapping
         /// </summary>
         CKM_TWOFISH_CBC = 0x00001093,
+
+        /// <summary>
+        /// Blowfish-CBC encryption mechanism with cipher-block chaining mode (CBC) and PKCS#7 padding
+        /// </summary>
+        CKM_BLOWFISH_CBC_PAD = 0x00001094,
+
+        /// <summary>
+        /// Twofish-CBC encryption mechanism with cipher-block chaining mode (CBC) and PKCS#7 padding
+        /// </summary>
+        CKM_TWOFISH_CBC_PAD = 0x00001095,
 
         /// <summary>
         /// Key derivation mechanism that uses the result of an DES-ECB encryption operation as the key value
@@ -1290,7 +1555,67 @@ namespace Net.Pkcs11Interop.Common
         /// Key derivation mechanism that uses the result of an AES-CBC encryption operation as the key value
         /// </summary>
         CKM_AES_CBC_ENCRYPT_DATA = 0x00001105,
-        
+
+        /// <summary>
+        /// GOST R 34.10-2001 key generation
+        /// </summary>
+        CKM_GOSTR3410_KEY_PAIR_GEN = 0x00001200,
+
+        /// <summary>
+        /// GOST R 34.10-2001 signing and verification without hashing
+        /// </summary>
+        CKM_GOSTR3410 = 0x00001201,
+
+        /// <summary>
+        /// GOST R 34.10-2001 signing and verification with GOST R 34.11-94 hashing
+        /// </summary>
+        CKM_GOSTR3410_WITH_GOSTR3411 = 0x00001202,
+
+        /// <summary>
+        /// GOST R 34.10-2001 based mechanims for GOST 28147-89 key wrapping
+        /// </summary>
+        CKM_GOSTR3410_KEY_WRAP = 0x00001203,
+
+        /// <summary>
+        /// GOST R 34.10-2001 based key derivation mechanim
+        /// </summary>
+        CKM_GOSTR3410_DERIVE = 0x00001204,
+
+        /// <summary>
+        /// GOST R 34.11-94 digesting mechanism
+        /// </summary>
+        CKM_GOSTR3411 = 0x00001210,
+
+        /// <summary>
+        /// GOST R 34.11-94 based mechanism for HMAC construction
+        /// </summary>
+        CKM_GOSTR3411_HMAC = 0x00001211,
+
+        /// <summary>
+        /// GOST 28147-89 key generation
+        /// </summary>
+        CKM_GOST28147_KEY_GEN = 0x00001220,
+
+        /// <summary>
+        /// GOST 28147-89 encryption mechanism with electronic codebook mode (ECB)
+        /// </summary>
+        CKM_GOST28147_ECB = 0x00001221,
+
+        /// <summary>
+        /// GOST 28147-89 encryption mechanism with with cipher feedback mode (CFB) and additional CBC mode defined in section 2 of RFC 4357
+        /// </summary>
+        CKM_GOST28147 = 0x00001222,
+
+        /// <summary>
+        /// GOST 28147-89-MAC mechanism for data integrity and authentication based on GOST 28147-89 and key meshing algorithms defined in section 2.3 of RFC 4357
+        /// </summary>
+        CKM_GOST28147_MAC = 0x00001223,
+
+        /// <summary>
+        /// GOST 28147-89 based mechanims for GOST 28147-89 key wrapping
+        /// </summary>
+        CKM_GOST28147_KEY_WRAP = 0x00001224,
+
         /// <summary>
         /// The DSA domain parameter generation mechanism
         /// </summary>
@@ -1305,6 +1630,61 @@ namespace Net.Pkcs11Interop.Common
         /// The X9.42 Diffie-Hellman domain parameter generation mechanism
         /// </summary>
         CKM_X9_42_DH_PARAMETER_GEN = 0x00002002,
+
+        /// <summary>
+        /// The DSA probabilistic domain parameter generation mechanism based on the DSA defined in Appendix A.1.1 of FIPS PUB 186-4
+        /// </summary>
+        CKM_DSA_PROBABLISTIC_PARAMETER_GEN = 0x00002003,
+
+        /// <summary>
+        /// The DSA Shawe-Taylor domain parameter generation mechanism based on the DSA defined in Appendix A.1.2 of FIPS PUB 186-4
+        /// </summary>
+        CKM_DSA_SHAWE_TAYLOR_PARAMETER_GEN = 0x00002004,
+
+        /// <summary>
+        /// AES-OFB encryption mechanism with output feedback mode (OFB)
+        /// </summary>
+        CKM_AES_OFB = 0x00002104,
+
+        /// <summary>
+        /// AES-CFB64 encryption mechanism with cipher feedback mode (CFB)
+        /// </summary>
+        CKM_AES_CFB64 = 0x00002105,
+
+        /// <summary>
+        /// AES-CFB8 encryption mechanism with cipher feedback mode (CFB)
+        /// </summary>
+        CKM_AES_CFB8 = 0x00002106,
+
+        /// <summary>
+        /// AES-CFB128 encryption mechanism with cipher feedback mode (CFB)
+        /// </summary>
+        CKM_AES_CFB128 = 0x00002107,
+
+        /// <summary>
+        /// AES-CFB1 encryption mechanism with cipher feedback mode (CFB)
+        /// </summary>
+        CKM_AES_CFB1 = 0x00002108,
+
+        /// <summary>
+        /// AES key wrapping mechanism  without padding
+        /// </summary>
+        CKM_AES_KEY_WRAP = 0x00002109,
+
+        /// <summary>
+        /// AES key wrapping mechanism with padding
+        /// </summary>
+        CKM_AES_KEY_WRAP_PAD = 0x0000210A,
+
+        /// <summary>
+        /// Multi-purpose mechanism based on the RSA public-key cryptosystem and the block formats initially defined in PKCS#1 v1.5, with additional formatting rules defined in TCPA TPM Specification Version 1.1b
+        /// </summary>
+        CKM_RSA_PKCS_TPM_1_1 = 0x00004001,
+
+        /// <summary>
+        /// Multi-purpose mechanism based on the RSA public-key cryptosystem and the OAEP block format defined in PKCS #1, with additional formatting defined in TCPA TPM Specification Version 1.1b
+        /// </summary>
+        CKM_RSA_PKCS_OAEP_TPM_1_1 = 0x00004002,
 
         /// <summary>
         /// Permanently reserved for token vendors

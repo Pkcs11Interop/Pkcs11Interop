@@ -182,6 +182,66 @@ namespace Net.Pkcs11Interop.Common
         CKK_ARIA = 0x00000026,
 
         /// <summary>
+        /// MD5 HMAC key
+        /// </summary>
+        CKK_MD5_HMAC = 0x00000027,
+
+        /// <summary>
+        /// SHA-1 HMAC key
+        /// </summary>
+        CKK_SHA_1_HMAC = 0x00000028,
+
+        /// <summary>
+        /// RIPE-MD 128 HMAC key
+        /// </summary>
+        CKK_RIPEMD128_HMAC = 0x00000029,
+
+        /// <summary>
+        /// RIPE-MD 160 HMAC key
+        /// </summary>
+        CKK_RIPEMD160_HMAC = 0x0000002A,
+
+        /// <summary>
+        /// SHA-256 HMAC key
+        /// </summary>
+        CKK_SHA256_HMAC = 0x0000002B,
+
+        /// <summary>
+        /// SHA-384 HMAC key
+        /// </summary>
+        CKK_SHA384_HMAC = 0x0000002C,
+
+        /// <summary>
+        /// SHA-512 HMAC key
+        /// </summary>
+        CKK_SHA512_HMAC = 0x0000002D,
+
+        /// <summary>
+        /// SHA-224 HMAC key
+        /// </summary>
+        CKK_SHA224_HMAC = 0x0000002E,
+
+        /// <summary>
+        /// SEED secret key
+        /// </summary>
+        CKK_SEED = 0x0000002F,
+
+        /// <summary>
+        /// GOST R 34.10-2001 key
+        /// </summary>
+        CKK_GOSTR3410 = 0x00000030,
+
+        /// <summary>
+        /// GOST R 34.11-94 key or domain parameter
+        /// </summary>
+        CKK_GOSTR3411 = 0x00000031,
+
+        /// <summary>
+        /// GOST 28147-89 key or domain parameter
+        /// </summary>
+        CKK_GOST28147 = 0x00000032,
+
+        /// <summary>
         /// Permanently reserved for token vendors
         /// </summary>
         CKK_VENDOR_DEFINED = 0x80000000

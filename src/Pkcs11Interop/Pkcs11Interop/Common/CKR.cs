@@ -97,6 +97,11 @@ namespace Net.Pkcs11Interop.Common
         CKR_ATTRIBUTE_VALUE_INVALID = 0x00000013,
 
         /// <summary>
+        /// The action may not be taken
+        /// </summary>
+        CKR_ACTION_PROHIBITED = 0x0000001B,
+
+        /// <summary>
         /// The plaintext input data to a cryptographic operation is invalid
         /// </summary>
         CKR_DATA_INVALID = 0x00000020,
@@ -407,6 +412,11 @@ namespace Net.Pkcs11Interop.Common
         CKR_DOMAIN_PARAMS_INVALID = 0x00000130,
 
         /// <summary>
+        /// Curve is not supported by the token
+        /// </summary>
+        CKR_CURVE_NOT_SUPPORTED = 0x00000140,
+
+        /// <summary>
         /// The output of the function is too large to fit in the supplied buffer
         /// </summary>
         CKR_BUFFER_TOO_SMALL = 0x00000150,
@@ -455,6 +465,31 @@ namespace Net.Pkcs11Interop.Common
         /// The supplied OTP was correct but indicated a larger than normal drift in the token's internal state. Application should provide the next one-time password to the library for verification.
         /// </summary>
         CKR_NEXT_OTP = 0x000001B1,
+
+        /// <summary>
+        /// An iterative algorithm failed because the maximum number of iterations has been exceeded
+        /// </summary>
+        CKR_EXCEEDED_MAX_ITERATIONS = 0x000001B5,
+
+        /// <summary>
+        /// A FIPS 140-2 power-up self-test or conditional self-test failed
+        /// </summary>
+        CKR_FIPS_SELF_TEST_FAILED = 0x000001B6,
+
+        /// <summary>
+        /// The Cryptoki library could not load a dependent shared library
+        /// </summary>
+        CKR_LIBRARY_LOAD_FAILED = 0x000001B7,
+
+        /// <summary>
+        /// The specified PIN is too weak so that it could be easy to guess
+        /// </summary>
+        CKR_PIN_TOO_WEAK = 0x000001B8,
+
+        /// <summary>
+        /// The public key fails a public key validation
+        /// </summary>
+        CKR_PUBLIC_KEY_INVALID = 0x000001B9,
 
         /// <summary>
         /// The signature request is rejected by the user

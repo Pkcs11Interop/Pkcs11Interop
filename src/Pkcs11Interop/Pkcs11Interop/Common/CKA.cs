@@ -97,12 +97,12 @@ namespace Net.Pkcs11Interop.Common
         CKA_TRUSTED = 0x00000086,
 
         /// <summary>
-        /// Categorization of the certificate: 0 = unspecified (default value), 1 = token user, 2 = authority, 3 = other entity [uint]
+        /// Categorization of the certificate [uint]
         /// </summary>
         CKA_CERTIFICATE_CATEGORY = 0x00000087,
 
         /// <summary>
-        /// Java MIDP security domain: 0 = unspecified (default value), 1 = manufacturer, 2 = operator, 3 = third party [uint]
+        /// Java MIDP security domain [uint]
         /// </summary>
         CKA_JAVA_MIDP_SECURITY_DOMAIN = 0x00000088,
         
@@ -245,7 +245,12 @@ namespace Net.Pkcs11Interop.Common
         /// CRT coefficient q^-1 mod p [byte array]
         /// </summary>
         CKA_COEFFICIENT = 0x00000128,
-        
+
+        /// <summary>
+        /// DER-encoding of the SubjectPublicKeyInfo [byte array]
+        /// </summary>
+        CKA_PUBLIC_KEY_INFO = 0x00000129,
+
         /// <summary>
         /// Prime p (512 to 1024 bits, in steps of 64 bits) [byte array]
         /// </summary>
@@ -312,6 +317,16 @@ namespace Net.Pkcs11Interop.Common
         CKA_MODIFIABLE = 0x00000170,
 
         /// <summary>
+        /// True if object can be copied [bool]
+        /// </summary>
+        CKA_COPYABLE = 0x00000171,
+
+        /// <summary>
+        /// True if object can be destroyed [bool]
+        /// </summary>
+        CKA_DESTROYABLE = 0x00000172,
+
+        /// <summary>
         /// DER-encoding of an ANSI X9.62 Parameters value [byte array]
         /// </summary>
         CKA_ECDSA_PARAMS = 0x00000180,
@@ -355,7 +370,12 @@ namespace Net.Pkcs11Interop.Common
         /// The attribute template to apply to any keys unwrapped using this wrapping key. Any user supplied template is applied after this template as if the object has already been created. [List of ObjectAttribute / CK_ATTRIBUTE array]
         /// </summary>
         CKA_UNWRAP_TEMPLATE = (CKF.CKF_ARRAY_ATTRIBUTE | 0x00000212),
-        
+
+        /// <summary>
+        /// The attribute template to apply to any keys derived using this key. Any user supplied template is applied after this template as if the object has already been created. [List of ObjectAttribute / CK_ATTRIBUTE array]
+        /// </summary>
+        CKA_DERIVE_TEMPLATE = (CKF.CKF_ARRAY_ATTRIBUTE | 0x00000213),
+
         /// <summary>
         /// Format of OTP values produced with this key: CK_OTP_FORMAT_DECIMAL = Decimal, CK_OTP_FORMAT_HEXADECIMAL = Hexadecimal, CK_OTP_FORMAT_ALPHANUMERIC = Alphanumeric, CK_OTP_FORMAT_BINARY = Only binary values [uint]
         /// </summary>
@@ -425,6 +445,21 @@ namespace Net.Pkcs11Interop.Common
         /// MIME type of the CKA_OTP_SERVICE_LOGO attribute value [string]
         /// </summary>
         CKA_OTP_SERVICE_LOGO_TYPE = 0x0000022D,
+
+        /// <summary>
+        /// DER-encoding of the object identifier indicating the data object type of GOST R 34.10-2001. [byte array]
+        /// </summary>
+        CKA_GOSTR3410_PARAMS = 0x00000250,
+
+        /// <summary>
+        /// DER-encoding of the object identifier indicating the data object type of GOST R 34.11-94. [byte array]
+        /// </summary>
+        CKA_GOSTR3411_PARAMS = 0x00000251,
+
+        /// <summary>
+        /// DER-encoding of the object identifier indicating the data object type of GOST 28147-89. [byte array]
+        /// </summary>
+        CKA_GOST28147_PARAMS = 0x00000252,
 
         /// <summary>
         /// Hardware feature (type) [CKH/uint]

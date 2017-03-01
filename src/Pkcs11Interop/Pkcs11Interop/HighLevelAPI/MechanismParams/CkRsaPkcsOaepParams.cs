@@ -37,22 +37,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <summary>
         /// Platform specific CkRsaPkcsOaepParams
         /// </summary>
-        private HighLevelAPI40.MechanismParams.CkRsaPkcsOaepParams _params40 = null;
+        internal HighLevelAPI40.MechanismParams.CkRsaPkcsOaepParams _params40 = null;
 
         /// <summary>
         /// Platform specific CkRsaPkcsOaepParams
         /// </summary>
-        private HighLevelAPI41.MechanismParams.CkRsaPkcsOaepParams _params41 = null;
+        internal HighLevelAPI41.MechanismParams.CkRsaPkcsOaepParams _params41 = null;
 
         /// <summary>
         /// Platform specific CkRsaPkcsOaepParams
         /// </summary>
-        private HighLevelAPI80.MechanismParams.CkRsaPkcsOaepParams _params80 = null;
+        internal HighLevelAPI80.MechanismParams.CkRsaPkcsOaepParams _params80 = null;
 
         /// <summary>
         /// Platform specific CkRsaPkcsOaepParams
         /// </summary>
-        private HighLevelAPI81.MechanismParams.CkRsaPkcsOaepParams _params81 = null;
+        internal HighLevelAPI81.MechanismParams.CkRsaPkcsOaepParams _params81 = null;
 
         /// <summary>
         /// Initializes a new instance of the CkRsaPkcsOaepParams class.

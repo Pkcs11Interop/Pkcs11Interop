@@ -188,11 +188,17 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkCamelliaCtrParams.cs">
       <Link>HighLevelAPI40\MechanismParams\CkCamelliaCtrParams.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkCcmParams.cs">
+      <Link>HighLevelAPI40\MechanismParams\CkCcmParams.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkCmsSigParams.cs">
       <Link>HighLevelAPI40\MechanismParams\CkCmsSigParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkDesCbcEncryptDataParams.cs">
       <Link>HighLevelAPI40\MechanismParams\CkDesCbcEncryptDataParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkDsaParameterGenParam.cs">
+      <Link>HighLevelAPI40\MechanismParams\CkDsaParameterGenParam.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkEcdh1DeriveParams.cs">
       <Link>HighLevelAPI40\MechanismParams\CkEcdh1DeriveParams.cs</Link>
@@ -200,11 +206,23 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkEcdh2DeriveParams.cs">
       <Link>HighLevelAPI40\MechanismParams\CkEcdh2DeriveParams.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkEcdhAesKeyWrapParams.cs">
+      <Link>HighLevelAPI40\MechanismParams\CkEcdhAesKeyWrapParams.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkEcmqvDeriveParams.cs">
       <Link>HighLevelAPI40\MechanismParams\CkEcmqvDeriveParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkExtractParams.cs">
       <Link>HighLevelAPI40\MechanismParams\CkExtractParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkGcmParams.cs">
+      <Link>HighLevelAPI40\MechanismParams\CkGcmParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkGostR3410DeriveParams.cs">
+      <Link>HighLevelAPI40\MechanismParams\CkGostR3410DeriveParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkGostR3410KeyWrapParams.cs">
+      <Link>HighLevelAPI40\MechanismParams\CkGostR3410KeyWrapParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkKeaDeriveParams.cs">
       <Link>HighLevelAPI40\MechanismParams\CkKeaDeriveParams.cs</Link>
@@ -236,6 +254,9 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkPkcs5Pbkd2Params.cs">
       <Link>HighLevelAPI40\MechanismParams\CkPkcs5Pbkd2Params.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkPkcs5Pbkd2Params2.cs">
+      <Link>HighLevelAPI40\MechanismParams\CkPkcs5Pbkd2Params2.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkRc2CbcParams.cs">
       <Link>HighLevelAPI40\MechanismParams\CkRc2CbcParams.cs</Link>
     </Compile>
@@ -254,11 +275,17 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkRc5Params.cs">
       <Link>HighLevelAPI40\MechanismParams\CkRc5Params.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkRsaAesKeyWrapParams.cs">
+      <Link>HighLevelAPI40\MechanismParams\CkRsaAesKeyWrapParams.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkRsaPkcsOaepParams.cs">
       <Link>HighLevelAPI40\MechanismParams\CkRsaPkcsOaepParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkRsaPkcsPssParams.cs">
       <Link>HighLevelAPI40\MechanismParams\CkRsaPkcsPssParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkSeedCbcEncryptDataParams.cs">
+      <Link>HighLevelAPI40\MechanismParams\CkSeedCbcEncryptDataParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkSkipjackPrivateWrapParams.cs">
       <Link>HighLevelAPI40\MechanismParams\CkSkipjackPrivateWrapParams.cs</Link>
@@ -277,6 +304,18 @@
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkSsl3RandomData.cs">
       <Link>HighLevelAPI40\MechanismParams\CkSsl3RandomData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkTls12KeyMatParams.cs">
+      <Link>HighLevelAPI40\MechanismParams\CkTls12KeyMatParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkTls12MasterKeyDeriveParams.cs">
+      <Link>HighLevelAPI40\MechanismParams\CkTls12MasterKeyDeriveParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkTlsKdfParams.cs">
+      <Link>HighLevelAPI40\MechanismParams\CkTlsKdfParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkTlsMacParams.cs">
+      <Link>HighLevelAPI40\MechanismParams\CkTlsMacParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\MechanismParams\CkTlsPrfParams.cs">
       <Link>HighLevelAPI40\MechanismParams\CkTlsPrfParams.cs</Link>
@@ -371,11 +410,17 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkCamelliaCtrParams.cs">
       <Link>HighLevelAPI41\MechanismParams\CkCamelliaCtrParams.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkCcmParams.cs">
+      <Link>HighLevelAPI41\MechanismParams\CkCcmParams.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkCmsSigParams.cs">
       <Link>HighLevelAPI41\MechanismParams\CkCmsSigParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkDesCbcEncryptDataParams.cs">
       <Link>HighLevelAPI41\MechanismParams\CkDesCbcEncryptDataParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkDsaParameterGenParam.cs">
+      <Link>HighLevelAPI41\MechanismParams\CkDsaParameterGenParam.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkEcdh1DeriveParams.cs">
       <Link>HighLevelAPI41\MechanismParams\CkEcdh1DeriveParams.cs</Link>
@@ -383,11 +428,23 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkEcdh2DeriveParams.cs">
       <Link>HighLevelAPI41\MechanismParams\CkEcdh2DeriveParams.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkEcdhAesKeyWrapParams.cs">
+      <Link>HighLevelAPI41\MechanismParams\CkEcdhAesKeyWrapParams.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkEcmqvDeriveParams.cs">
       <Link>HighLevelAPI41\MechanismParams\CkEcmqvDeriveParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkExtractParams.cs">
       <Link>HighLevelAPI41\MechanismParams\CkExtractParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkGcmParams.cs">
+      <Link>HighLevelAPI41\MechanismParams\CkGcmParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkGostR3410DeriveParams.cs">
+      <Link>HighLevelAPI41\MechanismParams\CkGostR3410DeriveParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkGostR3410KeyWrapParams.cs">
+      <Link>HighLevelAPI41\MechanismParams\CkGostR3410KeyWrapParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkKeaDeriveParams.cs">
       <Link>HighLevelAPI41\MechanismParams\CkKeaDeriveParams.cs</Link>
@@ -419,6 +476,9 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkPkcs5Pbkd2Params.cs">
       <Link>HighLevelAPI41\MechanismParams\CkPkcs5Pbkd2Params.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkPkcs5Pbkd2Params2.cs">
+      <Link>HighLevelAPI41\MechanismParams\CkPkcs5Pbkd2Params2.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkRc2CbcParams.cs">
       <Link>HighLevelAPI41\MechanismParams\CkRc2CbcParams.cs</Link>
     </Compile>
@@ -437,11 +497,17 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkRc5Params.cs">
       <Link>HighLevelAPI41\MechanismParams\CkRc5Params.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkRsaAesKeyWrapParams.cs">
+      <Link>HighLevelAPI41\MechanismParams\CkRsaAesKeyWrapParams.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkRsaPkcsOaepParams.cs">
       <Link>HighLevelAPI41\MechanismParams\CkRsaPkcsOaepParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkRsaPkcsPssParams.cs">
       <Link>HighLevelAPI41\MechanismParams\CkRsaPkcsPssParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkSeedCbcEncryptDataParams.cs">
+      <Link>HighLevelAPI41\MechanismParams\CkSeedCbcEncryptDataParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkSkipjackPrivateWrapParams.cs">
       <Link>HighLevelAPI41\MechanismParams\CkSkipjackPrivateWrapParams.cs</Link>
@@ -460,6 +526,18 @@
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkSsl3RandomData.cs">
       <Link>HighLevelAPI41\MechanismParams\CkSsl3RandomData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkTls12KeyMatParams.cs">
+      <Link>HighLevelAPI41\MechanismParams\CkTls12KeyMatParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkTls12MasterKeyDeriveParams.cs">
+      <Link>HighLevelAPI41\MechanismParams\CkTls12MasterKeyDeriveParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkTlsKdfParams.cs">
+      <Link>HighLevelAPI41\MechanismParams\CkTlsKdfParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkTlsMacParams.cs">
+      <Link>HighLevelAPI41\MechanismParams\CkTlsMacParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI41\MechanismParams\CkTlsPrfParams.cs">
       <Link>HighLevelAPI41\MechanismParams\CkTlsPrfParams.cs</Link>
@@ -554,11 +632,17 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkCamelliaCtrParams.cs">
       <Link>HighLevelAPI80\MechanismParams\CkCamelliaCtrParams.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkCcmParams.cs">
+      <Link>HighLevelAPI80\MechanismParams\CkCcmParams.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkCmsSigParams.cs">
       <Link>HighLevelAPI80\MechanismParams\CkCmsSigParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkDesCbcEncryptDataParams.cs">
       <Link>HighLevelAPI80\MechanismParams\CkDesCbcEncryptDataParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkDsaParameterGenParam.cs">
+      <Link>HighLevelAPI80\MechanismParams\CkDsaParameterGenParam.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkEcdh1DeriveParams.cs">
       <Link>HighLevelAPI80\MechanismParams\CkEcdh1DeriveParams.cs</Link>
@@ -566,11 +650,23 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkEcdh2DeriveParams.cs">
       <Link>HighLevelAPI80\MechanismParams\CkEcdh2DeriveParams.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkEcdhAesKeyWrapParams.cs">
+      <Link>HighLevelAPI80\MechanismParams\CkEcdhAesKeyWrapParams.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkEcmqvDeriveParams.cs">
       <Link>HighLevelAPI80\MechanismParams\CkEcmqvDeriveParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkExtractParams.cs">
       <Link>HighLevelAPI80\MechanismParams\CkExtractParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkGcmParams.cs">
+      <Link>HighLevelAPI80\MechanismParams\CkGcmParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkGostR3410DeriveParams.cs">
+      <Link>HighLevelAPI80\MechanismParams\CkGostR3410DeriveParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkGostR3410KeyWrapParams.cs">
+      <Link>HighLevelAPI80\MechanismParams\CkGostR3410KeyWrapParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkKeaDeriveParams.cs">
       <Link>HighLevelAPI80\MechanismParams\CkKeaDeriveParams.cs</Link>
@@ -602,6 +698,9 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkPkcs5Pbkd2Params.cs">
       <Link>HighLevelAPI80\MechanismParams\CkPkcs5Pbkd2Params.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkPkcs5Pbkd2Params2.cs">
+      <Link>HighLevelAPI80\MechanismParams\CkPkcs5Pbkd2Params2.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkRc2CbcParams.cs">
       <Link>HighLevelAPI80\MechanismParams\CkRc2CbcParams.cs</Link>
     </Compile>
@@ -620,11 +719,17 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkRc5Params.cs">
       <Link>HighLevelAPI80\MechanismParams\CkRc5Params.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkRsaAesKeyWrapParams.cs">
+      <Link>HighLevelAPI80\MechanismParams\CkRsaAesKeyWrapParams.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkRsaPkcsOaepParams.cs">
       <Link>HighLevelAPI80\MechanismParams\CkRsaPkcsOaepParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkRsaPkcsPssParams.cs">
       <Link>HighLevelAPI80\MechanismParams\CkRsaPkcsPssParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkSeedCbcEncryptDataParams.cs">
+      <Link>HighLevelAPI80\MechanismParams\CkSeedCbcEncryptDataParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkSkipjackPrivateWrapParams.cs">
       <Link>HighLevelAPI80\MechanismParams\CkSkipjackPrivateWrapParams.cs</Link>
@@ -643,6 +748,18 @@
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkSsl3RandomData.cs">
       <Link>HighLevelAPI80\MechanismParams\CkSsl3RandomData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkTls12KeyMatParams.cs">
+      <Link>HighLevelAPI80\MechanismParams\CkTls12KeyMatParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkTls12MasterKeyDeriveParams.cs">
+      <Link>HighLevelAPI80\MechanismParams\CkTls12MasterKeyDeriveParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkTlsKdfParams.cs">
+      <Link>HighLevelAPI80\MechanismParams\CkTlsKdfParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkTlsMacParams.cs">
+      <Link>HighLevelAPI80\MechanismParams\CkTlsMacParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI80\MechanismParams\CkTlsPrfParams.cs">
       <Link>HighLevelAPI80\MechanismParams\CkTlsPrfParams.cs</Link>
@@ -737,11 +854,17 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkCamelliaCtrParams.cs">
       <Link>HighLevelAPI81\MechanismParams\CkCamelliaCtrParams.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkCcmParams.cs">
+      <Link>HighLevelAPI81\MechanismParams\CkCcmParams.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkCmsSigParams.cs">
       <Link>HighLevelAPI81\MechanismParams\CkCmsSigParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkDesCbcEncryptDataParams.cs">
       <Link>HighLevelAPI81\MechanismParams\CkDesCbcEncryptDataParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkDsaParameterGenParam.cs">
+      <Link>HighLevelAPI81\MechanismParams\CkDsaParameterGenParam.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkEcdh1DeriveParams.cs">
       <Link>HighLevelAPI81\MechanismParams\CkEcdh1DeriveParams.cs</Link>
@@ -749,11 +872,23 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkEcdh2DeriveParams.cs">
       <Link>HighLevelAPI81\MechanismParams\CkEcdh2DeriveParams.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkEcdhAesKeyWrapParams.cs">
+      <Link>HighLevelAPI81\MechanismParams\CkEcdhAesKeyWrapParams.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkEcmqvDeriveParams.cs">
       <Link>HighLevelAPI81\MechanismParams\CkEcmqvDeriveParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkExtractParams.cs">
       <Link>HighLevelAPI81\MechanismParams\CkExtractParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkGcmParams.cs">
+      <Link>HighLevelAPI81\MechanismParams\CkGcmParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkGostR3410DeriveParams.cs">
+      <Link>HighLevelAPI81\MechanismParams\CkGostR3410DeriveParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkGostR3410KeyWrapParams.cs">
+      <Link>HighLevelAPI81\MechanismParams\CkGostR3410KeyWrapParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkKeaDeriveParams.cs">
       <Link>HighLevelAPI81\MechanismParams\CkKeaDeriveParams.cs</Link>
@@ -785,6 +920,9 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkPkcs5Pbkd2Params.cs">
       <Link>HighLevelAPI81\MechanismParams\CkPkcs5Pbkd2Params.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkPkcs5Pbkd2Params2.cs">
+      <Link>HighLevelAPI81\MechanismParams\CkPkcs5Pbkd2Params2.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkRc2CbcParams.cs">
       <Link>HighLevelAPI81\MechanismParams\CkRc2CbcParams.cs</Link>
     </Compile>
@@ -803,11 +941,17 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkRc5Params.cs">
       <Link>HighLevelAPI81\MechanismParams\CkRc5Params.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkRsaAesKeyWrapParams.cs">
+      <Link>HighLevelAPI81\MechanismParams\CkRsaAesKeyWrapParams.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkRsaPkcsOaepParams.cs">
       <Link>HighLevelAPI81\MechanismParams\CkRsaPkcsOaepParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkRsaPkcsPssParams.cs">
       <Link>HighLevelAPI81\MechanismParams\CkRsaPkcsPssParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkSeedCbcEncryptDataParams.cs">
+      <Link>HighLevelAPI81\MechanismParams\CkSeedCbcEncryptDataParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkSkipjackPrivateWrapParams.cs">
       <Link>HighLevelAPI81\MechanismParams\CkSkipjackPrivateWrapParams.cs</Link>
@@ -826,6 +970,18 @@
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkSsl3RandomData.cs">
       <Link>HighLevelAPI81\MechanismParams\CkSsl3RandomData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkTls12KeyMatParams.cs">
+      <Link>HighLevelAPI81\MechanismParams\CkTls12KeyMatParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkTls12MasterKeyDeriveParams.cs">
+      <Link>HighLevelAPI81\MechanismParams\CkTls12MasterKeyDeriveParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkTlsKdfParams.cs">
+      <Link>HighLevelAPI81\MechanismParams\CkTlsKdfParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkTlsMacParams.cs">
+      <Link>HighLevelAPI81\MechanismParams\CkTlsMacParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI81\MechanismParams\CkTlsPrfParams.cs">
       <Link>HighLevelAPI81\MechanismParams\CkTlsPrfParams.cs</Link>
@@ -920,11 +1076,17 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkCamelliaCtrParams.cs">
       <Link>HighLevelAPI\MechanismParams\CkCamelliaCtrParams.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkCcmParams.cs">
+      <Link>HighLevelAPI\MechanismParams\CkCcmParams.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkCmsSigParams.cs">
       <Link>HighLevelAPI\MechanismParams\CkCmsSigParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkDesCbcEncryptDataParams.cs">
       <Link>HighLevelAPI\MechanismParams\CkDesCbcEncryptDataParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkDsaParameterGenParam.cs">
+      <Link>HighLevelAPI\MechanismParams\CkDsaParameterGenParam.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkEcdh1DeriveParams.cs">
       <Link>HighLevelAPI\MechanismParams\CkEcdh1DeriveParams.cs</Link>
@@ -932,11 +1094,23 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkEcdh2DeriveParams.cs">
       <Link>HighLevelAPI\MechanismParams\CkEcdh2DeriveParams.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkEcdhAesKeyWrapParams.cs">
+      <Link>HighLevelAPI\MechanismParams\CkEcdhAesKeyWrapParams.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkEcmqvDeriveParams.cs">
       <Link>HighLevelAPI\MechanismParams\CkEcmqvDeriveParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkExtractParams.cs">
       <Link>HighLevelAPI\MechanismParams\CkExtractParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkGcmParams.cs">
+      <Link>HighLevelAPI\MechanismParams\CkGcmParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkGostR3410DeriveParams.cs">
+      <Link>HighLevelAPI\MechanismParams\CkGostR3410DeriveParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkGostR3410KeyWrapParams.cs">
+      <Link>HighLevelAPI\MechanismParams\CkGostR3410KeyWrapParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkKeaDeriveParams.cs">
       <Link>HighLevelAPI\MechanismParams\CkKeaDeriveParams.cs</Link>
@@ -968,6 +1142,9 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkPkcs5Pbkd2Params.cs">
       <Link>HighLevelAPI\MechanismParams\CkPkcs5Pbkd2Params.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkPkcs5Pbkd2Params2.cs">
+      <Link>HighLevelAPI\MechanismParams\CkPkcs5Pbkd2Params2.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkRc2CbcParams.cs">
       <Link>HighLevelAPI\MechanismParams\CkRc2CbcParams.cs</Link>
     </Compile>
@@ -986,11 +1163,17 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkRc5Params.cs">
       <Link>HighLevelAPI\MechanismParams\CkRc5Params.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkRsaAesKeyWrapParams.cs">
+      <Link>HighLevelAPI\MechanismParams\CkRsaAesKeyWrapParams.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkRsaPkcsOaepParams.cs">
       <Link>HighLevelAPI\MechanismParams\CkRsaPkcsOaepParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkRsaPkcsPssParams.cs">
       <Link>HighLevelAPI\MechanismParams\CkRsaPkcsPssParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkSeedCbcEncryptDataParams.cs">
+      <Link>HighLevelAPI\MechanismParams\CkSeedCbcEncryptDataParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkSkipjackPrivateWrapParams.cs">
       <Link>HighLevelAPI\MechanismParams\CkSkipjackPrivateWrapParams.cs</Link>
@@ -1009,6 +1192,18 @@
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkSsl3RandomData.cs">
       <Link>HighLevelAPI\MechanismParams\CkSsl3RandomData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkTls12KeyMatParams.cs">
+      <Link>HighLevelAPI\MechanismParams\CkTls12KeyMatParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkTls12MasterKeyDeriveParams.cs">
+      <Link>HighLevelAPI\MechanismParams\CkTls12MasterKeyDeriveParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkTlsKdfParams.cs">
+      <Link>HighLevelAPI\MechanismParams\CkTlsKdfParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkTlsMacParams.cs">
+      <Link>HighLevelAPI\MechanismParams\CkTlsMacParams.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\CkTlsPrfParams.cs">
       <Link>HighLevelAPI\MechanismParams\CkTlsPrfParams.cs</Link>
@@ -1133,11 +1328,17 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_CAMELLIA_CTR_PARAMS.cs">
       <Link>LowLevelAPI40\MechanismParams\CK_CAMELLIA_CTR_PARAMS.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_CCM_PARAMS.cs">
+      <Link>LowLevelAPI40\MechanismParams\CK_CCM_PARAMS.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_CMS_SIG_PARAMS.cs">
       <Link>LowLevelAPI40\MechanismParams\CK_CMS_SIG_PARAMS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_DES_CBC_ENCRYPT_DATA_PARAMS.cs">
       <Link>LowLevelAPI40\MechanismParams\CK_DES_CBC_ENCRYPT_DATA_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_DSA_PARAMETER_GEN_PARAM.cs">
+      <Link>LowLevelAPI40\MechanismParams\CK_DSA_PARAMETER_GEN_PARAM.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_ECDH1_DERIVE_PARAMS.cs">
       <Link>LowLevelAPI40\MechanismParams\CK_ECDH1_DERIVE_PARAMS.cs</Link>
@@ -1145,11 +1346,23 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_ECDH2_DERIVE_PARAMS.cs">
       <Link>LowLevelAPI40\MechanismParams\CK_ECDH2_DERIVE_PARAMS.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_ECDH_AES_KEY_WRAP_PARAMS.cs">
+      <Link>LowLevelAPI40\MechanismParams\CK_ECDH_AES_KEY_WRAP_PARAMS.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_ECMQV_DERIVE_PARAMS.cs">
       <Link>LowLevelAPI40\MechanismParams\CK_ECMQV_DERIVE_PARAMS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_EXTRACT_PARAMS.cs">
       <Link>LowLevelAPI40\MechanismParams\CK_EXTRACT_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_GCM_PARAMS.cs">
+      <Link>LowLevelAPI40\MechanismParams\CK_GCM_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_GOSTR3410_DERIVE_PARAMS.cs">
+      <Link>LowLevelAPI40\MechanismParams\CK_GOSTR3410_DERIVE_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_GOSTR3410_KEY_WRAP_PARAMS.cs">
+      <Link>LowLevelAPI40\MechanismParams\CK_GOSTR3410_KEY_WRAP_PARAMS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_KEA_DERIVE_PARAMS.cs">
       <Link>LowLevelAPI40\MechanismParams\CK_KEA_DERIVE_PARAMS.cs</Link>
@@ -1181,6 +1394,9 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_PKCS5_PBKD2_PARAMS.cs">
       <Link>LowLevelAPI40\MechanismParams\CK_PKCS5_PBKD2_PARAMS.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_PKCS5_PBKD2_PARAMS2.cs">
+      <Link>LowLevelAPI40\MechanismParams\CK_PKCS5_PBKD2_PARAMS2.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_RC2_CBC_PARAMS.cs">
       <Link>LowLevelAPI40\MechanismParams\CK_RC2_CBC_PARAMS.cs</Link>
     </Compile>
@@ -1199,11 +1415,17 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_RC5_PARAMS.cs">
       <Link>LowLevelAPI40\MechanismParams\CK_RC5_PARAMS.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_RSA_AES_KEY_WRAP_PARAMS.cs">
+      <Link>LowLevelAPI40\MechanismParams\CK_RSA_AES_KEY_WRAP_PARAMS.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_RSA_PKCS_OAEP_PARAMS.cs">
       <Link>LowLevelAPI40\MechanismParams\CK_RSA_PKCS_OAEP_PARAMS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_RSA_PKCS_PSS_PARAMS.cs">
       <Link>LowLevelAPI40\MechanismParams\CK_RSA_PKCS_PSS_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_SEED_CBC_ENCRYPT_DATA_PARAMS.cs">
+      <Link>LowLevelAPI40\MechanismParams\CK_SEED_CBC_ENCRYPT_DATA_PARAMS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_SKIPJACK_PRIVATE_WRAP_PARAMS.cs">
       <Link>LowLevelAPI40\MechanismParams\CK_SKIPJACK_PRIVATE_WRAP_PARAMS.cs</Link>
@@ -1222,6 +1444,18 @@
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_SSL3_RANDOM_DATA.cs">
       <Link>LowLevelAPI40\MechanismParams\CK_SSL3_RANDOM_DATA.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_TLS12_KEY_MAT_PARAMS.cs">
+      <Link>LowLevelAPI40\MechanismParams\CK_TLS12_KEY_MAT_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_TLS12_MASTER_KEY_DERIVE_PARAMS.cs">
+      <Link>LowLevelAPI40\MechanismParams\CK_TLS12_MASTER_KEY_DERIVE_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_TLS_KDF_PARAMS.cs">
+      <Link>LowLevelAPI40\MechanismParams\CK_TLS_KDF_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_TLS_MAC_PARAMS.cs">
+      <Link>LowLevelAPI40\MechanismParams\CK_TLS_MAC_PARAMS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_TLS_PRF_PARAMS.cs">
       <Link>LowLevelAPI40\MechanismParams\CK_TLS_PRF_PARAMS.cs</Link>
@@ -1316,11 +1550,17 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_CAMELLIA_CTR_PARAMS.cs">
       <Link>LowLevelAPI41\MechanismParams\CK_CAMELLIA_CTR_PARAMS.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_CCM_PARAMS.cs">
+      <Link>LowLevelAPI41\MechanismParams\CK_CCM_PARAMS.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_CMS_SIG_PARAMS.cs">
       <Link>LowLevelAPI41\MechanismParams\CK_CMS_SIG_PARAMS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_DES_CBC_ENCRYPT_DATA_PARAMS.cs">
       <Link>LowLevelAPI41\MechanismParams\CK_DES_CBC_ENCRYPT_DATA_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_DSA_PARAMETER_GEN_PARAM.cs">
+      <Link>LowLevelAPI41\MechanismParams\CK_DSA_PARAMETER_GEN_PARAM.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_ECDH1_DERIVE_PARAMS.cs">
       <Link>LowLevelAPI41\MechanismParams\CK_ECDH1_DERIVE_PARAMS.cs</Link>
@@ -1328,11 +1568,23 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_ECDH2_DERIVE_PARAMS.cs">
       <Link>LowLevelAPI41\MechanismParams\CK_ECDH2_DERIVE_PARAMS.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_ECDH_AES_KEY_WRAP_PARAMS.cs">
+      <Link>LowLevelAPI41\MechanismParams\CK_ECDH_AES_KEY_WRAP_PARAMS.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_ECMQV_DERIVE_PARAMS.cs">
       <Link>LowLevelAPI41\MechanismParams\CK_ECMQV_DERIVE_PARAMS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_EXTRACT_PARAMS.cs">
       <Link>LowLevelAPI41\MechanismParams\CK_EXTRACT_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_GCM_PARAMS.cs">
+      <Link>LowLevelAPI41\MechanismParams\CK_GCM_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_GOSTR3410_DERIVE_PARAMS.cs">
+      <Link>LowLevelAPI41\MechanismParams\CK_GOSTR3410_DERIVE_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_GOSTR3410_KEY_WRAP_PARAMS.cs">
+      <Link>LowLevelAPI41\MechanismParams\CK_GOSTR3410_KEY_WRAP_PARAMS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_KEA_DERIVE_PARAMS.cs">
       <Link>LowLevelAPI41\MechanismParams\CK_KEA_DERIVE_PARAMS.cs</Link>
@@ -1364,6 +1616,9 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_PKCS5_PBKD2_PARAMS.cs">
       <Link>LowLevelAPI41\MechanismParams\CK_PKCS5_PBKD2_PARAMS.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_PKCS5_PBKD2_PARAMS2.cs">
+      <Link>LowLevelAPI41\MechanismParams\CK_PKCS5_PBKD2_PARAMS2.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_RC2_CBC_PARAMS.cs">
       <Link>LowLevelAPI41\MechanismParams\CK_RC2_CBC_PARAMS.cs</Link>
     </Compile>
@@ -1382,11 +1637,17 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_RC5_PARAMS.cs">
       <Link>LowLevelAPI41\MechanismParams\CK_RC5_PARAMS.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_RSA_AES_KEY_WRAP_PARAMS.cs">
+      <Link>LowLevelAPI41\MechanismParams\CK_RSA_AES_KEY_WRAP_PARAMS.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_RSA_PKCS_OAEP_PARAMS.cs">
       <Link>LowLevelAPI41\MechanismParams\CK_RSA_PKCS_OAEP_PARAMS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_RSA_PKCS_PSS_PARAMS.cs">
       <Link>LowLevelAPI41\MechanismParams\CK_RSA_PKCS_PSS_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_SEED_CBC_ENCRYPT_DATA_PARAMS.cs">
+      <Link>LowLevelAPI41\MechanismParams\CK_SEED_CBC_ENCRYPT_DATA_PARAMS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_SKIPJACK_PRIVATE_WRAP_PARAMS.cs">
       <Link>LowLevelAPI41\MechanismParams\CK_SKIPJACK_PRIVATE_WRAP_PARAMS.cs</Link>
@@ -1405,6 +1666,18 @@
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_SSL3_RANDOM_DATA.cs">
       <Link>LowLevelAPI41\MechanismParams\CK_SSL3_RANDOM_DATA.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_TLS12_KEY_MAT_PARAMS.cs">
+      <Link>LowLevelAPI41\MechanismParams\CK_TLS12_KEY_MAT_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_TLS12_MASTER_KEY_DERIVE_PARAMS.cs">
+      <Link>LowLevelAPI41\MechanismParams\CK_TLS12_MASTER_KEY_DERIVE_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_TLS_KDF_PARAMS.cs">
+      <Link>LowLevelAPI41\MechanismParams\CK_TLS_KDF_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_TLS_MAC_PARAMS.cs">
+      <Link>LowLevelAPI41\MechanismParams\CK_TLS_MAC_PARAMS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_TLS_PRF_PARAMS.cs">
       <Link>LowLevelAPI41\MechanismParams\CK_TLS_PRF_PARAMS.cs</Link>
@@ -1499,11 +1772,17 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_CAMELLIA_CTR_PARAMS.cs">
       <Link>LowLevelAPI80\MechanismParams\CK_CAMELLIA_CTR_PARAMS.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_CCM_PARAMS.cs">
+      <Link>LowLevelAPI80\MechanismParams\CK_CCM_PARAMS.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_CMS_SIG_PARAMS.cs">
       <Link>LowLevelAPI80\MechanismParams\CK_CMS_SIG_PARAMS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_DES_CBC_ENCRYPT_DATA_PARAMS.cs">
       <Link>LowLevelAPI80\MechanismParams\CK_DES_CBC_ENCRYPT_DATA_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_DSA_PARAMETER_GEN_PARAM.cs">
+      <Link>LowLevelAPI80\MechanismParams\CK_DSA_PARAMETER_GEN_PARAM.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_ECDH1_DERIVE_PARAMS.cs">
       <Link>LowLevelAPI80\MechanismParams\CK_ECDH1_DERIVE_PARAMS.cs</Link>
@@ -1511,11 +1790,23 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_ECDH2_DERIVE_PARAMS.cs">
       <Link>LowLevelAPI80\MechanismParams\CK_ECDH2_DERIVE_PARAMS.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_ECDH_AES_KEY_WRAP_PARAMS.cs">
+      <Link>LowLevelAPI80\MechanismParams\CK_ECDH_AES_KEY_WRAP_PARAMS.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_ECMQV_DERIVE_PARAMS.cs">
       <Link>LowLevelAPI80\MechanismParams\CK_ECMQV_DERIVE_PARAMS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_EXTRACT_PARAMS.cs">
       <Link>LowLevelAPI80\MechanismParams\CK_EXTRACT_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_GCM_PARAMS.cs">
+      <Link>LowLevelAPI80\MechanismParams\CK_GCM_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_GOSTR3410_DERIVE_PARAMS.cs">
+      <Link>LowLevelAPI80\MechanismParams\CK_GOSTR3410_DERIVE_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_GOSTR3410_KEY_WRAP_PARAMS.cs">
+      <Link>LowLevelAPI80\MechanismParams\CK_GOSTR3410_KEY_WRAP_PARAMS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_KEA_DERIVE_PARAMS.cs">
       <Link>LowLevelAPI80\MechanismParams\CK_KEA_DERIVE_PARAMS.cs</Link>
@@ -1547,6 +1838,9 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_PKCS5_PBKD2_PARAMS.cs">
       <Link>LowLevelAPI80\MechanismParams\CK_PKCS5_PBKD2_PARAMS.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_PKCS5_PBKD2_PARAMS2.cs">
+      <Link>LowLevelAPI80\MechanismParams\CK_PKCS5_PBKD2_PARAMS2.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_RC2_CBC_PARAMS.cs">
       <Link>LowLevelAPI80\MechanismParams\CK_RC2_CBC_PARAMS.cs</Link>
     </Compile>
@@ -1565,11 +1859,17 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_RC5_PARAMS.cs">
       <Link>LowLevelAPI80\MechanismParams\CK_RC5_PARAMS.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_RSA_AES_KEY_WRAP_PARAMS.cs">
+      <Link>LowLevelAPI80\MechanismParams\CK_RSA_AES_KEY_WRAP_PARAMS.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_RSA_PKCS_OAEP_PARAMS.cs">
       <Link>LowLevelAPI80\MechanismParams\CK_RSA_PKCS_OAEP_PARAMS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_RSA_PKCS_PSS_PARAMS.cs">
       <Link>LowLevelAPI80\MechanismParams\CK_RSA_PKCS_PSS_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_SEED_CBC_ENCRYPT_DATA_PARAMS.cs">
+      <Link>LowLevelAPI80\MechanismParams\CK_SEED_CBC_ENCRYPT_DATA_PARAMS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_SKIPJACK_PRIVATE_WRAP_PARAMS.cs">
       <Link>LowLevelAPI80\MechanismParams\CK_SKIPJACK_PRIVATE_WRAP_PARAMS.cs</Link>
@@ -1588,6 +1888,18 @@
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_SSL3_RANDOM_DATA.cs">
       <Link>LowLevelAPI80\MechanismParams\CK_SSL3_RANDOM_DATA.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_TLS12_KEY_MAT_PARAMS.cs">
+      <Link>LowLevelAPI80\MechanismParams\CK_TLS12_KEY_MAT_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_TLS12_MASTER_KEY_DERIVE_PARAMS.cs">
+      <Link>LowLevelAPI80\MechanismParams\CK_TLS12_MASTER_KEY_DERIVE_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_TLS_KDF_PARAMS.cs">
+      <Link>LowLevelAPI80\MechanismParams\CK_TLS_KDF_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_TLS_MAC_PARAMS.cs">
+      <Link>LowLevelAPI80\MechanismParams\CK_TLS_MAC_PARAMS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_TLS_PRF_PARAMS.cs">
       <Link>LowLevelAPI80\MechanismParams\CK_TLS_PRF_PARAMS.cs</Link>
@@ -1682,11 +1994,17 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_CAMELLIA_CTR_PARAMS.cs">
       <Link>LowLevelAPI81\MechanismParams\CK_CAMELLIA_CTR_PARAMS.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_CCM_PARAMS.cs">
+      <Link>LowLevelAPI81\MechanismParams\CK_CCM_PARAMS.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_CMS_SIG_PARAMS.cs">
       <Link>LowLevelAPI81\MechanismParams\CK_CMS_SIG_PARAMS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_DES_CBC_ENCRYPT_DATA_PARAMS.cs">
       <Link>LowLevelAPI81\MechanismParams\CK_DES_CBC_ENCRYPT_DATA_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_DSA_PARAMETER_GEN_PARAM.cs">
+      <Link>LowLevelAPI81\MechanismParams\CK_DSA_PARAMETER_GEN_PARAM.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_ECDH1_DERIVE_PARAMS.cs">
       <Link>LowLevelAPI81\MechanismParams\CK_ECDH1_DERIVE_PARAMS.cs</Link>
@@ -1694,11 +2012,23 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_ECDH2_DERIVE_PARAMS.cs">
       <Link>LowLevelAPI81\MechanismParams\CK_ECDH2_DERIVE_PARAMS.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_ECDH_AES_KEY_WRAP_PARAMS.cs">
+      <Link>LowLevelAPI81\MechanismParams\CK_ECDH_AES_KEY_WRAP_PARAMS.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_ECMQV_DERIVE_PARAMS.cs">
       <Link>LowLevelAPI81\MechanismParams\CK_ECMQV_DERIVE_PARAMS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_EXTRACT_PARAMS.cs">
       <Link>LowLevelAPI81\MechanismParams\CK_EXTRACT_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_GCM_PARAMS.cs">
+      <Link>LowLevelAPI81\MechanismParams\CK_GCM_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_GOSTR3410_DERIVE_PARAMS.cs">
+      <Link>LowLevelAPI81\MechanismParams\CK_GOSTR3410_DERIVE_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_GOSTR3410_KEY_WRAP_PARAMS.cs">
+      <Link>LowLevelAPI81\MechanismParams\CK_GOSTR3410_KEY_WRAP_PARAMS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_KEA_DERIVE_PARAMS.cs">
       <Link>LowLevelAPI81\MechanismParams\CK_KEA_DERIVE_PARAMS.cs</Link>
@@ -1730,6 +2060,9 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_PKCS5_PBKD2_PARAMS.cs">
       <Link>LowLevelAPI81\MechanismParams\CK_PKCS5_PBKD2_PARAMS.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_PKCS5_PBKD2_PARAMS2.cs">
+      <Link>LowLevelAPI81\MechanismParams\CK_PKCS5_PBKD2_PARAMS2.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_RC2_CBC_PARAMS.cs">
       <Link>LowLevelAPI81\MechanismParams\CK_RC2_CBC_PARAMS.cs</Link>
     </Compile>
@@ -1748,11 +2081,17 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_RC5_PARAMS.cs">
       <Link>LowLevelAPI81\MechanismParams\CK_RC5_PARAMS.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_RSA_AES_KEY_WRAP_PARAMS.cs">
+      <Link>LowLevelAPI81\MechanismParams\CK_RSA_AES_KEY_WRAP_PARAMS.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_RSA_PKCS_OAEP_PARAMS.cs">
       <Link>LowLevelAPI81\MechanismParams\CK_RSA_PKCS_OAEP_PARAMS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_RSA_PKCS_PSS_PARAMS.cs">
       <Link>LowLevelAPI81\MechanismParams\CK_RSA_PKCS_PSS_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_SEED_CBC_ENCRYPT_DATA_PARAMS.cs">
+      <Link>LowLevelAPI81\MechanismParams\CK_SEED_CBC_ENCRYPT_DATA_PARAMS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_SKIPJACK_PRIVATE_WRAP_PARAMS.cs">
       <Link>LowLevelAPI81\MechanismParams\CK_SKIPJACK_PRIVATE_WRAP_PARAMS.cs</Link>
@@ -1771,6 +2110,18 @@
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_SSL3_RANDOM_DATA.cs">
       <Link>LowLevelAPI81\MechanismParams\CK_SSL3_RANDOM_DATA.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_TLS12_KEY_MAT_PARAMS.cs">
+      <Link>LowLevelAPI81\MechanismParams\CK_TLS12_KEY_MAT_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_TLS12_MASTER_KEY_DERIVE_PARAMS.cs">
+      <Link>LowLevelAPI81\MechanismParams\CK_TLS12_MASTER_KEY_DERIVE_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_TLS_KDF_PARAMS.cs">
+      <Link>LowLevelAPI81\MechanismParams\CK_TLS_KDF_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_TLS_MAC_PARAMS.cs">
+      <Link>LowLevelAPI81\MechanismParams\CK_TLS_MAC_PARAMS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_TLS_PRF_PARAMS.cs">
       <Link>LowLevelAPI81\MechanismParams\CK_TLS_PRF_PARAMS.cs</Link>

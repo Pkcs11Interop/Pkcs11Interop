@@ -60,6 +60,46 @@ namespace Net.Pkcs11Interop.Common
         public const uint CK_EFFECTIVELY_INFINITE = 0;
 
         /// <summary>
+        /// No certificate category specified
+        /// </summary>
+        public const uint CK_CERTIFICATE_CATEGORY_UNSPECIFIED = 0;
+
+        /// <summary>
+        /// Certificate belongs to owner of the token
+        /// </summary>
+        public const uint CK_CERTIFICATE_CATEGORY_TOKEN_USER = 1;
+
+        /// <summary>
+        /// Certificate belongs to a certificate authority
+        /// </summary>
+        public const uint CK_CERTIFICATE_CATEGORY_AUTHORITY = 2;
+
+        /// <summary>
+        /// Certificate belongs to an end entity (i.e. not a CA)
+        /// </summary>
+        public const uint CK_CERTIFICATE_CATEGORY_OTHER_ENTITY = 3;
+
+        /// <summary>
+        /// No JAVA MIDP security domain specified
+        /// </summary>
+        public const uint CK_SECURITY_DOMAIN_UNSPECIFIED = 0;
+
+        /// <summary>
+        /// Manufacturer protection JAVA MIDP security domain
+        /// </summary>
+        public const uint CK_SECURITY_DOMAIN_MANUFACTURER = 1;
+
+        /// <summary>
+        /// Operator protection JAVA MIDP security domain
+        /// </summary>
+        public const uint CK_SECURITY_DOMAIN_OPERATOR = 2;
+
+        /// <summary>
+        /// Third party protection JAVA MIDP security domain
+        /// </summary>
+        public const uint CK_SECURITY_DOMAIN_THIRD_PARTY = 3;
+
+        /// <summary>
         /// Decimal (default) (UTF8-encoded) format of OTP value
         /// </summary>
         public const uint CK_OTP_FORMAT_DECIMAL = 0;
