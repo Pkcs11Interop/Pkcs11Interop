@@ -27,7 +27,7 @@ Following figure presents the typical usage of Pkcs11Interop library in .NET app
 Pkcs11Interop library:
 
 * implements .NET wrapper for unmanaged PKCS#11 libraries
-* is compliant with [PKCS#11 v2.20](doc/rsa-pkcs11-2.20/) specification and PKCS#11 URI scheme defined in [RFC 7512](doc/pkcs11-uri-scheme)
+* is compliant with [PKCS#11 v2.40](https://github.com/Pkcs11Interop/PKCS11-SPECS/tree/master/v2.40) specification and PKCS#11 URI scheme defined in [RFC 7512](https://github.com/Pkcs11Interop/PKCS11-SPECS/tree/master/RELATED/RFC7512)
 * is compatible with .NET Framework 2.0 and higher, .NET Core, Mono, Xamarin and Silverlight5
 * is supported on Windows, Linux, Mac OS X, Android and iOS
 * is supported on both 32-bit and 64-bit platforms
@@ -50,7 +50,7 @@ Pkcs11Interop has been confirmed to be working with the following devices:
 
 ## Documentation
 
-It is highly recommended that before you start using Pkcs11Interop you should get familiar at least with *"Chapter 2 - Scope"*, *"Chapter 6 - General overview"* and *"Chapter 10 - Objects"* of [PKCS#11 v2.20](doc/rsa-pkcs11-2.20/) specification.
+It is highly recommended that before you start using Pkcs11Interop you get familiar at least with *"Chapter 2 - Scope"*, *"Chapter 6 - General overview"* and *"Chapter 10 - Objects"* of [PKCS#11 v2.20](https://github.com/Pkcs11Interop/PKCS11-SPECS/tree/master/v2.20) specification (or equivalent chapters of any previous or subsequent specification version).
 
 Pkcs11Interop API is fully documented with the inline XML documentation that is displayed by the most of the modern IDEs during the application development. Detailed [Pkcs11Interop API documentation](http://pkcs11interop.net/doc/) is also available online.
 

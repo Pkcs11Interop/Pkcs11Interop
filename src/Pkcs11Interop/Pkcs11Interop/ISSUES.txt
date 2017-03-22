@@ -1,5 +1,5 @@
-Pkcs11Interop implements full PKCS#11 v2.20 specification with the following 
-exceptions and limitations:
+Pkcs11Interop implements full PKCS#11 v2.40 Errata 01 specification 
+with the following exceptions and limitations:
  
  - Locking related types CK_CREATEMUTEX, CK_DESTROYMUTEX, CK_LOCKMUTEX 
    and CK_UNLOCKMUTEX are not supported, but native OS threading model 
