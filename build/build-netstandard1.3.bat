@@ -12,6 +12,7 @@ rmdir /S /Q ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore.StrongN
 del ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore.StrongName\project.lock.json
 
 @rem Build project
+copy /Y ..\src\Pkcs11Interop.DotNetCore\global.json .
 dotnet restore ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore\ || goto :error
 dotnet build ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore\ --configuration Release || goto :error
 dotnet restore ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore.StrongName\ || goto :error
