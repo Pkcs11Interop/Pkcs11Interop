@@ -39,6 +39,6 @@
       "../../../Pkcs11Interop/Pkcs11InteropTests/LowLevelAPI81/**/*.cs",
       "../../../Pkcs11Interop/Pkcs11InteropTests/Settings.cs"
     ],
-    "define": [ "COREFX" ]
+    "define": [ "NETSTANDARD1_3" ]
   }
 }

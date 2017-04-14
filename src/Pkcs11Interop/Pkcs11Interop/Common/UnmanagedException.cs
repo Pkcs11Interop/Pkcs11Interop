@@ -20,7 +20,7 @@
  */
 
 using System;
-#if (!SILVERLIGHT && !COREFX)
+#if (!SILVERLIGHT && !NETSTANDARD1_3)
 using System.Runtime.Serialization;
 #endif
 
@@ -29,7 +29,7 @@ namespace Net.Pkcs11Interop.Common
     /// <summary>
     /// Exception indicating that unmanaged function has returned error
     /// </summary>
-#if (!SILVERLIGHT && !COREFX)
+#if (!SILVERLIGHT && !NETSTANDARD1_3)
     [Serializable]
 #endif
     public class UnmanagedException : Exception
@@ -71,7 +71,7 @@ namespace Net.Pkcs11Interop.Common
             _errorCode = errorCode;
         }
 
-#if (!SILVERLIGHT && !COREFX)
+#if (!SILVERLIGHT && !NETSTANDARD1_3)
         /// <summary>
         /// Initializes new instance of UnmanagedException class with serialized data
         /// </summary>

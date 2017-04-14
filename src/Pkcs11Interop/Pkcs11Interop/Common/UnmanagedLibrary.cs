@@ -181,7 +181,7 @@ namespace Net.Pkcs11Interop.Common
         /// <returns>Delegate</returns>
         public static T GetDelegateForFunctionPointer<T>(IntPtr functionPointer)
         {
-#if !COREFX
+#if !NETSTANDARD1_3
             return (T)(object)Marshal.GetDelegateForFunctionPointer(functionPointer, typeof(T));
 #else
             return Marshal.GetDelegateForFunctionPointer<T>(functionPointer);

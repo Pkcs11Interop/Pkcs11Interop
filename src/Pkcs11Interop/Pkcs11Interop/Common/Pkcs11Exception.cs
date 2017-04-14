@@ -20,7 +20,7 @@
  */
 
 using System;
-#if (!SILVERLIGHT && !COREFX)
+#if (!SILVERLIGHT && !NETSTANDARD1_3)
 using System.Runtime.Serialization;
 #endif
 
@@ -29,7 +29,7 @@ namespace Net.Pkcs11Interop.Common
     /// <summary>
     /// Exception with the name of PKCS#11 method that failed and its return value
     /// </summary>
-#if (!SILVERLIGHT && !COREFX)
+#if (!SILVERLIGHT && !NETSTANDARD1_3)
     [Serializable]
 #endif
     public class Pkcs11Exception : Exception
@@ -78,7 +78,7 @@ namespace Net.Pkcs11Interop.Common
             _rv = rv;
         }
 
-#if (!SILVERLIGHT && !COREFX)
+#if (!SILVERLIGHT && !NETSTANDARD1_3)
         /// <summary>
         /// Initializes new instance of Pkcs11Exception class with serialized data
         /// </summary>
