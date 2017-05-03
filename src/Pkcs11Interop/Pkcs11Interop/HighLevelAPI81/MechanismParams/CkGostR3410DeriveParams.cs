@@ -63,7 +63,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
             if (ukm == null)
                 throw new ArgumentNullException("ukm");
 
-            if (ukm.Length != 64)
+            if (ukm.Length != 8)
                 throw new ArgumentOutOfRangeException("ukm", "Array has to be 8 bytes long");
 
             _lowLevelStruct.Kdf = kdf;
