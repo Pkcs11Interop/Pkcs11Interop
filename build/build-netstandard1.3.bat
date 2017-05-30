@@ -15,6 +15,8 @@ dotnet build ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore\ --con
 dotnet restore ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore.StrongName\ || goto :error
 dotnet build ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore.StrongName\ --configuration Release || goto :error
 
+@rem AppVeyor troubleshooting
+dotnet --version
 tree /a /f ..
 
 @rem Copy result to output directory
