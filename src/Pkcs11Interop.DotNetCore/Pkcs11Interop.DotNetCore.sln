@@ -1,22 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7C4EBE28-0B68-4860-9744-26CE819022F9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CF1C3E51-20C3-49C1-A9B1-D0B1C427D9FD}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Pkcs11Interop.DotNetCore", "src\Pkcs11Interop.DotNetCore\Pkcs11Interop.DotNetCore.xproj", "{AF7DFA22-9F88-4497-BF4F-DDD2EDA16FB5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{99284550-B378-48D4-872A-F56D62F45C1F}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Pkcs11Interop.DotNetCore.Tests", "test\Pkcs11Interop.DotNetCore.Tests\Pkcs11Interop.DotNetCore.Tests.xproj", "{E7F90384-D5E2-4451-BDBE-7836EA107175}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pkcs11Interop.DotNetCore", "src\Pkcs11Interop.DotNetCore\Pkcs11Interop.DotNetCore.csproj", "{AF7DFA22-9F88-4497-BF4F-DDD2EDA16FB5}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Pkcs11Interop.DotNetCore.StrongName", "src\Pkcs11Interop.DotNetCore.StrongName\Pkcs11Interop.DotNetCore.StrongName.xproj", "{ECA92D91-0055-425B-B778-99AF12A5FC9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pkcs11Interop.DotNetCore.Tests", "test\Pkcs11Interop.DotNetCore.Tests\Pkcs11Interop.DotNetCore.Tests.csproj", "{E7F90384-D5E2-4451-BDBE-7836EA107175}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pkcs11Interop.DotNetCore.StrongName", "src\Pkcs11Interop.DotNetCore.StrongName\Pkcs11Interop.DotNetCore.StrongName.csproj", "{ECA92D91-0055-425B-B778-99AF12A5FC9E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
