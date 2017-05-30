@@ -1,5 +1,7 @@
 @setlocal
 
+@echo on
+
 @rem Delete output directory
 rmdir /S /Q netstandard1.3
 
