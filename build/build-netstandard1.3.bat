@@ -1,23 +1,40 @@
 @setlocal
 
+@rem Initialize build environment of Visual Studio 2017 Community/Professional/Enterprise
+@set tools=
+@set tmptools="c:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsMSBuildCmd.bat"
+@if exist %tmptools% set tools=%tmptools%
+@set tmptools="c:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\Tools\VsMSBuildCmd.bat"
+@if exist %tmptools% set tools=%tmptools%
+@set tmptools="c:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools\VsMSBuildCmd.bat"
+@if exist %tmptools% set tools=%tmptools%
+@if not defined tools goto :error
+call %tools%
 @echo on
 
 @rem Delete output directory
 rmdir /S /Q netstandard1.3
 
 @rem Clean project
-dotnet clean ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore\ --configuration Release || goto :error
-dotnet clean ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore.StrongName\ --configuration Release || goto :error
+msbuild ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore\Pkcs11Interop.DotNetCore.csproj ^
+/p:Configuration=Release /p:Platform=AnyCPU /target:Clean || goto :error
+msbuild ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore.StrongName\Pkcs11Interop.DotNetCore.StrongName.csproj ^
+/p:Configuration=Release /p:Platform=AnyCPU /target:Clean || goto :error
+
+@rem Restore dependencies
+msbuild ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore\Pkcs11Interop.DotNetCore.csproj ^
+/p:Configuration=Release /p:Platform=AnyCPU /target:Restore || goto :error
+msbuild ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore.StrongName\Pkcs11Interop.DotNetCore.StrongName.csproj ^
+/p:Configuration=Release /p:Platform=AnyCPU /target:Restore || goto :error
 
 @rem Build project
-dotnet restore ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore\ || goto :error
-dotnet build ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore\ --configuration Release || goto :error
-dotnet restore ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore.StrongName\ || goto :error
-dotnet build ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore.StrongName\ --configuration Release || goto :error
+msbuild ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore\Pkcs11Interop.DotNetCore.csproj ^
+/p:Configuration=Release /p:Platform=AnyCPU /target:Build || goto :error
+msbuild ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore.StrongName\Pkcs11Interop.DotNetCore.StrongName.csproj ^
+/p:Configuration=Release /p:Platform=AnyCPU /target:Build || goto :error
 
 @rem AppVeyor troubleshooting
-dotnet --version
-tree /a /f ..
+@rem tree /a /f ..
 
 @rem Copy result to output directory
 mkdir netstandard1.3 || goto :error
