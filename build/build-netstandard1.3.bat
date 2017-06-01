@@ -33,9 +33,6 @@ msbuild ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore\Pkcs11Inter
 msbuild ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore.StrongName\Pkcs11Interop.DotNetCore.StrongName.csproj ^
 /p:Configuration=Release /p:Platform=AnyCPU /target:Build || goto :error
 
-@rem AppVeyor troubleshooting
-@rem tree /a /f ..
-
 @rem Copy result to output directory
 mkdir netstandard1.3 || goto :error
 copy ..\src\Pkcs11Interop.DotNetCore\src\Pkcs11Interop.DotNetCore\bin\Release\Pkcs11Interop.DotNetCore.dll netstandard1.3 || goto :error
