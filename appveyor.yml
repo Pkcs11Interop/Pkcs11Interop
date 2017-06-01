@@ -11,7 +11,8 @@ environment:
   - Platform: net45
   - Platform: sl5
   - Platform: netstandard1.3
-  - Platform: monoandroid2.3
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+    Platform: monoandroid2.3
   - Platform: xamarinios1.0
 install:
 - cmd: IF "%Platform%"=="monoandroid2.3" (powershell -File ./build/appveyor-install-android-sdk.ps1)
