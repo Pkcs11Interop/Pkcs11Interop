@@ -17,9 +17,7 @@ environment:
 install:
 - cmd: IF "%Platform%"=="monoandroid2.3" (powershell -File ./build/appveyor-install-android-sdk.ps1)
 build_script:
-- cmd: >-
-    cd build
-    ./build-%Platform%.bat
+- cmd: cd build && ./build-%Platform%.bat
 artifacts:
 - path: build/$(Platform)
   name: $(Platform)
