@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
     <RootNamespace>Net.Pkcs11Interop</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\Pkcs11Interop\Pkcs11Interop.StrongName\Pkcs11Interop.StrongName.snk</AssemblyOriginatorKeyFile>
     <DelaySign>False</DelaySign>
