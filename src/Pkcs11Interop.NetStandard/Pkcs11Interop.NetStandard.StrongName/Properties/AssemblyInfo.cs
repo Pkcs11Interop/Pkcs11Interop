@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Pkcs11Interop.DotNetCore.Tests")]
+[assembly: AssemblyTitle("Pkcs11Interop.NetStandard.StrongName")]
 [assembly: AssemblyDescription("Managed .NET wrapper for unmanaged PKCS#11 libraries")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
-[assembly: Guid("e7f90384-d5e2-4451-bdbe-7836ea107175")]
+[assembly: Guid("eca92d91-0055-425b-b778-99af12a5fc9e")]
 [assembly: AssemblyVersion("3.3.0")]
 [assembly: AssemblyFileVersion("3.3.0")]
+[assembly: AssemblyInformationalVersion("3.3.0")]
