@@ -19,6 +19,9 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
+using System;
+using System.IO;
+using System.Reflection;
 using Net.Pkcs11Interop.Common;
 using LLA40 = Net.Pkcs11Interop.LowLevelAPI40;
 using LLA41 = Net.Pkcs11Interop.LowLevelAPI41;
@@ -34,22 +37,10 @@ namespace Net.Pkcs11Interop.Tests
     {
         #region Properties that almost always need to be configured before the tests are executed
 
-#if __ANDROID__
         /// <summary>
         /// Relative name or absolute path of unmanaged PKCS#11 library provided by smartcard or HSM vendor.
         /// </summary>
-        public static string Pkcs11LibraryPath = @"libpkcs11-mock.so";
-#elif __IOS__
-        /// <summary>
-        /// Relative name or absolute path of unmanaged PKCS#11 library provided by smartcard or HSM vendor.
-        /// </summary>
-        public static string Pkcs11LibraryPath = string.Empty;
-#else
-        /// <summary>
-        /// Relative name or absolute path of unmanaged PKCS#11 library provided by smartcard or HSM vendor.
-        /// </summary>
-        public static string Pkcs11LibraryPath = @"pkcs11-mock-x86.dll";
-#endif
+        public static string Pkcs11LibraryPath = GetPkcs11MockLibraryPath();
 
         /// <summary>
         /// Flag indicating whether PKCS#11 library should use its internal native threading model for locking.
@@ -171,6 +162,48 @@ namespace Net.Pkcs11Interop.Tests
             pkcs11UriBuilder.Object = ApplicationName;
             
             PrivateKeyUri = pkcs11UriBuilder.ToString();
+        }
+
+        /// <summary>
+        /// Returns path to PKCS11-MOCK library.
+		/// WARNING: It is not a real cryptographic module but just a dummy unmanaged PKCS#11 library designed specifically for unit testing of Pkcs11Interop library.
+        /// </summary>
+        /// <returns>Path to PKCS11-MOCK library</returns>
+        private static string GetPkcs11MockLibraryPath()
+        {
+#if __ANDROID__
+            return @"libpkcs11-mock.so";
+#elif __IOS__
+            return string.Empty;
+#else
+
+#if NETSTANDARD1_3
+            string path = typeof(Settings).GetTypeInfo().Assembly.CodeBase;
+#else
+            string path = typeof(Settings).Assembly.CodeBase;
+#endif
+            path = new Uri(path).LocalPath;
+            path = Path.GetDirectoryName(path);
+            path = Path.Combine(path, "pkcs11-mock");
+
+            if (Platform.IsWindows)
+            {
+                path = Path.Combine(path, "windows");
+                path = Path.Combine(path, "pkcs11-mock-" + (Platform.Uses32BitRuntime ? "x86" : "x64") + ".dll");
+            }
+            else if (Platform.IsLinux)
+            {
+                path = Path.Combine(path, "linux");
+                path = Path.Combine(path, "pkcs11-mock-" + (Platform.Uses32BitRuntime ? "x86" : "x64") + ".so");
+            }
+            else if (Platform.IsMacOsX)
+            {
+                path = Path.Combine(path, "osx");
+                path = Path.Combine(path, "pkcs11-mock-" + (Platform.Uses32BitRuntime ? "x86" : "x64") + ".dylib");
+            }
+
+            return path;
+#endif
         }
     }
 }
