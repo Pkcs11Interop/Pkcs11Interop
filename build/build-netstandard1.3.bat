@@ -15,23 +15,10 @@ call %tools%
 @rem Delete output directory
 rmdir /S /Q netstandard1.3
 
-@rem Clean project
-msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.csproj ^
-/p:Configuration=Release /p:Platform=AnyCPU /target:Clean || goto :error
-msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.StrongName\Pkcs11Interop.NetStandard.StrongName.csproj ^
-/p:Configuration=Release /p:Platform=AnyCPU /target:Clean || goto :error
-
-@rem Restore dependencies
-msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.csproj ^
-/p:Configuration=Release /p:Platform=AnyCPU /target:Restore || goto :error
-msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.StrongName\Pkcs11Interop.NetStandard.StrongName.csproj ^
-/p:Configuration=Release /p:Platform=AnyCPU /target:Restore || goto :error
-
-@rem Build project
-msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.csproj ^
-/p:Configuration=Release /p:Platform=AnyCPU /target:Build || goto :error
-msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.StrongName\Pkcs11Interop.NetStandard.StrongName.csproj ^
-/p:Configuration=Release /p:Platform=AnyCPU /target:Build || goto :error
+@rem Build solution
+msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.sln /p:Configuration=Release /p:Platform="Any CPU" /target:Clean || goto :error
+msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.sln /p:Configuration=Release /p:Platform="Any CPU" /target:Restore || goto :error
+msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.sln /p:Configuration=Release /p:Platform="Any CPU" /target:Build || goto :error
 
 @rem Copy result to output directory
 mkdir netstandard1.3 || goto :error
