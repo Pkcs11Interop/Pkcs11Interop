@@ -50,6 +50,9 @@
     <Folder Include="LowLevelAPI41\" />
     <Folder Include="LowLevelAPI80\" />
     <Folder Include="LowLevelAPI81\" />
+    <Folder Include="pkcs11-mock\linux\" />
+    <Folder Include="pkcs11-mock\windows\" />
+    <Folder Include="pkcs11-mock\osx\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -873,6 +876,34 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\..\Pkcs11Interop\Pkcs11InteropTests\pkcs11-mock\linux\pkcs11-mock-x64.so">
+      <Link>pkcs11-mock\linux\pkcs11-mock-x64.so</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\Pkcs11Interop\Pkcs11InteropTests\pkcs11-mock\linux\pkcs11-mock-x86.so">
+      <Link>pkcs11-mock\linux\pkcs11-mock-x86.so</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\Pkcs11Interop\Pkcs11InteropTests\pkcs11-mock\osx\pkcs11-mock-x64.dylib">
+      <Link>pkcs11-mock\osx\pkcs11-mock-x64.dylib</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\Pkcs11Interop\Pkcs11InteropTests\pkcs11-mock\osx\pkcs11-mock-x86.dylib">
+      <Link>pkcs11-mock\osx\pkcs11-mock-x86.dylib</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\Pkcs11Interop\Pkcs11InteropTests\pkcs11-mock\windows\pkcs11-mock-x64.dll">
+      <Link>pkcs11-mock\windows\pkcs11-mock-x64.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\Pkcs11Interop\Pkcs11InteropTests\pkcs11-mock\windows\pkcs11-mock-x86.dll">
+      <Link>pkcs11-mock\windows\pkcs11-mock-x86.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\Pkcs11Interop\Pkcs11InteropTests\pkcs11-mock\README.txt">
+      <Link>pkcs11-mock\README.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="..\..\Pkcs11Interop\Pkcs11InteropTests\README.txt">
       <Link>README.txt</Link>
     </None>
