@@ -19,7 +19,7 @@ install:
 build_script:
 - cmd: cd build && build-%Platform%.bat
 test_script:
-- cmd: dotnet test .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\Pkcs11Interop.DotNetCore.Tests.csproj --configuration Release
+- cmd: dotnet test .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\Pkcs11Interop.DotNetCore.Tests.csproj --configuration Release --no-build
 artifacts:
 - path: build/$(Platform)
   name: $(Platform)
