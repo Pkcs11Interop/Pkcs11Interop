@@ -7,8 +7,8 @@ skip_tags: true
 environment:
   matrix:
 #  - Platform: net20
-  - Platform: net40
-#  - Platform: net45
+#  - Platform: net40
+  - Platform: net45
 #  - Platform: sl5
 #  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
 #    Platform: netstandard1.3

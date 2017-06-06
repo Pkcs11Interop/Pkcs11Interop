@@ -19,21 +19,9 @@ call %tools%
 @rem Delete output directory
 rmdir /S /Q net45
 
-@rem Clean project
-msbuild ..\src\Pkcs11Interop\Pkcs11Interop\Pkcs11Interop.csproj ^
-/p:Configuration=Release /p:Platform=AnyCPU /p:TargetFrameworkVersion=v4.5 ^
-/target:Clean || goto :error
-msbuild ..\src\Pkcs11Interop\Pkcs11Interop.StrongName\Pkcs11Interop.StrongName.csproj ^
-/p:Configuration=Release /p:Platform=AnyCPU /p:TargetFrameworkVersion=v4.5 ^
-/target:Clean || goto :error
-
-@rem Build project
-msbuild ..\src\Pkcs11Interop\Pkcs11Interop\Pkcs11Interop.csproj ^
-/p:Configuration=Release /p:Platform=AnyCPU /p:TargetFrameworkVersion=v4.5 ^
-/target:Build || goto :error
-msbuild ..\src\Pkcs11Interop\Pkcs11Interop.StrongName\Pkcs11Interop.StrongName.csproj ^
-/p:Configuration=Release /p:Platform=AnyCPU /p:TargetFrameworkVersion=v4.5 ^
-/target:Build || goto :error
+@rem Clean and build solution
+msbuild ..\src\Pkcs11Interop\Pkcs11Interop.sln /p:Configuration=Release /p:Platform="Any CPU" /p:TargetFrameworkVersion=v4.5 /target:Clean || goto :error
+msbuild ..\src\Pkcs11Interop\Pkcs11Interop.sln /p:Configuration=Release /p:Platform="Any CPU" /p:TargetFrameworkVersion=v4.5 /target:Build || goto :error
 
 @rem Copy result to output directory
 mkdir net45 || goto :error
