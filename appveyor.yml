@@ -17,11 +17,17 @@ environment:
 install:
 - cmd: IF "%Platform%"=="monoandroid2.3" (powershell -File ./build/appveyor-install-android-sdk.ps1)
 build_script:
-- cmd: cd build && build-%Platform%.bat
+- cmd: cd build
+- cmd: IF "%Platform%"=="net20" (build-net20.bat --with-tests)
+- cmd: IF "%Platform%"=="net40" (build-net40.bat --with-tests)
+- cmd: IF "%Platform%"=="net45" (build-net45.bat)
+- cmd: IF "%Platform%"=="sl5" (build-sl5.bat)
+- cmd: IF "%Platform%"=="netstandard1.3" (build-netstandard1.3.bat --with-tests)
+- cmd: IF "%Platform%"=="monoandroid2.3" (build-monoandroid2.3.bat)
+- cmd: IF "%Platform%"=="xamarinios1.0" (build-xamarinios1.0.bat)
 test_script:
 - cmd: IF "%Platform%"=="net20" (nunit-console-x86 .\src\Pkcs11Interop\Pkcs11InteropTests\bin\Release\Pkcs11InteropTests.dll)
 - cmd: IF "%Platform%"=="net40" (nunit-console .\src\Pkcs11Interop\Pkcs11InteropTests\bin\Release\Pkcs11InteropTests.dll)
-- cmd: IF "%Platform%"=="net45" (nunit-console .\src\Pkcs11Interop\Pkcs11InteropTests\bin\Release\Pkcs11InteropTests.dll)
 - cmd: IF "%Platform%"=="netstandard1.3" (dotnet test .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\Pkcs11Interop.DotNetCore.Tests.csproj --configuration Release)
 artifacts:
 - path: build/$(Platform)

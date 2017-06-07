@@ -1,5 +1,8 @@
 @setlocal
 
+@rem Argument "--with-tests" forces the build of test project
+@set arg1=%1
+
 @rem Initialize Visual Studio build environment:
 @rem - Visual Studio 2017 Community/Professional/Enterprise is the preferred option
 @rem - Visual Studio 2015 is the fallback option (which might or might not work)
@@ -19,9 +22,27 @@ call %tools%
 @rem Delete output directory
 rmdir /S /Q net45
 
-@rem Clean and build solution
-msbuild ..\src\Pkcs11Interop\Pkcs11Interop.sln /p:Configuration=Release /p:Platform="Any CPU" /p:TargetFrameworkVersion=v4.5 /target:Clean || goto :error
-msbuild ..\src\Pkcs11Interop\Pkcs11Interop.sln /p:Configuration=Release /p:Platform="Any CPU" /p:TargetFrameworkVersion=v4.5 /target:Build || goto :error
+@rem Clean solution
+msbuild ..\src\Pkcs11Interop\Pkcs11Interop.sln ^
+	/p:Configuration=Release /p:Platform="Any CPU" /p:TargetFrameworkVersion=v4.5 ^
+	/target:Clean || goto :error
+
+@rem Build Pkcs11Interop project
+msbuild ..\src\Pkcs11Interop\Pkcs11Interop\Pkcs11Interop.csproj ^
+	/p:Configuration=Release /p:Platform=AnyCPU /p:TargetFrameworkVersion=v4.5 ^
+	/target:Build || goto :error
+
+@rem Build Pkcs11Interop.StrongName project
+msbuild ..\src\Pkcs11Interop\Pkcs11Interop.StrongName\Pkcs11Interop.StrongName.csproj ^
+	/p:Configuration=Release /p:Platform=AnyCPU /p:TargetFrameworkVersion=v4.5 ^
+	/target:Build || goto :error
+
+@if "%arg1%"=="--with-tests" (
+	@rem Build Pkcs11InteropTests project
+	msbuild ..\src\Pkcs11Interop\Pkcs11InteropTests\Pkcs11InteropTests.csproj ^
+		/p:Configuration=Release /p:Platform=AnyCPU /p:TargetFrameworkVersion=v4.5 ^
+		/target:Build || goto :error
+)
 
 @rem Copy result to output directory
 mkdir net45 || goto :error
