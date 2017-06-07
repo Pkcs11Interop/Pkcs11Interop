@@ -20,8 +20,7 @@ rmdir /S /Q netstandard1.3
 
 @rem Clean solution
 msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.sln ^
-	/p:Configuration=Release /p:Platform="Any CPU" /p:TargetFrameworkVersion=v2.0 ^
-	/target:Clean || goto :error
+	/p:Configuration=Release /p:Platform="Any CPU" /target:Clean || goto :error
 
 @rem Build Pkcs11Interop.NetStandard project
 msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.csproj ^
