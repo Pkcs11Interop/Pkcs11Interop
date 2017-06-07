@@ -19,6 +19,7 @@ install:
 build_script:
 - cmd: cd build && build-%Platform%.bat
 test_script:
+- cmd: IF "%Platform%"=="net20" (nunit-console .\src\Pkcs11Interop\Pkcs11InteropTests\bin\Release\Pkcs11InteropTests.dll)
 - cmd: IF "%Platform%"=="net20" (nunit-console-x86 .\src\Pkcs11Interop\Pkcs11InteropTests\bin\Release\Pkcs11InteropTests.dll)
 - cmd: IF "%Platform%"=="netstandard1.3" (dotnet test .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\Pkcs11Interop.DotNetCore.Tests.csproj --configuration Release)
 artifacts:
