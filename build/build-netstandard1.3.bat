@@ -22,6 +22,10 @@ rmdir /S /Q netstandard1.3
 msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.sln ^
 	/p:Configuration=Release /p:Platform="Any CPU" /target:Clean || goto :error
 
+@rem Restore dependencies for the solution
+msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.sln ^
+	/p:Configuration=Release /p:Platform="Any CPU" /target:Restore || goto :error
+
 @rem Build Pkcs11Interop.NetStandard project
 msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.csproj ^
 	/p:Configuration=Release /p:Platform=AnyCPU /target:Build || goto :error
