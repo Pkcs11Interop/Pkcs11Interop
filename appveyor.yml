@@ -28,7 +28,7 @@ test_script:
 - cmd: IF "%Platform%"=="net20" (nunit-console-x86 .\src\Pkcs11Interop\Pkcs11InteropTests\bin\Release\Pkcs11InteropTests.dll)
 - cmd: IF "%Platform%"=="net40" (nunit-console .\src\Pkcs11Interop\Pkcs11InteropTests\bin\Release\Pkcs11InteropTests.dll)
 #- cmd: IF "%Platform%"=="netstandard1.3" (dotnet test .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\Pkcs11Interop.DotNetCore.Tests.csproj --configuration Release)
-- cmd: IF "%Platform%"=="netstandard1.3" (copy "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\CommonExtensions\Microsoft\TestWindow\Extensions\AppVeyor*" "C:\Program Files\dotnet\sdk\1.0.4\Extensions && dotnet vstest .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\bin\Release\Pkcs11Interop.DotNetCore.Tests.dll /logger:AppVeyor)
+- cmd: IF "%Platform%"=="netstandard1.3" (copy "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\CommonExtensions\Microsoft\TestWindow\Extensions\AppVeyor*" "C:\Program Files\dotnet\sdk\1.0.4\Extensions" && dotnet vstest .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\bin\Release\Pkcs11Interop.DotNetCore.Tests.dll /logger:AppVeyor)
 artifacts:
 - path: build/$(Platform)
   name: $(Platform)
