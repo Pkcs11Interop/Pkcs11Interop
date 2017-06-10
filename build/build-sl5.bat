@@ -33,10 +33,6 @@ msbuild ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight.sln ^
 msbuild ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight.csproj ^
 	/p:Configuration=Release /p:Platform=AnyCPU /target:Build || goto :error
 
-@rem Build Pkcs11Interop.Silverlight.StrongName project
-msbuild ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight.StrongName\Pkcs11Interop.Silverlight.StrongName.csproj ^
-	/p:Configuration=Release /p:Platform=AnyCPU /target:Build || goto :error
-
 @if "%arg1%"=="--with-tests" (
 	@rem Build Pkcs11Interop.Silverlight.Tests project
 	msbuild ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight.Tests\Pkcs11Interop.Silverlight.Tests.csproj ^
@@ -47,8 +43,6 @@ msbuild ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight.StrongName\Pk
 mkdir sl5 || goto :error
 copy ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight\bin\Release\Pkcs11Interop.Silverlight.dll sl5 || goto :error
 copy ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight\bin\Release\Pkcs11Interop.Silverlight.xml sl5 || goto :error
-copy ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight.StrongName\bin\Release\Pkcs11Interop.Silverlight.StrongName.dll sl5 || goto :error
-copy ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight.StrongName\bin\Release\Pkcs11Interop.Silverlight.StrongName.xml sl5 || goto :error
 
 @echo *** BUILD SL5 SUCCESSFUL ***
 @endlocal

@@ -32,11 +32,6 @@ msbuild ..\src\Pkcs11Interop\Pkcs11Interop\Pkcs11Interop.csproj ^
 	/p:Configuration=Release /p:Platform=AnyCPU /p:TargetFrameworkVersion=v4.0 ^
 	/target:Build || goto :error
 
-@rem Build Pkcs11Interop.StrongName project
-msbuild ..\src\Pkcs11Interop\Pkcs11Interop.StrongName\Pkcs11Interop.StrongName.csproj ^
-	/p:Configuration=Release /p:Platform=AnyCPU /p:TargetFrameworkVersion=v4.0 ^
-	/target:Build || goto :error
-
 @if "%arg1%"=="--with-tests" (
 	@rem Build Pkcs11InteropTests project
 	msbuild ..\src\Pkcs11Interop\Pkcs11InteropTests\Pkcs11InteropTests.csproj ^
@@ -48,8 +43,6 @@ msbuild ..\src\Pkcs11Interop\Pkcs11Interop.StrongName\Pkcs11Interop.StrongName.c
 mkdir net40 || goto :error
 copy ..\src\Pkcs11Interop\Pkcs11Interop\bin\Release\Pkcs11Interop.dll net40 || goto :error
 copy ..\src\Pkcs11Interop\Pkcs11Interop\bin\Release\Pkcs11Interop.xml net40 || goto :error
-copy ..\src\Pkcs11Interop\Pkcs11Interop.StrongName\bin\Release\Pkcs11Interop.StrongName.dll net40 || goto :error
-copy ..\src\Pkcs11Interop\Pkcs11Interop.StrongName\bin\Release\Pkcs11Interop.StrongName.xml net40 || goto :error
 
 @echo *** BUILD NET40 SUCCESSFUL ***
 @endlocal

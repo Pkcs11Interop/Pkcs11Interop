@@ -33,6 +33,12 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\Pkcs11Interop.xml</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Pkcs11Interop.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
   </ItemGroup>
@@ -741,6 +747,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Pkcs11Interop.snk" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CHANGELOG.txt" />

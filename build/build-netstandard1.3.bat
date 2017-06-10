@@ -30,10 +30,6 @@ msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.sln ^
 msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.csproj ^
 	/p:Configuration=Release /p:Platform=AnyCPU /target:Build || goto :error
 
-@rem Build Pkcs11Interop.NetStandard.StrongName project
-msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.StrongName\Pkcs11Interop.NetStandard.StrongName.csproj ^
-	/p:Configuration=Release /p:Platform=AnyCPU /target:Build || goto :error
-
 @if "%arg1%"=="--with-tests" (
 	@rem Build Pkcs11Interop.DotNetCore.Tests project
 	msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\Pkcs11Interop.DotNetCore.Tests.csproj ^
@@ -44,8 +40,6 @@ msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.StrongName\Pk
 mkdir netstandard1.3 || goto :error
 copy ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard\bin\Release\Pkcs11Interop.NetStandard.dll netstandard1.3 || goto :error
 copy ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard\bin\Release\Pkcs11Interop.NetStandard.xml netstandard1.3 || goto :error
-copy ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.StrongName\bin\Release\Pkcs11Interop.NetStandard.StrongName.dll netstandard1.3 || goto :error
-copy ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.StrongName\bin\Release\Pkcs11Interop.NetStandard.StrongName.xml netstandard1.3 || goto :error
 
 @echo *** BUILD NETSTANDARD1.3 SUCCESSFUL ***
 @endlocal
