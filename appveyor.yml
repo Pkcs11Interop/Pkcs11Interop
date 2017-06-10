@@ -6,14 +6,14 @@ branches:
 skip_tags: true
 environment:
   matrix:
-#  - Platform: net20
-#  - Platform: net40
-#  - Platform: net45
-#  - Platform: sl5
+  - Platform: net20
+  - Platform: net40
+  - Platform: net45
+  - Platform: sl5
   - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
     Platform: netstandard1.3
-#  - Platform: monoandroid2.3
-#  - Platform: xamarinios1.0
+  - Platform: monoandroid2.3
+  - Platform: xamarinios1.0
 install:
 - cmd: IF "%Platform%"=="monoandroid2.3" (powershell -File ./build/appveyor-install-android-sdk.ps1)
 build_script:
@@ -27,10 +27,7 @@ build_script:
 test_script:
 - cmd: IF "%Platform%"=="net20" (nunit-console-x86 .\src\Pkcs11Interop\Pkcs11InteropTests\bin\Release\Pkcs11InteropTests.dll)
 - cmd: IF "%Platform%"=="net40" (nunit-console .\src\Pkcs11Interop\Pkcs11InteropTests\bin\Release\Pkcs11InteropTests.dll)
-#- cmd: IF "%Platform%"=="netstandard1.3" (dotnet test .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\Pkcs11Interop.DotNetCore.Tests.csproj --configuration Release)
-- cmd: IF "%Platform%"=="netstandard1.3" (copy "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\CommonExtensions\Microsoft\TestWindow\Extensions\AppVeyor*" "C:\Program Files\dotnet\sdk\1.0.4\Extensions" && dotnet vstest .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\bin\Release\Pkcs11Interop.DotNetCore.Tests.dll /logger:AppVeyor)
+- cmd: IF "%Platform%"=="netstandard1.3" (dotnet vstest .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\bin\Release\Pkcs11Interop.DotNetCore.Tests.dll)
 artifacts:
 - path: build/$(Platform)
   name: $(Platform)
-#on_finish:
-#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
