@@ -47,6 +47,12 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>Bin\Release\Pkcs11Interop.Silverlight.xml</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\Pkcs11Interop\Pkcs11Interop\Pkcs11Interop.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
     <Reference Include="system" />
