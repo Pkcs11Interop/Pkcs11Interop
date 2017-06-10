@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pkcs11Interop", "Pkcs11Interop\Pkcs11Interop.csproj", "{9BC3EE70-6B0B-4B26-8C06-B7AE50BE202E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pkcs11InteropTests", "Pkcs11InteropTests\Pkcs11InteropTests.csproj", "{21C986F1-411F-4F01-B9A2-5930B6E75DC7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pkcs11Interop.StrongName", "Pkcs11Interop.StrongName\Pkcs11Interop.StrongName.csproj", "{D49C28C0-7061-4F85-9B3D-2928C62A3FFB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{21C986F1-411F-4F01-B9A2-5930B6E75DC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21C986F1-411F-4F01-B9A2-5930B6E75DC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21C986F1-411F-4F01-B9A2-5930B6E75DC7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D49C28C0-7061-4F85-9B3D-2928C62A3FFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D49C28C0-7061-4F85-9B3D-2928C62A3FFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D49C28C0-7061-4F85-9B3D-2928C62A3FFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D49C28C0-7061-4F85-9B3D-2928C62A3FFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
