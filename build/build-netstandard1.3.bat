@@ -1,5 +1,8 @@
 @setlocal
 
+@rem Argument "--with-tests" forces the build of test project
+@set arg1=%1
+
 @rem Initialize build environment of Visual Studio 2017 Community/Professional/Enterprise
 @set tools=
 @set tmptools="c:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsMSBuildCmd.bat"
@@ -15,23 +18,27 @@ call %tools%
 @rem Delete output directory
 rmdir /S /Q netstandard1.3
 
-@rem Clean project
-msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.csproj ^
-/p:Configuration=Release /p:Platform=AnyCPU /target:Clean || goto :error
-msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.StrongName\Pkcs11Interop.NetStandard.StrongName.csproj ^
-/p:Configuration=Release /p:Platform=AnyCPU /target:Clean || goto :error
+@rem Clean solution
+msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.sln ^
+	/p:Configuration=Release /p:Platform="Any CPU" /target:Clean || goto :error
 
-@rem Restore dependencies
-msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.csproj ^
-/p:Configuration=Release /p:Platform=AnyCPU /target:Restore || goto :error
-msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.StrongName\Pkcs11Interop.NetStandard.StrongName.csproj ^
-/p:Configuration=Release /p:Platform=AnyCPU /target:Restore || goto :error
+@rem Restore dependencies for the solution
+msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.sln ^
+	/p:Configuration=Release /p:Platform="Any CPU" /target:Restore || goto :error
 
-@rem Build project
+@rem Build Pkcs11Interop.NetStandard project
 msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.csproj ^
-/p:Configuration=Release /p:Platform=AnyCPU /target:Build || goto :error
+	/p:Configuration=Release /p:Platform=AnyCPU /target:Build || goto :error
+
+@rem Build Pkcs11Interop.NetStandard.StrongName project
 msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.StrongName\Pkcs11Interop.NetStandard.StrongName.csproj ^
-/p:Configuration=Release /p:Platform=AnyCPU /target:Build || goto :error
+	/p:Configuration=Release /p:Platform=AnyCPU /target:Build || goto :error
+
+@if "%arg1%"=="--with-tests" (
+	@rem Build Pkcs11Interop.DotNetCore.Tests project
+	msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\Pkcs11Interop.DotNetCore.Tests.csproj ^
+		/p:Configuration=Release /p:Platform=AnyCPU /target:Build || goto :error
+)
 
 @rem Copy result to output directory
 mkdir netstandard1.3 || goto :error

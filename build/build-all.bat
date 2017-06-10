@@ -1,12 +1,15 @@
 @setlocal
 
-call build-net20.bat || goto :error
-call build-net40.bat || goto :error
-call build-net45.bat || goto :error
-call build-sl5.bat || goto :error
-call build-netstandard1.3.bat || goto :error
-call build-monoandroid2.3.bat || goto :error
-call build-xamarinios1.0.bat || goto :error
+@rem Argument "--with-tests" forces the build of test projects
+@set arg1=%1
+
+call build-net20.bat %arg1% || goto :error
+call build-net40.bat %arg1% || goto :error
+call build-net45.bat %arg1% || goto :error
+call build-sl5.bat %arg1% || goto :error
+call build-netstandard1.3.bat %arg1% || goto :error
+call build-monoandroid2.3.bat %arg1% || goto :error
+call build-xamarinios1.0.bat %arg1% || goto :error
 
 @echo *** BUILD ALL SUCCESSFUL ***
 @endlocal
