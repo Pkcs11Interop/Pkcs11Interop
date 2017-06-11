@@ -42,7 +42,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
             if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 LibraryInfo libraryInfo = pkcs11.GetInfo();
 
@@ -97,7 +97,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
             if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 List<Slot> slots = pkcs11.GetSlotList(true);
                 Assert.IsTrue(slots != null && slots.Count > 0);
@@ -154,7 +154,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
             if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 List<Slot> slots = pkcs11.GetSlotList(true);
                 Assert.IsTrue(slots != null && slots.Count > 0);
@@ -335,7 +335,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
             if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Get all slots
                 List<Slot> allSlots = pkcs11.GetSlotList(true);

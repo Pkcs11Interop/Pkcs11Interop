@@ -41,7 +41,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
             if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Get list of available slots
                 List<Slot> slots = pkcs11.GetSlotList(false);
@@ -61,7 +61,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
             if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Get list of available slots
                 List<Slot> slots = pkcs11.GetSlotList(false);
@@ -87,7 +87,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
             if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Wait for a slot event
                 bool eventOccured = false;

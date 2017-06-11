@@ -70,15 +70,15 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// Loads and initializes PCKS#11 library
         /// </summary>
         /// <param name="libraryPath">Library name or path</param>
-        /// <param name="useOsLocking">Flag indicating whether PKCS#11 library can use the native operation system threading model for locking. Should be set to true in all multithreaded applications.</param>
-        public Pkcs11(string libraryPath, bool useOsLocking)
+        /// <param name="appType">Type of application that will be using PKCS#11 library</param>
+        public Pkcs11(string libraryPath, AppType appType)
         {
             _p11 = new LowLevelAPI80.Pkcs11(libraryPath);
 
             try
             {
                 CK_C_INITIALIZE_ARGS initArgs = null;
-                if (useOsLocking)
+                if (appType == AppType.MultiThreaded)
                 {
                     initArgs = new CK_C_INITIALIZE_ARGS();
                     initArgs.Flags = CKF.CKF_OS_LOCKING_OK;
@@ -100,16 +100,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// Loads and initializes PCKS#11 library
         /// </summary>
         /// <param name="libraryPath">Library name or path</param>
-        /// <param name="useOsLocking">Flag indicating whether PKCS#11 library can use the native operation system threading model for locking. Should be set to true in all multithreaded applications.</param>
-        /// <param name="useGetFunctionList">Flag indicating whether cryptoki function pointers should be acquired via C_GetFunctionList (true) or via platform native function (false)</param>
-        public Pkcs11(string libraryPath, bool useOsLocking, bool useGetFunctionList)
+        /// <param name="appType">Type of application that will be using PKCS#11 library</param>
+        /// <param name="initType">Source of PKCS#11 function pointers</param>
+        public Pkcs11(string libraryPath, AppType appType, InitType initType)
         {
-            _p11 = new LowLevelAPI80.Pkcs11(libraryPath, useGetFunctionList);
+            _p11 = new LowLevelAPI80.Pkcs11(libraryPath, (initType == InitType.WithFunctionList));
 
             try
             {
                 CK_C_INITIALIZE_ARGS initArgs = null;
-                if (useOsLocking)
+                if (appType == AppType.MultiThreaded)
                 {
                     initArgs = new CK_C_INITIALIZE_ARGS();
                     initArgs.Flags = CKF.CKF_OS_LOCKING_OK;

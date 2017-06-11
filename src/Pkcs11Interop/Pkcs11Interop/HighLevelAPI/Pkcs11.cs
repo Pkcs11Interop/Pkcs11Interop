@@ -126,22 +126,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Loads and initializes PCKS#11 library
         /// </summary>
         /// <param name="libraryPath">Library name or path</param>
-        /// <param name="useOsLocking">Flag indicating whether PKCS#11 library can use the native operation system threading model for locking. Should be set to true in all multithreaded applications.</param>
-        public Pkcs11(string libraryPath, bool useOsLocking)
+        /// <param name="appType">Type of application that will be using PKCS#11 library</param>
+        public Pkcs11(string libraryPath, AppType appType)
         {
             if (Platform.UnmanagedLongSize == 4)
             {
                 if (Platform.StructPackingSize == 0)
-                    _p11_40 = new HighLevelAPI40.Pkcs11(libraryPath, useOsLocking);
+                    _p11_40 = new HighLevelAPI40.Pkcs11(libraryPath, appType);
                 else
-                    _p11_41 = new HighLevelAPI41.Pkcs11(libraryPath, useOsLocking);
+                    _p11_41 = new HighLevelAPI41.Pkcs11(libraryPath, appType);
             }
             else
             {
                 if (Platform.StructPackingSize == 0)
-                    _p11_80 = new HighLevelAPI80.Pkcs11(libraryPath, useOsLocking);
+                    _p11_80 = new HighLevelAPI80.Pkcs11(libraryPath, appType);
                 else
-                    _p11_81 = new HighLevelAPI81.Pkcs11(libraryPath, useOsLocking);
+                    _p11_81 = new HighLevelAPI81.Pkcs11(libraryPath, appType);
             }
         }
 
@@ -149,23 +149,23 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Loads and initializes PCKS#11 library
         /// </summary>
         /// <param name="libraryPath">Library name or path</param>
-        /// <param name="useOsLocking">Flag indicating whether PKCS#11 library can use the native operation system threading model for locking. Should be set to true in all multithreaded applications.</param>
-        /// <param name="useGetFunctionList">Flag indicating whether cryptoki function pointers should be acquired via C_GetFunctionList (true) or via platform native function (false)</param>
-        public Pkcs11(string libraryPath, bool useOsLocking, bool useGetFunctionList)
+        /// <param name="appType">Type of application that will be using PKCS#11 library</param>
+        /// <param name="initType">Source of PKCS#11 function pointers</param>
+        public Pkcs11(string libraryPath, AppType appType, InitType initType)
         {
             if (Platform.UnmanagedLongSize == 4)
             {
                 if (Platform.StructPackingSize == 0)
-                    _p11_40 = new HighLevelAPI40.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
+                    _p11_40 = new HighLevelAPI40.Pkcs11(libraryPath, appType, initType);
                 else
-                    _p11_41 = new HighLevelAPI41.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
+                    _p11_41 = new HighLevelAPI41.Pkcs11(libraryPath, appType, initType);
             }
             else
             {
                 if (Platform.StructPackingSize == 0)
-                    _p11_80 = new HighLevelAPI80.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
+                    _p11_80 = new HighLevelAPI80.Pkcs11(libraryPath, appType, initType);
                 else
-                    _p11_81 = new HighLevelAPI81.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
+                    _p11_81 = new HighLevelAPI81.Pkcs11(libraryPath, appType, initType);
             }
         }
 
