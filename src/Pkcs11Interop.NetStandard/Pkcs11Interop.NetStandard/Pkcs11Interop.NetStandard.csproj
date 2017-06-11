@@ -35,6 +35,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Common\AppType.cs">
+      <Link>Common\AppType.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Common\AttributeValueException.cs">
       <Link>Common\AttributeValueException.cs</Link>
     </Compile>
@@ -95,6 +98,9 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Common\IMechanismParams.cs">
       <Link>Common\IMechanismParams.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Common\InitType.cs">
+      <Link>Common\InitType.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Common\LibraryArchitectureException.cs">
       <Link>Common\LibraryArchitectureException.cs</Link>
     </Compile>
@@ -122,6 +128,12 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Common\Platform.cs">
       <Link>Common\Platform.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Common\SessionType.cs">
+      <Link>Common\SessionType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Common\SlotsType.cs">
+      <Link>Common\SlotsType.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Common\UnmanagedException.cs">
       <Link>Common\UnmanagedException.cs</Link>
     </Compile>
@@ -133,6 +145,9 @@
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Common\UnsupportedPlatformException.cs">
       <Link>Common\UnsupportedPlatformException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Common\WaitType.cs">
+      <Link>Common\WaitType.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Doxygen.cs">
       <Link>Doxygen.cs</Link>
