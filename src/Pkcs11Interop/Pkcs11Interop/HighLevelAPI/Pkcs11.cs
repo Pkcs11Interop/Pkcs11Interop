@@ -247,10 +247,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Waits for a slot event, such as token insertion or token removal, to occur
         /// </summary>
-        /// <param name="dontBlock">Flag indicating that method should not block until an event occurs - it should return immediately instead. See PKCS#11 standard for full explanation.</param>
+        /// <param name="waitType">Type of waiting for a slot event</param>
         /// <param name="eventOccured">Flag indicating whether event occured</param>
         /// <param name="slotId">PKCS#11 handle of slot that the event occurred in</param>
-        public void WaitForSlotEvent(bool dontBlock, out bool eventOccured, out ulong slotId)
+        public void WaitForSlotEvent(WaitType waitType, out bool eventOccured, out ulong slotId)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
@@ -260,18 +260,18 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                 uint uintSlotId = CK.CK_INVALID_HANDLE;
 
                 if (Platform.StructPackingSize == 0)
-                    _p11_40.WaitForSlotEvent(dontBlock, out eventOccured, out uintSlotId);
+                    _p11_40.WaitForSlotEvent(waitType, out eventOccured, out uintSlotId);
                 else
-                    _p11_41.WaitForSlotEvent(dontBlock, out eventOccured, out uintSlotId);
+                    _p11_41.WaitForSlotEvent(waitType, out eventOccured, out uintSlotId);
                 
                 slotId = uintSlotId;
             }
             else
             {
                 if (Platform.StructPackingSize == 0)
-                    _p11_80.WaitForSlotEvent(dontBlock, out eventOccured, out slotId);
+                    _p11_80.WaitForSlotEvent(waitType, out eventOccured, out slotId);
                 else
-                    _p11_81.WaitForSlotEvent(dontBlock, out eventOccured, out slotId);
+                    _p11_81.WaitForSlotEvent(waitType, out eventOccured, out slotId);
             }
         }
 

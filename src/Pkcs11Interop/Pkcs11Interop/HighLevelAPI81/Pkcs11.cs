@@ -184,19 +184,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// Waits for a slot event, such as token insertion or token removal, to occur
         /// </summary>
-        /// <param name="dontBlock">Flag indicating that method should not block until an event occurs - it should return immediately instead. See PKCS#11 standard for full explanation.</param>
+        /// <param name="waitType">Type of waiting for a slot event</param>
         /// <param name="eventOccured">Flag indicating whether event occured</param>
         /// <param name="slotId">PKCS#11 handle of slot that the event occurred in</param>
-        public void WaitForSlotEvent(bool dontBlock, out bool eventOccured, out ulong slotId)
+        public void WaitForSlotEvent(WaitType waitType, out bool eventOccured, out ulong slotId)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong flags = (dontBlock) ? CKF.CKF_DONT_BLOCK : 0;
+            ulong flags = (waitType == WaitType.NonBlocking) ? CKF.CKF_DONT_BLOCK : 0;
 
             ulong slotId_ = 0;
             CKR rv = _p11.C_WaitForSlotEvent(flags, ref slotId_, IntPtr.Zero);
-            if (dontBlock)
+            if (waitType == WaitType.NonBlocking)
             {
                 if (rv == CKR.CKR_OK)
                 {
