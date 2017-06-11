@@ -22,7 +22,7 @@
 namespace Net.Pkcs11Interop.Common
 {
     /// <summary>
-    /// Type of slots obtained by PKCS#11 library
+    /// Type of slots to be obtained by PKCS#11 library
     /// </summary>
     public enum SlotsType
     {
@@ -32,8 +32,8 @@ namespace Net.Pkcs11Interop.Common
         WithTokenPresent,
 
         /// <summary>
-        /// All slots (with or without token present)
+        /// All slots regardless of token presence
         /// </summary>
-        AllSlots
+        WithOrWithoutTokenPresent
     }
 }

@@ -99,7 +99,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI41
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
-                List<Slot> slots = pkcs11.GetSlotList(true);
+                List<Slot> slots = pkcs11.GetSlotList(SlotsType.WithTokenPresent);
                 Assert.IsTrue(slots != null && slots.Count > 0);
                 SlotInfo slotInfo = slots[0].GetSlotInfo();
 
@@ -156,7 +156,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI41
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
-                List<Slot> slots = pkcs11.GetSlotList(true);
+                List<Slot> slots = pkcs11.GetSlotList(SlotsType.WithTokenPresent);
                 Assert.IsTrue(slots != null && slots.Count > 0);
                 TokenInfo tokenInfo = slots[0].GetTokenInfo();
 
@@ -338,7 +338,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI41
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Get all slots
-                List<Slot> allSlots = pkcs11.GetSlotList(true);
+                List<Slot> allSlots = pkcs11.GetSlotList(SlotsType.WithTokenPresent);
                 Assert.IsTrue(allSlots != null && allSlots.Count > 0);
 
                 // Empty URI

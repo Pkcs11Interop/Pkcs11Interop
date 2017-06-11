@@ -44,7 +44,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI41
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Get list of available slots
-                List<Slot> slots = pkcs11.GetSlotList(false);
+                List<Slot> slots = pkcs11.GetSlotList(SlotsType.WithOrWithoutTokenPresent);
 
                 // Do something interesting with slots
                 Assert.IsNotNull(slots);
@@ -64,7 +64,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI41
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Get list of available slots
-                List<Slot> slots = pkcs11.GetSlotList(false);
+                List<Slot> slots = pkcs11.GetSlotList(SlotsType.WithOrWithoutTokenPresent);
                 
                 // Do something interesting with slots
                 Assert.IsNotNull(slots);

@@ -197,9 +197,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Obtains a list of slots in the system
         /// </summary>
-        /// <param name="tokenPresent">Flag indicating whether the list obtained includes only those slots with a token present (true), or all slots (false)</param>
+        /// <param name="slotsType">Type of slots to be obtained</param>
         /// <returns>List of available slots</returns>
-        public List<Slot> GetSlotList(bool tokenPresent)
+        public List<Slot> GetSlotList(SlotsType slotsType)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
@@ -210,13 +210,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI
 
                 if (Platform.StructPackingSize == 0)
                 {
-                    List<HighLevelAPI40.Slot> hlaSlotList = _p11_40.GetSlotList(tokenPresent);
+                    List<HighLevelAPI40.Slot> hlaSlotList = _p11_40.GetSlotList(slotsType);
                     foreach (HighLevelAPI40.Slot hlaSlot in hlaSlotList)
                         slotList.Add(new Slot(hlaSlot));
                 }
                 else
                 {
-                    List<HighLevelAPI41.Slot> hlaSlotList = _p11_41.GetSlotList(tokenPresent);
+                    List<HighLevelAPI41.Slot> hlaSlotList = _p11_41.GetSlotList(slotsType);
                     foreach (HighLevelAPI41.Slot hlaSlot in hlaSlotList)
                         slotList.Add(new Slot(hlaSlot));
                 }
@@ -229,13 +229,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI
 
                 if (Platform.StructPackingSize == 0)
                 {
-                    List<HighLevelAPI80.Slot> hlaSlotList = _p11_80.GetSlotList(tokenPresent);
+                    List<HighLevelAPI80.Slot> hlaSlotList = _p11_80.GetSlotList(slotsType);
                     foreach (HighLevelAPI80.Slot hlaSlot in hlaSlotList)
                         slotList.Add(new Slot(hlaSlot));
                 }
                 else
                 {
-                    List<HighLevelAPI81.Slot> hlaSlotList = _p11_81.GetSlotList(tokenPresent);
+                    List<HighLevelAPI81.Slot> hlaSlotList = _p11_81.GetSlotList(slotsType);
                     foreach (HighLevelAPI81.Slot hlaSlot in hlaSlotList)
                         slotList.Add(new Slot(hlaSlot));
                 }

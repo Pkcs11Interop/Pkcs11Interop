@@ -165,7 +165,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (!Matches(pkcs11Uri, libraryInfo))
                 return matchingSlots;
 
-            List<Slot> slots = pkcs11.GetSlotList(false);
+            List<Slot> slots = pkcs11.GetSlotList(SlotsType.WithOrWithoutTokenPresent);
             if ((slots == null) || (slots.Count == 0))
                 return slots;
 

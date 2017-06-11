@@ -147,15 +147,15 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// Obtains a list of slots in the system
         /// </summary>
-        /// <param name="tokenPresent">Flag indicating whether the list obtained includes only those slots with a token present (true), or all slots (false)</param>
+        /// <param name="slotsType">Type of slots to be obtained</param>
         /// <returns>List of available slots</returns>
-        public List<Slot> GetSlotList(bool tokenPresent)
+        public List<Slot> GetSlotList(SlotsType slotsType)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             ulong slotCount = 0;
-            CKR rv = _p11.C_GetSlotList(tokenPresent, null, ref slotCount);
+            CKR rv = _p11.C_GetSlotList((slotsType == SlotsType.WithTokenPresent), null, ref slotCount);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetSlotList", rv);
 
@@ -166,7 +166,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
             else
             {
                 ulong[] slotList = new ulong[slotCount];
-                rv = _p11.C_GetSlotList(tokenPresent, slotList, ref slotCount);
+                rv = _p11.C_GetSlotList((slotsType == SlotsType.WithTokenPresent), slotList, ref slotCount);
                 if (rv != CKR.CKR_OK)
                     throw new Pkcs11Exception("C_GetSlotList", rv);
 
