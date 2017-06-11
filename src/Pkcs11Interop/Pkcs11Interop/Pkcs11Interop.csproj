@@ -43,6 +43,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\AppType.cs" />
     <Compile Include="Common\AttributeValueException.cs" />
     <Compile Include="Common\CK.cs" />
     <Compile Include="Common\CKA.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Common\ConvertUtils.cs" />
     <Compile Include="Common\ElevatedPermissionsMissingException.cs" />
     <Compile Include="Common\IMechanismParams.cs" />
+    <Compile Include="Common\InitType.cs" />
     <Compile Include="Common\LibraryArchitectureException.cs" />
     <Compile Include="Common\NativeMethods.cs" />
     <Compile Include="Common\Pkcs11Exception.cs" />
