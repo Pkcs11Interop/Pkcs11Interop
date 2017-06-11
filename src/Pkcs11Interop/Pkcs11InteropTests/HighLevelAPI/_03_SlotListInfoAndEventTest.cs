@@ -20,6 +20,7 @@
  */
 
 using System.Collections.Generic;
+using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
 using NUnit.Framework;
 
@@ -37,10 +38,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_SlotListTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Get list of available slots
-                List<Slot> slots = pkcs11.GetSlotList(false);
+                List<Slot> slots = pkcs11.GetSlotList(SlotsType.WithOrWithoutTokenPresent);
 
                 // Do something interesting with slots
                 Assert.IsNotNull(slots);
@@ -54,10 +55,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _02_BasicSlotListAndInfoTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Get list of available slots
-                List<Slot> slots = pkcs11.GetSlotList(false);
+                List<Slot> slots = pkcs11.GetSlotList(SlotsType.WithOrWithoutTokenPresent);
                 
                 // Do something interesting with slots
                 Assert.IsNotNull(slots);
@@ -77,12 +78,12 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _03_WaitForSlotEventTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Wait for a slot event
                 bool eventOccured = false;
                 ulong slotId = 0;
-                pkcs11.WaitForSlotEvent(true, out eventOccured, out slotId);
+                pkcs11.WaitForSlotEvent(WaitType.NonBlocking, out eventOccured, out slotId);
                 Assert.IsFalse(eventOccured);
             }
         }

@@ -43,10 +43,10 @@ namespace Net.Pkcs11Interop.Tests
         public static string Pkcs11LibraryPath = GetPkcs11MockLibraryPath();
 
         /// <summary>
-        /// Flag indicating whether PKCS#11 library should use its internal native threading model for locking.
-        /// This should be set to true in all multithreaded applications.
+        /// Type of application that will be using PKCS#11 library.
+        /// When set to AppType.MultiThreaded unmanaged PKCS#11 library performs locking to ensure thread safety.
         /// </summary>
-        public static bool UseOsLocking = true;
+        public static AppType AppType = AppType.MultiThreaded;
 
         /// <summary>
         /// Serial number of token (smartcard) that should be used by these tests.
@@ -132,7 +132,7 @@ namespace Net.Pkcs11Interop.Tests
             // Pkcs11LibraryPath = @"c:\pkcs11-logger-x86.dll";
 
             // Setup arguments passed to the C_Initialize function
-            if (UseOsLocking)
+            if (AppType == AppType.MultiThreaded)
             {
                 InitArgs40 = new LLA40.CK_C_INITIALIZE_ARGS();
                 InitArgs40.Flags = CKF.CKF_OS_LOCKING_OK;

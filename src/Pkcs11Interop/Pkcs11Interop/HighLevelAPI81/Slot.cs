@@ -204,12 +204,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// Opens a session between an application and a token in a particular slot
         /// </summary>
-        /// <param name="readOnly">Flag indicating whether session should be read only</param>
+        /// <param name="sessionType">Type of session to be opened</param>
         /// <returns>Session</returns>
-        public Session OpenSession(bool readOnly)
+        public Session OpenSession(SessionType sessionType)
         {
             ulong flags = CKF.CKF_SERIAL_SESSION;
-            if (!readOnly)
+            if (sessionType == SessionType.ReadWrite)
                 flags = flags | CKF.CKF_RW_SESSION;
 
             ulong sessionId = CK.CK_INVALID_HANDLE;

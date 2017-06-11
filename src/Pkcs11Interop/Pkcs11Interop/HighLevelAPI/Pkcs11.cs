@@ -126,22 +126,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Loads and initializes PCKS#11 library
         /// </summary>
         /// <param name="libraryPath">Library name or path</param>
-        /// <param name="useOsLocking">Flag indicating whether PKCS#11 library can use the native operation system threading model for locking. Should be set to true in all multithreaded applications.</param>
-        public Pkcs11(string libraryPath, bool useOsLocking)
+        /// <param name="appType">Type of application that will be using PKCS#11 library</param>
+        public Pkcs11(string libraryPath, AppType appType)
         {
             if (Platform.UnmanagedLongSize == 4)
             {
                 if (Platform.StructPackingSize == 0)
-                    _p11_40 = new HighLevelAPI40.Pkcs11(libraryPath, useOsLocking);
+                    _p11_40 = new HighLevelAPI40.Pkcs11(libraryPath, appType);
                 else
-                    _p11_41 = new HighLevelAPI41.Pkcs11(libraryPath, useOsLocking);
+                    _p11_41 = new HighLevelAPI41.Pkcs11(libraryPath, appType);
             }
             else
             {
                 if (Platform.StructPackingSize == 0)
-                    _p11_80 = new HighLevelAPI80.Pkcs11(libraryPath, useOsLocking);
+                    _p11_80 = new HighLevelAPI80.Pkcs11(libraryPath, appType);
                 else
-                    _p11_81 = new HighLevelAPI81.Pkcs11(libraryPath, useOsLocking);
+                    _p11_81 = new HighLevelAPI81.Pkcs11(libraryPath, appType);
             }
         }
 
@@ -149,23 +149,23 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Loads and initializes PCKS#11 library
         /// </summary>
         /// <param name="libraryPath">Library name or path</param>
-        /// <param name="useOsLocking">Flag indicating whether PKCS#11 library can use the native operation system threading model for locking. Should be set to true in all multithreaded applications.</param>
-        /// <param name="useGetFunctionList">Flag indicating whether cryptoki function pointers should be acquired via C_GetFunctionList (true) or via platform native function (false)</param>
-        public Pkcs11(string libraryPath, bool useOsLocking, bool useGetFunctionList)
+        /// <param name="appType">Type of application that will be using PKCS#11 library</param>
+        /// <param name="initType">Source of PKCS#11 function pointers</param>
+        public Pkcs11(string libraryPath, AppType appType, InitType initType)
         {
             if (Platform.UnmanagedLongSize == 4)
             {
                 if (Platform.StructPackingSize == 0)
-                    _p11_40 = new HighLevelAPI40.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
+                    _p11_40 = new HighLevelAPI40.Pkcs11(libraryPath, appType, initType);
                 else
-                    _p11_41 = new HighLevelAPI41.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
+                    _p11_41 = new HighLevelAPI41.Pkcs11(libraryPath, appType, initType);
             }
             else
             {
                 if (Platform.StructPackingSize == 0)
-                    _p11_80 = new HighLevelAPI80.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
+                    _p11_80 = new HighLevelAPI80.Pkcs11(libraryPath, appType, initType);
                 else
-                    _p11_81 = new HighLevelAPI81.Pkcs11(libraryPath, useOsLocking, useGetFunctionList);
+                    _p11_81 = new HighLevelAPI81.Pkcs11(libraryPath, appType, initType);
             }
         }
 
@@ -197,9 +197,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Obtains a list of slots in the system
         /// </summary>
-        /// <param name="tokenPresent">Flag indicating whether the list obtained includes only those slots with a token present (true), or all slots (false)</param>
+        /// <param name="slotsType">Type of slots to be obtained</param>
         /// <returns>List of available slots</returns>
-        public List<Slot> GetSlotList(bool tokenPresent)
+        public List<Slot> GetSlotList(SlotsType slotsType)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
@@ -210,13 +210,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI
 
                 if (Platform.StructPackingSize == 0)
                 {
-                    List<HighLevelAPI40.Slot> hlaSlotList = _p11_40.GetSlotList(tokenPresent);
+                    List<HighLevelAPI40.Slot> hlaSlotList = _p11_40.GetSlotList(slotsType);
                     foreach (HighLevelAPI40.Slot hlaSlot in hlaSlotList)
                         slotList.Add(new Slot(hlaSlot));
                 }
                 else
                 {
-                    List<HighLevelAPI41.Slot> hlaSlotList = _p11_41.GetSlotList(tokenPresent);
+                    List<HighLevelAPI41.Slot> hlaSlotList = _p11_41.GetSlotList(slotsType);
                     foreach (HighLevelAPI41.Slot hlaSlot in hlaSlotList)
                         slotList.Add(new Slot(hlaSlot));
                 }
@@ -229,13 +229,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI
 
                 if (Platform.StructPackingSize == 0)
                 {
-                    List<HighLevelAPI80.Slot> hlaSlotList = _p11_80.GetSlotList(tokenPresent);
+                    List<HighLevelAPI80.Slot> hlaSlotList = _p11_80.GetSlotList(slotsType);
                     foreach (HighLevelAPI80.Slot hlaSlot in hlaSlotList)
                         slotList.Add(new Slot(hlaSlot));
                 }
                 else
                 {
-                    List<HighLevelAPI81.Slot> hlaSlotList = _p11_81.GetSlotList(tokenPresent);
+                    List<HighLevelAPI81.Slot> hlaSlotList = _p11_81.GetSlotList(slotsType);
                     foreach (HighLevelAPI81.Slot hlaSlot in hlaSlotList)
                         slotList.Add(new Slot(hlaSlot));
                 }
@@ -247,10 +247,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Waits for a slot event, such as token insertion or token removal, to occur
         /// </summary>
-        /// <param name="dontBlock">Flag indicating that method should not block until an event occurs - it should return immediately instead. See PKCS#11 standard for full explanation.</param>
+        /// <param name="waitType">Type of waiting for a slot event</param>
         /// <param name="eventOccured">Flag indicating whether event occured</param>
         /// <param name="slotId">PKCS#11 handle of slot that the event occurred in</param>
-        public void WaitForSlotEvent(bool dontBlock, out bool eventOccured, out ulong slotId)
+        public void WaitForSlotEvent(WaitType waitType, out bool eventOccured, out ulong slotId)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
@@ -260,18 +260,18 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                 uint uintSlotId = CK.CK_INVALID_HANDLE;
 
                 if (Platform.StructPackingSize == 0)
-                    _p11_40.WaitForSlotEvent(dontBlock, out eventOccured, out uintSlotId);
+                    _p11_40.WaitForSlotEvent(waitType, out eventOccured, out uintSlotId);
                 else
-                    _p11_41.WaitForSlotEvent(dontBlock, out eventOccured, out uintSlotId);
+                    _p11_41.WaitForSlotEvent(waitType, out eventOccured, out uintSlotId);
                 
                 slotId = uintSlotId;
             }
             else
             {
                 if (Platform.StructPackingSize == 0)
-                    _p11_80.WaitForSlotEvent(dontBlock, out eventOccured, out slotId);
+                    _p11_80.WaitForSlotEvent(waitType, out eventOccured, out slotId);
                 else
-                    _p11_81.WaitForSlotEvent(dontBlock, out eventOccured, out slotId);
+                    _p11_81.WaitForSlotEvent(waitType, out eventOccured, out slotId);
             }
         }
 

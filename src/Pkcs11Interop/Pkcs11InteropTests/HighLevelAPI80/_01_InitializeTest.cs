@@ -43,7 +43,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
             // Unmanaged PKCS#11 library is loaded by the constructor of Pkcs11 class.
             // Every PKCS#11 library needs to be initialized with C_Initialize method
             // which is also called automatically by the constructor of Pkcs11 class.
-            Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking);
+            Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType);
             
             // Do something  interesting
             
@@ -64,7 +64,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
 
             // Pkcs11 class can be used in using statement which defines a scope 
             // at the end of which an object will be disposed.
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Do something interesting
             }
@@ -80,8 +80,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             // If an application will not be accessing PKCS#11 library from multiple threads
-            // simultaneously, it should specify "false" as a value of "useOsLocking" parameter.
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, false))
+            // simultaneously, it should specify "AppType.SingleThreaded" as a value of "appType" parameter.
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, AppType.SingleThreaded))
             {
                 // Do something interesting
             }
@@ -97,9 +97,9 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
             // If an application will be accessing PKCS#11 library from multiple threads
-            // simultaneously, it should specify "true" as a value of "useOsLocking" parameter.
+            // simultaneously, it should specify "AppType.MultiThreaded" as a value of "appType" parameter.
             // PKCS#11 library will use the native operation system threading model for locking.
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, true))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, AppType.MultiThreaded))
             {
                 // Do something interesting
             }
@@ -121,7 +121,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
             // The most simple constructor of Net.Pkcs11Interop.HighLevelAPI80.Pkcs11 class uses 
             // C_GetFunctionList() approach but Pkcs11Interop also provides an alternative constructor 
             // that can specify which approach should be used.
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking, true))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType, InitType.WithFunctionList))
             {
                 // Do something interesting
             }
@@ -143,7 +143,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
             // The most simple constructor of Net.Pkcs11Interop.HighLevelAPI80.Pkcs11 class uses 
             // C_GetFunctionList() approach but Pkcs11Interop also provides an alternative constructor 
             // that can specify which approach should be used.
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking, false))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType, InitType.WithoutFunctionList))
             {
                 // Do something interesting
             }

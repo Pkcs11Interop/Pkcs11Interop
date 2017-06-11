@@ -367,7 +367,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
             if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
 
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.UseOsLocking))
+            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath))
             {
                 CKR rv = pkcs11.C_Initialize(Settings.InitArgs81);
                 Assert.IsTrue(rv == CKR.CKR_OK);

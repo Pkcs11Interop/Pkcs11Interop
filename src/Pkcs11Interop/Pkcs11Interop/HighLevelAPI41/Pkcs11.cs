@@ -70,15 +70,15 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// Loads and initializes PCKS#11 library
         /// </summary>
         /// <param name="libraryPath">Library name or path</param>
-        /// <param name="useOsLocking">Flag indicating whether PKCS#11 library can use the native operation system threading model for locking. Should be set to true in all multithreaded applications.</param>
-        public Pkcs11(string libraryPath, bool useOsLocking)
+        /// <param name="appType">Type of application that will be using PKCS#11 library</param>
+        public Pkcs11(string libraryPath, AppType appType)
         {
             _p11 = new LowLevelAPI41.Pkcs11(libraryPath);
 
             try
             {
                 CK_C_INITIALIZE_ARGS initArgs = null;
-                if (useOsLocking)
+                if (appType == AppType.MultiThreaded)
                 {
                     initArgs = new CK_C_INITIALIZE_ARGS();
                     initArgs.Flags = CKF.CKF_OS_LOCKING_OK;
@@ -100,16 +100,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// Loads and initializes PCKS#11 library
         /// </summary>
         /// <param name="libraryPath">Library name or path</param>
-        /// <param name="useOsLocking">Flag indicating whether PKCS#11 library can use the native operation system threading model for locking. Should be set to true in all multithreaded applications.</param>
-        /// <param name="useGetFunctionList">Flag indicating whether cryptoki function pointers should be acquired via C_GetFunctionList (true) or via platform native function (false)</param>
-        public Pkcs11(string libraryPath, bool useOsLocking, bool useGetFunctionList)
+        /// <param name="appType">Type of application that will be using PKCS#11 library</param>
+        /// <param name="initType">Source of PKCS#11 function pointers</param>
+        public Pkcs11(string libraryPath, AppType appType, InitType initType)
         {
-            _p11 = new LowLevelAPI41.Pkcs11(libraryPath, useGetFunctionList);
+            _p11 = new LowLevelAPI41.Pkcs11(libraryPath, (initType == InitType.WithFunctionList));
 
             try
             {
                 CK_C_INITIALIZE_ARGS initArgs = null;
-                if (useOsLocking)
+                if (appType == AppType.MultiThreaded)
                 {
                     initArgs = new CK_C_INITIALIZE_ARGS();
                     initArgs.Flags = CKF.CKF_OS_LOCKING_OK;
@@ -147,15 +147,15 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Obtains a list of slots in the system
         /// </summary>
-        /// <param name="tokenPresent">Flag indicating whether the list obtained includes only those slots with a token present (true), or all slots (false)</param>
+        /// <param name="slotsType">Type of slots to be obtained</param>
         /// <returns>List of available slots</returns>
-        public List<Slot> GetSlotList(bool tokenPresent)
+        public List<Slot> GetSlotList(SlotsType slotsType)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             uint slotCount = 0;
-            CKR rv = _p11.C_GetSlotList(tokenPresent, null, ref slotCount);
+            CKR rv = _p11.C_GetSlotList((slotsType == SlotsType.WithTokenPresent), null, ref slotCount);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetSlotList", rv);
 
@@ -166,7 +166,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             else
             {
                 uint[] slotList = new uint[slotCount];
-                rv = _p11.C_GetSlotList(tokenPresent, slotList, ref slotCount);
+                rv = _p11.C_GetSlotList((slotsType == SlotsType.WithTokenPresent), slotList, ref slotCount);
                 if (rv != CKR.CKR_OK)
                     throw new Pkcs11Exception("C_GetSlotList", rv);
 
@@ -184,19 +184,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Waits for a slot event, such as token insertion or token removal, to occur
         /// </summary>
-        /// <param name="dontBlock">Flag indicating that method should not block until an event occurs - it should return immediately instead. See PKCS#11 standard for full explanation.</param>
+        /// <param name="waitType">Type of waiting for a slot event</param>
         /// <param name="eventOccured">Flag indicating whether event occured</param>
         /// <param name="slotId">PKCS#11 handle of slot that the event occurred in</param>
-        public void WaitForSlotEvent(bool dontBlock, out bool eventOccured, out uint slotId)
+        public void WaitForSlotEvent(WaitType waitType, out bool eventOccured, out uint slotId)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            uint flags = (dontBlock) ? CKF.CKF_DONT_BLOCK : 0;
+            uint flags = (waitType == WaitType.NonBlocking) ? CKF.CKF_DONT_BLOCK : 0;
 
             uint slotId_ = 0;
             CKR rv = _p11.C_WaitForSlotEvent(flags, ref slotId_, IntPtr.Zero);
-            if (dontBlock)
+            if (waitType == WaitType.NonBlocking)
             {
                 if (rv == CKR.CKR_OK)
                 {

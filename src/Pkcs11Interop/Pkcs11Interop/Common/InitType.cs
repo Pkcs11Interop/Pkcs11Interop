@@ -1,4 +1,4 @@
-/*
+﻿/*
  *  Copyright 2012-2017 The Pkcs11Interop Project
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,32 +19,21 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
-using System;
-using Net.Pkcs11Interop.HighLevelAPI;
-using NUnit.Framework;
-
-namespace Net.Pkcs11Interop.Tests.HighLevelAPI
+namespace Net.Pkcs11Interop.Common
 {
     /// <summary>
-    /// GetInfo tests.
+    /// Source of PKCS#11 function pointers
     /// </summary>
-    [TestFixture()]
-    public class _02_GetInfoTest
+    public enum InitType
     {
         /// <summary>
-        /// Basic GetInfo test.
+        /// Recommended option: PKCS#11 function pointers will be acquired with single call of C_GetFunctionList function
         /// </summary>
-        [Test()]
-        public void _01_BasicGetInfoTest()
-        {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
-            {
-                LibraryInfo libraryInfo = pkcs11.GetInfo();
+        WithFunctionList,
 
-                // Do something interesting with library information
-                Assert.IsFalse(String.IsNullOrEmpty(libraryInfo.ManufacturerId));
-            }
-        }
+        /// <summary>
+        /// PKCS#11 function pointers will be acquired with multiple calls of GetProcAddress or dlsym function
+        /// </summary>
+        WithoutFunctionList
     }
 }
-

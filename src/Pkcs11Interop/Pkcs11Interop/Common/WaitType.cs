@@ -1,4 +1,4 @@
-/*
+﻿/*
  *  Copyright 2012-2017 The Pkcs11Interop Project
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,32 +19,21 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
-using System;
-using Net.Pkcs11Interop.HighLevelAPI;
-using NUnit.Framework;
-
-namespace Net.Pkcs11Interop.Tests.HighLevelAPI
+namespace Net.Pkcs11Interop.Common
 {
     /// <summary>
-    /// GetInfo tests.
+    /// Type of waiting for a slot event
     /// </summary>
-    [TestFixture()]
-    public class _02_GetInfoTest
+    public enum WaitType
     {
         /// <summary>
-        /// Basic GetInfo test.
+        /// Method should block until an event occurs
         /// </summary>
-        [Test()]
-        public void _01_BasicGetInfoTest()
-        {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
-            {
-                LibraryInfo libraryInfo = pkcs11.GetInfo();
+        Blocking,
 
-                // Do something interesting with library information
-                Assert.IsFalse(String.IsNullOrEmpty(libraryInfo.ManufacturerId));
-            }
-        }
+        /// <summary>
+        /// Method should not block until an event occurs
+        /// </summary>
+        NonBlocking
     }
 }
-

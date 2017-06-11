@@ -40,7 +40,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         public static Slot GetUsableSlot(Pkcs11 pkcs11)
         {
             // Get list of available slots with token present
-            List<Slot> slots = pkcs11.GetSlotList(true);
+            List<Slot> slots = pkcs11.GetSlotList(SlotsType.WithTokenPresent);
 
             Assert.IsNotNull(slots);
             Assert.IsTrue(slots.Count > 0);

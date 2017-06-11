@@ -1,4 +1,4 @@
-/*
+﻿/*
  *  Copyright 2012-2017 The Pkcs11Interop Project
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,32 +19,21 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
-using System;
-using Net.Pkcs11Interop.HighLevelAPI;
-using NUnit.Framework;
-
-namespace Net.Pkcs11Interop.Tests.HighLevelAPI
+namespace Net.Pkcs11Interop.Common
 {
     /// <summary>
-    /// GetInfo tests.
+    /// Type of application that will be using PKCS#11 library
     /// </summary>
-    [TestFixture()]
-    public class _02_GetInfoTest
+    public enum AppType
     {
         /// <summary>
-        /// Basic GetInfo test.
+        /// Recommended option: PKCS#11 library will be used from multi-threaded application and needs to perform locking with native OS threading model (CKF_OS_LOCKING_OK)
         /// </summary>
-        [Test()]
-        public void _01_BasicGetInfoTest()
-        {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
-            {
-                LibraryInfo libraryInfo = pkcs11.GetInfo();
+        MultiThreaded,
 
-                // Do something interesting with library information
-                Assert.IsFalse(String.IsNullOrEmpty(libraryInfo.ManufacturerId));
-            }
-        }
+        /// <summary>
+        /// PKCS#11 library will be used from single-threaded application and does not need to perform any kind of locking
+        /// </summary>
+        SingleThreaded
     }
 }
-
