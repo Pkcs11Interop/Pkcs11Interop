@@ -432,7 +432,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         }
 
         /// <summary>
-        /// Reads value of attribute and returns it as attribute array (CURRENTLY NOT IMPLEMENTED)
+        /// Reads value of attribute and returns it as attribute array
         /// </summary>
         /// <returns>Value of attribute</returns>
         public List<ObjectAttribute> GetValueAsObjectAttributeList()
