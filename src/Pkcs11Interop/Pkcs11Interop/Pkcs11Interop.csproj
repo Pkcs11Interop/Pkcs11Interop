@@ -79,6 +79,7 @@
     <Compile Include="Common\UnmanagedLibrary.cs" />
     <Compile Include="Common\UnmanagedMemory.cs" />
     <Compile Include="Common\UnsupportedPlatformException.cs" />
+    <Compile Include="Common\WaitType.cs" />
     <Compile Include="Doxygen.cs" />
     <Compile Include="HighLevelAPI40\LibraryInfo.cs" />
     <Compile Include="HighLevelAPI40\Mechanism.cs" />
