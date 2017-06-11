@@ -74,6 +74,7 @@
     <Compile Include="Common\Pkcs11UriSharedUtils.cs" />
     <Compile Include="Common\Pkcs11UriSpec.cs" />
     <Compile Include="Common\Platform.cs" />
+    <Compile Include="Common\SessionType.cs" />
     <Compile Include="Common\SlotsType.cs" />
     <Compile Include="Common\UnmanagedException.cs" />
     <Compile Include="Common\UnmanagedLibrary.cs" />
