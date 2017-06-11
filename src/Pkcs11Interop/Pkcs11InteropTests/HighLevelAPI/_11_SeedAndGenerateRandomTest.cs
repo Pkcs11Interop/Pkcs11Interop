@@ -43,7 +43,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 Slot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RO (read-only) session
-                using (Session session = slot.OpenSession(true))
+                using (Session session = slot.OpenSession(SessionType.ReadOnly))
                 {
                     // Mix additional seed material into the token's random number generator
                     byte[] seed = ConvertUtils.Utf8StringToBytes("Additional seed material");
@@ -66,7 +66,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 Slot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RO (read-only) session
-                using (Session session = slot.OpenSession(true))
+                using (Session session = slot.OpenSession(SessionType.ReadOnly))
                 {
                     // Get random or pseudo-random data
                     byte[] randomData = session.GenerateRandom(256);

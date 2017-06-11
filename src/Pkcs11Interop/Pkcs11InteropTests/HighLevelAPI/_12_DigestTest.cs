@@ -45,7 +45,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 Slot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RO session
-                using (Session session = slot.OpenSession(true))
+                using (Session session = slot.OpenSession(SessionType.ReadOnly))
                 {
                     // Specify digesting mechanism
                     Mechanism mechanism = new Mechanism(CKM.CKM_SHA_1);
@@ -73,7 +73,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 Slot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RO session
-                using (Session session = slot.OpenSession(true))
+                using (Session session = slot.OpenSession(SessionType.ReadOnly))
                 {
                     // Specify digesting mechanism
                     Mechanism mechanism = new Mechanism(CKM.CKM_SHA_1);
@@ -106,7 +106,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 Slot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RW session
-                using (Session session = slot.OpenSession(false))
+                using (Session session = slot.OpenSession(SessionType.ReadWrite))
                 {
                     // Login as normal user
                     session.Login(CKU.CKU_USER, Settings.NormalUserPin);

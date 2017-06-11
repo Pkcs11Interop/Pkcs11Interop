@@ -291,7 +291,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 Slot slot = Helpers.GetUsableSlot(pkcs11);
 
                 // Open RO session
-                using (Session session = slot.OpenSession(true))
+                using (Session session = slot.OpenSession(SessionType.ReadOnly))
                 {
                     // Login interactively via vendor specific function C_EjectToken
                     session.InteractiveLogin();

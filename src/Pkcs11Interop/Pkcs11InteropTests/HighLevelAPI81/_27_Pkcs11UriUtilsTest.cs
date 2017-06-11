@@ -109,7 +109,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
                     throw new Exception("None of the slots matches PKCS#11 URI");
 
                 // Open read only session with first token that matches URI
-                using (Session session = slots[0].OpenSession(true))
+                using (Session session = slots[0].OpenSession(SessionType.ReadOnly))
                 {
                     // Login as normal user with PIN acquired from URI
                     session.Login(CKU.CKU_USER, pkcs11Uri.PinValue);

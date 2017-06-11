@@ -254,14 +254,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Opens a session between an application and a token in a particular slot
         /// </summary>
-        /// <param name="readOnly">Flag indicating whether session should be read only</param>
+        /// <param name="sessionType">Type of session to be opened</param>
         /// <returns>Session</returns>
-        public Session OpenSession(bool readOnly)
+        public Session OpenSession(SessionType sessionType)
         {
             if (Platform.UnmanagedLongSize == 4)
-                return (Platform.StructPackingSize == 0) ? new Session(_slot40.OpenSession(readOnly)) : new Session(_slot41.OpenSession(readOnly));
+                return (Platform.StructPackingSize == 0) ? new Session(_slot40.OpenSession(sessionType)) : new Session(_slot41.OpenSession(sessionType));
             else
-                return (Platform.StructPackingSize == 0) ? new Session(_slot80.OpenSession(readOnly)) : new Session(_slot81.OpenSession(readOnly));
+                return (Platform.StructPackingSize == 0) ? new Session(_slot80.OpenSession(sessionType)) : new Session(_slot81.OpenSession(sessionType));
         }
 
         /// <summary>

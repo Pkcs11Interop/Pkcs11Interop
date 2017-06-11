@@ -19,6 +19,7 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
+using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
 using NUnit.Framework;
 
@@ -42,7 +43,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 Slot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RO (read-only) session
-                using (Session session = slot.OpenSession(true))
+                using (Session session = slot.OpenSession(SessionType.ReadOnly))
                 {
                     // Get operation state
                     byte[] state = session.GetOperationState();

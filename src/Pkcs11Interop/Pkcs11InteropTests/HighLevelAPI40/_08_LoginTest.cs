@@ -46,7 +46,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI40
                 Slot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RO session
-                using (Session session = slot.OpenSession(true))
+                using (Session session = slot.OpenSession(SessionType.ReadOnly))
                 {
                     // Login as normal user
                     session.Login(CKU.CKU_USER, Settings.NormalUserPin);
@@ -73,7 +73,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI40
                 Slot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RW session
-                using (Session session = slot.OpenSession(false))
+                using (Session session = slot.OpenSession(SessionType.ReadWrite))
                 {
                     // Login as SO (security officer)
                     session.Login(CKU.CKU_SO, Settings.SecurityOfficerPin);

@@ -43,7 +43,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 Slot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RO (read-only) session
-                using (Session session = slot.OpenSession(true))
+                using (Session session = slot.OpenSession(SessionType.ReadOnly))
                 {
                     // Legacy functions should always return CKR_FUNCTION_NOT_PARALLEL
                     try
@@ -71,7 +71,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 Slot slot = Helpers.GetUsableSlot(pkcs11);
             
                 // Open RO (read-only) session
-                using (Session session = slot.OpenSession(true))
+                using (Session session = slot.OpenSession(SessionType.ReadOnly))
                 {
                     // Legacy functions should always return CKR_FUNCTION_NOT_PARALLEL
                     try

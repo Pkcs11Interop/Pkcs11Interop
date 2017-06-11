@@ -54,7 +54,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI41
                     slot.InitToken(Settings.SecurityOfficerPin, Settings.ApplicationName);
 
                     // Open RW session
-                    using (Session session = slot.OpenSession(false))
+                    using (Session session = slot.OpenSession(SessionType.ReadWrite))
                     {
                         // Login as SO (security officer)
                         session.Login(CKU.CKU_SO, Settings.SecurityOfficerPin);

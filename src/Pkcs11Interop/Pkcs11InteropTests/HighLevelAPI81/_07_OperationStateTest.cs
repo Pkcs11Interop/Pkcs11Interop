@@ -46,7 +46,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
                 Slot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RO (read-only) session
-                using (Session session = slot.OpenSession(true))
+                using (Session session = slot.OpenSession(SessionType.ReadOnly))
                 {
                     // Get operation state
                     byte[] state = session.GetOperationState();
