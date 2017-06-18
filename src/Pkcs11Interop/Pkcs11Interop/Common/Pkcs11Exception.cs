@@ -87,11 +87,12 @@ namespace Net.Pkcs11Interop.Common
         protected Pkcs11Exception(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
-            if (info != null)
-            {
-                _method = info.GetString("Method");
-                _rv = (CKR)info.GetUInt32("RV");
-            }
+            // coverity[check_after_deref]
+            if (info == null)
+                throw new ArgumentNullException("info");
+
+            _method = info.GetString("Method");
+            _rv = (CKR)info.GetUInt32("RV");
         }
 
         /// <summary>
@@ -101,11 +102,11 @@ namespace Net.Pkcs11Interop.Common
         /// <param name="context">The destination for this serialization</param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            if (info != null)
-            {
-                info.AddValue("Method", _method);
-                info.AddValue("RV", _rv);
-            }
+            if (info == null)
+                throw new ArgumentNullException("info");
+
+            info.AddValue("Method", _method);
+            info.AddValue("RV", _rv);
 
             base.GetObjectData(info, context);
         }

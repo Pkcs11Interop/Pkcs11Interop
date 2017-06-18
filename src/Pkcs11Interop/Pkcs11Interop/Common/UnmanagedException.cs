@@ -80,12 +80,14 @@ namespace Net.Pkcs11Interop.Common
         protected UnmanagedException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
-            if (info != null)
-            {
-                bool errorCodeSet = info.GetBoolean("ErrorCodeSet");
-                if (errorCodeSet)
-                    _errorCode = info.GetInt32("ErrorCode");
-            }
+            // coverity[check_after_deref]
+            if (info == null)
+                throw new ArgumentNullException("info");
+
+            bool errorCodeSet = info.GetBoolean("ErrorCodeSet");
+
+            if (errorCodeSet)
+                _errorCode = info.GetInt32("ErrorCode");
         }
 
         /// <summary>
@@ -95,13 +97,14 @@ namespace Net.Pkcs11Interop.Common
         /// <param name="context">The destination for this serialization</param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            if (info != null)
-            {
-                bool errorCodeSet = (_errorCode != null);
-                info.AddValue("ErrorCodeSet", errorCodeSet);
-                if (errorCodeSet)
-                    info.AddValue("ErrorCode", _errorCode.Value);
-            }
+            if (info == null)
+                throw new ArgumentNullException("info");
+
+            bool errorCodeSet = (_errorCode != null);
+            info.AddValue("ErrorCodeSet", errorCodeSet);
+
+            if (errorCodeSet)
+                info.AddValue("ErrorCode", _errorCode.Value);
 
             base.GetObjectData(info, context);
         }

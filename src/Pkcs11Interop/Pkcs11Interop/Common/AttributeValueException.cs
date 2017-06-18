@@ -122,10 +122,11 @@ namespace Net.Pkcs11Interop.Common
         protected AttributeValueException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
-            if (info != null)
-            {
-                _attribute = (CKA)info.GetUInt32("Attribute");
-            }
+            // coverity[check_after_deref]
+            if (info == null)
+                throw new ArgumentNullException("info");
+
+            _attribute = (CKA)info.GetUInt32("Attribute");
         }
 
         /// <summary>
@@ -135,10 +136,10 @@ namespace Net.Pkcs11Interop.Common
         /// <param name="context">The destination for this serialization</param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            if (info != null)
-            {
-                info.AddValue("Attribute", _attribute);
-            }
+            if (info == null)
+                throw new ArgumentNullException("info");
+
+            info.AddValue("Attribute", _attribute);
 
             base.GetObjectData(info, context);
         }

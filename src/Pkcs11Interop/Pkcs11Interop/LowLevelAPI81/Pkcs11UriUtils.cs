@@ -263,11 +263,10 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
             if (pkcs11Uri == null)
                 throw new ArgumentNullException("pkcs11Uri");
 
-            List<CK_ATTRIBUTE> attributes = null;
+            List<CK_ATTRIBUTE> attributes = new List<CK_ATTRIBUTE>();
 
             if (pkcs11Uri.DefinesObject)
             {
-                attributes = new List<CK_ATTRIBUTE>();
                 if (pkcs11Uri.Type != null)
                     attributes.Add(CkaUtils.CreateAttribute(CKA.CKA_CLASS, pkcs11Uri.Type.Value));
                 if (pkcs11Uri.Object != null)
