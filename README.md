@@ -2,7 +2,20 @@ Pkcs11Interop
 =============
 **Managed .NET wrapper for unmanaged PKCS#11 libraries**
 
-[![Build status](https://ci.appveyor.com/api/projects/status/lb1jxb4t4203g3t9?svg=true)](https://ci.appveyor.com/project/pkcs11interop/pkcs11interop)
+[![Project status](https://img.shields.io/badge/Project-status-lightgrey.svg)](https://www.pkcs11interop.net) 
+[![Project license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://github.com/Pkcs11Interop/Pkcs11Interop/blob/master/LICENSE.md) 
+[![AppVeyor status](https://ci.appveyor.com/api/projects/status/lb1jxb4t4203g3t9?svg=true)](https://ci.appveyor.com/project/pkcs11interop/pkcs11interop) 
+[![Coverity status](https://img.shields.io/coverity/scan/2961.svg)](https://scan.coverity.com/projects/pkcs11interop-pkcs11interop)  
+[![GitHub status](https://img.shields.io/badge/GitHub-status-lightgrey.svg)](https://github.com/Pkcs11Interop/Pkcs11Interop) 
+[![GitHub release](https://img.shields.io/github/release/Pkcs11Interop/Pkcs11Interop.svg)](https://github.com/Pkcs11Interop/Pkcs11Interop/releases) 
+[![GitHub commits](https://img.shields.io/github/commits-since/Pkcs11Interop/Pkcs11Interop/3.3.0.svg)](https://github.com/Pkcs11Interop/Pkcs11Interop/commits/master) 
+[![GitHub stars](https://img.shields.io/github/stars/Pkcs11Interop/Pkcs11Interop.svg)](https://github.com/Pkcs11Interop/Pkcs11Interop/stargazers) 
+[![GitHub watchers](https://img.shields.io/github/watchers/Pkcs11Interop/Pkcs11Interop.svg)](https://github.com/Pkcs11Interop/Pkcs11Interop/watchers) 
+[![GitHub forks](https://img.shields.io/github/forks/Pkcs11Interop/Pkcs11Interop.svg)](https://github.com/Pkcs11Interop/Pkcs11Interop/network) 
+[![GitHub issues](https://img.shields.io/github/issues-raw/Pkcs11Interop/Pkcs11Interop.svg)](https://github.com/Pkcs11Interop/Pkcs11Interop/issues)  
+[![NuGet status](https://img.shields.io/badge/NuGet-status-lightgrey.svg)](https://www.nuget.org/packages/Pkcs11Interop/) 
+[![NuGet release](https://img.shields.io/nuget/v/Pkcs11Interop.svg)](https://www.nuget.org/packages/Pkcs11Interop/) 
+[![NuGet downloads](https://img.shields.io/nuget/dt/Pkcs11Interop.svg)](https://www.nuget.org/packages/Pkcs11Interop/) 
 
 ## Table of Contents
 
