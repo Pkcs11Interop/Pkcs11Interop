@@ -76,11 +76,11 @@ Pkcs11Interop is available under the terms of the [Apache License, Version 2.0](
 
 ## Support
 
-Pick one of the options that best suits your needs:
+If you need help please pick one of the options that best suits your needs:
 
-* Public [mailing list](https://groups.google.com/d/forum/pkcs11interop) available at [pkcs11interop@googlegroups.com](mailto:pkcs11interop@googlegroups.com)
 * Public [issue tracker](https://github.com/Pkcs11Interop/Pkcs11Interop/issues) available at GitHub.com
-* Questions with [pkcs11 tag](http://stackoverflow.com/questions/tagged/pkcs11) posted at StackOverflow.com
+* Questions with [pkcs11interop tag](https://stackoverflow.com/questions/tagged/pkcs11interop) posted at StackOverflow.com
+* Public [mailing list](https://groups.google.com/d/forum/pkcs11interop) available at [pkcs11interop@googlegroups.com](mailto:pkcs11interop@googlegroups.com)
 * Commercial support and consulting from the original developer available at [info@pkcs11interop.net](mailto:info@pkcs11interop.net)
 
 ## Related projects
