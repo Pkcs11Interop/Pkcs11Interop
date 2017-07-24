@@ -80,9 +80,10 @@ namespace Net.Pkcs11Interop.Common
         protected UnmanagedException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
-            // coverity[check_after_deref]
+#if !COVERITY // To avoid false positive - CID 181201:  Null pointer dereferences (REVERSE_INULL) >>> Null - checking "info" suggests that it may be null, but it has already been dereferenced on all paths leading to the check.
             if (info == null)
                 throw new ArgumentNullException("info");
+#endif
 
             bool errorCodeSet = info.GetBoolean("ErrorCodeSet");
 
