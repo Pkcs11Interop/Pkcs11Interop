@@ -22,23 +22,23 @@ namespace ConsoleApplication1
     class Program
     {
         // Defines path to unmanaged PKCS#11 library provided by the cryptographic device vendor
-        static string pkcs11LibraryPath = @"c:\SoftHSM2\lib\softhsm2.dll";
+        static string pkcs11LibraryPath = @"c:\SoftHSM2\lib\softhsm2-x64.dll";
 
         static void Main(string[] args)
         {
             // Load unmanaged PKCS#11 library
-            using (Pkcs11 pkcs11 = new Pkcs11(pkcs11LibraryPath, true))
+            using (Pkcs11 pkcs11 = new Pkcs11(pkcs11LibraryPath, AppType.SingleThreaded))
             {
                 // Show general information about loaded library
                 LibraryInfo libraryInfo = pkcs11.GetInfo();
 
-                Console.WriteLine("Library" );
+                Console.WriteLine("Library");
                 Console.WriteLine("  Manufacturer:       " + libraryInfo.ManufacturerId);
                 Console.WriteLine("  Description:        " + libraryInfo.LibraryDescription);
                 Console.WriteLine("  Version:            " + libraryInfo.LibraryVersion);
 
                 // Get list of all available slots
-                foreach (Slot slot in pkcs11.GetSlotList(false))
+                foreach (Slot slot in pkcs11.GetSlotList(SlotsType.WithOrWithoutTokenPresent))
                 {
                     // Show basic information about slot
                     SlotInfo slotInfo = slot.GetSlotInfo();
@@ -75,21 +75,21 @@ namespace ConsoleApplication1
 When you execute your application you should get output similar to this one:
 
 ```
-PKCS#11 library
+Library
   Manufacturer:       SoftHSM
   Description:        Implementation of PKCS11
-  Version:            2.0
+  Version:            2.3
 
 Slot
   Manufacturer:       SoftHSM project
-  Description:        SoftHSM slot 0
+  Description:        SoftHSM slot ID 0x0
   Token present:      True
 Token
   Manufacturer:       SoftHSM project
   Model:              SoftHSM v2
-  Serial number:
-  Label:
-Supported mechanisms:
+  Serial number:      
+  Label:              
+Supported mechanisms: 
   CKM_MD5
   CKM_SHA_1
   CKM_SHA224
@@ -134,28 +134,25 @@ Supported mechanisms:
   CKM_AES_ECB
   CKM_AES_CBC
   CKM_AES_CBC_PAD
-  8457
+  CKM_AES_CTR
+  CKM_AES_KEY_WRAP
+  CKM_AES_KEY_WRAP_PAD
   CKM_AES_ECB_ENCRYPT_DATA
   CKM_AES_CBC_ENCRYPT_DATA
   CKM_DSA_PARAMETER_GEN
   CKM_DSA_KEY_PAIR_GEN
   CKM_DSA
   CKM_DSA_SHA1
-  19
-  20
-  21
-  22
+  CKM_DSA_SHA224
+  CKM_DSA_SHA256
+  CKM_DSA_SHA384
+  CKM_DSA_SHA512
   CKM_DH_PKCS_KEY_PAIR_GEN
   CKM_DH_PKCS_PARAMETER_GEN
   CKM_DH_PKCS_DERIVE
   CKM_ECDSA_KEY_PAIR_GEN
   CKM_ECDSA
   CKM_ECDH1_DERIVE
-  4624
-  4625
-  4608
-  4609
-  4610
 ```
 
 That's it! You have successfully used unmanaged PKCS#11 library in your .NET application.
