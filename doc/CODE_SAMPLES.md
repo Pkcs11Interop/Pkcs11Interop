@@ -2,9 +2,9 @@
 
 Pkcs11Interop source code contains unit tests covering all methods of PKCS#11 API. Unit tests are well documented and they also serve as official code samples.
 
-New objects/keys with "Pkcs11Interop" label are created/generated for every test method that needs to work with objects. They are always deleted at the end of the test method but they might not when the test fails. Any left-over objects with "Pkcs11Interop" label can be safely deleted e.g. with [Pkcs11Admin](https://www.pkcs11admin.net/) application.
-
 **WARNING: Our documentation and code samples do not cover the theory of security/cryptography or the strengths/weaknesses of specific algorithms. You should always understand what you are doing and why. Please do not simply copy our code samples and expect it to fully solve your usage scenario. Cryptography is an advanced topic and one should consult a solid and preferably recent reference in order to make the best of it.**
+
+*Note: New objects/keys with "Pkcs11Interop" label are created/generated for every test method that needs to work with objects. They are always deleted at the end of the test method but they might not when the test fails. Any left-over objects with "Pkcs11Interop" label can be safely deleted e.g. with [Pkcs11Admin](https://www.pkcs11admin.net/) application.*
 
 Following source files contains artifacts reused in all unit tests:
 
@@ -17,51 +17,51 @@ Following source files contains artifacts reused in all unit tests:
 Following source files contain valuable code samples:
 
 * Test file: [HighLevelAPI/_01_InitializeTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_01_InitializeTest.cs)  
-  Involved PKCS#11 functions: C_Initialize, C_Finalize  
+  Involved PKCS#11 functions: `C_Initialize`, `C_Finalize`  
   Demonstrates how to initialize and release PKCS#11 library in single-threaded or multi-threaded applications.
 
 * Test file: [HighLevelAPI/_02_GetInfoTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_02_GetInfoTest.cs)  
-  Involved PKCS#11 functions: C_GetInfo  
+  Involved PKCS#11 functions: `C_GetInfo`  
   Demonstrates how to get basic information about PKCS#11 library.
 
 * Test file: [HighLevelAPI/_03_SlotListInfoAndEventTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_03_SlotListInfoAndEventTest.cs)  
-  Involved PKCS#11 functions: C_GetSlotList, C_GetSlotInfo, C_WaitForSlotEvent  
+  Involved PKCS#11 functions: `C_GetSlotList`, `C_GetSlotInfo`, `C_WaitForSlotEvent`  
   Demonstrates how to get the list of available slots and basic information about the slot.
 
 * Test file: [HighLevelAPI/_04_TokenInfoTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_04_TokenInfoTest.cs)  
-  Involved PKCS#11 functions: C_GetTokenInfo  
+  Involved PKCS#11 functions: `C_GetTokenInfo`  
   Demonstrates how to get basic information about the token.
 
 * Test file: [HighLevelAPI/_05_MechanismListAndInfoTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_05_MechanismListAndInfoTest.cs)  
-  Involved PKCS#11 functions: C_GetMechanismList, C_GetMechanismInfo  
+  Involved PKCS#11 functions: `C_GetMechanismList`, `C_GetMechanismInfo`  
   Demonstrates how to get the list of supported mechanisms and more details about one of them.
 
 * Test file: [HighLevelAPI/_06_SessionTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_06_SessionTest.cs)  
-  Involved PKCS#11 functions: C_OpenSession, C_CloseSession, C_CloseAllSessions, C_GetSessionInfo  
+  Involved PKCS#11 functions: `C_OpenSession`, `C_CloseSession`, `C_CloseAllSessions`, `C_GetSessionInfo`  
   Demonstrates how to open and close read-only or read-write session with the token.
 
 * Test file: [HighLevelAPI/_07_OperationStateTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_07_OperationStateTest.cs)  
-  Involved PKCS#11 functions: C_GetOperationState, C_SetOperationState  
+  Involved PKCS#11 functions: `C_GetOperationState`, `C_SetOperationState`  
   Demonstrates how to save and restore the state of cryptographic operation.
 
 * Test file: [HighLevelAPI/_08_LoginTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_08_LoginTest.cs)  
-  Involved PKCS#11 functions: C_Login, C_Logout  
+  Involved PKCS#11 functions: `C_Login`, `C_Logout`  
   Demonstrates how to login and logout as normal user or security officer.
 
 * Test file: [HighLevelAPI/x_09_InitTokenAndPinTestx.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_09_InitTokenAndPinTest.cs)  
-  Involved PKCS#11 functions: C_InitToken, C_InitPIN  
+  Involved PKCS#11 functions: `C_InitToken`, `C_InitPIN`  
   Demonstrates how to initialize token and PIN.
 
 * Test file: [HighLevelAPI/_10_SetPinTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_10_SetPinTest.cs)  
-  Involved PKCS#11 functions: C_SetPIN  
+  Involved PKCS#11 functions: `C_SetPIN`  
   Demonstrates how to change PIN.
 
 * Test file: [HighLevelAPI/_11_SeedAndGenerateRandomTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_11_SeedAndGenerateRandomTest.cs)  
-  Involved PKCS#11 functions: C_SeedRandom, C_GenerateRandom  
+  Involved PKCS#11 functions: `C_SeedRandom`, `C_GenerateRandom`  
   Demonstrates how to seed RNG and generate random bytes.
 
 * Test file: [HighLevelAPI/_12_DigestTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_12_DigestTest.cs)  
-  Involved PKCS#11 functions: C_DigestInit, C_Digest, C_DigestUpdate, C_DigestFinal, C_DigestKey  
+  Involved PKCS#11 functions: `C_DigestInit`, `C_Digest`, `C_DigestUpdate`, `C_DigestFinal`, `C_DigestKey`  
   Demonstrates how to compute digest of arbitrary data.
 
 * Test file: [HighLevelAPI/_13_ObjectAttributeTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_13_ObjectAttributeTest.cs)  
@@ -73,51 +73,51 @@ Following source files contain valuable code samples:
   Demonstrates how to create and dispose mechanisms with parameters of various types.
 
 * Test file: [HighLevelAPI/_15_CreateCopyDestroyObjectTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_15_CreateCopyDestroyObjectTest.cs)  
-  Involved PKCS#11 functions: C_CreateObject, C_DestroyObject, C_CopyObject, C_GetObjectSize  
+  Involved PKCS#11 functions: `C_CreateObject`, `C_DestroyObject`, `C_CopyObject`, `C_GetObjectSize`  
   Demonstrates how to create, destroy and copy data objects.
 
 * Test file: [HighLevelAPI/_16_GetAndSetAttributeValueTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_16_GetAndSetAttributeValueTest.cs)  
-  Involved PKCS#11 functions: C_GetAttributeValue, C_SetAttributeValue  
+  Involved PKCS#11 functions: `C_GetAttributeValue`, `C_SetAttributeValue`  
   Demonstrates how to get and set values of object attributes.
 
 * Test file: [HighLevelAPI/_17_ObjectFindingTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_17_ObjectFindingTest.cs)  
-  Involved PKCS#11 functions: C_FindObjectsInit, C_FindObjects, C_FindObjectsFinal  
+  Involved PKCS#11 functions: `C_FindObjectsInit`, `C_FindObjects`, `C_FindObjectsFinal`  
   Demonstrates how to search for objects (keys, certificates, ...).
 
 * Test file: [HighLevelAPI/_18_GenerateKeyAndKeyPairTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_18_GenerateKeyAndKeyPairTest.cs)  
-  Involved PKCS#11 functions: C_GenerateKey, C_GenerateKeyPair  
+  Involved PKCS#11 functions: `C_GenerateKey`, `C_GenerateKeyPair`  
   Demonstrates how to generate symmetric keys or asymmetric key pairs.
 
 * Test file: [HighLevelAPI/_19_EncryptAndDecryptTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_19_EncryptAndDecryptTest.cs)  
-  Involved PKCS#11 functions: C_EncryptInit, C_Encrypt, C_EncryptUpdate, C_EncryptFinal, C_DecryptInit, C_Decrypt, C_DecryptUpdate, C_DecryptFinal  
+  Involved PKCS#11 functions: `C_EncryptInit`, `C_Encrypt`, `C_EncryptUpdate`, `C_EncryptFinal`, `C_DecryptInit`, `C_Decrypt`, `C_DecryptUpdate`, `C_DecryptFinal`  
   Demonstrates how to encrypt and decrypt arbitrary data.
 
 * Test file: [HighLevelAPI/_20_SignAndVerifyTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_20_SignAndVerifyTest.cs)  
-  Involved PKCS#11 functions: C_SignInit, C_Sign, C_SignUpdate, C_SignFinal, C_VerifyInit, C_Verify, C_VerifyUpdate, C_VerifyFinal  
+  Involved PKCS#11 functions: `C_SignInit`, `C_Sign`, `C_SignUpdate`, `C_SignFinal`, `C_VerifyInit`, `C_Verify`, `C_VerifyUpdate`, `C_VerifyFinal`  
   Demonstrates how to create and verify signature of arbitrary data.
 
 * Test file: [HighLevelAPI/_21_SignAndVerifyRecoverTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_21_SignAndVerifyRecoverTest.cs)  
-  Involved PKCS#11 functions: C_SignRecoverInit, C_SignRecover, C_VerifyRecoverInit, C_VerifyRecover  
+  Involved PKCS#11 functions: `C_SignRecoverInit`, `C_SignRecover`, `C_VerifyRecoverInit`, `C_VerifyRecover`  
   Demonstrates how to create and verify signature of arbitrary data where the data can be recovered from the signature.
 
 * Test file: [HighLevelAPI/_22_DigestEncryptAndDecryptDigestTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_22_DigestEncryptAndDecryptDigestTest.cs)  
-  Involved PKCS#11 functions: C_DigestEncryptUpdate, C_DecryptDigestUpdate  
+  Involved PKCS#11 functions: `C_DigestEncryptUpdate`, `C_DecryptDigestUpdate`  
   Demonstrates how to digest and encrypt arbitrary data simultaneously and then decrypt and digest simultaneously.
 
 * Test file: [HighLevelAPI/_23_SignEncryptAndDecryptVerifyTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_23_SignEncryptAndDecryptVerifyTest.cs)  
-  Involved PKCS#11 functions: C_SignEncryptUpdate, C_DecryptVerifyUpdate  
+  Involved PKCS#11 functions: `C_SignEncryptUpdate`, `C_DecryptVerifyUpdate`  
   Demonstrates how to encrypt and create signature of arbitrary data simultaneously and then decrypt and verify signature simultaneously.
 
 * Test file: [HighLevelAPI/_24_WrapAndUnwrapKeyTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_24_WrapAndUnwrapKeyTest.cs)  
-  Involved PKCS#11 functions: C_WrapKey, C_UnwrapKey  
+  Involved PKCS#11 functions: `C_WrapKey`, `C_UnwrapKey`  
   Demonstrates how to wrap and unwrap key.
 
 * Test file: [HighLevelAPI/_25_DeriveKeyTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_25_DeriveKeyTest.cs)  
-  Involved PKCS#11 functions: C_DeriveKey  
+  Involved PKCS#11 functions: `C_DeriveKey`  
   Demonstrates how to perform key derivation.
 
 * Test file: [HighLevelAPI/_26_LegacyParallelFunctionsTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_26_LegacyParallelFunctionsTest.cs)  
-  Involved PKCS#11 functions: C_GetFunctionStatus, C_CancelFunction  
+  Involved PKCS#11 functions: `C_GetFunctionStatus`, `C_CancelFunction`  
   Demonstrates how to call legacy parallel functions.
 
 * Test file: [HighLevelAPI/_27_Pkcs11UriUtilsTest.cs](../src/Pkcs11Interop/Pkcs11InteropTests/HighLevelAPI/_27_Pkcs11UriUtilsTest.cs)  
