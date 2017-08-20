@@ -18,7 +18,7 @@ else
     pkcs11Library = @"c:\path\to\pkcs11-x86.dll";
 }
 
-using (var pkcs11 = new Net.Pkcs11Interop.HighLevelAPI.Pkcs11(pkcs11Library, true))
+using (var pkcs11 = new Net.Pkcs11Interop.HighLevelAPI.Pkcs11(pkcs11Library, AppType.MultiThreaded))
 {
     // Do something interesting
 }
@@ -56,7 +56,7 @@ System.Environment.SetEnvironmentVariable("PKCS11_LOGGER_LIBRARY_PATH", pkcs11Li
 System.Environment.SetEnvironmentVariable("PKCS11_LOGGER_LOG_FILE_PATH", logFile);
 System.Environment.SetEnvironmentVariable("PKCS11_LOGGER_FLAGS", "64");
 
-using (var pkcs11 = new Net.Pkcs11Interop.HighLevelAPI.Pkcs11(loggerLibrary, true))
+using (var pkcs11 = new Net.Pkcs11Interop.HighLevelAPI.Pkcs11(loggerLibrary, AppType.MultiThreaded))
 {
     // Do something interesting
 }
