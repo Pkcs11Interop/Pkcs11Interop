@@ -1,18 +1,48 @@
 ﻿/*! \mainpage Managed .NET wrapper for unmanaged PKCS#11 libraries
  * 
- * <a class="el" href="https://www.pkcs11interop.net">Pkcs11Interop</a> forms a bridge between the unmanaged ANSI C and managed .NET worlds. It loads unmanaged PKCS#11 library provided by the cryptographic device vendor and makes its functions accessible to .NET application. Following figure presents the typical usage of Pkcs11Interop library in .NET application (left side) and internal architecture of Pkcs11Interop library (right side):
+ * \section overview Overview
+ * 
+ * <a href="http://www.pkcs11interop.net">Pkcs11interop</a> forms a bridge between the unmanaged ANSI C and managed .NET worlds. It loads unmanaged PKCS#11 library provided by the cryptographic device vendor and makes its functions accessible to .NET application.
+ * 
+ * Pkcs11interop uses `System.Runtime.InteropServices` to define platform invoke methods for unmanaged PKCS#11 API and specifies how data is marshaled between managed and unmanaged memory.
+ * 
+ * Following figure presents the typical usage of Pkcs11Interop library in .NET application (left side) and internal architecture of Pkcs11Interop library (right side):
  * 
  * \image html pkcs11interop-architecture.png 
  * 
- * Pkcs11interop uses System.Runtime.InteropServices to define platform invoke methods for unmanaged PKCS#11 API and specifies how data is marshaled between managed and unmanaged memory. 
+ * \section lowlevelapi-s-and-highlevelapi-s LowLevelAPI-s and HighLevelAPI-s
  * 
- * <b>LowLevelAPIs and HighLevelAPIs</b>: Pkcs11Interop API is logically divided into the set of LowLevelAPIs and the set of HighLevelAPIs. In order to bring the full power of PKCS#11 API to the .NET environment LowLevelAPIs follow ANSI C API defined by PKCS#11 specification as closely as possible and because of that require C-like coding style with a manual memory management. On the other hand HighLevelAPIs, which are built on top of LowLevelAPIs, use garbage collector for automatic memory management and utilize developer friendly constructs such as collections or streams.
+ * Pkcs11Interop API is logically divided into the set of `LowLevelAPI`-s and the set of `HighLevelAPI`-s.
  * 
- * <b>Fours and eights in the APIs</b>: The C 'long' type is extensively used throughout the PKCS#11 ANSI C API as CK_ULONG type and unfortunately it is one of the most difficult types to marshal since there is no equivalent type in .NET that universally matches its size. The problem is that the C 'long' type can be 4 bytes long on some platforms (Win32, Win64 and Unix32) and in the same time it can be 8 bytes long on the other platforms (Unix64). In .NET there is 'int' type which is 4 bytes long regardless of platform and there is 'long' type which is 8 bytes long regardless of platform. Neither of them can be used as a multiplatform alternative for C 'long' type and the only option is to use and marshal two different sets of functions and structures - one with 'int' .NET type for platforms where <b>C 'long' type is 4 bytes long</b> (LowLevelAPI<b>4</b>0, LowLevelAPI<b>4</b>1, HighLevelAPI<b>4</b>0 and HighLevelAPI<b>4</b>1) and the other with 'long' .NET type for platforms where <b>C 'long' type is 8 bytes long</b> (LowLevelAPI<b>8</b>0, LowLevelAPI<b>8</b>1, HighLevelAPI<b>8</b>0 and HighLevelAPI<b>8</b>1).
+ * In order to bring the full power of PKCS#11 API to the .NET environment `LowLevelAPI`-s follow ANSI C API defined by PKCS#11 specification as closely as possible and because of that require C-like coding style with a manual memory management.
  * 
- * <b>Zeros and ones in the APIs</b>: PKCS#11 specifications v2.01-v2.30 vaguely state that <i>"Cryptoki structures are packed to occupy as little space as is possible. In particular, on the Win32 and Win16 platforms, Cryptoki structures should be packed with 1-byte alignment. In a UNIX environment, it may or may not be necessary (or even possible) to alter the byte-alignment of structures."</i>. One could say that packing with 1-byte alignment should be preferred on all platforms but most of the implementations for Unix platforms use the default byte alignment instead. Structure packing in .NET is controlled by the Pack field of System.Runtime.InteropServices.StructLayoutAttribute which cannot be modified in the runtime so the only option is to use and marshal two different sets of structures - one with <b>Pack field set to 1</b> to indicate 1-byte alignment (LowLevelAPI4<b>1</b>, LowLevelAPI8<b>1</b>, HighLevelAPI4<b>1</b> and HighLevelAPI8<b>1</b>) and the other with <b>Pack field set to 0</b> to indicate the default byte alignment (LowLevelAPI4<b>0</b>, LowLevelAPI8<b>0</b>, HighLevelAPI4<b>0</b> and HighLevelAPI8<b>0</b>).
+ * On the other hand `HighLevelAPI`-s, which are built on top of `LowLevelAPI`-s, use garbage collector for automatic memory management and utilize developer friendly constructs such as collections or streams.
  * 
- * <b>Please note that Net.Pkcs11Interop.HighLevelAPI automagically uses correct set of platform dependent APIs and is recommended API for most use cases.</b>
+ * \section fours-and-eights-in-the-api-s Fours and eights in the API-s
+ * 
+ * The C `ulong` type is extensively used throughout the PKCS#11 ANSI C API and unfortunately it is one of the most difficult types to marshal since there is no equivalent type in .NET that universally matches its size.
+ * 
+ * The problem is that the C `ulong` type can be 4 bytes long on some platforms (Win32, Win64 and Unix32) and in the same time it can be 8 bytes long on the other platforms (Unix64). In .NET there is `uint` type which is 4 bytes long regardless of platform and there is `ulong` type which is 8 bytes long regardless of platform.
+ * 
+ * Neither of .NET types can be used as a multiplatform alternative for C `ulong` type and the only option is to use and marshal two different sets of functions and structures:
+ * 
+ * 1. set with `uint` .NET type for platforms where C `ulong` type is **4** bytes long for LowLevelAPI<b>4</b>0, LowLevelAPI<b>4</b>1, HighLevelAPI<b>4</b>0 and HighLevelAPI<b>4</b>1
+ * 2. set with `ulong` .NET type for platforms where C `ulong` type is **8** bytes long for LowLevelAPI<b>8</b>0, LowLevelAPI<b>8</b>1, HighLevelAPI<b>8</b>0 and HighLevelAPI<b>8</b>1
+ *    
+ * \section zeros-and-ones-in-the-api-s Zeros and ones in the API-s
+ * 
+ * PKCS#11 specifications v2.01 - v2.30 all vaguely state:
+ * 
+ * <blockquote>Cryptoki structures are packed to occupy as little space as is possible. In particular, on the Win32 and Win16 platforms, Cryptoki structures should be packed with 1-byte alignment. In a UNIX environment, it may or may not be necessary (or even possible) to alter the byte-alignment of structures.</blockquote>
+ * 
+ * One could say that packing with 1-byte alignment should be preferred on all platforms but most of PKCS#11 libraries available for Unix platforms use the default byte alignment instead. Structure packing in .NET is controlled by the `Pack` field of `System.Runtime.InteropServices.StructLayoutAttribute` which cannot be modified in the runtime so the only option is to use and marshal two different sets of structures:
+ * 
+ * 1. set with `Pack` field set to **1** to indicate 1-byte alignment for LowLevelAPI4<b>1</b>, LowLevelAPI8<b>1</b>, HighLevelAPI4<b>1</b> and HighLevelAPI8<b>1</b>
+ * 2. set with `Pack` field set to **0** to indicate the default byte alignment for LowLevelAPI4<b>0</b>, LowLevelAPI8<b>0</b>, HighLevelAPI4<b>0</b> and HighLevelAPI8<b>0</b>
+ *
+ * \section recommended-api-s Recommended API-s
+ * 
+ * `Net.Pkcs11Interop.HighLevelAPI` automagically uses correct set of platform dependent API-s and therefore is recommended API for most use cases.
  */
 
 
