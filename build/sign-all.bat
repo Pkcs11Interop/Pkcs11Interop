@@ -3,7 +3,7 @@
 set SIGNTOOL="C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe"
 
 @rem Define signing options
-set CERTHASH=d5de31ea974f5ea8581d633eeffa8f3ea0d479bb
+set CERTHASH=6962926e92cdd663aa8f42e7211df022f1bb5ffe
 set TSAURL=http://time.certum.pl/
 set LIBNAME=Pkcs11Interop
 set LIBURL=https://www.pkcs11interop.net/
