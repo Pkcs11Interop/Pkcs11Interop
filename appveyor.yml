@@ -6,15 +6,29 @@ branches:
 skip_tags: true
 environment:
   matrix:
-  - Platform: monoandroid2.3
-init:
-  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+  - Platform: net20
+  - Platform: net40
+  - Platform: net45
+  - Platform: sl5
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    Platform: netstandard1.3
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    Platform: monoandroid2.3
+  - Platform: xamarinios1.0
 install:
 - cmd: IF "%Platform%"=="monoandroid2.3" (powershell -File ./build/appveyor-install-android-sdk.ps1)
 build_script:
+- cmd: IF "%Platform%"=="net20" (cd build && build-net20.bat --with-tests)
+- cmd: IF "%Platform%"=="net40" (cd build && build-net40.bat --with-tests)
+- cmd: IF "%Platform%"=="net45" (cd build && build-net45.bat)
+- cmd: IF "%Platform%"=="sl5" (cd build && build-sl5.bat)
+- cmd: IF "%Platform%"=="netstandard1.3" (cd build && build-netstandard1.3.bat --with-tests)
 - cmd: IF "%Platform%"=="monoandroid2.3" (cd build && build-monoandroid2.3.bat)
-on_finish:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+- cmd: IF "%Platform%"=="xamarinios1.0" (cd build && build-xamarinios1.0.bat)
+test_script:
+- cmd: IF "%Platform%"=="net20" (nunit-console-x86 .\src\Pkcs11Interop\Pkcs11InteropTests\bin\Release\Pkcs11InteropTests.dll)
+- cmd: IF "%Platform%"=="net40" (nunit-console .\src\Pkcs11Interop\Pkcs11InteropTests\bin\Release\Pkcs11InteropTests.dll)
+- cmd: IF "%Platform%"=="netstandard1.3" (dotnet vstest .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\bin\Release\Pkcs11Interop.DotNetCore.Tests.dll)
 artifacts:
 - path: build/$(Platform)
   name: $(Platform)
