@@ -8,10 +8,14 @@ environment:
   matrix:
   - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
     Platform: monoandroid2.3
+init:
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 install:
 - cmd: IF "%Platform%"=="monoandroid2.3" (powershell -File ./build/appveyor-install-android-sdk.ps1)
 build_script:
 - cmd: IF "%Platform%"=="monoandroid2.3" (cd build && build-monoandroid2.3.bat)
+on_finish:
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 artifacts:
 - path: build/$(Platform)
   name: $(Platform)
