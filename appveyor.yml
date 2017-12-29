@@ -6,8 +6,7 @@ branches:
 skip_tags: true
 environment:
   matrix:
-  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-    Platform: monoandroid2.3
+  - Platform: monoandroid2.3
 init:
   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 install:
