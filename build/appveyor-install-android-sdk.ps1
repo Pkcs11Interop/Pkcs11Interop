@@ -31,7 +31,4 @@ $sdks = Get-AndroidSDKs |? { $_.name -like 'sdk platform*API 10*' -or $_.name -l
 Write-Host "Going to install SDKs: " $sdks
 Install-AndroidSDK -sdks $sdks
 Write-Host "Installed SDKs: " $sdks
-
-Write-Host "Going to accept licenses"
-for ($i=0; $i -lt 30; $i++) { $response += "y`n"}; $response | cmd /c '$AndroidSdkManagerToolPath 2>&1' --update
-Write-Host "Accepted licenses"
+exit
