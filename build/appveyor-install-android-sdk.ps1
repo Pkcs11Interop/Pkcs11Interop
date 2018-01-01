@@ -27,4 +27,6 @@ Function Install-AndroidSDK() {
 }
 
 $sdks = Get-AndroidSDKs |? { $_.name -like 'sdk platform*API 10*' -or $_.name -like 'google apis*api 10' } 
+Write-Host "Going to install SDKs: " $sdks
 Install-AndroidSDK -sdks $sdks
+Write-Host "Installed SDKs: " $sdks
