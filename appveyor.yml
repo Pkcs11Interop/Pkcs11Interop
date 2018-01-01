@@ -1,5 +1,5 @@
 version: 4.0.0-{build}
-image: Visual Studio 2015
+image: Visual Studio 2017
 branches:
   only:
   - master
@@ -10,12 +10,11 @@ environment:
   - Platform: net40
   - Platform: net45
   - Platform: sl5
-  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-    Platform: netstandard1.3
+  - Platform: netstandard1.3
   - Platform: monoandroid2.3
   - Platform: xamarinios1.0
 install:
-- cmd: IF "%Platform%"=="monoandroid2.3" (powershell -File ./build/appveyor-install-android-sdk.ps1)
+- cmd: IF "%Platform%"=="monoandroid2.3" (powershell -File ./build/appveyor-switch-android-sdk.ps1)
 build_script:
 - cmd: IF "%Platform%"=="net20" (cd build && build-net20.bat --with-tests)
 - cmd: IF "%Platform%"=="net40" (cd build && build-net40.bat --with-tests)
