@@ -27,13 +27,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
     /// <summary>
     /// Structure that contains the resulting key handles and initialization vectors after performing a C_DeriveKey function with the CKM_SSL3_KEY_AND_MAC_DERIVE mechanism
     /// </summary>
-#if SILVERLIGHT
-    [StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
-    public class CK_SSL3_KEY_MAT_OUT
-#else
     [StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
     public struct CK_SSL3_KEY_MAT_OUT
-#endif
     {
         /// <summary>
         /// Key handle for the resulting Client MAC Secret key

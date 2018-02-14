@@ -6,7 +6,6 @@
 call build-net20.bat %arg1% || goto :error
 call build-net40.bat %arg1% || goto :error
 call build-net45.bat %arg1% || goto :error
-call build-sl5.bat %arg1% || goto :error
 call build-netstandard1.3.bat %arg1% || goto :error
 call build-monoandroid2.3.bat %arg1% || goto :error
 call build-xamarinios1.0.bat %arg1% || goto :error

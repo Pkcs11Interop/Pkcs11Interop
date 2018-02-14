@@ -177,9 +177,7 @@ namespace Net.Pkcs11Interop.Tests
             return string.Empty;
 #else
 
-#if SILVERLIGHT
-            string path = System.Windows.Browser.HtmlPage.Document.DocumentUri.ToString();
-#elif NETSTANDARD1_3
+#if NETSTANDARD1_3
             string path = typeof(Settings).GetTypeInfo().Assembly.CodeBase;
 #else
             string path = typeof(Settings).Assembly.CodeBase;

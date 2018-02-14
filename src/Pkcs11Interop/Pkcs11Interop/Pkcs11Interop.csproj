@@ -62,7 +62,6 @@
     <Compile Include="Common\CKU.cs" />
     <Compile Include="Common\CKZ.cs" />
     <Compile Include="Common\ConvertUtils.cs" />
-    <Compile Include="Common\ElevatedPermissionsMissingException.cs" />
     <Compile Include="Common\IMechanismParams.cs" />
     <Compile Include="Common\InitType.cs" />
     <Compile Include="Common\LibraryArchitectureException.cs" />
@@ -455,7 +454,6 @@
     <Compile Include="LowLevelAPI40\CkaUtils.cs" />
     <Compile Include="LowLevelAPI40\CkmUtils.cs" />
     <Compile Include="LowLevelAPI40\CK_ATTRIBUTE.cs" />
-    <Compile Include="LowLevelAPI40\CK_ATTRIBUTE_CLASS.cs" />
     <Compile Include="LowLevelAPI40\CK_C_INITIALIZE_ARGS.cs" />
     <Compile Include="LowLevelAPI40\CK_FUNCTION_LIST.cs" />
     <Compile Include="LowLevelAPI40\CK_INFO.cs" />
@@ -529,7 +527,6 @@
     <Compile Include="LowLevelAPI41\CkaUtils.cs" />
     <Compile Include="LowLevelAPI41\CkmUtils.cs" />
     <Compile Include="LowLevelAPI41\CK_ATTRIBUTE.cs" />
-    <Compile Include="LowLevelAPI41\CK_ATTRIBUTE_CLASS.cs" />
     <Compile Include="LowLevelAPI41\CK_C_INITIALIZE_ARGS.cs" />
     <Compile Include="LowLevelAPI41\CK_FUNCTION_LIST.cs" />
     <Compile Include="LowLevelAPI41\CK_INFO.cs" />
@@ -603,7 +600,6 @@
     <Compile Include="LowLevelAPI80\CkaUtils.cs" />
     <Compile Include="LowLevelAPI80\CkmUtils.cs" />
     <Compile Include="LowLevelAPI80\CK_ATTRIBUTE.cs" />
-    <Compile Include="LowLevelAPI80\CK_ATTRIBUTE_CLASS.cs" />
     <Compile Include="LowLevelAPI80\CK_C_INITIALIZE_ARGS.cs" />
     <Compile Include="LowLevelAPI80\CK_FUNCTION_LIST.cs" />
     <Compile Include="LowLevelAPI80\CK_INFO.cs" />
@@ -677,7 +673,6 @@
     <Compile Include="LowLevelAPI81\CkaUtils.cs" />
     <Compile Include="LowLevelAPI81\CkmUtils.cs" />
     <Compile Include="LowLevelAPI81\CK_ATTRIBUTE.cs" />
-    <Compile Include="LowLevelAPI81\CK_ATTRIBUTE_CLASS.cs" />
     <Compile Include="LowLevelAPI81\CK_C_INITIALIZE_ARGS.cs" />
     <Compile Include="LowLevelAPI81\CK_FUNCTION_LIST.cs" />
     <Compile Include="LowLevelAPI81\CK_INFO.cs" />

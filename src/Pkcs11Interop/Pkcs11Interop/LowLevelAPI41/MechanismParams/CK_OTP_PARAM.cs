@@ -27,13 +27,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
     /// <summary>
     /// Structure that includes the type, value and length of an OTP parameter
     /// </summary>
-#if SILVERLIGHT
-    [StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
-    public class CK_OTP_PARAM
-#else
     [StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
     public struct CK_OTP_PARAM
-#endif
     {
         /// <summary>
         /// Parameter type

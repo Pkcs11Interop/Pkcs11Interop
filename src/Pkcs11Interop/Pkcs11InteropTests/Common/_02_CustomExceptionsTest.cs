@@ -19,7 +19,7 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
-#if (!SILVERLIGHT && !NETSTANDARD1_3)
+#if (!NETSTANDARD1_3)
 
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;

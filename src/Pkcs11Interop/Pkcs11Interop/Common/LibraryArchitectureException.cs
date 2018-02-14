@@ -20,7 +20,7 @@
  */
 
 using System;
-#if (!SILVERLIGHT && !NETSTANDARD1_3)
+#if (!NETSTANDARD1_3)
 using System.Runtime.Serialization;
 #endif
 
@@ -29,7 +29,7 @@ namespace Net.Pkcs11Interop.Common
     /// <summary>
     /// Exception indicating an attempt to load unmanaged PKCS#11 library designated for a different architecture
     /// </summary>
-#if (!SILVERLIGHT && !NETSTANDARD1_3)
+#if (!NETSTANDARD1_3)
     [Serializable]
 #endif
     public class LibraryArchitectureException : Exception
@@ -74,7 +74,7 @@ namespace Net.Pkcs11Interop.Common
 
         }
 
-#if (!SILVERLIGHT && !NETSTANDARD1_3)
+#if (!NETSTANDARD1_3)
         /// <summary>
         /// Initializes new instance of LibraryArchitectureException class with serialized data
         /// </summary>

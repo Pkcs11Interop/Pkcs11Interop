@@ -41,24 +41,10 @@ namespace Net.Pkcs11Interop.Common
 
             IntPtr memory = IntPtr.Zero;
 
-#if SILVERLIGHT
-            if (Platform.IsLinux || Platform.IsMacOsX)
-            {
-                throw new UnsupportedPlatformException("Silverlight version of Pkcs11Interop is supported only on Windows platform");
-            }
-            else
-            {
-                // Allocate memory and fill it with zeros
-                memory = NativeMethods.LocalAlloc(NativeMethods.LMEM_FIXED | NativeMethods.LMEM_ZEROINIT, new UIntPtr(Convert.ToUInt32(size)));
-                if (memory == IntPtr.Zero)
-                    throw new OutOfMemoryException();
-            }
-#else
             // Allocate memory and fill it with zeros
             // Note: new byte array is automaticaly filled with zeros
             memory = Marshal.AllocHGlobal(size);
             Write(memory, new byte[size]);
-#endif
 
             return memory;
         }
@@ -71,21 +57,8 @@ namespace Net.Pkcs11Interop.Common
         {
             if (memory != IntPtr.Zero)
             {
-#if SILVERLIGHT
-                if (Platform.IsLinux || Platform.IsMacOsX)
-                {
-                    throw new UnsupportedPlatformException("Silverlight version of Pkcs11Interop is supported only on Windows platform");
-                }
-                else
-                {
-                    memory = NativeMethods.LocalFree(memory);
-                    if (memory != IntPtr.Zero)
-                        throw new UnmanagedException("Unable to free memory", Marshal.GetLastWin32Error());
-                }
-#else
                 Marshal.FreeHGlobal(memory);
                 memory = IntPtr.Zero;
-#endif
             }
         }
 
@@ -167,18 +140,7 @@ namespace Net.Pkcs11Interop.Common
             if (structureType == null)
                 throw new ArgumentNullException("structureType");
 
-            object structure = null;
-
-#if SILVERLIGHT
-            // Marshal.PtrToStructure(IntPtr, Type) is not present in Silverlight 5...
-            structure = Activator.CreateInstance(structureType);
-            // ...and Marshal.PtrToStructure(IntPtr, object) does not support value types (structs)
-            Read(memory, structure);
-#else
-            structure = Marshal.PtrToStructure(memory, structureType);
-#endif
-
-            return structure;
+            return Marshal.PtrToStructure(memory, structureType);
         }
 
         /// <summary>

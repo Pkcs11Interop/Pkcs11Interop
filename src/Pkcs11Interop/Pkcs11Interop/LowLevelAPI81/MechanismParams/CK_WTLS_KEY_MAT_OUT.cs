@@ -27,13 +27,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
     /// <summary>
     /// Structure that contains the resulting key handles and initialization vectors after performing a C_DeriveKey function with the CKM_WTLS_SEVER_KEY_AND_MAC_DERIVE or with the CKM_WTLS_CLIENT_KEY_AND_MAC_DERIVE mechanism
     /// </summary>
-#if SILVERLIGHT
-    [StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
-    public class CK_WTLS_KEY_MAT_OUT
-#else
     [StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
     public struct CK_WTLS_KEY_MAT_OUT
-#endif
     {
         /// <summary>
         /// Key handle for the resulting MAC secret key

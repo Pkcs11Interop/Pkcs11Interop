@@ -191,21 +191,6 @@ namespace Net.Pkcs11Interop.Common
             if (_isWindows || _isLinux || _isMacOsX)
                 return;
 
-#if SILVERLIGHT
-
-            if (System.Windows.Application.Current.HasElevatedPermissions)
-            {
-                // Note: Silverlight supports elevated trust only on Windows platform
-                _isWindows = true;
-            }
-            else
-            {
-                // Note: See https://msdn.microsoft.com/en-us/library/gg192793%28v=vs.95%29.aspx for more details
-                throw new ElevatedPermissionsMissingException("Silverlight version of Pkcs11Interop is supported only on Windows platform and requires elevated trust");
-            }
-
-#else
-
             // Detect platform
             //
             // System.Environment.OSVersion.Platform is not used because:
@@ -252,9 +237,6 @@ namespace Net.Pkcs11Interop.Common
             {
                 throw new UnsupportedPlatformException("Pkcs11Interop is not supported on this platform");
             }
-
-#endif
-
         }
     }
 }
