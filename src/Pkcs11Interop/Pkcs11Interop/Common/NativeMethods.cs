@@ -41,13 +41,8 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="lpFileName">The name of the module.</param>
         /// <returns>If the function succeeds, the return value is a handle to the module. If the function fails, the return value is NULL.</returns>
-#if SILVERLIGHT
-        [DllImport("kernel32", CallingConvention = CallingConvention.Winapi, SetLastError = true, BestFitMapping = false)]
-        internal static extern IntPtr LoadLibrary([MarshalAs(UnmanagedType.LPStr)] string lpFileName);
-#else
         [DllImport("kernel32", CallingConvention = CallingConvention.Winapi, SetLastError = true, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         internal static extern IntPtr LoadLibrary([MarshalAs(UnmanagedType.LPStr)] string lpFileName);
-#endif
 
         /// <summary>
         /// Frees the loaded dynamic-link library (DLL) module and, if necessary, decrements its reference count.
@@ -64,44 +59,8 @@ namespace Net.Pkcs11Interop.Common
         /// <param name="hModule">A handle to the DLL module that contains the function or variable.</param>
         /// <param name="lpProcName">The function or variable name, or the function's ordinal value.</param>
         /// <returns>If the function succeeds, the return value is the address of the exported function or variable. If the function fails, the return value is NULL.</returns>
-#if SILVERLIGHT
-        [DllImport("kernel32", CallingConvention = CallingConvention.Winapi, SetLastError = true, BestFitMapping = false)]
-        internal static extern IntPtr GetProcAddress(IntPtr hModule, [MarshalAs(UnmanagedType.LPStr)] string lpProcName);
-#else
         [DllImport("kernel32", CallingConvention = CallingConvention.Winapi, SetLastError = true, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         internal static extern IntPtr GetProcAddress(IntPtr hModule, [MarshalAs(UnmanagedType.LPStr)] string lpProcName);
-#endif
-
-#if SILVERLIGHT
-
-        /// <summary>
-        /// Allocates fixed memory
-        /// </summary>
-        internal const int LMEM_FIXED = 0x0000;
-
-        /// <summary>
-        /// Initializes memory contents to zero
-        /// </summary>
-        internal const int LMEM_ZEROINIT = 0x0040;
-
-        /// <summary>
-        /// Allocates the specified number of bytes from the heap
-        /// </summary>
-        /// <param name="uFlags">The memory allocation attributes</param>
-        /// <param name="uBytes">The number of bytes to allocate</param>
-        /// <returns>If the function succeeds, the return value is a handle to the newly allocated memory object. If the function fails, the return value is NULL.</returns>
-        [DllImport("kernel32", CallingConvention = CallingConvention.Winapi, SetLastError = true)]
-        internal static extern IntPtr LocalAlloc(int uFlags, UIntPtr uBytes);
-
-        /// <summary>
-        /// Frees the specified local memory object and invalidates its handle
-        /// </summary>
-        /// <param name="hMem">A handle to the local memory object</param>
-        /// <returns>If the function succeeds, the return value is NULL. If the function fails, the return value is equal to a handle to the local memory object.</returns>
-        [DllImport("kernel32", CallingConvention = CallingConvention.Winapi, SetLastError = true)]
-        internal static extern IntPtr LocalFree(IntPtr hMem);
-
-#endif
 
         #endregion
 
@@ -140,28 +99,17 @@ namespace Net.Pkcs11Interop.Common
         /// <param name='filename'>Library filename.</param>
         /// <param name='flag'>RTLD_LAZY for lazy function call binding or RTLD_NOW immediate function call binding.</param>
         /// <returns>Handle for the dynamic library if successful, IntPtr.Zero otherwise.</returns>
-#if SILVERLIGHT
-        [DllImport("libdl", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, BestFitMapping = false)]
-        internal static extern IntPtr dlopen(string filename, int flag);
-#else
         [DllImport("libdl", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         internal static extern IntPtr dlopen(string filename, int flag);
-#endif
 
         /// <summary>
         /// Checks if the library (mach-o file) is compatible with the current process
         /// </summary>
         /// <param name="path">Library path.</param>
         /// <returns>True if library is compatible.  If library is not compatible, it returns false and sets an error string that can be examined with dlerror.</returns>
-#if SILVERLIGHT
-        [DllImport("libdl", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, BestFitMapping = false)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        internal static extern bool dlopen_preflight(string path);
-#else
         [DllImport("libdl", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         [return: MarshalAs(UnmanagedType.U1)]
         internal static extern bool dlopen_preflight(string path);
-#endif
 
         /// <summary>
         /// Decrements the reference count on the dynamic library handle. If the reference count drops to zero and no other loaded libraries use symbols in it, then the dynamic library is unloaded.
@@ -177,13 +125,8 @@ namespace Net.Pkcs11Interop.Common
         /// <param name='handle'>Handle for the dynamic library.</param>
         /// <param name='symbol'>Name of symbol that should be addressed.</param>
         /// <returns>Returns 0 on success, and nonzero on error.</returns>
-#if SILVERLIGHT
-        [DllImport("libdl", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, BestFitMapping = false)]
-        internal static extern IntPtr dlsym(IntPtr handle, string symbol);
-#else
         [DllImport("libdl", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         internal static extern IntPtr dlsym(IntPtr handle, string symbol);
-#endif
 
         #endregion
     }

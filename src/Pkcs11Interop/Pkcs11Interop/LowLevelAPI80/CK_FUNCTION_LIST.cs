@@ -27,13 +27,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
     /// <summary>
     /// Structure which contains a Cryptoki version and a function pointer to each function in the Cryptoki API
     /// </summary>
-#if SILVERLIGHT
-    [StructLayout(LayoutKind.Sequential, Pack = 0, CharSet = CharSet.Unicode)]
-    internal class CK_FUNCTION_LIST
-#else
     [StructLayout(LayoutKind.Sequential, Pack = 0, CharSet = CharSet.Unicode)]
     internal struct CK_FUNCTION_LIST
-#endif
     {
         /// <summary>
         /// Cryptoki version

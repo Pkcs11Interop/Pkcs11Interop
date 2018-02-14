@@ -98,9 +98,6 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Common\ConvertUtils.cs">
       <Link>Common\ConvertUtils.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Common\ElevatedPermissionsMissingException.cs">
-      <Link>Common\ElevatedPermissionsMissingException.cs</Link>
-    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Common\IMechanismParams.cs">
       <Link>Common\IMechanismParams.cs</Link>
     </Compile>
@@ -1277,9 +1274,6 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\CK_ATTRIBUTE.cs">
       <Link>LowLevelAPI40\CK_ATTRIBUTE.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\CK_ATTRIBUTE_CLASS.cs">
-      <Link>LowLevelAPI40\CK_ATTRIBUTE_CLASS.cs</Link>
-    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\CK_C_INITIALIZE_ARGS.cs">
       <Link>LowLevelAPI40\CK_C_INITIALIZE_ARGS.cs</Link>
     </Compile>
@@ -1498,9 +1492,6 @@
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\CK_ATTRIBUTE.cs">
       <Link>LowLevelAPI41\CK_ATTRIBUTE.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\CK_ATTRIBUTE_CLASS.cs">
-      <Link>LowLevelAPI41\CK_ATTRIBUTE_CLASS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\CK_C_INITIALIZE_ARGS.cs">
       <Link>LowLevelAPI41\CK_C_INITIALIZE_ARGS.cs</Link>
@@ -1721,9 +1712,6 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\CK_ATTRIBUTE.cs">
       <Link>LowLevelAPI80\CK_ATTRIBUTE.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\CK_ATTRIBUTE_CLASS.cs">
-      <Link>LowLevelAPI80\CK_ATTRIBUTE_CLASS.cs</Link>
-    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\CK_C_INITIALIZE_ARGS.cs">
       <Link>LowLevelAPI80\CK_C_INITIALIZE_ARGS.cs</Link>
     </Compile>
@@ -1942,9 +1930,6 @@
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\CK_ATTRIBUTE.cs">
       <Link>LowLevelAPI81\CK_ATTRIBUTE.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\CK_ATTRIBUTE_CLASS.cs">
-      <Link>LowLevelAPI81\CK_ATTRIBUTE_CLASS.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\CK_C_INITIALIZE_ARGS.cs">
       <Link>LowLevelAPI81\CK_C_INITIALIZE_ARGS.cs</Link>

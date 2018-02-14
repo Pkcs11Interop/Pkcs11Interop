@@ -20,7 +20,7 @@
  */
 
 using System;
-#if (!SILVERLIGHT && !NETSTANDARD1_3)
+#if (!NETSTANDARD1_3)
 using System.Runtime.Serialization;
 #endif
 
@@ -29,7 +29,7 @@ namespace Net.Pkcs11Interop.Common
     /// <summary>
     /// Exception with the name of PKCS#11 attribute whose value could not be read or converted
     /// </summary>
-#if (!SILVERLIGHT && !NETSTANDARD1_3)
+#if (!NETSTANDARD1_3)
     [Serializable]
 #endif
     public class AttributeValueException : Exception
@@ -113,7 +113,7 @@ namespace Net.Pkcs11Interop.Common
 
         }
 
-#if (!SILVERLIGHT && !NETSTANDARD1_3)
+#if (!NETSTANDARD1_3)
         /// <summary>
         /// Initializes new instance of AttributeValueException class with serialized data
         /// </summary>
