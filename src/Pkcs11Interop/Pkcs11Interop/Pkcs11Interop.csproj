@@ -749,6 +749,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Pkcs11Interop.snk" />
+    <None Include="regeneratecode.sh" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CHANGELOG.txt" />
