@@ -23,6 +23,7 @@ using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI41;
 using NUnit.Framework;
+using NativeLong = System.UInt32;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 {
@@ -38,8 +39,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         [Test()]
         public void _01_BasicInitTokenAndPinTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKR rv = CKR.CKR_OK;
             
@@ -50,7 +50,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                uint slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeLong slotId = Helpers.GetUsableSlot(pkcs11);
                 
                 CK_TOKEN_INFO tokenInfo = new CK_TOKEN_INFO();
                 rv = pkcs11.C_GetTokenInfo(slotId, ref tokenInfo);
@@ -67,23 +67,23 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     Array.Copy(Settings.ApplicationNameArray, 0, label, 0, Settings.ApplicationNameArray.Length);
                     
                     // Initialize token and SO (security officer) pin
-                    rv = pkcs11.C_InitToken(slotId, Settings.SecurityOfficerPinArray, Convert.ToUInt32(Settings.SecurityOfficerPinArray.Length), label);
+                    rv = pkcs11.C_InitToken(slotId, Settings.SecurityOfficerPinArray, NativeLongUtils.ConvertFromInt32(Settings.SecurityOfficerPinArray.Length), label);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
                     
                     // Open RW session
-                    uint session = CK.CK_INVALID_HANDLE;
+                    NativeLong session = CK.CK_INVALID_HANDLE;
                     rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
                     
                     // Login as SO (security officer)
-                    rv = pkcs11.C_Login(session, CKU.CKU_SO, Settings.SecurityOfficerPinArray, Convert.ToUInt32(Settings.SecurityOfficerPinArray.Length));
+                    rv = pkcs11.C_Login(session, CKU.CKU_SO, Settings.SecurityOfficerPinArray, NativeLongUtils.ConvertFromInt32(Settings.SecurityOfficerPinArray.Length));
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
                     
                     // Initialize user pin
-                    rv = pkcs11.C_InitPIN(session, Settings.NormalUserPinArray, Convert.ToUInt32(Settings.NormalUserPinArray.Length));
+                    rv = pkcs11.C_InitPIN(session, Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length));
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
                     

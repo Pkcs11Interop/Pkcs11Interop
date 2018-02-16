@@ -24,6 +24,7 @@ using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI41;
 using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
 using NUnit.Framework;
+using NativeLong = System.UInt32;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 {
@@ -39,12 +40,11 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         [Test()]
         public void _01_EmptyParameterTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             // Create mechanism without the parameter
             CK_MECHANISM mechanism = CkmUtils.CreateMechanism(CKM.CKM_RSA_PKCS);
-            Assert.IsTrue(mechanism.Mechanism == (uint)CKM.CKM_RSA_PKCS);
+            Assert.IsTrue(mechanism.Mechanism == NativeLongUtils.ConvertFromCKM(CKM.CKM_RSA_PKCS));
             Assert.IsTrue(mechanism.Parameter == IntPtr.Zero);
             Assert.IsTrue(mechanism.ParameterLen == 0);
         }
@@ -55,8 +55,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         [Test()]
         public void _02_ByteArrayParameterTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             byte[] parameter = new byte[16];
             System.Random rng = new Random();
@@ -65,14 +64,14 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
             // Create mechanism with the byte array parameter
             // Note that CkmUtils.CreateMechanism() automaticaly copies mechanismParams into newly allocated unmanaged memory
             CK_MECHANISM mechanism = CkmUtils.CreateMechanism(CKM.CKM_AES_CBC, parameter);
-            Assert.IsTrue(mechanism.Mechanism == (uint)CKM.CKM_AES_CBC);
+            Assert.IsTrue(mechanism.Mechanism == NativeLongUtils.ConvertFromCKM(CKM.CKM_AES_CBC));
             Assert.IsTrue(mechanism.Parameter != IntPtr.Zero);
-            Assert.IsTrue(mechanism.ParameterLen == parameter.Length);
+            Assert.IsTrue(mechanism.ParameterLen == NativeLongUtils.ConvertFromInt32(parameter.Length));
 
             // Free unmanaged memory taken by mechanism parameter
             UnmanagedMemory.Free(ref mechanism.Parameter);
             mechanism.ParameterLen = 0;
-            Assert.IsTrue(mechanism.Mechanism == (uint)CKM.CKM_AES_CBC);
+            Assert.IsTrue(mechanism.Mechanism == NativeLongUtils.ConvertFromCKM(CKM.CKM_AES_CBC));
             Assert.IsTrue(mechanism.Parameter == IntPtr.Zero);
             Assert.IsTrue(mechanism.ParameterLen == 0);
 
@@ -80,7 +79,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 
             // Create mechanism with null byte array parameter
             mechanism = CkmUtils.CreateMechanism(CKM.CKM_AES_CBC, parameter);
-            Assert.IsTrue(mechanism.Mechanism == (uint)CKM.CKM_AES_CBC);
+            Assert.IsTrue(mechanism.Mechanism == NativeLongUtils.ConvertFromCKM(CKM.CKM_AES_CBC));
             Assert.IsTrue(mechanism.Parameter == IntPtr.Zero);
             Assert.IsTrue(mechanism.ParameterLen == 0);
         }
@@ -91,8 +90,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         [Test()]
         public void _03_StructureParameterTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             byte[] data = new byte[24];
             System.Random rng = new Random();
@@ -103,14 +101,14 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
             CK_KEY_DERIVATION_STRING_DATA parameter = new CK_KEY_DERIVATION_STRING_DATA();
             parameter.Data = UnmanagedMemory.Allocate(data.Length);
             UnmanagedMemory.Write(parameter.Data, data);
-            parameter.Len = Convert.ToUInt32(data.Length);
+            parameter.Len = NativeLongUtils.ConvertFromInt32(data.Length);
             
             // Create mechanism with the structure as parameter
             // Note that CkmUtils.CreateMechanism() automaticaly copies mechanismParams into newly allocated unmanaged memory
             CK_MECHANISM mechanism = CkmUtils.CreateMechanism(CKM.CKM_XOR_BASE_AND_DATA, parameter);
-            Assert.IsTrue(mechanism.Mechanism == (uint)CKM.CKM_XOR_BASE_AND_DATA);
+            Assert.IsTrue(mechanism.Mechanism == NativeLongUtils.ConvertFromCKM(CKM.CKM_XOR_BASE_AND_DATA));
             Assert.IsTrue(mechanism.Parameter != IntPtr.Zero);
-            Assert.IsTrue(mechanism.ParameterLen == UnmanagedMemory.SizeOf(typeof(CK_KEY_DERIVATION_STRING_DATA)));
+            Assert.IsTrue(mechanism.ParameterLen == NativeLongUtils.ConvertFromInt32(UnmanagedMemory.SizeOf(typeof(CK_KEY_DERIVATION_STRING_DATA))));
 
             // Free all unmanaged memory we previously allocated
             UnmanagedMemory.Free(ref parameter.Data);
@@ -119,7 +117,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
             // Free unmanaged memory taken by mechanism parameter
             UnmanagedMemory.Free(ref mechanism.Parameter);
             mechanism.ParameterLen = 0;
-            Assert.IsTrue(mechanism.Mechanism == (uint)CKM.CKM_XOR_BASE_AND_DATA);
+            Assert.IsTrue(mechanism.Mechanism == NativeLongUtils.ConvertFromCKM(CKM.CKM_XOR_BASE_AND_DATA));
             Assert.IsTrue(mechanism.Parameter == IntPtr.Zero);
             Assert.IsTrue(mechanism.ParameterLen == 0);
         }

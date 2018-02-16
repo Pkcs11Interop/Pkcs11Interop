@@ -23,6 +23,7 @@ using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI41;
 using NUnit.Framework;
+using NativeLong = System.UInt32;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 {
@@ -38,8 +39,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         [Test()]
         public void _01_BasicObjectFindingTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKR rv = CKR.CKR_OK;
             
@@ -50,25 +50,25 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                uint slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeLong slotId = Helpers.GetUsableSlot(pkcs11);
                 
-                uint session = CK.CK_INVALID_HANDLE;
+                NativeLong session = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, Convert.ToUInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Let's create two objects so we can find something
-                uint objectId1 = CK.CK_INVALID_HANDLE;
+                NativeLong objectId1 = CK.CK_INVALID_HANDLE;
                 rv = Helpers.CreateDataObject(pkcs11, session, ref objectId1);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
-                uint objectId2 = CK.CK_INVALID_HANDLE;
+                NativeLong objectId2 = CK.CK_INVALID_HANDLE;
                 rv = Helpers.CreateDataObject(pkcs11, session, ref objectId2);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -79,16 +79,16 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 template[1] = CkaUtils.CreateAttribute(CKA.CKA_TOKEN, true);
 
                 // Initialize searching
-                rv = pkcs11.C_FindObjectsInit(session, template, Convert.ToUInt32(template.Length));
+                rv = pkcs11.C_FindObjectsInit(session, template, NativeLongUtils.ConvertFromInt32(template.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 // Get search results
-                uint foundObjectCount = 0;
-                uint[] foundObjectIds = new uint[2];
+                NativeLong foundObjectCount = 0;
+                NativeLong[] foundObjectIds = new NativeLong[2];
                 foundObjectIds[0] = CK.CK_INVALID_HANDLE;
                 foundObjectIds[1] = CK.CK_INVALID_HANDLE;
-                rv = pkcs11.C_FindObjects(session, foundObjectIds, Convert.ToUInt32(foundObjectIds.Length), ref foundObjectCount);
+                rv = pkcs11.C_FindObjects(session, foundObjectIds, NativeLongUtils.ConvertFromInt32(foundObjectIds.Length), ref foundObjectCount);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 

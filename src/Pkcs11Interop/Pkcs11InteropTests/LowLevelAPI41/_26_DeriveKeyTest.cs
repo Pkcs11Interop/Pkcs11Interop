@@ -24,6 +24,7 @@ using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI41;
 using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
 using NUnit.Framework;
+using NativeLong = System.UInt32;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 {
@@ -39,8 +40,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         [Test()]
         public void _01_BasicDeriveKeyTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKR rv = CKR.CKR_OK;
 
@@ -51,28 +51,28 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                uint slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeLong slotId = Helpers.GetUsableSlot(pkcs11);
 
                 // Open RW session
-                uint session = CK.CK_INVALID_HANDLE;
+                NativeLong session = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, Convert.ToUInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Generate symetric key
-                uint baseKeyId = CK.CK_INVALID_HANDLE;
+                NativeLong baseKeyId = CK.CK_INVALID_HANDLE;
                 rv = Helpers.GenerateKey(pkcs11, session, ref baseKeyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 // Generate random data needed for key derivation
                 byte[] data = new byte[24];
-                rv = pkcs11.C_GenerateRandom(session, data, Convert.ToUInt32(data.Length));
+                rv = pkcs11.C_GenerateRandom(session, data, NativeLongUtils.ConvertFromInt32(data.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -81,14 +81,14 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 CK_KEY_DERIVATION_STRING_DATA mechanismParams = new CK_KEY_DERIVATION_STRING_DATA();
                 mechanismParams.Data = UnmanagedMemory.Allocate(data.Length);
                 UnmanagedMemory.Write(mechanismParams.Data, data);
-                mechanismParams.Len = Convert.ToUInt32(data.Length);
+                mechanismParams.Len = NativeLongUtils.ConvertFromInt32(data.Length);
 
                 // Specify derivation mechanism with parameters
                 // Note that CkmUtils.CreateMechanism() automaticaly copies mechanismParams into newly allocated unmanaged memory
                 CK_MECHANISM mechanism = CkmUtils.CreateMechanism(CKM.CKM_XOR_BASE_AND_DATA, mechanismParams);
 
                 // Derive key
-                uint derivedKey = CK.CK_INVALID_HANDLE;
+                NativeLong derivedKey = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_DeriveKey(session, ref mechanism, baseKeyId, null, 0, ref derivedKey);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
