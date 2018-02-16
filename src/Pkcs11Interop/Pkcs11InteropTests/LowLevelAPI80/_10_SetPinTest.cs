@@ -23,6 +23,7 @@ using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI80;
 using NUnit.Framework;
+using NativeLong = System.UInt64;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
 {
@@ -38,8 +39,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
         [Test()]
         public void _01_BasicSetPinTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKR rv = CKR.CKR_OK;
             
@@ -50,21 +50,21 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                ulong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeLong slotId = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RW session
-                ulong session = CK.CK_INVALID_HANDLE;
+                NativeLong session = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, Convert.ToUInt64(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Set new pin for the logged in user
-                rv = pkcs11.C_SetPIN(session, Settings.NormalUserPinArray, Convert.ToUInt64(Settings.NormalUserPinArray.Length), Settings.NormalUserPinArray, Convert.ToUInt64(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_SetPIN(session, Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length), Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 

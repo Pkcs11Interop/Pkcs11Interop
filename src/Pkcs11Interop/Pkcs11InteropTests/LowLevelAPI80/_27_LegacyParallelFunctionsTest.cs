@@ -23,6 +23,7 @@ using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI80;
 using NUnit.Framework;
+using NativeLong = System.UInt64;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
 {
@@ -38,8 +39,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
         [Test()]
         public void _01_GetFunctionStatusTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKR rv = CKR.CKR_OK;
             
@@ -50,10 +50,10 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                ulong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeLong slotId = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RO (read-only) session
-                ulong session = CK.CK_INVALID_HANDLE;
+                NativeLong session = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_OpenSession(slotId, CKF.CKF_SERIAL_SESSION, IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -79,8 +79,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
         [Test()]
         public void _02_CancelFunctionTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKR rv = CKR.CKR_OK;
             
@@ -91,10 +90,10 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                ulong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeLong slotId = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RO (read-only) session
-                ulong session = CK.CK_INVALID_HANDLE;
+                NativeLong session = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_OpenSession(slotId, CKF.CKF_SERIAL_SESSION, IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());

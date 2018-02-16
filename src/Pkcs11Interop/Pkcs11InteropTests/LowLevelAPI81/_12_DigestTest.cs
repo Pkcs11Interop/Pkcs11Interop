@@ -24,6 +24,7 @@ using System.IO;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI81;
 using NUnit.Framework;
+using NativeLong = System.UInt64;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
 {
@@ -39,8 +40,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         [Test()]
         public void _01_DigestSinglePartTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKR rv = CKR.CKR_OK;
             
@@ -51,9 +51,9 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                ulong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeLong slotId = Helpers.GetUsableSlot(pkcs11);
                 
-                ulong session = CK.CK_INVALID_HANDLE;
+                NativeLong session = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -69,8 +69,8 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                 byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
 
                 // Get length of digest value in first call
-                ulong digestLen = 0;
-                rv = pkcs11.C_Digest(session, sourceData, Convert.ToUInt64(sourceData.Length), null, ref digestLen);
+                NativeLong digestLen = 0;
+                rv = pkcs11.C_Digest(session, sourceData, NativeLongUtils.ConvertFromInt32(sourceData.Length), null, ref digestLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -80,7 +80,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                 byte[] digest = new byte[digestLen];
 
                 // Get digest value in second call
-                rv = pkcs11.C_Digest(session, sourceData, Convert.ToUInt64(sourceData.Length), digest, ref digestLen);
+                rv = pkcs11.C_Digest(session, sourceData, NativeLongUtils.ConvertFromInt32(sourceData.Length), digest, ref digestLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -102,8 +102,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         [Test()]
         public void _02_DigestMultiPartTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKR rv = CKR.CKR_OK;
             
@@ -114,9 +113,9 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                ulong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeLong slotId = Helpers.GetUsableSlot(pkcs11);
                 
-                ulong session = CK.CK_INVALID_HANDLE;
+                NativeLong session = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -144,13 +143,13 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                     while ((bytesRead = inputStream.Read(part, 0, part.Length)) > 0)
                     {
                         // Digest each individual source data part
-                        rv = pkcs11.C_DigestUpdate(session, part, Convert.ToUInt64(bytesRead));
+                        rv = pkcs11.C_DigestUpdate(session, part, NativeLongUtils.ConvertFromInt32(bytesRead));
                         if (rv != CKR.CKR_OK)
                             Assert.Fail(rv.ToString());
                     }
 
                     // Get length of digest value in first call
-                    ulong digestLen = 0;
+                    NativeLong digestLen = 0;
                     rv = pkcs11.C_DigestFinal(session, null, ref digestLen);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
@@ -184,8 +183,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         [Test()]
         public void _03_DigestKeyTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKR rv = CKR.CKR_OK;
             
@@ -196,20 +194,20 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                ulong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeLong slotId = Helpers.GetUsableSlot(pkcs11);
                 
-                ulong session = CK.CK_INVALID_HANDLE;
+                NativeLong session = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, Convert.ToUInt64(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Generate symetric key
-                ulong keyId = CK.CK_INVALID_HANDLE;
+                NativeLong keyId = CK.CK_INVALID_HANDLE;
                 rv = Helpers.GenerateKey(pkcs11, session, ref keyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -228,11 +226,11 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                     Assert.Fail(rv.ToString());
 
                 // Get length of digest value in first call
-                ulong digestLen = 0;
+                NativeLong digestLen = 0;
                 rv = pkcs11.C_DigestFinal(session, null, ref digestLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
-
+                
                 Assert.IsTrue(digestLen > 0);
                 
                 // Allocate array for digest value

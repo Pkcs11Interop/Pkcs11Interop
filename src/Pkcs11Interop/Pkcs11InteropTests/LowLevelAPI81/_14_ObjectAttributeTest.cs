@@ -23,6 +23,7 @@ using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI81;
 using NUnit.Framework;
+using NativeLong = System.UInt64;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
 {
@@ -38,33 +39,31 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         [Test()]
         public void _01_EmptyAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             // Create attribute without the value
             CK_ATTRIBUTE attr = CkaUtils.CreateAttribute(CKA.CKA_CLASS);
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_CLASS);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_CLASS));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
         }
 
         /// <summary>
-        /// Attribute with ulong value test.
+        /// Attribute with NativeLong value test.
         /// </summary>
         [Test()]
         public void _02_UintAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
-            ulong originalValue = Convert.ToUInt64(CKO.CKO_DATA);
-            // Create attribute with ulong value
+            NativeLong originalValue = NativeLongUtils.ConvertFromCKO(CKO.CKO_DATA);
+            // Create attribute with NativeLong value
             CK_ATTRIBUTE attr = CkaUtils.CreateAttribute(CKA.CKA_CLASS, originalValue);
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_CLASS);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_CLASS));
             Assert.IsTrue(attr.value != IntPtr.Zero);
-            Assert.IsTrue(attr.valueLen == Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(ulong))));
+            Assert.IsTrue(attr.valueLen == NativeLongUtils.ConvertFromInt32(UnmanagedMemory.SizeOf(typeof(NativeLong))));
             
-            ulong recoveredValue = 0;
+            NativeLong recoveredValue = 0;
             // Read the value of attribute
             CkaUtils.ConvertValue(ref attr, out recoveredValue);
             Assert.IsTrue(originalValue == recoveredValue);
@@ -72,7 +71,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
             // Free attribute value
             UnmanagedMemory.Free(ref attr.value);
             attr.valueLen = 0;
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_CLASS);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_CLASS));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
         }
@@ -83,13 +82,12 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         [Test()]
         public void _03_BoolAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             bool originalValue = true;
             // Create attribute with bool value
             CK_ATTRIBUTE attr = CkaUtils.CreateAttribute(CKA.CKA_TOKEN, originalValue);
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_TOKEN);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_TOKEN));
             Assert.IsTrue(attr.value != IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 1);
             
@@ -101,7 +99,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
             // Free attribute value
             UnmanagedMemory.Free(ref attr.value);
             attr.valueLen = 0;
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_TOKEN);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_TOKEN));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
         }
@@ -112,15 +110,14 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         [Test()]
         public void _04_StringAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             string originalValue = "Hello world";
             // Create attribute with string value
             CK_ATTRIBUTE attr = CkaUtils.CreateAttribute(CKA.CKA_LABEL, originalValue);
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_LABEL);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_LABEL));
             Assert.IsTrue(attr.value != IntPtr.Zero);
-            Assert.IsTrue(attr.valueLen == Convert.ToUInt64(originalValue.Length));
+            Assert.IsTrue(attr.valueLen == NativeLongUtils.ConvertFromInt32(originalValue.Length));
             
             string recoveredValue = null;
             // Read the value of attribute
@@ -130,13 +127,13 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
             // Free attribute value
             UnmanagedMemory.Free(ref attr.value);
             attr.valueLen = 0;
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_LABEL);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_LABEL));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
 
             // Create attribute with null string value
             attr = CkaUtils.CreateAttribute(CKA.CKA_LABEL, (string)null);
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_LABEL);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_LABEL));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
         }
@@ -147,31 +144,30 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         [Test()]
         public void _05_ByteArrayAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             byte[] originalValue = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 };
             // Create attribute with byte array value
             CK_ATTRIBUTE attr = CkaUtils.CreateAttribute(CKA.CKA_ID, originalValue);
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_ID);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ID));
             Assert.IsTrue(attr.value != IntPtr.Zero);
-            Assert.IsTrue(attr.valueLen == Convert.ToUInt64(originalValue.Length));
+            Assert.IsTrue(attr.valueLen == NativeLongUtils.ConvertFromInt32(originalValue.Length));
             
             byte[] recoveredValue = null;
             // Read the value of attribute
             CkaUtils.ConvertValue(ref attr, out recoveredValue);
-            Assert.IsTrue(Convert.ToBase64String(originalValue) == Convert.ToBase64String(recoveredValue));
+            Assert.IsTrue(ConvertUtils.BytesToBase64String(originalValue) == ConvertUtils.BytesToBase64String(recoveredValue));
 
             // Free attribute value
             UnmanagedMemory.Free(ref attr.value);
             attr.valueLen = 0;
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_ID);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ID));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
 
             // Create attribute with null byte array value
             attr = CkaUtils.CreateAttribute(CKA.CKA_ID, (byte[])null);
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_ID);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ID));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
         }
@@ -182,13 +178,12 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         [Test()]
         public void _06_DateTimeAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             DateTime originalValue = new DateTime(2012, 1, 30, 0, 0, 0, DateTimeKind.Utc);
             // Create attribute with DateTime value
             CK_ATTRIBUTE attr = CkaUtils.CreateAttribute(CKA.CKA_START_DATE, originalValue);
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_START_DATE);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_START_DATE));
             Assert.IsTrue(attr.value != IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 8);
             
@@ -200,7 +195,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
             // Free attribute value
             UnmanagedMemory.Free(ref attr.value);
             attr.valueLen = 0;
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_START_DATE);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_START_DATE));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
         }
@@ -211,17 +206,16 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         [Test()]
         public void _07_AttributeArrayAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CK_ATTRIBUTE[] originalValue = new CK_ATTRIBUTE[2];
             originalValue[0] = CkaUtils.CreateAttribute(CKA.CKA_TOKEN, true);
             originalValue[1] = CkaUtils.CreateAttribute(CKA.CKA_PRIVATE, true);
             // Create attribute with attribute array value
             CK_ATTRIBUTE attr = CkaUtils.CreateAttribute(CKA.CKA_WRAP_TEMPLATE, originalValue);
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_WRAP_TEMPLATE);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_WRAP_TEMPLATE));
             Assert.IsTrue(attr.value != IntPtr.Zero);
-            Assert.IsTrue(attr.valueLen == Convert.ToUInt64((UnmanagedMemory.SizeOf(typeof(CK_ATTRIBUTE)) * originalValue.Length)));
+            Assert.IsTrue(attr.valueLen == NativeLongUtils.ConvertFromInt32(UnmanagedMemory.SizeOf(typeof(CK_ATTRIBUTE)) * originalValue.Length));
 
             CK_ATTRIBUTE[] recoveredValue = null;
             // Read the value of attribute
@@ -255,42 +249,41 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
             // Free attribute value
             UnmanagedMemory.Free(ref attr.value);
             attr.valueLen = 0;
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_WRAP_TEMPLATE);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_WRAP_TEMPLATE));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
 
             // Create attribute with null attribute array value
             attr = CkaUtils.CreateAttribute(CKA.CKA_WRAP_TEMPLATE, (CK_ATTRIBUTE[])null);
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_WRAP_TEMPLATE);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_WRAP_TEMPLATE));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
 
             // Create attribute with empty attribute array value
             attr = CkaUtils.CreateAttribute(CKA.CKA_WRAP_TEMPLATE, new CK_ATTRIBUTE[0]);
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_WRAP_TEMPLATE);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_WRAP_TEMPLATE));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
         }
 
         /// <summary>
-        /// Attribute with ulong array value test.
+        /// Attribute with NativeLong array value test.
         /// </summary>
         [Test()]
         public void _08_UintArrayAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
-            ulong[] originalValue = new ulong[2];
+            NativeLong[] originalValue = new NativeLong[2];
             originalValue[0] = 333333;
             originalValue[1] = 666666;
-            // Create attribute with ulong array value
+            // Create attribute with NativeLong array value
             CK_ATTRIBUTE attr = CkaUtils.CreateAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue);
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_ALLOWED_MECHANISMS);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ALLOWED_MECHANISMS));
             Assert.IsTrue(attr.value != IntPtr.Zero);
-            Assert.IsTrue(attr.valueLen == Convert.ToUInt64((UnmanagedMemory.SizeOf(typeof(ulong)) * originalValue.Length)));
+            Assert.IsTrue(attr.valueLen == NativeLongUtils.ConvertFromInt32(UnmanagedMemory.SizeOf(typeof(NativeLong)) * originalValue.Length));
             
-            ulong[] recoveredValue = null;
+            NativeLong[] recoveredValue = null;
             // Read the value of attribute
             CkaUtils.ConvertValue(ref attr, out recoveredValue);
             Assert.IsTrue(originalValue.Length == recoveredValue.Length);
@@ -302,19 +295,19 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
             // Free attribute value
             UnmanagedMemory.Free(ref attr.value);
             attr.valueLen = 0;
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_ALLOWED_MECHANISMS);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ALLOWED_MECHANISMS));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
             
-            // Create attribute with null ulong array value
-            attr = CkaUtils.CreateAttribute(CKA.CKA_ALLOWED_MECHANISMS, (ulong[])null);
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_ALLOWED_MECHANISMS);
+            // Create attribute with null NativeLong array value
+            attr = CkaUtils.CreateAttribute(CKA.CKA_ALLOWED_MECHANISMS, (NativeLong[])null);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ALLOWED_MECHANISMS));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
             
-            // Create attribute with empty ulong array value
-            attr = CkaUtils.CreateAttribute(CKA.CKA_ALLOWED_MECHANISMS, new ulong[0]);
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_ALLOWED_MECHANISMS);
+            // Create attribute with empty NativeLong array value
+            attr = CkaUtils.CreateAttribute(CKA.CKA_ALLOWED_MECHANISMS, new NativeLong[0]);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ALLOWED_MECHANISMS));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
         }
@@ -325,17 +318,16 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         [Test()]
         public void _09_MechanismArrayAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKM[] originalValue = new CKM[2];
             originalValue[0] = CKM.CKM_RSA_PKCS;
             originalValue[1] = CKM.CKM_AES_CBC;
             // Create attribute with mechanism array value
             CK_ATTRIBUTE attr = CkaUtils.CreateAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue);
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_ALLOWED_MECHANISMS);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ALLOWED_MECHANISMS));
             Assert.IsTrue(attr.value != IntPtr.Zero);
-            Assert.IsTrue(attr.valueLen == Convert.ToUInt64((UnmanagedMemory.SizeOf(typeof(ulong)) * originalValue.Length)));
+            Assert.IsTrue(attr.valueLen == NativeLongUtils.ConvertFromInt32(UnmanagedMemory.SizeOf(typeof(NativeLong)) * originalValue.Length));
             
             CKM[] recoveredValue = null;
             // Read the value of attribute
@@ -349,19 +341,19 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
             // Free attribute value
             UnmanagedMemory.Free(ref attr.value);
             attr.valueLen = 0;
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_ALLOWED_MECHANISMS);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ALLOWED_MECHANISMS));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
 
             // Create attribute with null mechanism array value
             attr = CkaUtils.CreateAttribute(CKA.CKA_ALLOWED_MECHANISMS, (CKM[])null);
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_ALLOWED_MECHANISMS);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ALLOWED_MECHANISMS));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
             
             // Create attribute with empty mechanism array value
             attr = CkaUtils.CreateAttribute(CKA.CKA_ALLOWED_MECHANISMS, new CKM[0]);
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_ALLOWED_MECHANISMS);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ALLOWED_MECHANISMS));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
         }
@@ -372,14 +364,13 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         [Test()]
         public void _10_CustomAttributeTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             byte[] originalValue = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 };
 
             // Create attribute without the value
             CK_ATTRIBUTE attr = CkaUtils.CreateAttribute(CKA.CKA_VALUE);
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_VALUE);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_VALUE));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
 
@@ -388,19 +379,19 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
             // ..then set the value of attribute..
             UnmanagedMemory.Write(attr.value, originalValue);
             // ..and finally set the length of attribute value.
-            attr.valueLen = Convert.ToUInt64(originalValue.Length);
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_VALUE);
+            attr.valueLen = NativeLongUtils.ConvertFromInt32(originalValue.Length);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_VALUE));
             Assert.IsTrue(attr.value != IntPtr.Zero);
-            Assert.IsTrue(attr.valueLen == Convert.ToUInt64(originalValue.Length));
+            Assert.IsTrue(attr.valueLen == NativeLongUtils.ConvertFromInt32(originalValue.Length));
 
             // Read the value of attribute
-            byte[] recoveredValue = UnmanagedMemory.Read(attr.value, Convert.ToInt32(attr.valueLen));
-            Assert.IsTrue(Convert.ToBase64String(originalValue) == Convert.ToBase64String(recoveredValue));
+            byte[] recoveredValue = UnmanagedMemory.Read(attr.value, NativeLongUtils.ConvertToInt32(attr.valueLen));
+            Assert.IsTrue(ConvertUtils.BytesToBase64String(originalValue) == ConvertUtils.BytesToBase64String(recoveredValue));
 
             // Free attribute value
             UnmanagedMemory.Free(ref attr.value);
             attr.valueLen = 0;
-            Assert.IsTrue(attr.type == (ulong)CKA.CKA_VALUE);
+            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_VALUE));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
         }

@@ -24,6 +24,7 @@ using System.IO;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI40;
 using NUnit.Framework;
+using NativeLong = System.UInt32;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
 {
@@ -39,8 +40,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
         [Test()]
         public void _01_SignAndVerifySinglePartTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKR rv = CKR.CKR_OK;
             
@@ -51,21 +51,21 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                uint slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeLong slotId = Helpers.GetUsableSlot(pkcs11);
                 
-                uint session = CK.CK_INVALID_HANDLE;
+                NativeLong session = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, Convert.ToUInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Generate asymetric key pair
-                uint pubKeyId = CK.CK_INVALID_HANDLE;
-                uint privKeyId = CK.CK_INVALID_HANDLE;
+                NativeLong pubKeyId = CK.CK_INVALID_HANDLE;
+                NativeLong privKeyId = CK.CK_INVALID_HANDLE;
                 rv = Helpers.GenerateKeyPair(pkcs11, session, ref pubKeyId, ref privKeyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -81,8 +81,8 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                 byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
 
                 // Get length of signature in first call
-                uint signatureLen = 0;
-                rv = pkcs11.C_Sign(session, sourceData, Convert.ToUInt32(sourceData.Length), null, ref signatureLen);
+                NativeLong signatureLen = 0;
+                rv = pkcs11.C_Sign(session, sourceData, NativeLongUtils.ConvertFromInt32(sourceData.Length), null, ref signatureLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -92,7 +92,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                 byte[] signature = new byte[signatureLen];
 
                 // Get signature in second call
-                rv = pkcs11.C_Sign(session, sourceData, Convert.ToUInt32(sourceData.Length), signature, ref signatureLen);
+                rv = pkcs11.C_Sign(session, sourceData, NativeLongUtils.ConvertFromInt32(sourceData.Length), signature, ref signatureLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -104,7 +104,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     Assert.Fail(rv.ToString());
 
                 // Verify signature
-                rv = pkcs11.C_Verify(session, sourceData, Convert.ToUInt32(sourceData.Length), signature, Convert.ToUInt32(signature.Length));
+                rv = pkcs11.C_Verify(session, sourceData, NativeLongUtils.ConvertFromInt32(sourceData.Length), signature, NativeLongUtils.ConvertFromInt32(signature.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -138,8 +138,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
         [Test()]
         public void _02_SignAndVerifyMultiPartTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKR rv = CKR.CKR_OK;
             
@@ -150,21 +149,21 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                uint slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeLong slotId = Helpers.GetUsableSlot(pkcs11);
                 
-                uint session = CK.CK_INVALID_HANDLE;
+                NativeLong session = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, Convert.ToUInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Generate asymetric key pair
-                uint pubKeyId = CK.CK_INVALID_HANDLE;
-                uint privKeyId = CK.CK_INVALID_HANDLE;
+                NativeLong pubKeyId = CK.CK_INVALID_HANDLE;
+                NativeLong privKeyId = CK.CK_INVALID_HANDLE;
                 rv = Helpers.GenerateKeyPair(pkcs11, session, ref pubKeyId, ref privKeyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -192,13 +191,13 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     while ((bytesRead = inputStream.Read(part, 0, part.Length)) > 0)
                     {
                         // Process each individual source data part
-                        rv = pkcs11.C_SignUpdate(session, part, Convert.ToUInt32(bytesRead));
+                        rv = pkcs11.C_SignUpdate(session, part, NativeLongUtils.ConvertFromInt32(bytesRead));
                         if (rv != CKR.CKR_OK)
                             Assert.Fail(rv.ToString());
                     }
 
                     // Get the length of signature in first call
-                    uint signatureLen = 0;
+                    NativeLong signatureLen = 0;
                     rv = pkcs11.C_SignFinal(session, null, ref signatureLen);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
@@ -233,13 +232,13 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     while ((bytesRead = inputStream.Read(part, 0, part.Length)) > 0)
                     {
                         // Process each individual source data part
-                        rv = pkcs11.C_VerifyUpdate(session, part, Convert.ToUInt32(bytesRead));
+                        rv = pkcs11.C_VerifyUpdate(session, part, NativeLongUtils.ConvertFromInt32(bytesRead));
                         if (rv != CKR.CKR_OK)
                             Assert.Fail(rv.ToString());
                     }
 
                     // Verify signature
-                    rv = pkcs11.C_VerifyFinal(session, signature, Convert.ToUInt32(signature.Length));
+                    rv = pkcs11.C_VerifyFinal(session, signature, NativeLongUtils.ConvertFromInt32(signature.Length));
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
                 }

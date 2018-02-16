@@ -23,6 +23,7 @@ using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI81;
 using NUnit.Framework;
+using NativeLong = System.UInt64;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
 {
@@ -38,8 +39,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         [Test()]
         public void _01_BasicOperationStateTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKR rv = CKR.CKR_OK;
             
@@ -50,16 +50,16 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                ulong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeLong slotId = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RO (read-only) session
-                ulong session = CK.CK_INVALID_HANDLE;
+                NativeLong session = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_OpenSession(slotId, CKF.CKF_SERIAL_SESSION, IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Get length of state in first call
-                ulong stateLen = 0;
+                NativeLong stateLen = 0;
                 rv = pkcs11.C_GetOperationState(session, null, ref stateLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -75,7 +75,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                     Assert.Fail(rv.ToString());
 
                 // Let's set state so the test is complete
-                rv = pkcs11.C_SetOperationState(session, state, Convert.ToUInt64(state.Length), CK.CK_INVALID_HANDLE, CK.CK_INVALID_HANDLE);
+                rv = pkcs11.C_SetOperationState(session, state, NativeLongUtils.ConvertFromInt32(state.Length), CK.CK_INVALID_HANDLE, CK.CK_INVALID_HANDLE);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 

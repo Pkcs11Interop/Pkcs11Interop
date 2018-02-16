@@ -23,6 +23,7 @@ using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI80;
 using NUnit.Framework;
+using NativeLong = System.UInt64;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
 {
@@ -38,8 +39,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
         [Test()]
         public void _01_BasicSignAndVerifyRecoverTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKR rv = CKR.CKR_OK;
             
@@ -50,21 +50,21 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                ulong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeLong slotId = Helpers.GetUsableSlot(pkcs11);
                 
-                ulong session = CK.CK_INVALID_HANDLE;
+                NativeLong session = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, Convert.ToUInt64(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Generate asymetric key pair
-                ulong pubKeyId = CK.CK_INVALID_HANDLE;
-                ulong privKeyId = CK.CK_INVALID_HANDLE;
+                NativeLong pubKeyId = CK.CK_INVALID_HANDLE;
+                NativeLong privKeyId = CK.CK_INVALID_HANDLE;
                 rv = Helpers.GenerateKeyPair(pkcs11, session, ref pubKeyId, ref privKeyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -80,8 +80,8 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
                 byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
                 
                 // Get length of signature in first call
-                ulong signatureLen = 0;
-                rv = pkcs11.C_SignRecover(session, sourceData, Convert.ToUInt64(sourceData.Length), null, ref signatureLen);
+                NativeLong signatureLen = 0;
+                rv = pkcs11.C_SignRecover(session, sourceData, NativeLongUtils.ConvertFromInt32(sourceData.Length), null, ref signatureLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -91,7 +91,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
                 byte[] signature = new byte[signatureLen];
                 
                 // Get signature in second call
-                rv = pkcs11.C_SignRecover(session, sourceData, Convert.ToUInt64(sourceData.Length), signature, ref signatureLen);
+                rv = pkcs11.C_SignRecover(session, sourceData, NativeLongUtils.ConvertFromInt32(sourceData.Length), signature, ref signatureLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -103,8 +103,8 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
                     Assert.Fail(rv.ToString());
 
                 // Get length of recovered data in first call
-                ulong recoveredDataLen = 0;
-                rv = pkcs11.C_VerifyRecover(session, signature, Convert.ToUInt64(signature.Length), null, ref recoveredDataLen);
+                NativeLong recoveredDataLen = 0;
+                rv = pkcs11.C_VerifyRecover(session, signature, NativeLongUtils.ConvertFromInt32(signature.Length), null, ref recoveredDataLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -114,12 +114,12 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
                 byte[] recoveredData = new byte[recoveredDataLen];
 
                 // Verify signature and get recovered data in second call
-                rv = pkcs11.C_VerifyRecover(session, signature, Convert.ToUInt64(signature.Length), recoveredData, ref recoveredDataLen);
+                rv = pkcs11.C_VerifyRecover(session, signature, NativeLongUtils.ConvertFromInt32(signature.Length), recoveredData, ref recoveredDataLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 // Do something interesting with verification result and recovered data
-                Assert.IsTrue(Convert.ToBase64String(sourceData) == Convert.ToBase64String(recoveredData));
+                Assert.IsTrue(ConvertUtils.BytesToBase64String(sourceData) == ConvertUtils.BytesToBase64String(recoveredData));
 
                 rv = pkcs11.C_DestroyObject(session, privKeyId);
                 if (rv != CKR.CKR_OK)

@@ -37,8 +37,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
         [Test()]
         public void _01_AllocateAndFreeTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             byte[] originalValue = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 };
             byte[] recoveredValue = null;
@@ -50,7 +49,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
             UnmanagedMemory.Write(ptr, originalValue);
             recoveredValue = UnmanagedMemory.Read(ptr, originalValue.Length);
             Assert.IsTrue(recoveredValue != null);
-            Assert.IsTrue(Convert.ToBase64String(originalValue) == Convert.ToBase64String(recoveredValue));
+            Assert.IsTrue(ConvertUtils.BytesToBase64String(originalValue) == ConvertUtils.BytesToBase64String(recoveredValue));
 
             UnmanagedMemory.Free(ref ptr);
             Assert.IsTrue(ptr == IntPtr.Zero);

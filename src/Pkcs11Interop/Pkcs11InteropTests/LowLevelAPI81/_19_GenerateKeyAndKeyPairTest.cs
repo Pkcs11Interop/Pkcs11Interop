@@ -23,6 +23,7 @@ using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI81;
 using NUnit.Framework;
+using NativeLong = System.UInt64;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
 {
@@ -38,8 +39,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         [Test()]
         public void _01_GenerateKeyTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKR rv = CKR.CKR_OK;
             
@@ -50,15 +50,15 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                ulong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeLong slotId = Helpers.GetUsableSlot(pkcs11);
                 
-                ulong session = CK.CK_INVALID_HANDLE;
+                NativeLong session = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, Convert.ToUInt64(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -73,8 +73,8 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                 CK_MECHANISM mechanism = CkmUtils.CreateMechanism(CKM.CKM_DES3_KEY_GEN);
                 
                 // Generate key
-                ulong keyId = CK.CK_INVALID_HANDLE;
-                rv = pkcs11.C_GenerateKey(session, ref mechanism, template, Convert.ToUInt64(template.Length), ref keyId);
+                NativeLong keyId = CK.CK_INVALID_HANDLE;
+                rv = pkcs11.C_GenerateKey(session, ref mechanism, template, NativeLongUtils.ConvertFromInt32(template.Length), ref keyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -112,8 +112,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         [Test()]
         public void _02_GenerateKeyPairTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKR rv = CKR.CKR_OK;
             
@@ -124,21 +123,21 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                ulong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeLong slotId = Helpers.GetUsableSlot(pkcs11);
                 
-                ulong session = CK.CK_INVALID_HANDLE;
+                NativeLong session = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, Convert.ToUInt64(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 // The CKA_ID attribute is intended as a means of distinguishing multiple key pairs held by the same subject
                 byte[] ckaId = new byte[20];
-                rv = pkcs11.C_GenerateRandom(session, ckaId, Convert.ToUInt64(ckaId.Length));
+                rv = pkcs11.C_GenerateRandom(session, ckaId, NativeLongUtils.ConvertFromInt32(ckaId.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -171,9 +170,9 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                 CK_MECHANISM mechanism = CkmUtils.CreateMechanism(CKM.CKM_RSA_PKCS_KEY_PAIR_GEN);
                 
                 // Generate key pair
-                ulong pubKeyId = CK.CK_INVALID_HANDLE;
-                ulong privKeyId = CK.CK_INVALID_HANDLE;
-                rv = pkcs11.C_GenerateKeyPair(session, ref mechanism, pubKeyTemplate, Convert.ToUInt64(pubKeyTemplate.Length), privKeyTemplate, Convert.ToUInt64(privKeyTemplate.Length), ref pubKeyId, ref privKeyId);
+                NativeLong pubKeyId = CK.CK_INVALID_HANDLE;
+                NativeLong privKeyId = CK.CK_INVALID_HANDLE;
+                rv = pkcs11.C_GenerateKeyPair(session, ref mechanism, pubKeyTemplate, NativeLongUtils.ConvertFromInt32(pubKeyTemplate.Length), privKeyTemplate, NativeLongUtils.ConvertFromInt32(privKeyTemplate.Length), ref pubKeyId, ref privKeyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
