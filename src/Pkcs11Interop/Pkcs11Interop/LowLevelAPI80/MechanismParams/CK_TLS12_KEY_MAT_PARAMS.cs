@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeLong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
 {
@@ -33,17 +34,17 @@ namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
         /// <summary>
         /// The length (in bits) of the MACing keys agreed upon during the protocol handshake phase
         /// </summary>
-        public ulong MacSizeInBits;
+        public NativeLong MacSizeInBits;
 
         /// <summary>
         /// The length (in bits) of the secret keys agreed upon during the protocol handshake phase
         /// </summary>
-        public ulong KeySizeInBits;
+        public NativeLong KeySizeInBits;
 
         /// <summary>
         /// The length (in bits) of the IV agreed upon during the protocol handshake phase
         /// </summary>
-        public ulong IVSizeInBits;
+        public NativeLong IVSizeInBits;
 
         /// <summary>
         /// Flag which must be set to false because export cipher suites must not be used in TLS 1.1 and later
@@ -64,6 +65,6 @@ namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
         /// <summary>
         /// Base hash used in the underlying TLS1.2 PRF operation used to derive the master key (CKM)
         /// </summary>
-        public ulong PrfHashMechanism;
+        public NativeLong PrfHashMechanism;
     }
 }

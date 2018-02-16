@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeLong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
 {
@@ -33,22 +34,22 @@ namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
         /// <summary>
         /// Key handle for the resulting Client MAC Secret key
         /// </summary>
-        public uint ClientMacSecret;
+        public NativeLong ClientMacSecret;
         
         /// <summary>
         /// Key handle for the resulting Server MAC Secret key
         /// </summary>
-        public uint ServerMacSecret;
+        public NativeLong ServerMacSecret;
 
         /// <summary>
         /// Key handle for the resulting Client Secret key
         /// </summary>
-        public uint ClientKey;
+        public NativeLong ClientKey;
 
         /// <summary>
         /// Key handle for the resulting Server Secret key
         /// </summary>
-        public uint ServerKey;
+        public NativeLong ServerKey;
 
         /// <summary>
         /// Pointer to a location which receives the initialization vector (IV) created for the client (if any)

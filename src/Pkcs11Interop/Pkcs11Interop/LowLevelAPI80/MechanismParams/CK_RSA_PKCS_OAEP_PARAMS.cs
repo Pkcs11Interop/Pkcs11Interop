@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeLong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
 {
@@ -33,17 +34,17 @@ namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
         /// <summary>
         /// Mechanism ID of the message digest algorithm used to calculate the digest of the encoding parameter (CKM)
         /// </summary>
-        public ulong HashAlg;
+        public NativeLong HashAlg;
 
         /// <summary>
         /// Mask generation function to use on the encoded block (CKG)
         /// </summary>
-        public ulong Mgf;
+        public NativeLong Mgf;
         
         /// <summary>
         /// Source of the encoding parameter (CKZ)
         /// </summary>
-        public ulong Source;
+        public NativeLong Source;
         
         /// <summary>
         /// Data used as the input for the encoding parameter source
@@ -53,6 +54,6 @@ namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
         /// <summary>
         /// Length of the encoding parameter source input
         /// </summary>
-        public ulong SourceDataLen;
+        public NativeLong SourceDataLen;
     }
 }

@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeLong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
 {
@@ -33,17 +34,17 @@ namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
         /// <summary>
         /// Length of the temporary AES key in bits
         /// </summary>
-        public uint AESKeyBits;
+        public NativeLong AESKeyBits;
 
         /// <summary>
         /// Key derivation function used on the shared secret value to generate AES key (CKD)
         /// </summary>
-        public uint Kdf;
+        public NativeLong Kdf;
 
         /// <summary>
         /// Length in bytes of the shared info
         /// </summary>
-        public uint SharedDataLen;
+        public NativeLong SharedDataLen;
 
         /// <summary>
         /// Data shared between the two parties

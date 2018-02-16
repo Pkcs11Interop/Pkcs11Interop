@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeLong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
 {
@@ -33,27 +34,27 @@ namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
         /// <summary>
         /// The digest mechanism to be used (CKM)
         /// </summary>
-        public uint DigestMechanism;
+        public NativeLong DigestMechanism;
 
         /// <summary>
         /// The length (in bits) of the MACing key agreed upon during the protocol handshake phase
         /// </summary>
-        public uint MacSizeInBits;
+        public NativeLong MacSizeInBits;
 
         /// <summary>
         /// The length (in bits) of the secret key agreed upon during the handshake phase
         /// </summary>
-        public uint KeySizeInBits;
+        public NativeLong KeySizeInBits;
 
         /// <summary>
         /// The length (in bits) of the IV agreed upon during the handshake phase or if no IV is required, the length should be set to 0
         /// </summary>
-        public uint IVSizeInBits;
+        public NativeLong IVSizeInBits;
 
         /// <summary>
         /// The current sequence number used for records sent by the client and server respectively
         /// </summary>
-        public uint SequenceNumber;
+        public NativeLong SequenceNumber;
 
         /// <summary>
         /// Flag which indicates whether the keys have to be derived for an export version of the protocol

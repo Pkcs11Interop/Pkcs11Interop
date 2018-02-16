@@ -20,6 +20,7 @@
  */
 
 using System.Runtime.InteropServices;
+using NativeLong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI40
 {
@@ -32,16 +33,16 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <summary>
         /// The minimum size of the key for the mechanism (whether this is measured in bits or in bytes is mechanism-dependent)
         /// </summary>
-        public uint MinKeySize;
+        public NativeLong MinKeySize;
 
         /// <summary>
         /// The maximum size of the key for the mechanism (whether this is measured in bits or in bytes is mechanism-dependent)
         /// </summary>
-        public uint MaxKeySize;
+        public NativeLong MaxKeySize;
 
         /// <summary>
         /// Bit flags specifying mechanism capabilities
         /// </summary>
-        public uint Flags;
+        public NativeLong Flags;
     }
 }

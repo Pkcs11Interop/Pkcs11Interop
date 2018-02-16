@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeLong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI40
 {
@@ -33,7 +34,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <summary>
         /// The attribute type
         /// </summary>
-        public uint type;
+        public NativeLong type;
 
         /// <summary>
         /// Pointer to the value of the attribute
@@ -43,6 +44,6 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <summary>
         /// Length in bytes of the value
         /// </summary>
-        public uint valueLen;
+        public NativeLong valueLen;
     }
 }

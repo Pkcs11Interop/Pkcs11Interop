@@ -20,6 +20,7 @@
  */
 
 using System.Runtime.InteropServices;
+using NativeLong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
 {
@@ -32,6 +33,6 @@ namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
         /// <summary>
         /// Effective number of bits in the RC2 search space
         /// </summary>
-        public ulong EffectiveBits;
+        public NativeLong EffectiveBits;
     }
 }

@@ -20,6 +20,7 @@
  */
 
 using System.Runtime.InteropServices;
+using NativeLong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
 {
@@ -32,6 +33,6 @@ namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
         /// <summary>
         /// Specifies which bit of the base key should be used as the first bit of the derived key
         /// </summary>
-        public uint Bit;
+        public NativeLong Bit;
     }
 }

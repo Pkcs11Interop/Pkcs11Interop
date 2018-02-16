@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeLong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
 {
@@ -33,7 +34,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
         /// <summary>
         /// Length of the password
         /// </summary>
-        public ulong PasswordLen;
+        public NativeLong PasswordLen;
         
         /// <summary>
         /// Pointer to the buffer which contains the user-supplied password
@@ -43,7 +44,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
         /// <summary>
         /// Other party's key exchange public key size
         /// </summary>
-        public ulong PublicDataLen;
+        public NativeLong PublicDataLen;
 
         /// <summary>
         /// Pointer to other party's key exchange public key value
@@ -53,17 +54,17 @@ namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
         /// <summary>
         /// Length of prime and base values
         /// </summary>
-        public ulong PAndGLen;
+        public NativeLong PAndGLen;
 
         /// <summary>
         /// Length of subprime value
         /// </summary>
-        public ulong QLen;
+        public NativeLong QLen;
 
         /// <summary>
         /// Size of random Ra, in bytes
         /// </summary>
-        public ulong RandomLen;
+        public NativeLong RandomLen;
 
         /// <summary>
         /// Pointer to Ra data

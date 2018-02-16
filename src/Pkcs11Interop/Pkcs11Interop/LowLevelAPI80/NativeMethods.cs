@@ -22,213 +22,214 @@
 using System;
 using System.Runtime.InteropServices;
 using Net.Pkcs11Interop.Common;
+using NativeLong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI80
 {
     internal static class NativeMethods
     {
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_Initialize(CK_C_INITIALIZE_ARGS initArgs);
-
+        internal static extern NativeLong C_Initialize(CK_C_INITIALIZE_ARGS initArgs);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_Finalize(IntPtr reserved);
-
+        internal static extern NativeLong C_Finalize(IntPtr reserved);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_GetInfo(ref CK_INFO info);
-
+        internal static extern NativeLong C_GetInfo(ref CK_INFO info);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_GetFunctionList(out IntPtr functionList);
-
+        internal static extern NativeLong C_GetFunctionList(out IntPtr functionList);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_GetSlotList([MarshalAs(UnmanagedType.U1)] bool tokenPresent, ulong[] slotList, ref ulong count);
-
+        internal static extern NativeLong C_GetSlotList([MarshalAs(UnmanagedType.U1)] bool tokenPresent, NativeLong[] slotList, ref NativeLong count);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_GetSlotInfo(ulong slotId, ref CK_SLOT_INFO info);
-
+        internal static extern NativeLong C_GetSlotInfo(NativeLong slotId, ref CK_SLOT_INFO info);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_GetTokenInfo(ulong slotId, ref CK_TOKEN_INFO info);
-
+        internal static extern NativeLong C_GetTokenInfo(NativeLong slotId, ref CK_TOKEN_INFO info);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_GetMechanismList(ulong slotId, ulong[] mechanismList, ref ulong count);
-
+        internal static extern NativeLong C_GetMechanismList(NativeLong slotId, NativeLong[] mechanismList, ref NativeLong count);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_GetMechanismInfo(ulong slotId, ulong type, ref CK_MECHANISM_INFO info);
-
+        internal static extern NativeLong C_GetMechanismInfo(NativeLong slotId, NativeLong type, ref CK_MECHANISM_INFO info);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_InitToken(ulong slotId, byte[] pin, ulong pinLen, byte[] label);
-
+        internal static extern NativeLong C_InitToken(NativeLong slotId, byte[] pin, NativeLong pinLen, byte[] label);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_InitPIN(ulong session, byte[] pin, ulong pinLen);
-
+        internal static extern NativeLong C_InitPIN(NativeLong session, byte[] pin, NativeLong pinLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_SetPIN(ulong session, byte[] oldPin, ulong oldPinLen, byte[] newPin, ulong newPinLen);
-
+        internal static extern NativeLong C_SetPIN(NativeLong session, byte[] oldPin, NativeLong oldPinLen, byte[] newPin, NativeLong newPinLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_OpenSession(ulong slotId, ulong flags, IntPtr application, IntPtr notify, ref ulong session);
-
+        internal static extern NativeLong C_OpenSession(NativeLong slotId, NativeLong flags, IntPtr application, IntPtr notify, ref NativeLong session);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_CloseSession(ulong session);
-
+        internal static extern NativeLong C_CloseSession(NativeLong session);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_CloseAllSessions(ulong slotId);
-
+        internal static extern NativeLong C_CloseAllSessions(NativeLong slotId);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_GetSessionInfo(ulong session, ref CK_SESSION_INFO info);
-
+        internal static extern NativeLong C_GetSessionInfo(NativeLong session, ref CK_SESSION_INFO info);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_GetOperationState(ulong session, byte[] operationState, ref ulong operationStateLen);
-
+        internal static extern NativeLong C_GetOperationState(NativeLong session, byte[] operationState, ref NativeLong operationStateLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_SetOperationState(ulong session, byte[] operationState, ulong operationStateLen, ulong encryptionKey, ulong authenticationKey);
-
+        internal static extern NativeLong C_SetOperationState(NativeLong session, byte[] operationState, NativeLong operationStateLen, NativeLong encryptionKey, NativeLong authenticationKey);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_Login(ulong session, ulong userType, byte[] pin, ulong pinLen);
-
+        internal static extern NativeLong C_Login(NativeLong session, NativeLong userType, byte[] pin, NativeLong pinLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_Logout(ulong session);
-
+        internal static extern NativeLong C_Logout(NativeLong session);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_CreateObject(ulong session, CK_ATTRIBUTE[] template, ulong count, ref ulong objectId);
-
+        internal static extern NativeLong C_CreateObject(NativeLong session, CK_ATTRIBUTE[] template, NativeLong count, ref NativeLong objectId);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_CopyObject(ulong session, ulong objectId, CK_ATTRIBUTE[] template, ulong count, ref ulong newObjectId);
-
+        internal static extern NativeLong C_CopyObject(NativeLong session, NativeLong objectId, CK_ATTRIBUTE[] template, NativeLong count, ref NativeLong newObjectId);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_DestroyObject(ulong session, ulong objectId);
-
+        internal static extern NativeLong C_DestroyObject(NativeLong session, NativeLong objectId);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_GetObjectSize(ulong session, ulong objectId, ref ulong size);
-
+        internal static extern NativeLong C_GetObjectSize(NativeLong session, NativeLong objectId, ref NativeLong size);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_GetAttributeValue(ulong session, ulong objectId, [In, Out] CK_ATTRIBUTE[] template, ulong count);
-
+        internal static extern NativeLong C_GetAttributeValue(NativeLong session, NativeLong objectId, [In, Out] CK_ATTRIBUTE[] template, NativeLong count);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_SetAttributeValue(ulong session, ulong objectId, CK_ATTRIBUTE[] template, ulong count);
-
+        internal static extern NativeLong C_SetAttributeValue(NativeLong session, NativeLong objectId, CK_ATTRIBUTE[] template, NativeLong count);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_FindObjectsInit(ulong session, CK_ATTRIBUTE[] template, ulong count);
-
+        internal static extern NativeLong C_FindObjectsInit(NativeLong session, CK_ATTRIBUTE[] template, NativeLong count);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_FindObjects(ulong session, ulong[] objectId, ulong maxObjectCount, ref ulong objectCount);
-
+        internal static extern NativeLong C_FindObjects(NativeLong session, NativeLong[] objectId, NativeLong maxObjectCount, ref NativeLong objectCount);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_FindObjectsFinal(ulong session);
-
+        internal static extern NativeLong C_FindObjectsFinal(NativeLong session);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_EncryptInit(ulong session, ref CK_MECHANISM mechanism, ulong key);
-
+        internal static extern NativeLong C_EncryptInit(NativeLong session, ref CK_MECHANISM mechanism, NativeLong key);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_Encrypt(ulong session, byte[] data, ulong dataLen, byte[] encryptedData, ref ulong encryptedDataLen);
-
+        internal static extern NativeLong C_Encrypt(NativeLong session, byte[] data, NativeLong dataLen, byte[] encryptedData, ref NativeLong encryptedDataLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_EncryptUpdate(ulong session, byte[] part, ulong partLen, byte[] encryptedPart, ref ulong encryptedPartLen);
-
+        internal static extern NativeLong C_EncryptUpdate(NativeLong session, byte[] part, NativeLong partLen, byte[] encryptedPart, ref NativeLong encryptedPartLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_EncryptFinal(ulong session, byte[] lastEncryptedPart, ref ulong lastEncryptedPartLen);
-
+        internal static extern NativeLong C_EncryptFinal(NativeLong session, byte[] lastEncryptedPart, ref NativeLong lastEncryptedPartLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_DecryptInit(ulong session, ref CK_MECHANISM mechanism, ulong key);
-
+        internal static extern NativeLong C_DecryptInit(NativeLong session, ref CK_MECHANISM mechanism, NativeLong key);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_Decrypt(ulong session, byte[] encryptedData, ulong encryptedDataLen, byte[] data, ref ulong dataLen);
-
+        internal static extern NativeLong C_Decrypt(NativeLong session, byte[] encryptedData, NativeLong encryptedDataLen, byte[] data, ref NativeLong dataLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_DecryptUpdate(ulong session, byte[] encryptedPart, ulong encryptedPartLen, byte[] part, ref ulong partLen);
-
+        internal static extern NativeLong C_DecryptUpdate(NativeLong session, byte[] encryptedPart, NativeLong encryptedPartLen, byte[] part, ref NativeLong partLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_DecryptFinal(ulong session, byte[] lastPart, ref ulong lastPartLen);
-
+        internal static extern NativeLong C_DecryptFinal(NativeLong session, byte[] lastPart, ref NativeLong lastPartLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_DigestInit(ulong session, ref CK_MECHANISM mechanism);
-
+        internal static extern NativeLong C_DigestInit(NativeLong session, ref CK_MECHANISM mechanism);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_Digest(ulong session, byte[] data, ulong dataLen, byte[] digest, ref ulong digestLen);
-
+        internal static extern NativeLong C_Digest(NativeLong session, byte[] data, NativeLong dataLen, byte[] digest, ref NativeLong digestLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_DigestUpdate(ulong session, byte[] part, ulong partLen);
-
+        internal static extern NativeLong C_DigestUpdate(NativeLong session, byte[] part, NativeLong partLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_DigestKey(ulong session, ulong key);
-
+        internal static extern NativeLong C_DigestKey(NativeLong session, NativeLong key);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_DigestFinal(ulong session, byte[] digest, ref ulong digestLen);
-
+        internal static extern NativeLong C_DigestFinal(NativeLong session, byte[] digest, ref NativeLong digestLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_SignInit(ulong session, ref CK_MECHANISM mechanism, ulong key);
-
+        internal static extern NativeLong C_SignInit(NativeLong session, ref CK_MECHANISM mechanism, NativeLong key);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_Sign(ulong session, byte[] data, ulong dataLen, byte[] signature, ref ulong signatureLen);
-
+        internal static extern NativeLong C_Sign(NativeLong session, byte[] data, NativeLong dataLen, byte[] signature, ref NativeLong signatureLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_SignUpdate(ulong session, byte[] part, ulong partLen);
-
+        internal static extern NativeLong C_SignUpdate(NativeLong session, byte[] part, NativeLong partLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_SignFinal(ulong session, byte[] signature, ref ulong signatureLen);
-
+        internal static extern NativeLong C_SignFinal(NativeLong session, byte[] signature, ref NativeLong signatureLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_SignRecoverInit(ulong session, ref CK_MECHANISM mechanism, ulong key);
-
+        internal static extern NativeLong C_SignRecoverInit(NativeLong session, ref CK_MECHANISM mechanism, NativeLong key);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_SignRecover(ulong session, byte[] data, ulong dataLen, byte[] signature, ref ulong signatureLen);
-
+        internal static extern NativeLong C_SignRecover(NativeLong session, byte[] data, NativeLong dataLen, byte[] signature, ref NativeLong signatureLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_VerifyInit(ulong session, ref CK_MECHANISM mechanism, ulong key);
-
+        internal static extern NativeLong C_VerifyInit(NativeLong session, ref CK_MECHANISM mechanism, NativeLong key);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_Verify(ulong session, byte[] data, ulong dataLen, byte[] signature, ulong signatureLen);
-
+        internal static extern NativeLong C_Verify(NativeLong session, byte[] data, NativeLong dataLen, byte[] signature, NativeLong signatureLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_VerifyUpdate(ulong session, byte[] part, ulong partLen);
-
+        internal static extern NativeLong C_VerifyUpdate(NativeLong session, byte[] part, NativeLong partLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_VerifyFinal(ulong session, byte[] signature, ulong signatureLen);
-
+        internal static extern NativeLong C_VerifyFinal(NativeLong session, byte[] signature, NativeLong signatureLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_VerifyRecoverInit(ulong session, ref CK_MECHANISM mechanism, ulong key);
-
+        internal static extern NativeLong C_VerifyRecoverInit(NativeLong session, ref CK_MECHANISM mechanism, NativeLong key);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_VerifyRecover(ulong session, byte[] signature, ulong signatureLen, byte[] data, ref ulong dataLen);
-
+        internal static extern NativeLong C_VerifyRecover(NativeLong session, byte[] signature, NativeLong signatureLen, byte[] data, ref NativeLong dataLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_DigestEncryptUpdate(ulong session, byte[] part, ulong partLen, byte[] encryptedPart, ref ulong encryptedPartLen);
-
+        internal static extern NativeLong C_DigestEncryptUpdate(NativeLong session, byte[] part, NativeLong partLen, byte[] encryptedPart, ref NativeLong encryptedPartLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_DecryptDigestUpdate(ulong session, byte[] encryptedPart, ulong encryptedPartLen, byte[] part, ref ulong partLen);
-
+        internal static extern NativeLong C_DecryptDigestUpdate(NativeLong session, byte[] encryptedPart, NativeLong encryptedPartLen, byte[] part, ref NativeLong partLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_SignEncryptUpdate(ulong session, byte[] part, ulong partLen, byte[] encryptedPart, ref ulong encryptedPartLen);
-
+        internal static extern NativeLong C_SignEncryptUpdate(NativeLong session, byte[] part, NativeLong partLen, byte[] encryptedPart, ref NativeLong encryptedPartLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_DecryptVerifyUpdate(ulong session, byte[] encryptedPart, ulong encryptedPartLen, byte[] part, ref ulong partLen);
-
+        internal static extern NativeLong C_DecryptVerifyUpdate(NativeLong session, byte[] encryptedPart, NativeLong encryptedPartLen, byte[] part, ref NativeLong partLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_GenerateKey(ulong session, ref CK_MECHANISM mechanism, CK_ATTRIBUTE[] template, ulong count, ref ulong key);
-
+        internal static extern NativeLong C_GenerateKey(NativeLong session, ref CK_MECHANISM mechanism, CK_ATTRIBUTE[] template, NativeLong count, ref NativeLong key);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_GenerateKeyPair(ulong session, ref CK_MECHANISM mechanism, CK_ATTRIBUTE[] publicKeyTemplate, ulong publicKeyAttributeCount, CK_ATTRIBUTE[] privateKeyTemplate, ulong privateKeyAttributeCount, ref ulong publicKey, ref ulong privateKey);
-
+        internal static extern NativeLong C_GenerateKeyPair(NativeLong session, ref CK_MECHANISM mechanism, CK_ATTRIBUTE[] publicKeyTemplate, NativeLong publicKeyAttributeCount, CK_ATTRIBUTE[] privateKeyTemplate, NativeLong privateKeyAttributeCount, ref NativeLong publicKey, ref NativeLong privateKey);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_WrapKey(ulong session, ref CK_MECHANISM mechanism, ulong wrappingKey, ulong key, byte[] wrappedKey, ref ulong wrappedKeyLen);
-
+        internal static extern NativeLong C_WrapKey(NativeLong session, ref CK_MECHANISM mechanism, NativeLong wrappingKey, NativeLong key, byte[] wrappedKey, ref NativeLong wrappedKeyLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_UnwrapKey(ulong session, ref CK_MECHANISM mechanism, ulong unwrappingKey, byte[] wrappedKey, ulong wrappedKeyLen, CK_ATTRIBUTE[] template, ulong attributeCount, ref ulong key);
-
+        internal static extern NativeLong C_UnwrapKey(NativeLong session, ref CK_MECHANISM mechanism, NativeLong unwrappingKey, byte[] wrappedKey, NativeLong wrappedKeyLen, CK_ATTRIBUTE[] template, NativeLong attributeCount, ref NativeLong key);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_DeriveKey(ulong session, ref CK_MECHANISM mechanism, ulong baseKey, CK_ATTRIBUTE[] template, ulong attributeCount, ref ulong key);
-
+        internal static extern NativeLong C_DeriveKey(NativeLong session, ref CK_MECHANISM mechanism, NativeLong baseKey, CK_ATTRIBUTE[] template, NativeLong attributeCount, ref NativeLong key);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_SeedRandom(ulong session, byte[] seed, ulong seedLen);
-
+        internal static extern NativeLong C_SeedRandom(NativeLong session, byte[] seed, NativeLong seedLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_GenerateRandom(ulong session, byte[] randomData, ulong randomLen);
-
+        internal static extern NativeLong C_GenerateRandom(NativeLong session, byte[] randomData, NativeLong randomLen);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_GetFunctionStatus(ulong session);
-
+        internal static extern NativeLong C_GetFunctionStatus(NativeLong session);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_CancelFunction(ulong session);
-
+        internal static extern NativeLong C_CancelFunction(NativeLong session);
+    
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern ulong C_WaitForSlotEvent(ulong flags, ref ulong slot, IntPtr reserved);
+        internal static extern NativeLong C_WaitForSlotEvent(NativeLong flags, ref NativeLong slot, IntPtr reserved);
     }
 }

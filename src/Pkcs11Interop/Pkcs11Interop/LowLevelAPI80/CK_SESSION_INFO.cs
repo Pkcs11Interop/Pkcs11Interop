@@ -20,6 +20,7 @@
  */
 
 using System.Runtime.InteropServices;
+using NativeLong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI80
 {
@@ -32,21 +33,21 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <summary>
         /// ID of the slot that interfaces with the token
         /// </summary>
-        public ulong SlotId;
+        public NativeLong SlotId;
 
         /// <summary>
         /// The state of the session
         /// </summary>
-        public ulong State;
+        public NativeLong State;
 
         /// <summary>
         /// Bit flags that define the type of session
         /// </summary>
-        public ulong Flags;
+        public NativeLong Flags;
 
         /// <summary>
         /// An error code defined by the cryptographic device. Used for errors not covered by Cryptoki.
         /// </summary>
-        public ulong DeviceError;
+        public NativeLong DeviceError;
     }
 }
