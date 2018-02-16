@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeLong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
 {
@@ -33,12 +34,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// Wordsize of RC5 cipher in bytes
         /// </summary>
-        public uint Wordsize;
+        public NativeLong Wordsize;
 
         /// <summary>
         /// Number of rounds of RC5 encipherment
         /// </summary>
-        public uint Rounds;
+        public NativeLong Rounds;
 
         /// <summary>
         /// Pointer to initialization vector (IV) for CBC encryption
@@ -48,6 +49,6 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// Length of initialization vector (must be same as blocksize)
         /// </summary>
-        public uint IvLen;
+        public NativeLong IvLen;
     }
 }

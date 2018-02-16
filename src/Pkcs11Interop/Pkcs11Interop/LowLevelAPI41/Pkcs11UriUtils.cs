@@ -22,6 +22,7 @@
 using Net.Pkcs11Interop.Common;
 using System;
 using System.Collections.Generic;
+using NativeLong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI41
 {
@@ -55,7 +56,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
         /// <param name="slotInfo">Slot information</param>
         /// <param name="slotId">Slot identifier</param>
         /// <returns>True if slot information matches PKCS#11 URI</returns>
-        public static bool Matches(Pkcs11Uri pkcs11Uri, CK_SLOT_INFO slotInfo, uint? slotId)
+        public static bool Matches(Pkcs11Uri pkcs11Uri, CK_SLOT_INFO slotInfo, NativeLong? slotId)
         {
             if (pkcs11Uri == null)
                 throw new ArgumentNullException("pkcs11Uri");
@@ -99,15 +100,15 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
             if (objectAttributes == null)
                 throw new ArgumentNullException("objectAttributes");
 
-            uint ckaClassType = (uint)CKA.CKA_CLASS;
+            NativeLong ckaClassType = NativeLongUtils.ConvertFromCKA(CKA.CKA_CLASS);
             CKO? ckaClassValue = null;
             bool ckaClassFound = false;
 
-            uint ckaLabelType = (uint)CKA.CKA_LABEL;
+            NativeLong ckaLabelType = NativeLongUtils.ConvertFromCKA(CKA.CKA_LABEL);
             string ckaLabelValue = null;
             bool ckaLabelFound = false;
 
-            uint ckaIdType = (uint)CKA.CKA_ID;
+            NativeLong ckaIdType = NativeLongUtils.ConvertFromCKA(CKA.CKA_ID);
             byte[] ckaIdValue = null;
             bool ckaIdFound = false;
 
@@ -117,9 +118,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
 
                 if (attribute.type == ckaClassType)
                 {
-                    uint uintValue = 0;
-                    CkaUtils.ConvertValue(ref attribute, out uintValue);
-                    ckaClassValue = (CKO)uintValue;
+                    NativeLong nativeUlongValue = 0;
+                    CkaUtils.ConvertValue(ref attribute, out nativeUlongValue);
+                    ckaClassValue = NativeLongUtils.ConvertToCKO(nativeUlongValue);
                     ckaClassFound = true;
                 }
                 else if (attribute.type == ckaLabelType)
@@ -157,7 +158,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
         /// <param name="tokenPresent">Flag indicating whether the list obtained includes only those slots with a token present (true), or all slots (false)</param>
         /// <param name="slotList">List of slots matching PKCS#11 URI</param>
         /// <returns>CKR_OK if successful; any other value otherwise</returns>
-        public static CKR GetMatchingSlotList(Pkcs11Uri pkcs11Uri, Pkcs11 pkcs11, bool tokenPresent, out uint[] slotList)
+        public static CKR GetMatchingSlotList(Pkcs11Uri pkcs11Uri, Pkcs11 pkcs11, bool tokenPresent, out NativeLong[] slotList)
         {
             if (pkcs11Uri == null)
                 throw new ArgumentNullException("pkcs11Uri");
@@ -165,62 +166,62 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
             if (pkcs11 == null)
                 throw new ArgumentNullException("pkcs11");
 
-            List<uint> matchingSlots = new List<uint>();
+            List<NativeLong> matchingSlots = new List<NativeLong>();
 
             // Get library information
             CK_INFO libraryInfo = new CK_INFO();
             CKR rv = pkcs11.C_GetInfo(ref libraryInfo);
             if (rv != CKR.CKR_OK)
             {
-                slotList = new uint[0];
+                slotList = new NativeLong[0];
                 return rv;
             }
 
             // Check whether library matches URI
             if (!Matches(pkcs11Uri, libraryInfo))
             {
-                slotList = new uint[0];
+                slotList = new NativeLong[0];
                 return CKR.CKR_OK;
             }
 
             // Get number of slots in first call
-            uint slotCount = 0;
+            NativeLong slotCount = 0;
             rv = pkcs11.C_GetSlotList(false, null, ref slotCount);
             if (rv != CKR.CKR_OK)
             {
-                slotList = new uint[0];
+                slotList = new NativeLong[0];
                 return rv;
             }
 
             if (slotCount < 1)
             {
-                slotList = new uint[0];
+                slotList = new NativeLong[0];
                 return CKR.CKR_OK;
             }
 
             // Allocate array for slot IDs
-            uint[] slots = new uint[slotCount];
+            NativeLong[] slots = new NativeLong[slotCount];
 
             // Get slot IDs in second call
             rv = pkcs11.C_GetSlotList(tokenPresent, slots, ref slotCount);
             if (rv != CKR.CKR_OK)
             {
-                slotList = new uint[0];
+                slotList = new NativeLong[0];
                 return rv;
             }
 
             // Shrink array if needed
-            if (slots.Length != slotCount)
-                Array.Resize(ref slots, Convert.ToInt32(slotCount));
+            if (slots.Length != NativeLongUtils.ConvertToInt32(slotCount))
+                Array.Resize(ref slots, NativeLongUtils.ConvertToInt32(slotCount));
 
             // Match slots with Pkcs11Uri
-            foreach (uint slot in slots)
+            foreach (NativeLong slot in slots)
             {
                 CK_SLOT_INFO slotInfo = new CK_SLOT_INFO();
                 rv = pkcs11.C_GetSlotInfo(slot, ref slotInfo);
                 if (rv != CKR.CKR_OK)
                 {
-                    slotList = new uint[0];
+                    slotList = new NativeLong[0];
                     return rv;
                 }
 
@@ -233,7 +234,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                         rv = pkcs11.C_GetTokenInfo(slot, ref tokenInfo);
                         if (rv != CKR.CKR_OK)
                         {
-                            slotList = new uint[0];
+                            slotList = new NativeLong[0];
                             return rv;
                         }
 

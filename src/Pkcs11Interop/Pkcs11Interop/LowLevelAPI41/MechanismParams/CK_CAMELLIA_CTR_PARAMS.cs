@@ -20,6 +20,7 @@
  */
 
 using System.Runtime.InteropServices;
+using NativeLong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
 {
@@ -32,7 +33,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// Specifies the number of bits in the counter block (cb) that shall be incremented
         /// </summary>
-        public uint CounterBits;
+        public NativeLong CounterBits;
         
         /// <summary>
         /// Specifies the counter block

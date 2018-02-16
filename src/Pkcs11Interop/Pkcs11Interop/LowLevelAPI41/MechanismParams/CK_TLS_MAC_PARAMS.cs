@@ -20,6 +20,7 @@
  */
 
 using System.Runtime.InteropServices;
+using NativeLong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
 {
@@ -32,16 +33,16 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// Hash mechanism used in the TLS12 PRF construct or CKM_TLS_PRF to use with the TLS 1.0 and 1.1 PRF construct (CKM)
         /// </summary>
-        public uint PrfHashMechanism;
+        public NativeLong PrfHashMechanism;
 
         /// <summary>
         /// Length of the MAC tag required or offered
         /// </summary>
-        public uint MacLength;
+        public NativeLong MacLength;
 
         /// <summary>
         /// Should be set to "1" for "server finished" label or to "2" for "client finished" label
         /// </summary>
-        public uint ServerOrClient;
+        public NativeLong ServerOrClient;
     }
 }

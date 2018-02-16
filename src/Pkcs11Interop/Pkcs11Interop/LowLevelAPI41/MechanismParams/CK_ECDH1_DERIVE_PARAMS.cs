@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeLong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
 {
@@ -33,12 +34,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// Key derivation function used on the shared secret value (CKD)
         /// </summary>
-        public uint Kdf;
+        public NativeLong Kdf;
 
         /// <summary>
         /// The length in bytes of the shared info
         /// </summary>
-        public uint SharedDataLen;
+        public NativeLong SharedDataLen;
 
         /// <summary>
         /// Some data shared between the two parties
@@ -48,7 +49,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// The length in bytes of the other party's EC public key
         /// </summary>
-        public uint PublicDataLen;
+        public NativeLong PublicDataLen;
 
         /// <summary>
         /// Pointer to other party's EC public key value

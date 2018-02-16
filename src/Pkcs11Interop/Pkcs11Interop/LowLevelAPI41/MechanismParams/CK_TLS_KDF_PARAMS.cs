@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeLong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
 {
@@ -33,7 +34,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// Hash mechanism used in the TLS 1.2 PRF construct or CKM_TLS_PRF to use with the TLS 1.0 and 1.1 PRF construct (CKM)
         /// </summary>
-        public uint PrfMechanism;
+        public NativeLong PrfMechanism;
 
         /// <summary>
         /// Pointer to the label for this key derivation
@@ -43,7 +44,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// Length of the label in bytes
         /// </summary>
-        public uint LabelLength;
+        public NativeLong LabelLength;
 
         /// <summary>
         /// Random data for the key derivation
@@ -58,6 +59,6 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// Length of the context data in bytes
         /// </summary>
-        public uint ContextDataLength;
+        public NativeLong ContextDataLength;
     }
 }

@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeLong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
 {
@@ -33,7 +34,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// Digest mechanism to be used (CKM)
         /// </summary>
-        public uint DigestMechanism;
+        public NativeLong DigestMechanism;
 
         /// <summary>
         /// Pointer to the input seed
@@ -43,7 +44,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// Length in bytes of the input seed
         /// </summary>
-        public uint SeedLen;
+        public NativeLong SeedLen;
 
         /// <summary>
         /// Pointer to the identifying label
@@ -53,7 +54,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// Length in bytes of the identifying label
         /// </summary>
-        public uint LabelLen;
+        public NativeLong LabelLen;
 
         /// <summary>
         /// Pointer receiving the output of the operation

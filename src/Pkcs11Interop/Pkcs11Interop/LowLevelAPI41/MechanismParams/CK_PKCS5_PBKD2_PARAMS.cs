@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeLong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
 {
@@ -33,7 +34,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// Source of the salt value (CKZ)
         /// </summary>
-        public uint SaltSource;
+        public NativeLong SaltSource;
 
         /// <summary>
         /// Data used as the input for the salt source
@@ -43,17 +44,17 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// Length of the salt source input
         /// </summary>
-        public uint SaltSourceDataLen;
+        public NativeLong SaltSourceDataLen;
 
         /// <summary>
         /// Number of iterations to perform when generating each block of random data
         /// </summary>
-        public uint Iterations;
+        public NativeLong Iterations;
 
         /// <summary>
         /// Pseudo-random function to used to generate the key (CKP)
         /// </summary>
-        public uint Prf;
+        public NativeLong Prf;
 
         /// <summary>
         /// Data used as the input for PRF in addition to the salt value
@@ -63,7 +64,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// Length of the input data for the PRF
         /// </summary>
-        public uint PrfDataLen;
+        public NativeLong PrfDataLen;
 
         /// <summary>
         /// Points to the password to be used in the PBE key generation
