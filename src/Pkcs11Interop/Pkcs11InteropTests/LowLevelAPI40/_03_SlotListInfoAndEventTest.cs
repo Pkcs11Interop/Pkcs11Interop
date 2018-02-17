@@ -23,7 +23,7 @@ using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI40;
 using NUnit.Framework;
-using NativeLong = System.UInt32;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
 {
@@ -50,7 +50,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     Assert.Fail(rv.ToString());
                 
                 // Get number of slots in first call
-                NativeLong slotCount = 0;
+                NativeULong slotCount = 0;
                 rv = pkcs11.C_GetSlotList(true, null, ref slotCount);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -58,7 +58,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                 Assert.IsTrue(slotCount > 0);
                 
                 // Allocate array for slot IDs
-                NativeLong[] slotList = new NativeLong[slotCount];
+                NativeULong[] slotList = new NativeULong[slotCount];
                 
                 // Get slot IDs in second call
                 rv = pkcs11.C_GetSlotList(true, slotList, ref slotCount);
@@ -90,7 +90,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     Assert.Fail(rv.ToString());
                 
                 // Get number of slots in first call
-                NativeLong slotCount = 0;
+                NativeULong slotCount = 0;
                 rv = pkcs11.C_GetSlotList(true, null, ref slotCount);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -98,7 +98,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                 Assert.IsTrue(slotCount > 0);
                 
                 // Allocate array for slot IDs
-                NativeLong[] slotList = new NativeLong[slotCount];
+                NativeULong[] slotList = new NativeULong[slotCount];
                 
                 // Get slot IDs in second call
                 rv = pkcs11.C_GetSlotList(true, slotList, ref slotCount);
@@ -137,7 +137,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     Assert.Fail(rv.ToString());
 
                 // Wait for a slot event
-                NativeLong slot = 0;
+                NativeULong slot = 0;
                 rv = pkcs11.C_WaitForSlotEvent(CKF.CKF_DONT_BLOCK, ref slot, IntPtr.Zero);
                 if (rv != CKR.CKR_NO_EVENT)
                     Assert.Fail(rv.ToString());

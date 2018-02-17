@@ -21,7 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
-using NativeLong = System.UInt64;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
 {
@@ -39,6 +39,6 @@ namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
         /// <summary>
         /// Length of the byte string
         /// </summary>
-        public NativeLong Len;
+        public NativeULong Len;
     }
 }

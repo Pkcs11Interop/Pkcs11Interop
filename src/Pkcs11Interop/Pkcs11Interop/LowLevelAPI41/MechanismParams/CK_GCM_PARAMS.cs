@@ -21,7 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
-using NativeLong = System.UInt32;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
 {
@@ -39,12 +39,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// Length of initialization vector in bytes
         /// </summary>
-        public NativeLong IvLen;
+        public NativeULong IvLen;
 
         /// <summary>
         /// Member is defined in PKCS#11 v2.40e1 headers but the description is not present in the specification
         /// </summary>
-        public NativeLong IvBits; // TODO - Fix description when fixed in PKCS#11 specification
+        public NativeULong IvBits; // TODO - Fix description when fixed in PKCS#11 specification
 
         /// <summary>
         /// Pointer to additional authentication data
@@ -54,11 +54,11 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// Length of additional authentication data in bytes
         /// </summary>
-        public NativeLong AADLen;
+        public NativeULong AADLen;
 
         /// <summary>
         /// Length of authentication tag (output following cipher text) in bits
         /// </summary>
-        public NativeLong TagBits;
+        public NativeULong TagBits;
     }
 }

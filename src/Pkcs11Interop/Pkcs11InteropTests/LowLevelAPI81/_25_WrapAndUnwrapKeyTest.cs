@@ -23,7 +23,7 @@ using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI81;
 using NUnit.Framework;
-using NativeLong = System.UInt64;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
 {
@@ -50,9 +50,9 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                NativeLong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeULong slotId = Helpers.GetUsableSlot(pkcs11);
                 
-                NativeLong session = CK.CK_INVALID_HANDLE;
+                NativeULong session = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -63,14 +63,14 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                     Assert.Fail(rv.ToString());
                 
                 // Generate asymetric key pair
-                NativeLong pubKeyId = CK.CK_INVALID_HANDLE;
-                NativeLong privKeyId = CK.CK_INVALID_HANDLE;
+                NativeULong pubKeyId = CK.CK_INVALID_HANDLE;
+                NativeULong privKeyId = CK.CK_INVALID_HANDLE;
                 rv = Helpers.GenerateKeyPair(pkcs11, session, ref pubKeyId, ref privKeyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Generate symetric key
-                NativeLong keyId = CK.CK_INVALID_HANDLE;
+                NativeULong keyId = CK.CK_INVALID_HANDLE;
                 rv = Helpers.GenerateKey(pkcs11, session, ref keyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -79,7 +79,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                 CK_MECHANISM mechanism = CkmUtils.CreateMechanism(CKM.CKM_RSA_PKCS);
 
                 // Get length of wrapped key in first call
-                NativeLong wrappedKeyLen = 0;
+                NativeULong wrappedKeyLen = 0;
                 rv = pkcs11.C_WrapKey(session, ref mechanism, pubKeyId, keyId, null, ref wrappedKeyLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -106,7 +106,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                 template[5] = CkaUtils.CreateAttribute(CKA.CKA_EXTRACTABLE, true);
 
                 // Unwrap key
-                NativeLong unwrappedKeyId = 0;
+                NativeULong unwrappedKeyId = 0;
                 rv = pkcs11.C_UnwrapKey(session, ref mechanism, privKeyId, wrappedKey, wrappedKeyLen, template, NativeLongUtils.ConvertFromInt32(template.Length), ref unwrappedKeyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());

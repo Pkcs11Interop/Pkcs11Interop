@@ -24,7 +24,7 @@ using System.IO;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI40;
 using NUnit.Framework;
-using NativeLong = System.UInt32;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
 {
@@ -51,9 +51,9 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                NativeLong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeULong slotId = Helpers.GetUsableSlot(pkcs11);
                 
-                NativeLong session = CK.CK_INVALID_HANDLE;
+                NativeULong session = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -64,8 +64,8 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     Assert.Fail(rv.ToString());
                 
                 // Generate asymetric key pair
-                NativeLong pubKeyId = CK.CK_INVALID_HANDLE;
-                NativeLong privKeyId = CK.CK_INVALID_HANDLE;
+                NativeULong pubKeyId = CK.CK_INVALID_HANDLE;
+                NativeULong privKeyId = CK.CK_INVALID_HANDLE;
                 rv = Helpers.GenerateKeyPair(pkcs11, session, ref pubKeyId, ref privKeyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -81,7 +81,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                 byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
 
                 // Get length of signature in first call
-                NativeLong signatureLen = 0;
+                NativeULong signatureLen = 0;
                 rv = pkcs11.C_Sign(session, sourceData, NativeLongUtils.ConvertFromInt32(sourceData.Length), null, ref signatureLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -149,9 +149,9 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                NativeLong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeULong slotId = Helpers.GetUsableSlot(pkcs11);
                 
-                NativeLong session = CK.CK_INVALID_HANDLE;
+                NativeULong session = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -162,8 +162,8 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     Assert.Fail(rv.ToString());
                 
                 // Generate asymetric key pair
-                NativeLong pubKeyId = CK.CK_INVALID_HANDLE;
-                NativeLong privKeyId = CK.CK_INVALID_HANDLE;
+                NativeULong pubKeyId = CK.CK_INVALID_HANDLE;
+                NativeULong privKeyId = CK.CK_INVALID_HANDLE;
                 rv = Helpers.GenerateKeyPair(pkcs11, session, ref pubKeyId, ref privKeyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -197,7 +197,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     }
 
                     // Get the length of signature in first call
-                    NativeLong signatureLen = 0;
+                    NativeULong signatureLen = 0;
                     rv = pkcs11.C_SignFinal(session, null, ref signatureLen);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());

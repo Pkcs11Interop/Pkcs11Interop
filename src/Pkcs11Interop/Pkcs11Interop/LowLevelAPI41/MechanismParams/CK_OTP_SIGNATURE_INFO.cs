@@ -21,7 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
-using NativeLong = System.UInt32;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
 {
@@ -39,6 +39,6 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// The number of parameters in the array
         /// </summary>
-        public NativeLong Count;
+        public NativeULong Count;
     }
 }

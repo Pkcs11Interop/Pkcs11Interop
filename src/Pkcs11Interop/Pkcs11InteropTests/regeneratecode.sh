@@ -25,7 +25,7 @@ for file in $files; do
 	sed -i -e 's/Net.Pkcs11Interop.LowLevelAPI41/Net.Pkcs11Interop.'"$API"'/' $file
 	sed -i -e 's/Net.Pkcs11Interop.Tests.LowLevelAPI41/Net.Pkcs11Interop.Tests.'"$API"'/' $file
 	sed -i -e 's/Settings.InitArgs41/Settings.InitArgs80/' $file
-	sed -i -e 's/using NativeLong = System.UInt32;/using NativeLong = System.UInt64;/' $file
+	sed -i -e 's/using NativeULong = System.UInt32;/using NativeULong = System.UInt64;/' $file
 done
 sed -i -e 's/(Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 1)/(Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)/' ./$API/Helpers.cs
 
@@ -39,6 +39,6 @@ for file in $files; do
 	sed -i -e 's/Net.Pkcs11Interop.LowLevelAPI41/Net.Pkcs11Interop.'"$API"'/' $file
 	sed -i -e 's/Net.Pkcs11Interop.Tests.LowLevelAPI41/Net.Pkcs11Interop.Tests.'"$API"'/' $file
 	sed -i -e 's/Settings.InitArgs41/Settings.InitArgs81/' $file
-	sed -i -e 's/using NativeLong = System.UInt32;/using NativeLong = System.UInt64;/' $file
+	sed -i -e 's/using NativeULong = System.UInt32;/using NativeULong = System.UInt64;/' $file
 done
 sed -i -e 's/(Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 1)/(Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)/' ./$API/Helpers.cs

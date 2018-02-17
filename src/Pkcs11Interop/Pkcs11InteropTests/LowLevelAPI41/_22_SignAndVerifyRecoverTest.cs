@@ -23,7 +23,7 @@ using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI41;
 using NUnit.Framework;
-using NativeLong = System.UInt32;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 {
@@ -50,9 +50,9 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                NativeLong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeULong slotId = Helpers.GetUsableSlot(pkcs11);
                 
-                NativeLong session = CK.CK_INVALID_HANDLE;
+                NativeULong session = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -63,8 +63,8 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     Assert.Fail(rv.ToString());
                 
                 // Generate asymetric key pair
-                NativeLong pubKeyId = CK.CK_INVALID_HANDLE;
-                NativeLong privKeyId = CK.CK_INVALID_HANDLE;
+                NativeULong pubKeyId = CK.CK_INVALID_HANDLE;
+                NativeULong privKeyId = CK.CK_INVALID_HANDLE;
                 rv = Helpers.GenerateKeyPair(pkcs11, session, ref pubKeyId, ref privKeyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -80,7 +80,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
                 
                 // Get length of signature in first call
-                NativeLong signatureLen = 0;
+                NativeULong signatureLen = 0;
                 rv = pkcs11.C_SignRecover(session, sourceData, NativeLongUtils.ConvertFromInt32(sourceData.Length), null, ref signatureLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -103,7 +103,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     Assert.Fail(rv.ToString());
 
                 // Get length of recovered data in first call
-                NativeLong recoveredDataLen = 0;
+                NativeULong recoveredDataLen = 0;
                 rv = pkcs11.C_VerifyRecover(session, signature, NativeLongUtils.ConvertFromInt32(signature.Length), null, ref recoveredDataLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());

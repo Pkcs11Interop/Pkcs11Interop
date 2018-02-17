@@ -20,7 +20,7 @@
  */
 
 using System.Runtime.InteropServices;
-using NativeLong = System.UInt64;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
 {
@@ -33,11 +33,11 @@ namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
         /// <summary>
         /// Wordsize of RC5 cipher in bytes
         /// </summary>
-        public NativeLong Wordsize;
+        public NativeULong Wordsize;
 
         /// <summary>
         /// Number of rounds of RC5 encipherment
         /// </summary>
-        public NativeLong Rounds;
+        public NativeULong Rounds;
     }
 }

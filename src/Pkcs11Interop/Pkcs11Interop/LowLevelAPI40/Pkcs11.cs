@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.InteropServices;
 using Net.Pkcs11Interop.Common;
-using NativeLong = System.UInt32;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI40
 {
@@ -137,7 +137,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_Initialize(initArgs);
+            NativeULong rv = _delegates.C_Initialize(initArgs);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -151,7 +151,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_Finalize(reserved);
+            NativeULong rv = _delegates.C_Finalize(reserved);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -165,7 +165,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_GetInfo(ref info);
+            NativeULong rv = _delegates.C_GetInfo(ref info);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -179,7 +179,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_GetFunctionList(out functionList);
+            NativeULong rv = _delegates.C_GetFunctionList(out functionList);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -193,12 +193,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </param>
         /// <param name="count">Location that receives the number of slots</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK</returns>
-        public CKR C_GetSlotList(bool tokenPresent, NativeLong[] slotList, ref NativeLong count)
+        public CKR C_GetSlotList(bool tokenPresent, NativeULong[] slotList, ref NativeULong count)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_GetSlotList(tokenPresent, slotList, ref count);
+            NativeULong rv = _delegates.C_GetSlotList(tokenPresent, slotList, ref count);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -208,12 +208,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="slotId">The ID of the slot</param>
         /// <param name="info">Structure that receives the slot information</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_SLOT_ID_INVALID</returns>
-        public CKR C_GetSlotInfo(NativeLong slotId, ref CK_SLOT_INFO info)
+        public CKR C_GetSlotInfo(NativeULong slotId, ref CK_SLOT_INFO info)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_GetSlotInfo(slotId, ref info);
+            NativeULong rv = _delegates.C_GetSlotInfo(slotId, ref info);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -223,12 +223,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="slotId">The ID of the token's slot</param>
         /// <param name="info">Structure that receives the token information</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_SLOT_ID_INVALID, CKR_TOKEN_NOT_PRESENT, CKR_TOKEN_NOT_RECOGNIZED, CKR_ARGUMENTS_BAD</returns>
-        public CKR C_GetTokenInfo(NativeLong slotId, ref CK_TOKEN_INFO info)
+        public CKR C_GetTokenInfo(NativeULong slotId, ref CK_TOKEN_INFO info)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_GetTokenInfo(slotId, ref info);
+            NativeULong rv = _delegates.C_GetTokenInfo(slotId, ref info);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -242,21 +242,21 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </param>
         /// <param name="count">Location that receives the number of mechanisms</param>
         /// <returns>CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_SLOT_ID_INVALID, CKR_TOKEN_NOT_PRESENT, CKR_TOKEN_NOT_RECOGNIZED, CKR_ARGUMENTS_BAD</returns>
-        public CKR C_GetMechanismList(NativeLong slotId, CKM[] mechanismList, ref NativeLong count)
+        public CKR C_GetMechanismList(NativeULong slotId, CKM[] mechanismList, ref NativeULong count)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong[] nativeLongList = null;
+            NativeULong[] nativeULongList = null;
             if (mechanismList != null)
-                nativeLongList = new NativeLong[mechanismList.Length];
+                nativeULongList = new NativeULong[mechanismList.Length];
 
-            NativeLong rv = _delegates.C_GetMechanismList(slotId, nativeLongList, ref count);
+            NativeULong rv = _delegates.C_GetMechanismList(slotId, nativeULongList, ref count);
 
             if (mechanismList != null)
             {
                 for (int i = 0; i < mechanismList.Length; i++)
-                    mechanismList[i] = NativeLongUtils.ConvertToCKM(nativeLongList[i]);
+                    mechanismList[i] = NativeLongUtils.ConvertToCKM(nativeULongList[i]);
             }
 
             return NativeLongUtils.ConvertToCKR(rv);
@@ -269,12 +269,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="type">The type of mechanism</param>
         /// <param name="info">Structure that receives the mechanism information</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_MECHANISM_INVALID, CKR_OK, CKR_SLOT_ID_INVALID, CKR_TOKEN_NOT_PRESENT, CKR_TOKEN_NOT_RECOGNIZED, CKR_ARGUMENTS_BAD</returns>
-        public CKR C_GetMechanismInfo(NativeLong slotId, CKM type, ref CK_MECHANISM_INFO info)
+        public CKR C_GetMechanismInfo(NativeULong slotId, CKM type, ref CK_MECHANISM_INFO info)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_GetMechanismInfo(slotId, NativeLongUtils.ConvertFromCKM(type), ref info);
+            NativeULong rv = _delegates.C_GetMechanismInfo(slotId, NativeLongUtils.ConvertFromCKM(type), ref info);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -286,12 +286,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="pinLen">The length of the PIN in bytes</param>
         /// <param name="label">32-byte long label of the token which must be padded with blank characters</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_PIN_INCORRECT, CKR_PIN_LOCKED, CKR_SESSION_EXISTS, CKR_SLOT_ID_INVALID, CKR_TOKEN_NOT_PRESENT, CKR_TOKEN_NOT_RECOGNIZED, CKR_TOKEN_WRITE_PROTECTED, CKR_ARGUMENTS_BAD</returns>
-        public CKR C_InitToken(NativeLong slotId, byte[] pin, NativeLong pinLen, byte[] label)
+        public CKR C_InitToken(NativeULong slotId, byte[] pin, NativeULong pinLen, byte[] label)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_InitToken(slotId, pin, pinLen, label);
+            NativeULong rv = _delegates.C_InitToken(slotId, pin, pinLen, label);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -302,12 +302,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="pin">Normal user's PIN or null to use protected authentication path (pinpad)</param>
         /// <param name="pinLen">The length of the PIN in bytes</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_PIN_INVALID, CKR_PIN_LEN_RANGE, CKR_SESSION_CLOSED, CKR_SESSION_READ_ONLY, CKR_SESSION_HANDLE_INVALID, CKR_TOKEN_WRITE_PROTECTED, CKR_USER_NOT_LOGGED_IN, CKR_ARGUMENTS_BAD</returns>
-        public CKR C_InitPIN(NativeLong session, byte[] pin, NativeLong pinLen)
+        public CKR C_InitPIN(NativeULong session, byte[] pin, NativeULong pinLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_InitPIN(session, pin, pinLen);
+            NativeULong rv = _delegates.C_InitPIN(session, pin, pinLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -320,12 +320,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="newPin">New PIN or null to use protected authentication path (pinpad)</param>
         /// <param name="newPinLen">The length of the new PIN in bytes</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_PIN_INCORRECT, CKR_PIN_INVALID, CKR_PIN_LEN_RANGE, CKR_PIN_LOCKED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TOKEN_WRITE_PROTECTED, CKR_ARGUMENTS_BAD</returns>
-        public CKR C_SetPIN(NativeLong session, byte[] oldPin, NativeLong oldPinLen, byte[] newPin, NativeLong newPinLen)
+        public CKR C_SetPIN(NativeULong session, byte[] oldPin, NativeULong oldPinLen, byte[] newPin, NativeULong newPinLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_SetPIN(session, oldPin, oldPinLen, newPin, newPinLen);
+            NativeULong rv = _delegates.C_SetPIN(session, oldPin, oldPinLen, newPin, newPinLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -338,12 +338,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="notify">The address of the notification callback function</param>
         /// <param name="session">Location that receives the handle for the new session</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_SESSION_COUNT, CKR_SESSION_PARALLEL_NOT_SUPPORTED, CKR_SESSION_READ_WRITE_SO_EXISTS, CKR_SLOT_ID_INVALID, CKR_TOKEN_NOT_PRESENT, CKR_TOKEN_NOT_RECOGNIZED, CKR_TOKEN_WRITE_PROTECTED, CKR_ARGUMENTS_BAD</returns>
-        public CKR C_OpenSession(NativeLong slotId, NativeLong flags, IntPtr application, IntPtr notify, ref NativeLong session)
+        public CKR C_OpenSession(NativeULong slotId, NativeULong flags, IntPtr application, IntPtr notify, ref NativeULong session)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_OpenSession(slotId, flags, application, notify, ref session);
+            NativeULong rv = _delegates.C_OpenSession(slotId, flags, application, notify, ref session);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -352,12 +352,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </summary>
         /// <param name="session">The session's handle</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_CloseSession(NativeLong session)
+        public CKR C_CloseSession(NativeULong session)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_CloseSession(session);
+            NativeULong rv = _delegates.C_CloseSession(session);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -366,12 +366,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </summary>
         /// <param name="slotId">The ID of the token's slot</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_SLOT_ID_INVALID, CKR_TOKEN_NOT_PRESENT</returns>
-        public CKR C_CloseAllSessions(NativeLong slotId)
+        public CKR C_CloseAllSessions(NativeULong slotId)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_CloseAllSessions(slotId);
+            NativeULong rv = _delegates.C_CloseAllSessions(slotId);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -381,12 +381,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="session">The session's handle</param>
         /// <param name="info">Structure that receives the session information</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_ARGUMENTS_BAD</returns>
-        public CKR C_GetSessionInfo(NativeLong session, ref CK_SESSION_INFO info)
+        public CKR C_GetSessionInfo(NativeULong session, ref CK_SESSION_INFO info)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_GetSessionInfo(session, ref info);
+            NativeULong rv = _delegates.C_GetSessionInfo(session, ref info);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -400,12 +400,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </param>
         /// <param name="operationStateLen">Location that receives the length in bytes of the state</param>
         /// <returns>CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_STATE_UNSAVEABLE, CKR_ARGUMENTS_BAD</returns>
-        public CKR C_GetOperationState(NativeLong session, byte[] operationState, ref NativeLong operationStateLen)
+        public CKR C_GetOperationState(NativeULong session, byte[] operationState, ref NativeULong operationStateLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_GetOperationState(session, operationState, ref operationStateLen);
+            NativeULong rv = _delegates.C_GetOperationState(session, operationState, ref operationStateLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -418,12 +418,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="encryptionKey">Handle to the key which will be used for an ongoing encryption or decryption operation in the restored session or CK_INVALID_HANDLE if not needed</param>
         /// <param name="authenticationKey">Handle to the key which will be used for an ongoing operation in the restored session or CK_INVALID_HANDLE if not needed</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_CHANGED, CKR_KEY_NEEDED, CKR_KEY_NOT_NEEDED, CKR_OK, CKR_SAVED_STATE_INVALID, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_ARGUMENTS_BAD</returns>
-        public CKR C_SetOperationState(NativeLong session, byte[] operationState, NativeLong operationStateLen, NativeLong encryptionKey, NativeLong authenticationKey)
+        public CKR C_SetOperationState(NativeULong session, byte[] operationState, NativeULong operationStateLen, NativeULong encryptionKey, NativeULong authenticationKey)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_SetOperationState(session, operationState, operationStateLen, encryptionKey, authenticationKey);
+            NativeULong rv = _delegates.C_SetOperationState(session, operationState, operationStateLen, encryptionKey, authenticationKey);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -435,12 +435,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="pin">User's PIN or null to use protected authentication path (pinpad)</param>
         /// <param name="pinLen">Length of user's PIN</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_PIN_INCORRECT, CKR_PIN_LOCKED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY_EXISTS, CKR_USER_ALREADY_LOGGED_IN, CKR_USER_ANOTHER_ALREADY_LOGGED_IN, CKR_USER_PIN_NOT_INITIALIZED, CKR_USER_TOO_MANY_TYPES, CKR_USER_TYPE_INVALID</returns>
-        public CKR C_Login(NativeLong session, CKU userType, byte[] pin, NativeLong pinLen)
+        public CKR C_Login(NativeULong session, CKU userType, byte[] pin, NativeULong pinLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_Login(session, NativeLongUtils.ConvertFromCKU(userType), pin, pinLen);
+            NativeULong rv = _delegates.C_Login(session, NativeLongUtils.ConvertFromCKU(userType), pin, pinLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -449,12 +449,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </summary>
         /// <param name="session">The session's handle</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_Logout(NativeLong session)
+        public CKR C_Logout(NativeULong session)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_Logout(session);
+            NativeULong rv = _delegates.C_Logout(session);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -466,12 +466,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="count">The number of attributes in the template</param>
         /// <param name="objectId">Location that receives the new object's handle</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_READ_ONLY, CKR_ATTRIBUTE_TYPE_INVALID, CKR_ATTRIBUTE_VALUE_INVALID, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_CURVE_NOT_SUPPORTED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_DOMAIN_PARAMS_INVALID, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TEMPLATE_INCOMPLETE, CKR_TEMPLATE_INCONSISTENT, CKR_TOKEN_WRITE_PROTECTED, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_CreateObject(NativeLong session, CK_ATTRIBUTE[] template, NativeLong count, ref NativeLong objectId)
+        public CKR C_CreateObject(NativeULong session, CK_ATTRIBUTE[] template, NativeULong count, ref NativeULong objectId)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_CreateObject(session, template, count, ref objectId);
+            NativeULong rv = _delegates.C_CreateObject(session, template, count, ref objectId);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -484,12 +484,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="count">The number of attributes in the template</param>
         /// <param name="newObjectId">Location that receives the handle for the copy of the object</param>
         /// <returns>CKR_ACTION_PROHIBITED, CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_READ_ONLY, CKR_ATTRIBUTE_TYPE_INVALID, CKR_ATTRIBUTE_VALUE_INVALID, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OBJECT_HANDLE_INVALID, CKR_OK, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TEMPLATE_INCONSISTENT, CKR_TOKEN_WRITE_PROTECTED, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_CopyObject(NativeLong session, NativeLong objectId, CK_ATTRIBUTE[] template, NativeLong count, ref NativeLong newObjectId)
+        public CKR C_CopyObject(NativeULong session, NativeULong objectId, CK_ATTRIBUTE[] template, NativeULong count, ref NativeULong newObjectId)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_CopyObject(session, objectId, template, count, ref newObjectId);
+            NativeULong rv = _delegates.C_CopyObject(session, objectId, template, count, ref newObjectId);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -499,12 +499,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="session">The session's handle</param>
         /// <param name="objectId">The object's handle</param>
         /// <returns>CKR_ACTION_PROHIBITED, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OBJECT_HANDLE_INVALID, CKR_OK, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TOKEN_WRITE_PROTECTED</returns>
-        public CKR C_DestroyObject(NativeLong session, NativeLong objectId)
+        public CKR C_DestroyObject(NativeULong session, NativeULong objectId)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_DestroyObject(session, objectId);
+            NativeULong rv = _delegates.C_DestroyObject(session, objectId);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -515,12 +515,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="objectId">The object's handle</param>
         /// <param name="size">Location that receives the size in bytes of the object</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_INFORMATION_SENSITIVE, CKR_OBJECT_HANDLE_INVALID, CKR_OK, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_GetObjectSize(NativeLong session, NativeLong objectId, ref NativeLong size)
+        public CKR C_GetObjectSize(NativeULong session, NativeULong objectId, ref NativeULong size)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_GetObjectSize(session, objectId, ref size);
+            NativeULong rv = _delegates.C_GetObjectSize(session, objectId, ref size);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -532,12 +532,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="template">Template that specifies which attribute values are to be obtained, and receives the attribute values</param>
         /// <param name="count">The number of attributes in the template</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_SENSITIVE, CKR_ATTRIBUTE_TYPE_INVALID, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OBJECT_HANDLE_INVALID, CKR_OK, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_GetAttributeValue(NativeLong session, NativeLong objectId, CK_ATTRIBUTE[] template, NativeLong count)
+        public CKR C_GetAttributeValue(NativeULong session, NativeULong objectId, CK_ATTRIBUTE[] template, NativeULong count)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_GetAttributeValue(session, objectId, template, count);
+            NativeULong rv = _delegates.C_GetAttributeValue(session, objectId, template, count);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -549,12 +549,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="template">Template that specifies which attribute values are to be modified and their new values</param>
         /// <param name="count">The number of attributes in the template</param>
         /// <returns>CKR_ACTION_PROHIBITED, CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_READ_ONLY, CKR_ATTRIBUTE_TYPE_INVALID, CKR_ATTRIBUTE_VALUE_INVALID, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OBJECT_HANDLE_INVALID, CKR_OK, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TEMPLATE_INCONSISTENT, CKR_TOKEN_WRITE_PROTECTED, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_SetAttributeValue(NativeLong session, NativeLong objectId, CK_ATTRIBUTE[] template, NativeLong count)
+        public CKR C_SetAttributeValue(NativeULong session, NativeULong objectId, CK_ATTRIBUTE[] template, NativeULong count)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_SetAttributeValue(session, objectId, template, count);
+            NativeULong rv = _delegates.C_SetAttributeValue(session, objectId, template, count);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -565,12 +565,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="template">Search template that specifies the attribute values to match</param>
         /// <param name="count">The number of attributes in the search template</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_TYPE_INVALID, CKR_ATTRIBUTE_VALUE_INVALID, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_FindObjectsInit(NativeLong session, CK_ATTRIBUTE[] template, NativeLong count)
+        public CKR C_FindObjectsInit(NativeULong session, CK_ATTRIBUTE[] template, NativeULong count)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_FindObjectsInit(session, template, count);
+            NativeULong rv = _delegates.C_FindObjectsInit(session, template, count);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -582,12 +582,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="maxObjectCount">The maximum number of object handles to be returned</param>
         /// <param name="objectCount">Location that receives the actual number of object handles returned</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_FindObjects(NativeLong session, NativeLong[] objectId, NativeLong maxObjectCount, ref NativeLong objectCount)
+        public CKR C_FindObjects(NativeULong session, NativeULong[] objectId, NativeULong maxObjectCount, ref NativeULong objectCount)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_FindObjects(session, objectId, maxObjectCount, ref objectCount);
+            NativeULong rv = _delegates.C_FindObjects(session, objectId, maxObjectCount, ref objectCount);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -596,12 +596,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </summary>
         /// <param name="session">The session's handle</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_FindObjectsFinal(NativeLong session)
+        public CKR C_FindObjectsFinal(NativeULong session)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_FindObjectsFinal(session);
+            NativeULong rv = _delegates.C_FindObjectsFinal(session);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -612,12 +612,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="mechanism">The encryption mechanism</param>
         /// <param name="key">The handle of the encryption key</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_FUNCTION_NOT_PERMITTED, CKR_KEY_HANDLE_INVALID, CKR_KEY_SIZE_RANGE, CKR_KEY_TYPE_INCONSISTENT, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_EncryptInit(NativeLong session, ref CK_MECHANISM mechanism, NativeLong key)
+        public CKR C_EncryptInit(NativeULong session, ref CK_MECHANISM mechanism, NativeULong key)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_EncryptInit(session, ref mechanism, key);
+            NativeULong rv = _delegates.C_EncryptInit(session, ref mechanism, key);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -633,12 +633,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </param>
         /// <param name="encryptedDataLen">Location that holds the length in bytes of the encrypted data</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_INVALID, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_Encrypt(NativeLong session, byte[] data, NativeLong dataLen, byte[] encryptedData, ref NativeLong encryptedDataLen)
+        public CKR C_Encrypt(NativeULong session, byte[] data, NativeULong dataLen, byte[] encryptedData, ref NativeULong encryptedDataLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_Encrypt(session, data, dataLen, encryptedData, ref encryptedDataLen);
+            NativeULong rv = _delegates.C_Encrypt(session, data, dataLen, encryptedData, ref encryptedDataLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -654,12 +654,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </param>
         /// <param name="encryptedPartLen">Location that holds the length in bytes of the encrypted data part</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_EncryptUpdate(NativeLong session, byte[] part, NativeLong partLen, byte[] encryptedPart, ref NativeLong encryptedPartLen)
+        public CKR C_EncryptUpdate(NativeULong session, byte[] part, NativeULong partLen, byte[] encryptedPart, ref NativeULong encryptedPartLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_EncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
+            NativeULong rv = _delegates.C_EncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -673,12 +673,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </param>
         /// <param name="lastEncryptedPartLen">Location that holds the length of the last encrypted data part</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_EncryptFinal(NativeLong session, byte[] lastEncryptedPart, ref NativeLong lastEncryptedPartLen)
+        public CKR C_EncryptFinal(NativeULong session, byte[] lastEncryptedPart, ref NativeULong lastEncryptedPartLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_EncryptFinal(session, lastEncryptedPart, ref lastEncryptedPartLen);
+            NativeULong rv = _delegates.C_EncryptFinal(session, lastEncryptedPart, ref lastEncryptedPartLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -689,12 +689,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="mechanism">The decryption mechanism</param>
         /// <param name="key">The handle of the decryption key</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_FUNCTION_NOT_PERMITTED, CKR_KEY_HANDLE_INVALID, CKR_KEY_SIZE_RANGE, CKR_KEY_TYPE_INCONSISTENT, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_DecryptInit(NativeLong session, ref CK_MECHANISM mechanism, NativeLong key)
+        public CKR C_DecryptInit(NativeULong session, ref CK_MECHANISM mechanism, NativeULong key)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_DecryptInit(session, ref mechanism, key);
+            NativeULong rv = _delegates.C_DecryptInit(session, ref mechanism, key);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -710,12 +710,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </param>
         /// <param name="dataLen">Location that holds the length of the decrypted data</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_ENCRYPTED_DATA_INVALID, CKR_ENCRYPTED_DATA_LEN_RANGE, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_Decrypt(NativeLong session, byte[] encryptedData, NativeLong encryptedDataLen, byte[] data, ref NativeLong dataLen)
+        public CKR C_Decrypt(NativeULong session, byte[] encryptedData, NativeULong encryptedDataLen, byte[] data, ref NativeULong dataLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_Decrypt(session, encryptedData, encryptedDataLen, data, ref dataLen);
+            NativeULong rv = _delegates.C_Decrypt(session, encryptedData, encryptedDataLen, data, ref dataLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -731,12 +731,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </param>
         /// <param name="partLen">Location that holds the length of the decrypted data part</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_ENCRYPTED_DATA_INVALID, CKR_ENCRYPTED_DATA_LEN_RANGE, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_DecryptUpdate(NativeLong session, byte[] encryptedPart, NativeLong encryptedPartLen, byte[] part, ref NativeLong partLen)
+        public CKR C_DecryptUpdate(NativeULong session, byte[] encryptedPart, NativeULong encryptedPartLen, byte[] part, ref NativeULong partLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_DecryptUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
+            NativeULong rv = _delegates.C_DecryptUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -750,12 +750,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </param>
         /// <param name="lastPartLen">Location that holds the length of the last decrypted data part</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_ENCRYPTED_DATA_INVALID, CKR_ENCRYPTED_DATA_LEN_RANGE, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_DecryptFinal(NativeLong session, byte[] lastPart, ref NativeLong lastPartLen)
+        public CKR C_DecryptFinal(NativeULong session, byte[] lastPart, ref NativeULong lastPartLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_DecryptFinal(session, lastPart, ref lastPartLen);
+            NativeULong rv = _delegates.C_DecryptFinal(session, lastPart, ref lastPartLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -765,12 +765,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="session">The session's handle</param>
         /// <param name="mechanism">The digesting mechanism</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_DigestInit(NativeLong session, ref CK_MECHANISM mechanism)
+        public CKR C_DigestInit(NativeULong session, ref CK_MECHANISM mechanism)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_DigestInit(session, ref mechanism);
+            NativeULong rv = _delegates.C_DigestInit(session, ref mechanism);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -786,12 +786,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </param>
         /// <param name="digestLen">Location that holds the length of the message digest</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_Digest(NativeLong session, byte[] data, NativeLong dataLen, byte[] digest, ref NativeLong digestLen)
+        public CKR C_Digest(NativeULong session, byte[] data, NativeULong dataLen, byte[] digest, ref NativeULong digestLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_Digest(session, data, dataLen, digest, ref digestLen);
+            NativeULong rv = _delegates.C_Digest(session, data, dataLen, digest, ref digestLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -802,12 +802,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="part">Data part</param>
         /// <param name="partLen">The length of the data part</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_DigestUpdate(NativeLong session, byte[] part, NativeLong partLen)
+        public CKR C_DigestUpdate(NativeULong session, byte[] part, NativeULong partLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_DigestUpdate(session, part, partLen);
+            NativeULong rv = _delegates.C_DigestUpdate(session, part, partLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -817,12 +817,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="session">The session's handle</param>
         /// <param name="key">The handle of the secret key to be digested</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_HANDLE_INVALID, CKR_KEY_INDIGESTIBLE, CKR_KEY_SIZE_RANGE, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_DigestKey(NativeLong session, NativeLong key)
+        public CKR C_DigestKey(NativeULong session, NativeULong key)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_DigestKey(session, key);
+            NativeULong rv = _delegates.C_DigestKey(session, key);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -836,12 +836,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </param>
         /// <param name="digestLen">Location that holds the length of the message digest</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_DigestFinal(NativeLong session, byte[] digest, ref NativeLong digestLen)
+        public CKR C_DigestFinal(NativeULong session, byte[] digest, ref NativeULong digestLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_DigestFinal(session, digest, ref digestLen);
+            NativeULong rv = _delegates.C_DigestFinal(session, digest, ref digestLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -852,12 +852,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="mechanism">Signature mechanism</param>
         /// <param name="key">Handle of the signature key</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_FUNCTION_NOT_PERMITTED,CKR_KEY_HANDLE_INVALID, CKR_KEY_SIZE_RANGE, CKR_KEY_TYPE_INCONSISTENT, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_SignInit(NativeLong session, ref CK_MECHANISM mechanism, NativeLong key)
+        public CKR C_SignInit(NativeULong session, ref CK_MECHANISM mechanism, NativeULong key)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_SignInit(session, ref mechanism, key);
+            NativeULong rv = _delegates.C_SignInit(session, ref mechanism, key);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -873,12 +873,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </param>
         /// <param name="signatureLen">Location that holds the length of the signature</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_INVALID, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN, CKR_FUNCTION_REJECTED</returns>
-        public CKR C_Sign(NativeLong session, byte[] data, NativeLong dataLen, byte[] signature, ref NativeLong signatureLen)
+        public CKR C_Sign(NativeULong session, byte[] data, NativeULong dataLen, byte[] signature, ref NativeULong signatureLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_Sign(session, data, dataLen, signature, ref signatureLen);
+            NativeULong rv = _delegates.C_Sign(session, data, dataLen, signature, ref signatureLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -889,12 +889,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="part">Data part</param>
         /// <param name="partLen">The length of the data part</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_SignUpdate(NativeLong session, byte[] part, NativeLong partLen)
+        public CKR C_SignUpdate(NativeULong session, byte[] part, NativeULong partLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_SignUpdate(session, part, partLen);
+            NativeULong rv = _delegates.C_SignUpdate(session, part, partLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -908,12 +908,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </param>
         /// <param name="signatureLen">Location that holds the length of the signature</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN, CKR_FUNCTION_REJECTED</returns>
-        public CKR C_SignFinal(NativeLong session, byte[] signature, ref NativeLong signatureLen)
+        public CKR C_SignFinal(NativeULong session, byte[] signature, ref NativeULong signatureLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_SignFinal(session, signature, ref signatureLen);
+            NativeULong rv = _delegates.C_SignFinal(session, signature, ref signatureLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -924,12 +924,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="mechanism">Signature mechanism</param>
         /// <param name="key">Handle of the signature key</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_FUNCTION_NOT_PERMITTED, CKR_KEY_HANDLE_INVALID, CKR_KEY_SIZE_RANGE, CKR_KEY_TYPE_INCONSISTENT, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_SignRecoverInit(NativeLong session, ref CK_MECHANISM mechanism, NativeLong key)
+        public CKR C_SignRecoverInit(NativeULong session, ref CK_MECHANISM mechanism, NativeULong key)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_SignRecoverInit(session, ref mechanism, key);
+            NativeULong rv = _delegates.C_SignRecoverInit(session, ref mechanism, key);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -945,12 +945,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </param>
         /// <param name="signatureLen">Location that holds the length of the signature</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_INVALID, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_SignRecover(NativeLong session, byte[] data, NativeLong dataLen, byte[] signature, ref NativeLong signatureLen)
+        public CKR C_SignRecover(NativeULong session, byte[] data, NativeULong dataLen, byte[] signature, ref NativeULong signatureLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_SignRecover(session, data, dataLen, signature, ref signatureLen);
+            NativeULong rv = _delegates.C_SignRecover(session, data, dataLen, signature, ref signatureLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -961,12 +961,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="mechanism">The verification mechanism</param>
         /// <param name="key">The handle of the verification key</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_FUNCTION_NOT_PERMITTED, CKR_KEY_HANDLE_INVALID, CKR_KEY_SIZE_RANGE, CKR_KEY_TYPE_INCONSISTENT, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_VerifyInit(NativeLong session, ref CK_MECHANISM mechanism, NativeLong key)
+        public CKR C_VerifyInit(NativeULong session, ref CK_MECHANISM mechanism, NativeULong key)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_VerifyInit(session, ref mechanism, key);
+            NativeULong rv = _delegates.C_VerifyInit(session, ref mechanism, key);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -979,12 +979,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="signature">Signature of data</param>
         /// <param name="signatureLen">The length of signature</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_INVALID, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SIGNATURE_INVALID, CKR_SIGNATURE_LEN_RANGE</returns>
-        public CKR C_Verify(NativeLong session, byte[] data, NativeLong dataLen, byte[] signature, NativeLong signatureLen)
+        public CKR C_Verify(NativeULong session, byte[] data, NativeULong dataLen, byte[] signature, NativeULong signatureLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_Verify(session, data, dataLen, signature, signatureLen);
+            NativeULong rv = _delegates.C_Verify(session, data, dataLen, signature, signatureLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -995,12 +995,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="part">Data part</param>
         /// <param name="partLen">The length of the data part</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_VerifyUpdate(NativeLong session, byte[] part, NativeLong partLen)
+        public CKR C_VerifyUpdate(NativeULong session, byte[] part, NativeULong partLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_VerifyUpdate(session, part, partLen);
+            NativeULong rv = _delegates.C_VerifyUpdate(session, part, partLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -1011,12 +1011,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="signature">Signature</param>
         /// <param name="signatureLen">The length of signature</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SIGNATURE_INVALID, CKR_SIGNATURE_LEN_RANGE</returns>
-        public CKR C_VerifyFinal(NativeLong session, byte[] signature, NativeLong signatureLen)
+        public CKR C_VerifyFinal(NativeULong session, byte[] signature, NativeULong signatureLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_VerifyFinal(session, signature, signatureLen);
+            NativeULong rv = _delegates.C_VerifyFinal(session, signature, signatureLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -1027,12 +1027,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="mechanism">Verification mechanism</param>
         /// <param name="key">The handle of the verification key</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_FUNCTION_NOT_PERMITTED, CKR_KEY_HANDLE_INVALID, CKR_KEY_SIZE_RANGE, CKR_KEY_TYPE_INCONSISTENT, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_VerifyRecoverInit(NativeLong session, ref CK_MECHANISM mechanism, NativeLong key)
+        public CKR C_VerifyRecoverInit(NativeULong session, ref CK_MECHANISM mechanism, NativeULong key)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_VerifyRecoverInit(session, ref mechanism, key);
+            NativeULong rv = _delegates.C_VerifyRecoverInit(session, ref mechanism, key);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -1048,12 +1048,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </param>
         /// <param name="dataLen">Location that holds the length of the decrypted data</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_INVALID, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SIGNATURE_LEN_RANGE, CKR_SIGNATURE_INVALID</returns>
-        public CKR C_VerifyRecover(NativeLong session, byte[] signature, NativeLong signatureLen, byte[] data, ref NativeLong dataLen)
+        public CKR C_VerifyRecover(NativeULong session, byte[] signature, NativeULong signatureLen, byte[] data, ref NativeULong dataLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_VerifyRecover(session, signature, signatureLen, data, ref dataLen);
+            NativeULong rv = _delegates.C_VerifyRecover(session, signature, signatureLen, data, ref dataLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -1069,12 +1069,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </param>
         /// <param name="encryptedPartLen">Location that holds the length in bytes of the encrypted data part</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_DigestEncryptUpdate(NativeLong session, byte[] part, NativeLong partLen, byte[] encryptedPart, ref NativeLong encryptedPartLen)
+        public CKR C_DigestEncryptUpdate(NativeULong session, byte[] part, NativeULong partLen, byte[] encryptedPart, ref NativeULong encryptedPartLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_DigestEncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
+            NativeULong rv = _delegates.C_DigestEncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -1090,12 +1090,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </param>
         /// <param name="partLen">Location that holds the length of the decrypted data part</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_ENCRYPTED_DATA_INVALID, CKR_ENCRYPTED_DATA_LEN_RANGE, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_DecryptDigestUpdate(NativeLong session, byte[] encryptedPart, NativeLong encryptedPartLen, byte[] part, ref NativeLong partLen)
+        public CKR C_DecryptDigestUpdate(NativeULong session, byte[] encryptedPart, NativeULong encryptedPartLen, byte[] part, ref NativeULong partLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_DecryptDigestUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
+            NativeULong rv = _delegates.C_DecryptDigestUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -1111,12 +1111,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </param>
         /// <param name="encryptedPartLen">Location that holds the length in bytes of the encrypted data part</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_SignEncryptUpdate(NativeLong session, byte[] part, NativeLong partLen, byte[] encryptedPart, ref NativeLong encryptedPartLen)
+        public CKR C_SignEncryptUpdate(NativeULong session, byte[] part, NativeULong partLen, byte[] encryptedPart, ref NativeULong encryptedPartLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_SignEncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
+            NativeULong rv = _delegates.C_SignEncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -1132,12 +1132,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </param>
         /// <param name="partLen">Location that holds the length of the decrypted data part</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_ENCRYPTED_DATA_INVALID, CKR_ENCRYPTED_DATA_LEN_RANGE, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_DecryptVerifyUpdate(NativeLong session, byte[] encryptedPart, NativeLong encryptedPartLen, byte[] part, ref NativeLong partLen)
+        public CKR C_DecryptVerifyUpdate(NativeULong session, byte[] encryptedPart, NativeULong encryptedPartLen, byte[] part, ref NativeULong partLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_DecryptVerifyUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
+            NativeULong rv = _delegates.C_DecryptVerifyUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -1150,12 +1150,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="count">The number of attributes in the template</param>
         /// <param name="key">Location that receives the handle of the new key or set of domain parameters</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_READ_ONLY, CKR_ATTRIBUTE_TYPE_INVALID, CKR_ATTRIBUTE_VALUE_INVALID, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_CURVE_NOT_SUPPORTED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TEMPLATE_INCOMPLETE, CKR_TEMPLATE_INCONSISTENT, CKR_TOKEN_WRITE_PROTECTED, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_GenerateKey(NativeLong session, ref CK_MECHANISM mechanism, CK_ATTRIBUTE[] template, NativeLong count, ref NativeLong key)
+        public CKR C_GenerateKey(NativeULong session, ref CK_MECHANISM mechanism, CK_ATTRIBUTE[] template, NativeULong count, ref NativeULong key)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_GenerateKey(session, ref mechanism, template, count, ref key);
+            NativeULong rv = _delegates.C_GenerateKey(session, ref mechanism, template, count, ref key);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -1171,12 +1171,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="publicKey">Location that receives the handle of the new public key</param>
         /// <param name="privateKey">Location that receives the handle of the new private key</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_READ_ONLY, CKR_ATTRIBUTE_TYPE_INVALID, CKR_ATTRIBUTE_VALUE_INVALID, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_CURVE_NOT_SUPPORTED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_DOMAIN_PARAMS_INVALID, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TEMPLATE_INCOMPLETE, CKR_TEMPLATE_INCONSISTENT, CKR_TOKEN_WRITE_PROTECTED, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_GenerateKeyPair(NativeLong session, ref CK_MECHANISM mechanism, CK_ATTRIBUTE[] publicKeyTemplate, NativeLong publicKeyAttributeCount, CK_ATTRIBUTE[] privateKeyTemplate, NativeLong privateKeyAttributeCount, ref NativeLong publicKey, ref NativeLong privateKey)
+        public CKR C_GenerateKeyPair(NativeULong session, ref CK_MECHANISM mechanism, CK_ATTRIBUTE[] publicKeyTemplate, NativeULong publicKeyAttributeCount, CK_ATTRIBUTE[] privateKeyTemplate, NativeULong privateKeyAttributeCount, ref NativeULong publicKey, ref NativeULong privateKey)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_GenerateKeyPair(session, ref mechanism, publicKeyTemplate, publicKeyAttributeCount, privateKeyTemplate, privateKeyAttributeCount, ref publicKey, ref privateKey);
+            NativeULong rv = _delegates.C_GenerateKeyPair(session, ref mechanism, publicKeyTemplate, publicKeyAttributeCount, privateKeyTemplate, privateKeyAttributeCount, ref publicKey, ref privateKey);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -1193,12 +1193,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </param>
         /// <param name="wrappedKeyLen">Location that receives the length of the wrapped key</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_HANDLE_INVALID, CKR_KEY_NOT_WRAPPABLE, CKR_KEY_SIZE_RANGE, CKR_KEY_UNEXTRACTABLE, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN, CKR_WRAPPING_KEY_HANDLE_INVALID, CKR_WRAPPING_KEY_SIZE_RANGE, CKR_WRAPPING_KEY_TYPE_INCONSISTENT</returns>
-        public CKR C_WrapKey(NativeLong session, ref CK_MECHANISM mechanism, NativeLong wrappingKey, NativeLong key, byte[] wrappedKey, ref NativeLong wrappedKeyLen)
+        public CKR C_WrapKey(NativeULong session, ref CK_MECHANISM mechanism, NativeULong wrappingKey, NativeULong key, byte[] wrappedKey, ref NativeULong wrappedKeyLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_WrapKey(session, ref mechanism, wrappingKey, key, wrappedKey, ref wrappedKeyLen);
+            NativeULong rv = _delegates.C_WrapKey(session, ref mechanism, wrappingKey, key, wrappedKey, ref wrappedKeyLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -1214,12 +1214,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="attributeCount">The number of attributes in the template</param>
         /// <param name="key">Location that receives the handle of the unwrapped key</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_READ_ONLY, CKR_ATTRIBUTE_TYPE_INVALID, CKR_ATTRIBUTE_VALUE_INVALID, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_CURVE_NOT_SUPPORTED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_DOMAIN_PARAMS_INVALID, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TEMPLATE_INCOMPLETE, CKR_TEMPLATE_INCONSISTENT, CKR_TOKEN_WRITE_PROTECTED, CKR_UNWRAPPING_KEY_HANDLE_INVALID, CKR_UNWRAPPING_KEY_SIZE_RANGE, CKR_UNWRAPPING_KEY_TYPE_INCONSISTENT, CKR_USER_NOT_LOGGED_IN, CKR_WRAPPED_KEY_INVALID, CKR_WRAPPED_KEY_LEN_RANGE</returns>
-        public CKR C_UnwrapKey(NativeLong session, ref CK_MECHANISM mechanism, NativeLong unwrappingKey, byte[] wrappedKey, NativeLong wrappedKeyLen, CK_ATTRIBUTE[] template, NativeLong attributeCount, ref NativeLong key)
+        public CKR C_UnwrapKey(NativeULong session, ref CK_MECHANISM mechanism, NativeULong unwrappingKey, byte[] wrappedKey, NativeULong wrappedKeyLen, CK_ATTRIBUTE[] template, NativeULong attributeCount, ref NativeULong key)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_UnwrapKey(session, ref mechanism, unwrappingKey, wrappedKey, wrappedKeyLen, template, attributeCount, ref key);
+            NativeULong rv = _delegates.C_UnwrapKey(session, ref mechanism, unwrappingKey, wrappedKey, wrappedKeyLen, template, attributeCount, ref key);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -1233,12 +1233,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="attributeCount">The number of attributes in the template</param>
         /// <param name="key">Location that receives the handle of the derived key</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_READ_ONLY, CKR_ATTRIBUTE_TYPE_INVALID, CKR_ATTRIBUTE_VALUE_INVALID, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_CURVE_NOT_SUPPORTED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_DOMAIN_PARAMS_INVALID, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_HANDLE_INVALID, CKR_KEY_SIZE_RANGE, CKR_KEY_TYPE_INCONSISTENT, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TEMPLATE_INCOMPLETE, CKR_TEMPLATE_INCONSISTENT, CKR_TOKEN_WRITE_PROTECTED, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_DeriveKey(NativeLong session, ref CK_MECHANISM mechanism, NativeLong baseKey, CK_ATTRIBUTE[] template, NativeLong attributeCount, ref NativeLong key)
+        public CKR C_DeriveKey(NativeULong session, ref CK_MECHANISM mechanism, NativeULong baseKey, CK_ATTRIBUTE[] template, NativeULong attributeCount, ref NativeULong key)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_DeriveKey(session, ref mechanism, baseKey, template, attributeCount, ref key);
+            NativeULong rv = _delegates.C_DeriveKey(session, ref mechanism, baseKey, template, attributeCount, ref key);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -1249,12 +1249,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="seed">The seed material</param>
         /// <param name="seedLen">The length of the seed material</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_ACTIVE, CKR_RANDOM_SEED_NOT_SUPPORTED, CKR_RANDOM_NO_RNG, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_SeedRandom(NativeLong session, byte[] seed, NativeLong seedLen)
+        public CKR C_SeedRandom(NativeULong session, byte[] seed, NativeULong seedLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_SeedRandom(session, seed, seedLen);
+            NativeULong rv = _delegates.C_SeedRandom(session, seed, seedLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -1265,12 +1265,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="randomData">Location that receives the random data</param>
         /// <param name="randomLen">The length in bytes of the random or pseudo-random data to be generated</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_ACTIVE, CKR_RANDOM_NO_RNG, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_GenerateRandom(NativeLong session, byte[] randomData, NativeLong randomLen)
+        public CKR C_GenerateRandom(NativeULong session, byte[] randomData, NativeULong randomLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_GenerateRandom(session, randomData, randomLen);
+            NativeULong rv = _delegates.C_GenerateRandom(session, randomData, randomLen);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -1279,12 +1279,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </summary>
         /// <param name="session">The session's handle</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_FUNCTION_FAILED, CKR_FUNCTION_NOT_PARALLEL, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_CLOSED</returns>
-        public CKR C_GetFunctionStatus(NativeLong session)
+        public CKR C_GetFunctionStatus(NativeULong session)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_GetFunctionStatus(session);
+            NativeULong rv = _delegates.C_GetFunctionStatus(session);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -1293,12 +1293,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </summary>
         /// <param name="session">The session's handle</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_FUNCTION_FAILED, CKR_FUNCTION_NOT_PARALLEL, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_CLOSED</returns>
-        public CKR C_CancelFunction(NativeLong session)
+        public CKR C_CancelFunction(NativeULong session)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_CancelFunction(session);
+            NativeULong rv = _delegates.C_CancelFunction(session);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 
@@ -1309,12 +1309,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="slot">Location which will receive the ID of the slot that the event occurred in</param>
         /// <param name="reserved">Reserved for future versions (should be null)</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_NO_EVENT, CKR_OK</returns>
-        public CKR C_WaitForSlotEvent(NativeLong flags, ref NativeLong slot, IntPtr reserved)
+        public CKR C_WaitForSlotEvent(NativeULong flags, ref NativeULong slot, IntPtr reserved)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeLong rv = _delegates.C_WaitForSlotEvent(flags, ref slot, reserved);
+            NativeULong rv = _delegates.C_WaitForSlotEvent(flags, ref slot, reserved);
             return NativeLongUtils.ConvertToCKR(rv);
         }
 

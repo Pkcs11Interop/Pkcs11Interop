@@ -21,7 +21,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using NativeLong = System.UInt32;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI40
 {
@@ -47,22 +47,22 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <returns>Attribute of given type structure with no value</returns>
-        public static CK_ATTRIBUTE CreateAttribute(NativeLong type)
+        public static CK_ATTRIBUTE CreateAttribute(NativeULong type)
         {
             return _CreateAttribute(type, null);
         }
 
         #endregion
 
-        #region Attribute with NativeLong value
+        #region Attribute with NativeULong value
 
         /// <summary>
-        /// Creates attribute of given type with NativeLong value
+        /// Creates attribute of given type with NativeULong value
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        /// <returns>Attribute of given type with NativeLong value</returns>
-        public static CK_ATTRIBUTE CreateAttribute(CKA type, NativeLong value)
+        /// <returns>Attribute of given type with NativeULong value</returns>
+        public static CK_ATTRIBUTE CreateAttribute(CKA type, NativeULong value)
         {
             return CreateAttribute(NativeLongUtils.ConvertFromCKA(type), value);
         }
@@ -101,22 +101,22 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         }
 
         /// <summary>
-        /// Creates attribute of given type with NativeLong value
+        /// Creates attribute of given type with NativeULong value
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        /// <returns>Attribute of given type with NativeLong value</returns>
-        public static CK_ATTRIBUTE CreateAttribute(NativeLong type, NativeLong value)
+        /// <returns>Attribute of given type with NativeULong value</returns>
+        public static CK_ATTRIBUTE CreateAttribute(NativeULong type, NativeULong value)
         {
             return _CreateAttribute(type, NativeLongUtils.ConvertToByteArray(value));
         }
 
         /// <summary>
-        /// Reads value of attribute and returns it as NativeLong
+        /// Reads value of attribute and returns it as NativeULong
         /// </summary>
         /// <param name="attribute">Attribute whose value should be read</param>
         /// <param name="value">Location that receives attribute value</param>
-        public static void ConvertValue(ref CK_ATTRIBUTE attribute, out NativeLong value)
+        public static void ConvertValue(ref CK_ATTRIBUTE attribute, out NativeULong value)
         {
             byte[] bytes = ConvertValue(ref attribute);
             value = NativeLongUtils.ConvertFromByteArray(bytes);
@@ -143,7 +143,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of given type with bool value</returns>
-        public static CK_ATTRIBUTE CreateAttribute(NativeLong type, bool value)
+        public static CK_ATTRIBUTE CreateAttribute(NativeULong type, bool value)
         {
             return _CreateAttribute(type, ConvertUtils.BoolToBytes(value));
         }
@@ -180,7 +180,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of given type with string value</returns>
-        public static CK_ATTRIBUTE CreateAttribute(NativeLong type, string value)
+        public static CK_ATTRIBUTE CreateAttribute(NativeULong type, string value)
         {
             return _CreateAttribute(type, ConvertUtils.Utf8StringToBytes(value));
         }
@@ -217,7 +217,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of given type with byte array value</returns>
-        public static CK_ATTRIBUTE CreateAttribute(NativeLong type, byte[] value)
+        public static CK_ATTRIBUTE CreateAttribute(NativeULong type, byte[] value)
         {
             return _CreateAttribute(type, value);
         }
@@ -255,7 +255,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of given type with DateTime value</returns>
-        public static CK_ATTRIBUTE CreateAttribute(NativeLong type, DateTime value)
+        public static CK_ATTRIBUTE CreateAttribute(NativeULong type, DateTime value)
         {
             // Possible TODO - Implement with nullable DateTime
 
@@ -330,7 +330,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of given type with attribute array value</returns>
-        public static CK_ATTRIBUTE CreateAttribute(NativeLong type, CK_ATTRIBUTE[] value)
+        public static CK_ATTRIBUTE CreateAttribute(NativeULong type, CK_ATTRIBUTE[] value)
         {
             CK_ATTRIBUTE attribute = new CK_ATTRIBUTE();
             attribute.type = type;
@@ -388,32 +388,32 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
 
         #endregion
 
-        #region Attribute with NativeLong array value
+        #region Attribute with NativeULong array value
 
         /// <summary>
-        /// Creates attribute of given type with NativeLong array value
+        /// Creates attribute of given type with NativeULong array value
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        /// <returns>Attribute of given type with NativeLong array value</returns>
-        public static CK_ATTRIBUTE CreateAttribute(CKA type, NativeLong[] value)
+        /// <returns>Attribute of given type with NativeULong array value</returns>
+        public static CK_ATTRIBUTE CreateAttribute(CKA type, NativeULong[] value)
         {
             return CreateAttribute(NativeLongUtils.ConvertFromCKA(type), value);
         }
 
         /// <summary>
-        /// Creates attribute of given type with NativeLong array value
+        /// Creates attribute of given type with NativeULong array value
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        /// <returns>Attribute of given type with NativeLong array value</returns>
-        public static CK_ATTRIBUTE CreateAttribute(NativeLong type, NativeLong[] value)
+        /// <returns>Attribute of given type with NativeULong array value</returns>
+        public static CK_ATTRIBUTE CreateAttribute(NativeULong type, NativeULong[] value)
         {
             CK_ATTRIBUTE attribute = new CK_ATTRIBUTE();
             attribute.type = type;
             if ((value != null) && (value.Length > 0))
             {
-                int ckmSize = UnmanagedMemory.SizeOf(typeof(NativeLong));
+                int ckmSize = UnmanagedMemory.SizeOf(typeof(NativeULong));
                 attribute.value = UnmanagedMemory.Allocate(ckmSize * value.Length);
                 for (int i = 0; i < value.Length; i++)
                 {
@@ -432,18 +432,18 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         }
 
         /// <summary>
-        /// Reads value of attribute and returns it as NativeLong array
+        /// Reads value of attribute and returns it as NativeULong array
         /// </summary>
         /// <param name="attribute">Attribute whose value should be read</param>
         /// <param name="value">Location that receives attribute value</param>
-        public static void ConvertValue(ref CK_ATTRIBUTE attribute, out NativeLong[] value)
+        public static void ConvertValue(ref CK_ATTRIBUTE attribute, out NativeULong[] value)
         {
-            int ckmSize = UnmanagedMemory.SizeOf(typeof(NativeLong));
+            int ckmSize = UnmanagedMemory.SizeOf(typeof(NativeULong));
             int attrCount = NativeLongUtils.ConvertToInt32(attribute.valueLen) / ckmSize;
             int attrCountMod = NativeLongUtils.ConvertToInt32(attribute.valueLen) % ckmSize;
             
             if (attrCountMod != 0)
-                throw new Exception("Unable to convert attribute value to NativeLong array");
+                throw new Exception("Unable to convert attribute value to NativeULong array");
             
             if (attrCount == 0)
             {
@@ -451,7 +451,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
             }
             else
             {
-                NativeLong[] attrs = new NativeLong[attrCount];
+                NativeULong[] attrs = new NativeULong[attrCount];
                 
                 for (int i = 0; i < attrCount; i++)
                 {
@@ -475,15 +475,15 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <returns>Attribute of given type with mechanism array value</returns>
         public static CK_ATTRIBUTE CreateAttribute(CKA type, CKM[] value)
         {
-            NativeLong[] nativeLongArray = null;
+            NativeULong[] nativeULongArray = null;
             if (value != null)
             {
-                nativeLongArray = new NativeLong[value.Length];
+                nativeULongArray = new NativeULong[value.Length];
                 for (int i = 0; i < value.Length; i++)
-                    nativeLongArray[i] = NativeLongUtils.ConvertFromCKM(value[i]);
+                    nativeULongArray[i] = NativeLongUtils.ConvertFromCKM(value[i]);
             }
 
-            return CreateAttribute(type, nativeLongArray);
+            return CreateAttribute(type, nativeULongArray);
         }
 
         /// <summary>
@@ -492,17 +492,17 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of given type with mechanism array value</returns>
-        public static CK_ATTRIBUTE CreateAttribute(NativeLong type, CKM[] value)
+        public static CK_ATTRIBUTE CreateAttribute(NativeULong type, CKM[] value)
         {
-            NativeLong[] nativeLongArray = null;
+            NativeULong[] nativeULongArray = null;
             if (value != null)
             {
-                nativeLongArray = new NativeLong[value.Length];
+                nativeULongArray = new NativeULong[value.Length];
                 for (int i = 0; i < value.Length; i++)
-                    nativeLongArray[i] = NativeLongUtils.ConvertFromCKM(value[i]);
+                    nativeULongArray[i] = NativeLongUtils.ConvertFromCKM(value[i]);
             }
 
-            return CreateAttribute(type, nativeLongArray);
+            return CreateAttribute(type, nativeULongArray);
         }
 
         /// <summary>
@@ -512,15 +512,15 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="value">Location that receives attribute value</param>
         public static void ConvertValue(ref CK_ATTRIBUTE attribute, out CKM[] value)
         {
-            NativeLong[] nativeLongArray = null;
-            ConvertValue(ref attribute, out nativeLongArray);
+            NativeULong[] nativeULongArray = null;
+            ConvertValue(ref attribute, out nativeULongArray);
 
             CKM[] ckmArray = null;
-            if (nativeLongArray != null)
+            if (nativeULongArray != null)
             {
-                ckmArray = new CKM[nativeLongArray.Length];
-                for (int i = 0; i < nativeLongArray.Length; i++)
-                    ckmArray[i] = NativeLongUtils.ConvertToCKM(nativeLongArray[i]);
+                ckmArray = new CKM[nativeULongArray.Length];
+                for (int i = 0; i < nativeULongArray.Length; i++)
+                    ckmArray[i] = NativeLongUtils.ConvertToCKM(nativeULongArray[i]);
             }
             value = ckmArray;
         }
@@ -535,7 +535,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of given type with specified value</returns>
-        private static CK_ATTRIBUTE _CreateAttribute(NativeLong type, byte[] value)
+        private static CK_ATTRIBUTE _CreateAttribute(NativeULong type, byte[] value)
         {
             CK_ATTRIBUTE attribute = new CK_ATTRIBUTE();
             attribute.type = type;

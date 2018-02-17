@@ -23,7 +23,7 @@ using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI80;
 using NUnit.Framework;
-using NativeLong = System.UInt64;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
 {
@@ -50,9 +50,9 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                NativeLong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeULong slotId = Helpers.GetUsableSlot(pkcs11);
                 
-                NativeLong session = CK.CK_INVALID_HANDLE;
+                NativeULong session = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -63,12 +63,12 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
                     Assert.Fail(rv.ToString());
                 
                 // Let's create two objects so we can find something
-                NativeLong objectId1 = CK.CK_INVALID_HANDLE;
+                NativeULong objectId1 = CK.CK_INVALID_HANDLE;
                 rv = Helpers.CreateDataObject(pkcs11, session, ref objectId1);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
-                NativeLong objectId2 = CK.CK_INVALID_HANDLE;
+                NativeULong objectId2 = CK.CK_INVALID_HANDLE;
                 rv = Helpers.CreateDataObject(pkcs11, session, ref objectId2);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -84,8 +84,8 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
                     Assert.Fail(rv.ToString());
 
                 // Get search results
-                NativeLong foundObjectCount = 0;
-                NativeLong[] foundObjectIds = new NativeLong[2];
+                NativeULong foundObjectCount = 0;
+                NativeULong[] foundObjectIds = new NativeULong[2];
                 foundObjectIds[0] = CK.CK_INVALID_HANDLE;
                 foundObjectIds[1] = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_FindObjects(session, foundObjectIds, NativeLongUtils.ConvertFromInt32(foundObjectIds.Length), ref foundObjectCount);

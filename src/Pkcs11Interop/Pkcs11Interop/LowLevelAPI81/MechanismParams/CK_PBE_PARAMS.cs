@@ -21,7 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
-using NativeLong = System.UInt64;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
 {
@@ -44,7 +44,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
         /// <summary>
         /// Length in bytes of the password information
         /// </summary>
-        public NativeLong PasswordLen;
+        public NativeULong PasswordLen;
 
         /// <summary>
         /// Points to the salt to be used in the PBE key generation
@@ -54,11 +54,11 @@ namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
         /// <summary>
         /// Length in bytes of the salt information
         /// </summary>
-        public NativeLong SaltLen;
+        public NativeULong SaltLen;
 
         /// <summary>
         /// Number of iterations required for the generation
         /// </summary>
-        public NativeLong Iteration;
+        public NativeULong Iteration;
     }
 }

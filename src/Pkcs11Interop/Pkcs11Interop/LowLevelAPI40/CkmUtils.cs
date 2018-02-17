@@ -21,7 +21,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using NativeLong = System.UInt32;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI40
 {
@@ -47,7 +47,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// </summary>
         /// <param name="mechanism">Mechanism type</param>
         /// <returns>Mechanism of given type with no parameter</returns>
-        public static CK_MECHANISM CreateMechanism(NativeLong mechanism)
+        public static CK_MECHANISM CreateMechanism(NativeULong mechanism)
         {
             return _CreateMechanism(mechanism, null);
         }
@@ -73,7 +73,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="mechanism">Mechanism type</param>
         /// <param name="parameter">Mechanism parameter</param>
         /// <returns>Mechanism of given type with byte array parameter</returns>
-        public static CK_MECHANISM CreateMechanism(NativeLong mechanism, byte[] parameter)
+        public static CK_MECHANISM CreateMechanism(NativeULong mechanism, byte[] parameter)
         {
             return _CreateMechanism(mechanism, parameter);
         }
@@ -102,7 +102,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="mechanism">Mechanism type</param>
         /// <param name="parameterStructure">Structure with mechanism parameters</param>
         /// <returns>Mechanism of given type with structure as parameter</returns>
-        public static CK_MECHANISM CreateMechanism(NativeLong mechanism, object parameterStructure)
+        public static CK_MECHANISM CreateMechanism(NativeULong mechanism, object parameterStructure)
         {
             if (parameterStructure == null)
                 throw new ArgumentNullException("parameterStructure");
@@ -126,7 +126,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="mechanism">Mechanism type</param>
         /// <param name="parameter">Mechanism parameter</param>
         /// <returns>Mechanism of given type with specified parameter</returns>
-        private static CK_MECHANISM _CreateMechanism(NativeLong mechanism, byte[] parameter)
+        private static CK_MECHANISM _CreateMechanism(NativeULong mechanism, byte[] parameter)
         {
             CK_MECHANISM mech = new CK_MECHANISM();
             mech.Mechanism = mechanism;

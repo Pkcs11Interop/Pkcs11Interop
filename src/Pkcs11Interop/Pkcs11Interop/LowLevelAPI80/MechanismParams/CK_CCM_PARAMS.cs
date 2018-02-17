@@ -21,7 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
-using NativeLong = System.UInt64;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
 {
@@ -34,7 +34,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
         /// <summary>
         /// Length of the data
         /// </summary>
-        public NativeLong DataLen;
+        public NativeULong DataLen;
 
         /// <summary>
         /// Pointer to the nonce
@@ -44,7 +44,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
         /// <summary>
         /// Length of the nonce
         /// </summary>
-        public NativeLong NonceLen;
+        public NativeULong NonceLen;
 
         /// <summary>
         /// Pointer to additional authentication data
@@ -54,11 +54,11 @@ namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
         /// <summary>
         /// Length of additional authentication data
         /// </summary>
-        public NativeLong AADLen;
+        public NativeULong AADLen;
 
         /// <summary>
         /// Length of the MAC (output following cipher text) in bytes
         /// </summary>
-        public NativeLong MACLen;
+        public NativeULong MACLen;
     }
 }

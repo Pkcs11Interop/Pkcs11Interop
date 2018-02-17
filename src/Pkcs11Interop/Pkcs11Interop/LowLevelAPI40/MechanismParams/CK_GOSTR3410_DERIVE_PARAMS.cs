@@ -21,7 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
-using NativeLong = System.UInt32;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
 {
@@ -34,7 +34,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
         /// <summary>
         /// Additional key diversification algorithm (CKD)
         /// </summary>
-        public NativeLong Kdf;
+        public NativeULong Kdf;
 
         /// <summary>
         /// Pointer to data with public key of a receiver
@@ -44,7 +44,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
         /// <summary>
         /// Length of data with public key of a receiver. Must be 64.
         /// </summary>
-        public NativeLong PublicDataLen;
+        public NativeULong PublicDataLen;
 
         /// <summary>
         /// Pointer to a UKM data
@@ -54,6 +54,6 @@ namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
         /// <summary>
         /// Length of UKM data in bytes. Must be 8.
         /// </summary>
-        public NativeLong UKMLen;
+        public NativeULong UKMLen;
     }
 }

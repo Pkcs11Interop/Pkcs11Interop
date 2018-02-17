@@ -23,7 +23,7 @@ using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI40;
 using NUnit.Framework;
-using NativeLong = System.UInt32;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
 {
@@ -49,21 +49,21 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
         }
 
         /// <summary>
-        /// Attribute with NativeLong value test.
+        /// Attribute with NativeULong value test.
         /// </summary>
         [Test()]
         public void _02_UintAttributeTest()
         {
             Helpers.CheckPlatform();
 
-            NativeLong originalValue = NativeLongUtils.ConvertFromCKO(CKO.CKO_DATA);
-            // Create attribute with NativeLong value
+            NativeULong originalValue = NativeLongUtils.ConvertFromCKO(CKO.CKO_DATA);
+            // Create attribute with NativeULong value
             CK_ATTRIBUTE attr = CkaUtils.CreateAttribute(CKA.CKA_CLASS, originalValue);
             Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_CLASS));
             Assert.IsTrue(attr.value != IntPtr.Zero);
-            Assert.IsTrue(attr.valueLen == NativeLongUtils.ConvertFromInt32(UnmanagedMemory.SizeOf(typeof(NativeLong))));
+            Assert.IsTrue(attr.valueLen == NativeLongUtils.ConvertFromInt32(UnmanagedMemory.SizeOf(typeof(NativeULong))));
             
-            NativeLong recoveredValue = 0;
+            NativeULong recoveredValue = 0;
             // Read the value of attribute
             CkaUtils.ConvertValue(ref attr, out recoveredValue);
             Assert.IsTrue(originalValue == recoveredValue);
@@ -267,23 +267,23 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
         }
 
         /// <summary>
-        /// Attribute with NativeLong array value test.
+        /// Attribute with NativeULong array value test.
         /// </summary>
         [Test()]
         public void _08_UintArrayAttributeTest()
         {
             Helpers.CheckPlatform();
 
-            NativeLong[] originalValue = new NativeLong[2];
+            NativeULong[] originalValue = new NativeULong[2];
             originalValue[0] = 333333;
             originalValue[1] = 666666;
-            // Create attribute with NativeLong array value
+            // Create attribute with NativeULong array value
             CK_ATTRIBUTE attr = CkaUtils.CreateAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue);
             Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ALLOWED_MECHANISMS));
             Assert.IsTrue(attr.value != IntPtr.Zero);
-            Assert.IsTrue(attr.valueLen == NativeLongUtils.ConvertFromInt32(UnmanagedMemory.SizeOf(typeof(NativeLong)) * originalValue.Length));
+            Assert.IsTrue(attr.valueLen == NativeLongUtils.ConvertFromInt32(UnmanagedMemory.SizeOf(typeof(NativeULong)) * originalValue.Length));
             
-            NativeLong[] recoveredValue = null;
+            NativeULong[] recoveredValue = null;
             // Read the value of attribute
             CkaUtils.ConvertValue(ref attr, out recoveredValue);
             Assert.IsTrue(originalValue.Length == recoveredValue.Length);
@@ -299,14 +299,14 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
             
-            // Create attribute with null NativeLong array value
-            attr = CkaUtils.CreateAttribute(CKA.CKA_ALLOWED_MECHANISMS, (NativeLong[])null);
+            // Create attribute with null NativeULong array value
+            attr = CkaUtils.CreateAttribute(CKA.CKA_ALLOWED_MECHANISMS, (NativeULong[])null);
             Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ALLOWED_MECHANISMS));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
             
-            // Create attribute with empty NativeLong array value
-            attr = CkaUtils.CreateAttribute(CKA.CKA_ALLOWED_MECHANISMS, new NativeLong[0]);
+            // Create attribute with empty NativeULong array value
+            attr = CkaUtils.CreateAttribute(CKA.CKA_ALLOWED_MECHANISMS, new NativeULong[0]);
             Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ALLOWED_MECHANISMS));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
@@ -327,7 +327,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
             CK_ATTRIBUTE attr = CkaUtils.CreateAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue);
             Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ALLOWED_MECHANISMS));
             Assert.IsTrue(attr.value != IntPtr.Zero);
-            Assert.IsTrue(attr.valueLen == NativeLongUtils.ConvertFromInt32(UnmanagedMemory.SizeOf(typeof(NativeLong)) * originalValue.Length));
+            Assert.IsTrue(attr.valueLen == NativeLongUtils.ConvertFromInt32(UnmanagedMemory.SizeOf(typeof(NativeULong)) * originalValue.Length));
             
             CKM[] recoveredValue = null;
             // Read the value of attribute

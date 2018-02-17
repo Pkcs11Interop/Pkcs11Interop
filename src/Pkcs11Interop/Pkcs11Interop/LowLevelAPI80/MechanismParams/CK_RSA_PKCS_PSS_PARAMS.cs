@@ -20,7 +20,7 @@
  */
 
 using System.Runtime.InteropServices;
-using NativeLong = System.UInt64;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
 {
@@ -33,16 +33,16 @@ namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
         /// <summary>
         /// Hash algorithm used in the PSS encoding (CKM)
         /// </summary>
-        public NativeLong HashAlg;
+        public NativeULong HashAlg;
         
         /// <summary>
         /// Mask generation function to use on the encoded block (CKG)
         /// </summary>
-        public NativeLong Mgf;
+        public NativeULong Mgf;
 
         /// <summary>
         /// Length, in bytes, of the salt value used in the PSS encoding
         /// </summary>
-        public NativeLong Len;
+        public NativeULong Len;
     }
 }

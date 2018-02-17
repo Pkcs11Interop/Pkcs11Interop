@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI81;
 using NUnit.Framework;
-using NativeLong = System.UInt64;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
 {
@@ -112,7 +112,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
             CK_SLOT_INFO slotInfo = new CK_SLOT_INFO();
             slotInfo.ManufacturerId = ConvertUtils.Utf8StringToBytes("foo");
             slotInfo.SlotDescription = ConvertUtils.Utf8StringToBytes("bar");
-            NativeLong slotId = 1;
+            NativeULong slotId = 1;
             Assert.IsTrue(Pkcs11UriUtils.Matches(pkcs11uri, slotInfo, slotId));
 
             // Empty attribute
@@ -369,17 +369,17 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                 Assert.IsTrue(rv == CKR.CKR_OK);
 
                 // Get all slots
-                NativeLong allSlotsCount = 0;
+                NativeULong allSlotsCount = 0;
                 rv = pkcs11.C_GetSlotList(true, null, ref allSlotsCount);
                 Assert.IsTrue(rv == CKR.CKR_OK);
                 Assert.IsTrue(allSlotsCount > 0);
-                NativeLong[] allSlots = new NativeLong[allSlotsCount];
+                NativeULong[] allSlots = new NativeULong[allSlotsCount];
                 rv = pkcs11.C_GetSlotList(true, allSlots, ref allSlotsCount);
                 Assert.IsTrue(rv == CKR.CKR_OK);
 
                 // Empty URI
                 Pkcs11Uri pkcs11uri = new Pkcs11Uri(@"pkcs11:");
-                NativeLong[] matchedSlots = null;
+                NativeULong[] matchedSlots = null;
                 rv = Pkcs11UriUtils.GetMatchingSlotList(pkcs11uri, pkcs11, true, out matchedSlots);
                 Assert.IsTrue(rv == CKR.CKR_OK);
                 Assert.IsTrue(matchedSlots.Length == allSlots.Length);
@@ -449,7 +449,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
             Assert.IsTrue(attributes.Length == 3);
 
             Assert.IsTrue(attributes[0].type == NativeLongUtils.ConvertFromCKA(CKA.CKA_CLASS));
-            NativeLong ckaClass = 0;
+            NativeULong ckaClass = 0;
             CkaUtils.ConvertValue(ref attributes[0], out ckaClass);
             Assert.IsTrue(ckaClass == NativeLongUtils.ConvertFromCKO(CKO.CKO_PRIVATE_KEY));
 

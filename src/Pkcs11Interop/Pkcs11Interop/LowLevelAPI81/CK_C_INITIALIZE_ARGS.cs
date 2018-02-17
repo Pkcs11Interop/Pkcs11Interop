@@ -21,7 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
-using NativeLong = System.UInt64;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI81
 {
@@ -54,7 +54,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         /// <summary>
         /// Bit flags specifying options
         /// </summary>
-        public NativeLong Flags = 0;
+        public NativeULong Flags = 0;
 
         /// <summary>
         /// Reserved for future use

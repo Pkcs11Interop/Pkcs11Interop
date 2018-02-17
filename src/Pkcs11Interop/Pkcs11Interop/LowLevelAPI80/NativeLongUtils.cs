@@ -21,12 +21,12 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using NativeLong = System.UInt64;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI80
 {
     /// <summary>
-    /// Utility class that helps with NativeLong conversions
+    /// Utility class that helps with NativeULong conversions
     /// </summary>
     public static class NativeLongUtils
     {
@@ -36,30 +36,30 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         #region Byte array
 
         /// <summary>
-        /// Converts NativeLong to byte array
+        /// Converts NativeULong to byte array
         /// </summary>
-        /// <param name='value'>NativeLong that should be converted</param>
-        /// <returns>Byte array with NativeLong value</returns>
-        public static byte[] ConvertToByteArray(NativeLong value)
+        /// <param name='value'>NativeULong that should be converted</param>
+        /// <returns>Byte array with NativeULong value</returns>
+        public static byte[] ConvertToByteArray(NativeULong value)
         {
             byte[] bytes = BitConverter.GetBytes(value);
 
-            int unmanagedSize = Common.UnmanagedMemory.SizeOf(typeof(NativeLong));
+            int unmanagedSize = Common.UnmanagedMemory.SizeOf(typeof(NativeULong));
             if (unmanagedSize != bytes.Length)
-                throw new Exception(string.Format("Unmanaged size of NativeLong ({0}) does not match the length of produced byte array ({1})", unmanagedSize, bytes.Length));
+                throw new Exception(string.Format("Unmanaged size of NativeULong ({0}) does not match the length of produced byte array ({1})", unmanagedSize, bytes.Length));
 
             return bytes;
         }
 
         /// <summary>
-        /// Converts byte array to NativeLong
+        /// Converts byte array to NativeULong
         /// </summary>
         /// <param name='value'>Byte array that should be converted</param>
-        /// <returns>NativeLong with value from byte array</returns>
-        public static NativeLong ConvertFromByteArray(byte[] value)
+        /// <returns>NativeULong with value from byte array</returns>
+        public static NativeULong ConvertFromByteArray(byte[] value)
         {
-            if ((value == null) || (value.Length != UnmanagedMemory.SizeOf(typeof(NativeLong))))
-                throw new Exception("Unable to convert bytes to NativeLong");
+            if ((value == null) || (value.Length != UnmanagedMemory.SizeOf(typeof(NativeULong))))
+                throw new Exception("Unable to convert bytes to NativeULong");
 
             return BitConverter.ToUInt32(value, 0);
         }
@@ -69,11 +69,11 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         #region CKA
 
         /// <summary>
-        /// Converts CKA to NativeLong
+        /// Converts CKA to NativeULong
         /// </summary>
         /// <param name="value">CKA that should be converted</param>
-        /// <returns>NativeLong with value from CKA</returns>
-        public static NativeLong ConvertFromCKA(CKA value)
+        /// <returns>NativeULong with value from CKA</returns>
+        public static NativeULong ConvertFromCKA(CKA value)
         {
             return Convert.ToUInt32(value);
         }
@@ -83,11 +83,11 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         #region CKC
 
         /// <summary>
-        /// Converts CKC to NativeLong
+        /// Converts CKC to NativeULong
         /// </summary>
         /// <param name="value">CKC that should be converted</param>
-        /// <returns>NativeLong with value from CKC</returns>
-        public static NativeLong ConvertFromCKC(CKC value)
+        /// <returns>NativeULong with value from CKC</returns>
+        public static NativeULong ConvertFromCKC(CKC value)
         {
             return Convert.ToUInt32(value);
         }
@@ -97,11 +97,11 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         #region CKG
 
         /// <summary>
-        /// Converts CKG to NativeLong
+        /// Converts CKG to NativeULong
         /// </summary>
         /// <param name="value">CKG that should be converted</param>
-        /// <returns>NativeLong with value from CKG</returns>
-        public static NativeLong ConvertFromCKG(CKG value)
+        /// <returns>NativeULong with value from CKG</returns>
+        public static NativeULong ConvertFromCKG(CKG value)
         {
             return Convert.ToUInt32(value);
         }
@@ -111,11 +111,11 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         #region CKK
 
         /// <summary>
-        /// Converts CKK to NativeLong
+        /// Converts CKK to NativeULong
         /// </summary>
         /// <param name="value">CKK that should be converted</param>
-        /// <returns>NativeLong with value from CKK</returns>
-        public static NativeLong ConvertFromCKK(CKK value)
+        /// <returns>NativeULong with value from CKK</returns>
+        public static NativeULong ConvertFromCKK(CKK value)
         {
             return Convert.ToUInt32(value);
         }
@@ -125,21 +125,21 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         #region CKM
 
         /// <summary>
-        /// Converts NativeLong to CKM
+        /// Converts NativeULong to CKM
         /// </summary>
-        /// <param name="value">NativeLong that should be converted</param>
-        /// <returns>CKM with NativeLong value</returns>
-        public static CKM ConvertToCKM(NativeLong value)
+        /// <param name="value">NativeULong that should be converted</param>
+        /// <returns>CKM with NativeULong value</returns>
+        public static CKM ConvertToCKM(NativeULong value)
         {
             return (CKM)value;
         }
 
         /// <summary>
-        /// Converts CKM to NativeLong
+        /// Converts CKM to NativeULong
         /// </summary>
         /// <param name="value">CKM that should be converted</param>
-        /// <returns>NativeLong with value from CKM</returns>
-        public static NativeLong ConvertFromCKM(CKM value)
+        /// <returns>NativeULong with value from CKM</returns>
+        public static NativeULong ConvertFromCKM(CKM value)
         {
             return Convert.ToUInt32(value);
         }
@@ -149,21 +149,21 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         #region CKO
 
         /// <summary>
-        /// Converts NativeLong to CKO
+        /// Converts NativeULong to CKO
         /// </summary>
-        /// <param name="value">NativeLong that should be converted</param>
-        /// <returns>CKO with NativeLong value</returns>
-        public static CKO ConvertToCKO(NativeLong value)
+        /// <param name="value">NativeULong that should be converted</param>
+        /// <returns>CKO with NativeULong value</returns>
+        public static CKO ConvertToCKO(NativeULong value)
         {
             return (CKO)value;
         }
 
         /// <summary>
-        /// Converts CKO to NativeLong
+        /// Converts CKO to NativeULong
         /// </summary>
         /// <param name="value">CKO that should be converted</param>
-        /// <returns>NativeLong with value from CKO</returns>
-        public static NativeLong ConvertFromCKO(CKO value)
+        /// <returns>NativeULong with value from CKO</returns>
+        public static NativeULong ConvertFromCKO(CKO value)
         {
             return Convert.ToUInt32(value);
         }
@@ -173,11 +173,11 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         #region CKR
 
         /// <summary>
-        /// Converts NativeLong to CKR
+        /// Converts NativeULong to CKR
         /// </summary>
-        /// <param name="value">NativeLong that should be converted</param>
-        /// <returns>CKR with NativeLong value</returns>
-        public static CKR ConvertToCKR(NativeLong value)
+        /// <param name="value">NativeULong that should be converted</param>
+        /// <returns>CKR with NativeULong value</returns>
+        public static CKR ConvertToCKR(NativeULong value)
         {
             return (CKR)value;
         }
@@ -187,11 +187,11 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         #region CKU
 
         /// <summary>
-        /// Converts CKU to NativeLong
+        /// Converts CKU to NativeULong
         /// </summary>
         /// <param name="value">CKU that should be converted</param>
-        /// <returns>NativeLong with value from CKU</returns>
-        public static NativeLong ConvertFromCKU(CKU value)
+        /// <returns>NativeULong with value from CKU</returns>
+        public static NativeULong ConvertFromCKU(CKU value)
         {
             return Convert.ToUInt32(value);
         }
@@ -201,21 +201,21 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         #region Int32
 
         /// <summary>
-        /// Converts NativeLong to Int32
+        /// Converts NativeULong to Int32
         /// </summary>
-        /// <param name="value">NativeLong that should be converted</param>
-        /// <returns>Int32 with NativeLong value</returns>
-        public static Int32 ConvertToInt32(NativeLong value)
+        /// <param name="value">NativeULong that should be converted</param>
+        /// <returns>Int32 with NativeULong value</returns>
+        public static Int32 ConvertToInt32(NativeULong value)
         {
             return Convert.ToInt32(value);
         }
 
         /// <summary>
-        /// Converts Int32 to NativeLong
+        /// Converts Int32 to NativeULong
         /// </summary>
         /// <param name="value">Int32 that should be converted</param>
-        /// <returns>NativeLong with value from Int32</returns>
-        public static NativeLong ConvertFromInt32(Int32 value)
+        /// <returns>NativeULong with value from Int32</returns>
+        public static NativeULong ConvertFromInt32(Int32 value)
         {
             return Convert.ToUInt32(value);
         }
@@ -225,21 +225,21 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         #region UInt32
 
         /// <summary>
-        /// Converts NativeLong to UInt32
+        /// Converts NativeULong to UInt32
         /// </summary>
-        /// <param name="value">NativeLong that should be converted</param>
-        /// <returns>UInt32 with NativeLong value</returns>
-        public static UInt32 ConvertToUInt32(NativeLong value)
+        /// <param name="value">NativeULong that should be converted</param>
+        /// <returns>UInt32 with NativeULong value</returns>
+        public static UInt32 ConvertToUInt32(NativeULong value)
         {
             return value;
         }
 
         /// <summary>
-        /// Converts UInt32 to NativeLong
+        /// Converts UInt32 to NativeULong
         /// </summary>
         /// <param name="value">UInt32 that should be converted</param>
-        /// <returns>NativeLong with value from UInt32</returns>
-        public static NativeLong ConvertFromUInt32(UInt32 value)
+        /// <returns>NativeULong with value from UInt32</returns>
+        public static NativeULong ConvertFromUInt32(UInt32 value)
         {
             return value;
         }
@@ -253,30 +253,30 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         #region Byte array
 
         /// <summary>
-        /// Converts NativeLong to byte array
+        /// Converts NativeULong to byte array
         /// </summary>
-        /// <param name='value'>NativeLong that should be converted</param>
-        /// <returns>Byte array with NativeLong value</returns>
-        public static byte[] ConvertToByteArray(NativeLong value)
+        /// <param name='value'>NativeULong that should be converted</param>
+        /// <returns>Byte array with NativeULong value</returns>
+        public static byte[] ConvertToByteArray(NativeULong value)
         {
             byte[] bytes = BitConverter.GetBytes(value);
 
-            int unmanagedSize = Common.UnmanagedMemory.SizeOf(typeof(NativeLong));
+            int unmanagedSize = Common.UnmanagedMemory.SizeOf(typeof(NativeULong));
             if (unmanagedSize != bytes.Length)
-                throw new Exception(string.Format("Unmanaged size of NativeLong ({0}) does not match the length of produced byte array ({1})", unmanagedSize, bytes.Length));
+                throw new Exception(string.Format("Unmanaged size of NativeULong ({0}) does not match the length of produced byte array ({1})", unmanagedSize, bytes.Length));
 
             return bytes;
         }
 
         /// <summary>
-        /// Converts byte array to NativeLong
+        /// Converts byte array to NativeULong
         /// </summary>
         /// <param name='value'>Byte array that should be converted</param>
-        /// <returns>NativeLong with value from byte array</returns>
-        public static NativeLong ConvertFromByteArray(byte[] value)
+        /// <returns>NativeULong with value from byte array</returns>
+        public static NativeULong ConvertFromByteArray(byte[] value)
         {
-            if ((value == null) || (value.Length != UnmanagedMemory.SizeOf(typeof(NativeLong))))
-                throw new Exception("Unable to convert bytes to NativeLong");
+            if ((value == null) || (value.Length != UnmanagedMemory.SizeOf(typeof(NativeULong))))
+                throw new Exception("Unable to convert bytes to NativeULong");
 
             return BitConverter.ToUInt64(value, 0);
         }
@@ -286,11 +286,11 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         #region CKA
 
         /// <summary>
-        /// Converts CKA to NativeLong
+        /// Converts CKA to NativeULong
         /// </summary>
         /// <param name="value">CKA that should be converted</param>
-        /// <returns>NativeLong with value from CKA</returns>
-        public static NativeLong ConvertFromCKA(CKA value)
+        /// <returns>NativeULong with value from CKA</returns>
+        public static NativeULong ConvertFromCKA(CKA value)
         {
             return Convert.ToUInt64(value);
         }
@@ -300,11 +300,11 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         #region CKC
 
         /// <summary>
-        /// Converts CKC to NativeLong
+        /// Converts CKC to NativeULong
         /// </summary>
         /// <param name="value">CKC that should be converted</param>
-        /// <returns>NativeLong with value from CKC</returns>
-        public static NativeLong ConvertFromCKC(CKC value)
+        /// <returns>NativeULong with value from CKC</returns>
+        public static NativeULong ConvertFromCKC(CKC value)
         {
             return Convert.ToUInt64(value);
         }
@@ -314,11 +314,11 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         #region CKG
 
         /// <summary>
-        /// Converts CKG to NativeLong
+        /// Converts CKG to NativeULong
         /// </summary>
         /// <param name="value">CKG that should be converted</param>
-        /// <returns>NativeLong with value from CKG</returns>
-        public static NativeLong ConvertFromCKG(CKG value)
+        /// <returns>NativeULong with value from CKG</returns>
+        public static NativeULong ConvertFromCKG(CKG value)
         {
             return Convert.ToUInt64(value);
         }
@@ -328,11 +328,11 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         #region CKK
 
         /// <summary>
-        /// Converts CKK to NativeLong
+        /// Converts CKK to NativeULong
         /// </summary>
         /// <param name="value">CKK that should be converted</param>
-        /// <returns>NativeLong with value from CKK</returns>
-        public static NativeLong ConvertFromCKK(CKK value)
+        /// <returns>NativeULong with value from CKK</returns>
+        public static NativeULong ConvertFromCKK(CKK value)
         {
             return Convert.ToUInt64(value);
         }
@@ -342,21 +342,21 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         #region CKM
 
         /// <summary>
-        /// Converts NativeLong to CKM
+        /// Converts NativeULong to CKM
         /// </summary>
-        /// <param name="value">NativeLong that should be converted</param>
-        /// <returns>CKM with NativeLong value</returns>
-        public static CKM ConvertToCKM(NativeLong value)
+        /// <param name="value">NativeULong that should be converted</param>
+        /// <returns>CKM with NativeULong value</returns>
+        public static CKM ConvertToCKM(NativeULong value)
         {
             return (CKM)Convert.ToUInt32(value);
         }
 
         /// <summary>
-        /// Converts CKM to NativeLong
+        /// Converts CKM to NativeULong
         /// </summary>
         /// <param name="value">CKM that should be converted</param>
-        /// <returns>NativeLong with value from CKM</returns>
-        public static NativeLong ConvertFromCKM(CKM value)
+        /// <returns>NativeULong with value from CKM</returns>
+        public static NativeULong ConvertFromCKM(CKM value)
         {
             return Convert.ToUInt64(value);
         }
@@ -366,21 +366,21 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         #region CKO
 
         /// <summary>
-        /// Converts NativeLong to CKO
+        /// Converts NativeULong to CKO
         /// </summary>
-        /// <param name="value">NativeLong that should be converted</param>
-        /// <returns>CKO with NativeLong value</returns>
-        public static CKO ConvertToCKO(NativeLong value)
+        /// <param name="value">NativeULong that should be converted</param>
+        /// <returns>CKO with NativeULong value</returns>
+        public static CKO ConvertToCKO(NativeULong value)
         {
             return (CKO)Convert.ToUInt32(value);
         }
 
         /// <summary>
-        /// Converts CKO to NativeLong
+        /// Converts CKO to NativeULong
         /// </summary>
         /// <param name="value">CKO that should be converted</param>
-        /// <returns>NativeLong with value from CKO</returns>
-        public static NativeLong ConvertFromCKO(CKO value)
+        /// <returns>NativeULong with value from CKO</returns>
+        public static NativeULong ConvertFromCKO(CKO value)
         {
             return Convert.ToUInt64(value);
         }
@@ -390,11 +390,11 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         #region CKR
 
         /// <summary>
-        /// Converts NativeLong to CKR
+        /// Converts NativeULong to CKR
         /// </summary>
-        /// <param name="value">NativeLong that should be converted</param>
-        /// <returns>CKR with NativeLong value</returns>
-        public static CKR ConvertToCKR(NativeLong value)
+        /// <param name="value">NativeULong that should be converted</param>
+        /// <returns>CKR with NativeULong value</returns>
+        public static CKR ConvertToCKR(NativeULong value)
         {
             return (CKR)Convert.ToUInt32(value);
         }
@@ -404,11 +404,11 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         #region CKU
 
         /// <summary>
-        /// Converts CKU to NativeLong
+        /// Converts CKU to NativeULong
         /// </summary>
         /// <param name="value">CKU that should be converted</param>
-        /// <returns>NativeLong with value from CKU</returns>
-        public static NativeLong ConvertFromCKU(CKU value)
+        /// <returns>NativeULong with value from CKU</returns>
+        public static NativeULong ConvertFromCKU(CKU value)
         {
             return Convert.ToUInt64(value);
         }
@@ -418,21 +418,21 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         #region Int32
 
         /// <summary>
-        /// Converts NativeLong to Int32
+        /// Converts NativeULong to Int32
         /// </summary>
-        /// <param name="value">NativeLong that should be converted</param>
-        /// <returns>Int32 with NativeLong value</returns>
-        public static Int32 ConvertToInt32(NativeLong value)
+        /// <param name="value">NativeULong that should be converted</param>
+        /// <returns>Int32 with NativeULong value</returns>
+        public static Int32 ConvertToInt32(NativeULong value)
         {
             return Convert.ToInt32(value);
         }
 
         /// <summary>
-        /// Converts Int32 to NativeLong
+        /// Converts Int32 to NativeULong
         /// </summary>
         /// <param name="value">Int32 that should be converted</param>
-        /// <returns>NativeLong with value from Int32</returns>
-        public static NativeLong ConvertFromInt32(Int32 value)
+        /// <returns>NativeULong with value from Int32</returns>
+        public static NativeULong ConvertFromInt32(Int32 value)
         {
             return Convert.ToUInt64(value);
         }
@@ -442,21 +442,21 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         #region UInt32
 
         /// <summary>
-        /// Converts NativeLong to UInt32
+        /// Converts NativeULong to UInt32
         /// </summary>
-        /// <param name="value">NativeLong that should be converted</param>
-        /// <returns>UInt32 with NativeLong value</returns>
-        public static UInt32 ConvertToUInt32(NativeLong value)
+        /// <param name="value">NativeULong that should be converted</param>
+        /// <returns>UInt32 with NativeULong value</returns>
+        public static UInt32 ConvertToUInt32(NativeULong value)
         {
             return Convert.ToUInt32(value);
         }
 
         /// <summary>
-        /// Converts UInt32 to NativeLong
+        /// Converts UInt32 to NativeULong
         /// </summary>
         /// <param name="value">UInt32 that should be converted</param>
-        /// <returns>NativeLong with value from UInt32</returns>
-        public static NativeLong ConvertFromUInt32(UInt32 value)
+        /// <returns>NativeULong with value from UInt32</returns>
+        public static NativeULong ConvertFromUInt32(UInt32 value)
         {
             return Convert.ToUInt64(value);
         }

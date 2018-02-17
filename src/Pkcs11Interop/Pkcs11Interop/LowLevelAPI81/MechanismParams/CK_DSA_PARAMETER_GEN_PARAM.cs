@@ -21,7 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
-using NativeLong = System.UInt64;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
 {
@@ -34,7 +34,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
         /// <summary>
         /// Mechanism value for the base hash used in PQG generation (CKM)
         /// </summary>
-        public NativeLong Hash;
+        public NativeULong Hash;
 
         /// <summary>
         /// Pointer to seed value used to generate PQ and G
@@ -44,11 +44,11 @@ namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
         /// <summary>
         /// Length of seed value
         /// </summary>
-        public NativeLong SeedLen;
+        public NativeULong SeedLen;
 
         /// <summary>
         /// Index value for generating G
         /// </summary>
-        public NativeLong Index;
+        public NativeULong Index;
     }
 }

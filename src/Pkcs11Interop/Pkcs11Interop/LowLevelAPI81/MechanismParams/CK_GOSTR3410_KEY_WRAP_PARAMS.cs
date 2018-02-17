@@ -21,7 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
-using NativeLong = System.UInt64;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
 {
@@ -39,7 +39,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
         /// <summary>
         /// Length of data with DER-encoding of the object identifier indicating the data object type of GOST 28147-89
         /// </summary>
-        public NativeLong WrapOIDLen;
+        public NativeULong WrapOIDLen;
 
         /// <summary>
         /// Pointer to a data with UKM
@@ -49,11 +49,11 @@ namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
         /// <summary>
         /// Length of UKM data
         /// </summary>
-        public NativeLong UKMLen;
+        public NativeULong UKMLen;
 
         /// <summary>
         /// Key handle of a sender for wrapping operation or key handle of a receiver for unwrapping operation
         /// </summary>
-        public NativeLong Key;
+        public NativeULong Key;
     }
 }
