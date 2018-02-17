@@ -21,7 +21,9 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI40;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
@@ -47,7 +49,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <param name='password'>Password to be used in the PBE key generation</param>
         /// <param name='salt'>Salt to be used in the PBE key generation</param>
         /// <param name='iteration'>Number of iterations required for the generation</param>
-        public CkPbeParams(byte[] initVector, byte[] password, byte[] salt, uint iteration)
+        public CkPbeParams(byte[] initVector, byte[] password, byte[] salt, NativeULong iteration)
         {
             _lowLevelStruct.InitVector = IntPtr.Zero;
             _lowLevelStruct.Password = IntPtr.Zero;
@@ -69,14 +71,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             {
                 _lowLevelStruct.Password = UnmanagedMemory.Allocate(password.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Password, password);
-                _lowLevelStruct.PasswordLen = Convert.ToUInt32(password.Length);
+                _lowLevelStruct.PasswordLen = NativeLongUtils.ConvertFromInt32(password.Length);
             }
 
             if (salt != null)
             {
                 _lowLevelStruct.Salt = UnmanagedMemory.Allocate(salt.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Salt, salt);
-                _lowLevelStruct.SaltLen = Convert.ToUInt32(salt.Length);
+                _lowLevelStruct.SaltLen = NativeLongUtils.ConvertFromInt32(salt.Length);
             }
 
             _lowLevelStruct.Iteration = iteration;

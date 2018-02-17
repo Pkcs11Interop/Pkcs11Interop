@@ -107,7 +107,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
             using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_CLASS, value))
             {
                 Assert.IsTrue(attr.Type == (ulong)CKA.CKA_CLASS);
-                Assert.IsTrue(attr.GetValueAsUlong() == value);
+                Assert.IsTrue(attr.GetValueAsNativeUlong() == value);
             }
         }
 
@@ -287,7 +287,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
             {
                 Assert.IsTrue(attr.Type == (ulong)CKA.CKA_ALLOWED_MECHANISMS);
 
-                List<ulong> recoveredValue = attr.GetValueAsUlongList();
+                List<ulong> recoveredValue = attr.GetValueAsNativeULongList();
                 for (int i = 0; i < recoveredValue.Count; i++)
                     Assert.IsTrue(originalValue[i] == recoveredValue[i]);
             }
@@ -298,7 +298,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
             using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
             {
                 Assert.IsTrue(attr.Type == (ulong)CKA.CKA_ALLOWED_MECHANISMS);
-                Assert.IsTrue(attr.GetValueAsUlongList() == originalValue);
+                Assert.IsTrue(attr.GetValueAsNativeULongList() == originalValue);
             }
 
             originalValue = new List<ulong>();
@@ -307,7 +307,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
             using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
             {
                 Assert.IsTrue(attr.Type == (ulong)CKA.CKA_ALLOWED_MECHANISMS);
-                Assert.IsTrue(attr.GetValueAsUlongList() == null);
+                Assert.IsTrue(attr.GetValueAsNativeULongList() == null);
             }
         }
 

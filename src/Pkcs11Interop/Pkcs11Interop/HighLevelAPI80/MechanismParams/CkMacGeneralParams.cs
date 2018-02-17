@@ -21,6 +21,7 @@
 
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
@@ -38,7 +39,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
         /// Initializes a new instance of the CkMacGeneralParams class.
         /// </summary>
         /// <param name='macLength'>Length of the MAC produced, in bytes</param>
-        public CkMacGeneralParams(ulong macLength)
+        public CkMacGeneralParams(NativeULong macLength)
         {
             _lowLevelStruct.MacLength = macLength;
         }

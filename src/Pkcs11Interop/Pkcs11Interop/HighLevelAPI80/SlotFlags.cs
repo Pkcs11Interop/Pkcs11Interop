@@ -20,6 +20,7 @@
  */
 
 using Net.Pkcs11Interop.Common;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI80
 {
@@ -31,12 +32,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <summary>
         /// Bits flags that provide capabilities of the slot
         /// </summary>
-        private ulong _flags;
+        private NativeULong _flags;
 
         /// <summary>
         /// Bits flags that provide capabilities of the slot
         /// </summary>
-        public ulong Flags
+        public NativeULong Flags
         {
             get
             {
@@ -81,7 +82,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// Initializes new instance of SlotFlags class
         /// </summary>
         /// <param name="flags">Bits flags that provide capabilities of the slot</param>
-        internal SlotFlags(ulong flags)
+        internal SlotFlags(NativeULong flags)
         {
             _flags = flags;
         }

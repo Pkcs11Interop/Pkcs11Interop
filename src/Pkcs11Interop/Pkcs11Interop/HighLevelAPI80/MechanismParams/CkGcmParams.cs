@@ -21,7 +21,9 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI80;
 using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
@@ -47,7 +49,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
         /// <param name="ivBits">Member is defined in PKCS#11 v2.40e1 headers but the description is not present in the specification</param>
         /// <param name="aad">Additional authentication data</param>
         /// <param name="tagBits">Length of authentication tag (output following cipher text) in bits</param>
-        public CkGcmParams(byte[] iv, ulong ivBits, byte[] aad, ulong tagBits)
+        public CkGcmParams(byte[] iv, NativeULong ivBits, byte[] aad, NativeULong tagBits)
         {
             _lowLevelStruct.Iv = IntPtr.Zero;
             _lowLevelStruct.IvLen = 0;
@@ -60,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             {
                 _lowLevelStruct.Iv = UnmanagedMemory.Allocate(iv.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Iv, iv);
-                _lowLevelStruct.IvLen = Convert.ToUInt64(iv.Length);
+                _lowLevelStruct.IvLen = NativeLongUtils.ConvertFromInt32(iv.Length);
             }
 
             _lowLevelStruct.IvBits = ivBits;
@@ -69,7 +71,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             {
                 _lowLevelStruct.AAD = UnmanagedMemory.Allocate(aad.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.AAD, aad);
-                _lowLevelStruct.AADLen = Convert.ToUInt64(aad.Length);
+                _lowLevelStruct.AADLen = NativeLongUtils.ConvertFromInt32(aad.Length);
             }
 
             _lowLevelStruct.TagBits = tagBits;

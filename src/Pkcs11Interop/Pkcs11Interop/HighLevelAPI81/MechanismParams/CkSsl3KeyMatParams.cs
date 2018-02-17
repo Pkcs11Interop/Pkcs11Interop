@@ -22,6 +22,7 @@
 using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 {
@@ -83,7 +84,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <param name='ivSizeInBits'>The length (in bits) of the IV agreed upon during the protocol handshake phase or if no IV is required, the length should be set to 0</param>
         /// <param name='isExport'>Flag indicating whether the keys have to be derived for an export version of the protocol</param>
         /// <param name='randomInfo'>Client's and server's random data information</param>
-        public CkSsl3KeyMatParams(ulong macSizeInBits, ulong keySizeInBits, ulong ivSizeInBits, bool isExport, CkSsl3RandomData randomInfo)
+        public CkSsl3KeyMatParams(NativeULong macSizeInBits, NativeULong keySizeInBits, NativeULong ivSizeInBits, bool isExport, CkSsl3RandomData randomInfo)
         {
             if (randomInfo == null)
                 throw new ArgumentNullException("randomInfo");

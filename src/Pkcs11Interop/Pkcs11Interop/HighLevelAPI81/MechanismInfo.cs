@@ -21,6 +21,7 @@
 
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI81;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI81
 {
@@ -48,12 +49,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// The minimum size of the key for the mechanism (whether this is measured in bits or in bytes is mechanism-dependent)
         /// </summary>
-        private ulong _minKeySize = 0;
+        private NativeULong _minKeySize = 0;
 
         /// <summary>
         /// The minimum size of the key for the mechanism (whether this is measured in bits or in bytes is mechanism-dependent)
         /// </summary>
-        public ulong MinKeySize
+        public NativeULong MinKeySize
         {
             get
             {
@@ -64,12 +65,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// The maximum size of the key for the mechanism (whether this is measured in bits or in bytes is mechanism-dependent)
         /// </summary>
-        private ulong _maxKeySize = 0;
+        private NativeULong _maxKeySize = 0;
 
         /// <summary>
         /// The maximum size of the key for the mechanism (whether this is measured in bits or in bytes is mechanism-dependent)
         /// </summary>
-        public ulong MaxKeySize
+        public NativeULong MaxKeySize
         {
             get
             {

@@ -21,6 +21,7 @@
 
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 {
@@ -40,7 +41,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <param name="prfHashMechanism">Hash mechanism used in the TLS12 PRF construct or CKM_TLS_PRF to use with the TLS 1.0 and 1.1 PRF construct (CKM)</param>
         /// <param name="macLength">Length of the MAC tag required or offered</param>
         /// <param name="serverOrClient">Should be set to "1" for "server finished" label or to "2" for "client finished" label</param>
-        public CkTlsMacParams(ulong prfHashMechanism, ulong macLength, ulong serverOrClient)
+        public CkTlsMacParams(NativeULong prfHashMechanism, NativeULong macLength, NativeULong serverOrClient)
         {
             _lowLevelStruct.PrfHashMechanism = prfHashMechanism;
             _lowLevelStruct.MacLength = macLength;

@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI81;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI81
 {
@@ -50,12 +51,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// PKCS#11 handle of slot
         /// </summary>
-        private ulong _slotId = 0;
+        private NativeULong _slotId = 0;
         
         /// <summary>
         /// PKCS#11 handle of slot
         /// </summary>
-        public ulong SlotId
+        public NativeULong SlotId
         {
             get
             {
@@ -68,7 +69,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// </summary>
         /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
         /// <param name="slotId">PKCS#11 handle of slot</param>
-        internal Slot(LowLevelAPI81.Pkcs11 pkcs11, ulong slotId)
+        internal Slot(LowLevelAPI81.Pkcs11 pkcs11, NativeULong slotId)
         {
             if (pkcs11 == null)
                 throw new ArgumentNullException("pkcs11");
@@ -111,7 +112,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <returns>List of mechanism types supported by a token</returns>
         public List<CKM> GetMechanismList()
         {
-            ulong mechanismCount = 0;
+            NativeULong mechanismCount = 0;
             CKR rv = _p11.C_GetMechanismList(_slotId, null, ref mechanismCount);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetMechanismList", rv);
@@ -124,8 +125,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetMechanismList", rv);
 
-            if (mechanismList.Length != Convert.ToInt32(mechanismCount))
-                Array.Resize(ref mechanismList, Convert.ToInt32(mechanismCount));
+            if (mechanismList.Length != NativeLongUtils.ConvertToInt32(mechanismCount))
+                Array.Resize(ref mechanismList, NativeLongUtils.ConvertToInt32(mechanismCount));
 
             return new List<CKM>(mechanismList);
         }
@@ -153,11 +154,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         public void InitToken(string soPin, string label)
         {
             byte[] soPinValue = null;
-            ulong soPinValueLen = 0;
+            NativeULong soPinValueLen = 0;
             if (soPin != null)
             {
                 soPinValue = ConvertUtils.Utf8StringToBytes(soPin);
-                soPinValueLen = Convert.ToUInt64(soPinValue.Length);
+                soPinValueLen = NativeLongUtils.ConvertFromInt32(soPinValue.Length);
             }
 
             byte[] tokenLabel = ConvertUtils.Utf8StringToBytes(label, 32, 0x20);
@@ -175,11 +176,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         public void InitToken(byte[] soPin, byte[] label)
         {
             byte[] soPinValue = null;
-            ulong soPinValueLen = 0;
+            NativeULong soPinValueLen = 0;
             if (soPin != null)
             {
                 soPinValue = soPin;
-                soPinValueLen = Convert.ToUInt64(soPin.Length);
+                soPinValueLen = NativeLongUtils.ConvertFromInt32(soPin.Length);
             }
 
             // PKCS#11 v2.20 page 113:
@@ -208,11 +209,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <returns>Session</returns>
         public Session OpenSession(SessionType sessionType)
         {
-            ulong flags = CKF.CKF_SERIAL_SESSION;
+            NativeULong flags = CKF.CKF_SERIAL_SESSION;
             if (sessionType == SessionType.ReadWrite)
                 flags = flags | CKF.CKF_RW_SESSION;
 
-            ulong sessionId = CK.CK_INVALID_HANDLE;
+            NativeULong sessionId = CK.CK_INVALID_HANDLE;
             CKR rv = _p11.C_OpenSession(_slotId, flags, IntPtr.Zero, IntPtr.Zero, ref sessionId);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_OpenSession", rv);

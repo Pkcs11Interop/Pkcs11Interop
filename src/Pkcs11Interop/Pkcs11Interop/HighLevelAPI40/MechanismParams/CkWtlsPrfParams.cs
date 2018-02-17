@@ -21,7 +21,9 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI40;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
@@ -50,10 +52,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                int uintSize = UnmanagedMemory.SizeOf(typeof(uint));
-                byte[] outputLenBytes = UnmanagedMemory.Read(_lowLevelStruct.OutputLen, uintSize);
-                uint outputLen = ConvertUtils.BytesToUInt(outputLenBytes);
-                return UnmanagedMemory.Read(_lowLevelStruct.Output, Convert.ToInt32(outputLen));
+                int nativeULongSize = UnmanagedMemory.SizeOf(typeof(NativeULong));
+                byte[] outputLenBytes = UnmanagedMemory.Read(_lowLevelStruct.OutputLen, nativeULongSize);
+                NativeULong outputLen = NativeLongUtils.ConvertFromByteArray(outputLenBytes);
+                return UnmanagedMemory.Read(_lowLevelStruct.Output, NativeLongUtils.ConvertToInt32(outputLen));
             }
         }
         
@@ -64,7 +66,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <param name='seed'>Input seed</param>
         /// <param name='label'>Identifying label</param>
         /// <param name='outputLen'>Length in bytes that the output to be created shall have</param>
-        public CkWtlsPrfParams(uint digestMechanism, byte[] seed, byte[] label, uint outputLen)
+        public CkWtlsPrfParams(NativeULong digestMechanism, byte[] seed, byte[] label, NativeULong outputLen)
         {
             _lowLevelStruct.DigestMechanism = 0;
             _lowLevelStruct.Seed = IntPtr.Zero;
@@ -80,22 +82,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             {
                 _lowLevelStruct.Seed = UnmanagedMemory.Allocate(seed.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Seed, seed);
-                _lowLevelStruct.SeedLen = Convert.ToUInt32(seed.Length);
+                _lowLevelStruct.SeedLen = NativeLongUtils.ConvertFromInt32(seed.Length);
             }
             
             if (label != null)
             {
                 _lowLevelStruct.Label = UnmanagedMemory.Allocate(label.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Label, label);
-                _lowLevelStruct.LabelLen = Convert.ToUInt32(label.Length);
+                _lowLevelStruct.LabelLen = NativeLongUtils.ConvertFromInt32(label.Length);
             }
             
             if (outputLen < 1)
                 throw new ArgumentException("Value has to be positive number", "outputLen");
             
-            _lowLevelStruct.Output = UnmanagedMemory.Allocate(Convert.ToInt32(outputLen));
+            _lowLevelStruct.Output = UnmanagedMemory.Allocate(NativeLongUtils.ConvertToInt32(outputLen));
             
-            byte[] outputLenBytes = ConvertUtils.UIntToBytes(outputLen);
+            byte[] outputLenBytes = NativeLongUtils.ConvertToByteArray(outputLen);
             _lowLevelStruct.OutputLen = UnmanagedMemory.Allocate(outputLenBytes.Length);
             UnmanagedMemory.Write(_lowLevelStruct.OutputLen, outputLenBytes);
         }

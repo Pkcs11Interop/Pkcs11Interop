@@ -400,7 +400,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI40
             Assert.IsTrue(attributes.Count == 3);
 
             Assert.IsTrue(attributes[0].Type == (uint)CKA.CKA_CLASS);
-            Assert.IsTrue(attributes[0].GetValueAsUint() == (uint)CKO.CKO_PRIVATE_KEY);
+            Assert.IsTrue(attributes[0].GetValueAsNativeUlong() == (uint)CKO.CKO_PRIVATE_KEY);
 
             Assert.IsTrue(attributes[1].Type == (uint)CKA.CKA_LABEL);
             Assert.IsTrue(attributes[1].GetValueAsString() == "foo");

@@ -21,6 +21,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI81;
 using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
@@ -67,21 +68,21 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
             {
                 _lowLevelStruct.Password = UnmanagedMemory.Allocate(password.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Password, password);
-                _lowLevelStruct.PasswordLen = Convert.ToUInt64(password.Length);
+                _lowLevelStruct.PasswordLen = NativeLongUtils.ConvertFromInt32(password.Length);
             }
 
             if (publicData != null)
             {
                 _lowLevelStruct.PublicData = UnmanagedMemory.Allocate(publicData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
-                _lowLevelStruct.PublicDataLen = Convert.ToUInt64(publicData.Length);
+                _lowLevelStruct.PublicDataLen = NativeLongUtils.ConvertFromInt32(publicData.Length);
             }
 
             if (randomA != null)
             {
                 _lowLevelStruct.RandomA = UnmanagedMemory.Allocate(randomA.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.RandomA, randomA);
-                _lowLevelStruct.RandomLen = Convert.ToUInt64(randomA.Length);
+                _lowLevelStruct.RandomLen = NativeLongUtils.ConvertFromInt32(randomA.Length);
             }
 
             if ((primeP != null) && (baseG != null))
@@ -94,21 +95,21 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
             {
                 _lowLevelStruct.PrimeP = UnmanagedMemory.Allocate(primeP.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.PrimeP, primeP);
-                _lowLevelStruct.PAndGLen = Convert.ToUInt64(primeP.Length);
+                _lowLevelStruct.PAndGLen = NativeLongUtils.ConvertFromInt32(primeP.Length);
             }
 
             if (baseG != null)
             {
                 _lowLevelStruct.BaseG = UnmanagedMemory.Allocate(baseG.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.BaseG, baseG);
-                _lowLevelStruct.PAndGLen = Convert.ToUInt64(baseG.Length);
+                _lowLevelStruct.PAndGLen = NativeLongUtils.ConvertFromInt32(baseG.Length);
             }
 
             if (subprimeQ != null)
             {
                 _lowLevelStruct.SubprimeQ = UnmanagedMemory.Allocate(subprimeQ.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.SubprimeQ, subprimeQ);
-                _lowLevelStruct.QLen = Convert.ToUInt64(subprimeQ.Length);
+                _lowLevelStruct.QLen = NativeLongUtils.ConvertFromInt32(subprimeQ.Length);
             }
         }
         

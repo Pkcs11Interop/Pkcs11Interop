@@ -21,7 +21,9 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI80;
 using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
@@ -50,7 +52,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (_lowLevelStruct.Seed == IntPtr.Zero) ? null : UnmanagedMemory.Read(_lowLevelStruct.Seed, Convert.ToInt32(_lowLevelStruct.SeedLen));
+                return (_lowLevelStruct.Seed == IntPtr.Zero) ? null : UnmanagedMemory.Read(_lowLevelStruct.Seed, NativeLongUtils.ConvertToInt32(_lowLevelStruct.SeedLen));
             }
         }
 
@@ -60,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
         /// <param name="hash">Mechanism value for the base hash used in PQG generation (CKM)</param>
         /// <param name="seed">Seed value used to generate PQ and G</param>
         /// <param name="index">Index value for generating G</param>
-        public CkDsaParameterGenParam(ulong hash, byte[] seed, ulong index)
+        public CkDsaParameterGenParam(NativeULong hash, byte[] seed, NativeULong index)
         {
             _lowLevelStruct.Hash = 0;
             _lowLevelStruct.Seed = IntPtr.Zero;
@@ -73,7 +75,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             {
                 _lowLevelStruct.Seed = UnmanagedMemory.Allocate(seed.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Seed, seed);
-                _lowLevelStruct.SeedLen = Convert.ToUInt64(seed.Length);
+                _lowLevelStruct.SeedLen = NativeLongUtils.ConvertFromInt32(seed.Length);
             }
 
             _lowLevelStruct.Index = index;

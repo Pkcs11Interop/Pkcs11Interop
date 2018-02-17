@@ -21,6 +21,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI80;
 using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
@@ -68,21 +69,21 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             {
                 _lowLevelStruct.RandomA = UnmanagedMemory.Allocate(randomA.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.RandomA, randomA);
-                _lowLevelStruct.RandomLen = Convert.ToUInt64(randomA.Length);
+                _lowLevelStruct.RandomLen = NativeLongUtils.ConvertFromInt32(randomA.Length);
             }
             
             if (randomB != null)
             {
                 _lowLevelStruct.RandomB = UnmanagedMemory.Allocate(randomB.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.RandomB, randomB);
-                _lowLevelStruct.RandomLen = Convert.ToUInt64(randomB.Length);
+                _lowLevelStruct.RandomLen = NativeLongUtils.ConvertFromInt32(randomB.Length);
             }
 
             if (publicData != null)
             {
                 _lowLevelStruct.PublicData = UnmanagedMemory.Allocate(publicData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
-                _lowLevelStruct.PublicDataLen = Convert.ToUInt64(publicData.Length);
+                _lowLevelStruct.PublicDataLen = NativeLongUtils.ConvertFromInt32(publicData.Length);
             }
         }
 

@@ -21,7 +21,9 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI40;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
@@ -46,7 +48,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <param name='kdf'>Key derivation function used on the shared secret value (CKD)</param>
         /// <param name='otherInfo'>Some data shared between the two parties</param>
         /// <param name='publicData'>Other party's X9.42 Diffie-Hellman public key value</param>
-        public CkX942Dh1DeriveParams(uint kdf, byte[] otherInfo, byte[] publicData)
+        public CkX942Dh1DeriveParams(NativeULong kdf, byte[] otherInfo, byte[] publicData)
         {
             _lowLevelStruct.Kdf = 0;
             _lowLevelStruct.OtherInfoLen = 0;
@@ -60,14 +62,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             {
                 _lowLevelStruct.OtherInfo = UnmanagedMemory.Allocate(otherInfo.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.OtherInfo, otherInfo);
-                _lowLevelStruct.OtherInfoLen = Convert.ToUInt32(otherInfo.Length);
+                _lowLevelStruct.OtherInfoLen = NativeLongUtils.ConvertFromInt32(otherInfo.Length);
             }
             
             if (publicData != null)
             {
                 _lowLevelStruct.PublicData = UnmanagedMemory.Allocate(publicData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
-                _lowLevelStruct.PublicDataLen = Convert.ToUInt32(publicData.Length);
+                _lowLevelStruct.PublicDataLen = NativeLongUtils.ConvertFromInt32(publicData.Length);
             }
         }
         

@@ -24,6 +24,8 @@ using System.Collections.Generic;
 using System.IO;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI80;
+using NativeULong = System.UInt64;
+using NativeLong = System.Int32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI80
 {
@@ -70,12 +72,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <summary>
         /// PKCS#11 handle of session
         /// </summary>
-        private ulong _sessionId = CK.CK_INVALID_HANDLE;
+        private NativeULong _sessionId = CK.CK_INVALID_HANDLE;
 
         /// <summary>
         /// PKCS#11 handle of session
         /// </summary>
-        public ulong SessionId
+        public NativeULong SessionId
         {
             get
             {
@@ -117,7 +119,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// </summary>
         /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
         /// <param name="sessionId">PKCS#11 handle of session</param>
-        internal Session(LowLevelAPI80.Pkcs11 pkcs11, ulong sessionId)
+        internal Session(LowLevelAPI80.Pkcs11 pkcs11, NativeULong sessionId)
         {
             if (pkcs11 == null)
                 throw new ArgumentNullException("pkcs11");
@@ -154,11 +156,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             byte[] pinValue = null;
-            ulong pinValueLen = 0;
+            NativeULong pinValueLen = 0;
             if (userPin != null)
             {
                 pinValue = ConvertUtils.Utf8StringToBytes(userPin);
-                pinValueLen = Convert.ToUInt64(pinValue.Length);
+                pinValueLen = NativeLongUtils.ConvertFromInt32(pinValue.Length);
             }
 
             CKR rv = _p11.C_InitPIN(_sessionId, pinValue, pinValueLen);
@@ -176,11 +178,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             byte[] pinValue = null;
-            ulong pinValueLen = 0;
+            NativeULong pinValueLen = 0;
             if (userPin != null)
             {
                 pinValue = userPin;
-                pinValueLen = Convert.ToUInt64(userPin.Length);
+                pinValueLen = NativeLongUtils.ConvertFromInt32(userPin.Length);
             }
             
             CKR rv = _p11.C_InitPIN(_sessionId, pinValue, pinValueLen);
@@ -199,19 +201,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             byte[] oldPinValue = null;
-            ulong oldPinValueLen = 0;
+            NativeULong oldPinValueLen = 0;
             if (oldPin != null)
             {
                 oldPinValue = ConvertUtils.Utf8StringToBytes(oldPin);
-                oldPinValueLen = Convert.ToUInt64(oldPinValue.Length);
+                oldPinValueLen = NativeLongUtils.ConvertFromInt32(oldPinValue.Length);
             }
 
             byte[] newPinValue = null;
-            ulong newPinValueLen = 0;
+            NativeULong newPinValueLen = 0;
             if (newPin != null)
             {
                 newPinValue = ConvertUtils.Utf8StringToBytes(newPin);
-                newPinValueLen = Convert.ToUInt64(newPinValue.Length);
+                newPinValueLen = NativeLongUtils.ConvertFromInt32(newPinValue.Length);
             }
 
             CKR rv = _p11.C_SetPIN(_sessionId, oldPinValue, oldPinValueLen, newPinValue, newPinValueLen);
@@ -230,19 +232,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             byte[] oldPinValue = null;
-            ulong oldPinValueLen = 0;
+            NativeULong oldPinValueLen = 0;
             if (oldPin != null)
             {
                 oldPinValue = oldPin;
-                oldPinValueLen = Convert.ToUInt64(oldPin.Length);
+                oldPinValueLen = NativeLongUtils.ConvertFromInt32(oldPin.Length);
             }
             
             byte[] newPinValue = null;
-            ulong newPinValueLen = 0;
+            NativeULong newPinValueLen = 0;
             if (newPin != null)
             {
                 newPinValue = newPin;
-                newPinValueLen = Convert.ToUInt64(newPin.Length);
+                newPinValueLen = NativeLongUtils.ConvertFromInt32(newPin.Length);
             }
             
             CKR rv = _p11.C_SetPIN(_sessionId, oldPinValue, oldPinValueLen, newPinValue, newPinValueLen);
@@ -276,7 +278,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong operationStateLen = 0;
+            NativeULong operationStateLen = 0;
             CKR rv = _p11.C_GetOperationState(_sessionId, null, ref operationStateLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetOperationState", rv);
@@ -309,7 +311,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (authenticationKey == null)
                 throw new ArgumentNullException("authenticationKey");
 
-            CKR rv = _p11.C_SetOperationState(_sessionId, state, Convert.ToUInt64(state.Length), encryptionKey.ObjectId, authenticationKey.ObjectId);
+            CKR rv = _p11.C_SetOperationState(_sessionId, state, NativeLongUtils.ConvertFromInt32(state.Length), encryptionKey.ObjectId, authenticationKey.ObjectId);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_SetOperationState", rv);
         }
@@ -325,11 +327,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             byte[] pinValue = null;
-            ulong pinValueLen = 0;
+            NativeULong pinValueLen = 0;
             if (pin != null)
             {
                 pinValue = ConvertUtils.Utf8StringToBytes(pin);
-                pinValueLen = Convert.ToUInt64(pinValue.Length);
+                pinValueLen = NativeLongUtils.ConvertFromInt32(pinValue.Length);
             }
 
             CKR rv = _p11.C_Login(_sessionId, userType, pinValue, pinValueLen);
@@ -348,11 +350,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             byte[] pinValue = null;
-            ulong pinValueLen = 0;
+            NativeULong pinValueLen = 0;
             if (pin != null)
             {
                 pinValue = pin;
-                pinValueLen = Convert.ToUInt64(pin.Length);
+                pinValueLen = NativeLongUtils.ConvertFromInt32(pin.Length);
             }
             
             CKR rv = _p11.C_Login(_sessionId, userType, pinValue, pinValueLen);
@@ -383,16 +385,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong objectId = CK.CK_INVALID_HANDLE;
+            NativeULong objectId = CK.CK_INVALID_HANDLE;
 
             CK_ATTRIBUTE[] template = null;
-            ulong templateLength = 0;
+            NativeULong templateLength = 0;
             
             if (attributes != null)
             {
-                templateLength = Convert.ToUInt64(attributes.Count);
+                templateLength = NativeLongUtils.ConvertFromInt32(attributes.Count);
                 template = new CK_ATTRIBUTE[templateLength];
-                for (int i = 0; i < Convert.ToInt32(templateLength); i++)
+                for (int i = 0; i < NativeLongUtils.ConvertToInt32(templateLength); i++)
                     template[i] = attributes[i].CkAttribute;
             }
 
@@ -417,16 +419,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (objectHandle == null)
                 throw new ArgumentNullException("objectHandle");
 
-            ulong objectId = CK.CK_INVALID_HANDLE;
+            NativeULong objectId = CK.CK_INVALID_HANDLE;
 
             CK_ATTRIBUTE[] template = null;
-            ulong templateLength = 0;
+            NativeULong templateLength = 0;
 
             if (attributes != null)
             {
-                templateLength = Convert.ToUInt64(attributes.Count);
+                templateLength = NativeLongUtils.ConvertFromInt32(attributes.Count);
                 template = new CK_ATTRIBUTE[templateLength];
-                for (int i = 0; i < Convert.ToInt32(templateLength); i++)
+                for (int i = 0; i < NativeLongUtils.ConvertToInt32(templateLength); i++)
                     template[i] = attributes[i].CkAttribute;
             }
 
@@ -459,7 +461,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// </summary>
         /// <param name="objectHandle">Handle of object</param>
         /// <returns>Size of an object in bytes</returns>
-        public ulong GetObjectSize(ObjectHandle objectHandle)
+        public NativeULong GetObjectSize(ObjectHandle objectHandle)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
@@ -467,7 +469,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (objectHandle == null)
                 throw new ArgumentNullException("objectHandle");
 
-            ulong objectSize = 0;
+            NativeULong objectSize = 0;
             CKR rv = _p11.C_GetObjectSize(_sessionId, objectHandle.ObjectId, ref objectSize);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetObjectSize", rv);
@@ -495,11 +497,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (attributes.Count < 1)
                 throw new ArgumentException("No attributes specified", "attributes");
 
-            List<ulong> ulongAttributes = new List<ulong>();
+            List<NativeULong> nativeULongs = new List<NativeULong>();
             foreach (CKA attribute in attributes)
-                ulongAttributes.Add(Convert.ToUInt64((uint)attribute));
+                nativeULongs.Add(NativeLongUtils.ConvertFromCKA(attribute));
 
-            return GetAttributeValue(objectHandle, ulongAttributes);
+            return GetAttributeValue(objectHandle, nativeULongs);
         }
 
         /// <summary>
@@ -508,7 +510,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <param name="objectHandle">Handle of object whose attributes should be read</param>
         /// <param name="attributes">List of attributes that should be read</param>
         /// <returns>Object attributes</returns>
-        public List<ObjectAttribute> GetAttributeValue(ObjectHandle objectHandle, List<ulong> attributes)
+        public List<ObjectAttribute> GetAttributeValue(ObjectHandle objectHandle, List<NativeULong> attributes)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
@@ -528,7 +530,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                 template[i] = CkaUtils.CreateAttribute(attributes[i]);
 
             // Determine size of attribute values
-            CKR rv = _p11.C_GetAttributeValue(_sessionId, objectHandle.ObjectId, template, Convert.ToUInt64(template.Length));
+            CKR rv = _p11.C_GetAttributeValue(_sessionId, objectHandle.ObjectId, template, NativeLongUtils.ConvertFromInt32(template.Length));
             if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_ATTRIBUTE_SENSITIVE) && (rv != CKR.CKR_ATTRIBUTE_TYPE_INVALID))
                 throw new Pkcs11Exception("C_GetAttributeValue", rv);
 
@@ -540,12 +542,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                 // cannot be revealed because the object is sensitive or unextractable, then the
                 // ulValueLen field in that triple is modified to hold the value -1 (i.e., when it is cast to a
                 // CK_LONG, it holds -1).
-                if ((long)template[i].valueLen != -1)
-                    template[i].value = Common.UnmanagedMemory.Allocate(Convert.ToInt32(template[i].valueLen));
+                if ((NativeLong)template[i].valueLen != -1)
+                    template[i].value = Common.UnmanagedMemory.Allocate(NativeLongUtils.ConvertToInt32(template[i].valueLen));
             }
 
             // Read values of attributes
-            rv = _p11.C_GetAttributeValue(_sessionId, objectHandle.ObjectId, template, Convert.ToUInt64(template.Length));
+            rv = _p11.C_GetAttributeValue(_sessionId, objectHandle.ObjectId, template, NativeLongUtils.ConvertFromInt32(template.Length));
             if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_ATTRIBUTE_SENSITIVE) && (rv != CKR.CKR_ATTRIBUTE_TYPE_INVALID))
                 throw new Pkcs11Exception("C_GetAttributeValue", rv);
 
@@ -580,7 +582,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             for (int i = 0; i < attributes.Count; i++)
                 template[i] = attributes[i].CkAttribute;
 
-            CKR rv = _p11.C_SetAttributeValue(_sessionId, objectHandle.ObjectId, template, Convert.ToUInt64(template.Length));
+            CKR rv = _p11.C_SetAttributeValue(_sessionId, objectHandle.ObjectId, template, NativeLongUtils.ConvertFromInt32(template.Length));
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_SetAttributeValue", rv);
         }
@@ -595,13 +597,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             CK_ATTRIBUTE[] template = null;
-            ulong templateLength = 0;
+            NativeULong templateLength = 0;
             
             if (attributes != null)
             {
-                templateLength = Convert.ToUInt64(attributes.Count);
+                templateLength = NativeLongUtils.ConvertFromInt32(attributes.Count);
                 template = new CK_ATTRIBUTE[templateLength];
-                for (int i = 0; i < Convert.ToInt32(templateLength); i++)
+                for (int i = 0; i < NativeLongUtils.ConvertToInt32(templateLength); i++)
                     template[i] = attributes[i].CkAttribute;
             }
 
@@ -622,13 +624,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
 
             List<ObjectHandle> foundObjects = new List<ObjectHandle>();
 
-            ulong[] objects = new ulong[objectCount];
-            ulong foundObjectsCount = 0;
-            CKR rv = _p11.C_FindObjects(_sessionId, objects, Convert.ToUInt64(objectCount), ref foundObjectsCount);
+            NativeULong[] objects = new NativeULong[objectCount];
+            NativeULong foundObjectsCount = 0;
+            CKR rv = _p11.C_FindObjects(_sessionId, objects, NativeLongUtils.ConvertFromInt32(objectCount), ref foundObjectsCount);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_FindObjects", rv);
 
-            for (int i = 0; i < Convert.ToInt32(foundObjectsCount); i++)
+            for (int i = 0; i < NativeLongUtils.ConvertToInt32(foundObjectsCount); i++)
                 foundObjects.Add(new ObjectHandle(objects[i]));
 
             return foundObjects;
@@ -660,13 +662,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             List<ObjectHandle> foundObjects = new List<ObjectHandle>();
 
             CK_ATTRIBUTE[] template = null;
-            ulong templateLength = 0;
+            NativeULong templateLength = 0;
             
             if (attributes != null)
             {
-                templateLength = Convert.ToUInt64(attributes.Count);
+                templateLength = NativeLongUtils.ConvertFromInt32(attributes.Count);
                 template = new CK_ATTRIBUTE[templateLength];
-                for (int i = 0; i < Convert.ToInt32(templateLength); i++)
+                for (int i = 0; i < NativeLongUtils.ConvertToInt32(templateLength); i++)
                     template[i] = attributes[i].CkAttribute;
             }
 
@@ -674,16 +676,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_FindObjectsInit", rv);
 
-            ulong objectsLength = 256;
-            ulong[] objects = new ulong[objectsLength];
-            ulong objectCount = objectsLength;
+            NativeULong objectsLength = 256;
+            NativeULong[] objects = new NativeULong[objectsLength];
+            NativeULong objectCount = objectsLength;
             while (objectCount == objectsLength)
             {
                 rv = _p11.C_FindObjects(_sessionId, objects, objectsLength, ref objectCount);
                 if (rv != CKR.CKR_OK)
                     throw new Pkcs11Exception("C_FindObjects", rv);
 
-                for (int i = 0; i < Convert.ToInt32(objectCount); i++)
+                for (int i = 0; i < NativeLongUtils.ConvertToInt32(objectCount); i++)
                     foundObjects.Add(new ObjectHandle(objects[i]));
             }
 
@@ -721,18 +723,18 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_EncryptInit", rv);
 
-            ulong encryptedDataLen = 0;
-            rv = _p11.C_Encrypt(_sessionId, data, Convert.ToUInt64(data.Length), null, ref encryptedDataLen);
+            NativeULong encryptedDataLen = 0;
+            rv = _p11.C_Encrypt(_sessionId, data, NativeLongUtils.ConvertFromInt32(data.Length), null, ref encryptedDataLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_Encrypt", rv);
 
             byte[] encryptedData = new byte[encryptedDataLen];
-            rv = _p11.C_Encrypt(_sessionId, data, Convert.ToUInt64(data.Length), encryptedData, ref encryptedDataLen);
+            rv = _p11.C_Encrypt(_sessionId, data, NativeLongUtils.ConvertFromInt32(data.Length), encryptedData, ref encryptedDataLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_Encrypt", rv);
 
-            if (encryptedData.Length != Convert.ToInt32(encryptedDataLen))
-                Array.Resize(ref encryptedData, Convert.ToInt32(encryptedDataLen));
+            if (encryptedData.Length != NativeLongUtils.ConvertToInt32(encryptedDataLen))
+                Array.Resize(ref encryptedData, NativeLongUtils.ConvertToInt32(encryptedDataLen));
 
             return encryptedData;
         }
@@ -800,21 +802,21 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
 
             byte[] part = new byte[bufferLength];
             byte[] encryptedPart = new byte[bufferLength];
-            ulong encryptedPartLen = Convert.ToUInt64(encryptedPart.Length);
+            NativeULong encryptedPartLen = NativeLongUtils.ConvertFromInt32(encryptedPart.Length);
             
             int bytesRead = 0;
             while ((bytesRead = inputStream.Read(part, 0, part.Length)) > 0)
             {
-                encryptedPartLen = Convert.ToUInt64(encryptedPart.Length);
-                rv = _p11.C_EncryptUpdate(_sessionId, part, Convert.ToUInt64(bytesRead), encryptedPart, ref encryptedPartLen);
+                encryptedPartLen = NativeLongUtils.ConvertFromInt32(encryptedPart.Length);
+                rv = _p11.C_EncryptUpdate(_sessionId, part, NativeLongUtils.ConvertFromInt32(bytesRead), encryptedPart, ref encryptedPartLen);
                 if (rv != CKR.CKR_OK)
                     throw new Pkcs11Exception("C_EncryptUpdate", rv);
 
-                outputStream.Write(encryptedPart, 0, Convert.ToInt32(encryptedPartLen));
+                outputStream.Write(encryptedPart, 0, NativeLongUtils.ConvertToInt32(encryptedPartLen));
             }
 
             byte[] lastEncryptedPart = null;
-            ulong lastEncryptedPartLen = 0;
+            NativeULong lastEncryptedPartLen = 0;
             rv = _p11.C_EncryptFinal(_sessionId, null, ref lastEncryptedPartLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_EncryptFinal", rv);
@@ -825,7 +827,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                 throw new Pkcs11Exception("C_EncryptFinal", rv);
 
             if (lastEncryptedPartLen > 0)
-                outputStream.Write(lastEncryptedPart, 0, Convert.ToInt32(lastEncryptedPartLen));
+                outputStream.Write(lastEncryptedPart, 0, NativeLongUtils.ConvertToInt32(lastEncryptedPartLen));
         }
 
         /// <summary>
@@ -855,18 +857,18 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_DecryptInit", rv);
 
-            ulong decryptedDataLen = 0;
-            rv = _p11.C_Decrypt(_sessionId, encryptedData, Convert.ToUInt64(encryptedData.Length), null, ref decryptedDataLen);
+            NativeULong decryptedDataLen = 0;
+            rv = _p11.C_Decrypt(_sessionId, encryptedData, NativeLongUtils.ConvertFromInt32(encryptedData.Length), null, ref decryptedDataLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_Decrypt", rv);
 
             byte[] decryptedData = new byte[decryptedDataLen];
-            rv = _p11.C_Decrypt(_sessionId, encryptedData, Convert.ToUInt64(encryptedData.Length), decryptedData, ref decryptedDataLen);
+            rv = _p11.C_Decrypt(_sessionId, encryptedData, NativeLongUtils.ConvertFromInt32(encryptedData.Length), decryptedData, ref decryptedDataLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_Decrypt", rv);
 
-            if (decryptedData.Length != Convert.ToInt32(decryptedDataLen))
-                Array.Resize(ref decryptedData, Convert.ToInt32(decryptedDataLen));
+            if (decryptedData.Length != NativeLongUtils.ConvertToInt32(decryptedDataLen))
+                Array.Resize(ref decryptedData, NativeLongUtils.ConvertToInt32(decryptedDataLen));
 
             return decryptedData;
         }
@@ -934,21 +936,21 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
 
             byte[] encryptedPart = new byte[bufferLength];
             byte[] part = new byte[bufferLength];
-            ulong partLen = Convert.ToUInt64(part.Length);
+            NativeULong partLen = NativeLongUtils.ConvertFromInt32(part.Length);
 
             int bytesRead = 0;
             while ((bytesRead = inputStream.Read(encryptedPart, 0, encryptedPart.Length)) > 0)
             {
-                partLen = Convert.ToUInt64(part.Length);
-                rv = _p11.C_DecryptUpdate(_sessionId, encryptedPart, Convert.ToUInt64(bytesRead), part, ref partLen);
+                partLen = NativeLongUtils.ConvertFromInt32(part.Length);
+                rv = _p11.C_DecryptUpdate(_sessionId, encryptedPart, NativeLongUtils.ConvertFromInt32(bytesRead), part, ref partLen);
                 if (rv != CKR.CKR_OK)
                     throw new Pkcs11Exception("C_DecryptUpdate", rv);
 
-                outputStream.Write(part, 0, Convert.ToInt32(partLen));
+                outputStream.Write(part, 0, NativeLongUtils.ConvertToInt32(partLen));
             }
 
             byte[] lastPart = null;
-            ulong lastPartLen = 0;
+            NativeULong lastPartLen = 0;
             rv = _p11.C_DecryptFinal(_sessionId, null, ref lastPartLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_DecryptFinal", rv);
@@ -959,7 +961,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                 throw new Pkcs11Exception("C_DecryptFinal", rv);
 
             if (lastPartLen > 0)
-                outputStream.Write(lastPart, 0, Convert.ToInt32(lastPartLen));
+                outputStream.Write(lastPart, 0, NativeLongUtils.ConvertToInt32(lastPartLen));
         }
 
         /// <summary>
@@ -989,7 +991,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_DigestKey", rv);
             
-            ulong digestLen = 0;
+            NativeULong digestLen = 0;
             rv = _p11.C_DigestFinal(_sessionId, null, ref digestLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_DigestFinal", rv);
@@ -999,8 +1001,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_DigestFinal", rv);
 
-            if (digest.Length != Convert.ToInt32(digestLen))
-                Array.Resize(ref digest, Convert.ToInt32(digestLen));
+            if (digest.Length != NativeLongUtils.ConvertToInt32(digestLen))
+                Array.Resize(ref digest, NativeLongUtils.ConvertToInt32(digestLen));
 
             return digest;
         }
@@ -1028,18 +1030,18 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_DigestInit", rv);
 
-            ulong digestLen = 0;
-            rv = _p11.C_Digest(_sessionId, data, Convert.ToUInt64(data.Length), null, ref digestLen);
+            NativeULong digestLen = 0;
+            rv = _p11.C_Digest(_sessionId, data, NativeLongUtils.ConvertFromInt32(data.Length), null, ref digestLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_Digest", rv);
 
             byte[] digest = new byte[digestLen];
-            rv = _p11.C_Digest(_sessionId, data, Convert.ToUInt64(data.Length), digest, ref digestLen);
+            rv = _p11.C_Digest(_sessionId, data, NativeLongUtils.ConvertFromInt32(data.Length), digest, ref digestLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_Digest", rv);
 
-            if (digest.Length != Convert.ToInt32(digestLen))
-                Array.Resize(ref digest, Convert.ToInt32(digestLen));
+            if (digest.Length != NativeLongUtils.ConvertToInt32(digestLen))
+                Array.Resize(ref digest, NativeLongUtils.ConvertToInt32(digestLen));
 
             return digest;
         }
@@ -1096,12 +1098,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
 
             while ((bytesRead = inputStream.Read(part, 0, part.Length)) > 0)
             {
-                rv = _p11.C_DigestUpdate(_sessionId, part, Convert.ToUInt64(bytesRead));
+                rv = _p11.C_DigestUpdate(_sessionId, part, NativeLongUtils.ConvertFromInt32(bytesRead));
                 if (rv != CKR.CKR_OK)
                     throw new Pkcs11Exception("C_DigestUpdate", rv);
             }
 
-            ulong digestLen = 0;
+            NativeULong digestLen = 0;
             rv = _p11.C_DigestFinal(_sessionId, null, ref digestLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_DigestFinal", rv);
@@ -1111,8 +1113,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_DigestFinal", rv);
 
-            if (digest.Length != Convert.ToInt32(digestLen))
-                Array.Resize(ref digest, Convert.ToInt32(digestLen));
+            if (digest.Length != NativeLongUtils.ConvertToInt32(digestLen))
+                Array.Resize(ref digest, NativeLongUtils.ConvertToInt32(digestLen));
 
             return digest;
         }
@@ -1144,18 +1146,18 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_SignInit", rv);
 
-            ulong signatureLen = 0;
-            rv = _p11.C_Sign(_sessionId, data, Convert.ToUInt64(data.Length), null, ref signatureLen);
+            NativeULong signatureLen = 0;
+            rv = _p11.C_Sign(_sessionId, data, NativeLongUtils.ConvertFromInt32(data.Length), null, ref signatureLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_Sign", rv);
 
             byte[] signature = new byte[signatureLen];
-            rv = _p11.C_Sign(_sessionId, data, Convert.ToUInt64(data.Length), signature, ref signatureLen);
+            rv = _p11.C_Sign(_sessionId, data, NativeLongUtils.ConvertFromInt32(data.Length), signature, ref signatureLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_Sign", rv);
 
-            if (signature.Length != Convert.ToInt32(signatureLen))
-                Array.Resize(ref signature, Convert.ToInt32(signatureLen));
+            if (signature.Length != NativeLongUtils.ConvertToInt32(signatureLen))
+                Array.Resize(ref signature, NativeLongUtils.ConvertToInt32(signatureLen));
 
             return signature;
         }
@@ -1220,12 +1222,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
 
             while ((bytesRead = inputStream.Read(part, 0, part.Length)) > 0)
             {
-                rv = _p11.C_SignUpdate(_sessionId, part, Convert.ToUInt64(bytesRead));
+                rv = _p11.C_SignUpdate(_sessionId, part, NativeLongUtils.ConvertFromInt32(bytesRead));
                 if (rv != CKR.CKR_OK)
                     throw new Pkcs11Exception("C_SignUpdate", rv);
             }
 
-            ulong signatureLen = 0;
+            NativeULong signatureLen = 0;
             rv = _p11.C_SignFinal(_sessionId, null, ref signatureLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_SignFinal", rv);
@@ -1235,8 +1237,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_SignFinal", rv);
 
-            if (signature.Length != Convert.ToInt32(signatureLen))
-                Array.Resize(ref signature, Convert.ToInt32(signatureLen));
+            if (signature.Length != NativeLongUtils.ConvertToInt32(signatureLen))
+                Array.Resize(ref signature, NativeLongUtils.ConvertToInt32(signatureLen));
 
             return signature;
         }
@@ -1268,18 +1270,18 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_SignRecoverInit", rv);
 
-            ulong signatureLen = 0;
-            rv = _p11.C_SignRecover(_sessionId, data, Convert.ToUInt64(data.Length), null, ref signatureLen);
+            NativeULong signatureLen = 0;
+            rv = _p11.C_SignRecover(_sessionId, data, NativeLongUtils.ConvertFromInt32(data.Length), null, ref signatureLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_SignRecover", rv);
 
             byte[] signature = new byte[signatureLen];
-            rv = _p11.C_SignRecover(_sessionId, data, Convert.ToUInt64(data.Length), signature, ref signatureLen);
+            rv = _p11.C_SignRecover(_sessionId, data, NativeLongUtils.ConvertFromInt32(data.Length), signature, ref signatureLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_SignRecover", rv);
 
-            if (signature.Length != Convert.ToInt32(signatureLen))
-                Array.Resize(ref signature, Convert.ToInt32(signatureLen));
+            if (signature.Length != NativeLongUtils.ConvertToInt32(signatureLen))
+                Array.Resize(ref signature, NativeLongUtils.ConvertToInt32(signatureLen));
 
             return signature;
         }
@@ -1315,7 +1317,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_VerifyInit", rv);
 
-            rv = _p11.C_Verify(_sessionId, data, Convert.ToUInt64(data.Length), signature, Convert.ToUInt64(signature.Length));
+            rv = _p11.C_Verify(_sessionId, data, NativeLongUtils.ConvertFromInt32(data.Length), signature, NativeLongUtils.ConvertFromInt32(signature.Length));
             if (rv == CKR.CKR_OK)
                 isValid = true;
             else if (rv == CKR.CKR_SIGNATURE_INVALID)
@@ -1392,12 +1394,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
 
             while ((bytesRead = inputStream.Read(part, 0, part.Length)) > 0)
             {
-                rv = _p11.C_VerifyUpdate(_sessionId, part, Convert.ToUInt64(bytesRead));
+                rv = _p11.C_VerifyUpdate(_sessionId, part, NativeLongUtils.ConvertFromInt32(bytesRead));
                 if (rv != CKR.CKR_OK)
                     throw new Pkcs11Exception("C_VerifyUpdate", rv);
             }
 
-            rv = _p11.C_VerifyFinal(_sessionId, signature, Convert.ToUInt64(signature.Length));
+            rv = _p11.C_VerifyFinal(_sessionId, signature, NativeLongUtils.ConvertFromInt32(signature.Length));
             if (rv == CKR.CKR_OK)
                 isValid = true;
             else if (rv == CKR.CKR_SIGNATURE_INVALID)
@@ -1434,13 +1436,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_VerifyRecoverInit", rv);
 
-            ulong dataLen = 0;
-            rv = _p11.C_VerifyRecover(_sessionId, signature, Convert.ToUInt64(signature.Length), null, ref dataLen);
+            NativeULong dataLen = 0;
+            rv = _p11.C_VerifyRecover(_sessionId, signature, NativeLongUtils.ConvertFromInt32(signature.Length), null, ref dataLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_VerifyRecover", rv);
 
             byte[] data = new byte[dataLen];
-            rv = _p11.C_VerifyRecover(_sessionId, signature, Convert.ToUInt64(signature.Length), data, ref dataLen);
+            rv = _p11.C_VerifyRecover(_sessionId, signature, NativeLongUtils.ConvertFromInt32(signature.Length), data, ref dataLen);
             if (rv == CKR.CKR_OK)
                 isValid = true;
             else if (rv == CKR.CKR_SIGNATURE_INVALID)
@@ -1448,8 +1450,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             else 
                 throw new Pkcs11Exception("C_VerifyRecover", rv);
 
-            if (data.Length != Convert.ToInt32(dataLen))
-                Array.Resize(ref data, Convert.ToInt32(dataLen));
+            if (data.Length != NativeLongUtils.ConvertToInt32(dataLen))
+                Array.Resize(ref data, NativeLongUtils.ConvertToInt32(dataLen));
 
             return data;
         }
@@ -1566,21 +1568,21 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
 
             byte[] part = new byte[bufferLength];
             byte[] encryptedPart = new byte[bufferLength];
-            ulong encryptedPartLen = Convert.ToUInt64(encryptedPart.Length);
+            NativeULong encryptedPartLen = NativeLongUtils.ConvertFromInt32(encryptedPart.Length);
 
             int bytesRead = 0;
             while ((bytesRead = inputStream.Read(part, 0, part.Length)) > 0)
             {
-                encryptedPartLen = Convert.ToUInt64(encryptedPart.Length);
-                rv = _p11.C_DigestEncryptUpdate(_sessionId, part, Convert.ToUInt64(bytesRead), encryptedPart, ref encryptedPartLen);
+                encryptedPartLen = NativeLongUtils.ConvertFromInt32(encryptedPart.Length);
+                rv = _p11.C_DigestEncryptUpdate(_sessionId, part, NativeLongUtils.ConvertFromInt32(bytesRead), encryptedPart, ref encryptedPartLen);
                 if (rv != CKR.CKR_OK)
                     throw new Pkcs11Exception("C_DigestEncryptUpdate", rv);
 
-                outputStream.Write(encryptedPart, 0, Convert.ToInt32(encryptedPartLen));
+                outputStream.Write(encryptedPart, 0, NativeLongUtils.ConvertToInt32(encryptedPartLen));
             }
 
             byte[] lastEncryptedPart = null;
-            ulong lastEncryptedPartLen = 0;
+            NativeULong lastEncryptedPartLen = 0;
             rv = _p11.C_EncryptFinal(_sessionId, null, ref lastEncryptedPartLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_EncryptFinal", rv);
@@ -1591,9 +1593,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                 throw new Pkcs11Exception("C_EncryptFinal", rv);
 
             if (lastEncryptedPartLen > 0)
-                outputStream.Write(lastEncryptedPart, 0, Convert.ToInt32(lastEncryptedPartLen));
+                outputStream.Write(lastEncryptedPart, 0, NativeLongUtils.ConvertToInt32(lastEncryptedPartLen));
 
-            ulong digestLen = 0;
+            NativeULong digestLen = 0;
             rv = _p11.C_DigestFinal(_sessionId, null, ref digestLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_DigestFinal", rv);
@@ -1603,8 +1605,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_DigestFinal", rv);
 
-            if (digest.Length != Convert.ToInt32(digestLen))
-                Array.Resize(ref digest, Convert.ToInt32(digestLen));
+            if (digest.Length != NativeLongUtils.ConvertToInt32(digestLen))
+                Array.Resize(ref digest, NativeLongUtils.ConvertToInt32(digestLen));
 
             return digest;
         }
@@ -1721,21 +1723,21 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
 
             byte[] encryptedPart = new byte[bufferLength];
             byte[] part = new byte[bufferLength];
-            ulong partLen = Convert.ToUInt64(part.Length);
+            NativeULong partLen = NativeLongUtils.ConvertFromInt32(part.Length);
 
             int bytesRead = 0;
             while ((bytesRead = inputStream.Read(encryptedPart, 0, encryptedPart.Length)) > 0)
             {
-                partLen = Convert.ToUInt64(part.Length);
-                rv = _p11.C_DecryptDigestUpdate(_sessionId, encryptedPart, Convert.ToUInt64(bytesRead), part, ref partLen);
+                partLen = NativeLongUtils.ConvertFromInt32(part.Length);
+                rv = _p11.C_DecryptDigestUpdate(_sessionId, encryptedPart, NativeLongUtils.ConvertFromInt32(bytesRead), part, ref partLen);
                 if (rv != CKR.CKR_OK)
                     throw new Pkcs11Exception("C_DecryptDigestUpdate", rv);
 
-                outputStream.Write(part, 0, Convert.ToInt32(partLen));
+                outputStream.Write(part, 0, NativeLongUtils.ConvertToInt32(partLen));
             }
 
             byte[] lastPart = null;
-            ulong lastPartLen = 0;
+            NativeULong lastPartLen = 0;
             rv = _p11.C_DecryptFinal(_sessionId, null, ref lastPartLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_DecryptFinal", rv);
@@ -1746,9 +1748,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                 throw new Pkcs11Exception("C_DecryptFinal", rv);
 
             if (lastPartLen > 0)
-                outputStream.Write(lastPart, 0, Convert.ToInt32(lastPartLen));
+                outputStream.Write(lastPart, 0, NativeLongUtils.ConvertToInt32(lastPartLen));
 
-            ulong digestLen = 0;
+            NativeULong digestLen = 0;
             rv = _p11.C_DigestFinal(_sessionId, null, ref digestLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_DigestFinal", rv);
@@ -1758,8 +1760,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_DigestFinal", rv);
 
-            if (digest.Length != Convert.ToInt32(digestLen))
-                Array.Resize(ref digest, Convert.ToInt32(digestLen));
+            if (digest.Length != NativeLongUtils.ConvertToInt32(digestLen))
+                Array.Resize(ref digest, NativeLongUtils.ConvertToInt32(digestLen));
 
             return digest;
         }
@@ -1888,21 +1890,21 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
 
             byte[] part = new byte[bufferLength];
             byte[] encryptedPart = new byte[bufferLength];
-            ulong encryptedPartLen = Convert.ToUInt64(encryptedPart.Length);
+            NativeULong encryptedPartLen = NativeLongUtils.ConvertFromInt32(encryptedPart.Length);
 
             int bytesRead = 0;
             while ((bytesRead = inputStream.Read(part, 0, part.Length)) > 0)
             {
-                encryptedPartLen = Convert.ToUInt64(encryptedPart.Length);
-                rv = _p11.C_SignEncryptUpdate(_sessionId, part, Convert.ToUInt64(bytesRead), encryptedPart, ref encryptedPartLen);
+                encryptedPartLen = NativeLongUtils.ConvertFromInt32(encryptedPart.Length);
+                rv = _p11.C_SignEncryptUpdate(_sessionId, part, NativeLongUtils.ConvertFromInt32(bytesRead), encryptedPart, ref encryptedPartLen);
                 if (rv != CKR.CKR_OK)
                     throw new Pkcs11Exception("C_SignEncryptUpdate", rv);
 
-                outputStream.Write(encryptedPart, 0, Convert.ToInt32(encryptedPartLen));
+                outputStream.Write(encryptedPart, 0, NativeLongUtils.ConvertToInt32(encryptedPartLen));
             }
 
             byte[] lastEncryptedPart = null;
-            ulong lastEncryptedPartLen = 0;
+            NativeULong lastEncryptedPartLen = 0;
             rv = _p11.C_EncryptFinal(_sessionId, null, ref lastEncryptedPartLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_EncryptFinal", rv);
@@ -1913,9 +1915,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                 throw new Pkcs11Exception("C_EncryptFinal", rv);
 
             if (lastEncryptedPartLen > 0)
-                outputStream.Write(lastEncryptedPart, 0, Convert.ToInt32(lastEncryptedPartLen));
+                outputStream.Write(lastEncryptedPart, 0, NativeLongUtils.ConvertToInt32(lastEncryptedPartLen));
 
-            ulong signatureLen = 0;
+            NativeULong signatureLen = 0;
             rv = _p11.C_SignFinal(_sessionId, null, ref signatureLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_SignFinal", rv);
@@ -1925,8 +1927,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_SignFinal", rv);
 
-            if (signature.Length != Convert.ToInt32(signatureLen))
-                Array.Resize(ref signature, Convert.ToInt32(signatureLen));
+            if (signature.Length != NativeLongUtils.ConvertToInt32(signatureLen))
+                Array.Resize(ref signature, NativeLongUtils.ConvertToInt32(signatureLen));
 
             return signature;
         }
@@ -2067,21 +2069,21 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
 
             byte[] encryptedPart = new byte[bufferLength];
             byte[] part = new byte[bufferLength];
-            ulong partLen = Convert.ToUInt64(part.Length);
+            NativeULong partLen = NativeLongUtils.ConvertFromInt32(part.Length);
 
             int bytesRead = 0;
             while ((bytesRead = inputStream.Read(encryptedPart, 0, encryptedPart.Length)) > 0)
             {
-                partLen = Convert.ToUInt64(part.Length);
-                rv = _p11.C_DecryptVerifyUpdate(_sessionId, encryptedPart, Convert.ToUInt64(bytesRead), part, ref partLen);
+                partLen = NativeLongUtils.ConvertFromInt32(part.Length);
+                rv = _p11.C_DecryptVerifyUpdate(_sessionId, encryptedPart, NativeLongUtils.ConvertFromInt32(bytesRead), part, ref partLen);
                 if (rv != CKR.CKR_OK)
                     throw new Pkcs11Exception("C_DecryptVerifyUpdate", rv);
 
-                outputStream.Write(part, 0, Convert.ToInt32(partLen));
+                outputStream.Write(part, 0, NativeLongUtils.ConvertToInt32(partLen));
             }
 
             byte[] lastPart = null;
-            ulong lastPartLen = 0;
+            NativeULong lastPartLen = 0;
             rv = _p11.C_DecryptFinal(_sessionId, null, ref lastPartLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_DecryptFinal", rv);
@@ -2092,9 +2094,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                 throw new Pkcs11Exception("C_DecryptFinal", rv);
 
             if (lastPartLen > 0)
-                outputStream.Write(lastPart, 0, Convert.ToInt32(lastPartLen));
+                outputStream.Write(lastPart, 0, NativeLongUtils.ConvertToInt32(lastPartLen));
 
-            rv = _p11.C_VerifyFinal(_sessionId, signature, Convert.ToUInt64(signature.Length));
+            rv = _p11.C_VerifyFinal(_sessionId, signature, NativeLongUtils.ConvertFromInt32(signature.Length));
             if (rv == CKR.CKR_OK)
                 isValid = true;
             else if (rv == CKR.CKR_SIGNATURE_INVALID)
@@ -2120,17 +2122,17 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             CK_MECHANISM ckMechanism = mechanism.CkMechanism;
 
             CK_ATTRIBUTE[] template = null;
-            ulong templateLength = 0;
+            NativeULong templateLength = 0;
             
             if (attributes != null)
             {
-                templateLength = Convert.ToUInt64(attributes.Count);
+                templateLength = NativeLongUtils.ConvertFromInt32(attributes.Count);
                 template = new CK_ATTRIBUTE[templateLength];
-                for (int i = 0; i < Convert.ToInt32(templateLength); i++)
+                for (int i = 0; i < NativeLongUtils.ConvertToInt32(templateLength); i++)
                     template[i] = attributes[i].CkAttribute;
             }
 
-            ulong keyId = CK.CK_INVALID_HANDLE;
+            NativeULong keyId = CK.CK_INVALID_HANDLE;
             CKR rv = _p11.C_GenerateKey(_sessionId, ref ckMechanism, template, templateLength, ref keyId);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GenerateKey", rv);
@@ -2157,29 +2159,29 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             CK_MECHANISM ckMechanism = mechanism.CkMechanism;
 
             CK_ATTRIBUTE[] publicKeyTemplate = null;
-            ulong publicKeyTemplateLength = 0;
+            NativeULong publicKeyTemplateLength = 0;
             
             if (publicKeyAttributes != null)
             {
-                publicKeyTemplateLength = Convert.ToUInt64(publicKeyAttributes.Count);
+                publicKeyTemplateLength = NativeLongUtils.ConvertFromInt32(publicKeyAttributes.Count);
                 publicKeyTemplate = new CK_ATTRIBUTE[publicKeyTemplateLength];
-                for (int i = 0; i < Convert.ToInt32(publicKeyTemplateLength); i++)
+                for (int i = 0; i < NativeLongUtils.ConvertToInt32(publicKeyTemplateLength); i++)
                     publicKeyTemplate[i] = publicKeyAttributes[i].CkAttribute;
             }
 
             CK_ATTRIBUTE[] privateKeyTemplate = null;
-            ulong privateKeyTemplateLength = 0;
+            NativeULong privateKeyTemplateLength = 0;
             
             if (privateKeyAttributes != null)
             {
-                privateKeyTemplateLength = Convert.ToUInt64(privateKeyAttributes.Count);
+                privateKeyTemplateLength = NativeLongUtils.ConvertFromInt32(privateKeyAttributes.Count);
                 privateKeyTemplate = new CK_ATTRIBUTE[privateKeyTemplateLength];
-                for (int i = 0; i < Convert.ToInt32(privateKeyTemplateLength); i++)
+                for (int i = 0; i < NativeLongUtils.ConvertToInt32(privateKeyTemplateLength); i++)
                     privateKeyTemplate[i] = privateKeyAttributes[i].CkAttribute;
             }
 
-            ulong publicKeyId = CK.CK_INVALID_HANDLE;
-            ulong privateKeyId = CK.CK_INVALID_HANDLE;
+            NativeULong publicKeyId = CK.CK_INVALID_HANDLE;
+            NativeULong privateKeyId = CK.CK_INVALID_HANDLE;
             CKR rv = _p11.C_GenerateKeyPair(_sessionId, ref ckMechanism, publicKeyTemplate, publicKeyTemplateLength, privateKeyTemplate, privateKeyTemplateLength, ref publicKeyId, ref privateKeyId);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GenerateKeyPair", rv);
@@ -2211,7 +2213,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
 
             CK_MECHANISM ckMechanism = mechanism.CkMechanism;
 
-            ulong wrappedKeyLen = 0;
+            NativeULong wrappedKeyLen = 0;
             CKR rv = _p11.C_WrapKey(_sessionId, ref ckMechanism, wrappingKeyHandle.ObjectId, keyHandle.ObjectId, null, ref wrappedKeyLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_WrapKey", rv);
@@ -2221,8 +2223,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_WrapKey", rv);
 
-            if (wrappedKey.Length != Convert.ToInt32(wrappedKeyLen))
-                Array.Resize(ref wrappedKey, Convert.ToInt32(wrappedKeyLen));
+            if (wrappedKey.Length != NativeLongUtils.ConvertToInt32(wrappedKeyLen))
+                Array.Resize(ref wrappedKey, NativeLongUtils.ConvertToInt32(wrappedKeyLen));
 
             return wrappedKey;
         }
@@ -2252,17 +2254,17 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             CK_MECHANISM ckMechanism = mechanism.CkMechanism;
 
             CK_ATTRIBUTE[] template = null;
-            ulong templateLen = 0;
+            NativeULong templateLen = 0;
             if (attributes != null)
             {
                 template = new CK_ATTRIBUTE[attributes.Count];
                 for (int i = 0; i < attributes.Count; i++)
                     template[i] = attributes[i].CkAttribute;
-                templateLen = Convert.ToUInt64(attributes.Count);
+                templateLen = NativeLongUtils.ConvertFromInt32(attributes.Count);
             }
 
-            ulong unwrappedKey = CK.CK_INVALID_HANDLE;
-            CKR rv = _p11.C_UnwrapKey(_sessionId, ref ckMechanism, unwrappingKeyHandle.ObjectId, wrappedKey, Convert.ToUInt64(wrappedKey.Length), template, templateLen, ref unwrappedKey);
+            NativeULong unwrappedKey = CK.CK_INVALID_HANDLE;
+            CKR rv = _p11.C_UnwrapKey(_sessionId, ref ckMechanism, unwrappingKeyHandle.ObjectId, wrappedKey, NativeLongUtils.ConvertFromInt32(wrappedKey.Length), template, templateLen, ref unwrappedKey);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_UnwrapKey", rv);
 
@@ -2290,16 +2292,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             CK_MECHANISM ckMechanism = mechanism.CkMechanism;
 
             CK_ATTRIBUTE[] template = null;
-            ulong templateLen = 0;
+            NativeULong templateLen = 0;
             if (attributes != null)
             {
                 template = new CK_ATTRIBUTE[attributes.Count];
                 for (int i = 0; i < attributes.Count; i++)
                     template[i] = attributes[i].CkAttribute;
-                templateLen = Convert.ToUInt64(attributes.Count);
+                templateLen = NativeLongUtils.ConvertFromInt32(attributes.Count);
             }
 
-            ulong derivedKey = CK.CK_INVALID_HANDLE;
+            NativeULong derivedKey = CK.CK_INVALID_HANDLE;
             CKR rv = _p11.C_DeriveKey(_sessionId, ref ckMechanism, baseKeyHandle.ObjectId, template, templateLen, ref derivedKey);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_DeriveKey", rv);
@@ -2319,7 +2321,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (seed == null)
                 throw new ArgumentNullException("seed");
 
-            CKR rv = _p11.C_SeedRandom(_sessionId, seed, Convert.ToUInt64(seed.Length));
+            CKR rv = _p11.C_SeedRandom(_sessionId, seed, NativeLongUtils.ConvertFromInt32(seed.Length));
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_SeedRandom", rv);
         }
@@ -2338,7 +2340,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                 throw new ArgumentException("Value has to be positive number", "length");
 
             byte[] randomData = new byte[length];
-            CKR rv = _p11.C_GenerateRandom(_sessionId, randomData, Convert.ToUInt64(length));
+            CKR rv = _p11.C_GenerateRandom(_sessionId, randomData, NativeLongUtils.ConvertFromInt32(length));
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GenerateRandom", rv);
 

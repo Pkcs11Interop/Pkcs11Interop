@@ -22,6 +22,7 @@
 using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 {
@@ -40,7 +41,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// </summary>
         /// <param name='counterBits'>The number of bits in the counter block (cb) that shall be incremented</param>
         /// <param name='cb'>Specifies the counter block (16 bytes)</param>
-        public CkAesCtrParams(ulong counterBits, byte[] cb)
+        public CkAesCtrParams(NativeULong counterBits, byte[] cb)
         {
             _lowLevelStruct.CounterBits = 0;
             _lowLevelStruct.Cb = new byte[16];

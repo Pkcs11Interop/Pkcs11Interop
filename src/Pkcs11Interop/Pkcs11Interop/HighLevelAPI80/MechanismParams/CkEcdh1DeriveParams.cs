@@ -21,7 +21,9 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI80;
 using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
@@ -46,7 +48,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
         /// <param name='kdf'>Key derivation function used on the shared secret value (CKD)</param>
         /// <param name='sharedData'>Some data shared between the two parties</param>
         /// <param name='publicData'>Other party's EC public key value</param>
-        public CkEcdh1DeriveParams(ulong kdf, byte[] sharedData, byte[] publicData)
+        public CkEcdh1DeriveParams(NativeULong kdf, byte[] sharedData, byte[] publicData)
         {
             _lowLevelStruct.Kdf = 0;
             _lowLevelStruct.SharedDataLen = 0;
@@ -60,14 +62,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             {
                 _lowLevelStruct.SharedData = UnmanagedMemory.Allocate(sharedData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.SharedData, sharedData);
-                _lowLevelStruct.SharedDataLen = Convert.ToUInt64(sharedData.Length);
+                _lowLevelStruct.SharedDataLen = NativeLongUtils.ConvertFromInt32(sharedData.Length);
             }
 
             if (publicData != null)
             {
                 _lowLevelStruct.PublicData = UnmanagedMemory.Allocate(publicData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
-                _lowLevelStruct.PublicDataLen = Convert.ToUInt64(publicData.Length);
+                _lowLevelStruct.PublicDataLen = NativeLongUtils.ConvertFromInt32(publicData.Length);
             }
         }
         

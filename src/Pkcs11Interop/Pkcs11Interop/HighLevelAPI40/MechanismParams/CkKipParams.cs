@@ -21,7 +21,9 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI40;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
@@ -46,7 +48,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <param name='mechanism'>Underlying cryptographic mechanism (CKM)</param>
         /// <param name='key'>Handle to a key that will contribute to the entropy of the derived key (CKM_KIP_DERIVE) or will be used in the MAC operation (CKM_KIP_MAC)</param>
         /// <param name='seed'>Input seed</param>
-        public CkKipParams(uint? mechanism, ObjectHandle key, byte[] seed)
+        public CkKipParams(NativeULong? mechanism, ObjectHandle key, byte[] seed)
         {
             _lowLevelStruct.Mechanism = IntPtr.Zero;
             _lowLevelStruct.Key = 0;
@@ -55,7 +57,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 
             if (mechanism != null)
             {
-                byte[] bytes = ConvertUtils.UIntToBytes(mechanism.Value);
+                byte[] bytes = NativeLongUtils.ConvertToByteArray(mechanism.Value);
                 _lowLevelStruct.Mechanism = UnmanagedMemory.Allocate(bytes.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Mechanism, bytes);
             }
@@ -69,7 +71,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             {
                 _lowLevelStruct.Seed = UnmanagedMemory.Allocate(seed.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Seed, seed);
-                _lowLevelStruct.SeedLen = Convert.ToUInt32(seed.Length);
+                _lowLevelStruct.SeedLen = NativeLongUtils.ConvertFromInt32(seed.Length);
             }
         }
         

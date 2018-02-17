@@ -23,6 +23,7 @@ using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI40;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
@@ -74,7 +75,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// </summary>
         /// <param name="randomInfo">Client's and server's random data information</param>
         /// <param name="prfHashMechanism">Base hash used in the underlying TLS 1.2 PRF operation used to derive the master key (CKM)</param>
-        public CkTls12MasterKeyDeriveParams(CkSsl3RandomData randomInfo, uint prfHashMechanism)
+        public CkTls12MasterKeyDeriveParams(CkSsl3RandomData randomInfo, NativeULong prfHashMechanism)
         {
             if (randomInfo == null)
                 throw new ArgumentNullException("randomInfo");

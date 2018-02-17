@@ -21,6 +21,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI40;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
@@ -71,49 +72,49 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             {
                 _lowLevelStruct.OldWrappedX = UnmanagedMemory.Allocate(oldWrappedX.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.OldWrappedX, oldWrappedX);
-                _lowLevelStruct.OldWrappedXLen = Convert.ToUInt32(oldWrappedX.Length);
+                _lowLevelStruct.OldWrappedXLen = NativeLongUtils.ConvertFromInt32(oldWrappedX.Length);
             }
 
             if (oldPassword != null)
             {
                 _lowLevelStruct.OldPassword = UnmanagedMemory.Allocate(oldPassword.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.OldPassword, oldPassword);
-                _lowLevelStruct.OldPasswordLen = Convert.ToUInt32(oldPassword.Length);
+                _lowLevelStruct.OldPasswordLen = NativeLongUtils.ConvertFromInt32(oldPassword.Length);
             }
 
             if (oldPublicData != null)
             {
                 _lowLevelStruct.OldPublicData = UnmanagedMemory.Allocate(oldPublicData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.OldPublicData, oldPublicData);
-                _lowLevelStruct.OldPublicDataLen = Convert.ToUInt32(oldPublicData.Length);
+                _lowLevelStruct.OldPublicDataLen = NativeLongUtils.ConvertFromInt32(oldPublicData.Length);
             }
 
             if (oldRandomA != null)
             {
                 _lowLevelStruct.OldRandomA = UnmanagedMemory.Allocate(oldRandomA.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.OldRandomA, oldRandomA);
-                _lowLevelStruct.OldRandomLen = Convert.ToUInt32(oldRandomA.Length);
+                _lowLevelStruct.OldRandomLen = NativeLongUtils.ConvertFromInt32(oldRandomA.Length);
             }
 
             if (newPassword != null)
             {
                 _lowLevelStruct.NewPassword = UnmanagedMemory.Allocate(newPassword.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.NewPassword, newPassword);
-                _lowLevelStruct.NewPasswordLen = Convert.ToUInt32(newPassword.Length);
+                _lowLevelStruct.NewPasswordLen = NativeLongUtils.ConvertFromInt32(newPassword.Length);
             }
 
             if (newPublicData != null)
             {
                 _lowLevelStruct.NewPublicData = UnmanagedMemory.Allocate(newPublicData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.NewPublicData, newPublicData);
-                _lowLevelStruct.NewPublicDataLen = Convert.ToUInt32(newPublicData.Length);
+                _lowLevelStruct.NewPublicDataLen = NativeLongUtils.ConvertFromInt32(newPublicData.Length);
             }
 
             if (newRandomA != null)
             {
                 _lowLevelStruct.NewRandomA = UnmanagedMemory.Allocate(newRandomA.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.NewRandomA, newRandomA);
-                _lowLevelStruct.NewRandomLen = Convert.ToUInt32(newRandomA.Length);
+                _lowLevelStruct.NewRandomLen = NativeLongUtils.ConvertFromInt32(newRandomA.Length);
             }
         }
         

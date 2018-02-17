@@ -21,6 +21,7 @@
 
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 {
@@ -40,7 +41,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <param name='wordsize'>Wordsize of RC5 cipher in bytes</param>
         /// <param name='rounds'>Number of rounds of RC5 encipherment</param>
         /// <param name='macLength'>Length of the MAC produced, in bytes</param>
-        public CkRc5MacGeneralParams(ulong wordsize, ulong rounds, ulong macLength)
+        public CkRc5MacGeneralParams(NativeULong wordsize, NativeULong rounds, NativeULong macLength)
         {
             _lowLevelStruct.Wordsize = wordsize;
             _lowLevelStruct.Rounds = rounds;

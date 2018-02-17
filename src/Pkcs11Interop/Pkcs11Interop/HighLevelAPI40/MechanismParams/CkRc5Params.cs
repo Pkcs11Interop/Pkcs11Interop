@@ -21,6 +21,7 @@
 
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
@@ -39,7 +40,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// </summary>
         /// <param name='wordsize'>Wordsize of RC5 cipher in bytes</param>
         /// <param name='rounds'>Number of rounds of RC5 encipherment</param>
-        public CkRc5Params(uint wordsize, uint rounds)
+        public CkRc5Params(NativeULong wordsize, NativeULong rounds)
         {
             _lowLevelStruct.Wordsize = wordsize;
             _lowLevelStruct.Rounds = rounds;

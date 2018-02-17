@@ -21,7 +21,9 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI80;
 using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
@@ -46,7 +48,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
         /// <param name="aesKeyBits">Length of the temporary AES key in bits</param>
         /// <param name="kdf">Key derivation function used on the shared secret value to generate AES key (CKD)</param>
         /// <param name="sharedData">Data shared between the two parties</param>
-        public CkEcdhAesKeyWrapParams(ulong aesKeyBits, ulong kdf, byte[] sharedData)
+        public CkEcdhAesKeyWrapParams(NativeULong aesKeyBits, NativeULong kdf, byte[] sharedData)
         {
             _lowLevelStruct.AESKeyBits = 0;
             _lowLevelStruct.Kdf = 0;
@@ -60,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             {
                 _lowLevelStruct.SharedData = UnmanagedMemory.Allocate(sharedData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.SharedData, sharedData);
-                _lowLevelStruct.SharedDataLen = Convert.ToUInt64(sharedData.Length);
+                _lowLevelStruct.SharedDataLen = NativeLongUtils.ConvertFromInt32(sharedData.Length);
             }
         }
 

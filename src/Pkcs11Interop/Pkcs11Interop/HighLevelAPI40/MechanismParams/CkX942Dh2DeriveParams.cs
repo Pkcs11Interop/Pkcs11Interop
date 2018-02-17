@@ -21,7 +21,9 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI40;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
@@ -49,7 +51,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <param name='privateDataLen'>The length in bytes of the second X9.42 Diffie-Hellman private key</param>
         /// <param name='privateData'>Key handle for second X9.42 Diffie-Hellman private key value</param>
         /// <param name='publicData2'>Other party's second X9.42 Diffie-Hellman public key value</param>
-        public CkX942Dh2DeriveParams(uint kdf, byte[] otherInfo, byte[] publicData, uint privateDataLen, ObjectHandle privateData, byte[] publicData2)
+        public CkX942Dh2DeriveParams(NativeULong kdf, byte[] otherInfo, byte[] publicData, NativeULong privateDataLen, ObjectHandle privateData, byte[] publicData2)
         {
             _lowLevelStruct.Kdf = 0;
             _lowLevelStruct.OtherInfoLen = 0;
@@ -67,14 +69,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             {
                 _lowLevelStruct.OtherInfo = UnmanagedMemory.Allocate(otherInfo.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.OtherInfo, otherInfo);
-                _lowLevelStruct.OtherInfoLen = Convert.ToUInt32(otherInfo.Length);
+                _lowLevelStruct.OtherInfoLen = NativeLongUtils.ConvertFromInt32(otherInfo.Length);
             }
             
             if (publicData != null)
             {
                 _lowLevelStruct.PublicData = UnmanagedMemory.Allocate(publicData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
-                _lowLevelStruct.PublicDataLen = Convert.ToUInt32(publicData.Length);
+                _lowLevelStruct.PublicDataLen = NativeLongUtils.ConvertFromInt32(publicData.Length);
             }
             
             _lowLevelStruct.PrivateDataLen = privateDataLen;
@@ -88,7 +90,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             {
                 _lowLevelStruct.PublicData2 = UnmanagedMemory.Allocate(publicData2.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.PublicData2, publicData2);
-                _lowLevelStruct.PublicDataLen2 = Convert.ToUInt32(publicData2.Length);
+                _lowLevelStruct.PublicDataLen2 = NativeLongUtils.ConvertFromInt32(publicData2.Length);
             }
         }
         

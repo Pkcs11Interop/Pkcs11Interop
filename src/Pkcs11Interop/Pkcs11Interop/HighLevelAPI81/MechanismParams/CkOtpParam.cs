@@ -21,7 +21,9 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI81;
 using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 {
@@ -43,7 +45,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <summary>
         /// Parameter type
         /// </summary>
-        public ulong Type
+        public NativeULong Type
         {
             get
             {
@@ -64,7 +66,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (_lowLevelStruct.Value == IntPtr.Zero) ? null : UnmanagedMemory.Read(_lowLevelStruct.Value, Convert.ToInt32(_lowLevelStruct.ValueLen));
+                return (_lowLevelStruct.Value == IntPtr.Zero) ? null : UnmanagedMemory.Read(_lowLevelStruct.Value, NativeLongUtils.ConvertToInt32(_lowLevelStruct.ValueLen));
             }
         }
 
@@ -73,7 +75,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// </summary>
         /// <param name='type'>Parameter type</param>
         /// <param name='value'>Value of the parameter</param>
-        public CkOtpParam(ulong type, byte[] value)
+        public CkOtpParam(NativeULong type, byte[] value)
         {
             _lowLevelStruct.Type = 0;
             _lowLevelStruct.Value = IntPtr.Zero;
@@ -85,7 +87,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
             {
                 _lowLevelStruct.Value = UnmanagedMemory.Allocate(value.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Value, value);
-                _lowLevelStruct.ValueLen = Convert.ToUInt64(value.Length);
+                _lowLevelStruct.ValueLen = NativeLongUtils.ConvertFromInt32(value.Length);
             }
         }
         

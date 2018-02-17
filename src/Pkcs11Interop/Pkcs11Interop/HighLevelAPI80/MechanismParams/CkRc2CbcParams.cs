@@ -22,6 +22,7 @@
 using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
@@ -40,7 +41,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
         /// </summary>
         /// <param name='effectiveBits'>The effective number of bits in the RC2 search space</param>
         /// <param name='iv'>The initialization vector (IV) for cipher block chaining mode</param>
-        public CkRc2CbcParams(ulong effectiveBits, byte[] iv)
+        public CkRc2CbcParams(NativeULong effectiveBits, byte[] iv)
         {
             _lowLevelStruct.EffectiveBits = 0;
             _lowLevelStruct.Iv = new byte[8];
