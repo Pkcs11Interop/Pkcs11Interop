@@ -21,6 +21,7 @@
 
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
@@ -39,7 +40,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// </summary>
         /// <param name='effectiveBits'>The effective number of bits in the RC2 search space</param>
         /// <param name='macLength'>Length of the MAC produced, in bytes</param>
-        public CkRc2MacGeneralParams(uint effectiveBits, uint macLength)
+        public CkRc2MacGeneralParams(NativeULong effectiveBits, NativeULong macLength)
         {
             _lowLevelStruct.EffectiveBits = effectiveBits;
             _lowLevelStruct.MacLength = macLength;

@@ -21,6 +21,7 @@
 
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
@@ -40,7 +41,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// <param name='hashAlg'>Hash algorithm used in the PSS encoding (CKM)</param>
         /// <param name='mgf'>Mask generation function to use on the encoded block (CKG)</param>
         /// <param name='len'>Length, in bytes, of the salt value used in the PSS encoding</param>
-        public CkRsaPkcsPssParams(uint hashAlg, uint mgf, uint len)
+        public CkRsaPkcsPssParams(NativeULong hashAlg, NativeULong mgf, NativeULong len)
         {
             _lowLevelStruct.HashAlg = hashAlg;
             _lowLevelStruct.Mgf = mgf;

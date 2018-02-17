@@ -22,6 +22,7 @@
 using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
@@ -40,7 +41,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// </summary>
         /// <param name='counterBits'>The number of bits in the counter block (cb) that shall be incremented</param>
         /// <param name='cb'>Specifies the counter block (16 bytes)</param>
-        public CkCamelliaCtrParams(uint counterBits, byte[] cb)
+        public CkCamelliaCtrParams(NativeULong counterBits, byte[] cb)
         {
             _lowLevelStruct.CounterBits = 0;
             _lowLevelStruct.Cb = new byte[16];

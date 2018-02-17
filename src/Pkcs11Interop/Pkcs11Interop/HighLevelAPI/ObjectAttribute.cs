@@ -368,7 +368,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             if (Platform.UnmanagedLongSize == 4)
-                return (Platform.StructPackingSize == 0) ? _objectAttribute40.GetValueAsUint() : _objectAttribute41.GetValueAsUint();
+                return (Platform.StructPackingSize == 0) ? _objectAttribute40.GetValueAsUint() : _objectAttribute41.GetValueAsNativeUlong();
             else
                 return (Platform.StructPackingSize == 0) ? _objectAttribute80.GetValueAsUlong() : _objectAttribute81.GetValueAsUlong();
         }
@@ -792,7 +792,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                 if (Platform.StructPackingSize == 0)
                     uintList = _objectAttribute40.GetValueAsUintList();
                 else
-                    uintList = _objectAttribute41.GetValueAsUintList();
+                    uintList = _objectAttribute41.GetValueAsNativeULongList();
 
                 List<ulong> ulongList = null;
 

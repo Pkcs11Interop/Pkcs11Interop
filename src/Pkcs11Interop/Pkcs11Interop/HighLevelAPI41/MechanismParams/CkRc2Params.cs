@@ -21,6 +21,7 @@
 
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
@@ -38,7 +39,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// Initializes a new instance of the CkRc2Params class.
         /// </summary>
         /// <param name='effectiveBits'>Effective number of bits in the RC2 search space</param>
-        public CkRc2Params(uint effectiveBits)
+        public CkRc2Params(NativeULong effectiveBits)
         {
             _lowLevelStruct.EffectiveBits = effectiveBits;
         }

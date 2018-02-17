@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI41;
 using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
@@ -55,7 +56,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
                 // Allocate memory for parameters
                 int ckOtpParamSize = UnmanagedMemory.SizeOf(typeof(CK_OTP_PARAM));
                 _lowLevelStruct.Params = UnmanagedMemory.Allocate(ckOtpParamSize * parameters.Count);
-                _lowLevelStruct.Count = Convert.ToUInt32(parameters.Count);
+                _lowLevelStruct.Count = NativeLongUtils.ConvertFromInt32(parameters.Count);
 
                 // Copy paramaters to allocated memory
                 for (int i = 0; i < parameters.Count; i++)

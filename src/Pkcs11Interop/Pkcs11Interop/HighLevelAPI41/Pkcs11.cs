@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI41;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI41
 {
@@ -154,7 +155,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            uint slotCount = 0;
+            NativeULong slotCount = 0;
             CKR rv = _p11.C_GetSlotList((slotsType == SlotsType.WithTokenPresent), null, ref slotCount);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetSlotList", rv);
@@ -165,16 +166,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             }
             else
             {
-                uint[] slotList = new uint[slotCount];
+                NativeULong[] slotList = new NativeULong[slotCount];
                 rv = _p11.C_GetSlotList((slotsType == SlotsType.WithTokenPresent), slotList, ref slotCount);
                 if (rv != CKR.CKR_OK)
                     throw new Pkcs11Exception("C_GetSlotList", rv);
 
-                if (slotList.Length != slotCount)
-                    Array.Resize(ref slotList, Convert.ToInt32(slotCount));
+                if (slotList.Length != NativeLongUtils.ConvertToInt32(slotCount))
+                    Array.Resize(ref slotList, NativeLongUtils.ConvertToInt32(slotCount));
 
                 List<Slot> list = new List<Slot>();
-                foreach (uint slot in slotList)
+                foreach (NativeULong slot in slotList)
                     list.Add(new Slot(_p11, slot));
 
                 return list;
@@ -187,14 +188,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <param name="waitType">Type of waiting for a slot event</param>
         /// <param name="eventOccured">Flag indicating whether event occured</param>
         /// <param name="slotId">PKCS#11 handle of slot that the event occurred in</param>
-        public void WaitForSlotEvent(WaitType waitType, out bool eventOccured, out uint slotId)
+        public void WaitForSlotEvent(WaitType waitType, out bool eventOccured, out NativeULong slotId)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            uint flags = (waitType == WaitType.NonBlocking) ? CKF.CKF_DONT_BLOCK : 0;
+            NativeULong flags = (waitType == WaitType.NonBlocking) ? CKF.CKF_DONT_BLOCK : 0;
 
-            uint slotId_ = 0;
+            NativeULong slotId_ = 0;
             CKR rv = _p11.C_WaitForSlotEvent(flags, ref slotId_, IntPtr.Zero);
             if (waitType == WaitType.NonBlocking)
             {

@@ -23,6 +23,7 @@ using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI41;
 using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
@@ -75,7 +76,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// <param name='digestMechanism'>Digest mechanism to be used (CKM)</param>
         /// <param name='randomInfo'>Client's and server's random data information</param>
         /// <param name='dh'>Set to false for CKM_WTLS_MASTER_KEY_DERIVE mechanism and to true for CKM_WTLS_MASTER_KEY_DERIVE_DH_ECC mechanism</param>
-        public CkWtlsMasterKeyDeriveParams(uint digestMechanism, CkWtlsRandomData randomInfo, bool dh)
+        public CkWtlsMasterKeyDeriveParams(NativeULong digestMechanism, CkWtlsRandomData randomInfo, bool dh)
         {
             if (randomInfo == null)
                 throw new ArgumentNullException("randomInfo");

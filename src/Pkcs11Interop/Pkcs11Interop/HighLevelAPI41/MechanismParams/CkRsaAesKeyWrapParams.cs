@@ -22,6 +22,7 @@
 using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
@@ -50,7 +51,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// </summary>
         /// <param name='aesKeyBits'>Length of the temporary AES key in bits</param>
         /// <param name='oaepParams'>Parameters of the temporary AES key wrapping</param>
-        public CkRsaAesKeyWrapParams(uint aesKeyBits, CkRsaPkcsOaepParams oaepParams)
+        public CkRsaAesKeyWrapParams(NativeULong aesKeyBits, CkRsaPkcsOaepParams oaepParams)
         {
             _lowLevelStruct.AESKeyBits = 0;
             _lowLevelStruct.OAEPParams = IntPtr.Zero;
