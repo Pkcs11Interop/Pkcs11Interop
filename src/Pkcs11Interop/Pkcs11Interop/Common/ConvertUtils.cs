@@ -30,64 +30,6 @@ namespace Net.Pkcs11Interop.Common
     public static class ConvertUtils
     {
         /// <summary>
-        /// Converts uint to byte array
-        /// </summary>
-        /// <param name='value'>Uint that should be converted</param>
-        /// <returns>Byte array with uint value</returns>
-        public static byte[] UIntToBytes(uint value)
-        {
-            byte[] bytes = BitConverter.GetBytes(value);
-
-            int unmanagedSize = Common.UnmanagedMemory.SizeOf(typeof(uint));
-            if (unmanagedSize != bytes.Length)
-                throw new Exception(string.Format("Unmanaged size of uint ({0}) does not match the length of produced byte array ({1})", unmanagedSize, bytes.Length));
-
-            return bytes;
-        }
-
-        /// <summary>
-        /// Converts byte array to uint
-        /// </summary>
-        /// <param name='value'>Byte array that should be converted</param>
-        /// <returns>Uint with value from byte array</returns>
-        public static uint BytesToUInt(byte[] value)
-        {
-            if ((value == null) || (value.Length != UnmanagedMemory.SizeOf(typeof(uint))))
-                throw new Exception("Unable to convert bytes to uint");
-
-            return BitConverter.ToUInt32(value, 0);
-        }
-
-        /// <summary>
-        /// Converts ulong to byte array
-        /// </summary>
-        /// <param name='value'>Uint that should be converted</param>
-        /// <returns>Byte array with ulong value</returns>
-        public static byte[] ULongToBytes(ulong value)
-        {
-            byte[] bytes = BitConverter.GetBytes(value);
-
-            int unmanagedSize = UnmanagedMemory.SizeOf(typeof(ulong));
-            if (unmanagedSize != bytes.Length)
-                throw new Exception(string.Format("Unmanaged size of ulong ({0}) does not match the length of produced byte array ({1})", unmanagedSize, bytes.Length));
-
-            return bytes;
-        }
-
-        /// <summary>
-        /// Converts byte array to ulong
-        /// </summary>
-        /// <param name='value'>Byte array that should be converted</param>
-        /// <returns>Uint with value from byte array</returns>
-        public static ulong BytesToULong(byte[] value)
-        {
-            if ((value == null) || (value.Length != UnmanagedMemory.SizeOf(typeof(ulong))))
-                throw new Exception("Unable to convert bytes to ulong");
-
-            return BitConverter.ToUInt64(value, 0);
-        }
-
-        /// <summary>
         /// Converts bool to byte array
         /// </summary>
         /// <param name='value'>Bool that should be converted</param>
