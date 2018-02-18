@@ -19,11 +19,11 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
+using System;
+using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI80;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
 {
@@ -32,6 +32,15 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
     /// </summary>
     public static class Helpers
     {
+        /// <summary>
+        /// Checks whether test can be executed on this platform
+        /// </summary>
+        public static void CheckPlatform()
+        {
+            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)
+                Assert.Inconclusive("Test cannot be executed on this platform");
+        }
+
         /// <summary>
         /// Finds slot containing the token that matches criteria specified in Settings class
         /// </summary>

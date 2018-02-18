@@ -37,8 +37,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _01_NormalUserLoginTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
@@ -64,8 +63,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _02_SecurityOfficerLoginTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {

@@ -19,7 +19,6 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
-using System;
 using System.IO;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI81;
@@ -39,8 +38,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _01_DigestSinglePartTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
@@ -59,7 +57,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
                     byte[] digest = session.Digest(mechanism, sourceData);
                     
                     // Do something interesting with digest value
-                    Assert.IsTrue(Convert.ToBase64String(digest) == "e1AsOh9IyGCa4hLN+2Od7jlnP14=");
+                    Assert.IsTrue(ConvertUtils.BytesToBase64String(digest) == "e1AsOh9IyGCa4hLN+2Od7jlnP14=");
                 }
             }
         }
@@ -70,8 +68,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _02_DigestMultiPartTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
@@ -95,7 +92,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
                     }
 
                     // Do something interesting with digest value
-                    Assert.IsTrue(Convert.ToBase64String(digest) == "e1AsOh9IyGCa4hLN+2Od7jlnP14=");
+                    Assert.IsTrue(ConvertUtils.BytesToBase64String(digest) == "e1AsOh9IyGCa4hLN+2Od7jlnP14=");
                 }
             }
         }
@@ -106,8 +103,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _03_DigestKeyTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {

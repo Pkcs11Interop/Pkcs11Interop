@@ -19,7 +19,6 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
-using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI40;
 using NUnit.Framework;
@@ -38,8 +37,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI40
         [Test()]
         public void _01_BasicDigestEncryptAndDecryptDigestTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
@@ -79,8 +77,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI40
                     session.DecryptDigest(digestingMechanism, encryptionMechanism, generatedKey, encryptedData, out digest2, out decryptedData);
 
                     // Do something interesting with decrypted data and digest
-                    Assert.IsTrue(Convert.ToBase64String(sourceData) == Convert.ToBase64String(decryptedData));
-                    Assert.IsTrue(Convert.ToBase64String(digest1) == Convert.ToBase64String(digest2));
+                    Assert.IsTrue(ConvertUtils.BytesToBase64String(sourceData) == ConvertUtils.BytesToBase64String(decryptedData));
+                    Assert.IsTrue(ConvertUtils.BytesToBase64String(digest1) == ConvertUtils.BytesToBase64String(digest2));
 
                     session.DestroyObject(generatedKey);
                     session.Logout();

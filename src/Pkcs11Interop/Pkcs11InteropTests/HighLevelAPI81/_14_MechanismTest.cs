@@ -25,6 +25,9 @@ using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI81;
 using Net.Pkcs11Interop.HighLevelAPI81.MechanismParams;
 using NUnit.Framework;
+using CK_KEY_DERIVATION_STRING_DATA = Net.Pkcs11Interop.LowLevelAPI81.MechanismParams.CK_KEY_DERIVATION_STRING_DATA;
+using CK_MECHANISM = Net.Pkcs11Interop.LowLevelAPI81.CK_MECHANISM;
+using NativeLongUtils = Net.Pkcs11Interop.LowLevelAPI81.NativeLongUtils;
 
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
 {
@@ -40,8 +43,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _01_DisposeMechanismTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             byte[] parameter = new byte[8];
             System.Random rng = new Random();
@@ -85,16 +87,15 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _02_EmptyParameterTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             // Create mechanism without the parameter
             Mechanism mechanism = new Mechanism(CKM.CKM_RSA_PKCS);
-            Assert.IsTrue(mechanism.Type == (ulong)CKM.CKM_RSA_PKCS);
+            Assert.IsTrue(mechanism.Type == NativeLongUtils.ConvertFromCKM(CKM.CKM_RSA_PKCS));
 
             // We access private Mechanism member just for the testing purposes
-            Net.Pkcs11Interop.LowLevelAPI81.CK_MECHANISM ckMechanism = (Net.Pkcs11Interop.LowLevelAPI81.CK_MECHANISM)typeof(Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
-            Assert.IsTrue(ckMechanism.Mechanism == (ulong)CKM.CKM_RSA_PKCS);
+            CK_MECHANISM ckMechanism = (CK_MECHANISM)typeof(Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
+            Assert.IsTrue(ckMechanism.Mechanism == NativeLongUtils.ConvertFromCKM(CKM.CKM_RSA_PKCS));
             Assert.IsTrue(ckMechanism.Parameter == IntPtr.Zero);
             Assert.IsTrue(ckMechanism.ParameterLen == 0);
         }
@@ -105,8 +106,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _03_ByteArrayParameterTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             byte[] parameter = new byte[16];
             System.Random rng = new Random();
@@ -114,23 +114,23 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
             
             // Create mechanism with the byte array parameter
             Mechanism mechanism = new Mechanism(CKM.CKM_AES_CBC, parameter);
-            Assert.IsTrue(mechanism.Type == (ulong)CKM.CKM_AES_CBC);
+            Assert.IsTrue(mechanism.Type == NativeLongUtils.ConvertFromCKM(CKM.CKM_AES_CBC));
 
             // We access private Mechanism member here just for the testing purposes
-            Net.Pkcs11Interop.LowLevelAPI81.CK_MECHANISM ckMechanism = (Net.Pkcs11Interop.LowLevelAPI81.CK_MECHANISM)typeof(Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
-            Assert.IsTrue(ckMechanism.Mechanism == (ulong)CKM.CKM_AES_CBC);
+            CK_MECHANISM ckMechanism = (CK_MECHANISM)typeof(Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
+            Assert.IsTrue(ckMechanism.Mechanism == NativeLongUtils.ConvertFromCKM(CKM.CKM_AES_CBC));
             Assert.IsTrue(ckMechanism.Parameter != IntPtr.Zero);
-            Assert.IsTrue(ckMechanism.ParameterLen == (ulong)parameter.Length);
+            Assert.IsTrue(ckMechanism.ParameterLen == NativeLongUtils.ConvertFromInt32(parameter.Length));
 
             parameter = null;
             
             // Create mechanism with null byte array parameter
             mechanism = new Mechanism(CKM.CKM_AES_CBC, parameter);
-            Assert.IsTrue(mechanism.Type == (ulong)CKM.CKM_AES_CBC);
+            Assert.IsTrue(mechanism.Type == NativeLongUtils.ConvertFromCKM(CKM.CKM_AES_CBC));
 
             // We access private Mechanism member here just for the testing purposes
-            ckMechanism = (Net.Pkcs11Interop.LowLevelAPI81.CK_MECHANISM)typeof(Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
-            Assert.IsTrue(ckMechanism.Mechanism == (ulong)CKM.CKM_AES_CBC);
+            ckMechanism = (CK_MECHANISM)typeof(Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
+            Assert.IsTrue(ckMechanism.Mechanism == NativeLongUtils.ConvertFromCKM(CKM.CKM_AES_CBC));
             Assert.IsTrue(ckMechanism.Parameter == IntPtr.Zero);
             Assert.IsTrue(ckMechanism.ParameterLen == 0);
         }
@@ -141,8 +141,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _04_ObjectParameterTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             byte[] data = new byte[24];
             System.Random rng = new Random();
@@ -153,13 +152,13 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
 
             // Create mechanism with the object as parameter
             Mechanism mechanism = new Mechanism(CKM.CKM_XOR_BASE_AND_DATA, parameter);
-            Assert.IsTrue(mechanism.Type == (ulong)CKM.CKM_XOR_BASE_AND_DATA);
+            Assert.IsTrue(mechanism.Type == NativeLongUtils.ConvertFromCKM(CKM.CKM_XOR_BASE_AND_DATA));
 
             // We access private Mechanism member here just for the testing purposes
-            Net.Pkcs11Interop.LowLevelAPI81.CK_MECHANISM ckMechanism = (Net.Pkcs11Interop.LowLevelAPI81.CK_MECHANISM)typeof(Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
-            Assert.IsTrue(ckMechanism.Mechanism == (ulong)CKM.CKM_XOR_BASE_AND_DATA);
+            CK_MECHANISM ckMechanism = (CK_MECHANISM)typeof(Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism);
+            Assert.IsTrue(ckMechanism.Mechanism == NativeLongUtils.ConvertFromCKM(CKM.CKM_XOR_BASE_AND_DATA));
             Assert.IsTrue(ckMechanism.Parameter != IntPtr.Zero);
-            Assert.IsTrue(Convert.ToInt32(ckMechanism.ParameterLen) == Net.Pkcs11Interop.Common.UnmanagedMemory.SizeOf(typeof(Net.Pkcs11Interop.LowLevelAPI81.MechanismParams.CK_KEY_DERIVATION_STRING_DATA)));
+            Assert.IsTrue(NativeLongUtils.ConvertToInt32(ckMechanism.ParameterLen) == UnmanagedMemory.SizeOf(typeof(CK_KEY_DERIVATION_STRING_DATA)));
         }
     }
 }

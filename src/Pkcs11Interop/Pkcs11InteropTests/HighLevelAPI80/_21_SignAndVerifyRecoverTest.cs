@@ -19,7 +19,6 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
-using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI80;
 using NUnit.Framework;
@@ -38,8 +37,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
         [Test()]
         public void _01_BasicSignAndVerifyRecoverTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
@@ -73,7 +71,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
 
                     // Do something interesting with verification result and recovered data
                     Assert.IsTrue(isValid);
-                    Assert.IsTrue(Convert.ToBase64String(sourceData) == Convert.ToBase64String(recoveredData));
+                    Assert.IsTrue(ConvertUtils.BytesToBase64String(sourceData) == ConvertUtils.BytesToBase64String(recoveredData));
 
                     session.DestroyObject(privateKey);
                     session.DestroyObject(publicKey);

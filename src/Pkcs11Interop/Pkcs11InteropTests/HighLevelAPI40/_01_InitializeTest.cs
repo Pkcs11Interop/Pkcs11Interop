@@ -37,8 +37,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI40
         [Test()]
         public void _01_BasicPkcs11DisposeTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             // Unmanaged PKCS#11 library is loaded by the constructor of Pkcs11 class.
             // Every PKCS#11 library needs to be initialized with C_Initialize method
@@ -59,8 +58,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI40
         [Test()]
         public void _02_UsingPkcs11DisposeTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             // Pkcs11 class can be used in using statement which defines a scope 
             // at the end of which an object will be disposed.
@@ -76,8 +74,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI40
         [Test()]
         public void _03_SingleThreadedInitializeTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             // If an application will not be accessing PKCS#11 library from multiple threads
             // simultaneously, it should specify "AppType.SingleThreaded" as a value of "appType" parameter.
@@ -93,8 +90,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI40
         [Test()]
         public void _04_MultiThreadedInitializeTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             // If an application will be accessing PKCS#11 library from multiple threads
             // simultaneously, it should specify "AppType.MultiThreaded" as a value of "appType" parameter.
@@ -111,15 +107,14 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI40
         [Test()]
         public void _05_Pkcs11WithGetFunctionListTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             // Before an application can perform any cryptographic operations with Cryptoki library 
             // it has to obtain function pointers for all the Cryptoki API routines present in the library.
             // This can be done either via C_GetFunctionList() function or via platform specific native 
             // function - GetProcAddress() on Windows and dlsym() on Unix.
-            // The most simple constructor of Net.Pkcs11Interop.HighLevelAPI40.Pkcs11 class uses 
-            // C_GetFunctionList() approach but Pkcs11Interop also provides an alternative constructor 
+            // The most simple constructor of Pkcs11 class uses C_GetFunctionList() approach 
+            // but Pkcs11Interop also provides an alternative constructor 
             // that can specify which approach should be used.
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType, InitType.WithFunctionList))
             {
@@ -133,15 +128,14 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI40
         [Test()]
         public void _06_Pkcs11WithoutGetFunctionListTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             // Before an application can perform any cryptographic operations with Cryptoki library 
             // it has to obtain function pointers for all the Cryptoki API routines present in the library.
             // This can be done either via C_GetFunctionList() function or via platform specific native 
             // function - GetProcAddress() on Windows and dlsym() on Unix.
-            // The most simple constructor of Net.Pkcs11Interop.HighLevelAPI40.Pkcs11 class uses 
-            // C_GetFunctionList() approach but Pkcs11Interop also provides an alternative constructor 
+            // The most simple constructor of Pkcs11 class uses C_GetFunctionList() approach 
+            // but Pkcs11Interop also provides an alternative constructor 
             // that can specify which approach should be used.
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType, InitType.WithoutFunctionList))
             {

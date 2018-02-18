@@ -19,12 +19,12 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
-using System;
 using System.IO;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI81;
 using Net.Pkcs11Interop.HighLevelAPI81.MechanismParams;
 using NUnit.Framework;
+using NativeLongUtils = Net.Pkcs11Interop.LowLevelAPI81.NativeLongUtils;
 
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
 {
@@ -40,8 +40,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _01_EncryptAndDecryptSinglePartTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
@@ -74,7 +73,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
                     byte[] decryptedData = session.Decrypt(mechanism, generatedKey, encryptedData);
 
                     // Do something interesting with decrypted data
-                    Assert.IsTrue(Convert.ToBase64String(sourceData) == Convert.ToBase64String(decryptedData));
+                    Assert.IsTrue(ConvertUtils.BytesToBase64String(sourceData) == ConvertUtils.BytesToBase64String(decryptedData));
 
                     session.DestroyObject(generatedKey);
                     session.Logout();
@@ -88,8 +87,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _02_EncryptAndDecryptMultiPartTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
@@ -140,7 +138,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
                     }
                     
                     // Do something interesting with decrypted data
-                    Assert.IsTrue(Convert.ToBase64String(sourceData) == Convert.ToBase64String(decryptedData));
+                    Assert.IsTrue(ConvertUtils.BytesToBase64String(sourceData) == ConvertUtils.BytesToBase64String(decryptedData));
 
                     session.DestroyObject(generatedKey);
                     session.Logout();
@@ -154,8 +152,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _03_EncryptAndDecryptSinglePartOaepTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
@@ -174,7 +171,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
                     Helpers.GenerateKeyPair(session, out publicKey, out privateKey);
 
                     // Specify mechanism parameters
-                    CkRsaPkcsOaepParams mechanismParams = new CkRsaPkcsOaepParams((ulong)CKM.CKM_SHA_1, (ulong)CKG.CKG_MGF1_SHA1, (ulong)CKZ.CKZ_DATA_SPECIFIED, null);
+                    CkRsaPkcsOaepParams mechanismParams = new CkRsaPkcsOaepParams(NativeLongUtils.ConvertFromCKM(CKM.CKM_SHA_1), NativeLongUtils.ConvertFromCKG(CKG.CKG_MGF1_SHA1), NativeLongUtils.ConvertFromUInt32(CKZ.CKZ_DATA_SPECIFIED), null);
 
                     // Specify encryption mechanism with parameters
                     Mechanism mechanism = new Mechanism(CKM.CKM_RSA_PKCS_OAEP, mechanismParams);
@@ -190,7 +187,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
                     byte[] decryptedData = session.Decrypt(mechanism, privateKey, encryptedData);
                     
                     // Do something interesting with decrypted data
-                    Assert.IsTrue(Convert.ToBase64String(sourceData) == Convert.ToBase64String(decryptedData));
+                    Assert.IsTrue(ConvertUtils.BytesToBase64String(sourceData) == ConvertUtils.BytesToBase64String(decryptedData));
                     
                     session.DestroyObject(privateKey);
                     session.DestroyObject(publicKey);

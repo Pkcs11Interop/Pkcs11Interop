@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI80;
 using NUnit.Framework;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
 {
@@ -38,8 +39,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
         [Test()]
         public void _01_SlotListTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
@@ -58,8 +58,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
         [Test()]
         public void _02_BasicSlotListAndInfoTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
@@ -84,14 +83,13 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
         [Test()]
         public void _03_WaitForSlotEventTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Wait for a slot event
                 bool eventOccured = false;
-                ulong slotId = 0;
+                NativeULong slotId = 0;
                 pkcs11.WaitForSlotEvent(WaitType.NonBlocking, out eventOccured, out slotId);
                 Assert.IsFalse(eventOccured);
             }
