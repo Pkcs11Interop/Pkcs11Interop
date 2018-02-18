@@ -20,7 +20,6 @@
  */
 
 using System;
-using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI41;
 using NUnit.Framework;
 
@@ -38,8 +37,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI41
         [Test()]
         public void _01_BasicTokenInfoTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
