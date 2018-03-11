@@ -83,7 +83,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         }
 
         /// <summary>
-        /// True if token has a “protected authentication path”, whereby a user can log into the token without passing a PIN through the Cryptoki library
+        /// True if token has a "protected authentication path", whereby a user can log into the token without passing a PIN through the Cryptoki library
         /// </summary>
         bool ProtectedAuthenticationPath
         {
