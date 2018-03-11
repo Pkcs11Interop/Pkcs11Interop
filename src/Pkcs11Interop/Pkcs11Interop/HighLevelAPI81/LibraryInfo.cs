@@ -20,6 +20,7 @@
  */
 
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.LowLevelAPI81;
 using NativeULong = System.UInt64;
 
@@ -28,7 +29,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
     /// <summary>
     /// General information about PKCS#11 library (CK_INFO)
     /// </summary>
-    public class LibraryInfo
+    public class LibraryInfo : ILibraryInfo
     {
         /// <summary>
         /// Cryptoki interface version number
@@ -70,11 +71,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// Bit flags reserved for future versions
         /// </summary>
-        public NativeULong Flags
+        public ulong Flags
         {
             get
             {
-                return _flags;
+                return NativeLongUtils.ConvertToUInt64(_flags);
             }
         }
 

@@ -21,6 +21,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.LowLevelAPI80;
 using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
 using NativeULong = System.UInt64;
@@ -52,7 +53,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
         /// <param name='privateData'>Key handle for second EC private key value</param>
         /// <param name='publicData2'>Other party's second EC public key value</param>
         /// <param name='publicKey'>Handle to the first party's ephemeral public key</param>
-        public CkEcmqvDeriveParams(NativeULong kdf, byte[] sharedData, byte[] publicData, NativeULong privateDataLen, ObjectHandle privateData, byte[] publicData2, ObjectHandle publicKey)
+        public CkEcmqvDeriveParams(NativeULong kdf, byte[] sharedData, byte[] publicData, NativeULong privateDataLen, IObjectHandle privateData, byte[] publicData2, IObjectHandle publicKey)
         {
             _lowLevelStruct.Kdf = 0;
             _lowLevelStruct.SharedDataLen = 0;
@@ -86,7 +87,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             if (privateData == null)
                 throw new ArgumentNullException("privateData");
             
-            _lowLevelStruct.PrivateData = privateData.ObjectId;
+            _lowLevelStruct.PrivateData = NativeLongUtils.ConvertFromUInt64(privateData.ObjectId);
             
             if (publicData2 != null)
             {
@@ -98,7 +99,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             if (publicKey == null)
                 throw new ArgumentNullException("publicKey");
             
-            _lowLevelStruct.PublicKey = publicKey.ObjectId;
+            _lowLevelStruct.PublicKey = NativeLongUtils.ConvertFromUInt64(publicKey.ObjectId);
         }
         
         #region IMechanismParams

@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.LowLevelAPI80;
 using NativeULong = System.UInt64;
 
@@ -30,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
     /// <summary>
     /// Utility class connecting PKCS#11 URI and Pkcs11Interop types
     /// </summary>
-    public static class Pkcs11UriUtils
+    public class Pkcs11UriUtils : IPkcs11UriUtils
     {
         /// <summary>
         /// Checks whether PKCS#11 library information matches PKCS#11 URI
@@ -38,7 +39,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <param name="pkcs11Uri">PKCS#11 URI</param>
         /// <param name="libraryInfo">PKCS#11 library information</param>
         /// <returns>True if PKCS#11 library information matches PKCS#11 URI</returns>
-        public static bool Matches(Pkcs11Uri pkcs11Uri, LibraryInfo libraryInfo)
+        public bool Matches(Pkcs11Uri pkcs11Uri, ILibraryInfo libraryInfo)
         {
             if (pkcs11Uri == null)
                 throw new ArgumentNullException("pkcs11Uri");
@@ -55,7 +56,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <param name="pkcs11Uri">PKCS#11 URI</param>
         /// <param name="slotInfo">Slot information</param>
         /// <returns>True if slot information matches PKCS#11 URI</returns>
-        public static bool Matches(Pkcs11Uri pkcs11Uri, SlotInfo slotInfo)
+        public bool Matches(Pkcs11Uri pkcs11Uri, ISlotInfo slotInfo)
         {
             if (pkcs11Uri == null)
                 throw new ArgumentNullException("pkcs11Uri");
@@ -72,7 +73,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <param name="pkcs11Uri">PKCS#11 URI</param>
         /// <param name="tokenInfo">Token information</param>
         /// <returns>True if token information matches PKCS#11 URI</returns>
-        public static bool Matches(Pkcs11Uri pkcs11Uri, TokenInfo tokenInfo)
+        public bool Matches(Pkcs11Uri pkcs11Uri, ITokenInfo tokenInfo)
         {
             if (pkcs11Uri == null)
                 throw new ArgumentNullException("pkcs11Uri");
@@ -89,7 +90,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <param name="pkcs11Uri">PKCS#11 URI</param>
         /// <param name="objectAttributes">Object attributes</param>
         /// <returns>True if object attributes match PKCS#11 URI</returns>
-        public static bool Matches(Pkcs11Uri pkcs11Uri, List<ObjectAttribute> objectAttributes)
+        public bool Matches(Pkcs11Uri pkcs11Uri, List<IObjectAttribute> objectAttributes)
         {
             if (pkcs11Uri == null)
                 throw new ArgumentNullException("pkcs11Uri");
@@ -116,7 +117,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
 
                 if (objectAttribute.Type == ckaClassType)
                 {
-                    ckaClassValue = NativeLongUtils.ConvertToCKO(objectAttribute.GetValueAsNativeUlong());
+                    ckaClassValue = NativeLongUtils.ConvertToCKO(NativeLongUtils.ConvertFromUInt64(objectAttribute.GetValueAsUlong()));
                     ckaClassFound = true;
                 }
                 else if (objectAttribute.Type == ckaLabelType)
@@ -151,9 +152,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// </summary>
         /// <param name="pkcs11Uri">PKCS#11 URI</param>
         /// <param name="pkcs11">High level PKCS#11 wrapper</param>
-        /// <param name="tokenPresent">Flag indicating whether the list obtained includes only those slots with a token present (true), or all slots (false)</param>
+        /// <param name="slotsType">Type of slots to be obtained</param>
         /// <returns>List of slots matching PKCS#11 URI</returns>
-        public static List<Slot> GetMatchingSlotList(Pkcs11Uri pkcs11Uri, Pkcs11 pkcs11, bool tokenPresent)
+        public List<ISlot> GetMatchingSlotList(Pkcs11Uri pkcs11Uri, IPkcs11 pkcs11, SlotsType slotsType)
         {
             if (pkcs11Uri == null)
                 throw new ArgumentNullException("pkcs11Uri");
@@ -161,30 +162,30 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (pkcs11 == null)
                 throw new ArgumentNullException("pkcs11");
 
-            List<Slot> matchingSlots = new List<Slot>();
+            List<ISlot> matchingSlots = new List<ISlot>();
 
-            LibraryInfo libraryInfo = pkcs11.GetInfo();
+            ILibraryInfo libraryInfo = pkcs11.GetInfo();
             if (!Matches(pkcs11Uri, libraryInfo))
                 return matchingSlots;
 
-            List<Slot> slots = pkcs11.GetSlotList(SlotsType.WithOrWithoutTokenPresent);
+            List<ISlot> slots = pkcs11.GetSlotList(SlotsType.WithOrWithoutTokenPresent);
             if ((slots == null) || (slots.Count == 0))
-                return slots;
+                return matchingSlots;
 
             foreach (Slot slot in slots)
             {
-                SlotInfo slotInfo = slot.GetSlotInfo();
+                ISlotInfo slotInfo = slot.GetSlotInfo();
                 if (Matches(pkcs11Uri, slotInfo))
                 {
                     if (slotInfo.SlotFlags.TokenPresent)
                     {
-                        TokenInfo tokenInfo = slot.GetTokenInfo();
+                        ITokenInfo tokenInfo = slot.GetTokenInfo();
                         if (Matches(pkcs11Uri, tokenInfo))
                             matchingSlots.Add(slot);
                     }
                     else
                     {
-                        if (!tokenPresent && Pkcs11UriSharedUtils.Matches(pkcs11Uri, null, null, null, null))
+                        if (slotsType == SlotsType.WithOrWithoutTokenPresent && Pkcs11UriSharedUtils.Matches(pkcs11Uri, null, null, null, null))
                             matchingSlots.Add(slot);
                     }
                 }
@@ -197,17 +198,17 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// Returns list of object attributes defined by PKCS#11 URI
         /// </summary>
         /// <param name="pkcs11Uri">PKCS#11 URI</param>
-        /// <param name="objectAttributes">List of object attributes defined by PKCS#11 URI</param>
-        public static void GetObjectAttributes(Pkcs11Uri pkcs11Uri, out List<ObjectAttribute> objectAttributes)
+        /// <returns>List of object attributes defined by PKCS#11 URI</returns>
+        public List<IObjectAttribute> GetObjectAttributes(Pkcs11Uri pkcs11Uri)
         {
             if (pkcs11Uri == null)
                 throw new ArgumentNullException("pkcs11Uri");
 
-            List<ObjectAttribute> attributes = null;
+            List<IObjectAttribute> attributes = null;
 
             if (pkcs11Uri.DefinesObject)
             {
-                attributes = new List<ObjectAttribute>();
+                attributes = new List<IObjectAttribute>();
                 if (pkcs11Uri.Type != null)
                     attributes.Add(new ObjectAttribute(CKA.CKA_CLASS, pkcs11Uri.Type.Value));
                 if (pkcs11Uri.Object != null)
@@ -216,7 +217,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                     attributes.Add(new ObjectAttribute(CKA.CKA_ID, pkcs11Uri.Id));
             }
 
-            objectAttributes = attributes;
+            return attributes;
         }
     }
 }

@@ -20,6 +20,8 @@
  */
 
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
+using Net.Pkcs11Interop.LowLevelAPI80;
 using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI80
@@ -27,7 +29,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
     /// <summary>
     /// Token-specific identifier for an object
     /// </summary>
-    public class ObjectHandle
+    public class ObjectHandle : IObjectHandle
     {
         /// <summary>
         /// PKCS#11 handle of object
@@ -37,11 +39,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <summary>
         /// PKCS#11 handle of object
         /// </summary>
-        public NativeULong ObjectId
+        public ulong ObjectId
         {
             get
             {
-                return _objectId;
+                return NativeLongUtils.ConvertToUInt64(_objectId);
             }
         }
 

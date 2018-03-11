@@ -21,6 +21,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.LowLevelAPI40;
 using NativeULong = System.UInt32;
 
@@ -29,7 +30,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
     /// <summary>
     /// Information about a token
     /// </summary>
-    public class TokenInfo
+    public class TokenInfo : ITokenInfo
     {
         /// <summary>
         /// PKCS#11 handle of slot
@@ -39,11 +40,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// PKCS#11 handle of slot
         /// </summary>
-        public NativeULong SlotId
+        public ulong SlotId
         {
             get
             {
-                return _slotId;
+                return NativeLongUtils.ConvertToUInt64(_slotId);
             }
         }
 
@@ -119,7 +120,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// Bit flags indicating capabilities and status of the device
         /// </summary>
-        public TokenFlags TokenFlags
+        public ITokenFlags TokenFlags
         {
             get
             {
@@ -135,11 +136,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// Maximum number of sessions that can be opened with the token at one time by a single application
         /// </summary>
-        public NativeULong MaxSessionCount
+        public ulong MaxSessionCount
         {
             get
             {
-                return _maxSessionCount;
+                return NativeLongUtils.ConvertToUInt64(_maxSessionCount);
             }
         }
 
@@ -151,11 +152,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// Number of sessions that this application currently has open with the token
         /// </summary>
-        public NativeULong SessionCount
+        public ulong SessionCount
         {
             get
             {
-                return _sessionCount;
+                return NativeLongUtils.ConvertToUInt64(_sessionCount);
             }
         }
 
@@ -167,11 +168,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// Maximum number of read/write sessions that can be opened with the token at one time by a single application
         /// </summary>
-        public NativeULong MaxRwSessionCount
+        public ulong MaxRwSessionCount
         {
             get
             {
-                return _maxRwSessionCount;
+                return NativeLongUtils.ConvertToUInt64(_maxRwSessionCount);
             }
         }
 
@@ -183,11 +184,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// Number of read/write sessions that this application currently has open with the token
         /// </summary>
-        public NativeULong RwSessionCount
+        public ulong RwSessionCount
         {
             get
             {
-                return _rwSessionCount;
+                return NativeLongUtils.ConvertToUInt64(_rwSessionCount);
             }
         }
 
@@ -199,11 +200,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// Maximum length in bytes of the PIN
         /// </summary>
-        public NativeULong MaxPinLen
+        public ulong MaxPinLen
         {
             get
             {
-                return _maxPinLen;
+                return NativeLongUtils.ConvertToUInt64(_maxPinLen);
             }
         }
 
@@ -215,11 +216,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// Minimum length in bytes of the PIN
         /// </summary>
-        public NativeULong MinPinLen
+        public ulong MinPinLen
         {
             get
             {
-                return _minPinLen;
+                return NativeLongUtils.ConvertToUInt64(_minPinLen);
             }
         }
 
@@ -231,11 +232,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// The total amount of memory on the token in bytes in which public objects may be stored
         /// </summary>
-        public NativeULong TotalPublicMemory
+        public ulong TotalPublicMemory
         {
             get
             {
-                return _totalPublicMemory;
+                return NativeLongUtils.ConvertToUInt64(_totalPublicMemory);
             }
         }
 
@@ -247,11 +248,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// The amount of free (unused) memory on the token in bytes for public objects
         /// </summary>
-        public NativeULong FreePublicMemory
+        public ulong FreePublicMemory
         {
             get
             {
-                return _freePublicMemory;
+                return NativeLongUtils.ConvertToUInt64(_freePublicMemory);
             }
         }
 
@@ -263,11 +264,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// The total amount of memory on the token in bytes in which private objects may be stored
         /// </summary>
-        public NativeULong TotalPrivateMemory
+        public ulong TotalPrivateMemory
         {
             get
             {
-                return _totalPrivateMemory;
+                return NativeLongUtils.ConvertToUInt64(_totalPrivateMemory);
             }
         }
 
@@ -279,11 +280,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// The amount of free (unused) memory on the token in bytes for private objects
         /// </summary>
-        public NativeULong FreePrivateMemory
+        public ulong FreePrivateMemory
         {
             get
             {
-                return _freePrivateMemory;
+                return NativeLongUtils.ConvertToUInt64(_freePrivateMemory);
             }
         }
 

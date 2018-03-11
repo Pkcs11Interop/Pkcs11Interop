@@ -21,6 +21,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.LowLevelAPI81;
 using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
 using NativeULong = System.UInt64;
@@ -51,7 +52,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <param name='contentType'>String indicating complete MIME Content-type of message to be signed or null if the message is a MIME object</param>
         /// <param name='requestedAttributes'>DER-encoded list of CMS Attributes the caller requests to be included in the signed attributes</param>
         /// <param name='requiredAttributes'>DER-encoded list of CMS Attributes (with accompanying values) required to be included in the resulting signed attributes</param>
-        public CkCmsSigParams(ObjectHandle certificateHandle, NativeULong? signingMechanism, NativeULong? digestMechanism, string contentType, byte[] requestedAttributes, byte[] requiredAttributes)
+        public CkCmsSigParams(IObjectHandle certificateHandle, NativeULong? signingMechanism, NativeULong? digestMechanism, string contentType, byte[] requestedAttributes, byte[] requiredAttributes)
         {
             _lowLevelStruct.CertificateHandle = CK.CK_INVALID_HANDLE;
             _lowLevelStruct.SigningMechanism = IntPtr.Zero;
@@ -65,7 +66,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
             if (certificateHandle == null)
                 throw new ArgumentNullException("certificateHandle");
 
-            _lowLevelStruct.CertificateHandle = certificateHandle.ObjectId;
+            _lowLevelStruct.CertificateHandle = NativeLongUtils.ConvertFromUInt64(certificateHandle.ObjectId);
 
             if (signingMechanism != null)
             {

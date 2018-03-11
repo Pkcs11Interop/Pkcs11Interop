@@ -20,6 +20,7 @@
  */
 
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.LowLevelAPI81;
 using NativeULong = System.UInt64;
 
@@ -28,7 +29,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
     /// <summary>
     /// Information about a session
     /// </summary>
-    public class SessionInfo
+    public class SessionInfo : ISessionInfo
     {   
         /// <summary>
         /// PKCS#11 handle of session
@@ -38,11 +39,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// PKCS#11 handle of session
         /// </summary>
-        public NativeULong SessionId
+        public ulong SessionId
         {
             get
             {
-                return _sessionId;
+                return NativeLongUtils.ConvertToUInt64(_sessionId);
             }
         }
 
@@ -54,11 +55,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// PKCS#11 handle of slot that interfaces with the token
         /// </summary>
-        public NativeULong SlotId
+        public ulong SlotId
         {
             get
             {
-                return _slotId;
+                return NativeLongUtils.ConvertToUInt64(_slotId);
             }
         }
 
@@ -86,7 +87,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// Flags that define the type of session
         /// </summary>
-        public SessionFlags SessionFlags
+        public ISessionFlags SessionFlags
         {
             get
             {
@@ -102,11 +103,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// An error code defined by the cryptographic device used for errors not covered by Cryptoki
         /// </summary>
-        public NativeULong DeviceError
+        public ulong DeviceError
         {
             get
             {
-                return _deviceError;
+                return NativeLongUtils.ConvertToUInt64(_deviceError);
             }
         }
 

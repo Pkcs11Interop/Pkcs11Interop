@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.LowLevelAPI40;
 using NativeULong = System.UInt32;
 
@@ -30,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
     /// <summary>
     /// Logical reader that potentially contains a token
     /// </summary>
-    public class Slot
+    public class Slot : ISlot
     {
         /// <summary>
         /// Low level PKCS#11 wrapper
@@ -56,11 +57,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// PKCS#11 handle of slot
         /// </summary>
-        public NativeULong SlotId
+        public ulong SlotId
         {
             get
             {
-                return _slotId;
+                return NativeLongUtils.ConvertToUInt64(_slotId);
             }
         }
 
@@ -82,7 +83,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// Obtains information about a particular slot in the system
         /// </summary>
         /// <returns>Slot information</returns>
-        public SlotInfo GetSlotInfo()
+        public ISlotInfo GetSlotInfo()
         {
             CK_SLOT_INFO slotInfo = new CK_SLOT_INFO();
             CKR rv = _p11.C_GetSlotInfo(_slotId, ref slotInfo);
@@ -96,7 +97,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// Obtains information about a particular token in the system.
         /// </summary>
         /// <returns>Token information</returns>
-        public TokenInfo GetTokenInfo()
+        public ITokenInfo GetTokenInfo()
         {
             CK_TOKEN_INFO tokenInfo = new CK_TOKEN_INFO();
             CKR rv = _p11.C_GetTokenInfo(_slotId, ref tokenInfo);
@@ -136,7 +137,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// </summary>
         /// <param name="mechanism">Mechanism</param>
         /// <returns>Information about mechanism</returns>
-        public MechanismInfo GetMechanismInfo(CKM mechanism)
+        public IMechanismInfo GetMechanismInfo(CKM mechanism)
         {
             CK_MECHANISM_INFO mechanismInfo = new CK_MECHANISM_INFO();
             CKR rv = _p11.C_GetMechanismInfo(_slotId, mechanism, ref mechanismInfo);
@@ -207,7 +208,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// </summary>
         /// <param name="sessionType">Type of session to be opened</param>
         /// <returns>Session</returns>
-        public Session OpenSession(SessionType sessionType)
+        public ISession OpenSession(SessionType sessionType)
         {
             NativeULong flags = CKF.CKF_SERIAL_SESSION;
             if (sessionType == SessionType.ReadWrite)
@@ -225,7 +226,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// Closes a session between an application and a token
         /// </summary>
         /// <param name="session">Session</param>
-        public void CloseSession(Session session)
+        public void CloseSession(ISession session)
         {
             if (session == null)
                 throw new ArgumentNullException("session");

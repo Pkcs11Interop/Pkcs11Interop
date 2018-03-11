@@ -21,6 +21,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.LowLevelAPI81;
 using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
 using NativeULong = System.UInt64;
@@ -51,7 +52,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <param name='privateDataLen'>The length in bytes of the second X9.42 Diffie-Hellman private key</param>
         /// <param name='privateData'>Key handle for second X9.42 Diffie-Hellman private key value</param>
         /// <param name='publicData2'>Other party's second X9.42 Diffie-Hellman public key value</param>
-        public CkX942Dh2DeriveParams(NativeULong kdf, byte[] otherInfo, byte[] publicData, NativeULong privateDataLen, ObjectHandle privateData, byte[] publicData2)
+        public CkX942Dh2DeriveParams(NativeULong kdf, byte[] otherInfo, byte[] publicData, NativeULong privateDataLen, IObjectHandle privateData, byte[] publicData2)
         {
             _lowLevelStruct.Kdf = 0;
             _lowLevelStruct.OtherInfoLen = 0;
@@ -84,7 +85,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
             if (privateData == null)
                 throw new ArgumentNullException("privateData");
             
-            _lowLevelStruct.PrivateData = privateData.ObjectId;
+            _lowLevelStruct.PrivateData = NativeLongUtils.ConvertFromUInt64(privateData.ObjectId);
             
             if (publicData2 != null)
             {

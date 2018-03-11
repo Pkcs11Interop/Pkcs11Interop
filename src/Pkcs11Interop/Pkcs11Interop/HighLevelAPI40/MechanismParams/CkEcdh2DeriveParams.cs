@@ -21,6 +21,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.LowLevelAPI40;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
 using NativeULong = System.UInt32;
@@ -51,7 +52,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <param name='privateDataLen'>The length in bytes of the second EC private key</param>
         /// <param name='privateData'>Key handle for second EC private key value</param>
         /// <param name='publicData2'>Other party's second EC public key value</param>
-        public CkEcdh2DeriveParams(NativeULong kdf, byte[] sharedData, byte[] publicData, NativeULong privateDataLen, ObjectHandle privateData, byte[] publicData2)
+        public CkEcdh2DeriveParams(NativeULong kdf, byte[] sharedData, byte[] publicData, NativeULong privateDataLen, IObjectHandle privateData, byte[] publicData2)
         {
             _lowLevelStruct.Kdf = 0;
             _lowLevelStruct.SharedDataLen = 0;
@@ -84,7 +85,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             if (privateData == null)
                 throw new ArgumentNullException("privateData");
 
-            _lowLevelStruct.PrivateData = privateData.ObjectId;
+            _lowLevelStruct.PrivateData = NativeLongUtils.ConvertFromUInt64(privateData.ObjectId);
 
             if (publicData2 != null)
             {

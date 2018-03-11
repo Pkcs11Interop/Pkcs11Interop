@@ -20,6 +20,8 @@
  */
 
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
+using Net.Pkcs11Interop.LowLevelAPI80;
 using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI80
@@ -27,7 +29,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
     /// <summary>
     /// Flags specifying mechanism capabilities
     /// </summary>
-    public class MechanismFlags
+    public class MechanismFlags : IMechanismFlags
     {
         /// <summary>
         /// Bits flags specifying mechanism capabilities
@@ -37,11 +39,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <summary>
         /// Bits flags specifying mechanism capabilities
         /// </summary>
-        public NativeULong Flags
+        public ulong Flags
         {
             get
             {
-                return _flags;
+                return NativeLongUtils.ConvertToUInt64(_flags);
             }
         }
 
