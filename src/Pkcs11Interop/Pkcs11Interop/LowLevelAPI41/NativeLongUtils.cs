@@ -246,6 +246,30 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
 
         #endregion
 
+        #region UInt64
+
+        /// <summary>
+        /// Converts NativeULong to UInt64
+        /// </summary>
+        /// <param name="value">NativeULong that should be converted</param>
+        /// <returns>UInt64 with NativeULong value</returns>
+        public static UInt64 ConvertToUInt64(NativeULong value)
+        {
+            return Convert.ToUInt64(value);
+        }
+
+        /// <summary>
+        /// Converts UInt64 to NativeULong
+        /// </summary>
+        /// <param name="value">UInt64 that should be converted</param>
+        /// <returns>NativeULong with value from UInt64</returns>
+        public static NativeULong ConvertFromUInt64(UInt64 value)
+        {
+            return Convert.ToUInt32(value);
+        }
+
+        #endregion
+
 #endif // DO NOT REMOVE - UInt32 conversions managed by code generation script
 
 #if false // DO NOT REMOVE - UInt64 conversions managed by code generation script
@@ -457,6 +481,30 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
         /// <param name="value">UInt32 that should be converted</param>
         /// <returns>NativeULong with value from UInt32</returns>
         public static NativeULong ConvertFromUInt32(UInt32 value)
+        {
+            return Convert.ToUInt64(value);
+        }
+
+        #endregion
+
+        #region UInt64
+
+        /// <summary>
+        /// Converts NativeULong to UInt64
+        /// </summary>
+        /// <param name="value">NativeULong that should be converted</param>
+        /// <returns>UInt64 with NativeULong value</returns>
+        public static UInt64 ConvertToUInt64(NativeULong value)
+        {
+            return Convert.ToUInt64(value);
+        }
+
+        /// <summary>
+        /// Converts UInt64 to NativeULong
+        /// </summary>
+        /// <param name="value">UInt64 that should be converted</param>
+        /// <returns>NativeULong with value from UInt64</returns>
+        public static NativeULong ConvertFromUInt64(UInt64 value)
         {
             return Convert.ToUInt64(value);
         }

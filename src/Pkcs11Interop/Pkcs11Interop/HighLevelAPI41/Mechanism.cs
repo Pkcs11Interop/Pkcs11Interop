@@ -21,6 +21,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.LowLevelAPI41;
 using NativeULong = System.UInt32;
 
@@ -29,7 +30,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
     /// <summary>
     /// Mechanism and its parameters (CK_MECHANISM alternative)
     /// </summary>
-    public class Mechanism : IDisposable
+    public class Mechanism : IMechanism
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -42,31 +43,29 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         private CK_MECHANISM _ckMechanism;
 
         /// <summary>
-        /// Low level mechanism structure
+        /// The type of mechanism
         /// </summary>
-        internal CK_MECHANISM CkMechanism
+        public ulong Type
         {
             get
             {
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return _ckMechanism;
+                return NativeLongUtils.ConvertToUInt64(_ckMechanism.Mechanism);
             }
         }
 
         /// <summary>
-        /// The type of mechanism
+        /// Returns managed object corresponding to CK_MECHANISM structure that can be marshaled to an unmanaged block of memory
         /// </summary>
-        public NativeULong Type
+        /// <returns>A managed object holding the data to be marshaled. This object must be an instance of a formatted class.</returns>
+        public object ToMarshalableStructure()
         {
-            get
-            {
-                if (this._disposed)
-                    throw new ObjectDisposedException(this.GetType().FullName);
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
 
-                return _ckMechanism.Mechanism;
-            }
+            return _ckMechanism;
         }
 
         /// <summary>

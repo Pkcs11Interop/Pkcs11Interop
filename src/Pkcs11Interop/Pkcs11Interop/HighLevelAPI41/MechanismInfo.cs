@@ -20,6 +20,7 @@
  */
 
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.LowLevelAPI41;
 using NativeULong = System.UInt32;
 
@@ -28,7 +29,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
     /// <summary>
     /// Provides information about a particular mechanism
     /// </summary>
-    public class MechanismInfo
+    public class MechanismInfo : IMechanismInfo
     {
         /// <summary>
         /// Mechanism
@@ -54,11 +55,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// The minimum size of the key for the mechanism (whether this is measured in bits or in bytes is mechanism-dependent)
         /// </summary>
-        public NativeULong MinKeySize
+        public ulong MinKeySize
         {
             get
             {
-                return _minKeySize;
+                return NativeLongUtils.ConvertToUInt64(_minKeySize);
             }
         }
 
@@ -70,11 +71,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// The maximum size of the key for the mechanism (whether this is measured in bits or in bytes is mechanism-dependent)
         /// </summary>
-        public NativeULong MaxKeySize
+        public ulong MaxKeySize
         {
             get
             {
-                return _maxKeySize;
+                return NativeLongUtils.ConvertToUInt64(_maxKeySize);
             }
         }
 
@@ -86,7 +87,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Flags specifying mechanism capabilities
         /// </summary>
-        public MechanismFlags MechanismFlags
+        public IMechanismFlags MechanismFlags
         {
             get
             {
