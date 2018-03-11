@@ -24,7 +24,7 @@ namespace Net.Pkcs11Interop.Common
     /// <summary>
     /// Interface for mechanism parameters
     /// </summary>
-    public interface IMechanismParams
+    public interface IMechanismParams // TODO - Move to Net.Pkcs11Interop.HighLevelAPI next to IMechanismParamsFactory ???
     {
         /// <summary>
         /// Returns managed object that can be marshaled to an unmanaged block of memory
