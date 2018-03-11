@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
 {
@@ -33,7 +34,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
         /// <summary>
         /// Parameter type
         /// </summary>
-        public uint Type;
+        public NativeULong Type;
 
         /// <summary>
         /// Pointer to the value of the parameter
@@ -43,6 +44,6 @@ namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
         /// <summary>
         /// Length in bytes of the value
         /// </summary>
-        public uint ValueLen;
+        public NativeULong ValueLen;
     }
 }

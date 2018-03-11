@@ -21,6 +21,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI41;
 using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
@@ -63,7 +64,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
             {
                 _lowLevelStruct.Data = UnmanagedMemory.Allocate(data.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Data, data);
-                _lowLevelStruct.Length = Convert.ToUInt32(data.Length);
+                _lowLevelStruct.Length = NativeLongUtils.ConvertFromInt32(data.Length);
             }
         }
         

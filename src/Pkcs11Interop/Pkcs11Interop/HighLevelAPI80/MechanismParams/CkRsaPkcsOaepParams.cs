@@ -21,7 +21,9 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI80;
 using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
@@ -47,7 +49,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
         /// <param name='mgf'>Mask generation function to use on the encoded block (CKG)</param>
         /// <param name='source'>Source of the encoding parameter (CKZ)</param>
         /// <param name='sourceData'>Data used as the input for the encoding parameter source</param>
-        public CkRsaPkcsOaepParams(ulong hashAlg, ulong mgf, ulong source, byte[] sourceData)
+        public CkRsaPkcsOaepParams(NativeULong hashAlg, NativeULong mgf, NativeULong source, byte[] sourceData)
         {
             _lowLevelStruct.HashAlg = 0;
             _lowLevelStruct.Mgf = 0;
@@ -63,7 +65,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             {
                 _lowLevelStruct.SourceData = UnmanagedMemory.Allocate(sourceData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.SourceData, sourceData);
-                _lowLevelStruct.SourceDataLen = Convert.ToUInt64(sourceData.Length);
+                _lowLevelStruct.SourceDataLen = NativeLongUtils.ConvertFromInt32(sourceData.Length);
             }
         }
 

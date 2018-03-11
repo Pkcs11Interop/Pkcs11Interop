@@ -21,6 +21,7 @@
 
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI81;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI81
 {
@@ -32,12 +33,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// PKCS#11 handle of slot
         /// </summary>
-        private ulong _slotId = CK.CK_INVALID_HANDLE;
+        private NativeULong _slotId = CK.CK_INVALID_HANDLE;
 
         /// <summary>
         /// PKCS#11 handle of slot
         /// </summary>
-        public ulong SlotId
+        public NativeULong SlotId
         {
             get
             {
@@ -130,7 +131,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// </summary>
         /// <param name="slotId">PKCS#11 handle of slot</param>
         /// <param name="ck_slot_info">Low level CK_SLOT_INFO structure</param>
-        internal SlotInfo(ulong slotId, CK_SLOT_INFO ck_slot_info)
+        internal SlotInfo(NativeULong slotId, CK_SLOT_INFO ck_slot_info)
         {
             _slotId = slotId;
             _slotDescription = ConvertUtils.BytesToUtf8String(ck_slot_info.SlotDescription, true);

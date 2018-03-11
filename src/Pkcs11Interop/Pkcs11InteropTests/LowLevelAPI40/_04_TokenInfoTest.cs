@@ -23,6 +23,7 @@ using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI40;
 using NUnit.Framework;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
 {
@@ -38,8 +39,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
         [Test()]
         public void _01_BasicTokenInfoTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKR rv = CKR.CKR_OK;
             
@@ -50,7 +50,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                uint slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeULong slotId = Helpers.GetUsableSlot(pkcs11);
                 
                 CK_TOKEN_INFO tokenInfo = new CK_TOKEN_INFO();
                 rv = pkcs11.C_GetTokenInfo(slotId, ref tokenInfo);

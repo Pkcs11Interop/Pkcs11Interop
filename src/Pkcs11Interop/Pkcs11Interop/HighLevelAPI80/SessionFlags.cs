@@ -20,6 +20,7 @@
  */
 
 using Net.Pkcs11Interop.Common;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI80
 {
@@ -31,12 +32,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <summary>
         /// Bit flags that define the type of session
         /// </summary>
-        private ulong _flags;
+        private NativeULong _flags;
 
         /// <summary>
         /// Bit flags that define the type of session
         /// </summary>
-        public ulong Flags
+        public NativeULong Flags
         {
             get
             {
@@ -70,7 +71,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// Initializes new instance of SessionFlags class
         /// </summary>
         /// <param name="flags">Bit flags that define the type of session</param>
-        internal SessionFlags(ulong flags)
+        internal SessionFlags(NativeULong flags)
         {
             _flags = flags;
         }

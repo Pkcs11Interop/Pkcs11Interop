@@ -19,11 +19,11 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
+using System;
+using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI80;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
 {
@@ -39,8 +39,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
         [Test()]
         public void _01_Pkcs11UriInSignatureCreationApplication()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             // PKCS#11 URI can be acquired i.e. from configuration file as a simple string...
             string uri = @"<pkcs11:serial=7BFF2737350B262C;

@@ -20,6 +20,7 @@
  */
 
 using System.Runtime.InteropServices;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
 {
@@ -32,7 +33,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// The effective number of bits in the RC2 search space
         /// </summary>
-        public uint EffectiveBits;
+        public NativeULong EffectiveBits;
 
         /// <summary>
         /// The initialization vector (IV) for cipher block chaining mode

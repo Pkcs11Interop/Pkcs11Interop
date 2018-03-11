@@ -21,7 +21,9 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI41;
 using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
@@ -106,7 +108,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (_ivLength < 1) ? null : UnmanagedMemory.Read(_lowLevelStruct.IVClient, Convert.ToInt32(_ivLength));
+                return (_ivLength < 1) ? null : UnmanagedMemory.Read(_lowLevelStruct.IVClient, NativeLongUtils.ConvertToInt32(_ivLength));
             }
         }
 
@@ -120,20 +122,20 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (_ivLength < 1) ? null : UnmanagedMemory.Read(_lowLevelStruct.IVServer, Convert.ToInt32(_ivLength));
+                return (_ivLength < 1) ? null : UnmanagedMemory.Read(_lowLevelStruct.IVServer, NativeLongUtils.ConvertToInt32(_ivLength));
             }
         }
 
         /// <summary>
         /// The length of initialization vectors
         /// </summary>
-        private uint _ivLength = 0;
+        private NativeULong _ivLength = 0;
 
         /// <summary>
         /// Initializes a new instance of the CkSsl3KeyMatOut class.
         /// </summary>
         /// <param name='ivLength'>Length of initialization vectors or 0 if IVs are not required</param>
-        internal CkSsl3KeyMatOut(uint ivLength)
+        internal CkSsl3KeyMatOut(NativeULong ivLength)
         {
             _lowLevelStruct.ClientMacSecret = 0;
             _lowLevelStruct.ServerMacSecret = 0;
@@ -146,8 +148,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 
             if (_ivLength > 0)
             {
-                _lowLevelStruct.IVClient = UnmanagedMemory.Allocate(Convert.ToInt32(_ivLength));
-                _lowLevelStruct.IVServer = UnmanagedMemory.Allocate(Convert.ToInt32(_ivLength));
+                _lowLevelStruct.IVClient = UnmanagedMemory.Allocate(NativeLongUtils.ConvertToInt32(_ivLength));
+                _lowLevelStruct.IVServer = UnmanagedMemory.Allocate(NativeLongUtils.ConvertToInt32(_ivLength));
             }
         }
 

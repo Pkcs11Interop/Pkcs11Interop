@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
 {
@@ -38,7 +39,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// Handle to a key that will contribute to the entropy of the derived key (CKM_KIP_DERIVE) or will be used in the MAC operation (CKM_KIP_MAC)
         /// </summary>
-        public uint Key;
+        public NativeULong Key;
 
         /// <summary>
         /// Pointer to an input seed
@@ -48,6 +49,6 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// Length in bytes of the input seed
         /// </summary>
-        public uint SeedLen;
+        public NativeULong SeedLen;
     }
 }

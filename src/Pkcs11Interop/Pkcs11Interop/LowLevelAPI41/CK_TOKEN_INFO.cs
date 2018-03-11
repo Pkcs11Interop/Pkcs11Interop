@@ -20,6 +20,7 @@
  */
 
 using System.Runtime.InteropServices;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI41
 {
@@ -56,57 +57,57 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
         /// <summary>
         /// Bit flags indicating capabilities and status of the device
         /// </summary>
-        public uint Flags;
+        public NativeULong Flags;
 
         /// <summary>
         /// Maximum number of sessions that can be opened with the token at one time by a single application
         /// </summary>
-        public uint MaxSessionCount;
+        public NativeULong MaxSessionCount;
 
         /// <summary>
         /// Number of sessions that this application currently has open with the token
         /// </summary>
-        public uint SessionCount;
+        public NativeULong SessionCount;
 
         /// <summary>
         /// Maximum number of read/write sessions that can be opened with the token at one time by a single application
         /// </summary>
-        public uint MaxRwSessionCount;
+        public NativeULong MaxRwSessionCount;
 
         /// <summary>
         /// Number of read/write sessions that this application currently has open with the token
         /// </summary>
-        public uint RwSessionCount;
+        public NativeULong RwSessionCount;
 
         /// <summary>
         /// Maximum length in bytes of the PIN
         /// </summary>
-        public uint MaxPinLen;
+        public NativeULong MaxPinLen;
 
         /// <summary>
         /// Minimum length in bytes of the PIN
         /// </summary>
-        public uint MinPinLen;
+        public NativeULong MinPinLen;
 
         /// <summary>
         /// The total amount of memory on the token in bytes in which public objects may be stored
         /// </summary>
-        public uint TotalPublicMemory;
+        public NativeULong TotalPublicMemory;
 
         /// <summary>
         /// The amount of free (unused) memory on the token in bytes for public objects
         /// </summary>
-        public uint FreePublicMemory;
+        public NativeULong FreePublicMemory;
 
         /// <summary>
         /// The total amount of memory on the token in bytes in which private objects may be stored
         /// </summary>
-        public uint TotalPrivateMemory;
+        public NativeULong TotalPrivateMemory;
 
         /// <summary>
         /// The amount of free (unused) memory on the token in bytes for private objects
         /// </summary>
-        public uint FreePrivateMemory;
+        public NativeULong FreePrivateMemory;
 
         /// <summary>
         /// Version number of hardware

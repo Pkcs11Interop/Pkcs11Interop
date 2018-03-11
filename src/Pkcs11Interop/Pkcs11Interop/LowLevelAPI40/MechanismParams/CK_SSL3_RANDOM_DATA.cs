@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
 {
@@ -38,7 +39,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
         /// <summary>
         /// Length in bytes of the client's random data
         /// </summary>
-        public uint ClientRandomLen;
+        public NativeULong ClientRandomLen;
 
         /// <summary>
         /// Pointer to the server's random data
@@ -48,6 +49,6 @@ namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
         /// <summary>
         /// Length in bytes of the server's random data
         /// </summary>
-        public uint ServerRandomLen;
+        public NativeULong ServerRandomLen;
     }
 }

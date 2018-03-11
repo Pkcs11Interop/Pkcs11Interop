@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
 {
@@ -33,17 +34,17 @@ namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
         /// <summary>
         /// The length (in bits) of the MACing keys agreed upon during the protocol handshake phase
         /// </summary>
-        public uint MacSizeInBits;
+        public NativeULong MacSizeInBits;
 
         /// <summary>
         /// The length (in bits) of the secret keys agreed upon during the protocol handshake phase
         /// </summary>
-        public uint KeySizeInBits;
+        public NativeULong KeySizeInBits;
 
         /// <summary>
         /// The length (in bits) of the IV agreed upon during the protocol handshake phase or if no IV is required, the length should be set to 0
         /// </summary>
-        public uint IVSizeInBits;
+        public NativeULong IVSizeInBits;
 
         /// <summary>
         /// Flag which indicates whether the keys have to be derived for an export version of the protocol

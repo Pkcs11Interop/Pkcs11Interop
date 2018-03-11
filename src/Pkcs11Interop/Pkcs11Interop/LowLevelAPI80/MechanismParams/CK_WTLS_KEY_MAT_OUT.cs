@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
 {
@@ -33,12 +34,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
         /// <summary>
         /// Key handle for the resulting MAC secret key
         /// </summary>
-        public ulong MacSecret;
+        public NativeULong MacSecret;
 
         /// <summary>
         /// Key handle for the resulting secret key
         /// </summary>
-        public ulong Key;
+        public NativeULong Key;
 
         /// <summary>
         /// Pointer to a location which receives the initialization vector (IV) created (if any)

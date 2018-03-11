@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
 {
@@ -33,7 +34,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
         /// <summary>
         /// Length of old wrapped key in bytes
         /// </summary>
-        public ulong OldWrappedXLen;
+        public NativeULong OldWrappedXLen;
 
         /// <summary>
         /// Pointer to old wrapper key
@@ -43,7 +44,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
         /// <summary>
         /// Length of the old password
         /// </summary>
-        public ulong OldPasswordLen;
+        public NativeULong OldPasswordLen;
 
         /// <summary>
         /// Pointer to the buffer which contains the old user-supplied password
@@ -53,7 +54,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
         /// <summary>
         /// Old key exchange public key size
         /// </summary>
-        public ulong OldPublicDataLen;
+        public NativeULong OldPublicDataLen;
 
         /// <summary>
         /// Pointer to old key exchange public key value
@@ -63,7 +64,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
         /// <summary>
         /// Size of old random Ra in bytes
         /// </summary>
-        public ulong OldRandomLen;
+        public NativeULong OldRandomLen;
 
         /// <summary>
         /// Pointer to old Ra data
@@ -73,7 +74,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
         /// <summary>
         /// Length of the new password
         /// </summary>
-        public ulong NewPasswordLen;
+        public NativeULong NewPasswordLen;
 
         /// <summary>
         /// Pointer to the buffer which contains the new usersupplied password
@@ -83,7 +84,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
         /// <summary>
         /// New key exchange public key size
         /// </summary>
-        public ulong NewPublicDataLen;
+        public NativeULong NewPublicDataLen;
 
         /// <summary>
         /// Pointer to new key exchange public key value
@@ -93,7 +94,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
         /// <summary>
         /// Size of new random Ra in bytes
         /// </summary>
-        public ulong NewRandomLen;
+        public NativeULong NewRandomLen;
 
         /// <summary>
         /// Pointer to new Ra data

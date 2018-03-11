@@ -21,6 +21,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI81;
 using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
@@ -56,14 +57,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
             {
                 _lowLevelStruct.ClientRandom = UnmanagedMemory.Allocate(clientRandom.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.ClientRandom, clientRandom);
-                _lowLevelStruct.ClientRandomLen = Convert.ToUInt64(clientRandom.Length);
+                _lowLevelStruct.ClientRandomLen = NativeLongUtils.ConvertFromInt32(clientRandom.Length);
             }
             
             if (serverRandom != null)
             {
                 _lowLevelStruct.ServerRandom = UnmanagedMemory.Allocate(serverRandom.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.ServerRandom, serverRandom);
-                _lowLevelStruct.ServerRandomLen = Convert.ToUInt64(serverRandom.Length);
+                _lowLevelStruct.ServerRandomLen = NativeLongUtils.ConvertFromInt32(serverRandom.Length);
             }
         }
         

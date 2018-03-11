@@ -22,6 +22,7 @@
 using System;
 using System.Runtime.InteropServices;
 using Net.Pkcs11Interop.Common;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI80
 {
@@ -136,8 +137,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_Initialize(initArgs);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_Initialize(initArgs);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -150,8 +151,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_Finalize(reserved);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_Finalize(reserved);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -164,8 +165,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_GetInfo(ref info);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_GetInfo(ref info);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -178,8 +179,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_GetFunctionList(out functionList);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_GetFunctionList(out functionList);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -192,13 +193,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </param>
         /// <param name="count">Location that receives the number of slots</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK</returns>
-        public CKR C_GetSlotList(bool tokenPresent, ulong[] slotList, ref ulong count)
+        public CKR C_GetSlotList(bool tokenPresent, NativeULong[] slotList, ref NativeULong count)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_GetSlotList(tokenPresent, slotList, ref count);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_GetSlotList(tokenPresent, slotList, ref count);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -207,13 +208,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="slotId">The ID of the slot</param>
         /// <param name="info">Structure that receives the slot information</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_SLOT_ID_INVALID</returns>
-        public CKR C_GetSlotInfo(ulong slotId, ref CK_SLOT_INFO info)
+        public CKR C_GetSlotInfo(NativeULong slotId, ref CK_SLOT_INFO info)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_GetSlotInfo(slotId, ref info);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_GetSlotInfo(slotId, ref info);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -222,13 +223,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="slotId">The ID of the token's slot</param>
         /// <param name="info">Structure that receives the token information</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_SLOT_ID_INVALID, CKR_TOKEN_NOT_PRESENT, CKR_TOKEN_NOT_RECOGNIZED, CKR_ARGUMENTS_BAD</returns>
-        public CKR C_GetTokenInfo(ulong slotId, ref CK_TOKEN_INFO info)
+        public CKR C_GetTokenInfo(NativeULong slotId, ref CK_TOKEN_INFO info)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_GetTokenInfo(slotId, ref info);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_GetTokenInfo(slotId, ref info);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -241,24 +242,24 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </param>
         /// <param name="count">Location that receives the number of mechanisms</param>
         /// <returns>CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_SLOT_ID_INVALID, CKR_TOKEN_NOT_PRESENT, CKR_TOKEN_NOT_RECOGNIZED, CKR_ARGUMENTS_BAD</returns>
-        public CKR C_GetMechanismList(ulong slotId, CKM[] mechanismList, ref ulong count)
+        public CKR C_GetMechanismList(NativeULong slotId, CKM[] mechanismList, ref NativeULong count)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong[] ulongList = null;
+            NativeULong[] nativeULongList = null;
             if (mechanismList != null)
-                ulongList = new ulong[mechanismList.Length];
+                nativeULongList = new NativeULong[mechanismList.Length];
 
-            ulong rv = _delegates.C_GetMechanismList(slotId, ulongList, ref count);
+            NativeULong rv = _delegates.C_GetMechanismList(slotId, nativeULongList, ref count);
 
             if (mechanismList != null)
             {
                 for (int i = 0; i < mechanismList.Length; i++)
-                    mechanismList[i] = (CKM)Convert.ToUInt32(ulongList[i]);
+                    mechanismList[i] = NativeLongUtils.ConvertToCKM(nativeULongList[i]);
             }
 
-            return (CKR)Convert.ToUInt32(rv);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -268,13 +269,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="type">The type of mechanism</param>
         /// <param name="info">Structure that receives the mechanism information</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_MECHANISM_INVALID, CKR_OK, CKR_SLOT_ID_INVALID, CKR_TOKEN_NOT_PRESENT, CKR_TOKEN_NOT_RECOGNIZED, CKR_ARGUMENTS_BAD</returns>
-        public CKR C_GetMechanismInfo(ulong slotId, CKM type, ref CK_MECHANISM_INFO info)
+        public CKR C_GetMechanismInfo(NativeULong slotId, CKM type, ref CK_MECHANISM_INFO info)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_GetMechanismInfo(slotId, Convert.ToUInt64(type), ref info);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_GetMechanismInfo(slotId, NativeLongUtils.ConvertFromCKM(type), ref info);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -285,13 +286,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="pinLen">The length of the PIN in bytes</param>
         /// <param name="label">32-byte long label of the token which must be padded with blank characters</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_PIN_INCORRECT, CKR_PIN_LOCKED, CKR_SESSION_EXISTS, CKR_SLOT_ID_INVALID, CKR_TOKEN_NOT_PRESENT, CKR_TOKEN_NOT_RECOGNIZED, CKR_TOKEN_WRITE_PROTECTED, CKR_ARGUMENTS_BAD</returns>
-        public CKR C_InitToken(ulong slotId, byte[] pin, ulong pinLen, byte[] label)
+        public CKR C_InitToken(NativeULong slotId, byte[] pin, NativeULong pinLen, byte[] label)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_InitToken(slotId, pin, pinLen, label);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_InitToken(slotId, pin, pinLen, label);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -301,13 +302,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="pin">Normal user's PIN or null to use protected authentication path (pinpad)</param>
         /// <param name="pinLen">The length of the PIN in bytes</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_PIN_INVALID, CKR_PIN_LEN_RANGE, CKR_SESSION_CLOSED, CKR_SESSION_READ_ONLY, CKR_SESSION_HANDLE_INVALID, CKR_TOKEN_WRITE_PROTECTED, CKR_USER_NOT_LOGGED_IN, CKR_ARGUMENTS_BAD</returns>
-        public CKR C_InitPIN(ulong session, byte[] pin, ulong pinLen)
+        public CKR C_InitPIN(NativeULong session, byte[] pin, NativeULong pinLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_InitPIN(session, pin, pinLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_InitPIN(session, pin, pinLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -319,13 +320,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="newPin">New PIN or null to use protected authentication path (pinpad)</param>
         /// <param name="newPinLen">The length of the new PIN in bytes</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_PIN_INCORRECT, CKR_PIN_INVALID, CKR_PIN_LEN_RANGE, CKR_PIN_LOCKED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TOKEN_WRITE_PROTECTED, CKR_ARGUMENTS_BAD</returns>
-        public CKR C_SetPIN(ulong session, byte[] oldPin, ulong oldPinLen, byte[] newPin, ulong newPinLen)
+        public CKR C_SetPIN(NativeULong session, byte[] oldPin, NativeULong oldPinLen, byte[] newPin, NativeULong newPinLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_SetPIN(session, oldPin, oldPinLen, newPin, newPinLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_SetPIN(session, oldPin, oldPinLen, newPin, newPinLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -337,13 +338,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="notify">The address of the notification callback function</param>
         /// <param name="session">Location that receives the handle for the new session</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_SESSION_COUNT, CKR_SESSION_PARALLEL_NOT_SUPPORTED, CKR_SESSION_READ_WRITE_SO_EXISTS, CKR_SLOT_ID_INVALID, CKR_TOKEN_NOT_PRESENT, CKR_TOKEN_NOT_RECOGNIZED, CKR_TOKEN_WRITE_PROTECTED, CKR_ARGUMENTS_BAD</returns>
-        public CKR C_OpenSession(ulong slotId, ulong flags, IntPtr application, IntPtr notify, ref ulong session)
+        public CKR C_OpenSession(NativeULong slotId, NativeULong flags, IntPtr application, IntPtr notify, ref NativeULong session)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_OpenSession(slotId, flags, application, notify, ref session);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_OpenSession(slotId, flags, application, notify, ref session);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -351,13 +352,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </summary>
         /// <param name="session">The session's handle</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_CloseSession(ulong session)
+        public CKR C_CloseSession(NativeULong session)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_CloseSession(session);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_CloseSession(session);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -365,13 +366,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </summary>
         /// <param name="slotId">The ID of the token's slot</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_SLOT_ID_INVALID, CKR_TOKEN_NOT_PRESENT</returns>
-        public CKR C_CloseAllSessions(ulong slotId)
+        public CKR C_CloseAllSessions(NativeULong slotId)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_CloseAllSessions(slotId);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_CloseAllSessions(slotId);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -380,13 +381,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="session">The session's handle</param>
         /// <param name="info">Structure that receives the session information</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_ARGUMENTS_BAD</returns>
-        public CKR C_GetSessionInfo(ulong session, ref CK_SESSION_INFO info)
+        public CKR C_GetSessionInfo(NativeULong session, ref CK_SESSION_INFO info)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_GetSessionInfo(session, ref info);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_GetSessionInfo(session, ref info);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -399,13 +400,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </param>
         /// <param name="operationStateLen">Location that receives the length in bytes of the state</param>
         /// <returns>CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_STATE_UNSAVEABLE, CKR_ARGUMENTS_BAD</returns>
-        public CKR C_GetOperationState(ulong session, byte[] operationState, ref ulong operationStateLen)
+        public CKR C_GetOperationState(NativeULong session, byte[] operationState, ref NativeULong operationStateLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_GetOperationState(session, operationState, ref operationStateLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_GetOperationState(session, operationState, ref operationStateLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -417,13 +418,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="encryptionKey">Handle to the key which will be used for an ongoing encryption or decryption operation in the restored session or CK_INVALID_HANDLE if not needed</param>
         /// <param name="authenticationKey">Handle to the key which will be used for an ongoing operation in the restored session or CK_INVALID_HANDLE if not needed</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_CHANGED, CKR_KEY_NEEDED, CKR_KEY_NOT_NEEDED, CKR_OK, CKR_SAVED_STATE_INVALID, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_ARGUMENTS_BAD</returns>
-        public CKR C_SetOperationState(ulong session, byte[] operationState, ulong operationStateLen, ulong encryptionKey, ulong authenticationKey)
+        public CKR C_SetOperationState(NativeULong session, byte[] operationState, NativeULong operationStateLen, NativeULong encryptionKey, NativeULong authenticationKey)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_SetOperationState(session, operationState, operationStateLen, encryptionKey, authenticationKey);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_SetOperationState(session, operationState, operationStateLen, encryptionKey, authenticationKey);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -434,13 +435,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="pin">User's PIN or null to use protected authentication path (pinpad)</param>
         /// <param name="pinLen">Length of user's PIN</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_PIN_INCORRECT, CKR_PIN_LOCKED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY_EXISTS, CKR_USER_ALREADY_LOGGED_IN, CKR_USER_ANOTHER_ALREADY_LOGGED_IN, CKR_USER_PIN_NOT_INITIALIZED, CKR_USER_TOO_MANY_TYPES, CKR_USER_TYPE_INVALID</returns>
-        public CKR C_Login(ulong session, CKU userType, byte[] pin, ulong pinLen)
+        public CKR C_Login(NativeULong session, CKU userType, byte[] pin, NativeULong pinLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_Login(session, Convert.ToUInt64(userType), pin, pinLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_Login(session, NativeLongUtils.ConvertFromCKU(userType), pin, pinLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -448,13 +449,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </summary>
         /// <param name="session">The session's handle</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_Logout(ulong session)
+        public CKR C_Logout(NativeULong session)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_Logout(session);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_Logout(session);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -465,13 +466,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="count">The number of attributes in the template</param>
         /// <param name="objectId">Location that receives the new object's handle</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_READ_ONLY, CKR_ATTRIBUTE_TYPE_INVALID, CKR_ATTRIBUTE_VALUE_INVALID, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_CURVE_NOT_SUPPORTED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_DOMAIN_PARAMS_INVALID, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TEMPLATE_INCOMPLETE, CKR_TEMPLATE_INCONSISTENT, CKR_TOKEN_WRITE_PROTECTED, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_CreateObject(ulong session, CK_ATTRIBUTE[] template, ulong count, ref ulong objectId)
+        public CKR C_CreateObject(NativeULong session, CK_ATTRIBUTE[] template, NativeULong count, ref NativeULong objectId)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_CreateObject(session, template, count, ref objectId);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_CreateObject(session, template, count, ref objectId);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -483,13 +484,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="count">The number of attributes in the template</param>
         /// <param name="newObjectId">Location that receives the handle for the copy of the object</param>
         /// <returns>CKR_ACTION_PROHIBITED, CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_READ_ONLY, CKR_ATTRIBUTE_TYPE_INVALID, CKR_ATTRIBUTE_VALUE_INVALID, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OBJECT_HANDLE_INVALID, CKR_OK, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TEMPLATE_INCONSISTENT, CKR_TOKEN_WRITE_PROTECTED, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_CopyObject(ulong session, ulong objectId, CK_ATTRIBUTE[] template, ulong count, ref ulong newObjectId)
+        public CKR C_CopyObject(NativeULong session, NativeULong objectId, CK_ATTRIBUTE[] template, NativeULong count, ref NativeULong newObjectId)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_CopyObject(session, objectId, template, count, ref newObjectId);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_CopyObject(session, objectId, template, count, ref newObjectId);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -498,13 +499,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="session">The session's handle</param>
         /// <param name="objectId">The object's handle</param>
         /// <returns>CKR_ACTION_PROHIBITED, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OBJECT_HANDLE_INVALID, CKR_OK, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TOKEN_WRITE_PROTECTED</returns>
-        public CKR C_DestroyObject(ulong session, ulong objectId)
+        public CKR C_DestroyObject(NativeULong session, NativeULong objectId)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_DestroyObject(session, objectId);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_DestroyObject(session, objectId);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -514,13 +515,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="objectId">The object's handle</param>
         /// <param name="size">Location that receives the size in bytes of the object</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_INFORMATION_SENSITIVE, CKR_OBJECT_HANDLE_INVALID, CKR_OK, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_GetObjectSize(ulong session, ulong objectId, ref ulong size)
+        public CKR C_GetObjectSize(NativeULong session, NativeULong objectId, ref NativeULong size)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_GetObjectSize(session, objectId, ref size);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_GetObjectSize(session, objectId, ref size);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -531,13 +532,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="template">Template that specifies which attribute values are to be obtained, and receives the attribute values</param>
         /// <param name="count">The number of attributes in the template</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_SENSITIVE, CKR_ATTRIBUTE_TYPE_INVALID, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OBJECT_HANDLE_INVALID, CKR_OK, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_GetAttributeValue(ulong session, ulong objectId, CK_ATTRIBUTE[] template, ulong count)
+        public CKR C_GetAttributeValue(NativeULong session, NativeULong objectId, CK_ATTRIBUTE[] template, NativeULong count)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_GetAttributeValue(session, objectId, template, count);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_GetAttributeValue(session, objectId, template, count);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -548,13 +549,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="template">Template that specifies which attribute values are to be modified and their new values</param>
         /// <param name="count">The number of attributes in the template</param>
         /// <returns>CKR_ACTION_PROHIBITED, CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_READ_ONLY, CKR_ATTRIBUTE_TYPE_INVALID, CKR_ATTRIBUTE_VALUE_INVALID, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OBJECT_HANDLE_INVALID, CKR_OK, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TEMPLATE_INCONSISTENT, CKR_TOKEN_WRITE_PROTECTED, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_SetAttributeValue(ulong session, ulong objectId, CK_ATTRIBUTE[] template, ulong count)
+        public CKR C_SetAttributeValue(NativeULong session, NativeULong objectId, CK_ATTRIBUTE[] template, NativeULong count)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_SetAttributeValue(session, objectId, template, count);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_SetAttributeValue(session, objectId, template, count);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -564,13 +565,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="template">Search template that specifies the attribute values to match</param>
         /// <param name="count">The number of attributes in the search template</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_TYPE_INVALID, CKR_ATTRIBUTE_VALUE_INVALID, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_FindObjectsInit(ulong session, CK_ATTRIBUTE[] template, ulong count)
+        public CKR C_FindObjectsInit(NativeULong session, CK_ATTRIBUTE[] template, NativeULong count)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_FindObjectsInit(session, template, count);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_FindObjectsInit(session, template, count);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -581,13 +582,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="maxObjectCount">The maximum number of object handles to be returned</param>
         /// <param name="objectCount">Location that receives the actual number of object handles returned</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_FindObjects(ulong session, ulong[] objectId, ulong maxObjectCount, ref ulong objectCount)
+        public CKR C_FindObjects(NativeULong session, NativeULong[] objectId, NativeULong maxObjectCount, ref NativeULong objectCount)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_FindObjects(session, objectId, maxObjectCount, ref objectCount);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_FindObjects(session, objectId, maxObjectCount, ref objectCount);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -595,13 +596,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </summary>
         /// <param name="session">The session's handle</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_FindObjectsFinal(ulong session)
+        public CKR C_FindObjectsFinal(NativeULong session)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_FindObjectsFinal(session);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_FindObjectsFinal(session);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -611,13 +612,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="mechanism">The encryption mechanism</param>
         /// <param name="key">The handle of the encryption key</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_FUNCTION_NOT_PERMITTED, CKR_KEY_HANDLE_INVALID, CKR_KEY_SIZE_RANGE, CKR_KEY_TYPE_INCONSISTENT, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_EncryptInit(ulong session, ref CK_MECHANISM mechanism, ulong key)
+        public CKR C_EncryptInit(NativeULong session, ref CK_MECHANISM mechanism, NativeULong key)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_EncryptInit(session, ref mechanism, key);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_EncryptInit(session, ref mechanism, key);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -632,13 +633,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </param>
         /// <param name="encryptedDataLen">Location that holds the length in bytes of the encrypted data</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_INVALID, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_Encrypt(ulong session, byte[] data, ulong dataLen, byte[] encryptedData, ref ulong encryptedDataLen)
+        public CKR C_Encrypt(NativeULong session, byte[] data, NativeULong dataLen, byte[] encryptedData, ref NativeULong encryptedDataLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_Encrypt(session, data, dataLen, encryptedData, ref encryptedDataLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_Encrypt(session, data, dataLen, encryptedData, ref encryptedDataLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -653,13 +654,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </param>
         /// <param name="encryptedPartLen">Location that holds the length in bytes of the encrypted data part</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_EncryptUpdate(ulong session, byte[] part, ulong partLen, byte[] encryptedPart, ref ulong encryptedPartLen)
+        public CKR C_EncryptUpdate(NativeULong session, byte[] part, NativeULong partLen, byte[] encryptedPart, ref NativeULong encryptedPartLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_EncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_EncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -672,13 +673,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </param>
         /// <param name="lastEncryptedPartLen">Location that holds the length of the last encrypted data part</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_EncryptFinal(ulong session, byte[] lastEncryptedPart, ref ulong lastEncryptedPartLen)
+        public CKR C_EncryptFinal(NativeULong session, byte[] lastEncryptedPart, ref NativeULong lastEncryptedPartLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_EncryptFinal(session, lastEncryptedPart, ref lastEncryptedPartLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_EncryptFinal(session, lastEncryptedPart, ref lastEncryptedPartLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -688,13 +689,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="mechanism">The decryption mechanism</param>
         /// <param name="key">The handle of the decryption key</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_FUNCTION_NOT_PERMITTED, CKR_KEY_HANDLE_INVALID, CKR_KEY_SIZE_RANGE, CKR_KEY_TYPE_INCONSISTENT, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_DecryptInit(ulong session, ref CK_MECHANISM mechanism, ulong key)
+        public CKR C_DecryptInit(NativeULong session, ref CK_MECHANISM mechanism, NativeULong key)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_DecryptInit(session, ref mechanism, key);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_DecryptInit(session, ref mechanism, key);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -709,13 +710,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </param>
         /// <param name="dataLen">Location that holds the length of the decrypted data</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_ENCRYPTED_DATA_INVALID, CKR_ENCRYPTED_DATA_LEN_RANGE, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_Decrypt(ulong session, byte[] encryptedData, ulong encryptedDataLen, byte[] data, ref ulong dataLen)
+        public CKR C_Decrypt(NativeULong session, byte[] encryptedData, NativeULong encryptedDataLen, byte[] data, ref NativeULong dataLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_Decrypt(session, encryptedData, encryptedDataLen, data, ref dataLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_Decrypt(session, encryptedData, encryptedDataLen, data, ref dataLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -730,13 +731,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </param>
         /// <param name="partLen">Location that holds the length of the decrypted data part</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_ENCRYPTED_DATA_INVALID, CKR_ENCRYPTED_DATA_LEN_RANGE, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_DecryptUpdate(ulong session, byte[] encryptedPart, ulong encryptedPartLen, byte[] part, ref ulong partLen)
+        public CKR C_DecryptUpdate(NativeULong session, byte[] encryptedPart, NativeULong encryptedPartLen, byte[] part, ref NativeULong partLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_DecryptUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_DecryptUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -749,13 +750,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </param>
         /// <param name="lastPartLen">Location that holds the length of the last decrypted data part</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_ENCRYPTED_DATA_INVALID, CKR_ENCRYPTED_DATA_LEN_RANGE, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_DecryptFinal(ulong session, byte[] lastPart, ref ulong lastPartLen)
+        public CKR C_DecryptFinal(NativeULong session, byte[] lastPart, ref NativeULong lastPartLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_DecryptFinal(session, lastPart, ref lastPartLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_DecryptFinal(session, lastPart, ref lastPartLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -764,13 +765,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="session">The session's handle</param>
         /// <param name="mechanism">The digesting mechanism</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_DigestInit(ulong session, ref CK_MECHANISM mechanism)
+        public CKR C_DigestInit(NativeULong session, ref CK_MECHANISM mechanism)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_DigestInit(session, ref mechanism);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_DigestInit(session, ref mechanism);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -785,13 +786,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </param>
         /// <param name="digestLen">Location that holds the length of the message digest</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_Digest(ulong session, byte[] data, ulong dataLen, byte[] digest, ref ulong digestLen)
+        public CKR C_Digest(NativeULong session, byte[] data, NativeULong dataLen, byte[] digest, ref NativeULong digestLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_Digest(session, data, dataLen, digest, ref digestLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_Digest(session, data, dataLen, digest, ref digestLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -801,13 +802,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="part">Data part</param>
         /// <param name="partLen">The length of the data part</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_DigestUpdate(ulong session, byte[] part, ulong partLen)
+        public CKR C_DigestUpdate(NativeULong session, byte[] part, NativeULong partLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_DigestUpdate(session, part, partLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_DigestUpdate(session, part, partLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -816,13 +817,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="session">The session's handle</param>
         /// <param name="key">The handle of the secret key to be digested</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_HANDLE_INVALID, CKR_KEY_INDIGESTIBLE, CKR_KEY_SIZE_RANGE, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_DigestKey(ulong session, ulong key)
+        public CKR C_DigestKey(NativeULong session, NativeULong key)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_DigestKey(session, key);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_DigestKey(session, key);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -835,13 +836,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </param>
         /// <param name="digestLen">Location that holds the length of the message digest</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_DigestFinal(ulong session, byte[] digest, ref ulong digestLen)
+        public CKR C_DigestFinal(NativeULong session, byte[] digest, ref NativeULong digestLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_DigestFinal(session, digest, ref digestLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_DigestFinal(session, digest, ref digestLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -851,13 +852,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="mechanism">Signature mechanism</param>
         /// <param name="key">Handle of the signature key</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_FUNCTION_NOT_PERMITTED,CKR_KEY_HANDLE_INVALID, CKR_KEY_SIZE_RANGE, CKR_KEY_TYPE_INCONSISTENT, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_SignInit(ulong session, ref CK_MECHANISM mechanism, ulong key)
+        public CKR C_SignInit(NativeULong session, ref CK_MECHANISM mechanism, NativeULong key)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_SignInit(session, ref mechanism, key);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_SignInit(session, ref mechanism, key);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -872,13 +873,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </param>
         /// <param name="signatureLen">Location that holds the length of the signature</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_INVALID, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN, CKR_FUNCTION_REJECTED</returns>
-        public CKR C_Sign(ulong session, byte[] data, ulong dataLen, byte[] signature, ref ulong signatureLen)
+        public CKR C_Sign(NativeULong session, byte[] data, NativeULong dataLen, byte[] signature, ref NativeULong signatureLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_Sign(session, data, dataLen, signature, ref signatureLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_Sign(session, data, dataLen, signature, ref signatureLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -888,13 +889,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="part">Data part</param>
         /// <param name="partLen">The length of the data part</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_SignUpdate(ulong session, byte[] part, ulong partLen)
+        public CKR C_SignUpdate(NativeULong session, byte[] part, NativeULong partLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_SignUpdate(session, part, partLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_SignUpdate(session, part, partLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -907,13 +908,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </param>
         /// <param name="signatureLen">Location that holds the length of the signature</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN, CKR_FUNCTION_REJECTED</returns>
-        public CKR C_SignFinal(ulong session, byte[] signature, ref ulong signatureLen)
+        public CKR C_SignFinal(NativeULong session, byte[] signature, ref NativeULong signatureLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_SignFinal(session, signature, ref signatureLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_SignFinal(session, signature, ref signatureLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -923,13 +924,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="mechanism">Signature mechanism</param>
         /// <param name="key">Handle of the signature key</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_FUNCTION_NOT_PERMITTED, CKR_KEY_HANDLE_INVALID, CKR_KEY_SIZE_RANGE, CKR_KEY_TYPE_INCONSISTENT, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_SignRecoverInit(ulong session, ref CK_MECHANISM mechanism, ulong key)
+        public CKR C_SignRecoverInit(NativeULong session, ref CK_MECHANISM mechanism, NativeULong key)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_SignRecoverInit(session, ref mechanism, key);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_SignRecoverInit(session, ref mechanism, key);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -944,13 +945,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </param>
         /// <param name="signatureLen">Location that holds the length of the signature</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_INVALID, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_SignRecover(ulong session, byte[] data, ulong dataLen, byte[] signature, ref ulong signatureLen)
+        public CKR C_SignRecover(NativeULong session, byte[] data, NativeULong dataLen, byte[] signature, ref NativeULong signatureLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_SignRecover(session, data, dataLen, signature, ref signatureLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_SignRecover(session, data, dataLen, signature, ref signatureLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -960,13 +961,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="mechanism">The verification mechanism</param>
         /// <param name="key">The handle of the verification key</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_FUNCTION_NOT_PERMITTED, CKR_KEY_HANDLE_INVALID, CKR_KEY_SIZE_RANGE, CKR_KEY_TYPE_INCONSISTENT, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_VerifyInit(ulong session, ref CK_MECHANISM mechanism, ulong key)
+        public CKR C_VerifyInit(NativeULong session, ref CK_MECHANISM mechanism, NativeULong key)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_VerifyInit(session, ref mechanism, key);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_VerifyInit(session, ref mechanism, key);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -978,13 +979,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="signature">Signature of data</param>
         /// <param name="signatureLen">The length of signature</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_INVALID, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SIGNATURE_INVALID, CKR_SIGNATURE_LEN_RANGE</returns>
-        public CKR C_Verify(ulong session, byte[] data, ulong dataLen, byte[] signature, ulong signatureLen)
+        public CKR C_Verify(NativeULong session, byte[] data, NativeULong dataLen, byte[] signature, NativeULong signatureLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_Verify(session, data, dataLen, signature, signatureLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_Verify(session, data, dataLen, signature, signatureLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -994,13 +995,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="part">Data part</param>
         /// <param name="partLen">The length of the data part</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_VerifyUpdate(ulong session, byte[] part, ulong partLen)
+        public CKR C_VerifyUpdate(NativeULong session, byte[] part, NativeULong partLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_VerifyUpdate(session, part, partLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_VerifyUpdate(session, part, partLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -1010,13 +1011,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="signature">Signature</param>
         /// <param name="signatureLen">The length of signature</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SIGNATURE_INVALID, CKR_SIGNATURE_LEN_RANGE</returns>
-        public CKR C_VerifyFinal(ulong session, byte[] signature, ulong signatureLen)
+        public CKR C_VerifyFinal(NativeULong session, byte[] signature, NativeULong signatureLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_VerifyFinal(session, signature, signatureLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_VerifyFinal(session, signature, signatureLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -1026,13 +1027,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="mechanism">Verification mechanism</param>
         /// <param name="key">The handle of the verification key</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_FUNCTION_NOT_PERMITTED, CKR_KEY_HANDLE_INVALID, CKR_KEY_SIZE_RANGE, CKR_KEY_TYPE_INCONSISTENT, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_VerifyRecoverInit(ulong session, ref CK_MECHANISM mechanism, ulong key)
+        public CKR C_VerifyRecoverInit(NativeULong session, ref CK_MECHANISM mechanism, NativeULong key)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_VerifyRecoverInit(session, ref mechanism, key);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_VerifyRecoverInit(session, ref mechanism, key);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -1047,13 +1048,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </param>
         /// <param name="dataLen">Location that holds the length of the decrypted data</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_INVALID, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SIGNATURE_LEN_RANGE, CKR_SIGNATURE_INVALID</returns>
-        public CKR C_VerifyRecover(ulong session, byte[] signature, ulong signatureLen, byte[] data, ref ulong dataLen)
+        public CKR C_VerifyRecover(NativeULong session, byte[] signature, NativeULong signatureLen, byte[] data, ref NativeULong dataLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_VerifyRecover(session, signature, signatureLen, data, ref dataLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_VerifyRecover(session, signature, signatureLen, data, ref dataLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -1068,13 +1069,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </param>
         /// <param name="encryptedPartLen">Location that holds the length in bytes of the encrypted data part</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_DigestEncryptUpdate(ulong session, byte[] part, ulong partLen, byte[] encryptedPart, ref ulong encryptedPartLen)
+        public CKR C_DigestEncryptUpdate(NativeULong session, byte[] part, NativeULong partLen, byte[] encryptedPart, ref NativeULong encryptedPartLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_DigestEncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_DigestEncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -1089,13 +1090,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </param>
         /// <param name="partLen">Location that holds the length of the decrypted data part</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_ENCRYPTED_DATA_INVALID, CKR_ENCRYPTED_DATA_LEN_RANGE, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_DecryptDigestUpdate(ulong session, byte[] encryptedPart, ulong encryptedPartLen, byte[] part, ref ulong partLen)
+        public CKR C_DecryptDigestUpdate(NativeULong session, byte[] encryptedPart, NativeULong encryptedPartLen, byte[] part, ref NativeULong partLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_DecryptDigestUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_DecryptDigestUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -1110,13 +1111,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </param>
         /// <param name="encryptedPartLen">Location that holds the length in bytes of the encrypted data part</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_SignEncryptUpdate(ulong session, byte[] part, ulong partLen, byte[] encryptedPart, ref ulong encryptedPartLen)
+        public CKR C_SignEncryptUpdate(NativeULong session, byte[] part, NativeULong partLen, byte[] encryptedPart, ref NativeULong encryptedPartLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_SignEncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_SignEncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -1131,13 +1132,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </param>
         /// <param name="partLen">Location that holds the length of the decrypted data part</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DATA_LEN_RANGE, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_ENCRYPTED_DATA_INVALID, CKR_ENCRYPTED_DATA_LEN_RANGE, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_NOT_INITIALIZED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID</returns>
-        public CKR C_DecryptVerifyUpdate(ulong session, byte[] encryptedPart, ulong encryptedPartLen, byte[] part, ref ulong partLen)
+        public CKR C_DecryptVerifyUpdate(NativeULong session, byte[] encryptedPart, NativeULong encryptedPartLen, byte[] part, ref NativeULong partLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_DecryptVerifyUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_DecryptVerifyUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -1149,13 +1150,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="count">The number of attributes in the template</param>
         /// <param name="key">Location that receives the handle of the new key or set of domain parameters</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_READ_ONLY, CKR_ATTRIBUTE_TYPE_INVALID, CKR_ATTRIBUTE_VALUE_INVALID, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_CURVE_NOT_SUPPORTED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TEMPLATE_INCOMPLETE, CKR_TEMPLATE_INCONSISTENT, CKR_TOKEN_WRITE_PROTECTED, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_GenerateKey(ulong session, ref CK_MECHANISM mechanism, CK_ATTRIBUTE[] template, ulong count, ref ulong key)
+        public CKR C_GenerateKey(NativeULong session, ref CK_MECHANISM mechanism, CK_ATTRIBUTE[] template, NativeULong count, ref NativeULong key)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_GenerateKey(session, ref mechanism, template, count, ref key);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_GenerateKey(session, ref mechanism, template, count, ref key);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -1170,13 +1171,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="publicKey">Location that receives the handle of the new public key</param>
         /// <param name="privateKey">Location that receives the handle of the new private key</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_READ_ONLY, CKR_ATTRIBUTE_TYPE_INVALID, CKR_ATTRIBUTE_VALUE_INVALID, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_CURVE_NOT_SUPPORTED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_DOMAIN_PARAMS_INVALID, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TEMPLATE_INCOMPLETE, CKR_TEMPLATE_INCONSISTENT, CKR_TOKEN_WRITE_PROTECTED, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_GenerateKeyPair(ulong session, ref CK_MECHANISM mechanism, CK_ATTRIBUTE[] publicKeyTemplate, ulong publicKeyAttributeCount, CK_ATTRIBUTE[] privateKeyTemplate, ulong privateKeyAttributeCount, ref ulong publicKey, ref ulong privateKey)
+        public CKR C_GenerateKeyPair(NativeULong session, ref CK_MECHANISM mechanism, CK_ATTRIBUTE[] publicKeyTemplate, NativeULong publicKeyAttributeCount, CK_ATTRIBUTE[] privateKeyTemplate, NativeULong privateKeyAttributeCount, ref NativeULong publicKey, ref NativeULong privateKey)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_GenerateKeyPair(session, ref mechanism, publicKeyTemplate, publicKeyAttributeCount, privateKeyTemplate, privateKeyAttributeCount, ref publicKey, ref privateKey);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_GenerateKeyPair(session, ref mechanism, publicKeyTemplate, publicKeyAttributeCount, privateKeyTemplate, privateKeyAttributeCount, ref publicKey, ref privateKey);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -1192,13 +1193,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </param>
         /// <param name="wrappedKeyLen">Location that receives the length of the wrapped key</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_HANDLE_INVALID, CKR_KEY_NOT_WRAPPABLE, CKR_KEY_SIZE_RANGE, CKR_KEY_UNEXTRACTABLE, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN, CKR_WRAPPING_KEY_HANDLE_INVALID, CKR_WRAPPING_KEY_SIZE_RANGE, CKR_WRAPPING_KEY_TYPE_INCONSISTENT</returns>
-        public CKR C_WrapKey(ulong session, ref CK_MECHANISM mechanism, ulong wrappingKey, ulong key, byte[] wrappedKey, ref ulong wrappedKeyLen)
+        public CKR C_WrapKey(NativeULong session, ref CK_MECHANISM mechanism, NativeULong wrappingKey, NativeULong key, byte[] wrappedKey, ref NativeULong wrappedKeyLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_WrapKey(session, ref mechanism, wrappingKey, key, wrappedKey, ref wrappedKeyLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_WrapKey(session, ref mechanism, wrappingKey, key, wrappedKey, ref wrappedKeyLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -1213,13 +1214,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="attributeCount">The number of attributes in the template</param>
         /// <param name="key">Location that receives the handle of the unwrapped key</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_READ_ONLY, CKR_ATTRIBUTE_TYPE_INVALID, CKR_ATTRIBUTE_VALUE_INVALID, CKR_BUFFER_TOO_SMALL, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_CURVE_NOT_SUPPORTED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_DOMAIN_PARAMS_INVALID, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TEMPLATE_INCOMPLETE, CKR_TEMPLATE_INCONSISTENT, CKR_TOKEN_WRITE_PROTECTED, CKR_UNWRAPPING_KEY_HANDLE_INVALID, CKR_UNWRAPPING_KEY_SIZE_RANGE, CKR_UNWRAPPING_KEY_TYPE_INCONSISTENT, CKR_USER_NOT_LOGGED_IN, CKR_WRAPPED_KEY_INVALID, CKR_WRAPPED_KEY_LEN_RANGE</returns>
-        public CKR C_UnwrapKey(ulong session, ref CK_MECHANISM mechanism, ulong unwrappingKey, byte[] wrappedKey, ulong wrappedKeyLen, CK_ATTRIBUTE[] template, ulong attributeCount, ref ulong key)
+        public CKR C_UnwrapKey(NativeULong session, ref CK_MECHANISM mechanism, NativeULong unwrappingKey, byte[] wrappedKey, NativeULong wrappedKeyLen, CK_ATTRIBUTE[] template, NativeULong attributeCount, ref NativeULong key)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_UnwrapKey(session, ref mechanism, unwrappingKey, wrappedKey, wrappedKeyLen, template, attributeCount, ref key);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_UnwrapKey(session, ref mechanism, unwrappingKey, wrappedKey, wrappedKeyLen, template, attributeCount, ref key);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -1232,13 +1233,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="attributeCount">The number of attributes in the template</param>
         /// <param name="key">Location that receives the handle of the derived key</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_ATTRIBUTE_READ_ONLY, CKR_ATTRIBUTE_TYPE_INVALID, CKR_ATTRIBUTE_VALUE_INVALID, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_CURVE_NOT_SUPPORTED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_DOMAIN_PARAMS_INVALID, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_KEY_HANDLE_INVALID, CKR_KEY_SIZE_RANGE, CKR_KEY_TYPE_INCONSISTENT, CKR_MECHANISM_INVALID, CKR_MECHANISM_PARAM_INVALID, CKR_OK, CKR_OPERATION_ACTIVE, CKR_PIN_EXPIRED, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_READ_ONLY, CKR_TEMPLATE_INCOMPLETE, CKR_TEMPLATE_INCONSISTENT, CKR_TOKEN_WRITE_PROTECTED, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_DeriveKey(ulong session, ref CK_MECHANISM mechanism, ulong baseKey, CK_ATTRIBUTE[] template, ulong attributeCount, ref ulong key)
+        public CKR C_DeriveKey(NativeULong session, ref CK_MECHANISM mechanism, NativeULong baseKey, CK_ATTRIBUTE[] template, NativeULong attributeCount, ref NativeULong key)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_DeriveKey(session, ref mechanism, baseKey, template, attributeCount, ref key);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_DeriveKey(session, ref mechanism, baseKey, template, attributeCount, ref key);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -1248,13 +1249,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="seed">The seed material</param>
         /// <param name="seedLen">The length of the seed material</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_ACTIVE, CKR_RANDOM_SEED_NOT_SUPPORTED, CKR_RANDOM_NO_RNG, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_SeedRandom(ulong session, byte[] seed, ulong seedLen)
+        public CKR C_SeedRandom(NativeULong session, byte[] seed, NativeULong seedLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_SeedRandom(session, seed, seedLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_SeedRandom(session, seed, seedLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -1264,13 +1265,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="randomData">Location that receives the random data</param>
         /// <param name="randomLen">The length in bytes of the random or pseudo-random data to be generated</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_DEVICE_ERROR, CKR_DEVICE_MEMORY, CKR_DEVICE_REMOVED, CKR_FUNCTION_CANCELED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_OK, CKR_OPERATION_ACTIVE, CKR_RANDOM_NO_RNG, CKR_SESSION_CLOSED, CKR_SESSION_HANDLE_INVALID, CKR_USER_NOT_LOGGED_IN</returns>
-        public CKR C_GenerateRandom(ulong session, byte[] randomData, ulong randomLen)
+        public CKR C_GenerateRandom(NativeULong session, byte[] randomData, NativeULong randomLen)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_GenerateRandom(session, randomData, randomLen);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_GenerateRandom(session, randomData, randomLen);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -1278,13 +1279,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </summary>
         /// <param name="session">The session's handle</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_FUNCTION_FAILED, CKR_FUNCTION_NOT_PARALLEL, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_CLOSED</returns>
-        public CKR C_GetFunctionStatus(ulong session)
+        public CKR C_GetFunctionStatus(NativeULong session)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_GetFunctionStatus(session);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_GetFunctionStatus(session);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -1292,13 +1293,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </summary>
         /// <param name="session">The session's handle</param>
         /// <returns>CKR_CRYPTOKI_NOT_INITIALIZED, CKR_FUNCTION_FAILED, CKR_FUNCTION_NOT_PARALLEL, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_SESSION_HANDLE_INVALID, CKR_SESSION_CLOSED</returns>
-        public CKR C_CancelFunction(ulong session)
+        public CKR C_CancelFunction(NativeULong session)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_CancelFunction(session);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_CancelFunction(session);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         /// <summary>
@@ -1308,13 +1309,13 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="slot">Location which will receive the ID of the slot that the event occurred in</param>
         /// <param name="reserved">Reserved for future versions (should be null)</param>
         /// <returns>CKR_ARGUMENTS_BAD, CKR_CRYPTOKI_NOT_INITIALIZED, CKR_FUNCTION_FAILED, CKR_GENERAL_ERROR, CKR_HOST_MEMORY, CKR_NO_EVENT, CKR_OK</returns>
-        public CKR C_WaitForSlotEvent(ulong flags, ref ulong slot, IntPtr reserved)
+        public CKR C_WaitForSlotEvent(NativeULong flags, ref NativeULong slot, IntPtr reserved)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            ulong rv = _delegates.C_WaitForSlotEvent(flags, ref slot, reserved);
-            return (CKR)Convert.ToUInt32(rv);
+            NativeULong rv = _delegates.C_WaitForSlotEvent(flags, ref slot, reserved);
+            return NativeLongUtils.ConvertToCKR(rv);
         }
 
         #region IDisposable

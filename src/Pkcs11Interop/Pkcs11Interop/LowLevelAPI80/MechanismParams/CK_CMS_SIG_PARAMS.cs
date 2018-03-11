@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
 {
@@ -33,7 +34,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
         /// <summary>
         /// Object handle for a certificate associated with the signing key
         /// </summary>
-        public ulong CertificateHandle;
+        public NativeULong CertificateHandle;
 
         /// <summary>
         /// Mechanism to use when signing a constructed CMS SignedAttributes value
@@ -58,7 +59,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
         /// <summary>
         /// Length in bytes of the value pointed to by RequestedAttributes
         /// </summary>
-        public ulong RequestedAttributesLen;
+        public NativeULong RequestedAttributesLen;
 
         /// <summary>
         /// Pointer to DER-encoded list of CMS Attributes (with accompanying values) required to be included in the resulting signed attributes
@@ -68,6 +69,6 @@ namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
         /// <summary>
         /// Length in bytes, of the value pointed to by RequiredAttributes
         /// </summary>
-        public ulong RequiredAttributesLen;
+        public NativeULong RequiredAttributesLen;
     }
 }

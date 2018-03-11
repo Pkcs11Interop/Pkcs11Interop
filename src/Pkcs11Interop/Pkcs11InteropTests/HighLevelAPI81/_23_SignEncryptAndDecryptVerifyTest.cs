@@ -19,7 +19,6 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
-using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI81;
 using NUnit.Framework;
@@ -38,8 +37,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
         [Test()]
         public void _01_BasicSignEncryptAndDecryptVerifyTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
@@ -84,7 +82,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI81
                     session.DecryptVerify(signingMechanism, publicKey, encryptionMechanism, secretKey, encryptedData, signature, out decryptedData, out isValid);
 
                     // Do something interesting with decrypted data and verification result
-                    Assert.IsTrue(Convert.ToBase64String(sourceData) == Convert.ToBase64String(decryptedData));
+                    Assert.IsTrue(ConvertUtils.BytesToBase64String(sourceData) == ConvertUtils.BytesToBase64String(decryptedData));
                     Assert.IsTrue(isValid);
 
                     session.DestroyObject(privateKey);

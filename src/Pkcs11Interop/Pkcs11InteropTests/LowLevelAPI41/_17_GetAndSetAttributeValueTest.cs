@@ -23,6 +23,7 @@ using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI41;
 using NUnit.Framework;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 {
@@ -38,8 +39,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         [Test()]
         public void _01_GetAttributeValueTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKR rv = CKR.CKR_OK;
             
@@ -50,20 +50,20 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                uint slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeULong slotId = Helpers.GetUsableSlot(pkcs11);
                 
-                uint session = CK.CK_INVALID_HANDLE;
+                NativeULong session = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, Convert.ToUInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Create object
-                uint objectId = CK.CK_INVALID_HANDLE;
+                NativeULong objectId = CK.CK_INVALID_HANDLE;
                 rv = Helpers.CreateDataObject(pkcs11, session, ref objectId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -74,22 +74,22 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 template[1] = CkaUtils.CreateAttribute(CKA.CKA_VALUE);
 
                 // Get size of each individual attribute value in first call
-                rv = pkcs11.C_GetAttributeValue(session, objectId, template, Convert.ToUInt32(template.Length));
+                rv = pkcs11.C_GetAttributeValue(session, objectId, template, NativeLongUtils.ConvertFromInt32(template.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 // In LowLevelAPI we have to allocate unmanaged memory for attribute value
                 for (int i = 0; i < template.Length; i++)
-                    template[i].value = UnmanagedMemory.Allocate(Convert.ToInt32(template[i].valueLen));
+                    template[i].value = UnmanagedMemory.Allocate(NativeLongUtils.ConvertToInt32(template[i].valueLen));
 
                 // Get attribute value in second call
-                rv = pkcs11.C_GetAttributeValue(session, objectId, template, Convert.ToUInt32(template.Length));
+                rv = pkcs11.C_GetAttributeValue(session, objectId, template, NativeLongUtils.ConvertFromInt32(template.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 // Do something interesting with attribute value
-                byte[] ckaLabel = UnmanagedMemory.Read(template[0].value, Convert.ToInt32(template[0].valueLen));
-                Assert.IsTrue(Convert.ToBase64String(ckaLabel) == Convert.ToBase64String(Settings.ApplicationNameArray));
+                byte[] ckaLabel = UnmanagedMemory.Read(template[0].value, NativeLongUtils.ConvertToInt32(template[0].valueLen));
+                Assert.IsTrue(ConvertUtils.BytesToBase64String(ckaLabel) == ConvertUtils.BytesToBase64String(Settings.ApplicationNameArray));
 
                 // In LowLevelAPI we have to free unmanaged memory taken by attributes
                 for (int i = 0; i < template.Length; i++)
@@ -122,8 +122,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         [Test()]
         public void _02_SetAttributeValueTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKR rv = CKR.CKR_OK;
             
@@ -134,20 +133,20 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                uint slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeULong slotId = Helpers.GetUsableSlot(pkcs11);
                 
-                uint session = CK.CK_INVALID_HANDLE;
+                NativeULong session = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, Convert.ToUInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Create object
-                uint objectId = CK.CK_INVALID_HANDLE;
+                NativeULong objectId = CK.CK_INVALID_HANDLE;
                 rv = Helpers.CreateDataObject(pkcs11, session, ref objectId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -158,7 +157,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 template[1] = CkaUtils.CreateAttribute(CKA.CKA_VALUE, "New data object content");
 
                 // Set attributes
-                rv = pkcs11.C_SetAttributeValue(session, objectId, template, Convert.ToUInt32(template.Length));
+                rv = pkcs11.C_SetAttributeValue(session, objectId, template, NativeLongUtils.ConvertFromInt32(template.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 

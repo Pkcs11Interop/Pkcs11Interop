@@ -22,6 +22,7 @@
 using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
@@ -85,7 +86,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <param name='sequenceNumber'>The current sequence number used for records sent by the client and server respectively</param>
         /// <param name='isExport'>Flag indicating whether the keys have to be derived for an export version of the protocol</param>
         /// <param name='randomInfo'>Client's and server's random data information</param>
-        public CkWtlsKeyMatParams(uint digestMechanism, uint macSizeInBits, uint keySizeInBits, uint ivSizeInBits, uint sequenceNumber, bool isExport, CkWtlsRandomData randomInfo)
+        public CkWtlsKeyMatParams(NativeULong digestMechanism, NativeULong macSizeInBits, NativeULong keySizeInBits, NativeULong ivSizeInBits, NativeULong sequenceNumber, bool isExport, CkWtlsRandomData randomInfo)
         {
             if (randomInfo == null)
                 throw new ArgumentNullException("randomInfo");

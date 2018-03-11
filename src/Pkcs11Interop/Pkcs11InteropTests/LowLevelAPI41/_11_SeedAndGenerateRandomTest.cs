@@ -23,6 +23,7 @@ using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI41;
 using NUnit.Framework;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 {
@@ -38,8 +39,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         [Test()]
         public void _01_SeedRandomTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKR rv = CKR.CKR_OK;
             
@@ -50,17 +50,17 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                uint slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeULong slotId = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RO (read-only) session
-                uint session = CK.CK_INVALID_HANDLE;
+                NativeULong session = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_OpenSession(slotId, CKF.CKF_SERIAL_SESSION, IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 // Mix additional seed material into the token's random number generator
                 byte[] seed = ConvertUtils.Utf8StringToBytes("Additional seed material");
-                rv = pkcs11.C_SeedRandom(session, seed, Convert.ToUInt32(seed.Length));
+                rv = pkcs11.C_SeedRandom(session, seed, NativeLongUtils.ConvertFromInt32(seed.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -82,8 +82,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         [Test()]
         public void _02_GenerateRandomTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKR rv = CKR.CKR_OK;
             
@@ -94,10 +93,10 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                uint slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeULong slotId = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RO (read-only) session
-                uint session = CK.CK_INVALID_HANDLE;
+                NativeULong session = CK.CK_INVALID_HANDLE;
                 rv = pkcs11.C_OpenSession(slotId, CKF.CKF_SERIAL_SESSION, IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -106,7 +105,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 byte[] randomData = new byte[256];
 
                 // Get random or pseudo-random data
-                rv = pkcs11.C_GenerateRandom(session, randomData, Convert.ToUInt32(randomData.Length));
+                rv = pkcs11.C_GenerateRandom(session, randomData, NativeLongUtils.ConvertFromInt32(randomData.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 

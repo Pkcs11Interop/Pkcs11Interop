@@ -21,6 +21,7 @@
 
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
@@ -38,7 +39,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// Initializes a new instance of the CkExtractParams class.
         /// </summary>
         /// <param name='bit'>Specifies which bit of the base key should be used as the first bit of the derived key</param>
-        public CkExtractParams(uint bit)
+        public CkExtractParams(NativeULong bit)
         {
             _lowLevelStruct.Bit = bit;
         }

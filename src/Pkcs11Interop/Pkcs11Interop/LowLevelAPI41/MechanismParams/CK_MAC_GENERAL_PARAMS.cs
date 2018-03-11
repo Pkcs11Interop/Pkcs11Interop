@@ -20,6 +20,7 @@
  */
 
 using System.Runtime.InteropServices;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
 {
@@ -32,6 +33,6 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// Length of the MAC produced, in bytes
         /// </summary>
-        public uint MacLength;
+        public NativeULong MacLength;
     }
 }

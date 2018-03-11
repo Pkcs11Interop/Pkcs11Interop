@@ -21,7 +21,9 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI80;
 using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
@@ -46,7 +48,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
         /// <param name="kdf">Additional key diversification algorithm (CKD)</param>
         /// <param name="publicData">Data with public key of a receiver</param>
         /// <param name="ukm">UKM data</param>
-        public CkGostR3410DeriveParams(ulong kdf, byte[] publicData, byte[] ukm)
+        public CkGostR3410DeriveParams(NativeULong kdf, byte[] publicData, byte[] ukm)
         {
             _lowLevelStruct.Kdf = 0;
             _lowLevelStruct.PublicData = IntPtr.Zero;
@@ -70,11 +72,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 
             _lowLevelStruct.PublicData = UnmanagedMemory.Allocate(publicData.Length);
             UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
-            _lowLevelStruct.PublicDataLen = Convert.ToUInt64(publicData.Length);
+            _lowLevelStruct.PublicDataLen = NativeLongUtils.ConvertFromInt32(publicData.Length);
 
             _lowLevelStruct.UKM = UnmanagedMemory.Allocate(ukm.Length);
             UnmanagedMemory.Write(_lowLevelStruct.UKM, ukm);
-            _lowLevelStruct.UKMLen = Convert.ToUInt64(ukm.Length);
+            _lowLevelStruct.UKMLen = NativeLongUtils.ConvertFromInt32(ukm.Length);
         }
 
         #region IMechanismParams

@@ -21,7 +21,9 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI40;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
@@ -49,7 +51,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <param name='prf'>Pseudo-random function to used to generate the key (CKP)</param>
         /// <param name='prfData'>Data used as the input for PRF in addition to the salt value</param>
         /// <param name='password'>Password to be used in the PBE key generation</param>
-        public CkPkcs5Pbkd2Params(uint saltSource, byte[] saltSourceData, uint iterations, uint prf, byte[] prfData, byte[] password)
+        public CkPkcs5Pbkd2Params(NativeULong saltSource, byte[] saltSourceData, NativeULong iterations, NativeULong prf, byte[] prfData, byte[] password)
         {
             _lowLevelStruct.SaltSource = 0;
             _lowLevelStruct.SaltSourceData = IntPtr.Zero;
@@ -67,7 +69,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             {
                 _lowLevelStruct.SaltSourceData = UnmanagedMemory.Allocate(saltSourceData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.SaltSourceData, saltSourceData);
-                _lowLevelStruct.SaltSourceDataLen = Convert.ToUInt32(saltSourceData.Length);
+                _lowLevelStruct.SaltSourceDataLen = NativeLongUtils.ConvertFromInt32(saltSourceData.Length);
             }
 
             _lowLevelStruct.Iterations = iterations;
@@ -78,7 +80,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             {
                 _lowLevelStruct.PrfData = UnmanagedMemory.Allocate(prfData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.PrfData, prfData);
-                _lowLevelStruct.PrfDataLen = Convert.ToUInt32(prfData.Length);
+                _lowLevelStruct.PrfDataLen = NativeLongUtils.ConvertFromInt32(prfData.Length);
             }
 
             if (password != null)
@@ -86,8 +88,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
                 _lowLevelStruct.Password = UnmanagedMemory.Allocate(password.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Password, password);
 
-                uint passwordLength = Convert.ToUInt32(password.Length);
-                _lowLevelStruct.PasswordLen = UnmanagedMemory.Allocate(UnmanagedMemory.SizeOf(typeof(uint)));
+                NativeULong passwordLength = NativeLongUtils.ConvertFromInt32(password.Length);
+                _lowLevelStruct.PasswordLen = UnmanagedMemory.Allocate(UnmanagedMemory.SizeOf(typeof(NativeULong)));
                 UnmanagedMemory.Write(_lowLevelStruct.PasswordLen, BitConverter.GetBytes(passwordLength));
             }
         }

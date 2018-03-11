@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
 {
@@ -33,17 +34,17 @@ namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
         /// <summary>
         /// Length of the temporary AES key in bits
         /// </summary>
-        public ulong AESKeyBits;
+        public NativeULong AESKeyBits;
 
         /// <summary>
         /// Key derivation function used on the shared secret value to generate AES key (CKD)
         /// </summary>
-        public ulong Kdf;
+        public NativeULong Kdf;
 
         /// <summary>
         /// Length in bytes of the shared info
         /// </summary>
-        public ulong SharedDataLen;
+        public NativeULong SharedDataLen;
 
         /// <summary>
         /// Data shared between the two parties

@@ -21,6 +21,7 @@
 
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI41;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI41
 {
@@ -32,12 +33,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// PKCS#11 handle of session
         /// </summary>
-        private uint _sessionId = CK.CK_INVALID_HANDLE;
+        private NativeULong _sessionId = CK.CK_INVALID_HANDLE;
 
         /// <summary>
         /// PKCS#11 handle of session
         /// </summary>
-        public uint SessionId
+        public NativeULong SessionId
         {
             get
             {
@@ -48,12 +49,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// PKCS#11 handle of slot that interfaces with the token
         /// </summary>
-        private uint _slotId = CK.CK_INVALID_HANDLE;
+        private NativeULong _slotId = CK.CK_INVALID_HANDLE;
 
         /// <summary>
         /// PKCS#11 handle of slot that interfaces with the token
         /// </summary>
-        public uint SlotId
+        public NativeULong SlotId
         {
             get
             {
@@ -96,12 +97,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// An error code defined by the cryptographic device used for errors not covered by Cryptoki
         /// </summary>
-        private uint _deviceError = 0;
+        private NativeULong _deviceError = 0;
 
         /// <summary>
         /// An error code defined by the cryptographic device used for errors not covered by Cryptoki
         /// </summary>
-        public uint DeviceError
+        public NativeULong DeviceError
         {
             get
             {
@@ -114,7 +115,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// </summary>
         /// <param name="sessionId">PKCS#11 handle of session</param>
         /// <param name="ck_session_info">Low level CK_SESSION_INFO structure</param>
-        internal SessionInfo(uint sessionId, CK_SESSION_INFO ck_session_info)
+        internal SessionInfo(NativeULong sessionId, CK_SESSION_INFO ck_session_info)
         {
             _sessionId = sessionId;
             _slotId = ck_session_info.SlotId;

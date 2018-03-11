@@ -21,6 +21,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI80
 {
@@ -38,7 +39,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <returns>Mechanism of given type with no parameter</returns>
         public static CK_MECHANISM CreateMechanism(CKM mechanism)
         {
-            return CreateMechanism(Convert.ToUInt64((uint)mechanism));
+            return CreateMechanism(NativeLongUtils.ConvertFromCKM(mechanism));
         }
 
         /// <summary>
@@ -46,7 +47,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </summary>
         /// <param name="mechanism">Mechanism type</param>
         /// <returns>Mechanism of given type with no parameter</returns>
-        public static CK_MECHANISM CreateMechanism(ulong mechanism)
+        public static CK_MECHANISM CreateMechanism(NativeULong mechanism)
         {
             return _CreateMechanism(mechanism, null);
         }
@@ -63,7 +64,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <returns>Mechanism of given type with byte array parameter</returns>
         public static CK_MECHANISM CreateMechanism(CKM mechanism, byte[] parameter)
         {
-            return CreateMechanism(Convert.ToUInt64((uint)mechanism), parameter);
+            return CreateMechanism(NativeLongUtils.ConvertFromCKM(mechanism), parameter);
         }
 
         /// <summary>
@@ -72,7 +73,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="mechanism">Mechanism type</param>
         /// <param name="parameter">Mechanism parameter</param>
         /// <returns>Mechanism of given type with byte array parameter</returns>
-        public static CK_MECHANISM CreateMechanism(ulong mechanism, byte[] parameter)
+        public static CK_MECHANISM CreateMechanism(NativeULong mechanism, byte[] parameter)
         {
             return _CreateMechanism(mechanism, parameter);
         }
@@ -92,7 +93,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             if (parameterStructure == null)
                 throw new ArgumentNullException("parameterStructure");
             
-            return CreateMechanism(Convert.ToUInt64((uint)mechanism), parameterStructure);
+            return CreateMechanism(NativeLongUtils.ConvertFromCKM(mechanism), parameterStructure);
         }
         
         /// <summary>
@@ -101,15 +102,15 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="mechanism">Mechanism type</param>
         /// <param name="parameterStructure">Structure with mechanism parameters</param>
         /// <returns>Mechanism of given type with structure as parameter</returns>
-        public static CK_MECHANISM CreateMechanism(ulong mechanism, object parameterStructure)
+        public static CK_MECHANISM CreateMechanism(NativeULong mechanism, object parameterStructure)
         {
             if (parameterStructure == null)
                 throw new ArgumentNullException("parameterStructure");
 
             CK_MECHANISM ckMechanism = new CK_MECHANISM();
             ckMechanism.Mechanism = mechanism;
-            ckMechanism.ParameterLen = Convert.ToUInt64(UnmanagedMemory.SizeOf(parameterStructure.GetType()));
-            ckMechanism.Parameter = UnmanagedMemory.Allocate(Convert.ToInt32(ckMechanism.ParameterLen));
+            ckMechanism.ParameterLen = NativeLongUtils.ConvertFromInt32(UnmanagedMemory.SizeOf(parameterStructure.GetType()));
+            ckMechanism.Parameter = UnmanagedMemory.Allocate(NativeLongUtils.ConvertToInt32(ckMechanism.ParameterLen));
             UnmanagedMemory.Write(ckMechanism.Parameter, parameterStructure);
 
             return ckMechanism;
@@ -125,7 +126,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <param name="mechanism">Mechanism type</param>
         /// <param name="parameter">Mechanism parameter</param>
         /// <returns>Mechanism of given type with specified parameter</returns>
-        private static CK_MECHANISM _CreateMechanism(ulong mechanism, byte[] parameter)
+        private static CK_MECHANISM _CreateMechanism(NativeULong mechanism, byte[] parameter)
         {
             CK_MECHANISM mech = new CK_MECHANISM();
             mech.Mechanism = mechanism;
@@ -133,7 +134,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             {
                 mech.Parameter = UnmanagedMemory.Allocate(parameter.Length);
                 UnmanagedMemory.Write(mech.Parameter, parameter);
-                mech.ParameterLen = Convert.ToUInt64(parameter.Length);
+                mech.ParameterLen = NativeLongUtils.ConvertFromInt32(parameter.Length);
             }
             else
             {

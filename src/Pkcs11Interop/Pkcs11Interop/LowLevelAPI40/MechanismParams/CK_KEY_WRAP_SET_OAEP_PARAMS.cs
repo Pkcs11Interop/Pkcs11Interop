@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
 {
@@ -43,6 +44,6 @@ namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
         /// <summary>
         /// Length in bytes of concatenation of hash of plaintext data (if present) and extra data (if present) or 0 if neither is present
         /// </summary>
-        public uint XLen;
+        public NativeULong XLen;
     }
 }

@@ -21,7 +21,9 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI80;
 using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
@@ -47,7 +49,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
         /// <param name="nonce">Nonce</param>
         /// <param name="aad">Additional authentication data</param>
         /// <param name="macLen">Length of the MAC (output following cipher text) in bytes</param>
-        public CkCcmParams(ulong dataLen, byte[] nonce, byte[] aad, ulong macLen)
+        public CkCcmParams(NativeULong dataLen, byte[] nonce, byte[] aad, NativeULong macLen)
         {
             _lowLevelStruct.DataLen = 0;
             _lowLevelStruct.Nonce = IntPtr.Zero;
@@ -62,14 +64,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             {
                 _lowLevelStruct.Nonce = UnmanagedMemory.Allocate(nonce.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Nonce, nonce);
-                _lowLevelStruct.NonceLen = Convert.ToUInt64(nonce.Length);
+                _lowLevelStruct.NonceLen = NativeLongUtils.ConvertFromInt32(nonce.Length);
             }
 
             if (aad != null)
             {
                 _lowLevelStruct.AAD = UnmanagedMemory.Allocate(aad.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.AAD, aad);
-                _lowLevelStruct.AADLen = Convert.ToUInt64(aad.Length);
+                _lowLevelStruct.AADLen = NativeLongUtils.ConvertFromInt32(aad.Length);
             }
 
             _lowLevelStruct.MACLen = macLen;

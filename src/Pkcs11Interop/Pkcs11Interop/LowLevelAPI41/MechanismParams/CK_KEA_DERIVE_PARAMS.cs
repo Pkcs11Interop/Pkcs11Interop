@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
 {
@@ -39,7 +40,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// Size of random Ra and Rb, in bytes
         /// </summary>
-        public uint RandomLen;
+        public NativeULong RandomLen;
 
         /// <summary>
         /// Pointer to Ra data
@@ -54,7 +55,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// Other party's KEA public key size
         /// </summary>
-        public uint PublicDataLen;
+        public NativeULong PublicDataLen;
 
         /// <summary>
         /// Pointer to other party's KEA public key value

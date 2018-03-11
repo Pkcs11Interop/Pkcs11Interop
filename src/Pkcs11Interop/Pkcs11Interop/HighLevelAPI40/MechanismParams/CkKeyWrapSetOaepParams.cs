@@ -21,6 +21,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI40;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
@@ -57,7 +58,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             {
                 _lowLevelStruct.X = UnmanagedMemory.Allocate(x.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.X, x);
-                _lowLevelStruct.XLen = Convert.ToUInt32(x.Length);
+                _lowLevelStruct.XLen = NativeLongUtils.ConvertFromInt32(x.Length);
             }
         }
         

@@ -22,7 +22,9 @@
 using System;
 using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI40;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
@@ -105,7 +107,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 
             // Read all CK_OTP_PARAMs from CK_OTP_SIGNATURE_INFO
             int ckOtpParamSize = UnmanagedMemory.SizeOf(typeof(CK_OTP_PARAM));
-            for (int i = 0; i < _lowLevelStruct.Count; i++)
+            for (int i = 0; i < NativeLongUtils.ConvertToInt32(_lowLevelStruct.Count); i++)
             {
                 // Read CK_OTP_PARAM from CK_OTP_SIGNATURE_INFO
                 IntPtr tempPointer = new IntPtr(_lowLevelStruct.Params.ToInt64() + (i * ckOtpParamSize));
@@ -113,8 +115,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
                 UnmanagedMemory.Read(tempPointer, ckOtpParam);
 
                 // Read members of CK_OTP_PARAM structure
-                uint ckOtpParamType = ckOtpParam.Type;
-                byte[] ckOtpParamValue = UnmanagedMemory.Read(ckOtpParam.Value, Convert.ToInt32(ckOtpParam.ValueLen));
+                NativeULong ckOtpParamType = ckOtpParam.Type;
+                byte[] ckOtpParamValue = UnmanagedMemory.Read(ckOtpParam.Value, NativeLongUtils.ConvertToInt32(ckOtpParam.ValueLen));
 
                 // Construct new high level CkOtpParam object (creates copy of CK_OTP_PARAM structure which is good)
                 _params.Add(new CkOtpParam(ckOtpParamType, ckOtpParamValue));
@@ -157,7 +159,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
                 }
                 
                 // Dispose unmanaged objects
- 
+
                 _disposed = true;
             }
         }

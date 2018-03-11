@@ -23,6 +23,8 @@ using System;
 using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI40;
+using NativeULong = System.UInt32;
+using NativeLong = System.Int32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40
 {
@@ -58,7 +60,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// Attribute type
         /// </summary>
-        public uint Type
+        public NativeULong Type
         {
             get
             {
@@ -84,7 +86,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
                 // cannot be revealed because the object is sensitive or unextractable, then the
                 // ulValueLen field in that triple is modified to hold the value -1 (i.e., when it is cast to a
                 // CK_LONG, it holds -1).
-                return ((int)_ckAttribute.valueLen == -1);
+                return ((NativeLong)_ckAttribute.valueLen == -1);
             }
         }
 
@@ -103,7 +105,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// Creates attribute of given type with no value
         /// </summary>
         /// <param name="type">Attribute type</param>
-        public ObjectAttribute(uint type)
+        public ObjectAttribute(NativeULong type)
         {
             _ckAttribute = CkaUtils.CreateAttribute(type);
         }
@@ -119,24 +121,24 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
 
         #endregion
 
-        #region Attribute with uint value
+        #region Attribute with NativeULong value
 
         /// <summary>
-        /// Creates attribute of given type with uint value
+        /// Creates attribute of given type with NativeULong value
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(uint type, uint value)
+        public ObjectAttribute(NativeULong type, NativeULong value)
         {
             _ckAttribute = CkaUtils.CreateAttribute(type, value);
         }
 
         /// <summary>
-        /// Creates attribute of given type with uint value
+        /// Creates attribute of given type with NativeULong value
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(CKA type, uint value)
+        public ObjectAttribute(CKA type, NativeULong value)
         {
             _ckAttribute = CkaUtils.CreateAttribute(type, value);
         }
@@ -172,10 +174,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         }
 
         /// <summary>
-        /// Reads value of attribute and returns it as uint
+        /// Reads value of attribute and returns it as NativeULong
         /// </summary>
         /// <returns>Value of attribute</returns>
-        public uint GetValueAsUint()
+        public NativeULong GetValueAsNativeUlong()
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
@@ -185,7 +187,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
 
             try
             {
-                uint value = 0;
+                NativeULong value = 0;
                 CkaUtils.ConvertValue(ref _ckAttribute, out value);
                 return value;
             }
@@ -204,7 +206,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(uint type, bool value)
+        public ObjectAttribute(NativeULong type, bool value)
         {
             _ckAttribute = CkaUtils.CreateAttribute(type, value);
         }
@@ -252,7 +254,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(uint type, string value)
+        public ObjectAttribute(NativeULong type, string value)
         {
             _ckAttribute = CkaUtils.CreateAttribute(type, value);
         }
@@ -300,7 +302,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(uint type, byte[] value)
+        public ObjectAttribute(NativeULong type, byte[] value)
         {
             _ckAttribute = CkaUtils.CreateAttribute(type, value);
         }
@@ -348,7 +350,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(uint type, DateTime value)
+        public ObjectAttribute(NativeULong type, DateTime value)
         {
             _ckAttribute = CkaUtils.CreateAttribute(type, value);
         }
@@ -396,7 +398,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(uint type, List<ObjectAttribute> value)
+        public ObjectAttribute(NativeULong type, List<ObjectAttribute> value)
         {
             CK_ATTRIBUTE[] attributes = null;
 
@@ -467,43 +469,43 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
 
         #endregion
 
-        #region Attribute with uint array value
+        #region Attribute with NativeULong array value
 
         /// <summary>
-        /// Creates attribute of given type with uint array value
+        /// Creates attribute of given type with NativeULong array value
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(uint type, List<uint> value)
+        public ObjectAttribute(NativeULong type, List<NativeULong> value)
         {
-            uint[] uints = null;
+            NativeULong[] array = null;
             
             if (value != null)
-                uints = value.ToArray();
+                array = value.ToArray();
             
-            _ckAttribute = CkaUtils.CreateAttribute(type, uints);
+            _ckAttribute = CkaUtils.CreateAttribute(type, array);
         }
 
         /// <summary>
-        /// Creates attribute of given type with uint array value
+        /// Creates attribute of given type with NativeULong array value
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(CKA type, List<uint> value)
+        public ObjectAttribute(CKA type, List<NativeULong> value)
         {
-            uint[] uints = null;
+            NativeULong[] array = null;
 
             if (value != null)
-                uints = value.ToArray();
+                array = value.ToArray();
             
-            _ckAttribute = CkaUtils.CreateAttribute(type, uints);
+            _ckAttribute = CkaUtils.CreateAttribute(type, array);
         }
 
         /// <summary>
-        /// Reads value of attribute and returns it as list of uints
+        /// Reads value of attribute and returns it as list of NativeULong
         /// </summary>
         /// <returns>Value of attribute</returns>
-        public List<uint> GetValueAsUintList()
+        public List<NativeULong> GetValueAsNativeULongList()
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
@@ -513,9 +515,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
 
             try
             {
-                uint[] value = null;
+                NativeULong[] value = null;
                 CkaUtils.ConvertValue(ref _ckAttribute, out value);
-                return (value == null) ? null : new List<uint>(value);
+                return (value == null) ? null : new List<NativeULong>(value);
             }
             catch (Exception ex)
             {
@@ -532,7 +534,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(uint type, List<CKM> value)
+        public ObjectAttribute(NativeULong type, List<CKM> value)
         {
             CKM[] mechanisms = null;
             

@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
 {
@@ -44,6 +45,6 @@ namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
         /// <summary>
         /// Length of data to encrypt
         /// </summary>
-        public ulong Length;
+        public NativeULong Length;
     }
 }

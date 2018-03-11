@@ -22,6 +22,7 @@
 using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 {
@@ -84,7 +85,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <param name="isExport">Flag which must be set to false because export cipher suites must not be used in TLS 1.1 and later</param>
         /// <param name="randomInfo">Client's and server's random data information</param>
         /// <param name="prfHashMechanism">Base hash used in the underlying TLS1.2 PRF operation used to derive the master key (CKM)</param>
-        public CkTls12KeyMatParams(ulong macSizeInBits, ulong keySizeInBits, ulong ivSizeInBits, bool isExport, CkSsl3RandomData randomInfo, ulong prfHashMechanism)
+        public CkTls12KeyMatParams(NativeULong macSizeInBits, NativeULong keySizeInBits, NativeULong ivSizeInBits, bool isExport, CkSsl3RandomData randomInfo, NativeULong prfHashMechanism)
         {
             if (randomInfo == null)
                 throw new ArgumentNullException("randomInfo");

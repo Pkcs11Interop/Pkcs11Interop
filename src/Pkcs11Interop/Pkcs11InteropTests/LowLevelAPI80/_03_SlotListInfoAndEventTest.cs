@@ -23,6 +23,7 @@ using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI80;
 using NUnit.Framework;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
 {
@@ -38,8 +39,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
         [Test()]
         public void _01_SlotListTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKR rv = CKR.CKR_OK;
             
@@ -50,7 +50,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
                     Assert.Fail(rv.ToString());
                 
                 // Get number of slots in first call
-                ulong slotCount = 0;
+                NativeULong slotCount = 0;
                 rv = pkcs11.C_GetSlotList(true, null, ref slotCount);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -58,7 +58,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
                 Assert.IsTrue(slotCount > 0);
                 
                 // Allocate array for slot IDs
-                ulong[] slotList = new ulong[slotCount];
+                NativeULong[] slotList = new NativeULong[slotCount];
                 
                 // Get slot IDs in second call
                 rv = pkcs11.C_GetSlotList(true, slotList, ref slotCount);
@@ -79,8 +79,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
         [Test()]
         public void _02_BasicSlotListAndInfoTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKR rv = CKR.CKR_OK;
             
@@ -91,7 +90,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
                     Assert.Fail(rv.ToString());
                 
                 // Get number of slots in first call
-                ulong slotCount = 0;
+                NativeULong slotCount = 0;
                 rv = pkcs11.C_GetSlotList(true, null, ref slotCount);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
@@ -99,7 +98,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
                 Assert.IsTrue(slotCount > 0);
                 
                 // Allocate array for slot IDs
-                ulong[] slotList = new ulong[slotCount];
+                NativeULong[] slotList = new NativeULong[slotCount];
                 
                 // Get slot IDs in second call
                 rv = pkcs11.C_GetSlotList(true, slotList, ref slotCount);
@@ -127,8 +126,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
         [Test()]
         public void _03_WaitForSlotEventTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKR rv = CKR.CKR_OK;
             
@@ -139,7 +137,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
                     Assert.Fail(rv.ToString());
 
                 // Wait for a slot event
-                ulong slot = 0;
+                NativeULong slot = 0;
                 rv = pkcs11.C_WaitForSlotEvent(CKF.CKF_DONT_BLOCK, ref slot, IntPtr.Zero);
                 if (rv != CKR.CKR_NO_EVENT)
                     Assert.Fail(rv.ToString());

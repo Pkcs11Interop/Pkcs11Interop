@@ -900,6 +900,9 @@
     <None Include="..\..\Pkcs11Interop\Pkcs11InteropTests\README.txt">
       <Link>README.txt</Link>
     </None>
+    <None Include="..\..\Pkcs11Interop\Pkcs11InteropTests\regeneratecode.sh">
+      <Link>regeneratecode.sh</Link>
+    </None>
   </ItemGroup>
 
 </Project>

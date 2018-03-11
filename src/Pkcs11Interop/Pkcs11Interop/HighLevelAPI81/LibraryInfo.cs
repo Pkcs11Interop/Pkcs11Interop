@@ -21,6 +21,7 @@
 
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI81;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI81
 {
@@ -64,12 +65,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// Bit flags reserved for future versions
         /// </summary>
-        private ulong _flags = 0;
+        private NativeULong _flags = 0;
 
         /// <summary>
         /// Bit flags reserved for future versions
         /// </summary>
-        public ulong Flags
+        public NativeULong Flags
         {
             get
             {

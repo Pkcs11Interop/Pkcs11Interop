@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
 {
@@ -33,7 +34,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
         /// <summary>
         /// Digest mechanism to be used (CKM)
         /// </summary>
-        public ulong DigestMechanism;
+        public NativeULong DigestMechanism;
 
         /// <summary>
         /// Client's and server's random data information

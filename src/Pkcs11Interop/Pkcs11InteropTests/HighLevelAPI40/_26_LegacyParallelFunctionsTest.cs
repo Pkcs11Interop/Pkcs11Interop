@@ -37,8 +37,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI40
         [Test()]
         public void _01_GetFunctionStatusTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
@@ -68,8 +67,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI40
         [Test()]
         public void _02_CancelFunctionTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {

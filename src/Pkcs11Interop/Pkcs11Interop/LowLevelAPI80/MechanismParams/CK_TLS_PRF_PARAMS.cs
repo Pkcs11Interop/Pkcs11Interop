@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
 {
@@ -38,7 +39,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
         /// <summary>
         /// Length in bytes of the input seed
         /// </summary>
-        public ulong SeedLen;
+        public NativeULong SeedLen;
 
         /// <summary>
         /// Pointer to the identifying label
@@ -48,7 +49,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80.MechanismParams
         /// <summary>
         /// Length in bytes of the identifying label
         /// </summary>
-        public ulong LabelLen;
+        public NativeULong LabelLen;
 
         /// <summary>
         /// Pointer receiving the output of the operation

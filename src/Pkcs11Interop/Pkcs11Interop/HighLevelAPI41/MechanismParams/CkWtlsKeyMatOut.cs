@@ -21,7 +21,9 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI41;
 using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
@@ -78,20 +80,20 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (_ivLength < 1) ? null : UnmanagedMemory.Read(_lowLevelStruct.IV, Convert.ToInt32(_ivLength));
+                return (_ivLength < 1) ? null : UnmanagedMemory.Read(_lowLevelStruct.IV, NativeLongUtils.ConvertToInt32(_ivLength));
             }
         }
         
         /// <summary>
         /// The length of initialization vector
         /// </summary>
-        private uint _ivLength = 0;
+        private NativeULong _ivLength = 0;
         
         /// <summary>
         /// Initializes a new instance of the CkWtlsKeyMatOut class.
         /// </summary>
         /// <param name='ivLength'>Length of initialization vector or 0 if IV is not required</param>
-        internal CkWtlsKeyMatOut(uint ivLength)
+        internal CkWtlsKeyMatOut(NativeULong ivLength)
         {
             _lowLevelStruct.MacSecret = 0;
             _lowLevelStruct.Key = 0;
@@ -101,7 +103,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
             
             if (_ivLength > 0)
             {
-                _lowLevelStruct.IV = UnmanagedMemory.Allocate(Convert.ToInt32(_ivLength));
+                _lowLevelStruct.IV = UnmanagedMemory.Allocate(NativeLongUtils.ConvertToInt32(_ivLength));
             }
         }
         

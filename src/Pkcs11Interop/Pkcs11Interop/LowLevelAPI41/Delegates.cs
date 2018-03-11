@@ -22,212 +22,213 @@
 using System;
 using System.Runtime.InteropServices;
 using Net.Pkcs11Interop.Common;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI41
 {
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_InitializeDelegate(CK_C_INITIALIZE_ARGS initArgs);
+    internal delegate NativeULong C_InitializeDelegate(CK_C_INITIALIZE_ARGS initArgs);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_FinalizeDelegate(IntPtr reserved);
+    internal delegate NativeULong C_FinalizeDelegate(IntPtr reserved);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_GetInfoDelegate(ref CK_INFO info);
+    internal delegate NativeULong C_GetInfoDelegate(ref CK_INFO info);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_GetFunctionListDelegate(out IntPtr functionList);
+    internal delegate NativeULong C_GetFunctionListDelegate(out IntPtr functionList);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_GetSlotListDelegate([MarshalAs(UnmanagedType.U1)] bool tokenPresent, uint[] slotList, ref uint count);
+    internal delegate NativeULong C_GetSlotListDelegate([MarshalAs(UnmanagedType.U1)] bool tokenPresent, NativeULong[] slotList, ref NativeULong count);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_GetSlotInfoDelegate(uint slotId, ref CK_SLOT_INFO info);
+    internal delegate NativeULong C_GetSlotInfoDelegate(NativeULong slotId, ref CK_SLOT_INFO info);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_GetTokenInfoDelegate(uint slotId, ref CK_TOKEN_INFO info);
+    internal delegate NativeULong C_GetTokenInfoDelegate(NativeULong slotId, ref CK_TOKEN_INFO info);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_GetMechanismListDelegate(uint slotId, uint[] mechanismList, ref uint count);
+    internal delegate NativeULong C_GetMechanismListDelegate(NativeULong slotId, NativeULong[] mechanismList, ref NativeULong count);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_GetMechanismInfoDelegate(uint slotId, uint type, ref CK_MECHANISM_INFO info);
+    internal delegate NativeULong C_GetMechanismInfoDelegate(NativeULong slotId, NativeULong type, ref CK_MECHANISM_INFO info);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_InitTokenDelegate(uint slotId, byte[] pin, uint pinLen, byte[] label);
+    internal delegate NativeULong C_InitTokenDelegate(NativeULong slotId, byte[] pin, NativeULong pinLen, byte[] label);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_InitPINDelegate(uint session, byte[] pin, uint pinLen);
+    internal delegate NativeULong C_InitPINDelegate(NativeULong session, byte[] pin, NativeULong pinLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_SetPINDelegate(uint session, byte[] oldPin, uint oldPinLen, byte[] newPin, uint newPinLen);
+    internal delegate NativeULong C_SetPINDelegate(NativeULong session, byte[] oldPin, NativeULong oldPinLen, byte[] newPin, NativeULong newPinLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_OpenSessionDelegate(uint slotId, uint flags, IntPtr application, IntPtr notify, ref uint session);
+    internal delegate NativeULong C_OpenSessionDelegate(NativeULong slotId, NativeULong flags, IntPtr application, IntPtr notify, ref NativeULong session);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_CloseSessionDelegate(uint session);
+    internal delegate NativeULong C_CloseSessionDelegate(NativeULong session);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_CloseAllSessionsDelegate(uint slotId);
+    internal delegate NativeULong C_CloseAllSessionsDelegate(NativeULong slotId);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_GetSessionInfoDelegate(uint session, ref CK_SESSION_INFO info);
+    internal delegate NativeULong C_GetSessionInfoDelegate(NativeULong session, ref CK_SESSION_INFO info);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_GetOperationStateDelegate(uint session, byte[] operationState, ref uint operationStateLen);
+    internal delegate NativeULong C_GetOperationStateDelegate(NativeULong session, byte[] operationState, ref NativeULong operationStateLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_SetOperationStateDelegate(uint session, byte[] operationState, uint operationStateLen, uint encryptionKey, uint authenticationKey);
+    internal delegate NativeULong C_SetOperationStateDelegate(NativeULong session, byte[] operationState, NativeULong operationStateLen, NativeULong encryptionKey, NativeULong authenticationKey);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_LoginDelegate(uint session, uint userType, byte[] pin, uint pinLen);
+    internal delegate NativeULong C_LoginDelegate(NativeULong session, NativeULong userType, byte[] pin, NativeULong pinLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_LogoutDelegate(uint session);
+    internal delegate NativeULong C_LogoutDelegate(NativeULong session);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_CreateObjectDelegate(uint session, CK_ATTRIBUTE[] template, uint count, ref uint objectId);
+    internal delegate NativeULong C_CreateObjectDelegate(NativeULong session, CK_ATTRIBUTE[] template, NativeULong count, ref NativeULong objectId);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_CopyObjectDelegate(uint session, uint objectId, CK_ATTRIBUTE[] template, uint count, ref uint newObjectId);
+    internal delegate NativeULong C_CopyObjectDelegate(NativeULong session, NativeULong objectId, CK_ATTRIBUTE[] template, NativeULong count, ref NativeULong newObjectId);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_DestroyObjectDelegate(uint session, uint objectId);
+    internal delegate NativeULong C_DestroyObjectDelegate(NativeULong session, NativeULong objectId);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_GetObjectSizeDelegate(uint session, uint objectId, ref uint size);
+    internal delegate NativeULong C_GetObjectSizeDelegate(NativeULong session, NativeULong objectId, ref NativeULong size);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_GetAttributeValueDelegate(uint session, uint objectId, [In, Out] CK_ATTRIBUTE[] template, uint count);
+    internal delegate NativeULong C_GetAttributeValueDelegate(NativeULong session, NativeULong objectId, [In, Out] CK_ATTRIBUTE[] template, NativeULong count);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_SetAttributeValueDelegate(uint session, uint objectId, CK_ATTRIBUTE[] template, uint count);
+    internal delegate NativeULong C_SetAttributeValueDelegate(NativeULong session, NativeULong objectId, CK_ATTRIBUTE[] template, NativeULong count);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_FindObjectsInitDelegate(uint session, CK_ATTRIBUTE[] template, uint count);
+    internal delegate NativeULong C_FindObjectsInitDelegate(NativeULong session, CK_ATTRIBUTE[] template, NativeULong count);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_FindObjectsDelegate(uint session, uint[] objectId, uint maxObjectCount, ref uint objectCount);
+    internal delegate NativeULong C_FindObjectsDelegate(NativeULong session, NativeULong[] objectId, NativeULong maxObjectCount, ref NativeULong objectCount);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_FindObjectsFinalDelegate(uint session);
+    internal delegate NativeULong C_FindObjectsFinalDelegate(NativeULong session);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_EncryptInitDelegate(uint session, ref CK_MECHANISM mechanism, uint key);
+    internal delegate NativeULong C_EncryptInitDelegate(NativeULong session, ref CK_MECHANISM mechanism, NativeULong key);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_EncryptDelegate(uint session, byte[] data, uint dataLen, byte[] encryptedData, ref uint encryptedDataLen);
+    internal delegate NativeULong C_EncryptDelegate(NativeULong session, byte[] data, NativeULong dataLen, byte[] encryptedData, ref NativeULong encryptedDataLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_EncryptUpdateDelegate(uint session, byte[] part, uint partLen, byte[] encryptedPart, ref uint encryptedPartLen);
+    internal delegate NativeULong C_EncryptUpdateDelegate(NativeULong session, byte[] part, NativeULong partLen, byte[] encryptedPart, ref NativeULong encryptedPartLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_EncryptFinalDelegate(uint session, byte[] lastEncryptedPart, ref uint lastEncryptedPartLen);
+    internal delegate NativeULong C_EncryptFinalDelegate(NativeULong session, byte[] lastEncryptedPart, ref NativeULong lastEncryptedPartLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_DecryptInitDelegate(uint session, ref CK_MECHANISM mechanism, uint key);
+    internal delegate NativeULong C_DecryptInitDelegate(NativeULong session, ref CK_MECHANISM mechanism, NativeULong key);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_DecryptDelegate(uint session, byte[] encryptedData, uint encryptedDataLen, byte[] data, ref uint dataLen);
+    internal delegate NativeULong C_DecryptDelegate(NativeULong session, byte[] encryptedData, NativeULong encryptedDataLen, byte[] data, ref NativeULong dataLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_DecryptUpdateDelegate(uint session, byte[] encryptedPart, uint encryptedPartLen, byte[] part, ref uint partLen);
+    internal delegate NativeULong C_DecryptUpdateDelegate(NativeULong session, byte[] encryptedPart, NativeULong encryptedPartLen, byte[] part, ref NativeULong partLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_DecryptFinalDelegate(uint session, byte[] lastPart, ref uint lastPartLen);
+    internal delegate NativeULong C_DecryptFinalDelegate(NativeULong session, byte[] lastPart, ref NativeULong lastPartLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_DigestInitDelegate(uint session, ref CK_MECHANISM mechanism);
+    internal delegate NativeULong C_DigestInitDelegate(NativeULong session, ref CK_MECHANISM mechanism);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_DigestDelegate(uint session, byte[] data, uint dataLen, byte[] digest, ref uint digestLen);
+    internal delegate NativeULong C_DigestDelegate(NativeULong session, byte[] data, NativeULong dataLen, byte[] digest, ref NativeULong digestLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_DigestUpdateDelegate(uint session, byte[] part, uint partLen);
+    internal delegate NativeULong C_DigestUpdateDelegate(NativeULong session, byte[] part, NativeULong partLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_DigestKeyDelegate(uint session, uint key);
+    internal delegate NativeULong C_DigestKeyDelegate(NativeULong session, NativeULong key);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_DigestFinalDelegate(uint session, byte[] digest, ref uint digestLen);
+    internal delegate NativeULong C_DigestFinalDelegate(NativeULong session, byte[] digest, ref NativeULong digestLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_SignInitDelegate(uint session, ref CK_MECHANISM mechanism, uint key);
+    internal delegate NativeULong C_SignInitDelegate(NativeULong session, ref CK_MECHANISM mechanism, NativeULong key);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_SignDelegate(uint session, byte[] data, uint dataLen, byte[] signature, ref uint signatureLen);
+    internal delegate NativeULong C_SignDelegate(NativeULong session, byte[] data, NativeULong dataLen, byte[] signature, ref NativeULong signatureLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_SignUpdateDelegate(uint session, byte[] part, uint partLen);
+    internal delegate NativeULong C_SignUpdateDelegate(NativeULong session, byte[] part, NativeULong partLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_SignFinalDelegate(uint session, byte[] signature, ref uint signatureLen);
+    internal delegate NativeULong C_SignFinalDelegate(NativeULong session, byte[] signature, ref NativeULong signatureLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_SignRecoverInitDelegate(uint session, ref CK_MECHANISM mechanism, uint key);
+    internal delegate NativeULong C_SignRecoverInitDelegate(NativeULong session, ref CK_MECHANISM mechanism, NativeULong key);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_SignRecoverDelegate(uint session, byte[] data, uint dataLen, byte[] signature, ref uint signatureLen);
+    internal delegate NativeULong C_SignRecoverDelegate(NativeULong session, byte[] data, NativeULong dataLen, byte[] signature, ref NativeULong signatureLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_VerifyInitDelegate(uint session, ref CK_MECHANISM mechanism, uint key);
+    internal delegate NativeULong C_VerifyInitDelegate(NativeULong session, ref CK_MECHANISM mechanism, NativeULong key);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_VerifyDelegate(uint session, byte[] data, uint dataLen, byte[] signature, uint signatureLen);
+    internal delegate NativeULong C_VerifyDelegate(NativeULong session, byte[] data, NativeULong dataLen, byte[] signature, NativeULong signatureLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_VerifyUpdateDelegate(uint session, byte[] part, uint partLen);
+    internal delegate NativeULong C_VerifyUpdateDelegate(NativeULong session, byte[] part, NativeULong partLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_VerifyFinalDelegate(uint session, byte[] signature, uint signatureLen);
+    internal delegate NativeULong C_VerifyFinalDelegate(NativeULong session, byte[] signature, NativeULong signatureLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_VerifyRecoverInitDelegate(uint session, ref CK_MECHANISM mechanism, uint key);
+    internal delegate NativeULong C_VerifyRecoverInitDelegate(NativeULong session, ref CK_MECHANISM mechanism, NativeULong key);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_VerifyRecoverDelegate(uint session, byte[] signature, uint signatureLen, byte[] data, ref uint dataLen);
+    internal delegate NativeULong C_VerifyRecoverDelegate(NativeULong session, byte[] signature, NativeULong signatureLen, byte[] data, ref NativeULong dataLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_DigestEncryptUpdateDelegate(uint session, byte[] part, uint partLen, byte[] encryptedPart, ref uint encryptedPartLen);
+    internal delegate NativeULong C_DigestEncryptUpdateDelegate(NativeULong session, byte[] part, NativeULong partLen, byte[] encryptedPart, ref NativeULong encryptedPartLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_DecryptDigestUpdateDelegate(uint session, byte[] encryptedPart, uint encryptedPartLen, byte[] part, ref uint partLen);
+    internal delegate NativeULong C_DecryptDigestUpdateDelegate(NativeULong session, byte[] encryptedPart, NativeULong encryptedPartLen, byte[] part, ref NativeULong partLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_SignEncryptUpdateDelegate(uint session, byte[] part, uint partLen, byte[] encryptedPart, ref uint encryptedPartLen);
+    internal delegate NativeULong C_SignEncryptUpdateDelegate(NativeULong session, byte[] part, NativeULong partLen, byte[] encryptedPart, ref NativeULong encryptedPartLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_DecryptVerifyUpdateDelegate(uint session, byte[] encryptedPart, uint encryptedPartLen, byte[] part, ref uint partLen);
+    internal delegate NativeULong C_DecryptVerifyUpdateDelegate(NativeULong session, byte[] encryptedPart, NativeULong encryptedPartLen, byte[] part, ref NativeULong partLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_GenerateKeyDelegate(uint session, ref CK_MECHANISM mechanism, CK_ATTRIBUTE[] template, uint count, ref uint key);
+    internal delegate NativeULong C_GenerateKeyDelegate(NativeULong session, ref CK_MECHANISM mechanism, CK_ATTRIBUTE[] template, NativeULong count, ref NativeULong key);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_GenerateKeyPairDelegate(uint session, ref CK_MECHANISM mechanism, CK_ATTRIBUTE[] publicKeyTemplate, uint publicKeyAttributeCount, CK_ATTRIBUTE[] privateKeyTemplate, uint privateKeyAttributeCount, ref uint publicKey, ref uint privateKey);
+    internal delegate NativeULong C_GenerateKeyPairDelegate(NativeULong session, ref CK_MECHANISM mechanism, CK_ATTRIBUTE[] publicKeyTemplate, NativeULong publicKeyAttributeCount, CK_ATTRIBUTE[] privateKeyTemplate, NativeULong privateKeyAttributeCount, ref NativeULong publicKey, ref NativeULong privateKey);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_WrapKeyDelegate(uint session, ref CK_MECHANISM mechanism, uint wrappingKey, uint key, byte[] wrappedKey, ref uint wrappedKeyLen);
+    internal delegate NativeULong C_WrapKeyDelegate(NativeULong session, ref CK_MECHANISM mechanism, NativeULong wrappingKey, NativeULong key, byte[] wrappedKey, ref NativeULong wrappedKeyLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_UnwrapKeyDelegate(uint session, ref CK_MECHANISM mechanism, uint unwrappingKey, byte[] wrappedKey, uint wrappedKeyLen, CK_ATTRIBUTE[] template, uint attributeCount, ref uint key);
+    internal delegate NativeULong C_UnwrapKeyDelegate(NativeULong session, ref CK_MECHANISM mechanism, NativeULong unwrappingKey, byte[] wrappedKey, NativeULong wrappedKeyLen, CK_ATTRIBUTE[] template, NativeULong attributeCount, ref NativeULong key);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_DeriveKeyDelegate(uint session, ref CK_MECHANISM mechanism, uint baseKey, CK_ATTRIBUTE[] template, uint attributeCount, ref uint key);
+    internal delegate NativeULong C_DeriveKeyDelegate(NativeULong session, ref CK_MECHANISM mechanism, NativeULong baseKey, CK_ATTRIBUTE[] template, NativeULong attributeCount, ref NativeULong key);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_SeedRandomDelegate(uint session, byte[] seed, uint seedLen);
+    internal delegate NativeULong C_SeedRandomDelegate(NativeULong session, byte[] seed, NativeULong seedLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_GenerateRandomDelegate(uint session, byte[] randomData, uint randomLen);
+    internal delegate NativeULong C_GenerateRandomDelegate(NativeULong session, byte[] randomData, NativeULong randomLen);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_GetFunctionStatusDelegate(uint session);
+    internal delegate NativeULong C_GetFunctionStatusDelegate(NativeULong session);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_CancelFunctionDelegate(uint session);
+    internal delegate NativeULong C_CancelFunctionDelegate(NativeULong session);
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate uint C_WaitForSlotEventDelegate(uint flags, ref uint slot, IntPtr reserved);
+    internal delegate NativeULong C_WaitForSlotEventDelegate(NativeULong flags, ref NativeULong slot, IntPtr reserved);
 
     /// <summary>
     /// Holds delegates for all PKCS#11 functions
@@ -616,7 +617,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
 
             IntPtr functionList = IntPtr.Zero;
 
-            CKR rv = (CKR)cGetFunctionList(out functionList);
+            CKR rv = NativeLongUtils.ConvertToCKR(cGetFunctionList(out functionList));
             if ((rv != CKR.CKR_OK) || (functionList == IntPtr.Zero))
                 throw new Pkcs11Exception("C_GetFunctionList", rv);
 
@@ -631,7 +632,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
         {
             IntPtr functionList = IntPtr.Zero;
 
-            CKR rv = (CKR)NativeMethods.C_GetFunctionList(out functionList);
+            CKR rv = NativeLongUtils.ConvertToCKR(NativeMethods.C_GetFunctionList(out functionList));
             if ((rv != CKR.CKR_OK) || (functionList == IntPtr.Zero))
                 throw new Pkcs11Exception("C_GetFunctionList", rv);
 

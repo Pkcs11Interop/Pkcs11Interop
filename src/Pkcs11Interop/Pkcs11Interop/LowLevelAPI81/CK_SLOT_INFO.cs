@@ -20,6 +20,7 @@
  */
 
 using System.Runtime.InteropServices;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI81
 {
@@ -44,7 +45,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         /// <summary>
         /// Bits flags that provide capabilities of the slot.
         /// </summary>
-        public ulong Flags;
+        public NativeULong Flags;
 
         /// <summary>
         /// Version number of the slot's hardware

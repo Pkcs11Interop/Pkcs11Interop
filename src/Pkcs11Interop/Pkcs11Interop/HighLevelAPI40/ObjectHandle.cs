@@ -20,6 +20,7 @@
  */
 
 using Net.Pkcs11Interop.Common;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40
 {
@@ -31,12 +32,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// PKCS#11 handle of object
         /// </summary>
-        private uint _objectId = CK.CK_INVALID_HANDLE;
+        private NativeULong _objectId = CK.CK_INVALID_HANDLE;
 
         /// <summary>
         /// PKCS#11 handle of object
         /// </summary>
-        public uint ObjectId
+        public NativeULong ObjectId
         {
             get
             {
@@ -56,7 +57,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// Initializes new instance of ObjectHandle class
         /// </summary>
         /// <param name="objectId">PKCS#11 handle of object</param>
-        public ObjectHandle(uint objectId)
+        public ObjectHandle(NativeULong objectId)
         {
             _objectId = objectId;
         }

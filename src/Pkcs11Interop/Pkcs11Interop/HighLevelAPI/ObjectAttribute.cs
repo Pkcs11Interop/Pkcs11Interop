@@ -368,9 +368,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             if (Platform.UnmanagedLongSize == 4)
-                return (Platform.StructPackingSize == 0) ? _objectAttribute40.GetValueAsUint() : _objectAttribute41.GetValueAsUint();
+                return (Platform.StructPackingSize == 0) ? _objectAttribute40.GetValueAsNativeUlong() : _objectAttribute41.GetValueAsNativeUlong();
             else
-                return (Platform.StructPackingSize == 0) ? _objectAttribute80.GetValueAsUlong() : _objectAttribute81.GetValueAsUlong();
+                return (Platform.StructPackingSize == 0) ? _objectAttribute80.GetValueAsNativeUlong() : _objectAttribute81.GetValueAsNativeUlong();
         }
 
         #endregion
@@ -790,9 +790,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
                 List<uint> uintList = null;
 
                 if (Platform.StructPackingSize == 0)
-                    uintList = _objectAttribute40.GetValueAsUintList();
+                    uintList = _objectAttribute40.GetValueAsNativeULongList();
                 else
-                    uintList = _objectAttribute41.GetValueAsUintList();
+                    uintList = _objectAttribute41.GetValueAsNativeULongList();
 
                 List<ulong> ulongList = null;
 
@@ -808,9 +808,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             else
             {
                 if (Platform.StructPackingSize == 0)
-                    return _objectAttribute80.GetValueAsUlongList();
+                    return _objectAttribute80.GetValueAsNativeULongList();
                 else
-                    return _objectAttribute81.GetValueAsUlongList();
+                    return _objectAttribute81.GetValueAsNativeULongList();
             }
         }
 

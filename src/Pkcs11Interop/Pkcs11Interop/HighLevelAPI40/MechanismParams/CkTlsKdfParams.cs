@@ -21,7 +21,9 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI40;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
@@ -52,7 +54,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <param name="label">Label for this key derivation</param>
         /// <param name="randomInfo">Random data for the key derivation</param>
         /// <param name="contextData">Context data for this key derivation</param>
-        public CkTlsKdfParams(uint prfMechanism, byte[] label, CkSsl3RandomData randomInfo, byte[] contextData)
+        public CkTlsKdfParams(NativeULong prfMechanism, byte[] label, CkSsl3RandomData randomInfo, byte[] contextData)
         {
             _lowLevelStruct.Label = IntPtr.Zero;
             _lowLevelStruct.LabelLength = 0;
@@ -71,7 +73,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             {
                 _lowLevelStruct.Label = UnmanagedMemory.Allocate(label.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Label, label);
-                _lowLevelStruct.LabelLength = Convert.ToUInt32(label.Length);
+                _lowLevelStruct.LabelLength = NativeLongUtils.ConvertFromInt32(label.Length);
             }
 
             _lowLevelStruct.RandomInfo = (CK_SSL3_RANDOM_DATA)_randomInfo.ToMarshalableStructure();
@@ -80,7 +82,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             {
                 _lowLevelStruct.ContextData = UnmanagedMemory.Allocate(contextData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.ContextData, contextData);
-                _lowLevelStruct.ContextDataLength = Convert.ToUInt32(contextData.Length);
+                _lowLevelStruct.ContextDataLength = NativeLongUtils.ConvertFromInt32(contextData.Length);
             }
         }
 

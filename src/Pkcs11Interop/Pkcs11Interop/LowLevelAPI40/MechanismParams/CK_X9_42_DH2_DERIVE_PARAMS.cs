@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
 {
@@ -33,12 +34,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
         /// <summary>
         /// Key derivation function used on the shared secret value (CKD)
         /// </summary>
-        public uint Kdf;
+        public NativeULong Kdf;
 
         /// <summary>
         /// The length in bytes of the other info
         /// </summary>
-        public uint OtherInfoLen;
+        public NativeULong OtherInfoLen;
 
         /// <summary>
         /// Some data shared between the two parties
@@ -48,7 +49,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
         /// <summary>
         /// The length in bytes of the other party's first X9.42 Diffie-Hellman public key
         /// </summary>
-        public uint PublicDataLen;
+        public NativeULong PublicDataLen;
 
         /// <summary>
         /// Pointer to other party's first X9.42 Diffie-Hellman public key value
@@ -58,17 +59,17 @@ namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
         /// <summary>
         /// The length in bytes of the second X9.42 Diffie-Hellman private key
         /// </summary>
-        public uint PrivateDataLen;
+        public NativeULong PrivateDataLen;
 
         /// <summary>
         /// Key handle for second X9.42 Diffie-Hellman private key value
         /// </summary>
-        public uint PrivateData;
+        public NativeULong PrivateData;
 
         /// <summary>
         /// The length in bytes of the other party's second X9.42 Diffie-Hellman public key
         /// </summary>
-        public uint PublicDataLen2;
+        public NativeULong PublicDataLen2;
 
         /// <summary>
         /// Pointer to other party's second X9.42 Diffie-Hellman public key value

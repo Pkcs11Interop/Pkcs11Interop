@@ -19,11 +19,12 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
+using System;
+using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI81;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
 {
@@ -39,8 +40,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         [Test()]
         public void _02_LibraryInfoMatches()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             // Empty URI
             Pkcs11Uri pkcs11uri = new Pkcs11Uri(@"pkcs11:");
@@ -105,15 +105,14 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         [Test()]
         public void _03_SlotInfoMatches()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             // Empty URI
             Pkcs11Uri pkcs11uri = new Pkcs11Uri(@"pkcs11:");
             CK_SLOT_INFO slotInfo = new CK_SLOT_INFO();
             slotInfo.ManufacturerId = ConvertUtils.Utf8StringToBytes("foo");
             slotInfo.SlotDescription = ConvertUtils.Utf8StringToBytes("bar");
-            ulong slotId = 1;
+            NativeULong slotId = 1;
             Assert.IsTrue(Pkcs11UriUtils.Matches(pkcs11uri, slotInfo, slotId));
 
             // Empty attribute
@@ -171,8 +170,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         [Test()]
         public void _04_TokenInfoMatches()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             // Empty URI
             Pkcs11Uri pkcs11uri = new Pkcs11Uri(@"pkcs11:");
@@ -253,8 +251,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         [Test()]
         public void _05_ObjectAttributesMatches()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             // Empty URI
             Pkcs11Uri pkcs11uri = new Pkcs11Uri(@"pkcs11:");
@@ -364,8 +361,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         [Test()]
         public void _06_GetMatchingSlotList()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath))
             {
@@ -373,17 +369,17 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                 Assert.IsTrue(rv == CKR.CKR_OK);
 
                 // Get all slots
-                ulong allSlotsCount = 0;
+                NativeULong allSlotsCount = 0;
                 rv = pkcs11.C_GetSlotList(true, null, ref allSlotsCount);
                 Assert.IsTrue(rv == CKR.CKR_OK);
                 Assert.IsTrue(allSlotsCount > 0);
-                ulong[] allSlots = new ulong[allSlotsCount];
+                NativeULong[] allSlots = new NativeULong[allSlotsCount];
                 rv = pkcs11.C_GetSlotList(true, allSlots, ref allSlotsCount);
                 Assert.IsTrue(rv == CKR.CKR_OK);
 
                 // Empty URI
                 Pkcs11Uri pkcs11uri = new Pkcs11Uri(@"pkcs11:");
-                ulong[] matchedSlots = null;
+                NativeULong[] matchedSlots = null;
                 rv = Pkcs11UriUtils.GetMatchingSlotList(pkcs11uri, pkcs11, true, out matchedSlots);
                 Assert.IsTrue(rv == CKR.CKR_OK);
                 Assert.IsTrue(matchedSlots.Length == allSlots.Length);
@@ -440,8 +436,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         [Test()]
         public void _07_GetObjectAttributes()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             string uri = @"pkcs11:object=foo;type=private;id=%01%02%03";
 
@@ -453,17 +448,17 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
             Assert.IsTrue(attributes != null);
             Assert.IsTrue(attributes.Length == 3);
 
-            Assert.IsTrue(attributes[0].type == (uint)CKA.CKA_CLASS);
-            ulong ckaClass = 0;
+            Assert.IsTrue(attributes[0].type == NativeLongUtils.ConvertFromCKA(CKA.CKA_CLASS));
+            NativeULong ckaClass = 0;
             CkaUtils.ConvertValue(ref attributes[0], out ckaClass);
-            Assert.IsTrue(ckaClass == (ulong)CKO.CKO_PRIVATE_KEY);
+            Assert.IsTrue(ckaClass == NativeLongUtils.ConvertFromCKO(CKO.CKO_PRIVATE_KEY));
 
-            Assert.IsTrue(attributes[1].type == (uint)CKA.CKA_LABEL);
+            Assert.IsTrue(attributes[1].type == NativeLongUtils.ConvertFromCKA(CKA.CKA_LABEL));
             string ckaLabel = null;
             CkaUtils.ConvertValue(ref attributes[1], out ckaLabel);
             Assert.IsTrue(ckaLabel == "foo");
 
-            Assert.IsTrue(attributes[2].type == (uint)CKA.CKA_ID);
+            Assert.IsTrue(attributes[2].type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ID));
             byte[] ckaId = null;
             CkaUtils.ConvertValue(ref attributes[2], out ckaId);
             Assert.IsTrue(Common.Helpers.ByteArraysMatch(ckaId, new byte[] { 0x01, 0x02, 0x03 }));

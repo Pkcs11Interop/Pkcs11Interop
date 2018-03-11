@@ -19,11 +19,12 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
+using System;
+using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI41;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
+using NativeLongUtils = Net.Pkcs11Interop.LowLevelAPI41.NativeLongUtils;
 
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI41
 {
@@ -39,8 +40,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI41
         [Test()]
         public void _02_LibraryInfoMatches()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
@@ -94,8 +94,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI41
         [Test()]
         public void _03_SlotInfoMatches()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
@@ -151,8 +150,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI41
         [Test()]
         public void _04_TokenInfoMatches()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
@@ -221,8 +219,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI41
         [Test()]
         public void _05_ObjectAttributesMatches()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             // Empty URI
             Pkcs11Uri pkcs11uri = new Pkcs11Uri(@"pkcs11:");
@@ -332,8 +329,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI41
         [Test()]
         public void _06_GetMatchingSlotList()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
@@ -386,8 +382,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI41
         [Test()]
         public void _07_GetObjectAttributes()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             string uri = @"pkcs11:object=foo;type=private;id=%01%02%03";
 
@@ -399,13 +394,13 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI41
             Assert.IsTrue(attributes != null);
             Assert.IsTrue(attributes.Count == 3);
 
-            Assert.IsTrue(attributes[0].Type == (uint)CKA.CKA_CLASS);
-            Assert.IsTrue(attributes[0].GetValueAsUint() == (uint)CKO.CKO_PRIVATE_KEY);
+            Assert.IsTrue(attributes[0].Type == NativeLongUtils.ConvertFromCKA(CKA.CKA_CLASS));
+            Assert.IsTrue(attributes[0].GetValueAsNativeUlong() == NativeLongUtils.ConvertFromCKO(CKO.CKO_PRIVATE_KEY));
 
-            Assert.IsTrue(attributes[1].Type == (uint)CKA.CKA_LABEL);
+            Assert.IsTrue(attributes[1].Type == NativeLongUtils.ConvertFromCKA(CKA.CKA_LABEL));
             Assert.IsTrue(attributes[1].GetValueAsString() == "foo");
 
-            Assert.IsTrue(attributes[2].Type == (uint)CKA.CKA_ID);
+            Assert.IsTrue(attributes[2].Type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ID));
             Assert.IsTrue(Common.Helpers.ByteArraysMatch(attributes[2].GetValueAsByteArray(), new byte[] { 0x01, 0x02, 0x03 }));
         }
     }

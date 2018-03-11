@@ -20,6 +20,7 @@
  */
 
 using Net.Pkcs11Interop.Common;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI81
 {
@@ -31,12 +32,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// Bits flags specifying mechanism capabilities
         /// </summary>
-        private ulong _flags;
+        private NativeULong _flags;
 
         /// <summary>
         /// Bits flags specifying mechanism capabilities
         /// </summary>
-        public ulong Flags
+        public NativeULong Flags
         {
             get
             {
@@ -272,7 +273,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// Initializes new instance of MechanismFlags class
         /// </summary>
         /// <param name="flags">Bits flags specifying mechanism capabilities</param>
-        internal MechanismFlags(ulong flags)
+        internal MechanismFlags(NativeULong flags)
         {
             _flags = flags;
         }

@@ -22,6 +22,7 @@
 using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI41;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI41
 {
@@ -33,12 +34,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// PKCS#11 handle of slot
         /// </summary>
-        private uint _slotId = CK.CK_INVALID_HANDLE;
+        private NativeULong _slotId = CK.CK_INVALID_HANDLE;
 
         /// <summary>
         /// PKCS#11 handle of slot
         /// </summary>
-        public uint SlotId
+        public NativeULong SlotId
         {
             get
             {
@@ -129,12 +130,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Maximum number of sessions that can be opened with the token at one time by a single application
         /// </summary>
-        private uint _maxSessionCount = 0;
+        private NativeULong _maxSessionCount = 0;
 
         /// <summary>
         /// Maximum number of sessions that can be opened with the token at one time by a single application
         /// </summary>
-        public uint MaxSessionCount
+        public NativeULong MaxSessionCount
         {
             get
             {
@@ -145,12 +146,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Number of sessions that this application currently has open with the token
         /// </summary>
-        private uint _sessionCount = 0;
+        private NativeULong _sessionCount = 0;
 
         /// <summary>
         /// Number of sessions that this application currently has open with the token
         /// </summary>
-        public uint SessionCount
+        public NativeULong SessionCount
         {
             get
             {
@@ -161,12 +162,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Maximum number of read/write sessions that can be opened with the token at one time by a single application
         /// </summary>
-        private uint _maxRwSessionCount = 0;
+        private NativeULong _maxRwSessionCount = 0;
 
         /// <summary>
         /// Maximum number of read/write sessions that can be opened with the token at one time by a single application
         /// </summary>
-        public uint MaxRwSessionCount
+        public NativeULong MaxRwSessionCount
         {
             get
             {
@@ -177,12 +178,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Number of read/write sessions that this application currently has open with the token
         /// </summary>
-        private uint _rwSessionCount = 0;
+        private NativeULong _rwSessionCount = 0;
 
         /// <summary>
         /// Number of read/write sessions that this application currently has open with the token
         /// </summary>
-        public uint RwSessionCount
+        public NativeULong RwSessionCount
         {
             get
             {
@@ -193,12 +194,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Maximum length in bytes of the PIN
         /// </summary>
-        private uint _maxPinLen = 0;
+        private NativeULong _maxPinLen = 0;
 
         /// <summary>
         /// Maximum length in bytes of the PIN
         /// </summary>
-        public uint MaxPinLen
+        public NativeULong MaxPinLen
         {
             get
             {
@@ -209,12 +210,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Minimum length in bytes of the PIN
         /// </summary>
-        private uint _minPinLen = 0;
+        private NativeULong _minPinLen = 0;
 
         /// <summary>
         /// Minimum length in bytes of the PIN
         /// </summary>
-        public uint MinPinLen
+        public NativeULong MinPinLen
         {
             get
             {
@@ -225,12 +226,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// The total amount of memory on the token in bytes in which public objects may be stored
         /// </summary>
-        private uint _totalPublicMemory = 0;
+        private NativeULong _totalPublicMemory = 0;
 
         /// <summary>
         /// The total amount of memory on the token in bytes in which public objects may be stored
         /// </summary>
-        public uint TotalPublicMemory
+        public NativeULong TotalPublicMemory
         {
             get
             {
@@ -241,12 +242,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// The amount of free (unused) memory on the token in bytes for public objects
         /// </summary>
-        private uint _freePublicMemory = 0;
+        private NativeULong _freePublicMemory = 0;
 
         /// <summary>
         /// The amount of free (unused) memory on the token in bytes for public objects
         /// </summary>
-        public uint FreePublicMemory
+        public NativeULong FreePublicMemory
         {
             get
             {
@@ -257,12 +258,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// The total amount of memory on the token in bytes in which private objects may be stored
         /// </summary>
-        private uint _totalPrivateMemory = 0;
+        private NativeULong _totalPrivateMemory = 0;
 
         /// <summary>
         /// The total amount of memory on the token in bytes in which private objects may be stored
         /// </summary>
-        public uint TotalPrivateMemory
+        public NativeULong TotalPrivateMemory
         {
             get
             {
@@ -273,12 +274,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// The amount of free (unused) memory on the token in bytes for private objects
         /// </summary>
-        private uint _freePrivateMemory = 0;
+        private NativeULong _freePrivateMemory = 0;
 
         /// <summary>
         /// The amount of free (unused) memory on the token in bytes for private objects
         /// </summary>
-        public uint FreePrivateMemory
+        public NativeULong FreePrivateMemory
         {
             get
             {
@@ -355,7 +356,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// </summary>
         /// <param name="slotId">PKCS#11 handle of slot</param>
         /// <param name="ck_token_info">Low level CK_TOKEN_INFO structure</param>
-        internal TokenInfo(uint slotId, CK_TOKEN_INFO ck_token_info)
+        internal TokenInfo(NativeULong slotId, CK_TOKEN_INFO ck_token_info)
         {
             _slotId = slotId;
             _label = ConvertUtils.BytesToUtf8String(ck_token_info.Label, true);

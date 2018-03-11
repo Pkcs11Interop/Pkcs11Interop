@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
 {
@@ -43,6 +44,6 @@ namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
         /// <summary>
         /// Base hash used in the underlying TLS 1.2 PRF operation used to derive the master key (CKM)
         /// </summary>
-        public uint PrfHashMechanism;
+        public NativeULong PrfHashMechanism;
     }
 }

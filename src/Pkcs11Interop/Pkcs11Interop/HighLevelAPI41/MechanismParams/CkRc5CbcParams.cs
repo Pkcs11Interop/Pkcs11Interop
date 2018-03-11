@@ -21,7 +21,9 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI41;
 using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
@@ -46,7 +48,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// <param name='wordsize'>Wordsize of RC5 cipher in bytes</param>
         /// <param name='rounds'>Number of rounds of RC5 encipherment</param>
         /// <param name='iv'>Initialization vector (IV) for CBC encryption</param>
-        public CkRc5CbcParams(uint wordsize, uint rounds, byte[] iv)
+        public CkRc5CbcParams(NativeULong wordsize, NativeULong rounds, byte[] iv)
         {
             _lowLevelStruct.Wordsize = 0;
             _lowLevelStruct.Rounds = 0;
@@ -61,7 +63,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
             {
                 _lowLevelStruct.Iv = UnmanagedMemory.Allocate(iv.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Iv, iv);
-                _lowLevelStruct.IvLen = Convert.ToUInt32(iv.Length);
+                _lowLevelStruct.IvLen = NativeLongUtils.ConvertFromInt32(iv.Length);
             }
         }
         

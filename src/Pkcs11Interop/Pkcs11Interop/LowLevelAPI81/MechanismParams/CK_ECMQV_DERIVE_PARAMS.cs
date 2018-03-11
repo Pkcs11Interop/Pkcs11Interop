@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
 {
@@ -33,12 +34,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
         /// <summary>
         /// Key derivation function used on the shared secret value (CKD)
         /// </summary>
-        public ulong Kdf;
+        public NativeULong Kdf;
 
         /// <summary>
         /// The length in bytes of the shared info
         /// </summary>
-        public ulong SharedDataLen;
+        public NativeULong SharedDataLen;
 
         /// <summary>
         /// Some data shared between the two parties
@@ -48,7 +49,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
         /// <summary>
         /// The length in bytes of the other party's first EC public key
         /// </summary>
-        public ulong PublicDataLen;
+        public NativeULong PublicDataLen;
 
         /// <summary>
         /// Pointer to other party's first EC public key value
@@ -58,17 +59,17 @@ namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
         /// <summary>
         /// The length in bytes of the second EC private key
         /// </summary>
-        public ulong PrivateDataLen;
+        public NativeULong PrivateDataLen;
 
         /// <summary>
         /// Key handle for second EC private key value
         /// </summary>
-        public ulong PrivateData;
+        public NativeULong PrivateData;
 
         /// <summary>
         /// The length in bytes of the other party's second EC public key
         /// </summary>
-        public ulong PublicDataLen2;
+        public NativeULong PublicDataLen2;
 
         /// <summary>
         /// Pointer to other party's second EC public key value
@@ -78,6 +79,6 @@ namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
         /// <summary>
         /// Handle to the first party's ephemeral public key
         /// </summary>
-        public ulong PublicKey;
+        public NativeULong PublicKey;
     }
 }

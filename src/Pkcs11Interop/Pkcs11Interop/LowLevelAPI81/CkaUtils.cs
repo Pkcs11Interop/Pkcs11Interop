@@ -21,6 +21,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI81
 {
@@ -38,7 +39,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         /// <returns>Attribute of given type structure with no value</returns>
         public static CK_ATTRIBUTE CreateAttribute(CKA type)
         {
-            return CreateAttribute(Convert.ToUInt64((uint)type));
+            return CreateAttribute(NativeLongUtils.ConvertFromCKA(type));
         }
 
         /// <summary>
@@ -46,24 +47,24 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <returns>Attribute of given type structure with no value</returns>
-        public static CK_ATTRIBUTE CreateAttribute(ulong type)
+        public static CK_ATTRIBUTE CreateAttribute(NativeULong type)
         {
             return _CreateAttribute(type, null);
         }
 
         #endregion
 
-        #region Attribute with ulong value
+        #region Attribute with NativeULong value
 
         /// <summary>
-        /// Creates attribute of given type with ulong value
+        /// Creates attribute of given type with NativeULong value
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        /// <returns>Attribute of given type with ulong value</returns>
-        public static CK_ATTRIBUTE CreateAttribute(CKA type, ulong value)
+        /// <returns>Attribute of given type with NativeULong value</returns>
+        public static CK_ATTRIBUTE CreateAttribute(CKA type, NativeULong value)
         {
-            return CreateAttribute(Convert.ToUInt64((uint)type), value);
+            return CreateAttribute(NativeLongUtils.ConvertFromCKA(type), value);
         }
 
         /// <summary>
@@ -74,7 +75,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         /// <returns>Attribute of given type with CKC value</returns>
         public static CK_ATTRIBUTE CreateAttribute(CKA type, CKC value)
         {
-            return CreateAttribute(Convert.ToUInt64((uint)type), Convert.ToUInt64((uint)value));
+            return CreateAttribute(NativeLongUtils.ConvertFromCKA(type), NativeLongUtils.ConvertFromCKC(value));
         }
 
         /// <summary>
@@ -85,7 +86,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         /// <returns>Attribute of given type with CKK value</returns>
         public static CK_ATTRIBUTE CreateAttribute(CKA type, CKK value)
         {
-            return CreateAttribute(Convert.ToUInt64((uint)type), Convert.ToUInt64((uint)value));
+            return CreateAttribute(NativeLongUtils.ConvertFromCKA(type), NativeLongUtils.ConvertFromCKK(value));
         }
 
         /// <summary>
@@ -96,29 +97,29 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         /// <returns>Attribute of given type with CKO value</returns>
         public static CK_ATTRIBUTE CreateAttribute(CKA type, CKO value)
         {
-            return CreateAttribute(Convert.ToUInt64((uint)type), Convert.ToUInt64((uint)value));
+            return CreateAttribute(NativeLongUtils.ConvertFromCKA(type), NativeLongUtils.ConvertFromCKO(value));
         }
 
         /// <summary>
-        /// Creates attribute of given type with ulong value
+        /// Creates attribute of given type with NativeULong value
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        /// <returns>Attribute of given type with ulong value</returns>
-        public static CK_ATTRIBUTE CreateAttribute(ulong type, ulong value)
+        /// <returns>Attribute of given type with NativeULong value</returns>
+        public static CK_ATTRIBUTE CreateAttribute(NativeULong type, NativeULong value)
         {
-            return _CreateAttribute(type, ConvertUtils.ULongToBytes(value));
+            return _CreateAttribute(type, NativeLongUtils.ConvertToByteArray(value));
         }
 
         /// <summary>
-        /// Reads value of attribute and returns it as ulong
+        /// Reads value of attribute and returns it as NativeULong
         /// </summary>
         /// <param name="attribute">Attribute whose value should be read</param>
         /// <param name="value">Location that receives attribute value</param>
-        public static void ConvertValue(ref CK_ATTRIBUTE attribute, out ulong value)
+        public static void ConvertValue(ref CK_ATTRIBUTE attribute, out NativeULong value)
         {
             byte[] bytes = ConvertValue(ref attribute);
-            value = ConvertUtils.BytesToULong(bytes);
+            value = NativeLongUtils.ConvertFromByteArray(bytes);
         }
 
         #endregion
@@ -133,7 +134,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         /// <returns>Attribute of given type with bool value</returns>
         public static CK_ATTRIBUTE CreateAttribute(CKA type, bool value)
         {
-            return CreateAttribute(Convert.ToUInt64((uint)type), value);
+            return CreateAttribute(NativeLongUtils.ConvertFromCKA(type), value);
         }
 
         /// <summary>
@@ -142,7 +143,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of given type with bool value</returns>
-        public static CK_ATTRIBUTE CreateAttribute(ulong type, bool value)
+        public static CK_ATTRIBUTE CreateAttribute(NativeULong type, bool value)
         {
             return _CreateAttribute(type, ConvertUtils.BoolToBytes(value));
         }
@@ -170,7 +171,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         /// <returns>Attribute of given type with string value</returns>
         public static CK_ATTRIBUTE CreateAttribute(CKA type, string value)
         {
-            return CreateAttribute(Convert.ToUInt64((uint)type), value);
+            return CreateAttribute(NativeLongUtils.ConvertFromCKA(type), value);
         }
 
         /// <summary>
@@ -179,7 +180,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of given type with string value</returns>
-        public static CK_ATTRIBUTE CreateAttribute(ulong type, string value)
+        public static CK_ATTRIBUTE CreateAttribute(NativeULong type, string value)
         {
             return _CreateAttribute(type, ConvertUtils.Utf8StringToBytes(value));
         }
@@ -207,7 +208,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         /// <returns>Attribute of given type with byte array value</returns>
         public static CK_ATTRIBUTE CreateAttribute(CKA type, byte[] value)
         {
-            return CreateAttribute(Convert.ToUInt64((uint)type), value);
+            return CreateAttribute(NativeLongUtils.ConvertFromCKA(type), value);
         }
 
         /// <summary>
@@ -216,7 +217,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of given type with byte array value</returns>
-        public static CK_ATTRIBUTE CreateAttribute(ulong type, byte[] value)
+        public static CK_ATTRIBUTE CreateAttribute(NativeULong type, byte[] value)
         {
             return _CreateAttribute(type, value);
         }
@@ -245,7 +246,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         {
             // Possible TODO - Implement with nullable DateTime
 
-            return CreateAttribute(Convert.ToUInt64((uint)type), value);
+            return CreateAttribute(NativeLongUtils.ConvertFromCKA(type), value);
         }
 
         /// <summary>
@@ -254,7 +255,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of given type with DateTime value</returns>
-        public static CK_ATTRIBUTE CreateAttribute(ulong type, DateTime value)
+        public static CK_ATTRIBUTE CreateAttribute(NativeULong type, DateTime value)
         {
             // Possible TODO - Implement with nullable DateTime
 
@@ -320,7 +321,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         /// <returns>Attribute of given type with attribute array value</returns>
         public static CK_ATTRIBUTE CreateAttribute(CKA type, CK_ATTRIBUTE[] value)
         {
-            return CreateAttribute(Convert.ToUInt64((uint)type), value);
+            return CreateAttribute(NativeLongUtils.ConvertFromCKA(type), value);
         }
 
         /// <summary>
@@ -329,7 +330,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of given type with attribute array value</returns>
-        public static CK_ATTRIBUTE CreateAttribute(ulong type, CK_ATTRIBUTE[] value)
+        public static CK_ATTRIBUTE CreateAttribute(NativeULong type, CK_ATTRIBUTE[] value)
         {
             CK_ATTRIBUTE attribute = new CK_ATTRIBUTE();
             attribute.type = type;
@@ -342,7 +343,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
                     IntPtr tempPointer = new IntPtr(attribute.value.ToInt64() + (i * ckAttributeSize));
                     UnmanagedMemory.Write(tempPointer, value[i]);
                 }
-                attribute.valueLen = Convert.ToUInt64(ckAttributeSize * value.Length);
+                attribute.valueLen = NativeLongUtils.ConvertFromInt32(ckAttributeSize * value.Length);
             }
             else
             {
@@ -361,8 +362,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         public static void ConvertValue(ref CK_ATTRIBUTE attribute, out CK_ATTRIBUTE[] value)
         {
             int ckAttributeSize = UnmanagedMemory.SizeOf(typeof(CK_ATTRIBUTE));
-            int attrCount = Convert.ToInt32(attribute.valueLen) / ckAttributeSize;
-            int attrCountMod = Convert.ToInt32(attribute.valueLen) % ckAttributeSize;
+            int attrCount = NativeLongUtils.ConvertToInt32(attribute.valueLen) / ckAttributeSize;
+            int attrCountMod = NativeLongUtils.ConvertToInt32(attribute.valueLen) % ckAttributeSize;
 
             if (attrCountMod != 0)
                 throw new Exception("Unable to convert attribute value to attribute array");
@@ -387,39 +388,39 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
 
         #endregion
 
-        #region Attribute with ulong array value
+        #region Attribute with NativeULong array value
 
         /// <summary>
-        /// Creates attribute of given type with ulong array value
+        /// Creates attribute of given type with NativeULong array value
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        /// <returns>Attribute of given type with ulong array value</returns>
-        public static CK_ATTRIBUTE CreateAttribute(CKA type, ulong[] value)
+        /// <returns>Attribute of given type with NativeULong array value</returns>
+        public static CK_ATTRIBUTE CreateAttribute(CKA type, NativeULong[] value)
         {
-            return CreateAttribute(Convert.ToUInt64((uint)type), value);
+            return CreateAttribute(NativeLongUtils.ConvertFromCKA(type), value);
         }
-        
+
         /// <summary>
-        /// Creates attribute of given type with ulong array value
+        /// Creates attribute of given type with NativeULong array value
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        /// <returns>Attribute of given type with ulong array value</returns>
-        public static CK_ATTRIBUTE CreateAttribute(ulong type, ulong[] value)
+        /// <returns>Attribute of given type with NativeULong array value</returns>
+        public static CK_ATTRIBUTE CreateAttribute(NativeULong type, NativeULong[] value)
         {
             CK_ATTRIBUTE attribute = new CK_ATTRIBUTE();
             attribute.type = type;
             if ((value != null) && (value.Length > 0))
             {
-                int ckmSize = UnmanagedMemory.SizeOf(typeof(ulong));
+                int ckmSize = UnmanagedMemory.SizeOf(typeof(NativeULong));
                 attribute.value = UnmanagedMemory.Allocate(ckmSize * value.Length);
                 for (int i = 0; i < value.Length; i++)
                 {
                     IntPtr tempPointer = new IntPtr(attribute.value.ToInt64() + (i * ckmSize));
-                    UnmanagedMemory.Write(tempPointer, ConvertUtils.ULongToBytes(value[i]));
+                    UnmanagedMemory.Write(tempPointer, NativeLongUtils.ConvertToByteArray(value[i]));
                 }
-                attribute.valueLen = Convert.ToUInt64(ckmSize * value.Length);
+                attribute.valueLen = NativeLongUtils.ConvertFromInt32(ckmSize * value.Length);
             }
             else
             {
@@ -431,18 +432,18 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         }
 
         /// <summary>
-        /// Reads value of attribute and returns it as ulong array
+        /// Reads value of attribute and returns it as NativeULong array
         /// </summary>
         /// <param name="attribute">Attribute whose value should be read</param>
         /// <param name="value">Location that receives attribute value</param>
-        public static void ConvertValue(ref CK_ATTRIBUTE attribute, out ulong[] value)
+        public static void ConvertValue(ref CK_ATTRIBUTE attribute, out NativeULong[] value)
         {
-            int ckmSize = UnmanagedMemory.SizeOf(typeof(ulong));
-            int attrCount = Convert.ToInt32(attribute.valueLen) / ckmSize;
-            int attrCountMod = Convert.ToInt32(attribute.valueLen) % ckmSize;
+            int ckmSize = UnmanagedMemory.SizeOf(typeof(NativeULong));
+            int attrCount = NativeLongUtils.ConvertToInt32(attribute.valueLen) / ckmSize;
+            int attrCountMod = NativeLongUtils.ConvertToInt32(attribute.valueLen) % ckmSize;
             
             if (attrCountMod != 0)
-                throw new Exception("Unable to convert attribute value to ulong array");
+                throw new Exception("Unable to convert attribute value to NativeULong array");
             
             if (attrCount == 0)
             {
@@ -450,12 +451,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
             }
             else
             {
-                ulong[] attrs = new ulong[attrCount];
+                NativeULong[] attrs = new NativeULong[attrCount];
                 
                 for (int i = 0; i < attrCount; i++)
                 {
                     IntPtr tempPointer = new IntPtr(attribute.value.ToInt64() + (i * ckmSize));
-                    attrs[i] = ConvertUtils.BytesToULong(UnmanagedMemory.Read(tempPointer, ckmSize));
+                    attrs[i] = NativeLongUtils.ConvertFromByteArray(UnmanagedMemory.Read(tempPointer, ckmSize));
                 }
                 
                 value = attrs;
@@ -474,15 +475,15 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         /// <returns>Attribute of given type with mechanism array value</returns>
         public static CK_ATTRIBUTE CreateAttribute(CKA type, CKM[] value)
         {
-            ulong[] ulongArray = null;
+            NativeULong[] nativeULongArray = null;
             if (value != null)
             {
-                ulongArray = new ulong[value.Length];
+                nativeULongArray = new NativeULong[value.Length];
                 for (int i = 0; i < value.Length; i++)
-                    ulongArray[i] = Convert.ToUInt64((uint)value[i]);
+                    nativeULongArray[i] = NativeLongUtils.ConvertFromCKM(value[i]);
             }
 
-            return CreateAttribute(type, ulongArray);
+            return CreateAttribute(type, nativeULongArray);
         }
 
         /// <summary>
@@ -491,17 +492,17 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of given type with mechanism array value</returns>
-        public static CK_ATTRIBUTE CreateAttribute(ulong type, CKM[] value)
+        public static CK_ATTRIBUTE CreateAttribute(NativeULong type, CKM[] value)
         {
-            ulong[] ulongArray = null;
+            NativeULong[] nativeULongArray = null;
             if (value != null)
             {
-                ulongArray = new ulong[value.Length];
+                nativeULongArray = new NativeULong[value.Length];
                 for (int i = 0; i < value.Length; i++)
-                    ulongArray[i] = Convert.ToUInt64((uint)value[i]);
+                    nativeULongArray[i] = NativeLongUtils.ConvertFromCKM(value[i]);
             }
 
-            return CreateAttribute(type, ulongArray);
+            return CreateAttribute(type, nativeULongArray);
         }
 
         /// <summary>
@@ -511,15 +512,15 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         /// <param name="value">Location that receives attribute value</param>
         public static void ConvertValue(ref CK_ATTRIBUTE attribute, out CKM[] value)
         {
-            ulong[] ulongArray = null;
-            ConvertValue(ref attribute, out ulongArray);
+            NativeULong[] nativeULongArray = null;
+            ConvertValue(ref attribute, out nativeULongArray);
 
             CKM[] ckmArray = null;
-            if (ulongArray != null)
+            if (nativeULongArray != null)
             {
-                ckmArray = new CKM[ulongArray.Length];
-                for (int i = 0; i < ulongArray.Length; i++)
-                    ckmArray[i] = (CKM)Convert.ToUInt32(ulongArray[i]);
+                ckmArray = new CKM[nativeULongArray.Length];
+                for (int i = 0; i < nativeULongArray.Length; i++)
+                    ckmArray[i] = NativeLongUtils.ConvertToCKM(nativeULongArray[i]);
             }
             value = ckmArray;
         }
@@ -534,7 +535,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of given type with specified value</returns>
-        private static CK_ATTRIBUTE _CreateAttribute(ulong type, byte[] value)
+        private static CK_ATTRIBUTE _CreateAttribute(NativeULong type, byte[] value)
         {
             CK_ATTRIBUTE attribute = new CK_ATTRIBUTE();
             attribute.type = type;
@@ -542,7 +543,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
             {
                 attribute.value = UnmanagedMemory.Allocate(value.Length);
                 UnmanagedMemory.Write(attribute.value, value);
-                attribute.valueLen = Convert.ToUInt64(value.Length);
+                attribute.valueLen = NativeLongUtils.ConvertFromInt32(value.Length);
             }
             else
             {
@@ -563,7 +564,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
             byte[] value = null;
 
             if (attribute.value != IntPtr.Zero)
-                value = UnmanagedMemory.Read(attribute.value, Convert.ToInt32(attribute.valueLen));
+                value = UnmanagedMemory.Read(attribute.value, NativeLongUtils.ConvertToInt32(attribute.valueLen));
 
             return value;
         }

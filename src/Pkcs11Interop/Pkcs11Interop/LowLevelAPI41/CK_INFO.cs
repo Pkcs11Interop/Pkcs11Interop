@@ -20,6 +20,7 @@
  */
 
 using System.Runtime.InteropServices;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.LowLevelAPI41
 {
@@ -43,7 +44,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
         /// <summary>
         /// Bit flags reserved for future versions. Must be zero for this version
         /// </summary>
-        public uint Flags;
+        public NativeULong Flags;
 
         /// <summary>
         /// Character-string description of the library. Must be padded with the blank character (‘ ‘). Should not be null-terminated.

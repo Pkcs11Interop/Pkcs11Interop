@@ -21,7 +21,9 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI80;
 using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
@@ -46,7 +48,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
         /// <param name="wrapOID">Data with DER-encoding of the object identifier indicating the data object type of GOST 28147-89</param>
         /// <param name="ukm">Data with UKM</param>
         /// <param name="key">Key handle of a sender for wrapping operation or key handle of a receiver for unwrapping operation</param>
-        public CkGostR3410KeyWrapParams(byte[] wrapOID, byte[] ukm, ulong key)
+        public CkGostR3410KeyWrapParams(byte[] wrapOID, byte[] ukm, NativeULong key)
         {
             _lowLevelStruct.WrapOID = IntPtr.Zero;
             _lowLevelStruct.WrapOIDLen = 0;
@@ -58,14 +60,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             {
                 _lowLevelStruct.WrapOID = UnmanagedMemory.Allocate(wrapOID.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.WrapOID, wrapOID);
-                _lowLevelStruct.WrapOIDLen = Convert.ToUInt64(wrapOID.Length);
+                _lowLevelStruct.WrapOIDLen = NativeLongUtils.ConvertFromInt32(wrapOID.Length);
             }
 
             if (ukm != null)
             {
                 _lowLevelStruct.UKM = UnmanagedMemory.Allocate(ukm.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.UKM, ukm);
-                _lowLevelStruct.UKMLen = Convert.ToUInt64(ukm.Length);
+                _lowLevelStruct.UKMLen = NativeLongUtils.ConvertFromInt32(ukm.Length);
             }
 
             _lowLevelStruct.Key = key;

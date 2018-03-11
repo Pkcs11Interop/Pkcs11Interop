@@ -21,6 +21,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
 {
@@ -33,7 +34,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81.MechanismParams
         /// <summary>
         /// Length of the temporary AES key in bits
         /// </summary>
-        public ulong AESKeyBits;
+        public NativeULong AESKeyBits;
 
         /// <summary>
         /// Pointer to the parameters of the temporary AES key wrapping (CK_RSA_PKCS_OAEP_PARAMS)

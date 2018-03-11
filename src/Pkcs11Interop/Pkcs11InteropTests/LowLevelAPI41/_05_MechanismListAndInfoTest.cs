@@ -23,6 +23,7 @@ using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI41;
 using NUnit.Framework;
+using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 {
@@ -38,8 +39,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         [Test()]
         public void _01_BasicMechanismListAndInfoTest()
         {
-            if (Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 1)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             CKR rv = CKR.CKR_OK;
             
@@ -50,10 +50,10 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                uint slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeULong slotId = Helpers.GetUsableSlot(pkcs11);
                 
                 // Get number of supported mechanisms in first call
-                uint mechanismCount = 0;
+                NativeULong mechanismCount = 0;
                 rv = pkcs11.C_GetMechanismList(slotId, null, ref mechanismCount);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());

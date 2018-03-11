@@ -22,6 +22,7 @@
 using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI81;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI81
 {
@@ -57,7 +58,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// The type of mechanism
         /// </summary>
-        public ulong Type
+        public NativeULong Type
         {
             get
             {
@@ -77,7 +78,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// Creates mechanism of given type with no parameter
         /// </summary>
         /// <param name="type">Mechanism type</param>
-        public Mechanism(ulong type)
+        public Mechanism(NativeULong type)
         {
             _ckMechanism = CkmUtils.CreateMechanism(type);
         }
@@ -96,7 +97,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// </summary>
         /// <param name="type">Mechanism type</param>
         /// <param name="parameter">Mechanism parameter</param>
-        public Mechanism(ulong type, byte[] parameter)
+        public Mechanism(NativeULong type, byte[] parameter)
         {
             _ckMechanism = CkmUtils.CreateMechanism(type, parameter);
         }
@@ -116,7 +117,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// </summary>
         /// <param name="type">Mechanism type</param>
         /// <param name="parameter">Mechanism parameter</param>
-        public Mechanism(ulong type, IMechanismParams parameter)
+        public Mechanism(NativeULong type, IMechanismParams parameter)
         {
             if (parameter == null)
                 throw new ArgumentNullException("parameter");

@@ -21,7 +21,9 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI81;
 using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 {
@@ -49,7 +51,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <param name='contentType'>String indicating complete MIME Content-type of message to be signed or null if the message is a MIME object</param>
         /// <param name='requestedAttributes'>DER-encoded list of CMS Attributes the caller requests to be included in the signed attributes</param>
         /// <param name='requiredAttributes'>DER-encoded list of CMS Attributes (with accompanying values) required to be included in the resulting signed attributes</param>
-        public CkCmsSigParams(ObjectHandle certificateHandle, ulong? signingMechanism, ulong? digestMechanism, string contentType, byte[] requestedAttributes, byte[] requiredAttributes)
+        public CkCmsSigParams(ObjectHandle certificateHandle, NativeULong? signingMechanism, NativeULong? digestMechanism, string contentType, byte[] requestedAttributes, byte[] requiredAttributes)
         {
             _lowLevelStruct.CertificateHandle = CK.CK_INVALID_HANDLE;
             _lowLevelStruct.SigningMechanism = IntPtr.Zero;
@@ -67,14 +69,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 
             if (signingMechanism != null)
             {
-                byte[] bytes = ConvertUtils.ULongToBytes(signingMechanism.Value);
+                byte[] bytes = NativeLongUtils.ConvertToByteArray(signingMechanism.Value);
                 _lowLevelStruct.SigningMechanism = UnmanagedMemory.Allocate(bytes.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.SigningMechanism, bytes);
             }
 
             if (digestMechanism != null)
             {
-                byte[] bytes = ConvertUtils.ULongToBytes(digestMechanism.Value);
+                byte[] bytes = NativeLongUtils.ConvertToByteArray(digestMechanism.Value);
                 _lowLevelStruct.DigestMechanism = UnmanagedMemory.Allocate(bytes.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.DigestMechanism, bytes);
             }
@@ -93,14 +95,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
             {
                 _lowLevelStruct.RequestedAttributes = UnmanagedMemory.Allocate(requestedAttributes.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.RequestedAttributes, requestedAttributes);
-                _lowLevelStruct.RequestedAttributesLen = Convert.ToUInt64(requestedAttributes.Length);
+                _lowLevelStruct.RequestedAttributesLen = NativeLongUtils.ConvertFromInt32(requestedAttributes.Length);
             }
 
             if (requiredAttributes != null)
             {
                 _lowLevelStruct.RequiredAttributes = UnmanagedMemory.Allocate(requiredAttributes.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.RequiredAttributes, requiredAttributes);
-                _lowLevelStruct.RequiredAttributesLen = Convert.ToUInt64(requiredAttributes.Length);
+                _lowLevelStruct.RequiredAttributesLen = NativeLongUtils.ConvertFromInt32(requiredAttributes.Length);
             }
         }
         

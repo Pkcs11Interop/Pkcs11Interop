@@ -1475,6 +1475,9 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\MechanismParams\CK_X9_42_MQV_DERIVE_PARAMS.cs">
       <Link>LowLevelAPI40\MechanismParams\CK_X9_42_MQV_DERIVE_PARAMS.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\NativeLongUtils.cs">
+      <Link>LowLevelAPI40\NativeLongUtils.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\NativeMethods.cs">
       <Link>LowLevelAPI40\NativeMethods.cs</Link>
     </Compile>
@@ -1693,6 +1696,9 @@
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\MechanismParams\CK_X9_42_MQV_DERIVE_PARAMS.cs">
       <Link>LowLevelAPI41\MechanismParams\CK_X9_42_MQV_DERIVE_PARAMS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\NativeLongUtils.cs">
+      <Link>LowLevelAPI41\NativeLongUtils.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI41\NativeMethods.cs">
       <Link>LowLevelAPI41\NativeMethods.cs</Link>
@@ -1913,6 +1919,9 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\MechanismParams\CK_X9_42_MQV_DERIVE_PARAMS.cs">
       <Link>LowLevelAPI80\MechanismParams\CK_X9_42_MQV_DERIVE_PARAMS.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\NativeLongUtils.cs">
+      <Link>LowLevelAPI80\NativeLongUtils.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI80\NativeMethods.cs">
       <Link>LowLevelAPI80\NativeMethods.cs</Link>
     </Compile>
@@ -2132,6 +2141,9 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\MechanismParams\CK_X9_42_MQV_DERIVE_PARAMS.cs">
       <Link>LowLevelAPI81\MechanismParams\CK_X9_42_MQV_DERIVE_PARAMS.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\NativeLongUtils.cs">
+      <Link>LowLevelAPI81\NativeLongUtils.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI81\NativeMethods.cs">
       <Link>LowLevelAPI81\NativeMethods.cs</Link>
     </Compile>
@@ -2154,6 +2166,9 @@
     </None>
     <None Include="..\..\Pkcs11Interop\Pkcs11Interop\NOTICE.txt">
       <Link>NOTICE.txt</Link>
+    </None>
+    <None Include="..\..\Pkcs11Interop\Pkcs11Interop\regeneratecode.sh">
+      <Link>regeneratecode.sh</Link>
     </None>
   </ItemGroup>
   <ItemGroup>

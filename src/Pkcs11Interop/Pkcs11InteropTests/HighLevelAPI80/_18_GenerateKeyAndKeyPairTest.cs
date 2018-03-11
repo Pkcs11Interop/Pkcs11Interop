@@ -38,8 +38,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
         [Test()]
         public void _01_GenerateKeyTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
@@ -81,8 +80,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI80
         [Test()]
         public void _02_GenerateKeyPairTest()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)
-                Assert.Inconclusive("Test cannot be executed on this platform");
+            Helpers.CheckPlatform();
 
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {

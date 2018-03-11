@@ -22,6 +22,8 @@
 using System;
 using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI81;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI81
 {
@@ -95,15 +97,15 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
             if (objectAttributes == null)
                 throw new ArgumentNullException("objectAttributes");
 
-            ulong ckaClassType = Convert.ToUInt64(CKA.CKA_CLASS);
+            NativeULong ckaClassType = NativeLongUtils.ConvertFromCKA(CKA.CKA_CLASS);
             CKO? ckaClassValue = null;
             bool ckaClassFound = false;
 
-            ulong ckaLabelType = Convert.ToUInt64(CKA.CKA_LABEL);
+            NativeULong ckaLabelType = NativeLongUtils.ConvertFromCKA(CKA.CKA_LABEL);
             string ckaLabelValue = null;
             bool ckaLabelFound = false;
 
-            ulong ckaIdType = Convert.ToUInt64(CKA.CKA_ID);
+            NativeULong ckaIdType = NativeLongUtils.ConvertFromCKA(CKA.CKA_ID);
             byte[] ckaIdValue = null;
             bool ckaIdFound = false;
 
@@ -114,7 +116,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
 
                 if (objectAttribute.Type == ckaClassType)
                 {
-                    ckaClassValue = (CKO)Convert.ToUInt32(objectAttribute.GetValueAsUlong());
+                    ckaClassValue = NativeLongUtils.ConvertToCKO(objectAttribute.GetValueAsNativeUlong());
                     ckaClassFound = true;
                 }
                 else if (objectAttribute.Type == ckaLabelType)

@@ -21,7 +21,9 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.LowLevelAPI81;
 using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
+using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 {
@@ -49,7 +51,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <param name='privateDataLen'>The length in bytes of the second EC private key</param>
         /// <param name='privateData'>Key handle for second EC private key value</param>
         /// <param name='publicData2'>Other party's second EC public key value</param>
-        public CkEcdh2DeriveParams(ulong kdf, byte[] sharedData, byte[] publicData, ulong privateDataLen, ObjectHandle privateData, byte[] publicData2)
+        public CkEcdh2DeriveParams(NativeULong kdf, byte[] sharedData, byte[] publicData, NativeULong privateDataLen, ObjectHandle privateData, byte[] publicData2)
         {
             _lowLevelStruct.Kdf = 0;
             _lowLevelStruct.SharedDataLen = 0;
@@ -67,14 +69,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
             {
                 _lowLevelStruct.SharedData = UnmanagedMemory.Allocate(sharedData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.SharedData, sharedData);
-                _lowLevelStruct.SharedDataLen = Convert.ToUInt64(sharedData.Length);
+                _lowLevelStruct.SharedDataLen = NativeLongUtils.ConvertFromInt32(sharedData.Length);
             }
 
             if (publicData != null)
             {
                 _lowLevelStruct.PublicData = UnmanagedMemory.Allocate(publicData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
-                _lowLevelStruct.PublicDataLen = Convert.ToUInt64(publicData.Length);
+                _lowLevelStruct.PublicDataLen = NativeLongUtils.ConvertFromInt32(publicData.Length);
             }
 
             _lowLevelStruct.PrivateDataLen = privateDataLen;
@@ -88,7 +90,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
             {
                 _lowLevelStruct.PublicData2 = UnmanagedMemory.Allocate(publicData2.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.PublicData2, publicData2);
-                _lowLevelStruct.PublicDataLen2 = Convert.ToUInt64(publicData2.Length);
+                _lowLevelStruct.PublicDataLen2 = NativeLongUtils.ConvertFromInt32(publicData2.Length);
             }
         }
         
