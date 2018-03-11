@@ -1,0 +1,61 @@
+﻿/*
+ *  Copyright 2012-2017 The Pkcs11Interop Project
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+/*
+ *  Written for the Pkcs11Interop project by:
+ *  Jaroslav IMRICH <jimrich@jimrich.sk>
+ */
+
+namespace Net.Pkcs11Interop.HighLevelAPI
+{
+    /// <summary>
+    /// Flags that provide capabilities of the slot
+    /// </summary>
+    public interface ISlotFlags
+    {
+        /// <summary>
+        /// Bits flags that provide capabilities of the slot
+        /// </summary>
+        ulong Flags
+        {
+            get;
+        }
+
+        /// <summary>
+        /// True if a token is present in the slot (e.g. a device is in the reader)
+        /// </summary>
+        bool TokenPresent
+        {
+            get;
+        }
+
+        /// <summary>
+        /// True if the reader supports removable devices
+        /// </summary>
+        bool RemovableDevice
+        {
+            get;
+        }
+
+        /// <summary>
+        /// True if the slot is a hardware slot, as opposed to a software slot implementing a "soft token"
+        /// </summary>
+        bool HardwareSlot
+        {
+            get;
+        }
+    }
+}
