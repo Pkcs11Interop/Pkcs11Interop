@@ -83,6 +83,7 @@
     <Compile Include="Doxygen.cs" />
     <Compile Include="HighLevelAPI40\LibraryInfo.cs" />
     <Compile Include="HighLevelAPI40\Mechanism.cs" />
+    <Compile Include="HighLevelAPI40\MechanismFactory.cs" />
     <Compile Include="HighLevelAPI40\MechanismFlags.cs" />
     <Compile Include="HighLevelAPI40\MechanismInfo.cs" />
     <Compile Include="HighLevelAPI40\MechanismParams\CkAesCbcEncryptDataParams.cs" />
@@ -144,9 +145,10 @@
     <Compile Include="HighLevelAPI40\MechanismParams\CkX942Dh2DeriveParams.cs" />
     <Compile Include="HighLevelAPI40\MechanismParams\CkX942MqvDeriveParams.cs" />
     <Compile Include="HighLevelAPI40\ObjectAttribute.cs" />
+    <Compile Include="HighLevelAPI40\ObjectAttributeFactory.cs" />
     <Compile Include="HighLevelAPI40\ObjectHandle.cs" />
     <Compile Include="HighLevelAPI40\Pkcs11.cs" />
-    <Compile Include="HighLevelAPI40\Pkcs11UriUtils.cs" />
+    <Compile Include="HighLevelAPI40\Pkcs11Factory.cs" />
     <Compile Include="HighLevelAPI40\Session.cs" />
     <Compile Include="HighLevelAPI40\SessionFlags.cs" />
     <Compile Include="HighLevelAPI40\SessionInfo.cs" />
@@ -157,6 +159,7 @@
     <Compile Include="HighLevelAPI40\TokenInfo.cs" />
     <Compile Include="HighLevelAPI41\LibraryInfo.cs" />
     <Compile Include="HighLevelAPI41\Mechanism.cs" />
+    <Compile Include="HighLevelAPI41\MechanismFactory.cs" />
     <Compile Include="HighLevelAPI41\MechanismFlags.cs" />
     <Compile Include="HighLevelAPI41\MechanismInfo.cs" />
     <Compile Include="HighLevelAPI41\MechanismParams\CkAesCbcEncryptDataParams.cs" />
@@ -218,9 +221,10 @@
     <Compile Include="HighLevelAPI41\MechanismParams\CkX942Dh2DeriveParams.cs" />
     <Compile Include="HighLevelAPI41\MechanismParams\CkX942MqvDeriveParams.cs" />
     <Compile Include="HighLevelAPI41\ObjectAttribute.cs" />
+    <Compile Include="HighLevelAPI41\ObjectAttributeFactory.cs" />
     <Compile Include="HighLevelAPI41\ObjectHandle.cs" />
     <Compile Include="HighLevelAPI41\Pkcs11.cs" />
-    <Compile Include="HighLevelAPI41\Pkcs11UriUtils.cs" />
+    <Compile Include="HighLevelAPI41\Pkcs11Factory.cs" />
     <Compile Include="HighLevelAPI41\Session.cs" />
     <Compile Include="HighLevelAPI41\SessionFlags.cs" />
     <Compile Include="HighLevelAPI41\SessionInfo.cs" />
@@ -231,6 +235,7 @@
     <Compile Include="HighLevelAPI41\TokenInfo.cs" />
     <Compile Include="HighLevelAPI80\LibraryInfo.cs" />
     <Compile Include="HighLevelAPI80\Mechanism.cs" />
+    <Compile Include="HighLevelAPI80\MechanismFactory.cs" />
     <Compile Include="HighLevelAPI80\MechanismFlags.cs" />
     <Compile Include="HighLevelAPI80\MechanismInfo.cs" />
     <Compile Include="HighLevelAPI80\MechanismParams\CkAesCbcEncryptDataParams.cs" />
@@ -292,9 +297,10 @@
     <Compile Include="HighLevelAPI80\MechanismParams\CkX942Dh2DeriveParams.cs" />
     <Compile Include="HighLevelAPI80\MechanismParams\CkX942MqvDeriveParams.cs" />
     <Compile Include="HighLevelAPI80\ObjectAttribute.cs" />
+    <Compile Include="HighLevelAPI80\ObjectAttributeFactory.cs" />
     <Compile Include="HighLevelAPI80\ObjectHandle.cs" />
     <Compile Include="HighLevelAPI80\Pkcs11.cs" />
-    <Compile Include="HighLevelAPI80\Pkcs11UriUtils.cs" />
+    <Compile Include="HighLevelAPI80\Pkcs11Factory.cs" />
     <Compile Include="HighLevelAPI80\Session.cs" />
     <Compile Include="HighLevelAPI80\SessionFlags.cs" />
     <Compile Include="HighLevelAPI80\SessionInfo.cs" />
@@ -305,6 +311,7 @@
     <Compile Include="HighLevelAPI80\TokenInfo.cs" />
     <Compile Include="HighLevelAPI81\LibraryInfo.cs" />
     <Compile Include="HighLevelAPI81\Mechanism.cs" />
+    <Compile Include="HighLevelAPI81\MechanismFactory.cs" />
     <Compile Include="HighLevelAPI81\MechanismFlags.cs" />
     <Compile Include="HighLevelAPI81\MechanismInfo.cs" />
     <Compile Include="HighLevelAPI81\MechanismParams\CkAesCbcEncryptDataParams.cs" />
@@ -366,9 +373,10 @@
     <Compile Include="HighLevelAPI81\MechanismParams\CkX942Dh2DeriveParams.cs" />
     <Compile Include="HighLevelAPI81\MechanismParams\CkX942MqvDeriveParams.cs" />
     <Compile Include="HighLevelAPI81\ObjectAttribute.cs" />
+    <Compile Include="HighLevelAPI81\ObjectAttributeFactory.cs" />
     <Compile Include="HighLevelAPI81\ObjectHandle.cs" />
     <Compile Include="HighLevelAPI81\Pkcs11.cs" />
-    <Compile Include="HighLevelAPI81\Pkcs11UriUtils.cs" />
+    <Compile Include="HighLevelAPI81\Pkcs11Factory.cs" />
     <Compile Include="HighLevelAPI81\Session.cs" />
     <Compile Include="HighLevelAPI81\SessionFlags.cs" />
     <Compile Include="HighLevelAPI81\SessionInfo.cs" />
@@ -388,8 +396,6 @@
     <Compile Include="HighLevelAPI\IObjectHandle.cs" />
     <Compile Include="HighLevelAPI\IPkcs11.cs" />
     <Compile Include="HighLevelAPI\IPkcs11Factory.cs" />
-    <Compile Include="HighLevelAPI\IPkcs11UriUtils.cs" />
-    <Compile Include="HighLevelAPI\IPkcs11UriUtilsFactory.cs" />
     <Compile Include="HighLevelAPI\ISession.cs" />
     <Compile Include="HighLevelAPI\ISessionFlags.cs" />
     <Compile Include="HighLevelAPI\ISessionInfo.cs" />
@@ -398,6 +404,10 @@
     <Compile Include="HighLevelAPI\ISlotInfo.cs" />
     <Compile Include="HighLevelAPI\ITokenFlags.cs" />
     <Compile Include="HighLevelAPI\ITokenInfo.cs" />
+    <Compile Include="HighLevelAPI\MechanismFactory.cs" />
+    <Compile Include="HighLevelAPI\ObjectAttributeFactory.cs" />
+    <Compile Include="HighLevelAPI\Pkcs11Factory.cs" />
+    <Compile Include="HighLevelAPI\Pkcs11UriUtils.cs" />
     <Compile Include="LowLevelAPI40\CkaUtils.cs" />
     <Compile Include="LowLevelAPI40\CkmUtils.cs" />
     <Compile Include="LowLevelAPI40\CK_ATTRIBUTE.cs" />

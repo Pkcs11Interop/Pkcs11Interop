@@ -23,7 +23,6 @@ using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.LowLevelAPI40;
-using NativeULong = System.UInt32;
 
 namespace Net.Pkcs11Interop.HighLevelAPI40
 {
@@ -77,9 +76,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// Creates mechanism of given type with no parameter
         /// </summary>
         /// <param name="type">Mechanism type</param>
-        public Mechanism(NativeULong type)
+        public Mechanism(ulong type)
         {
-            _ckMechanism = CkmUtils.CreateMechanism(type);
+            _ckMechanism = CkmUtils.CreateMechanism(NativeLongUtils.ConvertFromUInt64(type));
         }
 
         /// <summary>
@@ -96,9 +95,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// </summary>
         /// <param name="type">Mechanism type</param>
         /// <param name="parameter">Mechanism parameter</param>
-        public Mechanism(NativeULong type, byte[] parameter)
+        public Mechanism(ulong type, byte[] parameter)
         {
-            _ckMechanism = CkmUtils.CreateMechanism(type, parameter);
+            _ckMechanism = CkmUtils.CreateMechanism(NativeLongUtils.ConvertFromUInt64(type), parameter);
         }
 
         /// <summary>
@@ -116,7 +115,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// </summary>
         /// <param name="type">Mechanism type</param>
         /// <param name="parameter">Mechanism parameter</param>
-        public Mechanism(NativeULong type, IMechanismParams parameter)
+        public Mechanism(ulong type, IMechanismParams parameter)
         {
             if (parameter == null)
                 throw new ArgumentNullException("parameter");
@@ -125,7 +124,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
             _mechanismParams = parameter;
 
             object lowLevelParams = _mechanismParams.ToMarshalableStructure();
-            _ckMechanism = CkmUtils.CreateMechanism(type, lowLevelParams);
+            _ckMechanism = CkmUtils.CreateMechanism(NativeLongUtils.ConvertFromUInt64(type), lowLevelParams);
         }
 
         /// <summary>

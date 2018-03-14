@@ -22,16 +22,13 @@
 using System;
 using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.HighLevelAPI;
-using Net.Pkcs11Interop.LowLevelAPI81;
-using NativeULong = System.UInt64;
 
-namespace Net.Pkcs11Interop.HighLevelAPI81
+namespace Net.Pkcs11Interop.HighLevelAPI
 {
     /// <summary>
     /// Utility class connecting PKCS#11 URI and Pkcs11Interop types
     /// </summary>
-    public class Pkcs11UriUtils : IPkcs11UriUtils
+    public static class Pkcs11UriUtils
     {
         /// <summary>
         /// Checks whether PKCS#11 library information matches PKCS#11 URI
@@ -39,7 +36,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <param name="pkcs11Uri">PKCS#11 URI</param>
         /// <param name="libraryInfo">PKCS#11 library information</param>
         /// <returns>True if PKCS#11 library information matches PKCS#11 URI</returns>
-        public bool Matches(Pkcs11Uri pkcs11Uri, ILibraryInfo libraryInfo)
+        public static bool Matches(Pkcs11Uri pkcs11Uri, ILibraryInfo libraryInfo)
         {
             if (pkcs11Uri == null)
                 throw new ArgumentNullException("pkcs11Uri");
@@ -56,7 +53,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <param name="pkcs11Uri">PKCS#11 URI</param>
         /// <param name="slotInfo">Slot information</param>
         /// <returns>True if slot information matches PKCS#11 URI</returns>
-        public bool Matches(Pkcs11Uri pkcs11Uri, ISlotInfo slotInfo)
+        public static bool Matches(Pkcs11Uri pkcs11Uri, ISlotInfo slotInfo)
         {
             if (pkcs11Uri == null)
                 throw new ArgumentNullException("pkcs11Uri");
@@ -73,7 +70,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <param name="pkcs11Uri">PKCS#11 URI</param>
         /// <param name="tokenInfo">Token information</param>
         /// <returns>True if token information matches PKCS#11 URI</returns>
-        public bool Matches(Pkcs11Uri pkcs11Uri, ITokenInfo tokenInfo)
+        public static bool Matches(Pkcs11Uri pkcs11Uri, ITokenInfo tokenInfo)
         {
             if (pkcs11Uri == null)
                 throw new ArgumentNullException("pkcs11Uri");
@@ -90,7 +87,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <param name="pkcs11Uri">PKCS#11 URI</param>
         /// <param name="objectAttributes">Object attributes</param>
         /// <returns>True if object attributes match PKCS#11 URI</returns>
-        public bool Matches(Pkcs11Uri pkcs11Uri, List<IObjectAttribute> objectAttributes)
+        public static bool Matches(Pkcs11Uri pkcs11Uri, List<IObjectAttribute> objectAttributes)
         {
             if (pkcs11Uri == null)
                 throw new ArgumentNullException("pkcs11Uri");
@@ -98,26 +95,26 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
             if (objectAttributes == null)
                 throw new ArgumentNullException("objectAttributes");
 
-            NativeULong ckaClassType = NativeLongUtils.ConvertFromCKA(CKA.CKA_CLASS);
+            ulong ckaClassType = Convert.ToUInt64(CKA.CKA_CLASS);
             CKO? ckaClassValue = null;
             bool ckaClassFound = false;
 
-            NativeULong ckaLabelType = NativeLongUtils.ConvertFromCKA(CKA.CKA_LABEL);
+            ulong ckaLabelType = Convert.ToUInt64(CKA.CKA_LABEL);
             string ckaLabelValue = null;
             bool ckaLabelFound = false;
 
-            NativeULong ckaIdType = NativeLongUtils.ConvertFromCKA(CKA.CKA_ID);
+            ulong ckaIdType = Convert.ToUInt64(CKA.CKA_ID);
             byte[] ckaIdValue = null;
             bool ckaIdFound = false;
 
-            foreach (ObjectAttribute objectAttribute in objectAttributes)
+            foreach (IObjectAttribute objectAttribute in objectAttributes)
             {
                 if (objectAttribute == null)
                     continue;
 
                 if (objectAttribute.Type == ckaClassType)
                 {
-                    ckaClassValue = NativeLongUtils.ConvertToCKO(NativeLongUtils.ConvertFromUInt64(objectAttribute.GetValueAsUlong()));
+                    ckaClassValue = (CKO)Convert.ToUInt32(objectAttribute.GetValueAsUlong());
                     ckaClassFound = true;
                 }
                 else if (objectAttribute.Type == ckaLabelType)
@@ -154,7 +151,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <param name="pkcs11">High level PKCS#11 wrapper</param>
         /// <param name="slotsType">Type of slots to be obtained</param>
         /// <returns>List of slots matching PKCS#11 URI</returns>
-        public List<ISlot> GetMatchingSlotList(Pkcs11Uri pkcs11Uri, IPkcs11 pkcs11, SlotsType slotsType)
+        public static List<ISlot> GetMatchingSlotList(Pkcs11Uri pkcs11Uri, IPkcs11 pkcs11, SlotsType slotsType)
         {
             if (pkcs11Uri == null)
                 throw new ArgumentNullException("pkcs11Uri");
@@ -172,7 +169,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
             if ((slots == null) || (slots.Count == 0))
                 return matchingSlots;
 
-            foreach (Slot slot in slots)
+            foreach (ISlot slot in slots)
             {
                 ISlotInfo slotInfo = slot.GetSlotInfo();
                 if (Matches(pkcs11Uri, slotInfo))
@@ -198,11 +195,15 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// Returns list of object attributes defined by PKCS#11 URI
         /// </summary>
         /// <param name="pkcs11Uri">PKCS#11 URI</param>
+        /// <param name="objectAttributeFactory">Factory for creation of IObjectAttribute instances</param>
         /// <returns>List of object attributes defined by PKCS#11 URI</returns>
-        public List<IObjectAttribute> GetObjectAttributes(Pkcs11Uri pkcs11Uri)
+        public static List<IObjectAttribute> GetObjectAttributes(Pkcs11Uri pkcs11Uri, IObjectAttributeFactory objectAttributeFactory)
         {
             if (pkcs11Uri == null)
                 throw new ArgumentNullException("pkcs11Uri");
+
+            if (objectAttributeFactory == null)
+                throw new ArgumentNullException("objectAttributeFactory");
 
             List<IObjectAttribute> attributes = null;
 
@@ -210,11 +211,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
             {
                 attributes = new List<IObjectAttribute>();
                 if (pkcs11Uri.Type != null)
-                    attributes.Add(new ObjectAttribute(CKA.CKA_CLASS, pkcs11Uri.Type.Value));
+                    attributes.Add(objectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, pkcs11Uri.Type.Value));
                 if (pkcs11Uri.Object != null)
-                    attributes.Add(new ObjectAttribute(CKA.CKA_LABEL, pkcs11Uri.Object));
+                    attributes.Add(objectAttributeFactory.CreateObjectAttribute(CKA.CKA_LABEL, pkcs11Uri.Object));
                 if (pkcs11Uri.Id != null)
-                    attributes.Add(new ObjectAttribute(CKA.CKA_ID, pkcs11Uri.Id));
+                    attributes.Add(objectAttributeFactory.CreateObjectAttribute(CKA.CKA_ID, pkcs11Uri.Id));
             }
 
             return attributes;
