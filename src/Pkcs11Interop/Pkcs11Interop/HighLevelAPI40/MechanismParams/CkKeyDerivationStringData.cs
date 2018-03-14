@@ -21,6 +21,7 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.LowLevelAPI40;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
 

@@ -19,7 +19,7 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
-using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.LowLevelAPI80;
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams

@@ -62,7 +62,7 @@
     <Compile Include="Common\CKU.cs" />
     <Compile Include="Common\CKZ.cs" />
     <Compile Include="Common\ConvertUtils.cs" />
-    <Compile Include="Common\IMechanismParams.cs" />
+    <Compile Include="HighLevelAPI\IMechanismParams.cs" />
     <Compile Include="Common\InitType.cs" />
     <Compile Include="Common\LibraryArchitectureException.cs" />
     <Compile Include="Common\NativeMethods.cs" />

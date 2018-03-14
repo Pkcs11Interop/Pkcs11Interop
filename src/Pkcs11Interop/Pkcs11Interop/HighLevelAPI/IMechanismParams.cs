@@ -19,12 +19,12 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
-namespace Net.Pkcs11Interop.Common
+namespace Net.Pkcs11Interop.HighLevelAPI
 {
     /// <summary>
     /// Interface for mechanism parameters
     /// </summary>
-    public interface IMechanismParams // TODO - Move to Net.Pkcs11Interop.HighLevelAPI next to IMechanismParamsFactory ???
+    public interface IMechanismParams
     {
         /// <summary>
         /// Returns managed object that can be marshaled to an unmanaged block of memory
