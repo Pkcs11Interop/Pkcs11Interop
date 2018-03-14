@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
     /// <summary>
     /// Parameters for the CKM_ECDH1_DERIVE and CKM_ECDH1_COFACTOR_DERIVE key derivation mechanisms
     /// </summary>
-    public class CkEcdh1DeriveParams : IMechanismParams, IDisposable
+    public class CkEcdh1DeriveParams : IMechanismParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

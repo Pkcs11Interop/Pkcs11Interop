@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
     /// <summary>
     /// Type, value and length of an OTP parameter
     /// </summary>
-    public class CkOtpParam : IMechanismParams, IDisposable
+    public class CkOtpParam : IMechanismParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

@@ -30,7 +30,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
     /// <summary>
     /// Information about the random data of a client and a server in a WTLS context
     /// </summary>
-    public class CkWtlsRandomData : IMechanismParams, IDisposable
+    public class CkWtlsRandomData : IMechanismParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

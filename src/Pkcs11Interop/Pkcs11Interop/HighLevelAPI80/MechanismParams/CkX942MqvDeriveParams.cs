@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
     /// <summary>
     /// Parameters for the CKM_X9_42_MQV_DERIVE key derivation mechanism
     /// </summary>
-    public class CkX942MqvDeriveParams : IMechanismParams, IDisposable
+    public class CkX942MqvDeriveParams : IMechanismParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

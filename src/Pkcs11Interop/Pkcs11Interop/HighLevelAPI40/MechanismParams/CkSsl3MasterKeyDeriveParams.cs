@@ -30,7 +30,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
     /// <summary>
     /// Parameters for the CKM_SSL3_MASTER_KEY_DERIVE and CKM_SSL3_MASTER_KEY_DERIVE_DH mechanisms
     /// </summary>
-    public class CkSsl3MasterKeyDeriveParams : IMechanismParams, IDisposable
+    public class CkSsl3MasterKeyDeriveParams : IMechanismParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

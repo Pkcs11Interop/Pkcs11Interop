@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
     /// <summary>
     /// Parameters for the CKM_RC5_CBC and CKM_RC5_CBC_PAD mechanisms
     /// </summary>
-    public class CkRc5CbcParams : IMechanismParams, IDisposable
+    public class CkRc5CbcParams : IMechanismParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

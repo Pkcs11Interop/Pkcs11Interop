@@ -30,7 +30,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
     /// <summary>
     /// Parameters for the CKM_SEED_CBC_ENCRYPT_DATA mechanism
     /// </summary>
-    public class CkSeedCbcEncryptDataParams : IMechanismParams, IDisposable
+    public class CkSeedCbcEncryptDataParams : IMechanismParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

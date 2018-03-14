@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
     /// <summary>
     /// Parameters for the CKM_DSA_PROBABLISTIC_PARAMETER_GEN, CKM_DSA_SHAWE_TAYLOR_PARAMETER_GEN a CKM_DSA_FIPS_G_GEN mechanisms
     /// </summary>
-    public class CkDsaParameterGenParam : IMechanismParams, IDisposable
+    public class CkDsaParameterGenParam : IMechanismParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

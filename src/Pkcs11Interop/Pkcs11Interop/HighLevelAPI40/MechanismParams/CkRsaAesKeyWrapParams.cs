@@ -30,7 +30,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
     /// <summary>
     /// Parameters for the CKM_RSA_AES_KEY_WRAP mechanism
     /// </summary>
-    public class CkRsaAesKeyWrapParams : IMechanismParams, IDisposable
+    public class CkRsaAesKeyWrapParams : IMechanismParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

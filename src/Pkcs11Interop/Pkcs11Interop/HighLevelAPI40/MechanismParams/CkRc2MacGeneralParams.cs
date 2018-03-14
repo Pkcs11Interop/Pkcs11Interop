@@ -19,6 +19,7 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
+using System;
 using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
 using NativeULong = System.UInt32;
@@ -30,6 +31,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
     /// </summary>
     public class CkRc2MacGeneralParams : IMechanismParams
     {
+        /// <summary>
+        /// Flag indicating whether instance has been disposed
+        /// </summary>
+        private bool _disposed = false;
+
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
@@ -56,7 +62,47 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         {
             return _lowLevelStruct;
         }
-        
+
+        #endregion
+
+        #region IDisposable
+
+        /// <summary>
+        /// Disposes object
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Disposes object
+        /// </summary>
+        /// <param name="disposing">Flag indicating whether managed resources should be disposed</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this._disposed)
+            {
+                if (disposing)
+                {
+                    // Dispose managed objects
+                }
+
+                // Dispose unmanaged objects
+
+                _disposed = true;
+            }
+        }
+
+        /// <summary>
+        /// Class destructor that disposes object if caller forgot to do so
+        /// </summary>
+        ~CkRc2MacGeneralParams()
+        {
+            Dispose(false);
+        }
+
         #endregion
     }
 }

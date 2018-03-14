@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
     /// <summary>
     /// Parameters for the CKM_PKCS5_PBKD2 mechanism
     /// </summary>
-    public class CkPkcs5Pbkd2Params2 : IMechanismParams, IDisposable
+    public class CkPkcs5Pbkd2Params2 : IMechanismParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

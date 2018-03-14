@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
     /// <summary>
     /// Parameters for the CKM_TLS_KDF mechanism
     /// </summary>
-    public class CkTlsKdfParams : IMechanismParams, IDisposable
+    public class CkTlsKdfParams : IMechanismParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

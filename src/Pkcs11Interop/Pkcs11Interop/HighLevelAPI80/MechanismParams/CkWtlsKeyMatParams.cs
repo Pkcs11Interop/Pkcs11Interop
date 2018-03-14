@@ -30,7 +30,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
     /// <summary>
     /// Parameters for the CKM_WTLS_SERVER_KEY_AND_MAC_DERIVE and the CKM_WTLS_CLIENT_KEY_AND_MAC_DERIVE mechanisms
     /// </summary>
-    public class CkWtlsKeyMatParams : IMechanismParams, IDisposable
+    public class CkWtlsKeyMatParams : IMechanismParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

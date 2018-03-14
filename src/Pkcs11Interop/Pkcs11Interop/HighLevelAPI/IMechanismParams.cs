@@ -19,12 +19,14 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
+using System;
+
 namespace Net.Pkcs11Interop.HighLevelAPI
 {
     /// <summary>
     /// Interface for mechanism parameters
     /// </summary>
-    public interface IMechanismParams
+    public interface IMechanismParams : IDisposable
     {
         /// <summary>
         /// Returns managed object that can be marshaled to an unmanaged block of memory

@@ -30,7 +30,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
     /// <summary>
     /// Parameters for the CKM_CAMELLIA_CBC_ENCRYPT_DATA mechanism
     /// </summary>
-    public class CkCamelliaCbcEncryptDataParams : IMechanismParams, IDisposable
+    public class CkCamelliaCbcEncryptDataParams : IMechanismParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

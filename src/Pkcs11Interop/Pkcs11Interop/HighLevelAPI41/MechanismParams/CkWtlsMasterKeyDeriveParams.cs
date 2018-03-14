@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
     /// <summary>
     /// Parameters for the CKM_WTLS_MASTER_KEY_DERIVE and CKM_WTLS_MASTER_KEY_DERIVE_DH_ECC mechanisms
     /// </summary>
-    public class CkWtlsMasterKeyDeriveParams : IMechanismParams, IDisposable
+    public class CkWtlsMasterKeyDeriveParams : IMechanismParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
     /// <summary>
     /// Parameters for the CKM_TLS12_MASTER_KEY_DERIVE mechanism
     /// </summary>
-    public class CkTls12MasterKeyDeriveParams : IMechanismParams, IDisposable
+    public class CkTls12MasterKeyDeriveParams : IMechanismParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

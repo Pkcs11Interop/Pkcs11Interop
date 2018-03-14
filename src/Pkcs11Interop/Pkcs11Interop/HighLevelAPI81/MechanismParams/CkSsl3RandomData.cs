@@ -30,7 +30,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
     /// <summary>
     /// Information about the random data of a client and a server in an SSL context
     /// </summary>
-    public class CkSsl3RandomData : IMechanismParams, IDisposable
+    public class CkSsl3RandomData : IMechanismParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

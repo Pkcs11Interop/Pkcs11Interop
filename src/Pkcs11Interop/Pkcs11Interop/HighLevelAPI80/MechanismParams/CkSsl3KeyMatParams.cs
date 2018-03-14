@@ -30,7 +30,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
     /// <summary>
     /// Parameters for the CKM_SSL3_KEY_AND_MAC_DERIVE mechanism
     /// </summary>
-    public class CkSsl3KeyMatParams : IMechanismParams, IDisposable
+    public class CkSsl3KeyMatParams : IMechanismParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

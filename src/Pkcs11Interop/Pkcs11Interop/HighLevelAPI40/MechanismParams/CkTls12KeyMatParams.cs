@@ -30,7 +30,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
     /// <summary>
     /// Parameters for the CKM_TLS12_KEY_AND_MAC_DERIVE mechanism
     /// </summary>
-    public class CkTls12KeyMatParams : IMechanismParams, IDisposable
+    public class CkTls12KeyMatParams : IMechanismParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

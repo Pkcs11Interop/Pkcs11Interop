@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
     /// <summary>
     /// Parameters for the CKM_GOSTR3410_DERIVE mechanism
     /// </summary>
-    public class CkGostR3410DeriveParams : IMechanismParams, IDisposable
+    public class CkGostR3410DeriveParams : IMechanismParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

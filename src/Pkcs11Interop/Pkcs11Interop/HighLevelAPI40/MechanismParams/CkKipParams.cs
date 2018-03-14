@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
     /// <summary>
     /// Parameters for the CKM_KIP_DERIVE, CKM_KIP_WRAP and CKM_KIP_MAC mechanisms
     /// </summary>
-    public class CkKipParams : IMechanismParams, IDisposable
+    public class CkKipParams : IMechanismParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

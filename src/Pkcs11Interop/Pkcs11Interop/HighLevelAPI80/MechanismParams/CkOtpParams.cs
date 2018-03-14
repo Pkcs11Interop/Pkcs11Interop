@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
     /// <summary>
     /// Parameters for OTP mechanisms in a generic fashion
     /// </summary>
-    public class CkOtpParams : IMechanismParams, IDisposable
+    public class CkOtpParams : IMechanismParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
