@@ -1,4 +1,4 @@
-﻿/*
+/*
  *  Copyright 2012-2017 The Pkcs11Interop Project
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");

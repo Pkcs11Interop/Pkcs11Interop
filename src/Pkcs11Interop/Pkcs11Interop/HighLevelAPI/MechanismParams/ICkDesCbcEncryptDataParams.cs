@@ -22,16 +22,10 @@
 namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
 {
     /// <summary>
-    /// Parameters for the CKM_SSL3_KEY_AND_MAC_DERIVE mechanism
+    /// Parameters for the CKM_DES_CBC_ENCRYPT_DATA and CKM_DES3_CBC_ENCRYPT_DATA mechanisms
     /// </summary>
-    public interface ICkSsl3KeyMatParams : IMechanismParams
+    public interface ICkDesCbcEncryptDataParams : IMechanismParams
     {
-        /// <summary>
-        /// Resulting key handles and initialization vectors after performing a DeriveKey method
-        /// </summary>
-        ICkSsl3KeyMatOut ReturnedKeyMaterial
-        {
-            get;
-        }
+
     }
 }

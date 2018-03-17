@@ -33,35 +33,35 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// </summary>
         /// <param name='iv'>IV value (16 bytes)</param>
         /// <param name='data'>Data value part that must be a multiple of 16 bytes long</param>
-        IMechanismParams CreateCkAesCbcEncryptDataParams(byte[] iv, byte[] data);
+        ICkAesCbcEncryptDataParams CreateCkAesCbcEncryptDataParams(byte[] iv, byte[] data);
 
         /// <summary>
         /// Creates parameters for the CKM_AES_CTR mechanism
         /// </summary>
         /// <param name='counterBits'>The number of bits in the counter block (cb) that shall be incremented</param>
         /// <param name='cb'>Specifies the counter block (16 bytes)</param>
-        IMechanismParams CreateCkAesCtrParams(ulong counterBits, byte[] cb);
+        ICkAesCtrParams CreateCkAesCtrParams(ulong counterBits, byte[] cb);
 
         /// <summary>
         /// Creates parameters for the CKM_ARIA_CBC_ENCRYPT_DATA mechanism
         /// </summary>
         /// <param name='iv'>IV value (16 bytes)</param>
         /// <param name='data'>Data to encrypt</param>
-        IMechanismParams CreateCkAriaCbcEncryptDataParams(byte[] iv, byte[] data);
+        ICkAriaCbcEncryptDataParams CreateCkAriaCbcEncryptDataParams(byte[] iv, byte[] data);
 
         /// <summary>
         /// Creates parameters for the CKM_CAMELLIA_CBC_ENCRYPT_DATA mechanism
         /// </summary>
         /// <param name='iv'>IV value (16 bytes)</param>
         /// <param name='data'>Data to encrypt</param>
-        IMechanismParams CreateCkCamelliaCbcEncryptDataParams(byte[] iv, byte[] data);
+        ICkCamelliaCbcEncryptDataParams CreateCkCamelliaCbcEncryptDataParams(byte[] iv, byte[] data);
 
         /// <summary>
         /// Creates parameters for the CKM_CAMELLIA_CTR mechanism
         /// </summary>
         /// <param name='counterBits'>The number of bits in the counter block (cb) that shall be incremented</param>
         /// <param name='cb'>Specifies the counter block (16 bytes)</param>
-        IMechanismParams CreateCkCamelliaCtrParams(ulong counterBits, byte[] cb);
+        ICkCamelliaCtrParams CreateCkCamelliaCtrParams(ulong counterBits, byte[] cb);
 
         /// <summary>
         /// Creates parameters for the CKM_AES_CCM mechanism
@@ -70,7 +70,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name="nonce">Nonce</param>
         /// <param name="aad">Additional authentication data</param>
         /// <param name="macLen">Length of the MAC (output following cipher text) in bytes</param>
-        IMechanismParams CreateCkCcmParams(ulong dataLen, byte[] nonce, byte[] aad, ulong macLen);
+        ICkCamelliaCtrParams CreateCkCamelliaCtrParams(ulong dataLen, byte[] nonce, byte[] aad, ulong macLen);
 
         /// <summary>
         /// Creates parameters for the CKM_CMS_SIG mechanism
@@ -81,14 +81,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='contentType'>String indicating complete MIME Content-type of message to be signed or null if the message is a MIME object</param>
         /// <param name='requestedAttributes'>DER-encoded list of CMS Attributes the caller requests to be included in the signed attributes</param>
         /// <param name='requiredAttributes'>DER-encoded list of CMS Attributes (with accompanying values) required to be included in the resulting signed attributes</param>
-        IMechanismParams CreateCkCmsSigParams(IObjectHandle certificateHandle, ulong? signingMechanism, ulong? digestMechanism, string contentType, byte[] requestedAttributes, byte[] requiredAttributes);
+        ICkCmsSigParams CreateCkCmsSigParams(IObjectHandle certificateHandle, ulong? signingMechanism, ulong? digestMechanism, string contentType, byte[] requestedAttributes, byte[] requiredAttributes);
 
         /// <summary>
         /// Creates parameters for the CKM_DES_CBC_ENCRYPT_DATA and CKM_DES3_CBC_ENCRYPT_DATA mechanisms
         /// </summary>
         /// <param name='iv'>IV value (8 bytes)</param>
         /// <param name='data'>Data to encrypt</param>
-        IMechanismParams CreateCkDesCbcEncryptDataParams(byte[] iv, byte[] data);
+        ICkDesCbcEncryptDataParams CreateCkDesCbcEncryptDataParams(byte[] iv, byte[] data);
 
         /// <summary>
         /// Creates parameters for the CKM_DSA_PROBABLISTIC_PARAMETER_GEN, CKM_DSA_SHAWE_TAYLOR_PARAMETER_GEN a CKM_DSA_FIPS_G_GEN mechanisms
@@ -104,7 +104,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='kdf'>Key derivation function used on the shared secret value (CKD)</param>
         /// <param name='sharedData'>Some data shared between the two parties</param>
         /// <param name='publicData'>Other party's EC public key value</param>
-        IMechanismParams CreateCkEcdh1DeriveParams(ulong kdf, byte[] sharedData, byte[] publicData);
+        ICkEcdh1DeriveParams CreateCkEcdh1DeriveParams(ulong kdf, byte[] sharedData, byte[] publicData);
 
         /// <summary>
         /// Creates parameters for the CKM_ECMQV_DERIVE mechanism
@@ -115,7 +115,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='privateDataLen'>The length in bytes of the second EC private key</param>
         /// <param name='privateData'>Key handle for second EC private key value</param>
         /// <param name='publicData2'>Other party's second EC public key value</param>
-        IMechanismParams CreateCkEcdh2DeriveParams(ulong kdf, byte[] sharedData, byte[] publicData, ulong privateDataLen, IObjectHandle privateData, byte[] publicData2);
+        ICkEcdh2DeriveParams CreateCkEcdh2DeriveParams(ulong kdf, byte[] sharedData, byte[] publicData, ulong privateDataLen, IObjectHandle privateData, byte[] publicData2);
 
         /// <summary>
         /// Creates parameters for the CKM_ECDH_AES_KEY_WRAP mechanism
@@ -123,7 +123,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name="aesKeyBits">Length of the temporary AES key in bits</param>
         /// <param name="kdf">Key derivation function used on the shared secret value to generate AES key (CKD)</param>
         /// <param name="sharedData">Data shared between the two parties</param>
-        IMechanismParams CreateCkEcdhAesKeyWrapParams(ulong aesKeyBits, ulong kdf, byte[] sharedData);
+        ICkEcdhAesKeyWrapParams CreateCkEcdhAesKeyWrapParams(ulong aesKeyBits, ulong kdf, byte[] sharedData);
 
         /// <summary>
         /// Create parameters for the CKM_ECMQV_DERIVE mechanism
@@ -135,13 +135,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='privateData'>Key handle for second EC private key value</param>
         /// <param name='publicData2'>Other party's second EC public key value</param>
         /// <param name='publicKey'>Handle to the first party's ephemeral public key</param>
-        IMechanismParams CreateCkEcmqvDeriveParams(ulong kdf, byte[] sharedData, byte[] publicData, ulong privateDataLen, IObjectHandle privateData, byte[] publicData2, IObjectHandle publicKey);
+        ICkEcmqvDeriveParams CreateCkEcmqvDeriveParams(ulong kdf, byte[] sharedData, byte[] publicData, ulong privateDataLen, IObjectHandle privateData, byte[] publicData2, IObjectHandle publicKey);
 
         /// <summary>
         /// Creates parameters for the CKM_EXTRACT_KEY_FROM_KEY mechanism
         /// </summary>
         /// <param name='bit'>Specifies which bit of the base key should be used as the first bit of the derived key</param>
-        IMechanismParams CreateCkExtractParams(ulong bit);
+        ICkExtractParams CreateCkExtractParams(ulong bit);
 
         /// <summary>
         /// Creates parameters for the CKM_AES_GCM mechanism
@@ -150,7 +150,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name="ivBits">Member is defined in PKCS#11 v2.40e1 headers but the description is not present in the specification</param>
         /// <param name="aad">Additional authentication data</param>
         /// <param name="tagBits">Length of authentication tag (output following cipher text) in bits</param>
-        IMechanismParams CreateCkGcmParams(byte[] iv, ulong ivBits, byte[] aad, ulong tagBits);
+        ICkGcmParams CreateCkGcmParams(byte[] iv, ulong ivBits, byte[] aad, ulong tagBits);
 
         /// <summary>
         /// Creates parameters for the CKM_GOSTR3410_DERIVE mechanism
@@ -158,7 +158,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name="kdf">Additional key diversification algorithm (CKD)</param>
         /// <param name="publicData">Data with public key of a receiver</param>
         /// <param name="ukm">UKM data</param>
-        IMechanismParams CreateCkGostR3410DeriveParams(ulong kdf, byte[] publicData, byte[] ukm);
+        ICkGostR3410DeriveParams CreateCkGostR3410DeriveParams(ulong kdf, byte[] publicData, byte[] ukm);
 
         /// <summary>
         /// Creates parameters for the CKM_GOSTR3410_KEY_WRAP mechanism
@@ -166,7 +166,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name="wrapOID">Data with DER-encoding of the object identifier indicating the data object type of GOST 28147-89</param>
         /// <param name="ukm">Data with UKM</param>
         /// <param name="key">Key handle of a sender for wrapping operation or key handle of a receiver for unwrapping operation</param>
-        IMechanismParams CreateCkGostR3410KeyWrapParams(byte[] wrapOID, byte[] ukm, ulong key);
+        ICkGostR3410KeyWrapParams CreateCkGostR3410KeyWrapParams(byte[] wrapOID, byte[] ukm, ulong key);
 
         /// <summary>
         /// Creates parameters for the CKM_KEA_DERIVE mechanism
@@ -175,20 +175,20 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='randomA'>Ra data</param>
         /// <param name='randomB'>Rb data</param>
         /// <param name='publicData'>Other party's KEA public key value</param>
-        IMechanismParams CreateCkKeaDeriveParams(bool isSender, byte[] randomA, byte[] randomB, byte[] publicData);
+        ICkKeaDeriveParams CreateCkKeaDeriveParams(bool isSender, byte[] randomA, byte[] randomB, byte[] publicData);
 
         /// <summary>
         /// Creates parameters for the CKM_CONCATENATE_BASE_AND_DATA, CKM_CONCATENATE_DATA_AND_BASE and CKM_XOR_BASE_AND_DATA mechanisms
         /// </summary>
         /// <param name='data'>Byte string used as the input for derivation mechanism</param>
-        IMechanismParams CreateCkKeyDerivationStringData(byte[] data);
+        ICkKeyDerivationStringData CreateCkKeyDerivationStringData(byte[] data);
 
         /// <summary>
         /// Creates parameters for the CKM_KEY_WRAP_SET_OAEP mechanism
         /// </summary>
         /// <param name='bc'>Block contents byte</param>
         /// <param name='x'>Concatenation of hash of plaintext data (if present) and extra data (if present)</param>
-        IMechanismParams CreateCkKeyWrapSetOaepParams(byte bc, byte[] x);
+        ICkKeyWrapSetOaepParams CreateCkKeyWrapSetOaepParams(byte bc, byte[] x);
 
         /// <summary>
         /// Creates parameters for the CKM_KIP_DERIVE, CKM_KIP_WRAP and CKM_KIP_MAC mechanisms
@@ -196,13 +196,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='mechanism'>Underlying cryptographic mechanism (CKM)</param>
         /// <param name='key'>Handle to a key that will contribute to the entropy of the derived key (CKM_KIP_DERIVE) or will be used in the MAC operation (CKM_KIP_MAC)</param>
         /// <param name='seed'>Input seed</param>
-        IMechanismParams CreateCkKipParams(ulong? mechanism, IObjectHandle key, byte[] seed);
+        ICkKipParams CreateCkKipParams(ulong? mechanism, IObjectHandle key, byte[] seed);
 
         /// <summary>
         /// Creates parameters for the general-length MACing mechanisms (DES, DES3, CAST, CAST3, CAST128 (CAST5), IDEA, CDMF and AES), the general length HMACing mechanisms (MD2, MD5, SHA-1, SHA-256, SHA-384, SHA-512, RIPEMD-128 and RIPEMD-160) and the two SSL 3.0 MACing mechanisms (MD5 and SHA-1)
         /// </summary>
         /// <param name='macLength'>Length of the MAC produced, in bytes</param>
-        IMechanismParams CreateCkMacGeneralParams(ulong macLength);
+        ICkMacGeneralParams CreateCkMacGeneralParams(ulong macLength);
 
         /// <summary>
         /// Creates type, value and length of an OTP parameter
@@ -215,7 +215,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// Creates parameters for OTP mechanisms in a generic fashion
         /// </summary>
         /// <param name='parameters'>List of OTP parameters</param>
-        IMechanismParams CreateCkOtpParams(List<ICkOtpParam> parameters);
+        ICkOtpParams CreateCkOtpParams(List<ICkOtpParam> parameters);
 
         /// <summary>
         /// Creates parameters returned by all OTP mechanisms in successful calls to Sign method
@@ -230,7 +230,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='password'>Password to be used in the PBE key generation</param>
         /// <param name='salt'>Salt to be used in the PBE key generation</param>
         /// <param name='iteration'>Number of iterations required for the generation</param>
-        IMechanismParams CreateCkPbeParams(byte[] initVector, byte[] password, byte[] salt, ulong iteration);
+        ICkPbeParams CreateCkPbeParams(byte[] initVector, byte[] password, byte[] salt, ulong iteration);
 
         /// <summary>
         /// Creates parameters for the CKM_PKCS5_PBKD2 mechanism
@@ -241,7 +241,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='prf'>Pseudo-random function to used to generate the key (CKP)</param>
         /// <param name='prfData'>Data used as the input for PRF in addition to the salt value</param>
         /// <param name='password'>Password to be used in the PBE key generation</param>
-        IMechanismParams CreateCkPkcs5Pbkd2Params(ulong saltSource, byte[] saltSourceData, ulong iterations, ulong prf, byte[] prfData, byte[] password);
+        ICkPkcs5Pbkd2Params CreateCkPkcs5Pbkd2Params(ulong saltSource, byte[] saltSourceData, ulong iterations, ulong prf, byte[] prfData, byte[] password);
 
         /// <summary>
         /// Creates parameters for the CKM_PKCS5_PBKD2 mechanism
@@ -252,27 +252,27 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='prf'>Pseudo-random function to used to generate the key (CKP)</param>
         /// <param name='prfData'>Data used as the input for PRF in addition to the salt value</param>
         /// <param name='password'>Password to be used in the PBE key generation</param>
-        IMechanismParams CreateCkPkcs5Pbkd2Params2(ulong saltSource, byte[] saltSourceData, ulong iterations, ulong prf, byte[] prfData, byte[] password);
+        ICkPkcs5Pbkd2Params2 CreateCkPkcs5Pbkd2Params2(ulong saltSource, byte[] saltSourceData, ulong iterations, ulong prf, byte[] prfData, byte[] password);
 
         /// <summary>
         /// Creates parameters for the CKM_RC2_CBC and CKM_RC2_CBC_PAD mechanisms
         /// </summary>
         /// <param name='effectiveBits'>The effective number of bits in the RC2 search space</param>
         /// <param name='iv'>The initialization vector (IV) for cipher block chaining mode</param>
-        IMechanismParams CreateCkRc2CbcParams(ulong effectiveBits, byte[] iv);
+        ICkRc2CbcParams CreateCkRc2CbcParams(ulong effectiveBits, byte[] iv);
 
         /// <summary>
         /// Creates parameters for the CKM_RC2_MAC_GENERAL mechanism
         /// </summary>
         /// <param name='effectiveBits'>The effective number of bits in the RC2 search space</param>
         /// <param name='macLength'>Length of the MAC produced, in bytes</param>
-        IMechanismParams CreateCkRc2MacGeneralParams(ulong effectiveBits, ulong macLength);
+        ICkRc2MacGeneralParams CreateCkRc2MacGeneralParams(ulong effectiveBits, ulong macLength);
 
         /// <summary>
         /// Creates parameters for the CKM_RC2_ECB and CKM_RC2_MAC mechanisms
         /// </summary>
         /// <param name='effectiveBits'>Effective number of bits in the RC2 search space</param>
-        IMechanismParams CreateCkRc2Params(ulong effectiveBits);
+        ICkRc2Params CreateCkRc2Params(ulong effectiveBits);
 
         /// <summary>
         /// Creates parameters for the CKM_RC5_CBC and CKM_RC5_CBC_PAD mechanisms
@@ -280,7 +280,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='wordsize'>Wordsize of RC5 cipher in bytes</param>
         /// <param name='rounds'>Number of rounds of RC5 encipherment</param>
         /// <param name='iv'>Initialization vector (IV) for CBC encryption</param>
-        IMechanismParams CreateCkRc5CbcParams(ulong wordsize, ulong rounds, byte[] iv);
+        ICkRc5CbcParams CreateCkRc5CbcParams(ulong wordsize, ulong rounds, byte[] iv);
 
         /// <summary>
         /// Creates parameters for the CKM_RC5_MAC_GENERAL mechanism
@@ -288,21 +288,21 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='wordsize'>Wordsize of RC5 cipher in bytes</param>
         /// <param name='rounds'>Number of rounds of RC5 encipherment</param>
         /// <param name='macLength'>Length of the MAC produced, in bytes</param>
-        IMechanismParams CreateCkRc5MacGeneralParams(ulong wordsize, ulong rounds, ulong macLength);
+        ICkRc5MacGeneralParams CreateCkRc5MacGeneralParams(ulong wordsize, ulong rounds, ulong macLength);
 
         /// <summary>
         /// Creates parameters for the CKM_RC5_ECB and CKM_RC5_MAC mechanisms
         /// </summary>
         /// <param name='wordsize'>Wordsize of RC5 cipher in bytes</param>
         /// <param name='rounds'>Number of rounds of RC5 encipherment</param>
-        IMechanismParams CreateCkRc5Params(ulong wordsize, ulong rounds);
+        ICkRc5Params CreateCkRc5Params(ulong wordsize, ulong rounds);
 
         /// <summary>
         /// Creates parameters for the CKM_RSA_AES_KEY_WRAP mechanism
         /// </summary>
         /// <param name='aesKeyBits'>Length of the temporary AES key in bits</param>
         /// <param name='oaepParams'>Parameters of the temporary AES key wrapping</param>
-        IMechanismParams CreateCkRsaAesKeyWrapParams(ulong aesKeyBits, ICkRsaPkcsOaepParams oaepParams);
+        ICkRsaAesKeyWrapParams CreateCkRsaAesKeyWrapParams(ulong aesKeyBits, ICkRsaPkcsOaepParams oaepParams);
 
         /// <summary>
         /// Creates parameters for the CKM_RSA_PKCS_OAEP mechanism
@@ -319,14 +319,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='hashAlg'>Hash algorithm used in the PSS encoding (CKM)</param>
         /// <param name='mgf'>Mask generation function to use on the encoded block (CKG)</param>
         /// <param name='len'>Length, in bytes, of the salt value used in the PSS encoding</param>
-        IMechanismParams CreateCkRsaPkcsPssParams(ulong hashAlg, ulong mgf, ulong len);
+        ICkRsaPkcsPssParams CreateCkRsaPkcsPssParams(ulong hashAlg, ulong mgf, ulong len);
 
         /// <summary>
         /// Creates parameters for the CKM_SEED_CBC_ENCRYPT_DATA mechanism
         /// </summary>
         /// <param name='iv'>IV value (16 bytes)</param>
         /// <param name='data'>Data value part that must be a multiple of 16 bytes long</param>
-        IMechanismParams CreateCkSeedCbcEncryptDataParams(byte[] iv, byte[] data);
+        ICkSeedCbcEncryptDataParams CreateCkSeedCbcEncryptDataParams(byte[] iv, byte[] data);
 
         /// <summary>
         /// Creates parameters for the CKM_SKIPJACK_PRIVATE_WRAP mechanism
@@ -337,7 +337,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='primeP'>Prime, p, value</param>
         /// <param name='baseG'>Base, g, value</param>
         /// <param name='subprimeQ'>Subprime, q, value</param>
-        IMechanismParams CreateCkSkipjackPrivateWrapParams(byte[] password, byte[] publicData, byte[] randomA, byte[] primeP, byte[] baseG, byte[] subprimeQ);
+        ICkSkipjackPrivateWrapParams CreateCkSkipjackPrivateWrapParams(byte[] password, byte[] publicData, byte[] randomA, byte[] primeP, byte[] baseG, byte[] subprimeQ);
 
         /// <summary>
         /// Creates parameters for the CKM_SKIPJACK_RELAYX mechanism
@@ -349,7 +349,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='newPassword'>New user-supplied password</param>
         /// <param name='newPublicData'>New key exchange public key value</param>
         /// <param name='newRandomA'>New Ra data</param>
-        IMechanismParams CreateCkSkipjackRelayxParams(byte[] oldWrappedX, byte[] oldPassword, byte[] oldPublicData, byte[] oldRandomA, byte[] newPassword, byte[] newPublicData, byte[] newRandomA);
+        ICkSkipjackRelayxParams CreateCkSkipjackRelayxParams(byte[] oldWrappedX, byte[] oldPassword, byte[] oldPublicData, byte[] oldRandomA, byte[] newPassword, byte[] newPublicData, byte[] newRandomA);
 
         /// <summary>
         /// Creates parameters for the CKM_SSL3_KEY_AND_MAC_DERIVE mechanism
@@ -400,7 +400,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name="label">Label for this key derivation</param>
         /// <param name="randomInfo">Random data for the key derivation</param>
         /// <param name="contextData">Context data for this key derivation</param>
-        IMechanismParams CreateCkTlsKdfParams(ulong prfMechanism, byte[] label, ICkSsl3RandomData randomInfo, byte[] contextData);
+        ICkTlsKdfParams CreateCkTlsKdfParams(ulong prfMechanism, byte[] label, ICkSsl3RandomData randomInfo, byte[] contextData);
 
         /// <summary>
         /// Creates parameters for the CKM_TLS_MAC mechanism
@@ -408,7 +408,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name="prfHashMechanism">Hash mechanism used in the TLS12 PRF construct or CKM_TLS_PRF to use with the TLS 1.0 and 1.1 PRF construct (CKM)</param>
         /// <param name="macLength">Length of the MAC tag required or offered</param>
         /// <param name="serverOrClient">Should be set to "1" for "server finished" label or to "2" for "client finished" label</param>
-        IMechanismParams CreateCkTlsMacParams(ulong prfHashMechanism, ulong macLength, ulong serverOrClient);
+        ICkTlsMacParams CreateCkTlsMacParams(ulong prfHashMechanism, ulong macLength, ulong serverOrClient);
 
         /// <summary>
         /// Creates parameters for the CKM_TLS_PRF mechanism
@@ -467,7 +467,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='kdf'>Key derivation function used on the shared secret value (CKD)</param>
         /// <param name='otherInfo'>Some data shared between the two parties</param>
         /// <param name='publicData'>Other party's X9.42 Diffie-Hellman public key value</param>
-        IMechanismParams CreateCkX942Dh1DeriveParams(ulong kdf, byte[] otherInfo, byte[] publicData);
+        ICkX942Dh1DeriveParams CreateCkX942Dh1DeriveParams(ulong kdf, byte[] otherInfo, byte[] publicData);
 
         /// <summary>
         /// Creates parameters for the CKM_X9_42_DH_HYBRID_DERIVE and CKM_X9_42_MQV_DERIVE key derivation mechanisms
@@ -478,7 +478,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='privateDataLen'>The length in bytes of the second X9.42 Diffie-Hellman private key</param>
         /// <param name='privateData'>Key handle for second X9.42 Diffie-Hellman private key value</param>
         /// <param name='publicData2'>Other party's second X9.42 Diffie-Hellman public key value</param>
-        IMechanismParams CreateCkX942Dh2DeriveParams(ulong kdf, byte[] otherInfo, byte[] publicData, ulong privateDataLen, IObjectHandle privateData, byte[] publicData2);
+        ICkX942Dh2DeriveParams CreateCkX942Dh2DeriveParams(ulong kdf, byte[] otherInfo, byte[] publicData, ulong privateDataLen, IObjectHandle privateData, byte[] publicData2);
 
         /// <summary>
         /// Creates parameters for the CKM_X9_42_MQV_DERIVE key derivation mechanism
@@ -490,6 +490,6 @@ namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
         /// <param name='privateData'>Key handle for second X9.42 Diffie-Hellman private key value</param>
         /// <param name='publicData2'>Other party's second X9.42 Diffie-Hellman public key value</param>
         /// <param name='publicKey'>Handle to the first party's ephemeral public key</param>
-        IMechanismParams CreateCkX942MqvDeriveParams(ulong kdf, byte[] otherInfo, byte[] publicData, ulong privateDataLen, IObjectHandle privateData, byte[] publicData2, IObjectHandle publicKey);
+        ICkX942MqvDeriveParams CreateCkX942MqvDeriveParams(ulong kdf, byte[] otherInfo, byte[] publicData, ulong privateDataLen, IObjectHandle privateData, byte[] publicData2, IObjectHandle publicKey);
     }
 }
