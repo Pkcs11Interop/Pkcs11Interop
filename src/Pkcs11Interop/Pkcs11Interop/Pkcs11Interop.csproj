@@ -62,6 +62,7 @@
     <Compile Include="Common\CKU.cs" />
     <Compile Include="Common\CKZ.cs" />
     <Compile Include="Common\ConvertUtils.cs" />
+    <Compile Include="HighLevelAPI41\MechanismParamsFactory.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\ICkAesCbcEncryptDataParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\ICkAesCtrParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\ICkAriaCbcEncryptDataParams.cs" />
@@ -448,7 +449,7 @@
     <Compile Include="HighLevelAPI\IMechanismFactory.cs" />
     <Compile Include="HighLevelAPI\IMechanismFlags.cs" />
     <Compile Include="HighLevelAPI\IMechanismInfo.cs" />
-    <Compile Include="HighLevelAPI\MechanismParams\IMechanismParamsFactory.cs" />
+    <Compile Include="HighLevelAPI\IMechanismParamsFactory.cs" />
     <Compile Include="HighLevelAPI\IObjectAttribute.cs" />
     <Compile Include="HighLevelAPI\IObjectAttributeFactory.cs" />
     <Compile Include="HighLevelAPI\IObjectHandle.cs" />
