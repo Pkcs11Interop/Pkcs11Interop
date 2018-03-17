@@ -32,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
     /// <summary>
     /// Parameters for the CKM_X9_42_DH_HYBRID_DERIVE and CKM_X9_42_MQV_DERIVE key derivation mechanisms
     /// </summary>
-    public class CkX942Dh2DeriveParams : IMechanismParams
+    public class CkX942Dh2DeriveParams : ICkX942Dh2DeriveParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

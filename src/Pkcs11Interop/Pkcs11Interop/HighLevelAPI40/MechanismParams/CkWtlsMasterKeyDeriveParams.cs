@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
     /// <summary>
     /// Parameters for the CKM_WTLS_MASTER_KEY_DERIVE and CKM_WTLS_MASTER_KEY_DERIVE_DH_ECC mechanisms
     /// </summary>
-    public class CkWtlsMasterKeyDeriveParams : IMechanismParams
+    public class CkWtlsMasterKeyDeriveParams : ICkWtlsMasterKeyDeriveParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -46,7 +46,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <summary>
         /// WTLS protocol version information
         /// </summary>
-        public CkVersion Version
+        public ICkVersion Version
         {
             get
             {
@@ -69,7 +69,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <summary>
         /// Client's and server's random data information
         /// </summary>
-        private CkWtlsRandomData _randomInfo = null;
+        private ICkWtlsRandomData _randomInfo = null;
         
         /// <summary>
         /// Initializes a new instance of the CkWtlsMasterKeyDeriveParams class.
@@ -77,7 +77,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <param name='digestMechanism'>Digest mechanism to be used (CKM)</param>
         /// <param name='randomInfo'>Client's and server's random data information</param>
         /// <param name='dh'>Set to false for CKM_WTLS_MASTER_KEY_DERIVE mechanism and to true for CKM_WTLS_MASTER_KEY_DERIVE_DH_ECC mechanism</param>
-        public CkWtlsMasterKeyDeriveParams(NativeULong digestMechanism, CkWtlsRandomData randomInfo, bool dh)
+        public CkWtlsMasterKeyDeriveParams(NativeULong digestMechanism, ICkWtlsRandomData randomInfo, bool dh)
         {
             if (randomInfo == null)
                 throw new ArgumentNullException("randomInfo");

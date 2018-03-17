@@ -29,7 +29,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
     /// <summary>
     /// Parameters for the CKM_RC2_ECB and CKM_RC2_MAC mechanisms
     /// </summary>
-    public class CkRc2Params : IMechanismParams
+    public class CkRc2Params : ICkRc2Params
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

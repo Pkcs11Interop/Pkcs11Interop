@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
     /// <summary>
     /// Parameters for the CKM_TLS_KDF mechanism
     /// </summary>
-    public class CkTlsKdfParams : IMechanismParams
+    public class CkTlsKdfParams : ICkTlsKdfParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -46,7 +46,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <summary>
         /// Client's and server's random data information
         /// </summary>
-        private CkSsl3RandomData _randomInfo = null;
+        private ICkSsl3RandomData _randomInfo = null;
 
         /// <summary>
         /// Initializes a new instance of the CkTlsKdfParams class.
@@ -55,7 +55,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <param name="label">Label for this key derivation</param>
         /// <param name="randomInfo">Random data for the key derivation</param>
         /// <param name="contextData">Context data for this key derivation</param>
-        public CkTlsKdfParams(NativeULong prfMechanism, byte[] label, CkSsl3RandomData randomInfo, byte[] contextData)
+        public CkTlsKdfParams(NativeULong prfMechanism, byte[] label, ICkSsl3RandomData randomInfo, byte[] contextData)
         {
             _lowLevelStruct.Label = IntPtr.Zero;
             _lowLevelStruct.LabelLength = 0;

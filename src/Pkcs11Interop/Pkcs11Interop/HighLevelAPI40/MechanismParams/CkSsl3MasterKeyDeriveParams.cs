@@ -30,7 +30,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
     /// <summary>
     /// Parameters for the CKM_SSL3_MASTER_KEY_DERIVE and CKM_SSL3_MASTER_KEY_DERIVE_DH mechanisms
     /// </summary>
-    public class CkSsl3MasterKeyDeriveParams : IMechanismParams
+    public class CkSsl3MasterKeyDeriveParams : ICkSsl3MasterKeyDeriveParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -45,7 +45,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <summary>
         /// SSL protocol version information
         /// </summary>
-        public CkVersion Version
+        public ICkVersion Version
         {
             get
             {
@@ -68,14 +68,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <summary>
         /// Client's and server's random data information
         /// </summary>
-        private CkSsl3RandomData _randomInfo = null;
+        private ICkSsl3RandomData _randomInfo = null;
 
         /// <summary>
         /// Initializes a new instance of the CkSsl3MasterKeyDeriveParams class.
         /// </summary>
         /// <param name='randomInfo'>Client's and server's random data information</param>
         /// <param name='dh'>Set to false for CKM_SSL3_MASTER_KEY_DERIVE mechanism and to true for CKM_SSL3_MASTER_KEY_DERIVE_DH mechanism</param>
-        public CkSsl3MasterKeyDeriveParams(CkSsl3RandomData randomInfo, bool dh)
+        public CkSsl3MasterKeyDeriveParams(ICkSsl3RandomData randomInfo, bool dh)
         {
             if (randomInfo == null)
                 throw new ArgumentNullException("randomInfo");

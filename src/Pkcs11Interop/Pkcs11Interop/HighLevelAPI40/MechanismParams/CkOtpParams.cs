@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
     /// <summary>
     /// Parameters for OTP mechanisms in a generic fashion
     /// </summary>
-    public class CkOtpParams : IMechanismParams
+    public class CkOtpParams : ICkOtpParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -47,7 +47,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// Initializes a new instance of the CkOtpParams class.
         /// </summary>
         /// <param name='parameters'>List of OTP parameters</param>
-        public CkOtpParams(List<CkOtpParam> parameters)
+        public CkOtpParams(List<ICkOtpParam> parameters)
         {
             _lowLevelStruct.Params = IntPtr.Zero;
             _lowLevelStruct.Count = 0;

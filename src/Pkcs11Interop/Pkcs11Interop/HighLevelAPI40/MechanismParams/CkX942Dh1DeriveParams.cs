@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
     /// <summary>
     /// Parameters for the CKM_X9_42_DH_DERIVE key derivation mechanism
     /// </summary>
-    public class CkX942Dh1DeriveParams : IMechanismParams
+    public class CkX942Dh1DeriveParams : ICkX942Dh1DeriveParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

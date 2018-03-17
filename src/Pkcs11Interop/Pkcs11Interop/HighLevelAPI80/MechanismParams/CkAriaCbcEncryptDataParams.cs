@@ -30,7 +30,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
     /// <summary>
     /// Parameters for the CKM_ARIA_CBC_ENCRYPT_DATA mechanism
     /// </summary>
-    public class CkAriaCbcEncryptDataParams : IMechanismParams
+    public class CkAriaCbcEncryptDataParams : ICkAriaCbcEncryptDataParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

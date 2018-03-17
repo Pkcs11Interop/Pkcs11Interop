@@ -30,7 +30,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
     /// <summary>
     /// Parameters for the CKM_RSA_AES_KEY_WRAP mechanism
     /// </summary>
-    public class CkRsaAesKeyWrapParams : IMechanismParams
+    public class CkRsaAesKeyWrapParams : ICkRsaAesKeyWrapParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -45,14 +45,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <summary>
         /// Parameters of the temporary AES key wrapping
         /// </summary>
-        private CkRsaPkcsOaepParams _oaepParams = null;
+        private ICkRsaPkcsOaepParams _oaepParams = null;
 
         /// <summary>
         /// Initializes a new instance of the CkAesCbcEncryptDataParams class.
         /// </summary>
         /// <param name='aesKeyBits'>Length of the temporary AES key in bits</param>
         /// <param name='oaepParams'>Parameters of the temporary AES key wrapping</param>
-        public CkRsaAesKeyWrapParams(NativeULong aesKeyBits, CkRsaPkcsOaepParams oaepParams)
+        public CkRsaAesKeyWrapParams(NativeULong aesKeyBits, ICkRsaPkcsOaepParams oaepParams)
         {
             _lowLevelStruct.AESKeyBits = 0;
             _lowLevelStruct.OAEPParams = IntPtr.Zero;

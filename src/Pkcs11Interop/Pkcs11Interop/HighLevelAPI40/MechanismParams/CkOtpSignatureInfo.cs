@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI40;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
 using NativeULong = System.UInt32;
@@ -31,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
     /// <summary>
     /// Parameters returned by all OTP mechanisms in successful calls to Sign method
     /// </summary>
-    public class CkOtpSignatureInfo : IDisposable
+    public class CkOtpSignatureInfo : ICkOtpSignatureInfo
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -51,12 +52,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <summary>
         /// List of OTP parameters
         /// </summary>
-        private List<CkOtpParam> _params = new List<CkOtpParam>();
+        private List<ICkOtpParam> _params = new List<ICkOtpParam>();
 
         /// <summary>
         /// List of OTP parameters
         /// </summary>
-        public IList<CkOtpParam> Params
+        public IList<ICkOtpParam> Params
         {
             get
             {

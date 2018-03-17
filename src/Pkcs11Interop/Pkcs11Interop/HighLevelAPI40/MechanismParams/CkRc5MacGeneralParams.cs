@@ -29,7 +29,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
     /// <summary>
     /// Parameters for the CKM_RC5_MAC_GENERAL mechanism
     /// </summary>
-    public class CkRc5MacGeneralParams : IMechanismParams
+    public class CkRc5MacGeneralParams : ICkRc5MacGeneralParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

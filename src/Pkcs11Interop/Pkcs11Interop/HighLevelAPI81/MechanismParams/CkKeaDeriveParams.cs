@@ -30,7 +30,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
     /// <summary>
     /// Parameters for the CKM_KEA_DERIVE mechanism
     /// </summary>
-    public class CkKeaDeriveParams : IMechanismParams
+    public class CkKeaDeriveParams : ICkKeaDeriveParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

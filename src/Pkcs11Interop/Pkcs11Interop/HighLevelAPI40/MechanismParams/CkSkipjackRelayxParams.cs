@@ -30,7 +30,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
     /// <summary>
     /// Parameters for the CKM_SKIPJACK_RELAYX mechanism
     /// </summary>
-    public class CkSkipjackRelayxParams : IMechanismParams
+    public class CkSkipjackRelayxParams : ICkSkipjackRelayxParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

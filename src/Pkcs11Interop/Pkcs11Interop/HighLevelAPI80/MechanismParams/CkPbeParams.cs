@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
     /// <summary>
     /// Parameters for the CKM_PBE mechanisms and the CKM_PBA_SHA1_WITH_SHA1_HMAC mechanism
     /// </summary>
-    public class CkPbeParams : IMechanismParams
+    public class CkPbeParams : ICkPbeParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

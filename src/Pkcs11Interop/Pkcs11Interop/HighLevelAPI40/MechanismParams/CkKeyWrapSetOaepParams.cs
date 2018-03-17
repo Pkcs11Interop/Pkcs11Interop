@@ -30,7 +30,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
     /// <summary>
     /// Parameters for the CKM_KEY_WRAP_SET_OAEP mechanism
     /// </summary>
-    public class CkKeyWrapSetOaepParams : IMechanismParams
+    public class CkKeyWrapSetOaepParams : ICkKeyWrapSetOaepParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

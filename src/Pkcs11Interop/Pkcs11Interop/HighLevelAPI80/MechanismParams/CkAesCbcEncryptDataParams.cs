@@ -30,7 +30,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
     /// <summary>
     /// Parameters for the CKM_AES_CBC_ENCRYPT_DATA mechanism
     /// </summary>
-    public class CkAesCbcEncryptDataParams : IMechanismParams
+    public class CkAesCbcEncryptDataParams : ICkAesCbcEncryptDataParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

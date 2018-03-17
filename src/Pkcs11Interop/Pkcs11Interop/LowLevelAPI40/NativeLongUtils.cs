@@ -268,6 +268,16 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
             return Convert.ToUInt32(value);
         }
 
+        /// <summary>
+        /// Converts UInt64 to NativeULong
+        /// </summary>
+        /// <param name="value">UInt64 that should be converted</param>
+        /// <returns>NativeULong with value from UInt64</returns>
+        public static NativeULong? ConvertFromUInt64(UInt64? value)
+        {
+            return (value == null) ? null : ConvertFromUInt64(value);
+        }
+
         #endregion
 
 #endif // DO NOT REMOVE - UInt32 conversions managed by code generation script
@@ -507,6 +517,16 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         public static NativeULong ConvertFromUInt64(UInt64 value)
         {
             return Convert.ToUInt64(value);
+        }
+
+        /// <summary>
+        /// Converts UInt64 to NativeULong
+        /// </summary>
+        /// <param name="value">UInt64 that should be converted</param>
+        /// <returns>NativeULong with value from UInt64</returns>
+        public static NativeULong? ConvertFromUInt64(UInt64? value)
+        {
+            return (value == null) ? null : ConvertFromUInt64(value);
         }
 
         #endregion

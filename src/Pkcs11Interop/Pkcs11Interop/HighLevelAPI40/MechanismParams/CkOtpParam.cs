@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
     /// <summary>
     /// Type, value and length of an OTP parameter
     /// </summary>
-    public class CkOtpParam : IMechanismParams
+    public class CkOtpParam : ICkOtpParam
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -46,14 +46,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <summary>
         /// Parameter type
         /// </summary>
-        public NativeULong Type
+        public ulong Type
         {
             get
             {
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return _lowLevelStruct.Type;
+                return NativeLongUtils.ConvertToUInt64(_lowLevelStruct.Type);
             }
         }
 

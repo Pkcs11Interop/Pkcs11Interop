@@ -29,7 +29,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
     /// <summary>
     /// Parameters for the CKM_CAMELLIA_CTR mechanism
     /// </summary>
-    public class CkCamelliaCtrParams : IMechanismParams
+    public class CkCamelliaCtrParams : ICkCamelliaCtrParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

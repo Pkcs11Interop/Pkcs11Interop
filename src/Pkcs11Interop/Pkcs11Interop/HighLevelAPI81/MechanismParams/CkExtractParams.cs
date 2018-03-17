@@ -29,7 +29,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
     /// <summary>
     /// Parameters for the CKM_EXTRACT_KEY_FROM_KEY mechanism
     /// </summary>
-    public class CkExtractParams : IMechanismParams
+    public class CkExtractParams : ICkExtractParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

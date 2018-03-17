@@ -29,7 +29,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
     /// <summary>
     /// Parameters for the CKM_TLS_MAC mechanism
     /// </summary>
-    public class CkTlsMacParams : IMechanismParams
+    public class CkTlsMacParams : ICkTlsMacParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
