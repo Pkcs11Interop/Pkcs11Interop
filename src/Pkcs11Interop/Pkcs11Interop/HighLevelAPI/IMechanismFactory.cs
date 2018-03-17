@@ -20,6 +20,7 @@
  */
 
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 
 namespace Net.Pkcs11Interop.HighLevelAPI
 {

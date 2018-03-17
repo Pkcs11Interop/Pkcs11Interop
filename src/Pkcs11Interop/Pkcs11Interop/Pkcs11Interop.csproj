@@ -62,7 +62,7 @@
     <Compile Include="Common\CKU.cs" />
     <Compile Include="Common\CKZ.cs" />
     <Compile Include="Common\ConvertUtils.cs" />
-    <Compile Include="HighLevelAPI\IMechanismParams.cs" />
+    <Compile Include="HighLevelAPI\MechanismParams\IMechanismParams.cs" />
     <Compile Include="Common\InitType.cs" />
     <Compile Include="Common\LibraryArchitectureException.cs" />
     <Compile Include="Common\NativeMethods.cs" />
@@ -717,9 +717,7 @@
     <None Include="LICENSE.txt" />
     <None Include="NOTICE.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="HighLevelAPI\MechanismParams\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

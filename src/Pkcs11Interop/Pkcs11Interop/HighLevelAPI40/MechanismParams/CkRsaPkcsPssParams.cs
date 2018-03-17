@@ -20,7 +20,7 @@
  */
 
 using System;
-using Net.Pkcs11Interop.HighLevelAPI;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
 using NativeULong = System.UInt32;
 

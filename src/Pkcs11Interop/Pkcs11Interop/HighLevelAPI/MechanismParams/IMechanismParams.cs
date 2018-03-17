@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Net.Pkcs11Interop.HighLevelAPI
+namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
 {
     /// <summary>
     /// Interface for mechanism parameters

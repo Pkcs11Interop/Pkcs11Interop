@@ -22,6 +22,7 @@
 using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI80;
 
 namespace Net.Pkcs11Interop.HighLevelAPI80
