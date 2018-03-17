@@ -19,19 +19,72 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
+using System;
 using System.Collections.Generic;
-using Net.Pkcs11Interop.HighLevelAPI;
+using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
-using Net.Pkcs11Interop.HighLevelAPI80.MechanismParams;
-using Net.Pkcs11Interop.LowLevelAPI80;
 
-namespace Net.Pkcs11Interop.HighLevelAPI80
+namespace Net.Pkcs11Interop.HighLevelAPI
 {
     /// <summary>
     /// Factory for creation of IMechanismParams instances
     /// </summary>
     public class MechanismParamsFactory : IMechanismParamsFactory
     {
+        #region Static instance of the factory
+
+        /// <summary>
+        /// Ready to use static instance of the factory
+        /// </summary>
+        private static MechanismParamsFactory _instance = null;
+
+        /// <summary>
+        /// Ready to use static instance of the factory
+        /// </summary>
+        public static MechanismParamsFactory Instance
+        {
+            get
+            {
+                return _instance;
+            }
+        }
+
+        /// <summary>
+        /// Static constructor that initializes static instance of the factory
+        /// </summary>
+        static MechanismParamsFactory()
+        {
+            _instance = new MechanismParamsFactory();
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Platform specific factory for creation of IMechanismParams instances
+        /// </summary>
+        private IMechanismParamsFactory _factory = null;
+
+        /// <summary>
+        /// Initializes a new instance of the MechanismParamsFactory class
+        /// </summary>
+        public MechanismParamsFactory()
+        {
+            if (Platform.UnmanagedLongSize == 4)
+            {
+                if (Platform.StructPackingSize == 0)
+                    _factory = new HighLevelAPI40.MechanismParamsFactory();
+                else
+                    _factory = new HighLevelAPI41.MechanismParamsFactory();
+            }
+            else
+            {
+                if (Platform.StructPackingSize == 0)
+                    _factory = new HighLevelAPI80.MechanismParamsFactory();
+                else
+                    _factory = new HighLevelAPI81.MechanismParamsFactory();
+            }
+        }
+
         /// <summary>
         /// Creates parameters for the CKM_AES_CBC_ENCRYPT_DATA mechanism
         /// </summary>
@@ -40,7 +93,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_AES_CBC_ENCRYPT_DATA mechanism</returns>
         public ICkAesCbcEncryptDataParams CreateCkAesCbcEncryptDataParams(byte[] iv, byte[] data)
         {
-            return new CkAesCbcEncryptDataParams(iv, data);
+            return _factory.CreateCkAesCbcEncryptDataParams(iv, data);
         }
 
         /// <summary>
@@ -51,7 +104,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_AES_CTR mechanism</returns>
         public ICkAesCtrParams CreateCkAesCtrParams(ulong counterBits, byte[] cb)
         {
-            return new CkAesCtrParams(NativeLongUtils.ConvertFromUInt64(counterBits), cb);
+            return _factory.CreateCkAesCtrParams(counterBits, cb);
         }
 
         /// <summary>
@@ -62,7 +115,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_ARIA_CBC_ENCRYPT_DATA mechanism</returns>
         public ICkAriaCbcEncryptDataParams CreateCkAriaCbcEncryptDataParams(byte[] iv, byte[] data)
         {
-            return new CkAriaCbcEncryptDataParams(iv, data);
+            return _factory.CreateCkAriaCbcEncryptDataParams(iv, data);
         }
 
         /// <summary>
@@ -73,7 +126,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_CAMELLIA_CBC_ENCRYPT_DATA mechanism</returns>
         public ICkCamelliaCbcEncryptDataParams CreateCkCamelliaCbcEncryptDataParams(byte[] iv, byte[] data)
         {
-            return new CkCamelliaCbcEncryptDataParams(iv, data);
+            return _factory.CreateCkCamelliaCbcEncryptDataParams(iv, data);
         }
 
         /// <summary>
@@ -84,7 +137,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_CAMELLIA_CTR mechanism</returns>
         public ICkCamelliaCtrParams CreateCkCamelliaCtrParams(ulong counterBits, byte[] cb)
         {
-            return new CkCamelliaCtrParams(NativeLongUtils.ConvertFromUInt64(counterBits), cb);
+            return _factory.CreateCkCamelliaCtrParams(counterBits, cb);
         }
 
         /// <summary>
@@ -97,7 +150,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_AES_CCM mechanism</returns>
         public ICkCcmParams CreateCkCcmParams(ulong dataLen, byte[] nonce, byte[] aad, ulong macLen)
         {
-            return new CkCcmParams(NativeLongUtils.ConvertFromUInt64(dataLen), nonce, aad, NativeLongUtils.ConvertFromUInt64(macLen));
+            return _factory.CreateCkCcmParams(dataLen, nonce, aad, macLen);
         }
 
         /// <summary>
@@ -112,7 +165,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_CMS_SIG mechanism</returns>
         public ICkCmsSigParams CreateCkCmsSigParams(IObjectHandle certificateHandle, ulong? signingMechanism, ulong? digestMechanism, string contentType, byte[] requestedAttributes, byte[] requiredAttributes)
         {
-            return new CkCmsSigParams(certificateHandle, NativeLongUtils.ConvertFromUInt64(signingMechanism), NativeLongUtils.ConvertFromUInt64(digestMechanism), contentType, requestedAttributes, requiredAttributes);
+            return _factory.CreateCkCmsSigParams(certificateHandle, signingMechanism, digestMechanism, contentType, requestedAttributes, requiredAttributes);
         }
 
         /// <summary>
@@ -123,7 +176,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_DES_CBC_ENCRYPT_DATA and CKM_DES3_CBC_ENCRYPT_DATA mechanisms</returns>
         public ICkDesCbcEncryptDataParams CreateCkDesCbcEncryptDataParams(byte[] iv, byte[] data)
         {
-            return new CkDesCbcEncryptDataParams(iv, data);
+            return _factory.CreateCkDesCbcEncryptDataParams(iv, data);
         }
 
         /// <summary>
@@ -135,7 +188,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_DSA_PROBABLISTIC_PARAMETER_GEN, CKM_DSA_SHAWE_TAYLOR_PARAMETER_GEN a CKM_DSA_FIPS_G_GEN mechanisms</returns>
         public ICkDsaParameterGenParam CreateCkDsaParameterGenParam(ulong hash, byte[] seed, ulong index)
         {
-            return new CkDsaParameterGenParam(NativeLongUtils.ConvertFromUInt64(hash), seed, NativeLongUtils.ConvertFromUInt64(index));
+            return _factory.CreateCkDsaParameterGenParam(hash, seed, index);
         }
 
         /// <summary>
@@ -147,7 +200,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_ECDH1_DERIVE and CKM_ECDH1_COFACTOR_DERIVE key derivation mechanisms</returns>
         public ICkEcdh1DeriveParams CreateCkEcdh1DeriveParams(ulong kdf, byte[] sharedData, byte[] publicData)
         {
-            return new CkEcdh1DeriveParams(NativeLongUtils.ConvertFromUInt64(kdf), sharedData, publicData);
+            return _factory.CreateCkEcdh1DeriveParams(kdf, sharedData, publicData);
         }
 
         /// <summary>
@@ -162,7 +215,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_ECMQV_DERIVE mechanism</returns>
         public ICkEcdh2DeriveParams CreateCkEcdh2DeriveParams(ulong kdf, byte[] sharedData, byte[] publicData, ulong privateDataLen, IObjectHandle privateData, byte[] publicData2)
         {
-            return new CkEcdh2DeriveParams(NativeLongUtils.ConvertFromUInt64(kdf), sharedData, publicData, NativeLongUtils.ConvertFromUInt64(privateDataLen), privateData, publicData2);
+            return _factory.CreateCkEcdh2DeriveParams(kdf, sharedData, publicData, privateDataLen, privateData, publicData2);
         }
 
         /// <summary>
@@ -174,7 +227,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_ECDH_AES_KEY_WRAP mechanism</returns>
         public ICkEcdhAesKeyWrapParams CreateCkEcdhAesKeyWrapParams(ulong aesKeyBits, ulong kdf, byte[] sharedData)
         {
-            return new CkEcdhAesKeyWrapParams(NativeLongUtils.ConvertFromUInt64(aesKeyBits), NativeLongUtils.ConvertFromUInt64(kdf), sharedData);
+            return _factory.CreateCkEcdhAesKeyWrapParams(aesKeyBits, kdf, sharedData);
         }
 
         /// <summary>
@@ -190,7 +243,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_ECMQV_DERIVE mechanism</returns>
         public ICkEcmqvDeriveParams CreateCkEcmqvDeriveParams(ulong kdf, byte[] sharedData, byte[] publicData, ulong privateDataLen, IObjectHandle privateData, byte[] publicData2, IObjectHandle publicKey)
         {
-            return new CkEcmqvDeriveParams(NativeLongUtils.ConvertFromUInt64(kdf), sharedData, publicData, NativeLongUtils.ConvertFromUInt64(privateDataLen), privateData, publicData2, publicKey);
+            return _factory.CreateCkEcmqvDeriveParams(kdf, sharedData, publicData, privateDataLen, privateData, publicData2, publicKey);
         }
 
         /// <summary>
@@ -200,7 +253,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_EXTRACT_KEY_FROM_KEY mechanism</returns>
         public ICkExtractParams CreateCkExtractParams(ulong bit)
         {
-            return new CkExtractParams(NativeLongUtils.ConvertFromUInt64(bit));
+            return _factory.CreateCkExtractParams(bit);
         }
 
         /// <summary>
@@ -213,7 +266,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_AES_GCM mechanism</returns>
         public ICkGcmParams CreateCkGcmParams(byte[] iv, ulong ivBits, byte[] aad, ulong tagBits)
         {
-            return new CkGcmParams(iv, NativeLongUtils.ConvertFromUInt64(ivBits), aad, NativeLongUtils.ConvertFromUInt64(tagBits));
+            return _factory.CreateCkGcmParams(iv, ivBits, aad, tagBits);
         }
 
         /// <summary>
@@ -225,7 +278,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_GOSTR3410_DERIVE mechanism</returns>
         public ICkGostR3410DeriveParams CreateCkGostR3410DeriveParams(ulong kdf, byte[] publicData, byte[] ukm)
         {
-            return new CkGostR3410DeriveParams(NativeLongUtils.ConvertFromUInt64(kdf), publicData, ukm);
+            return _factory.CreateCkGostR3410DeriveParams(kdf, publicData, ukm);
         }
 
         /// <summary>
@@ -237,7 +290,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_GOSTR3410_KEY_WRAP mechanism</returns>
         public ICkGostR3410KeyWrapParams CreateCkGostR3410KeyWrapParams(byte[] wrapOID, byte[] ukm, ulong key)
         {
-            return new CkGostR3410KeyWrapParams(wrapOID, ukm, NativeLongUtils.ConvertFromUInt64(key));
+            return _factory.CreateCkGostR3410KeyWrapParams(wrapOID, ukm, key);
         }
 
         /// <summary>
@@ -250,7 +303,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_KEA_DERIVE mechanism</returns>
         public ICkKeaDeriveParams CreateCkKeaDeriveParams(bool isSender, byte[] randomA, byte[] randomB, byte[] publicData)
         {
-            return new CkKeaDeriveParams(isSender, randomA, randomB, publicData);
+            return _factory.CreateCkKeaDeriveParams(isSender, randomA, randomB, publicData);
         }
 
         /// <summary>
@@ -260,7 +313,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_CONCATENATE_BASE_AND_DATA, CKM_CONCATENATE_DATA_AND_BASE and CKM_XOR_BASE_AND_DATA mechanisms</returns>
         public ICkKeyDerivationStringData CreateCkKeyDerivationStringData(byte[] data)
         {
-            return new CkKeyDerivationStringData(data);
+            return _factory.CreateCkKeyDerivationStringData(data);
         }
 
         /// <summary>
@@ -271,7 +324,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_KEY_WRAP_SET_OAEP mechanism</returns>
         public ICkKeyWrapSetOaepParams CreateCkKeyWrapSetOaepParams(byte bc, byte[] x)
         {
-            return new CkKeyWrapSetOaepParams(bc, x);
+            return _factory.CreateCkKeyWrapSetOaepParams(bc, x);
         }
 
         /// <summary>
@@ -283,7 +336,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_KIP_DERIVE, CKM_KIP_WRAP and CKM_KIP_MAC mechanisms</returns>
         public ICkKipParams CreateCkKipParams(ulong? mechanism, IObjectHandle key, byte[] seed)
         {
-            return new CkKipParams(NativeLongUtils.ConvertFromUInt64(mechanism), key, seed);
+            return _factory.CreateCkKipParams(mechanism, key, seed);
         }
 
         /// <summary>
@@ -293,7 +346,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the general-length MACing mechanisms (DES, DES3, CAST, CAST3, CAST128 (CAST5), IDEA, CDMF and AES), the general length HMACing mechanisms (MD2, MD5, SHA-1, SHA-256, SHA-384, SHA-512, RIPEMD-128 and RIPEMD-160) and the two SSL 3.0 MACing mechanisms (MD5 and SHA-1)</returns>
         public ICkMacGeneralParams CreateCkMacGeneralParams(ulong macLength)
         {
-            return new CkMacGeneralParams(NativeLongUtils.ConvertFromUInt64(macLength));
+            return _factory.CreateCkMacGeneralParams(macLength);
         }
 
         /// <summary>
@@ -304,7 +357,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Type, value and length of an OTP parameter</returns>
         public ICkOtpParam CreateCkOtpParam(ulong type, byte[] value)
         {
-            return new CkOtpParam(NativeLongUtils.ConvertFromUInt64(type), value);
+            return _factory.CreateCkOtpParam(type, value);
         }
 
         /// <summary>
@@ -314,7 +367,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for OTP mechanisms in a generic fashion</returns>
         public ICkOtpParams CreateCkOtpParams(List<ICkOtpParam> parameters)
         {
-            return new CkOtpParams(parameters);
+            return _factory.CreateCkOtpParams(parameters);
         }
 
         /// <summary>
@@ -324,7 +377,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters returned by all OTP mechanisms in successful calls to Sign method</returns>
         public ICkOtpSignatureInfo CreateCkOtpSignatureInfo(byte[] signature)
         {
-            return new CkOtpSignatureInfo(signature);
+            return _factory.CreateCkOtpSignatureInfo(signature);
         }
 
         /// <summary>
@@ -337,7 +390,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_PBE mechanisms and the CKM_PBA_SHA1_WITH_SHA1_HMAC mechanism</returns>
         public ICkPbeParams CreateCkPbeParams(byte[] initVector, byte[] password, byte[] salt, ulong iteration)
         {
-            return new CkPbeParams(initVector, password, salt, NativeLongUtils.ConvertFromUInt64(iteration));
+            return _factory.CreateCkPbeParams(initVector, password, salt, iteration);
         }
 
         /// <summary>
@@ -352,7 +405,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_PKCS5_PBKD2 mechanism</returns>
         public ICkPkcs5Pbkd2Params CreateCkPkcs5Pbkd2Params(ulong saltSource, byte[] saltSourceData, ulong iterations, ulong prf, byte[] prfData, byte[] password)
         {
-            return new CkPkcs5Pbkd2Params(NativeLongUtils.ConvertFromUInt64(saltSource), saltSourceData, NativeLongUtils.ConvertFromUInt64(iterations), NativeLongUtils.ConvertFromUInt64(prf), prfData, password);
+            return _factory.CreateCkPkcs5Pbkd2Params(saltSource, saltSourceData, iterations, prf, prfData, password);
         }
 
         /// <summary>
@@ -367,7 +420,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_PKCS5_PBKD2 mechanism</returns>
         public ICkPkcs5Pbkd2Params2 CreateCkPkcs5Pbkd2Params2(ulong saltSource, byte[] saltSourceData, ulong iterations, ulong prf, byte[] prfData, byte[] password)
         {
-            return new CkPkcs5Pbkd2Params2(NativeLongUtils.ConvertFromUInt64(saltSource), saltSourceData, NativeLongUtils.ConvertFromUInt64(iterations), NativeLongUtils.ConvertFromUInt64(prf), prfData, password);
+            return _factory.CreateCkPkcs5Pbkd2Params2(saltSource, saltSourceData, iterations, prf, prfData, password);
         }
 
         /// <summary>
@@ -378,7 +431,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_RC2_CBC and CKM_RC2_CBC_PAD mechanisms</returns>
         public ICkRc2CbcParams CreateCkRc2CbcParams(ulong effectiveBits, byte[] iv)
         {
-            return new CkRc2CbcParams(NativeLongUtils.ConvertFromUInt64(effectiveBits), iv);
+            return _factory.CreateCkRc2CbcParams(effectiveBits, iv);
         }
 
         /// <summary>
@@ -389,7 +442,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_RC2_MAC_GENERAL mechanism</returns>
         public ICkRc2MacGeneralParams CreateCkRc2MacGeneralParams(ulong effectiveBits, ulong macLength)
         {
-            return new CkRc2MacGeneralParams(NativeLongUtils.ConvertFromUInt64(effectiveBits), NativeLongUtils.ConvertFromUInt64(macLength));
+            return _factory.CreateCkRc2MacGeneralParams(effectiveBits, macLength);
         }
 
         /// <summary>
@@ -399,7 +452,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_RC2_ECB and CKM_RC2_MAC mechanisms</returns>
         public ICkRc2Params CreateCkRc2Params(ulong effectiveBits)
         {
-            return new CkRc2Params(NativeLongUtils.ConvertFromUInt64(effectiveBits));
+            return _factory.CreateCkRc2Params(effectiveBits);
         }
 
         /// <summary>
@@ -411,7 +464,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_RC5_CBC and CKM_RC5_CBC_PAD mechanisms</returns>
         public ICkRc5CbcParams CreateCkRc5CbcParams(ulong wordsize, ulong rounds, byte[] iv)
         {
-            return new CkRc5CbcParams(NativeLongUtils.ConvertFromUInt64(wordsize), NativeLongUtils.ConvertFromUInt64(rounds), iv);
+            return _factory.CreateCkRc5CbcParams(wordsize, rounds, iv);
         }
 
         /// <summary>
@@ -423,7 +476,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_RC5_MAC_GENERAL mechanism</returns>
         public ICkRc5MacGeneralParams CreateCkRc5MacGeneralParams(ulong wordsize, ulong rounds, ulong macLength)
         {
-            return new CkRc5MacGeneralParams(NativeLongUtils.ConvertFromUInt64(wordsize), NativeLongUtils.ConvertFromUInt64(rounds), NativeLongUtils.ConvertFromUInt64(macLength));
+            return _factory.CreateCkRc5MacGeneralParams(wordsize, rounds, macLength);
         }
 
         /// <summary>
@@ -434,7 +487,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_RC5_ECB and CKM_RC5_MAC mechanisms</returns>
         public ICkRc5Params CreateCkRc5Params(ulong wordsize, ulong rounds)
         {
-            return new CkRc5Params(NativeLongUtils.ConvertFromUInt64(wordsize), NativeLongUtils.ConvertFromUInt64(rounds));
+            return _factory.CreateCkRc5Params(wordsize, rounds);
         }
 
         /// <summary>
@@ -445,7 +498,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_RSA_AES_KEY_WRAP mechanism</returns>
         public ICkRsaAesKeyWrapParams CreateCkRsaAesKeyWrapParams(ulong aesKeyBits, ICkRsaPkcsOaepParams oaepParams)
         {
-            return new CkRsaAesKeyWrapParams(NativeLongUtils.ConvertFromUInt64(aesKeyBits), oaepParams);
+            return _factory.CreateCkRsaAesKeyWrapParams(aesKeyBits, oaepParams);
         }
 
         /// <summary>
@@ -458,7 +511,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_RSA_PKCS_OAEP mechanism</returns>
         public ICkRsaPkcsOaepParams CreateCkRsaPkcsOaepParams(ulong hashAlg, ulong mgf, ulong source, byte[] sourceData)
         {
-            return new CkRsaPkcsOaepParams(NativeLongUtils.ConvertFromUInt64(hashAlg), NativeLongUtils.ConvertFromUInt64(mgf), NativeLongUtils.ConvertFromUInt64(source), sourceData);
+            return _factory.CreateCkRsaPkcsOaepParams(hashAlg, mgf, source, sourceData);
         }
 
         /// <summary>
@@ -470,7 +523,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_RSA_PKCS_PSS mechanism</returns>
         public ICkRsaPkcsPssParams CreateCkRsaPkcsPssParams(ulong hashAlg, ulong mgf, ulong len)
         {
-            return new CkRsaPkcsPssParams(NativeLongUtils.ConvertFromUInt64(hashAlg), NativeLongUtils.ConvertFromUInt64(mgf), NativeLongUtils.ConvertFromUInt64(len));
+            return _factory.CreateCkRsaPkcsPssParams(hashAlg, mgf, len);
         }
 
         /// <summary>
@@ -481,7 +534,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_SEED_CBC_ENCRYPT_DATA mechanism</returns>
         public ICkSeedCbcEncryptDataParams CreateCkSeedCbcEncryptDataParams(byte[] iv, byte[] data)
         {
-            return new CkSeedCbcEncryptDataParams(iv, data);
+            return _factory.CreateCkSeedCbcEncryptDataParams(iv, data);
         }
 
         /// <summary>
@@ -496,7 +549,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_SKIPJACK_PRIVATE_WRAP mechanism</returns>
         public ICkSkipjackPrivateWrapParams CreateCkSkipjackPrivateWrapParams(byte[] password, byte[] publicData, byte[] randomA, byte[] primeP, byte[] baseG, byte[] subprimeQ)
         {
-            return new CkSkipjackPrivateWrapParams(password, publicData, randomA, primeP, baseG, subprimeQ);
+            return _factory.CreateCkSkipjackPrivateWrapParams(password, publicData, randomA, primeP, baseG, subprimeQ);
         }
 
         /// <summary>
@@ -512,7 +565,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_SKIPJACK_RELAYX mechanism</returns>
         public ICkSkipjackRelayxParams CreateCkSkipjackRelayxParams(byte[] oldWrappedX, byte[] oldPassword, byte[] oldPublicData, byte[] oldRandomA, byte[] newPassword, byte[] newPublicData, byte[] newRandomA)
         {
-            return new CkSkipjackRelayxParams(oldWrappedX, oldPassword, oldPublicData, oldRandomA, newPassword, newPublicData, newRandomA);
+            return _factory.CreateCkSkipjackRelayxParams(oldWrappedX, oldPassword, oldPublicData, oldRandomA, newPassword, newPublicData, newRandomA);
         }
 
         // Note : CkSsl3KeyMatOut does not need to be constructed here
@@ -528,7 +581,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_SSL3_KEY_AND_MAC_DERIVE mechanism</returns>
         public ICkSsl3KeyMatParams CreateCkSsl3KeyMatParams(ulong macSizeInBits, ulong keySizeInBits, ulong ivSizeInBits, bool isExport, ICkSsl3RandomData randomInfo)
         {
-            return new CkSsl3KeyMatParams(NativeLongUtils.ConvertFromUInt64(macSizeInBits), NativeLongUtils.ConvertFromUInt64(keySizeInBits), NativeLongUtils.ConvertFromUInt64(ivSizeInBits), isExport, randomInfo);
+            return _factory.CreateCkSsl3KeyMatParams(macSizeInBits, keySizeInBits, ivSizeInBits, isExport, randomInfo);
         }
 
         /// <summary>
@@ -539,7 +592,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_SSL3_MASTER_KEY_DERIVE and CKM_SSL3_MASTER_KEY_DERIVE_DH mechanisms</returns>
         public ICkSsl3MasterKeyDeriveParams CreateCkSsl3MasterKeyDeriveParams(ICkSsl3RandomData randomInfo, bool dh)
         {
-            return new CkSsl3MasterKeyDeriveParams(randomInfo, dh);
+            return _factory.CreateCkSsl3MasterKeyDeriveParams(randomInfo, dh);
         }
 
         /// <summary>
@@ -550,7 +603,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Information about the random data of a client and a server in an SSL context</returns>
         public ICkSsl3RandomData CreateCkSsl3RandomData(byte[] clientRandom, byte[] serverRandom)
         {
-            return new CkSsl3RandomData(clientRandom, serverRandom);
+            return _factory.CreateCkSsl3RandomData(clientRandom, serverRandom);
         }
 
         /// <summary>
@@ -565,7 +618,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_TLS12_KEY_AND_MAC_DERIVE mechanism</returns>
         public ICkTls12KeyMatParams CreateCkTls12KeyMatParams(ulong macSizeInBits, ulong keySizeInBits, ulong ivSizeInBits, bool isExport, ICkSsl3RandomData randomInfo, ulong prfHashMechanism)
         {
-            return new CkTls12KeyMatParams(NativeLongUtils.ConvertFromUInt64(macSizeInBits), NativeLongUtils.ConvertFromUInt64(keySizeInBits), NativeLongUtils.ConvertFromUInt64(ivSizeInBits), isExport, randomInfo, NativeLongUtils.ConvertFromUInt64(prfHashMechanism));
+            return _factory.CreateCkTls12KeyMatParams(macSizeInBits, keySizeInBits, ivSizeInBits, isExport, randomInfo, prfHashMechanism);
         }
 
         /// <summary>
@@ -576,7 +629,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_TLS12_MASTER_KEY_DERIVE mechanism</returns>
         public ICkTls12MasterKeyDeriveParams CreateCkTls12MasterKeyDeriveParams(ICkSsl3RandomData randomInfo, ulong prfHashMechanism)
         {
-            return new CkTls12MasterKeyDeriveParams(randomInfo, NativeLongUtils.ConvertFromUInt64(prfHashMechanism));
+            return _factory.CreateCkTls12MasterKeyDeriveParams(randomInfo, prfHashMechanism);
         }
 
         /// <summary>
@@ -589,7 +642,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_TLS_KDF mechanism</returns>
         public ICkTlsKdfParams CreateCkTlsKdfParams(ulong prfMechanism, byte[] label, ICkSsl3RandomData randomInfo, byte[] contextData)
         {
-            return new CkTlsKdfParams(NativeLongUtils.ConvertFromUInt64(prfMechanism), label, randomInfo, contextData);
+            return _factory.CreateCkTlsKdfParams(prfMechanism, label, randomInfo, contextData);
         }
 
         /// <summary>
@@ -601,7 +654,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_TLS_MAC mechanism</returns>
         public ICkTlsMacParams CreateCkTlsMacParams(ulong prfHashMechanism, ulong macLength, ulong serverOrClient)
         {
-            return new CkTlsMacParams(NativeLongUtils.ConvertFromUInt64(prfHashMechanism), NativeLongUtils.ConvertFromUInt64(macLength), NativeLongUtils.ConvertFromUInt64(serverOrClient));
+            return _factory.CreateCkTlsMacParams(prfHashMechanism, macLength, serverOrClient);
         }
 
         /// <summary>
@@ -613,7 +666,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_TLS_PRF mechanism</returns>
         public ICkTlsPrfParams CreateCkTlsPrfParams(byte[] seed, byte[] label, ulong outputLen)
         {
-            return new CkTlsPrfParams(seed, label, NativeLongUtils.ConvertFromUInt64(outputLen));
+            return _factory.CreateCkTlsPrfParams(seed, label, outputLen);
         }
 
         /// <summary>
@@ -624,7 +677,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_SSL3_PRE_MASTER_KEY_GEN mechanism</returns>
         public ICkVersion CreateCkVersion(byte major, byte minor)
         {
-            return new CkVersion(major, minor);
+            return _factory.CreateCkVersion(major, minor);
         }
 
         // Note : CkWtlsKeyMatOut does not need to be constructed here
@@ -642,7 +695,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_WTLS_SERVER_KEY_AND_MAC_DERIVE and the CKM_WTLS_CLIENT_KEY_AND_MAC_DERIVE mechanisms</returns>
         public ICkWtlsKeyMatParams CreateCkWtlsKeyMatParams(ulong digestMechanism, ulong macSizeInBits, ulong keySizeInBits, ulong ivSizeInBits, ulong sequenceNumber, bool isExport, ICkWtlsRandomData randomInfo)
         {
-            return new CkWtlsKeyMatParams(NativeLongUtils.ConvertFromUInt64(digestMechanism), NativeLongUtils.ConvertFromUInt64(macSizeInBits), NativeLongUtils.ConvertFromUInt64(keySizeInBits), NativeLongUtils.ConvertFromUInt64(ivSizeInBits), NativeLongUtils.ConvertFromUInt64(sequenceNumber), isExport, randomInfo);
+            return _factory.CreateCkWtlsKeyMatParams(digestMechanism, macSizeInBits, keySizeInBits, ivSizeInBits, sequenceNumber, isExport, randomInfo);
         }
 
         /// <summary>
@@ -654,7 +707,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_WTLS_MASTER_KEY_DERIVE and CKM_WTLS_MASTER_KEY_DERIVE_DH_ECC mechanisms</returns>
         public ICkWtlsMasterKeyDeriveParams CreateCkWtlsMasterKeyDeriveParams(ulong digestMechanism, ICkWtlsRandomData randomInfo, bool dh)
         {
-            return new CkWtlsMasterKeyDeriveParams(NativeLongUtils.ConvertFromUInt64(digestMechanism), randomInfo, dh);
+            return _factory.CreateCkWtlsMasterKeyDeriveParams(digestMechanism, randomInfo, dh);
         }
 
         /// <summary>
@@ -667,7 +720,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_WTLS_PRF mechanism</returns>
         public ICkWtlsPrfParams CreateCkWtlsPrfParams(ulong digestMechanism, byte[] seed, byte[] label, ulong outputLen)
         {
-            return new CkWtlsPrfParams(NativeLongUtils.ConvertFromUInt64(digestMechanism), seed, label, NativeLongUtils.ConvertFromUInt64(outputLen));
+            return _factory.CreateCkWtlsPrfParams(digestMechanism, seed, label, outputLen);
         }
 
         /// <summary>
@@ -678,7 +731,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Information about the random data of a client and a server in a WTLS context</returns>
         public ICkWtlsRandomData CreateCkWtlsRandomData(byte[] clientRandom, byte[] serverRandom)
         {
-            return new CkWtlsRandomData(clientRandom, serverRandom);
+            return _factory.CreateCkWtlsRandomData(clientRandom, serverRandom);
         }
 
         /// <summary>
@@ -690,7 +743,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_X9_42_DH_DERIVE key derivation mechanism</returns>
         public ICkX942Dh1DeriveParams CreateCkX942Dh1DeriveParams(ulong kdf, byte[] otherInfo, byte[] publicData)
         {
-            return new CkX942Dh1DeriveParams(NativeLongUtils.ConvertFromUInt64(kdf), otherInfo, publicData);
+            return _factory.CreateCkX942Dh1DeriveParams(kdf, otherInfo, publicData);
         }
 
         /// <summary>
@@ -705,7 +758,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_X9_42_DH_HYBRID_DERIVE and CKM_X9_42_MQV_DERIVE key derivation mechanisms</returns>
         public ICkX942Dh2DeriveParams CreateCkX942Dh2DeriveParams(ulong kdf, byte[] otherInfo, byte[] publicData, ulong privateDataLen, IObjectHandle privateData, byte[] publicData2)
         {
-            return new CkX942Dh2DeriveParams(NativeLongUtils.ConvertFromUInt64(kdf), otherInfo, publicData, NativeLongUtils.ConvertFromUInt64(privateDataLen), privateData, publicData2);
+            return _factory.CreateCkX942Dh2DeriveParams(kdf, otherInfo, publicData, privateDataLen, privateData, publicData2);
         }
 
         /// <summary>
@@ -721,7 +774,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <returns>Parameters for the CKM_X9_42_MQV_DERIVE key derivation mechanism</returns>
         public ICkX942MqvDeriveParams CreateCkX942MqvDeriveParams(ulong kdf, byte[] otherInfo, byte[] publicData, ulong privateDataLen, IObjectHandle privateData, byte[] publicData2, IObjectHandle publicKey)
         {
-            return new CkX942MqvDeriveParams(NativeLongUtils.ConvertFromUInt64(kdf), otherInfo, publicData, NativeLongUtils.ConvertFromUInt64(privateDataLen), privateData, publicData2, publicKey);
+            return _factory.CreateCkX942MqvDeriveParams(kdf, otherInfo, publicData, privateDataLen, privateData, publicData2, publicKey);
         }
     }
 }

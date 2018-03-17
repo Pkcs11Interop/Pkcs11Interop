@@ -66,6 +66,7 @@
     <Compile Include="HighLevelAPI41\MechanismParamsFactory.cs" />
     <Compile Include="HighLevelAPI80\MechanismParamsFactory.cs" />
     <Compile Include="HighLevelAPI81\MechanismParamsFactory.cs" />
+    <Compile Include="HighLevelAPI\MechanismParamsFactory.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\ICkAesCbcEncryptDataParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\ICkAesCtrParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\ICkAriaCbcEncryptDataParams.cs" />
