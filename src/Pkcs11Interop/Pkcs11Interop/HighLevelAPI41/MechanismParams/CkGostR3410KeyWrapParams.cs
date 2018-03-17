@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
     /// <summary>
     /// Parameters for the CKM_GOSTR3410_KEY_WRAP mechanism
     /// </summary>
-    public class CkGostR3410KeyWrapParams : IMechanismParams
+    public class CkGostR3410KeyWrapParams : ICkGostR3410KeyWrapParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

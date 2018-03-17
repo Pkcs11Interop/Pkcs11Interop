@@ -32,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
     /// <summary>
     /// Parameters for the CKM_CMS_SIG mechanism
     /// </summary>
-    public class CkCmsSigParams : IMechanismParams
+    public class CkCmsSigParams : ICkCmsSigParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

@@ -29,7 +29,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
     /// <summary>
     /// Parameters for the CKM_RC5_ECB and CKM_RC5_MAC mechanisms
     /// </summary>
-    public class CkRc5Params : IMechanismParams
+    public class CkRc5Params : ICkRc5Params
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

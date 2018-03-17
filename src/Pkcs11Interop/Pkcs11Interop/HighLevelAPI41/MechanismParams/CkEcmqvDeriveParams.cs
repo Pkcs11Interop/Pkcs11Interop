@@ -32,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
     /// <summary>
     /// Parameters for the CKM_ECMQV_DERIVE mechanism
     /// </summary>
-    public class CkEcmqvDeriveParams : IMechanismParams
+    public class CkEcmqvDeriveParams : ICkEcmqvDeriveParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

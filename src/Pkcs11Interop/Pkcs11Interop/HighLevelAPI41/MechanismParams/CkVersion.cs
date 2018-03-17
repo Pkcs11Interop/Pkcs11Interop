@@ -28,7 +28,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
     /// <summary>
     /// Parameters for the CKM_SSL3_PRE_MASTER_KEY_GEN mechanism
     /// </summary>
-    public class CkVersion : IMechanismParams
+    public class CkVersion : ICkVersion
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
     /// <summary>
     /// Parameters for the CKM_WTLS_PRF mechanism
     /// </summary>
-    public class CkWtlsPrfParams : IMechanismParams
+    public class CkWtlsPrfParams : ICkWtlsPrfParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
     /// <summary>
     /// Parameters for the CKM_ECDH_AES_KEY_WRAP mechanism
     /// </summary>
-    public class CkEcdhAesKeyWrapParams : IMechanismParams
+    public class CkEcdhAesKeyWrapParams : ICkEcdhAesKeyWrapParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
     /// <summary>
     /// Parameters for the CKM_RSA_PKCS_OAEP mechanism
     /// </summary>
-    public class CkRsaPkcsOaepParams : IMechanismParams
+    public class CkRsaPkcsOaepParams : ICkRsaPkcsOaepParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

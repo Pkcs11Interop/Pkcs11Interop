@@ -30,7 +30,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
     /// <summary>
     /// Parameters for the CKM_SKIPJACK_PRIVATE_WRAP mechanism
     /// </summary>
-    public class CkSkipjackPrivateWrapParams : IMechanismParams
+    public class CkSkipjackPrivateWrapParams : ICkSkipjackPrivateWrapParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

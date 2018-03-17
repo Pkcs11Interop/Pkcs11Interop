@@ -29,7 +29,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
     /// <summary>
     /// Parameters for the CKM_RC2_MAC_GENERAL mechanism
     /// </summary>
-    public class CkRc2MacGeneralParams : IMechanismParams
+    public class CkRc2MacGeneralParams : ICkRc2MacGeneralParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

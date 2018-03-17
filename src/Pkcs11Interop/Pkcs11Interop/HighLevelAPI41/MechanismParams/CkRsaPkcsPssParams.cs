@@ -29,7 +29,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
     /// <summary>
     /// Parameters for the CKM_RSA_PKCS_PSS mechanism
     /// </summary>
-    public class CkRsaPkcsPssParams : IMechanismParams
+    public class CkRsaPkcsPssParams : ICkRsaPkcsPssParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

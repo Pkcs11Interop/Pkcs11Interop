@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
     /// <summary>
     /// Parameters for the CKM_AES_CCM mechanism
     /// </summary>
-    public class CkCcmParams : IMechanismParams
+    public class CkCcmParams : ICkCcmParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

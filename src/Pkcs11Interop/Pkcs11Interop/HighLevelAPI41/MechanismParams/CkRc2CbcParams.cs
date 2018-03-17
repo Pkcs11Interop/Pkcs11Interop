@@ -29,7 +29,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
     /// <summary>
     /// Parameters for the CKM_RC2_CBC and CKM_RC2_CBC_PAD mechanisms
     /// </summary>
-    public class CkRc2CbcParams : IMechanismParams
+    public class CkRc2CbcParams : ICkRc2CbcParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

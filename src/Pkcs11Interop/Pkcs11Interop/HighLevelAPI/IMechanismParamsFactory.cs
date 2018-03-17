@@ -517,7 +517,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name='clientRandom'>Client's random data</param>
         /// <param name='serverRandom'>Server's random data</param>
         /// <returns>Information about the random data of a client and a server in a WTLS context</returns>
-        ICkWtlsRandomData CreateWtlsRandomData(byte[] clientRandom, byte[] serverRandom);
+        ICkWtlsRandomData CreateCkWtlsRandomData(byte[] clientRandom, byte[] serverRandom);
 
         /// <summary>
         /// Creates parameters for the CKM_X9_42_DH_DERIVE key derivation mechanism

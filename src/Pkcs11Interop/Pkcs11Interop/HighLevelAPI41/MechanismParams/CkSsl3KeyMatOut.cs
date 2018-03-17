@@ -21,6 +21,8 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI41;
 using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
 using NativeULong = System.UInt32;
@@ -30,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
     /// <summary>
     /// Resulting key handles and initialization vectors after performing a DeriveKey method with the CKM_SSL3_KEY_AND_MAC_DERIVE mechanism
     /// </summary>
-    public class CkSsl3KeyMatOut : IDisposable
+    public class CkSsl3KeyMatOut : ICkSsl3KeyMatOut
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -45,7 +47,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// <summary>
         /// Key handle for the resulting Client MAC Secret key
         /// </summary>
-        public ObjectHandle ClientMacSecret
+        public IObjectHandle ClientMacSecret
         {
             get
             {
@@ -59,7 +61,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// <summary>
         /// Key handle for the resulting Server MAC Secret key
         /// </summary>
-        public ObjectHandle ServerMacSecret
+        public IObjectHandle ServerMacSecret
         {
             get
             {
@@ -73,7 +75,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// <summary>
         /// Key handle for the resulting Client Secret key
         /// </summary>
-        public ObjectHandle ClientKey
+        public IObjectHandle ClientKey
         {
             get
             {
@@ -87,7 +89,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// <summary>
         /// Key handle for the resulting Server Secret key
         /// </summary>
-        public ObjectHandle ServerKey
+        public IObjectHandle ServerKey
         {
             get
             {

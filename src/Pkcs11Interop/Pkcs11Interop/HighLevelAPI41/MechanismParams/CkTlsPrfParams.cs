@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
     /// <summary>
     /// Parameters for the CKM_TLS_PRF mechanism
     /// </summary>
-    public class CkTlsPrfParams : IMechanismParams
+    public class CkTlsPrfParams : ICkTlsPrfParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

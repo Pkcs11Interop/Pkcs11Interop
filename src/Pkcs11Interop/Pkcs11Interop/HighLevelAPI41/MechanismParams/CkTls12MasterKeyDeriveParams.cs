@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
     /// <summary>
     /// Parameters for the CKM_TLS12_MASTER_KEY_DERIVE mechanism
     /// </summary>
-    public class CkTls12MasterKeyDeriveParams : IMechanismParams
+    public class CkTls12MasterKeyDeriveParams : ICkTls12MasterKeyDeriveParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -46,7 +46,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// <summary>
         /// SSL protocol version information
         /// </summary>
-        public CkVersion Version
+        public ICkVersion Version
         {
             get
             {
@@ -69,14 +69,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// <summary>
         /// Client's and server's random data information
         /// </summary>
-        private CkSsl3RandomData _randomInfo = null;
+        private ICkSsl3RandomData _randomInfo = null;
 
         /// <summary>
         /// Initializes a new instance of the CkTls12MasterKeyDeriveParams class.
         /// </summary>
         /// <param name="randomInfo">Client's and server's random data information</param>
         /// <param name="prfHashMechanism">Base hash used in the underlying TLS 1.2 PRF operation used to derive the master key (CKM)</param>
-        public CkTls12MasterKeyDeriveParams(CkSsl3RandomData randomInfo, NativeULong prfHashMechanism)
+        public CkTls12MasterKeyDeriveParams(ICkSsl3RandomData randomInfo, NativeULong prfHashMechanism)
         {
             if (randomInfo == null)
                 throw new ArgumentNullException("randomInfo");
