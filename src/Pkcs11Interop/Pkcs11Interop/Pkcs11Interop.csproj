@@ -63,9 +63,14 @@
     <Compile Include="Common\CKZ.cs" />
     <Compile Include="Common\ConvertUtils.cs" />
     <Compile Include="HighLevelAPI40\MechanismParamsFactory.cs" />
+    <Compile Include="HighLevelAPI40\ObjectHandleFactory.cs" />
     <Compile Include="HighLevelAPI41\MechanismParamsFactory.cs" />
+    <Compile Include="HighLevelAPI41\ObjectHandleFactory.cs" />
     <Compile Include="HighLevelAPI80\MechanismParamsFactory.cs" />
+    <Compile Include="HighLevelAPI80\ObjectHandleFactory.cs" />
     <Compile Include="HighLevelAPI81\MechanismParamsFactory.cs" />
+    <Compile Include="HighLevelAPI81\ObjectHandleFactory.cs" />
+    <Compile Include="HighLevelAPI\IObjectHandleFactory.cs" />
     <Compile Include="HighLevelAPI\MechanismParamsFactory.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\ICkAesCbcEncryptDataParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\ICkAesCtrParams.cs" />
@@ -469,6 +474,7 @@
     <Compile Include="HighLevelAPI\ITokenInfo.cs" />
     <Compile Include="HighLevelAPI\MechanismFactory.cs" />
     <Compile Include="HighLevelAPI\ObjectAttributeFactory.cs" />
+    <Compile Include="HighLevelAPI\ObjectHandleFactory.cs" />
     <Compile Include="HighLevelAPI\Pkcs11Factory.cs" />
     <Compile Include="HighLevelAPI\Pkcs11UriUtils.cs" />
     <Compile Include="LowLevelAPI40\CkaUtils.cs" />
