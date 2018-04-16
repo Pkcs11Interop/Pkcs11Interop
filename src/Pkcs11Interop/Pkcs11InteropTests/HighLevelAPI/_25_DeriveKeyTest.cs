@@ -38,31 +38,31 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_BasicDeriveKeyTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RW session
-                using (Session session = slot.OpenSession(SessionType.ReadWrite))
+                using (ISession session = slot.OpenSession(SessionType.ReadWrite))
                 {
                     // Login as normal user
                     session.Login(CKU.CKU_USER, Settings.NormalUserPin);
                     
                     // Generate symetric key
-                    ObjectHandle baseKey = Helpers.GenerateKey(session);
+                    IObjectHandle baseKey = Helpers.GenerateKey(session);
 
                     // Generate random data needed for key derivation
                     byte[] data = session.GenerateRandom(24);
 
                     // Specify mechanism parameters
-                    CkKeyDerivationStringData mechanismParams = new CkKeyDerivationStringData(data);
+                    ICkKeyDerivationStringData mechanismParams = MechanismParamsFactory.Instance.CreateCkKeyDerivationStringData(data);
 
                     // Specify derivation mechanism with parameters
-                    Mechanism mechanism = new Mechanism(CKM.CKM_XOR_BASE_AND_DATA, mechanismParams);
+                    IMechanism mechanism = MechanismFactory.Instance.CreateMechanism(CKM.CKM_XOR_BASE_AND_DATA, mechanismParams);
                     
                     // Derive key
-                    ObjectHandle derivedKey = session.DeriveKey(mechanism, baseKey, null);
+                    IObjectHandle derivedKey = session.DeriveKey(mechanism, baseKey, null);
 
                     // Do something interesting with derived key
                     Assert.IsTrue(derivedKey.ObjectId != CK.CK_INVALID_HANDLE);
@@ -75,4 +75,3 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         }
     }
 }
-

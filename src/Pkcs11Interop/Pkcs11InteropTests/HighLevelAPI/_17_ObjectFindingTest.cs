@@ -38,31 +38,31 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_BasicObjectFindingTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RW session
-                using (Session session = slot.OpenSession(SessionType.ReadWrite))
+                using (ISession session = slot.OpenSession(SessionType.ReadWrite))
                 {
                     // Login as normal user
                     session.Login(CKU.CKU_USER, Settings.NormalUserPin);
                     
                     // Let's create two objects so we can find something
-                    ObjectHandle objectHandle1 = Helpers.CreateDataObject(session);
-                    ObjectHandle objectHandle2 = Helpers.CreateDataObject(session);
+                    IObjectHandle objectHandle1 = Helpers.CreateDataObject(session);
+                    IObjectHandle objectHandle2 = Helpers.CreateDataObject(session);
 
                     // Prepare attribute template that defines search criteria
-                    List<ObjectAttribute> objectAttributes = new List<ObjectAttribute>();
-                    objectAttributes.Add(new ObjectAttribute(CKA.CKA_CLASS, CKO.CKO_DATA));
-                    objectAttributes.Add(new ObjectAttribute(CKA.CKA_TOKEN, true));
+                    List<IObjectAttribute> objectAttributes = new List<IObjectAttribute>();
+                    objectAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_DATA));
+                    objectAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_TOKEN, true));
 
                     // Initialize searching
                     session.FindObjectsInit(objectAttributes);
 
                     // Get search results
-                    List<ObjectHandle> foundObjects = session.FindObjects(2);
+                    List<IObjectHandle> foundObjects = session.FindObjects(2);
 
                     // Terminate searching
                     session.FindObjectsFinal();
@@ -84,28 +84,28 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _02_FindAllObjectsTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RW session
-                using (Session session = slot.OpenSession(SessionType.ReadWrite))
+                using (ISession session = slot.OpenSession(SessionType.ReadWrite))
                 {
                     // Login as normal user
                     session.Login(CKU.CKU_USER, Settings.NormalUserPin);
                     
                     // Let's create two objects so we can find something
-                    ObjectHandle objectHandle1 = Helpers.CreateDataObject(session);
-                    ObjectHandle objectHandle2 = Helpers.CreateDataObject(session);
+                    IObjectHandle objectHandle1 = Helpers.CreateDataObject(session);
+                    IObjectHandle objectHandle2 = Helpers.CreateDataObject(session);
                     
                     // Prepare attribute template that defines search criteria
-                    List<ObjectAttribute> objectAttributes = new List<ObjectAttribute>();
-                    objectAttributes.Add(new ObjectAttribute(CKA.CKA_CLASS, CKO.CKO_DATA));
-                    objectAttributes.Add(new ObjectAttribute(CKA.CKA_TOKEN, true));
+                    List<IObjectAttribute> objectAttributes = new List<IObjectAttribute>();
+                    objectAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_DATA));
+                    objectAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_TOKEN, true));
                     
                     // Find all objects that match provided attributes
-                    List<ObjectHandle> foundObjects = session.FindAllObjects(objectAttributes);
+                    List<IObjectHandle> foundObjects = session.FindAllObjects(objectAttributes);
                                         
                     // Do something interesting with found objects
                     Assert.IsTrue(foundObjects.Count >= 2);

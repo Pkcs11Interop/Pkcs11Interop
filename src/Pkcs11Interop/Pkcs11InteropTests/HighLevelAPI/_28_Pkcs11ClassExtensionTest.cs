@@ -37,6 +37,7 @@ using LLA81 = Net.Pkcs11Interop.LowLevelAPI81;
 
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 {
+    /*
     /// <summary>
     /// Extends Pkcs11 classes with the ability to call C_GetUnmanagedStructSizeList function.
     /// C_GetUnmanagedStructSizeList function is vendor specific function of PKCS11-MOCK module.
@@ -362,7 +363,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
         #endregion
     }
-
+    */
     /// <summary>
     /// Tests the possibility to extend Pkcs11 classes with a vendor specific function
     /// </summary>
@@ -375,6 +376,9 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_StructSizeListTest()
         {
+            throw new NotImplementedException();
+
+            /*
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 LibraryInfo libraryInfo = pkcs11.GetInfo();
@@ -392,8 +396,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 for (int i = 0; i < unmanagedSizes.Count; i++)
                     Assert.IsTrue(unmanagedSizes[i] == managedSizes[i]);
             }
+            */
         }
 
+        /*
         /// <summary>
         /// Obtains a list of managed struct sizes.
         /// </summary>
@@ -655,5 +661,6 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
             return sizeList;
         }
+        */
     }
 }

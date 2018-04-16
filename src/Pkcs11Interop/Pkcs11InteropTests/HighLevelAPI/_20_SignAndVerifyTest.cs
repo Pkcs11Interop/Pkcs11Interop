@@ -38,24 +38,24 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_SignAndVerifySinglePartTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RW session
-                using (Session session = slot.OpenSession(SessionType.ReadWrite))
+                using (ISession session = slot.OpenSession(SessionType.ReadWrite))
                 {
                     // Login as normal user
                     session.Login(CKU.CKU_USER, Settings.NormalUserPin);
                     
                     // Generate key pair
-                    ObjectHandle publicKey = null;
-                    ObjectHandle privateKey = null;
+                    IObjectHandle publicKey = null;
+                    IObjectHandle privateKey = null;
                     Helpers.GenerateKeyPair(session, out publicKey, out privateKey);
                     
                     // Specify signing mechanism
-                    Mechanism mechanism = new Mechanism(CKM.CKM_SHA1_RSA_PKCS);
+                    IMechanism mechanism = MechanismFactory.Instance.CreateMechanism(CKM.CKM_SHA1_RSA_PKCS);
                     
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
 
@@ -84,24 +84,24 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _02_SignAndVerifyMultiPartTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RW session
-                using (Session session = slot.OpenSession(SessionType.ReadWrite))
+                using (ISession session = slot.OpenSession(SessionType.ReadWrite))
                 {
                     // Login as normal user
                     session.Login(CKU.CKU_USER, Settings.NormalUserPin);
                     
                     // Generate key pair
-                    ObjectHandle publicKey = null;
-                    ObjectHandle privateKey = null;
+                    IObjectHandle publicKey = null;
+                    IObjectHandle privateKey = null;
                     Helpers.GenerateKeyPair(session, out publicKey, out privateKey);
                     
                     // Specify signing mechanism
-                    Mechanism mechanism = new Mechanism(CKM.CKM_SHA1_RSA_PKCS);
+                    IMechanism mechanism = MechanismFactory.Instance.CreateMechanism(CKM.CKM_SHA1_RSA_PKCS);
 
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
                     byte[] signature = null;
@@ -136,4 +136,3 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         }
     }
 }
-

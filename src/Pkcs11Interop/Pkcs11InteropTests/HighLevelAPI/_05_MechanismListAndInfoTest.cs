@@ -38,10 +38,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_BasicMechanismListAndInfoTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
 
                 // Get supported mechanisms
                 List<CKM> mechanisms = slot.GetMechanismList();
@@ -49,7 +49,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 Assert.IsTrue(mechanisms.Count > 0);
 
                 // Analyze first supported mechanism
-                MechanismInfo mechanismInfo = slot.GetMechanismInfo(mechanisms[0]);
+                IMechanismInfo mechanismInfo = slot.GetMechanismInfo(mechanisms[0]);
 
                 // Do something interesting with mechanism info
                 Assert.IsNotNull(mechanismInfo.MechanismFlags);
@@ -57,4 +57,3 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         }
     }
 }
-

@@ -38,33 +38,33 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_BasicSignEncryptAndDecryptVerifyTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RW session
-                using (Session session = slot.OpenSession(SessionType.ReadWrite))
+                using (ISession session = slot.OpenSession(SessionType.ReadWrite))
                 {
                     // Login as normal user
                     session.Login(CKU.CKU_USER, Settings.NormalUserPin);
 
                     // Generate asymetric key pair
-                    ObjectHandle publicKey = null;
-                    ObjectHandle privateKey = null;
+                    IObjectHandle publicKey = null;
+                    IObjectHandle privateKey = null;
                     Helpers.GenerateKeyPair(session, out publicKey, out privateKey);
                     
                     // Specify signing mechanism
-                    Mechanism signingMechanism = new Mechanism(CKM.CKM_SHA1_RSA_PKCS);
+                    IMechanism signingMechanism = MechanismFactory.Instance.CreateMechanism(CKM.CKM_SHA1_RSA_PKCS);
 
                     // Generate symetric key
-                    ObjectHandle secretKey = Helpers.GenerateKey(session);
+                    IObjectHandle secretKey = Helpers.GenerateKey(session);
 
                     // Generate random initialization vector
                     byte[] iv = session.GenerateRandom(8);
                     
                     // Specify encryption mechanism with initialization vector as parameter
-                    Mechanism encryptionMechanism = new Mechanism(CKM.CKM_DES3_CBC, iv);
+                    IMechanism encryptionMechanism = MechanismFactory.Instance.CreateMechanism(CKM.CKM_DES3_CBC, iv);
 
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Passw0rd");
 

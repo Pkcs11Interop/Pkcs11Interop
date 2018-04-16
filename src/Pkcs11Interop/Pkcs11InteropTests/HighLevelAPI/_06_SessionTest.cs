@@ -37,13 +37,13 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_BasicSessionTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
 
                 // Open RO (read-only) session
-                Session session = slot.OpenSession(SessionType.ReadOnly);
+                ISession session = slot.OpenSession(SessionType.ReadOnly);
 
                 // Do something interesting in RO session
 
@@ -58,14 +58,14 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _02_UsingSessionTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Session class can be used in using statement which defines a scope 
                 // at the end of which the session will be closed automatically.
-                using (Session session = slot.OpenSession(SessionType.ReadOnly))
+                using (ISession session = slot.OpenSession(SessionType.ReadOnly))
                 {
                     // Do something interesting in RO session
                 }
@@ -78,13 +78,13 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _03_CloseSessionViaSlotTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RO (read-only) session
-                Session session = slot.OpenSession(SessionType.ReadOnly);
+                ISession session = slot.OpenSession(SessionType.ReadOnly);
                 
                 // Do something interesting in RO session
                 
@@ -99,13 +99,13 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _04_CloseAllSessionsTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RO (read-only) session
-                Session session = slot.OpenSession(SessionType.ReadOnly);
+                ISession session = slot.OpenSession(SessionType.ReadOnly);
                 
                 // Do something interesting in RO session
                 Assert.IsNotNull(session);
@@ -121,13 +121,13 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _05_ReadOnlySessionTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RO (read-only) session
-                using (Session session = slot.OpenSession(SessionType.ReadOnly))
+                using (ISession session = slot.OpenSession(SessionType.ReadOnly))
                 {
                     // Do something interesting in RO session
                 }
@@ -140,13 +140,13 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _06_ReadWriteSessionTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RW (read-write) session
-                using (Session session = slot.OpenSession(SessionType.ReadWrite))
+                using (ISession session = slot.OpenSession(SessionType.ReadWrite))
                 {
                     // Do something interesting in RW session
                 }
@@ -159,16 +159,16 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _07_SessionInfoTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RO (read-only) session
-                using (Session session = slot.OpenSession(SessionType.ReadOnly))
+                using (ISession session = slot.OpenSession(SessionType.ReadOnly))
                 {
                     // Get session details
-                    SessionInfo sessionInfo = session.GetSessionInfo();
+                    ISessionInfo sessionInfo = session.GetSessionInfo();
 
                     // Do something interesting with session info
                     Assert.IsTrue(sessionInfo.SlotId == slot.SlotId);

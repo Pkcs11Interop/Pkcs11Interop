@@ -35,6 +35,7 @@ using LLA81 = Net.Pkcs11Interop.LowLevelAPI81;
 
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 {
+    /*
     /// <summary>
     /// Extends Slot classes with the ability to call C_EjectToken function.
     /// C_EjectToken function is vendor specific function of PKCS11-MOCK module.
@@ -268,6 +269,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
         #endregion
     }
+    */
 
     /// <summary>
     /// Tests the possibility to extend Slot classes with a vendor specific function
@@ -281,6 +283,9 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_EjectTokenTest()
         {
+            throw new NotImplementedException();
+
+            /*
             using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 LibraryInfo libraryInfo = pkcs11.GetInfo();
@@ -293,6 +298,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 // Eject token via vendor specific function C_EjectToken
                 slot.EjectToken();
             }
+            */
         }
     }
 }

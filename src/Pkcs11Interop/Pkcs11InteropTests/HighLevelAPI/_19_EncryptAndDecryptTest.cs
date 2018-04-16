@@ -40,25 +40,25 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_EncryptAndDecryptSinglePartTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RW session
-                using (Session session = slot.OpenSession(SessionType.ReadWrite))
+                using (ISession session = slot.OpenSession(SessionType.ReadWrite))
                 {
                     // Login as normal user
                     session.Login(CKU.CKU_USER, Settings.NormalUserPin);
 
                     // Generate symetric key
-                    ObjectHandle generatedKey = Helpers.GenerateKey(session);
+                    IObjectHandle generatedKey = Helpers.GenerateKey(session);
 
                     // Generate random initialization vector
                     byte[] iv = session.GenerateRandom(8);
 
                     // Specify encryption mechanism with initialization vector as parameter
-                    Mechanism mechanism = new Mechanism(CKM.CKM_DES3_CBC, iv);
+                    IMechanism mechanism = MechanismFactory.Instance.CreateMechanism(CKM.CKM_DES3_CBC, iv);
 
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Our new password");
 
@@ -85,25 +85,25 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _02_EncryptAndDecryptMultiPartTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RW session
-                using (Session session = slot.OpenSession(SessionType.ReadWrite))
+                using (ISession session = slot.OpenSession(SessionType.ReadWrite))
                 {
                     // Login as normal user
                     session.Login(CKU.CKU_USER, Settings.NormalUserPin);
                     
                     // Generate symetric key
-                    ObjectHandle generatedKey = Helpers.GenerateKey(session);
+                    IObjectHandle generatedKey = Helpers.GenerateKey(session);
                     
                     // Generate random initialization vector
                     byte[] iv = session.GenerateRandom(8);
                     
                     // Specify encryption mechanism with initialization vector as parameter
-                    Mechanism mechanism = new Mechanism(CKM.CKM_DES3_CBC, iv);
+                    IMechanism mechanism = MechanismFactory.Instance.CreateMechanism(CKM.CKM_DES3_CBC, iv);
 
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Our new password");
                     byte[] encryptedData = null;
@@ -148,27 +148,27 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _03_EncryptAndDecryptSinglePartOaepTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RW session
-                using (Session session = slot.OpenSession(SessionType.ReadWrite))
+                using (ISession session = slot.OpenSession(SessionType.ReadWrite))
                 {
                     // Login as normal user
                     session.Login(CKU.CKU_USER, Settings.NormalUserPin);
 
                     // Generate key pair
-                    ObjectHandle publicKey = null;
-                    ObjectHandle privateKey = null;
+                    IObjectHandle publicKey = null;
+                    IObjectHandle privateKey = null;
                     Helpers.GenerateKeyPair(session, out publicKey, out privateKey);
 
                     // Specify mechanism parameters
-                    CkRsaPkcsOaepParams mechanismParams = new CkRsaPkcsOaepParams((ulong)CKM.CKM_SHA_1, (ulong)CKG.CKG_MGF1_SHA1, (ulong)CKZ.CKZ_DATA_SPECIFIED, null);
+                    ICkRsaPkcsOaepParams mechanismParams = MechanismParamsFactory.Instance.CreateCkRsaPkcsOaepParams((ulong)CKM.CKM_SHA_1, (ulong)CKG.CKG_MGF1_SHA1, (ulong)CKZ.CKZ_DATA_SPECIFIED, null);
 
                     // Specify encryption mechanism with parameters
-                    Mechanism mechanism = new Mechanism(CKM.CKM_RSA_PKCS_OAEP, mechanismParams);
+                    IMechanism mechanism = MechanismFactory.Instance.CreateMechanism(CKM.CKM_RSA_PKCS_OAEP, mechanismParams);
                     
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
                     

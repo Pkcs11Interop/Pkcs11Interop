@@ -19,11 +19,11 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
+using System;
+using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 {
@@ -98,30 +98,29 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 throw new Exception("PKCS#11 URI does not specify private key");
 
             // Load and initialize PKCS#11 library specified by URI
-            using (Pkcs11 pkcs11 = new Pkcs11(pkcs11Uri.ModulePath, AppType.MultiThreaded))
+            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(pkcs11Uri.ModulePath, AppType.MultiThreaded))
             {
                 // Obtain a list of all slots with tokens that match URI
-                List<Slot> slots = Pkcs11UriUtils.GetMatchingSlotList(pkcs11Uri, pkcs11, true);
+                List<ISlot> slots = Pkcs11UriUtils.GetMatchingSlotList(pkcs11Uri, pkcs11, SlotsType.WithTokenPresent);
                 if ((slots == null) || (slots.Count == 0))
                     throw new Exception("None of the slots matches PKCS#11 URI");
 
                 // Open read only session with first token that matches URI
-                using (Session session = slots[0].OpenSession(SessionType.ReadOnly))
+                using (ISession session = slots[0].OpenSession(SessionType.ReadOnly))
                 {
                     // Login as normal user with PIN acquired from URI
                     session.Login(CKU.CKU_USER, pkcs11Uri.PinValue);
 
                     // Get list of object attributes for the private key specified by URI
-                    List<ObjectAttribute> searchTemplate = null;
-                    Pkcs11UriUtils.GetObjectAttributes(pkcs11Uri, out searchTemplate);
+                    List<IObjectAttribute> searchTemplate = Pkcs11UriUtils.GetObjectAttributes(pkcs11Uri, ObjectAttributeFactory.Instance);
 
                     // Find private key specified by URI
-                    List<ObjectHandle> foundObjects = session.FindAllObjects(searchTemplate);
+                    List<IObjectHandle> foundObjects = session.FindAllObjects(searchTemplate);
                     if ((foundObjects == null) || (foundObjects.Count == 0))
                         throw new Exception("None of the private keys match PKCS#11 URI");
 
                     // Create signature with the private key specified by URI
-                    return session.Sign(new Mechanism(CKM.CKM_SHA1_RSA_PKCS), foundObjects[0], data);
+                    return session.Sign(MechanismFactory.Instance.CreateMechanism(CKM.CKM_SHA1_RSA_PKCS), foundObjects[0], data);
                 }
             }
         }

@@ -37,9 +37,9 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_BasicGetInfoTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
             {
-                LibraryInfo libraryInfo = pkcs11.GetInfo();
+                ILibraryInfo libraryInfo = pkcs11.GetInfo();
 
                 // Do something interesting with library information
                 Assert.IsFalse(String.IsNullOrEmpty(libraryInfo.ManufacturerId));
@@ -47,4 +47,3 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         }
     }
 }
-
