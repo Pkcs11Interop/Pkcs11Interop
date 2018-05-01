@@ -548,7 +548,6 @@
     <Compile Include="LowLevelAPI40\MechanismParams\CK_X9_42_DH2_DERIVE_PARAMS.cs" />
     <Compile Include="LowLevelAPI40\MechanismParams\CK_X9_42_MQV_DERIVE_PARAMS.cs" />
     <Compile Include="LowLevelAPI40\NativeLongUtils.cs" />
-    <Compile Include="LowLevelAPI40\NativeMethods.cs" />
     <Compile Include="LowLevelAPI40\Pkcs11.cs" />
     <Compile Include="LowLevelAPI40\Pkcs11UriUtils.cs" />
     <Compile Include="LowLevelAPI41\CkaUtils.cs" />
@@ -622,7 +621,6 @@
     <Compile Include="LowLevelAPI41\MechanismParams\CK_X9_42_DH2_DERIVE_PARAMS.cs" />
     <Compile Include="LowLevelAPI41\MechanismParams\CK_X9_42_MQV_DERIVE_PARAMS.cs" />
     <Compile Include="LowLevelAPI41\NativeLongUtils.cs" />
-    <Compile Include="LowLevelAPI41\NativeMethods.cs" />
     <Compile Include="LowLevelAPI41\Pkcs11.cs" />
     <Compile Include="LowLevelAPI41\Pkcs11UriUtils.cs" />
     <Compile Include="LowLevelAPI80\CkaUtils.cs" />
@@ -696,7 +694,6 @@
     <Compile Include="LowLevelAPI80\MechanismParams\CK_X9_42_DH2_DERIVE_PARAMS.cs" />
     <Compile Include="LowLevelAPI80\MechanismParams\CK_X9_42_MQV_DERIVE_PARAMS.cs" />
     <Compile Include="LowLevelAPI80\NativeLongUtils.cs" />
-    <Compile Include="LowLevelAPI80\NativeMethods.cs" />
     <Compile Include="LowLevelAPI80\Pkcs11.cs" />
     <Compile Include="LowLevelAPI80\Pkcs11UriUtils.cs" />
     <Compile Include="LowLevelAPI81\CkaUtils.cs" />
@@ -770,7 +767,6 @@
     <Compile Include="LowLevelAPI81\MechanismParams\CK_X9_42_DH2_DERIVE_PARAMS.cs" />
     <Compile Include="LowLevelAPI81\MechanismParams\CK_X9_42_MQV_DERIVE_PARAMS.cs" />
     <Compile Include="LowLevelAPI81\NativeLongUtils.cs" />
-    <Compile Include="LowLevelAPI81\NativeMethods.cs" />
     <Compile Include="LowLevelAPI81\Pkcs11.cs" />
     <Compile Include="LowLevelAPI81\Pkcs11UriUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
