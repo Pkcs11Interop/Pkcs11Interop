@@ -120,7 +120,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// </summary>
         /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
         /// <param name="sessionId">PKCS#11 handle of session</param>
-        internal Session(LowLevelAPI40.Pkcs11 pkcs11, NativeULong sessionId)
+        internal Session(LowLevelAPI40.Pkcs11 pkcs11, ulong sessionId)
         {
             if (pkcs11 == null)
                 throw new ArgumentNullException("pkcs11");
@@ -129,7 +129,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
                 throw new ArgumentException("Invalid handle specified", "sessionId");
 
             _p11 = pkcs11;
-            _sessionId = sessionId;
+            _sessionId = NativeLongUtils.ConvertFromUInt64(sessionId);
         }
 
         /// <summary>

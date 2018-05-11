@@ -29,7 +29,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
     /// <summary>
     /// Low level PKCS#11 wrapper
     /// </summary>
-    public class Pkcs11 : IDisposable
+    public class Pkcs11 : LowLevelPkcs11, IDisposable
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

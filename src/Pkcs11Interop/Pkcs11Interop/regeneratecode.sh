@@ -47,8 +47,8 @@ cp -r HighLevelAPI41 $API
 files=`find ./$API -type f`
 for file in $files; do
 	echo "  Processing $file"
-	sed -i -e 's/HighLevelAPI41/'"$API"'/' $file
-	sed -i -e 's/LowLevelAPI41/LowLevelAPI40/' $file
+	sed -i -e 's/HighLevelAPI41/'"$API"'/g' $file
+	sed -i -e 's/LowLevelAPI41/LowLevelAPI40/g' $file
 done
 
 API=HighLevelAPI80
@@ -58,8 +58,8 @@ cp -r HighLevelAPI41 $API
 files=`find ./$API -type f`
 for file in $files; do
 	echo "  Processing $file"
-	sed -i -e 's/HighLevelAPI41/'"$API"'/' $file
-	sed -i -e 's/LowLevelAPI41/LowLevelAPI80/' $file
+	sed -i -e 's/HighLevelAPI41/'"$API"'/g' $file
+	sed -i -e 's/LowLevelAPI41/LowLevelAPI80/g' $file
 	sed -i -e 's/using NativeULong = System.UInt32;/using NativeULong = System.UInt64;/' $file
 done
 
@@ -70,7 +70,7 @@ cp -r HighLevelAPI41 $API
 files=`find ./$API -type f`
 for file in $files; do
 	echo "  Processing $file"
-	sed -i -e 's/HighLevelAPI41/'"$API"'/' $file
-	sed -i -e 's/LowLevelAPI41/LowLevelAPI81/' $file
+	sed -i -e 's/HighLevelAPI41/'"$API"'/g' $file
+	sed -i -e 's/LowLevelAPI41/LowLevelAPI81/g' $file
 	sed -i -e 's/using NativeULong = System.UInt32;/using NativeULong = System.UInt64;/' $file
 done

@@ -70,13 +70,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// </summary>
         /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
         /// <param name="slotId">PKCS#11 handle of slot</param>
-        internal Slot(LowLevelAPI80.Pkcs11 pkcs11, NativeULong slotId)
+        internal Slot(LowLevelAPI80.Pkcs11 pkcs11, ulong slotId)
         {
             if (pkcs11 == null)
                 throw new ArgumentNullException("pkcs11");
 
             _p11 = pkcs11;
-            _slotId = slotId;
+            _slotId = NativeLongUtils.ConvertFromUInt64(slotId);
         }
 
         /// <summary>
