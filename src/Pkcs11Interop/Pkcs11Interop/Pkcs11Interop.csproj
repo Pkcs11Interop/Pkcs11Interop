@@ -92,6 +92,8 @@
     <Compile Include="HighLevelAPI\Factories\ISessionFactory.cs" />
     <Compile Include="HighLevelAPI\Factories\ISlotFactory.cs" />
     <Compile Include="HighLevelAPI\Factories\MechanismParamsFactory.cs" />
+    <Compile Include="HighLevelAPI\Factories\SessionFactory.cs" />
+    <Compile Include="HighLevelAPI\Factories\SlotFactory.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\ICkAesCbcEncryptDataParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\ICkAesCtrParams.cs" />
     <Compile Include="HighLevelAPI\MechanismParams\ICkAriaCbcEncryptDataParams.cs" />
