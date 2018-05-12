@@ -36,7 +36,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <summary>
         /// Factories used by Pkcs11Interop library
         /// </summary>
-        private Pkcs11Factories _factories = null;
+        protected Pkcs11Factories _factories = null;
 
         /// <summary>
         /// Factories used by Pkcs11Interop library
@@ -59,23 +59,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <summary>
         /// Low level PKCS#11 wrapper
         /// </summary>
-        private LowLevelAPI80.Pkcs11 _p11 = null;
-
-        /// <summary>
-        /// Low level PKCS#11 wrapper. Use with caution!
-        /// </summary>
-        public LowLevelAPI80.Pkcs11 LowLevelPkcs11
-        {
-            get
-            {
-                return _p11;
-            }
-        }
+        protected LowLevelAPI80.Pkcs11 _p11 = null;
 
         /// <summary>
         /// PKCS#11 handle of slot
         /// </summary>
-        private NativeULong _slotId = 0;
+        protected NativeULong _slotId = 0;
         
         /// <summary>
         /// PKCS#11 handle of slot
@@ -94,7 +83,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <param name="factories">Factories used by Pkcs11Interop library</param>
         /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
         /// <param name="slotId">PKCS#11 handle of slot</param>
-        internal Slot(Pkcs11Factories factories, LowLevelAPI80.Pkcs11 pkcs11, ulong slotId)
+        protected internal Slot(Pkcs11Factories factories, LowLevelAPI80.Pkcs11 pkcs11, ulong slotId)
         {
             if (factories == null)
                 throw new ArgumentNullException("factories");

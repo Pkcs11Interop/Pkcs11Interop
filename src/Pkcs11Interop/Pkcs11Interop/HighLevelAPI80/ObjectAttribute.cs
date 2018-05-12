@@ -37,12 +37,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <summary>
         /// Flag indicating whether instance has been disposed
         /// </summary>
-        private bool _disposed = false;
+        protected bool _disposed = false;
 
         /// <summary>
         /// Low level attribute structure
         /// </summary>
-        private CK_ATTRIBUTE _ckAttribute;
+        protected CK_ATTRIBUTE _ckAttribute;
 
         /// <summary>
         /// Attribute type
@@ -93,7 +93,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// Creates attribute defined by low level CK_ATTRIBUTE structure
         /// </summary>
         /// <param name="attribute">CK_ATTRIBUTE structure</param>
-        internal ObjectAttribute(CK_ATTRIBUTE attribute)
+        protected internal ObjectAttribute(CK_ATTRIBUTE attribute)
         {
             _ckAttribute = attribute;
         }

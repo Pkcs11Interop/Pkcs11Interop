@@ -34,7 +34,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// PKCS#11 handle of object
         /// </summary>
-        private NativeULong _objectId = CK.CK_INVALID_HANDLE;
+        protected NativeULong _objectId = CK.CK_INVALID_HANDLE;
 
         /// <summary>
         /// PKCS#11 handle of object

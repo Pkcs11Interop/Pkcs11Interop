@@ -38,23 +38,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <summary>
         /// Flag indicating whether instance has been disposed
         /// </summary>
-        private bool _disposed = false;
-
-        /// <summary>
-        /// Flag indicating whether instance has been disposed
-        /// </summary>
-        public bool Disposed
-        {
-            get
-            {
-                return _disposed;
-            }
-        }
+        protected bool _disposed = false;
 
         /// <summary>
         /// Factories used by Pkcs11Interop library
         /// </summary>
-        private Pkcs11Factories _factories = null;
+        protected Pkcs11Factories _factories = null;
 
         /// <summary>
         /// Factories used by Pkcs11Interop library
@@ -63,6 +52,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         {
             get
             {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
                 return _factories;
             }
             set
@@ -77,26 +69,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <summary>
         /// Low level PKCS#11 wrapper
         /// </summary>
-        private LowLevelAPI80.Pkcs11 _p11 = null;
-
-        /// <summary>
-        /// Low level PKCS#11 wrapper. Use with caution!
-        /// </summary>
-        public LowLevelAPI80.Pkcs11 LowLevelPkcs11
-        {
-            get
-            {
-                if (this._disposed)
-                    throw new ObjectDisposedException(this.GetType().FullName);
-
-                return _p11;
-            }
-        }
+        protected LowLevelAPI80.Pkcs11 _p11 = null;
 
         /// <summary>
         /// PKCS#11 handle of session
         /// </summary>
-        private NativeULong _sessionId = CK.CK_INVALID_HANDLE;
+        protected NativeULong _sessionId = CK.CK_INVALID_HANDLE;
 
         /// <summary>
         /// PKCS#11 handle of session
@@ -115,7 +93,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <summary>
         /// Flag indicating whether session should be closed when object is disposed
         /// </summary>
-        private bool _closeWhenDisposed = true;
+        protected bool _closeWhenDisposed = true;
 
         /// <summary>
         /// Flag indicating whether session should be closed when object is disposed
@@ -144,7 +122,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <param name="factories">Factories used by Pkcs11Interop library</param>
         /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
         /// <param name="sessionId">PKCS#11 handle of session</param>
-        internal Session(Pkcs11Factories factories, LowLevelAPI80.Pkcs11 pkcs11, ulong sessionId)
+        protected internal Session(Pkcs11Factories factories, LowLevelAPI80.Pkcs11 pkcs11, ulong sessionId)
         {
             if (factories == null)
                 throw new ArgumentNullException("factories");

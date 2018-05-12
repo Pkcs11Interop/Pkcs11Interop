@@ -36,23 +36,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// Flag indicating whether instance has been disposed
         /// </summary>
-        private bool _disposed = false;
-
-        /// <summary>
-        /// Flag indicating whether instance has been disposed
-        /// </summary>
-        public bool Disposed
-        {
-            get
-            {
-                return _disposed;
-            }
-        }
+        protected bool _disposed = false;
 
         /// <summary>
         /// Factories used by Pkcs11Interop library
         /// </summary>
-        private Pkcs11Factories _factories = null;
+        protected Pkcs11Factories _factories = null;
 
         /// <summary>
         /// Factories used by Pkcs11Interop library
@@ -61,6 +50,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         {
             get
             {
+                if (this._disposed)
+                    throw new ObjectDisposedException(this.GetType().FullName);
+
                 return _factories;
             }
             set
@@ -75,21 +67,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// Low level PKCS#11 wrapper
         /// </summary>
-        private LowLevelAPI81.Pkcs11 _p11 = null;
-
-        /// <summary>
-        /// Low level PKCS#11 wrapper. Use with caution!
-        /// </summary>
-        public LowLevelAPI81.Pkcs11 LowLevelPkcs11
-        {
-            get
-            {
-                if (this._disposed)
-                    throw new ObjectDisposedException(this.GetType().FullName);
-
-                return _p11;
-            }
-        }
+        protected LowLevelAPI81.Pkcs11 _p11 = null;
 
         /// <summary>
         /// Loads and initializes PCKS#11 library

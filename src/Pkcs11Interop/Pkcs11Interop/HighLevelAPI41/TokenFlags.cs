@@ -34,7 +34,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Bits flags indicating capabilities and status of the device
         /// </summary>
-        private NativeULong _flags;
+        protected NativeULong _flags;
 
         /// <summary>
         /// Bits flags indicating capabilities and status of the device
@@ -249,7 +249,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// Initializes new instance of TokenFlags class
         /// </summary>
         /// <param name="flags">Bits flags indicating capabilities and status of the device</param>
-        internal TokenFlags(NativeULong flags)
+        protected internal TokenFlags(NativeULong flags)
         {
             _flags = flags;
         }

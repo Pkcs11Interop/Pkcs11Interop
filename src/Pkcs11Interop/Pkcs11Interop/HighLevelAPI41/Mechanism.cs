@@ -35,12 +35,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Flag indicating whether instance has been disposed
         /// </summary>
-        private bool _disposed = false;
+        protected bool _disposed = false;
 
         /// <summary>
         /// Low level mechanism structure
         /// </summary>
-        private CK_MECHANISM _ckMechanism;
+        protected CK_MECHANISM _ckMechanism;
 
         /// <summary>
         /// The type of mechanism
@@ -71,7 +71,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// High level object with mechanism parameters
         /// </summary>
-        private IMechanismParams _mechanismParams = null;
+        protected IMechanismParams _mechanismParams = null;
 
         /// <summary>
         /// Creates mechanism of given type with no parameter

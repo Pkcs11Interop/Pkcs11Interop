@@ -30,11 +30,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
     /// Information about a session
     /// </summary>
     public class SessionInfo : ISessionInfo
-    {   
+    {
         /// <summary>
         /// PKCS#11 handle of session
         /// </summary>
-        private NativeULong _sessionId = CK.CK_INVALID_HANDLE;
+        protected NativeULong _sessionId = CK.CK_INVALID_HANDLE;
 
         /// <summary>
         /// PKCS#11 handle of session
@@ -50,7 +50,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <summary>
         /// PKCS#11 handle of slot that interfaces with the token
         /// </summary>
-        private NativeULong _slotId = CK.CK_INVALID_HANDLE;
+        protected NativeULong _slotId = CK.CK_INVALID_HANDLE;
 
         /// <summary>
         /// PKCS#11 handle of slot that interfaces with the token
@@ -66,7 +66,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <summary>
         /// The state of the session
         /// </summary>
-        private CKS _state = 0;
+        protected CKS _state = 0;
 
         /// <summary>
         /// The state of the session
@@ -82,7 +82,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <summary>
         /// Flags that define the type of session
         /// </summary>
-        private SessionFlags _sessionFlags = null;
+        protected SessionFlags _sessionFlags = null;
 
         /// <summary>
         /// Flags that define the type of session
@@ -98,7 +98,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <summary>
         /// An error code defined by the cryptographic device used for errors not covered by Cryptoki
         /// </summary>
-        private NativeULong _deviceError = 0;
+        protected NativeULong _deviceError = 0;
 
         /// <summary>
         /// An error code defined by the cryptographic device used for errors not covered by Cryptoki
@@ -116,7 +116,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// </summary>
         /// <param name="sessionId">PKCS#11 handle of session</param>
         /// <param name="ck_session_info">Low level CK_SESSION_INFO structure</param>
-        internal SessionInfo(NativeULong sessionId, CK_SESSION_INFO ck_session_info)
+        protected internal SessionInfo(NativeULong sessionId, CK_SESSION_INFO ck_session_info)
         {
             _sessionId = sessionId;
             _slotId = ck_session_info.SlotId;

@@ -34,7 +34,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// Bit flags that define the type of session
         /// </summary>
-        private NativeULong _flags;
+        protected NativeULong _flags;
 
         /// <summary>
         /// Bit flags that define the type of session
@@ -73,7 +73,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// Initializes new instance of SessionFlags class
         /// </summary>
         /// <param name="flags">Bit flags that define the type of session</param>
-        internal SessionFlags(NativeULong flags)
+        protected internal SessionFlags(NativeULong flags)
         {
             _flags = flags;
         }

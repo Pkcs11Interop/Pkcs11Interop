@@ -35,7 +35,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// PKCS#11 handle of slot
         /// </summary>
-        private NativeULong _slotId = CK.CK_INVALID_HANDLE;
+        protected NativeULong _slotId = CK.CK_INVALID_HANDLE;
 
         /// <summary>
         /// PKCS#11 handle of slot
@@ -51,7 +51,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Application-defined label, assigned during token initialization
         /// </summary>
-        private string _label = null;
+        protected string _label = null;
 
         /// <summary>
         /// Application-defined label, assigned during token initialization
@@ -67,7 +67,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// ID of the device manufacturer
         /// </summary>
-        private string _manufacturerId = null;
+        protected string _manufacturerId = null;
 
         /// <summary>
         /// ID of the device manufacturer
@@ -83,7 +83,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Model of the device
         /// </summary>
-        private string _model = null;
+        protected string _model = null;
 
         /// <summary>
         /// Model of the device
@@ -99,7 +99,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Serial number of the device
         /// </summary>
-        private string _serialNumber = null;
+        protected string _serialNumber = null;
 
         /// <summary>
         /// Serial number of the device
@@ -115,7 +115,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Bit flags indicating capabilities and status of the device
         /// </summary>
-        private TokenFlags _tokenFlags = null;
+        protected TokenFlags _tokenFlags = null;
 
         /// <summary>
         /// Bit flags indicating capabilities and status of the device
@@ -131,7 +131,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Maximum number of sessions that can be opened with the token at one time by a single application
         /// </summary>
-        private NativeULong _maxSessionCount = 0;
+        protected NativeULong _maxSessionCount = 0;
 
         /// <summary>
         /// Maximum number of sessions that can be opened with the token at one time by a single application
@@ -147,7 +147,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Number of sessions that this application currently has open with the token
         /// </summary>
-        private NativeULong _sessionCount = 0;
+        protected NativeULong _sessionCount = 0;
 
         /// <summary>
         /// Number of sessions that this application currently has open with the token
@@ -163,7 +163,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Maximum number of read/write sessions that can be opened with the token at one time by a single application
         /// </summary>
-        private NativeULong _maxRwSessionCount = 0;
+        protected NativeULong _maxRwSessionCount = 0;
 
         /// <summary>
         /// Maximum number of read/write sessions that can be opened with the token at one time by a single application
@@ -179,7 +179,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Number of read/write sessions that this application currently has open with the token
         /// </summary>
-        private NativeULong _rwSessionCount = 0;
+        protected NativeULong _rwSessionCount = 0;
 
         /// <summary>
         /// Number of read/write sessions that this application currently has open with the token
@@ -195,7 +195,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Maximum length in bytes of the PIN
         /// </summary>
-        private NativeULong _maxPinLen = 0;
+        protected NativeULong _maxPinLen = 0;
 
         /// <summary>
         /// Maximum length in bytes of the PIN
@@ -211,7 +211,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Minimum length in bytes of the PIN
         /// </summary>
-        private NativeULong _minPinLen = 0;
+        protected NativeULong _minPinLen = 0;
 
         /// <summary>
         /// Minimum length in bytes of the PIN
@@ -227,7 +227,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// The total amount of memory on the token in bytes in which public objects may be stored
         /// </summary>
-        private NativeULong _totalPublicMemory = 0;
+        protected NativeULong _totalPublicMemory = 0;
 
         /// <summary>
         /// The total amount of memory on the token in bytes in which public objects may be stored
@@ -243,7 +243,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// The amount of free (unused) memory on the token in bytes for public objects
         /// </summary>
-        private NativeULong _freePublicMemory = 0;
+        protected NativeULong _freePublicMemory = 0;
 
         /// <summary>
         /// The amount of free (unused) memory on the token in bytes for public objects
@@ -259,7 +259,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// The total amount of memory on the token in bytes in which private objects may be stored
         /// </summary>
-        private NativeULong _totalPrivateMemory = 0;
+        protected NativeULong _totalPrivateMemory = 0;
 
         /// <summary>
         /// The total amount of memory on the token in bytes in which private objects may be stored
@@ -275,7 +275,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// The amount of free (unused) memory on the token in bytes for private objects
         /// </summary>
-        private NativeULong _freePrivateMemory = 0;
+        protected NativeULong _freePrivateMemory = 0;
 
         /// <summary>
         /// The amount of free (unused) memory on the token in bytes for private objects
@@ -291,7 +291,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Version number of hardware
         /// </summary>
-        private string _hardwareVersion = null;
+        protected string _hardwareVersion = null;
 
         /// <summary>
         /// Version number of hardware
@@ -307,7 +307,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Version number of firmware
         /// </summary>
-        private string _firmwareVersion = null;
+        protected string _firmwareVersion = null;
 
         /// <summary>
         /// Version number of firmware
@@ -323,7 +323,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Current time (the value of this field only makes sense for tokens equipped with a clock)
         /// </summary>
-        private string _utcTimeString = null;
+        protected string _utcTimeString = null;
 
         /// <summary>
         /// Current time (the value of this field only makes sense for tokens equipped with a clock)
@@ -339,7 +339,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// UtcTimeString converted to DateTime or null if conversion failed
         /// </summary>
-        private DateTime? _utcTime = null;
+        protected DateTime? _utcTime = null;
 
         /// <summary>
         /// UtcTimeString converted to DateTime or null if conversion failed
@@ -357,7 +357,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// </summary>
         /// <param name="slotId">PKCS#11 handle of slot</param>
         /// <param name="ck_token_info">Low level CK_TOKEN_INFO structure</param>
-        internal TokenInfo(NativeULong slotId, CK_TOKEN_INFO ck_token_info)
+        protected internal TokenInfo(NativeULong slotId, CK_TOKEN_INFO ck_token_info)
         {
             _slotId = slotId;
             _label = ConvertUtils.BytesToUtf8String(ck_token_info.Label, true);

@@ -34,7 +34,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// Cryptoki interface version number
         /// </summary>
-        private string _cryptokiVersion = null;
+        protected string _cryptokiVersion = null;
 
         /// <summary>
         /// Cryptoki interface version number
@@ -50,7 +50,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// ID of the Cryptoki library manufacturer
         /// </summary>
-        private string _manufacturerId = null;
+        protected string _manufacturerId = null;
 
         /// <summary>
         /// ID of the Cryptoki library manufacturer
@@ -66,7 +66,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// Bit flags reserved for future versions
         /// </summary>
-        private NativeULong _flags = 0;
+        protected NativeULong _flags = 0;
 
         /// <summary>
         /// Bit flags reserved for future versions
@@ -82,7 +82,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// Description of the library
         /// </summary>
-        private string _libraryDescription = null;
+        protected string _libraryDescription = null;
 
         /// <summary>
         /// Description of the library
@@ -98,7 +98,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// Cryptoki library version number
         /// </summary>
-        private string _libraryVersion = null;
+        protected string _libraryVersion = null;
         
         /// <summary>
         /// Cryptoki library version number
@@ -115,7 +115,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// Converts low level CK_INFO structure to high level LibraryInfo class
         /// </summary>
         /// <param name="ck_info">Low level CK_INFO structure</param>
-        internal LibraryInfo(CK_INFO ck_info)
+        protected internal LibraryInfo(CK_INFO ck_info)
         {
             _cryptokiVersion = ck_info.CryptokiVersion.ToString();
             _manufacturerId = ConvertUtils.BytesToUtf8String(ck_info.ManufacturerId, true);

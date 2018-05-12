@@ -34,7 +34,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <summary>
         /// Bits flags specifying mechanism capabilities
         /// </summary>
-        private NativeULong _flags;
+        protected NativeULong _flags;
 
         /// <summary>
         /// Bits flags specifying mechanism capabilities
@@ -275,7 +275,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// Initializes new instance of MechanismFlags class
         /// </summary>
         /// <param name="flags">Bits flags specifying mechanism capabilities</param>
-        internal MechanismFlags(NativeULong flags)
+        protected internal MechanismFlags(NativeULong flags)
         {
             _flags = flags;
         }

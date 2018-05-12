@@ -34,7 +34,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <summary>
         /// Bits flags that provide capabilities of the slot
         /// </summary>
-        private NativeULong _flags;
+        protected NativeULong _flags;
 
         /// <summary>
         /// Bits flags that provide capabilities of the slot
@@ -84,7 +84,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// Initializes new instance of SlotFlags class
         /// </summary>
         /// <param name="flags">Bits flags that provide capabilities of the slot</param>
-        internal SlotFlags(NativeULong flags)
+        protected internal SlotFlags(NativeULong flags)
         {
             _flags = flags;
         }
