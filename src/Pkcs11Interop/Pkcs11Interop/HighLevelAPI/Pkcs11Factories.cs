@@ -32,7 +32,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Factory for creation of IPkcs11 instances
         /// </summary>
-        private IPkcs11Factory _pkcs11Factory = null;
+        protected IPkcs11Factory _pkcs11Factory = null;
 
         /// <summary>
         /// Factory for creation of IPkcs11 instances
@@ -55,7 +55,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Factory for creation of ISlot instances
         /// </summary>
-        private ISlotFactory _slotFactory = null;
+        protected ISlotFactory _slotFactory = null;
 
         /// <summary>
         /// Factory for creation of ISlot instances
@@ -78,7 +78,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Factory for creation of ISession instances
         /// </summary>
-        private ISessionFactory _sessionFactory = null;
+        protected ISessionFactory _sessionFactory = null;
 
         /// <summary>
         /// Factory for creation of ISession instances
@@ -101,7 +101,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Factory for creation of IObjectAttribute instances
         /// </summary>
-        private IObjectAttributeFactory _objectAttributeFactory = null;
+        protected IObjectAttributeFactory _objectAttributeFactory = null;
 
         /// <summary>
         /// Factory for creation of IObjectAttribute instances
@@ -124,7 +124,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Factory for creation of IObjectHandle instances
         /// </summary>
-        private IObjectHandleFactory _objectHandleFactory = null;
+        protected IObjectHandleFactory _objectHandleFactory = null;
 
         /// <summary>
         /// Factory for creation of IObjectHandle instances
@@ -147,7 +147,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Factory for creation of IMechanism instances
         /// </summary>
-        private IMechanismFactory _mechanismFactory = null;
+        protected IMechanismFactory _mechanismFactory = null;
 
         /// <summary>
         /// Factory for creation of IMechanism instances
@@ -170,7 +170,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Factory for creation of IMechanismParams instances
         /// </summary>
-        private IMechanismParamsFactory _mechanismParamsFactory = null;
+        protected IMechanismParamsFactory _mechanismParamsFactory = null;
 
         /// <summary>
         /// Factory for creation of IMechanismParams instances
