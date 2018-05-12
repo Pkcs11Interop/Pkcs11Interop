@@ -31,34 +31,6 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
     /// </summary>
     public class MechanismParamsFactory : IMechanismParamsFactory
     {
-        #region Static instance of the factory
-
-        /// <summary>
-        /// Ready to use static instance of the factory
-        /// </summary>
-        private static MechanismParamsFactory _instance = null;
-
-        /// <summary>
-        /// Ready to use static instance of the factory
-        /// </summary>
-        public static MechanismParamsFactory Instance
-        {
-            get
-            {
-                return _instance;
-            }
-        }
-
-        /// <summary>
-        /// Static constructor that initializes static instance of the factory
-        /// </summary>
-        static MechanismParamsFactory()
-        {
-            _instance = new MechanismParamsFactory();
-        }
-
-        #endregion
-
         /// <summary>
         /// Platform specific factory for creation of IMechanismParams instances
         /// </summary>

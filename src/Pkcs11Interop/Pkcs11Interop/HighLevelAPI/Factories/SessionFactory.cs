@@ -28,34 +28,6 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
     /// </summary>
     public class SessionFactory : ISessionFactory
     {
-        #region Static instance of the factory
-
-        /// <summary>
-        /// Ready to use static instance of the factory
-        /// </summary>
-        private static SessionFactory _instance = null;
-
-        /// <summary>
-        /// Ready to use static instance of the factory
-        /// </summary>
-        public static SessionFactory Instance
-        {
-            get
-            {
-                return _instance;
-            }
-        }
-
-        /// <summary>
-        /// Static constructor that initializes static instance of the factory
-        /// </summary>
-        static SessionFactory()
-        {
-            _instance = new SessionFactory();
-        }
-
-        #endregion
-
         /// <summary>
         /// Platform specific factory for creation of ISlot instances
         /// </summary>

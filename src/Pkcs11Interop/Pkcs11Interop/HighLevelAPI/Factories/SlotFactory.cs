@@ -28,34 +28,6 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
     /// </summary>
     public class SlotFactory : ISlotFactory
     {
-        #region Static instance of the factory
-
-        /// <summary>
-        /// Ready to use static instance of the factory
-        /// </summary>
-        private static SlotFactory _instance = null;
-
-        /// <summary>
-        /// Ready to use static instance of the factory
-        /// </summary>
-        public static SlotFactory Instance
-        {
-            get
-            {
-                return _instance;
-            }
-        }
-
-        /// <summary>
-        /// Static constructor that initializes static instance of the factory
-        /// </summary>
-        static SlotFactory()
-        {
-            _instance = new SlotFactory();
-        }
-
-        #endregion
-
         /// <summary>
         /// Platform specific factory for creation of ISlot instances
         /// </summary>

@@ -28,34 +28,6 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
     /// </summary>
     public class Pkcs11Factory : IPkcs11Factory
     {
-        #region Static instance of the factory
-
-        /// <summary>
-        /// Ready to use static instance of the factory
-        /// </summary>
-        private static Pkcs11Factory _instance = null;
-
-        /// <summary>
-        /// Ready to use static instance of the factory
-        /// </summary>
-        public static Pkcs11Factory Instance
-        {
-            get
-            {
-                return _instance;
-            }
-        }
-
-        /// <summary>
-        /// Static constructor that initializes static instance of the factory
-        /// </summary>
-        static Pkcs11Factory()
-        {
-            _instance = new Pkcs11Factory();
-        }
-
-        #endregion
-
         /// <summary>
         /// Platform specific factory for creation of IPkcs11 instances
         /// </summary>

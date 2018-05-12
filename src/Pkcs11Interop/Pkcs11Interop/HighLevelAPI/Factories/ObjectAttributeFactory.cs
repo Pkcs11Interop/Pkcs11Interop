@@ -30,34 +30,6 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
     /// </summary>
     public class ObjectAttributeFactory : IObjectAttributeFactory
     {
-        #region Static instance of the factory
-
-        /// <summary>
-        /// Ready to use static instance of the factory
-        /// </summary>
-        private static ObjectAttributeFactory _instance = null;
-
-        /// <summary>
-        /// Ready to use static instance of the factory
-        /// </summary>
-        public static ObjectAttributeFactory Instance
-        {
-            get
-            {
-                return _instance;
-            }
-        }
-
-        /// <summary>
-        /// Static constructor that initializes static instance of the factory
-        /// </summary>
-        static ObjectAttributeFactory()
-        {
-            _instance = new ObjectAttributeFactory();
-        }
-
-        #endregion
-
         /// <summary>
         /// Platform specific factory for creation of IObjectAttribute instances
         /// </summary>

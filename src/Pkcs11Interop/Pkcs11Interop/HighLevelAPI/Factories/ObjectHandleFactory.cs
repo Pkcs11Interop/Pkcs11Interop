@@ -28,34 +28,6 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
     /// </summary>
     public class ObjectHandleFactory : IObjectHandleFactory
     {
-        #region Static instance of the factory
-
-        /// <summary>
-        /// Ready to use static instance of the factory
-        /// </summary>
-        private static ObjectHandleFactory _instance = null;
-
-        /// <summary>
-        /// Ready to use static instance of the factory
-        /// </summary>
-        public static ObjectHandleFactory Instance
-        {
-            get
-            {
-                return _instance;
-            }
-        }
-
-        /// <summary>
-        /// Static constructor that initializes static instance of the factory
-        /// </summary>
-        static ObjectHandleFactory()
-        {
-            _instance = new ObjectHandleFactory();
-        }
-
-        #endregion
-
         /// <summary>
         /// Platform specific factory for creation of IObjectHandle instances
         /// </summary>
