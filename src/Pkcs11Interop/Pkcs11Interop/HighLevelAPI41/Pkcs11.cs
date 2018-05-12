@@ -70,31 +70,30 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         protected LowLevelAPI41.Pkcs11 _p11 = null;
 
         /// <summary>
+        /// Initializes new instance of Pkcs11 class
+        /// </summary>
+        /// <param name="factories">Factories used by Pkcs11Interop library</param>
+        protected Pkcs11(Pkcs11Factories factories)
+        {
+            if (factories == null)
+                throw new ArgumentNullException("factories");
+
+            _factories = factories;
+        }
+
+        /// <summary>
         /// Loads and initializes PCKS#11 library
         /// </summary>
         /// <param name="factories">Factories used by Pkcs11Interop library</param>
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
         public Pkcs11(Pkcs11Factories factories, string libraryPath, AppType appType)
+            : this(factories)
         {
-            if (factories == null)
-                throw new ArgumentNullException("factories");
-
-            _factories = factories;
-            _p11 = new LowLevelAPI41.Pkcs11(libraryPath);
-
             try
             {
-                CK_C_INITIALIZE_ARGS initArgs = null;
-                if (appType == AppType.MultiThreaded)
-                {
-                    initArgs = new CK_C_INITIALIZE_ARGS();
-                    initArgs.Flags = CKF.CKF_OS_LOCKING_OK;
-                }
-
-                CKR rv = _p11.C_Initialize(initArgs);
-                if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
-                    throw new Pkcs11Exception("C_Initialize", rv);
+                _p11 = new LowLevelAPI41.Pkcs11(libraryPath);
+                Initialize(appType);
             }
             catch
             {
@@ -112,25 +111,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
         /// <param name="initType">Source of PKCS#11 function pointers</param>
         public Pkcs11(Pkcs11Factories factories, string libraryPath, AppType appType, InitType initType)
+            : this(factories)
         {
-            if (factories == null)
-                throw new ArgumentNullException("factories");
-
-            _factories = factories;
-            _p11 = new LowLevelAPI41.Pkcs11(libraryPath, (initType == InitType.WithFunctionList));
-
             try
             {
-                CK_C_INITIALIZE_ARGS initArgs = null;
-                if (appType == AppType.MultiThreaded)
-                {
-                    initArgs = new CK_C_INITIALIZE_ARGS();
-                    initArgs.Flags = CKF.CKF_OS_LOCKING_OK;
-                }
-
-                CKR rv = _p11.C_Initialize(initArgs);
-                if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
-                    throw new Pkcs11Exception("C_Initialize", rv);
+                _p11 = new LowLevelAPI41.Pkcs11(libraryPath, (initType == InitType.WithFunctionList));
+                Initialize(appType);
             }
             catch
             {
@@ -138,6 +124,24 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
                 _p11 = null;
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Initializes PCKS#11 library
+        /// </summary>
+        /// <param name="appType">Type of application that will be using PKCS#11 library</param>
+        protected void Initialize(AppType appType)
+        {
+            CK_C_INITIALIZE_ARGS initArgs = null;
+            if (appType == AppType.MultiThreaded)
+            {
+                initArgs = new CK_C_INITIALIZE_ARGS();
+                initArgs.Flags = CKF.CKF_OS_LOCKING_OK;
+            }
+
+            CKR rv = _p11.C_Initialize(initArgs);
+            if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
+                throw new Pkcs11Exception("C_Initialize", rv);
         }
 
         /// <summary>
