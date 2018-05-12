@@ -25,7 +25,6 @@ using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using NUnit.Framework;
-using HLA = Net.Pkcs11Interop.HighLevelAPI;
 using HLA40 = Net.Pkcs11Interop.HighLevelAPI40;
 using HLA41 = Net.Pkcs11Interop.HighLevelAPI41;
 using HLA80 = Net.Pkcs11Interop.HighLevelAPI80;
@@ -55,7 +54,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
             // Unmanaged memory for mechanism parameter stored in low level CK_MECHANISM struct
             // is allocated by constructor of Mechanism class.
-            IMechanism mechanism1 = MechanismFactory.Instance.CreateMechanism(CKM.CKM_DES_CBC, parameter);
+            IMechanism mechanism1 = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_DES_CBC, parameter);
 
             // Do something interesting with mechanism
 
@@ -65,7 +64,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
             // Mechanism class can be used in using statement which defines a scope 
             // at the end of which an object will be disposed (and unmanaged memory freed).
-            using (IMechanism mechanism2 = MechanismFactory.Instance.CreateMechanism(CKM.CKM_DES_CBC, parameter))
+            using (IMechanism mechanism2 = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_DES_CBC, parameter))
             {
                 // Do something interesting with mechanism
             }
@@ -75,7 +74,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
             // Explicit calling of Dispose() method can also be ommitted
             // and this is the prefered way how to use Mechanism class.
-            IMechanism mechanism3 = MechanismFactory.Instance.CreateMechanism(CKM.CKM_DES_CBC, parameter);
+            IMechanism mechanism3 = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_DES_CBC, parameter);
 
             // Do something interesting with mechanism
 
@@ -92,7 +91,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         public void _02_EmptyParameterTest()
         {
             // Create mechanism without the parameter
-            IMechanism mechanism = MechanismFactory.Instance.CreateMechanism(CKM.CKM_RSA_PKCS);
+            IMechanism mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_RSA_PKCS);
             Assert.IsTrue(mechanism.Type == (ulong)CKM.CKM_RSA_PKCS);
 
             // We access private Mechanism member just for the testing purposes
@@ -147,7 +146,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             rng.NextBytes(parameter);
 
             // Create mechanism with the byte array parameter
-            IMechanism mechanism = MechanismFactory.Instance.CreateMechanism(CKM.CKM_AES_CBC, parameter);
+            IMechanism mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_AES_CBC, parameter);
             Assert.IsTrue(mechanism.Type == (ulong)CKM.CKM_AES_CBC);
 
             // We access private members here just for the testing purposes
@@ -193,7 +192,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             parameter = null;
 
             // Create mechanism with null byte array parameter
-            mechanism = MechanismFactory.Instance.CreateMechanism(CKM.CKM_AES_CBC, parameter);
+            mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_AES_CBC, parameter);
             Assert.IsTrue(mechanism.Type == (ulong)CKM.CKM_AES_CBC);
 
             // We access private members here just for the testing purposes
@@ -248,10 +247,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             rng.NextBytes(data);
 
             // Specify mechanism parameters
-            ICkKeyDerivationStringData parameter = MechanismParamsFactory.Instance.CreateCkKeyDerivationStringData(data);
+            ICkKeyDerivationStringData parameter = Settings.Factories.MechanismParamsFactory.CreateCkKeyDerivationStringData(data);
 
             // Create mechanism with the object as parameter
-            IMechanism mechanism = MechanismFactory.Instance.CreateMechanism(CKM.CKM_XOR_BASE_AND_DATA, parameter);
+            IMechanism mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_XOR_BASE_AND_DATA, parameter);
             Assert.IsTrue(mechanism.Type == (ulong)CKM.CKM_XOR_BASE_AND_DATA);
 
             // We access private Mechanism member here just for the testing purposes

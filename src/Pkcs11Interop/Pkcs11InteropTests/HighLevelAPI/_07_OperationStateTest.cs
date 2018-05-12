@@ -37,7 +37,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_BasicOperationStateTest()
         {
-            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
                 ISlot slot = Helpers.GetUsableSlot(pkcs11);
@@ -53,7 +53,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
                     // Let's set state so the test is complete
                     // Note that CK_INVALID_HANDLE is passed in as encryptionKey and authenticationKey
-                    session.SetOperationState(state, ObjectHandleFactory.Instance.CreateObjectHandle(), ObjectHandleFactory.Instance.CreateObjectHandle());
+                    session.SetOperationState(state, Settings.Factories.ObjectHandleFactory.CreateObjectHandle(), Settings.Factories.ObjectHandleFactory.CreateObjectHandle());
                 }
             }
         }

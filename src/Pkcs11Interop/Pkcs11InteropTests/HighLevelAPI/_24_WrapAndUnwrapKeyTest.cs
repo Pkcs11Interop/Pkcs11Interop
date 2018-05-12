@@ -38,7 +38,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_BasicWrapAndUnwrapKeyTest()
         {
-            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
                 ISlot slot = Helpers.GetUsableSlot(pkcs11);
@@ -58,7 +58,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     IObjectHandle secretKey = Helpers.GenerateKey(session);
 
                     // Specify wrapping mechanism
-                    IMechanism mechanism = MechanismFactory.Instance.CreateMechanism(CKM.CKM_RSA_PKCS);
+                    IMechanism mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_RSA_PKCS);
 
                     // Wrap key
                     byte[] wrappedKey = session.WrapKey(mechanism, publicKey, secretKey);
@@ -68,12 +68,12 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
                     // Define attributes for unwrapped key
                     List<IObjectAttribute> objectAttributes = new List<IObjectAttribute>();
-                    objectAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_SECRET_KEY));
-                    objectAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_KEY_TYPE, CKK.CKK_DES3));
-                    objectAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_ENCRYPT, true));
-                    objectAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_DECRYPT, true));
-                    objectAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_DERIVE, true));
-                    objectAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_EXTRACTABLE, true));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_SECRET_KEY));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_KEY_TYPE, CKK.CKK_DES3));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ENCRYPT, true));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_DECRYPT, true));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_DERIVE, true));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_EXTRACTABLE, true));
 
                     // Unwrap key
                     IObjectHandle unwrappedKey = session.UnwrapKey(mechanism, privateKey, wrappedKey, objectAttributes);

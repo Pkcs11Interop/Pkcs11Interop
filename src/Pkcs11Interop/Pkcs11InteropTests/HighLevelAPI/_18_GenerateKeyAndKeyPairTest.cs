@@ -38,7 +38,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_GenerateKeyTest()
         {
-            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
                 ISlot slot = Helpers.GetUsableSlot(pkcs11);
@@ -51,13 +51,13 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
                     // Prepare attribute template of new key
                     List<IObjectAttribute> objectAttributes = new List<IObjectAttribute>();
-                    objectAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_SECRET_KEY));
-                    objectAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_KEY_TYPE, CKK.CKK_DES3));
-                    objectAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_ENCRYPT, true));
-                    objectAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_DECRYPT, true));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_SECRET_KEY));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_KEY_TYPE, CKK.CKK_DES3));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ENCRYPT, true));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_DECRYPT, true));
 
                     // Specify key generation mechanism
-                    IMechanism mechanism = MechanismFactory.Instance.CreateMechanism(CKM.CKM_DES3_KEY_GEN);
+                    IMechanism mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_DES3_KEY_GEN);
 
                     // Generate key
                     IObjectHandle objectHandle = session.GenerateKey(mechanism, objectAttributes);
@@ -78,7 +78,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _02_GenerateKeyPairTest()
         {
-            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
                 ISlot slot = Helpers.GetUsableSlot(pkcs11);
@@ -94,31 +94,31 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
                     // Prepare attribute template of new public key
                     List<IObjectAttribute> publicKeyAttributes = new List<IObjectAttribute>();
-                    publicKeyAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_TOKEN, true));
-                    publicKeyAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_PRIVATE, false));
-                    publicKeyAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_LABEL, Settings.ApplicationName));
-                    publicKeyAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_ID, ckaId));
-                    publicKeyAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_ENCRYPT, true));
-                    publicKeyAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_VERIFY, true));
-                    publicKeyAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_VERIFY_RECOVER, true));
-                    publicKeyAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_WRAP, true));
-                    publicKeyAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_MODULUS_BITS, 1024));
-                    publicKeyAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_PUBLIC_EXPONENT, new byte[] { 0x01, 0x00, 0x01 }));
+                    publicKeyAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_TOKEN, true));
+                    publicKeyAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_PRIVATE, false));
+                    publicKeyAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_LABEL, Settings.ApplicationName));
+                    publicKeyAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ID, ckaId));
+                    publicKeyAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ENCRYPT, true));
+                    publicKeyAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_VERIFY, true));
+                    publicKeyAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_VERIFY_RECOVER, true));
+                    publicKeyAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_WRAP, true));
+                    publicKeyAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_MODULUS_BITS, 1024));
+                    publicKeyAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_PUBLIC_EXPONENT, new byte[] { 0x01, 0x00, 0x01 }));
 
                     // Prepare attribute template of new private key
                     List<IObjectAttribute> privateKeyAttributes = new List<IObjectAttribute>();
-                    privateKeyAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_TOKEN, true));
-                    privateKeyAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_PRIVATE, true));
-                    privateKeyAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_LABEL, Settings.ApplicationName));
-                    privateKeyAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_ID, ckaId));
-                    privateKeyAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_SENSITIVE, true));
-                    privateKeyAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_DECRYPT, true));
-                    privateKeyAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_SIGN, true));
-                    privateKeyAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_SIGN_RECOVER, true));
-                    privateKeyAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_UNWRAP, true));
+                    privateKeyAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_TOKEN, true));
+                    privateKeyAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_PRIVATE, true));
+                    privateKeyAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_LABEL, Settings.ApplicationName));
+                    privateKeyAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ID, ckaId));
+                    privateKeyAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_SENSITIVE, true));
+                    privateKeyAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_DECRYPT, true));
+                    privateKeyAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_SIGN, true));
+                    privateKeyAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_SIGN_RECOVER, true));
+                    privateKeyAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_UNWRAP, true));
 
                     // Specify key generation mechanism
-                    IMechanism mechanism = MechanismFactory.Instance.CreateMechanism(CKM.CKM_RSA_PKCS_KEY_PAIR_GEN);
+                    IMechanism mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_RSA_PKCS_KEY_PAIR_GEN);
 
                     // Generate key pair
                     IObjectHandle publicKeyHandle = null;

@@ -42,7 +42,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             // Unmanaged PKCS#11 library is loaded by the constructor of Pkcs11 class.
             // Every PKCS#11 library needs to be initialized with C_Initialize method
             // which is also called automatically by the constructor of Pkcs11 class.
-            IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType);
+            IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType);
             
             // Do something  interesting
             
@@ -60,7 +60,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         {
             // Pkcs11 class can be used in using statement which defines a scope 
             // at the end of which an object will be disposed.
-            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Do something interesting
             }
@@ -74,7 +74,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         {
             // If an application will not be accessing PKCS#11 library from multiple threads
             // simultaneously, it should specify "AppType.SingleThreaded" as a value of "appType" parameter.
-            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, AppType.SingleThreaded))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, AppType.SingleThreaded))
             {
                 // Do something interesting
             }
@@ -89,7 +89,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             // If an application will be accessing PKCS#11 library from multiple threads
             // simultaneously, it should specify "AppType.MultiThreaded" as a value of "appType" parameter.
             // PKCS#11 library will use the native operation system threading model for locking.
-            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, AppType.MultiThreaded))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, AppType.MultiThreaded))
             {
                 // Do something interesting
             }
@@ -108,7 +108,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             // The most simple constructor of Net.Pkcs11Interop.HighLevelAPI.Pkcs11 class uses 
             // C_GetFunctionList() approach but Pkcs11Interop also provides an alternative constructor 
             // that can specify which approach should be used.
-            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType, InitType.WithFunctionList))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType, InitType.WithFunctionList))
             {
                 // Do something interesting
             }
@@ -127,7 +127,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             // The most simple constructor of Net.Pkcs11Interop.HighLevelAPI.Pkcs11 class uses 
             // C_GetFunctionList() approach but Pkcs11Interop also provides an alternative constructor 
             // that can specify which approach should be used.
-            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType, InitType.WithoutFunctionList))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType, InitType.WithoutFunctionList))
             {
                 // Do something interesting
             }

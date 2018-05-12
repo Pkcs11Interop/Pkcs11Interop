@@ -38,7 +38,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_BasicObjectFindingTest()
         {
-            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
                 ISlot slot = Helpers.GetUsableSlot(pkcs11);
@@ -55,8 +55,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
                     // Prepare attribute template that defines search criteria
                     List<IObjectAttribute> objectAttributes = new List<IObjectAttribute>();
-                    objectAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_DATA));
-                    objectAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_TOKEN, true));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_DATA));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_TOKEN, true));
 
                     // Initialize searching
                     session.FindObjectsInit(objectAttributes);
@@ -84,7 +84,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _02_FindAllObjectsTest()
         {
-            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
                 ISlot slot = Helpers.GetUsableSlot(pkcs11);
@@ -101,8 +101,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     
                     // Prepare attribute template that defines search criteria
                     List<IObjectAttribute> objectAttributes = new List<IObjectAttribute>();
-                    objectAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_DATA));
-                    objectAttributes.Add(ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_TOKEN, true));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_DATA));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_TOKEN, true));
                     
                     // Find all objects that match provided attributes
                     List<IObjectHandle> foundObjects = session.FindAllObjects(objectAttributes);

@@ -40,7 +40,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_EncryptAndDecryptSinglePartTest()
         {
-            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
                 ISlot slot = Helpers.GetUsableSlot(pkcs11);
@@ -58,7 +58,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     byte[] iv = session.GenerateRandom(8);
 
                     // Specify encryption mechanism with initialization vector as parameter
-                    IMechanism mechanism = MechanismFactory.Instance.CreateMechanism(CKM.CKM_DES3_CBC, iv);
+                    IMechanism mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_DES3_CBC, iv);
 
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Our new password");
 
@@ -85,7 +85,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _02_EncryptAndDecryptMultiPartTest()
         {
-            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
                 ISlot slot = Helpers.GetUsableSlot(pkcs11);
@@ -103,7 +103,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     byte[] iv = session.GenerateRandom(8);
                     
                     // Specify encryption mechanism with initialization vector as parameter
-                    IMechanism mechanism = MechanismFactory.Instance.CreateMechanism(CKM.CKM_DES3_CBC, iv);
+                    IMechanism mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_DES3_CBC, iv);
 
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Our new password");
                     byte[] encryptedData = null;
@@ -148,7 +148,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _03_EncryptAndDecryptSinglePartOaepTest()
         {
-            using (IPkcs11 pkcs11 = Pkcs11Factory.Instance.CreatePkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
                 ISlot slot = Helpers.GetUsableSlot(pkcs11);
@@ -165,10 +165,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     Helpers.GenerateKeyPair(session, out publicKey, out privateKey);
 
                     // Specify mechanism parameters
-                    ICkRsaPkcsOaepParams mechanismParams = MechanismParamsFactory.Instance.CreateCkRsaPkcsOaepParams((ulong)CKM.CKM_SHA_1, (ulong)CKG.CKG_MGF1_SHA1, (ulong)CKZ.CKZ_DATA_SPECIFIED, null);
+                    ICkRsaPkcsOaepParams mechanismParams = Settings.Factories.MechanismParamsFactory.CreateCkRsaPkcsOaepParams((ulong)CKM.CKM_SHA_1, (ulong)CKG.CKG_MGF1_SHA1, (ulong)CKZ.CKZ_DATA_SPECIFIED, null);
 
                     // Specify encryption mechanism with parameters
-                    IMechanism mechanism = MechanismFactory.Instance.CreateMechanism(CKM.CKM_RSA_PKCS_OAEP, mechanismParams);
+                    IMechanism mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_RSA_PKCS_OAEP, mechanismParams);
                     
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
                     

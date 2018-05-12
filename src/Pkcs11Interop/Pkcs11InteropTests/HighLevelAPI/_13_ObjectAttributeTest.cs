@@ -50,7 +50,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         {
             // Unmanaged memory for attribute value stored in low level CK_ATTRIBUTE struct
             // is allocated by constructor of ObjectAttribute class.
-            IObjectAttribute attr1 = ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_DATA);
+            IObjectAttribute attr1 = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_DATA);
 
             // Do something interesting with attribute
 
@@ -60,7 +60,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
             // ObjectAttribute class can be used in using statement which defines a scope 
             // at the end of which an object will be disposed (and unmanaged memory freed).
-            using (IObjectAttribute attr2 = ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_DATA))
+            using (IObjectAttribute attr2 = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_DATA))
             {
                 // Do something interesting with attribute
             }
@@ -69,7 +69,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             #pragma warning disable 0219
 
             // Explicit calling of Dispose() method can also be ommitted.
-            IObjectAttribute attr3 = ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_DATA);
+            IObjectAttribute attr3 = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_DATA);
 
             // Do something interesting with attribute
 
@@ -86,7 +86,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         public void _02_EmptyAttributeTest()
         {
             // Create attribute without the value
-            using (IObjectAttribute attr = ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_CLASS))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS))
             {
                 Assert.IsTrue(attr.Type == (ulong)CKA.CKA_CLASS);
                 Assert.IsTrue(attr.GetValueAsByteArray() == null);
@@ -102,7 +102,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             ulong value = (ulong)CKO.CKO_DATA;
 
             // Create attribute with ulong value
-            using (IObjectAttribute attr = ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_CLASS, value))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, value))
             {
                 Assert.IsTrue(attr.Type == (ulong)CKA.CKA_CLASS);
                 Assert.IsTrue(attr.GetValueAsUlong() == value);
@@ -118,7 +118,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             bool value = true;
 
             // Create attribute with bool value
-            using (IObjectAttribute attr = ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_TOKEN, value))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_TOKEN, value))
             {
                 Assert.IsTrue(attr.Type == (ulong)CKA.CKA_TOKEN);
                 Assert.IsTrue(attr.GetValueAsBool() == value);
@@ -134,7 +134,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             string value = "Hello world";
 
             // Create attribute with string value
-            using (IObjectAttribute attr = ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_LABEL, value))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_LABEL, value))
             {
                 Assert.IsTrue(attr.Type == (ulong)CKA.CKA_LABEL);
                 Assert.IsTrue(attr.GetValueAsString() == value);
@@ -143,7 +143,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             value = null;
 
             // Create attribute with null string value
-            using (IObjectAttribute attr = ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_LABEL, value))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_LABEL, value))
             {
                 Assert.IsTrue(attr.Type == (ulong)CKA.CKA_LABEL);
                 Assert.IsTrue(attr.GetValueAsString() == value);
@@ -159,7 +159,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             byte[] value = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 };
 
             // Create attribute with byte array value
-            using (IObjectAttribute attr = ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_ID, value))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ID, value))
             {
                 Assert.IsTrue(attr.Type == (ulong)CKA.CKA_ID);
                 Assert.IsTrue(Convert.ToBase64String(attr.GetValueAsByteArray()) == Convert.ToBase64String(value));
@@ -168,7 +168,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             value = null;
 
             // Create attribute with null byte array value
-            using (IObjectAttribute attr = ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_ID, value))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ID, value))
             {
                 Assert.IsTrue(attr.Type == (ulong)CKA.CKA_ID);
                 Assert.IsTrue(attr.GetValueAsByteArray() == value);
@@ -184,7 +184,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             DateTime value = new DateTime(2012, 1, 30, 0, 0, 0, DateTimeKind.Utc);
 
             // Create attribute with DateTime value
-            using (IObjectAttribute attr = ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_START_DATE, value))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_START_DATE, value))
             {
                 Assert.IsTrue(attr.Type == (ulong)CKA.CKA_START_DATE);
                 Assert.IsTrue(attr.GetValueAsDateTime() == value);
@@ -197,15 +197,15 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _08_AttributeArrayAttributeTest()
         {
-            IObjectAttribute nestedAttribute1 = ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_TOKEN, true);
-            IObjectAttribute nestedAttribute2 = ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_PRIVATE, true);
+            IObjectAttribute nestedAttribute1 = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_TOKEN, true);
+            IObjectAttribute nestedAttribute2 = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_PRIVATE, true);
 
             List<IObjectAttribute> originalValue = new List<IObjectAttribute>();
             originalValue.Add(nestedAttribute1);
             originalValue.Add(nestedAttribute2);
 
             // Create attribute with attribute array value
-            using (IObjectAttribute attr = ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_WRAP_TEMPLATE, originalValue))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_WRAP_TEMPLATE, originalValue))
             {
                 Assert.IsTrue(attr.Type == (ulong)CKA.CKA_WRAP_TEMPLATE);
 
@@ -307,7 +307,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             originalValue = null;
 
             // Create attribute with null attribute array value
-            using (IObjectAttribute attr = ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_WRAP_TEMPLATE, originalValue))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_WRAP_TEMPLATE, originalValue))
             {
                 Assert.IsTrue(attr.Type == (ulong)CKA.CKA_WRAP_TEMPLATE);
                 Assert.IsTrue(attr.GetValueAsObjectAttributeList() == originalValue);
@@ -316,7 +316,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             originalValue = new List<IObjectAttribute>();
 
             // Create attribute with empty attribute array value
-            using (IObjectAttribute attr = ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_WRAP_TEMPLATE, originalValue))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_WRAP_TEMPLATE, originalValue))
             {
                 Assert.IsTrue(attr.Type == (ulong)CKA.CKA_WRAP_TEMPLATE);
                 Assert.IsTrue(attr.GetValueAsObjectAttributeList() == null);
@@ -334,7 +334,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             originalValue.Add(666666);
             
             // Create attribute with ulong array value
-            using (IObjectAttribute attr = ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
             {
                 Assert.IsTrue(attr.Type == (ulong)CKA.CKA_ALLOWED_MECHANISMS);
 
@@ -346,7 +346,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             originalValue = null;
 
             // Create attribute with null ulong array value
-            using (IObjectAttribute attr = ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
             {
                 Assert.IsTrue(attr.Type == (ulong)CKA.CKA_ALLOWED_MECHANISMS);
                 Assert.IsTrue(attr.GetValueAsULongList() == originalValue);
@@ -355,7 +355,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             originalValue = new List<ulong>();
 
             // Create attribute with empty ulong array value
-            using (IObjectAttribute attr = ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
             {
                 Assert.IsTrue(attr.Type == (ulong)CKA.CKA_ALLOWED_MECHANISMS);
                 Assert.IsTrue(attr.GetValueAsULongList() == null);
@@ -373,7 +373,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             originalValue.Add(CKM.CKM_AES_CBC);
 
             // Create attribute with mechanism array value
-            using (IObjectAttribute attr = ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
             {
                 Assert.IsTrue(attr.Type == (ulong)CKA.CKA_ALLOWED_MECHANISMS);
                 
@@ -385,7 +385,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             originalValue = null;
             
             // Create attribute with null mechanism array value
-            using (IObjectAttribute attr = ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
             {
                 Assert.IsTrue(attr.Type == (ulong)CKA.CKA_ALLOWED_MECHANISMS);
                 Assert.IsTrue(attr.GetValueAsCkmList() == originalValue);
@@ -394,7 +394,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             originalValue = new List<CKM>();
             
             // Create attribute with empty mechanism array value
-            using (IObjectAttribute attr = ObjectAttributeFactory.Instance.CreateObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
             {
                 Assert.IsTrue(attr.Type == (ulong)CKA.CKA_ALLOWED_MECHANISMS);
                 Assert.IsTrue(attr.GetValueAsCkmList() == null);
