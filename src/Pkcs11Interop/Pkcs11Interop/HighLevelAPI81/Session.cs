@@ -52,6 +52,29 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         }
 
         /// <summary>
+        /// Factories used by Pkcs11Interop library
+        /// </summary>
+        private Pkcs11Factories _factories = null;
+
+        /// <summary>
+        /// Factories used by Pkcs11Interop library
+        /// </summary>
+        public Pkcs11Factories Factories
+        {
+            get
+            {
+                return _factories;
+            }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException("Factories");
+
+                _factories = value;
+            }
+        }
+
+        /// <summary>
         /// Low level PKCS#11 wrapper
         /// </summary>
         private LowLevelAPI81.Pkcs11 _p11 = null;
@@ -118,16 +141,21 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// Initializes new instance of Session class
         /// </summary>
+        /// <param name="factories">Factories used by Pkcs11Interop library</param>
         /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
         /// <param name="sessionId">PKCS#11 handle of session</param>
-        internal Session(LowLevelAPI81.Pkcs11 pkcs11, ulong sessionId)
+        internal Session(Pkcs11Factories factories, LowLevelAPI81.Pkcs11 pkcs11, ulong sessionId)
         {
+            if (factories == null)
+                throw new ArgumentNullException("factories");
+
             if (pkcs11 == null)
                 throw new ArgumentNullException("pkcs11");
 
             if (sessionId == CK.CK_INVALID_HANDLE)
                 throw new ArgumentException("Invalid handle specified", "sessionId");
 
+            _factories = factories;
             _p11 = pkcs11;
             _sessionId = NativeLongUtils.ConvertFromUInt64(sessionId);
         }

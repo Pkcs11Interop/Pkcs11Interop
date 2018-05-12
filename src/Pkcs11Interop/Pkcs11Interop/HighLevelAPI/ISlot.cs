@@ -30,6 +30,15 @@ namespace Net.Pkcs11Interop.HighLevelAPI
     public interface ISlot
     {
         /// <summary>
+        /// Factories used by Pkcs11Interop library
+        /// </summary>
+        Pkcs11Factories Factories
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// PKCS#11 handle of slot
         /// </summary>
         ulong SlotId

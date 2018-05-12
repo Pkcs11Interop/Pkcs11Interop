@@ -34,15 +34,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.Factories
         /// <summary>
         /// Creates slot with specified handle
         /// </summary>
+        /// <param name="factories">Factories used by Pkcs11Interop library</param>
         /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
         /// <param name="slotId">PKCS#11 handle of slot</param>
-        public ISlot CreateSlot(LowLevelPkcs11 pkcs11, ulong slotId)
+        public ISlot CreateSlot(Pkcs11Factories factories, LowLevelPkcs11 pkcs11, ulong slotId)
         {
             LowLevelAPI80.Pkcs11 p11 = pkcs11 as LowLevelAPI80.Pkcs11;
             if (p11 == null)
                 throw new ArgumentException("Incorrect type of low level PKCS#11 wrapper");
 
-            return new Slot(p11, slotId);
+            return new Slot(factories, p11, slotId);
         }
     }
 }

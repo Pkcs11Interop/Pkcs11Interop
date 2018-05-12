@@ -31,6 +31,15 @@ namespace Net.Pkcs11Interop.HighLevelAPI
     public interface IPkcs11 : IDisposable
     {
         /// <summary>
+        /// Factories used by Pkcs11Interop library
+        /// </summary>
+        Pkcs11Factories Factories
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Gets general information about loaded PKCS#11 library
         /// </summary>
         /// <returns>General information about loaded PKCS#11 library</returns>

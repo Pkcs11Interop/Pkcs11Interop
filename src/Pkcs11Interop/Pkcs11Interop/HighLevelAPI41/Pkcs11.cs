@@ -50,6 +50,29 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         }
 
         /// <summary>
+        /// Factories used by Pkcs11Interop library
+        /// </summary>
+        private Pkcs11Factories _factories = null;
+
+        /// <summary>
+        /// Factories used by Pkcs11Interop library
+        /// </summary>
+        public Pkcs11Factories Factories
+        {
+            get
+            {
+                return _factories;
+            }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException("Factories");
+
+                _factories = value;
+            }
+        }
+
+        /// <summary>
         /// Low level PKCS#11 wrapper
         /// </summary>
         private LowLevelAPI41.Pkcs11 _p11 = null;
@@ -71,10 +94,15 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Loads and initializes PCKS#11 library
         /// </summary>
+        /// <param name="factories">Factories used by Pkcs11Interop library</param>
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
-        public Pkcs11(string libraryPath, AppType appType)
+        public Pkcs11(Pkcs11Factories factories, string libraryPath, AppType appType)
         {
+            if (factories == null)
+                throw new ArgumentNullException("factories");
+
+            _factories = factories;
             _p11 = new LowLevelAPI41.Pkcs11(libraryPath);
 
             try
@@ -101,11 +129,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Loads and initializes PCKS#11 library
         /// </summary>
+        /// <param name="factories">Factories used by Pkcs11Interop library</param>
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
         /// <param name="initType">Source of PKCS#11 function pointers</param>
-        public Pkcs11(string libraryPath, AppType appType, InitType initType)
+        public Pkcs11(Pkcs11Factories factories, string libraryPath, AppType appType, InitType initType)
         {
+            if (factories == null)
+                throw new ArgumentNullException("factories");
+
+            _factories = factories;
             _p11 = new LowLevelAPI41.Pkcs11(libraryPath, (initType == InitType.WithFunctionList));
 
             try
@@ -177,7 +210,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
 
                 List<ISlot> list = new List<ISlot>();
                 foreach (NativeULong slot in slotList)
-                    list.Add(new Slot(_p11, slot));
+                    list.Add(_factories.SlotFactory.CreateSlot(_factories, _p11, slot));
 
                 return list;
             }
