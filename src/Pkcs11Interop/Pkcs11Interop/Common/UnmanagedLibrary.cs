@@ -133,11 +133,11 @@ namespace Net.Pkcs11Interop.Common
         }
 
         /// <summary>
-        /// Returns function pointer
+        /// Gets function pointer for specified unmanaged function
         /// </summary>
         /// <param name='libraryHandle'>Dynamic library handle</param>
         /// <param name='function'>Function name</param>
-        /// <returns>The function pointer</returns>
+        /// <returns>The function pointer for specified unmanaged function</returns>
         public static IntPtr GetFunctionPointer(IntPtr libraryHandle, string function)
         {
             if (libraryHandle == IntPtr.Zero)
@@ -186,6 +186,19 @@ namespace Net.Pkcs11Interop.Common
 #else
             return Marshal.GetDelegateForFunctionPointer<T>(functionPointer);
 #endif
+        }
+
+        /// <summary>
+        /// Gets delegate for specified unmanaged function
+        /// </summary>
+        /// <typeparam name="T">Type of delegate</typeparam>
+        /// <param name="libraryHandle">Dynamic library handle</param>
+        /// <param name="function">Function name</param>
+        /// <returns>Delegate for specified unmanaged function</returns>
+        public static T GetFunctionDelegate<T>(IntPtr libraryHandle, string function)
+        {
+            IntPtr functionPtr = GetFunctionPointer(libraryHandle, function);
+            return GetDelegateForFunctionPointer<T>(functionPtr);
         }
     }
 }
