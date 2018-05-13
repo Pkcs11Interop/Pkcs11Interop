@@ -71,9 +71,7 @@
     <Compile Include="HighLevelAPI\_26_LegacyParallelFunctionsTest.cs" />
     <Compile Include="HighLevelAPI\_27b_Pkcs11UriUtilsTest.cs" />
     <Compile Include="HighLevelAPI\_27_Pkcs11UriUtilsTest.cs" />
-    <Compile Include="HighLevelAPI\_28_Pkcs11ClassExtensionTest.cs" />
-    <Compile Include="HighLevelAPI\_29_SlotClassExtensionTest.cs" />
-    <Compile Include="HighLevelAPI\_30_SessionClassExtensionTest.cs" />
+    <Compile Include="HighLevelAPI\_28_VendorExtensionsTest.cs" />
     <Compile Include="LowLevelAPI40\Helpers.cs" />
     <Compile Include="LowLevelAPI40\_01_InitializeTest.cs" />
     <Compile Include="LowLevelAPI40\_02_GetInfoTest.cs" />
@@ -198,6 +196,10 @@
     <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Pkcs11Interop.Mock\Pkcs11Interop.Mock.csproj">
+      <Project>{d8a4317f-410b-48f6-88bf-eb898c1c74a6}</Project>
+      <Name>Pkcs11Interop.Mock</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Pkcs11Interop\Pkcs11Interop.csproj">
       <Project>{9BC3EE70-6B0B-4B26-8C06-B7AE50BE202E}</Project>
       <Name>Pkcs11Interop</Name>
