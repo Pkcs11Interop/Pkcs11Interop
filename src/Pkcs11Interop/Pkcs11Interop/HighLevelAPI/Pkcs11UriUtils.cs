@@ -198,7 +198,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="pkcs11Uri">PKCS#11 URI</param>
         /// <param name="objectAttributeFactory">Factory for creation of IObjectAttribute instances</param>
         /// <returns>List of object attributes defined by PKCS#11 URI</returns>
-        public static List<IObjectAttribute> GetObjectAttributes(Pkcs11Uri pkcs11Uri, IObjectAttributeFactory objectAttributeFactory) // TODO - Do we need to pass the factory here?
+        public static List<IObjectAttribute> GetObjectAttributes(Pkcs11Uri pkcs11Uri, IObjectAttributeFactory objectAttributeFactory)
         {
             if (pkcs11Uri == null)
                 throw new ArgumentNullException("pkcs11Uri");
