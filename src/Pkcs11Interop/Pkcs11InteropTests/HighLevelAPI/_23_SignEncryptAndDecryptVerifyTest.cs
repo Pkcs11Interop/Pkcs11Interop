@@ -81,7 +81,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     session.DecryptVerify(signingMechanism, publicKey, encryptionMechanism, secretKey, encryptedData, signature, out decryptedData, out isValid);
 
                     // Do something interesting with decrypted data and verification result
-                    Assert.IsTrue(Convert.ToBase64String(sourceData) == Convert.ToBase64String(decryptedData));
+                    Assert.IsTrue(ConvertUtils.BytesToBase64String(sourceData) == ConvertUtils.BytesToBase64String(decryptedData));
                     Assert.IsTrue(isValid);
 
                     session.DestroyObject(privateKey);

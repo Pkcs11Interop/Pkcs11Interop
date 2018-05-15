@@ -70,7 +70,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
                     // Do something interesting with verification result and recovered data
                     Assert.IsTrue(isValid);
-                    Assert.IsTrue(Convert.ToBase64String(sourceData) == Convert.ToBase64String(recoveredData));
+                    Assert.IsTrue(ConvertUtils.BytesToBase64String(sourceData) == ConvertUtils.BytesToBase64String(recoveredData));
 
                     session.DestroyObject(privateKey);
                     session.DestroyObject(publicKey);

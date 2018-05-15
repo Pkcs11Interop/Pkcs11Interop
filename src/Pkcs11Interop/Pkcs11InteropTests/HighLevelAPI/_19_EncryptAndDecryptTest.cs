@@ -71,7 +71,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     byte[] decryptedData = session.Decrypt(mechanism, generatedKey, encryptedData);
 
                     // Do something interesting with decrypted data
-                    Assert.IsTrue(Convert.ToBase64String(sourceData) == Convert.ToBase64String(decryptedData));
+                    Assert.IsTrue(ConvertUtils.BytesToBase64String(sourceData) == ConvertUtils.BytesToBase64String(decryptedData));
 
                     session.DestroyObject(generatedKey);
                     session.Logout();
@@ -134,7 +134,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     }
                     
                     // Do something interesting with decrypted data
-                    Assert.IsTrue(Convert.ToBase64String(sourceData) == Convert.ToBase64String(decryptedData));
+                    Assert.IsTrue(ConvertUtils.BytesToBase64String(sourceData) == ConvertUtils.BytesToBase64String(decryptedData));
 
                     session.DestroyObject(generatedKey);
                     session.Logout();
@@ -181,7 +181,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     byte[] decryptedData = session.Decrypt(mechanism, privateKey, encryptedData);
                     
                     // Do something interesting with decrypted data
-                    Assert.IsTrue(Convert.ToBase64String(sourceData) == Convert.ToBase64String(decryptedData));
+                    Assert.IsTrue(ConvertUtils.BytesToBase64String(sourceData) == ConvertUtils.BytesToBase64String(decryptedData));
                     
                     session.DestroyObject(privateKey);
                     session.DestroyObject(publicKey);

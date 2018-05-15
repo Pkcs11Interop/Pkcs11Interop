@@ -76,8 +76,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     session.DecryptDigest(digestingMechanism, encryptionMechanism, generatedKey, encryptedData, out digest2, out decryptedData);
 
                     // Do something interesting with decrypted data and digest
-                    Assert.IsTrue(Convert.ToBase64String(sourceData) == Convert.ToBase64String(decryptedData));
-                    Assert.IsTrue(Convert.ToBase64String(digest1) == Convert.ToBase64String(digest2));
+                    Assert.IsTrue(ConvertUtils.BytesToBase64String(sourceData) == ConvertUtils.BytesToBase64String(decryptedData));
+                    Assert.IsTrue(ConvertUtils.BytesToBase64String(digest1) == ConvertUtils.BytesToBase64String(digest2));
 
                     session.DestroyObject(generatedKey);
                     session.Logout();

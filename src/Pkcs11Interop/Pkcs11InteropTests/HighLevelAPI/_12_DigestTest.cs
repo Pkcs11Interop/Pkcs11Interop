@@ -56,7 +56,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     byte[] digest = session.Digest(mechanism, sourceData);
                     
                     // Do something interesting with digest value
-                    Assert.IsTrue(Convert.ToBase64String(digest) == "e1AsOh9IyGCa4hLN+2Od7jlnP14=");
+                    Assert.IsTrue(ConvertUtils.BytesToBase64String(digest) == "e1AsOh9IyGCa4hLN+2Od7jlnP14=");
                 }
             }
         }
@@ -89,7 +89,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     }
 
                     // Do something interesting with digest value
-                    Assert.IsTrue(Convert.ToBase64String(digest) == "e1AsOh9IyGCa4hLN+2Od7jlnP14=");
+                    Assert.IsTrue(ConvertUtils.BytesToBase64String(digest) == "e1AsOh9IyGCa4hLN+2Od7jlnP14=");
                 }
             }
         }

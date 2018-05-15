@@ -162,7 +162,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ID, value))
             {
                 Assert.IsTrue(attr.Type == (ulong)CKA.CKA_ID);
-                Assert.IsTrue(Convert.ToBase64String(attr.GetValueAsByteArray()) == Convert.ToBase64String(value));
+                Assert.IsTrue(ConvertUtils.BytesToBase64String(attr.GetValueAsByteArray()) == ConvertUtils.BytesToBase64String(value));
             }
 
             value = null;
