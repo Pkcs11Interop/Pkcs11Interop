@@ -41,7 +41,6 @@
     <Compile Include="Common\Helpers.cs" />
     <Compile Include="Common\_01_Pkcs11UriAndBuilderTest.cs" />
     <Compile Include="Common\_02_CustomExceptionsTest.cs" />
-    <Compile Condition="$(TargetFrameworkVersion) == 'v2.0'" Include="ExtensionAttribute.cs" />
     <Compile Include="HighLevelAPI\Helpers.cs" />
     <Compile Include="HighLevelAPI\_01_InitializeTest.cs" />
     <Compile Include="HighLevelAPI\_02_GetInfoTest.cs" />
