@@ -58,7 +58,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeULongUtils.ConvertUInt32FromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -81,7 +81,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                 
                 // Get length of signature in first call
                 NativeULong signatureLen = 0;
-                rv = pkcs11.C_SignRecover(session, sourceData, NativeLongUtils.ConvertFromInt32(sourceData.Length), null, ref signatureLen);
+                rv = pkcs11.C_SignRecover(session, sourceData, NativeULongUtils.ConvertUInt32FromInt32(sourceData.Length), null, ref signatureLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -91,7 +91,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                 byte[] signature = new byte[signatureLen];
                 
                 // Get signature in second call
-                rv = pkcs11.C_SignRecover(session, sourceData, NativeLongUtils.ConvertFromInt32(sourceData.Length), signature, ref signatureLen);
+                rv = pkcs11.C_SignRecover(session, sourceData, NativeULongUtils.ConvertUInt32FromInt32(sourceData.Length), signature, ref signatureLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -104,7 +104,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
 
                 // Get length of recovered data in first call
                 NativeULong recoveredDataLen = 0;
-                rv = pkcs11.C_VerifyRecover(session, signature, NativeLongUtils.ConvertFromInt32(signature.Length), null, ref recoveredDataLen);
+                rv = pkcs11.C_VerifyRecover(session, signature, NativeULongUtils.ConvertUInt32FromInt32(signature.Length), null, ref recoveredDataLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -114,7 +114,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                 byte[] recoveredData = new byte[recoveredDataLen];
 
                 // Verify signature and get recovered data in second call
-                rv = pkcs11.C_VerifyRecover(session, signature, NativeLongUtils.ConvertFromInt32(signature.Length), recoveredData, ref recoveredDataLen);
+                rv = pkcs11.C_VerifyRecover(session, signature, NativeULongUtils.ConvertUInt32FromInt32(signature.Length), recoveredData, ref recoveredDataLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 

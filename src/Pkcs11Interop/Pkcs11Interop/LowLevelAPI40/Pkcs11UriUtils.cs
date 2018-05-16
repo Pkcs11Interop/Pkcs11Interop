@@ -100,15 +100,15 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
             if (objectAttributes == null)
                 throw new ArgumentNullException("objectAttributes");
 
-            NativeULong ckaClassType = NativeLongUtils.ConvertFromCKA(CKA.CKA_CLASS);
+            NativeULong ckaClassType = NativeULongUtils.ConvertUInt32FromCKA(CKA.CKA_CLASS);
             CKO? ckaClassValue = null;
             bool ckaClassFound = false;
 
-            NativeULong ckaLabelType = NativeLongUtils.ConvertFromCKA(CKA.CKA_LABEL);
+            NativeULong ckaLabelType = NativeULongUtils.ConvertUInt32FromCKA(CKA.CKA_LABEL);
             string ckaLabelValue = null;
             bool ckaLabelFound = false;
 
-            NativeULong ckaIdType = NativeLongUtils.ConvertFromCKA(CKA.CKA_ID);
+            NativeULong ckaIdType = NativeULongUtils.ConvertUInt32FromCKA(CKA.CKA_ID);
             byte[] ckaIdValue = null;
             bool ckaIdFound = false;
 
@@ -120,7 +120,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
                 {
                     NativeULong nativeUlongValue = 0;
                     CkaUtils.ConvertValue(ref attribute, out nativeUlongValue);
-                    ckaClassValue = NativeLongUtils.ConvertToCKO(nativeUlongValue);
+                    ckaClassValue = NativeULongUtils.ConvertUInt32ToCKO(nativeUlongValue);
                     ckaClassFound = true;
                 }
                 else if (attribute.type == ckaLabelType)
@@ -211,8 +211,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
             }
 
             // Shrink array if needed
-            if (slots.Length != NativeLongUtils.ConvertToInt32(slotCount))
-                Array.Resize(ref slots, NativeLongUtils.ConvertToInt32(slotCount));
+            if (slots.Length != NativeULongUtils.ConvertUInt32ToInt32(slotCount))
+                Array.Resize(ref slots, NativeULongUtils.ConvertUInt32ToInt32(slotCount));
 
             // Match slots with Pkcs11Uri
             foreach (NativeULong slot in slots)

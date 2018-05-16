@@ -187,8 +187,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
                 if (rv != CKR.CKR_OK)
                     throw new Pkcs11Exception("C_GetSlotList", rv);
 
-                if (slotList.Length != NativeLongUtils.ConvertToInt32(slotCount))
-                    Array.Resize(ref slotList, NativeLongUtils.ConvertToInt32(slotCount));
+                if (slotList.Length != NativeULongUtils.ConvertUInt32ToInt32(slotCount))
+                    Array.Resize(ref slotList, NativeULongUtils.ConvertUInt32ToInt32(slotCount));
 
                 List<ISlot> list = new List<ISlot>();
                 foreach (NativeULong slot in slotList)
@@ -218,12 +218,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
                 if (rv == CKR.CKR_OK)
                 {
                     eventOccured = true;
-                    slotId = NativeLongUtils.ConvertToUInt64(slotId_);
+                    slotId = NativeULongUtils.ConvertUInt32ToUInt64(slotId_);
                 }
                 else if (rv == CKR.CKR_NO_EVENT)
                 {
                     eventOccured = false;
-                    slotId = NativeLongUtils.ConvertToUInt64(slotId_);
+                    slotId = NativeULongUtils.ConvertUInt32ToUInt64(slotId_);
                 }
                 else
                 {
@@ -235,7 +235,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
                 if (rv == CKR.CKR_OK)
                 {
                     eventOccured = true;
-                    slotId = NativeLongUtils.ConvertToUInt64(slotId_);
+                    slotId = NativeULongUtils.ConvertUInt32ToUInt64(slotId_);
                 }
                 else
                 {

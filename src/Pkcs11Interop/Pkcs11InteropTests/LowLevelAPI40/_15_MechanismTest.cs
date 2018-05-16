@@ -44,7 +44,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
 
             // Create mechanism without the parameter
             CK_MECHANISM mechanism = CkmUtils.CreateMechanism(CKM.CKM_RSA_PKCS);
-            Assert.IsTrue(mechanism.Mechanism == NativeLongUtils.ConvertFromCKM(CKM.CKM_RSA_PKCS));
+            Assert.IsTrue(mechanism.Mechanism == NativeULongUtils.ConvertUInt32FromCKM(CKM.CKM_RSA_PKCS));
             Assert.IsTrue(mechanism.Parameter == IntPtr.Zero);
             Assert.IsTrue(mechanism.ParameterLen == 0);
         }
@@ -64,14 +64,14 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
             // Create mechanism with the byte array parameter
             // Note that CkmUtils.CreateMechanism() automaticaly copies mechanismParams into newly allocated unmanaged memory
             CK_MECHANISM mechanism = CkmUtils.CreateMechanism(CKM.CKM_AES_CBC, parameter);
-            Assert.IsTrue(mechanism.Mechanism == NativeLongUtils.ConvertFromCKM(CKM.CKM_AES_CBC));
+            Assert.IsTrue(mechanism.Mechanism == NativeULongUtils.ConvertUInt32FromCKM(CKM.CKM_AES_CBC));
             Assert.IsTrue(mechanism.Parameter != IntPtr.Zero);
-            Assert.IsTrue(mechanism.ParameterLen == NativeLongUtils.ConvertFromInt32(parameter.Length));
+            Assert.IsTrue(mechanism.ParameterLen == NativeULongUtils.ConvertUInt32FromInt32(parameter.Length));
 
             // Free unmanaged memory taken by mechanism parameter
             UnmanagedMemory.Free(ref mechanism.Parameter);
             mechanism.ParameterLen = 0;
-            Assert.IsTrue(mechanism.Mechanism == NativeLongUtils.ConvertFromCKM(CKM.CKM_AES_CBC));
+            Assert.IsTrue(mechanism.Mechanism == NativeULongUtils.ConvertUInt32FromCKM(CKM.CKM_AES_CBC));
             Assert.IsTrue(mechanism.Parameter == IntPtr.Zero);
             Assert.IsTrue(mechanism.ParameterLen == 0);
 
@@ -79,7 +79,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
 
             // Create mechanism with null byte array parameter
             mechanism = CkmUtils.CreateMechanism(CKM.CKM_AES_CBC, parameter);
-            Assert.IsTrue(mechanism.Mechanism == NativeLongUtils.ConvertFromCKM(CKM.CKM_AES_CBC));
+            Assert.IsTrue(mechanism.Mechanism == NativeULongUtils.ConvertUInt32FromCKM(CKM.CKM_AES_CBC));
             Assert.IsTrue(mechanism.Parameter == IntPtr.Zero);
             Assert.IsTrue(mechanism.ParameterLen == 0);
         }
@@ -101,14 +101,14 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
             CK_KEY_DERIVATION_STRING_DATA parameter = new CK_KEY_DERIVATION_STRING_DATA();
             parameter.Data = UnmanagedMemory.Allocate(data.Length);
             UnmanagedMemory.Write(parameter.Data, data);
-            parameter.Len = NativeLongUtils.ConvertFromInt32(data.Length);
+            parameter.Len = NativeULongUtils.ConvertUInt32FromInt32(data.Length);
             
             // Create mechanism with the structure as parameter
             // Note that CkmUtils.CreateMechanism() automaticaly copies mechanismParams into newly allocated unmanaged memory
             CK_MECHANISM mechanism = CkmUtils.CreateMechanism(CKM.CKM_XOR_BASE_AND_DATA, parameter);
-            Assert.IsTrue(mechanism.Mechanism == NativeLongUtils.ConvertFromCKM(CKM.CKM_XOR_BASE_AND_DATA));
+            Assert.IsTrue(mechanism.Mechanism == NativeULongUtils.ConvertUInt32FromCKM(CKM.CKM_XOR_BASE_AND_DATA));
             Assert.IsTrue(mechanism.Parameter != IntPtr.Zero);
-            Assert.IsTrue(mechanism.ParameterLen == NativeLongUtils.ConvertFromInt32(UnmanagedMemory.SizeOf(typeof(CK_KEY_DERIVATION_STRING_DATA))));
+            Assert.IsTrue(mechanism.ParameterLen == NativeULongUtils.ConvertUInt32FromInt32(UnmanagedMemory.SizeOf(typeof(CK_KEY_DERIVATION_STRING_DATA))));
 
             // Free all unmanaged memory we previously allocated
             UnmanagedMemory.Free(ref parameter.Data);
@@ -117,7 +117,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
             // Free unmanaged memory taken by mechanism parameter
             UnmanagedMemory.Free(ref mechanism.Parameter);
             mechanism.ParameterLen = 0;
-            Assert.IsTrue(mechanism.Mechanism == NativeLongUtils.ConvertFromCKM(CKM.CKM_XOR_BASE_AND_DATA));
+            Assert.IsTrue(mechanism.Mechanism == NativeULongUtils.ConvertUInt32FromCKM(CKM.CKM_XOR_BASE_AND_DATA));
             Assert.IsTrue(mechanism.Parameter == IntPtr.Zero);
             Assert.IsTrue(mechanism.ParameterLen == 0);
         }

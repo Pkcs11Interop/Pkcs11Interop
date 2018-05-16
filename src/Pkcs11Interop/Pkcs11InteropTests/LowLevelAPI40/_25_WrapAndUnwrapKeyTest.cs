@@ -58,7 +58,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeULongUtils.ConvertUInt32FromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -107,7 +107,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
 
                 // Unwrap key
                 NativeULong unwrappedKeyId = 0;
-                rv = pkcs11.C_UnwrapKey(session, ref mechanism, privKeyId, wrappedKey, wrappedKeyLen, template, NativeLongUtils.ConvertFromInt32(template.Length), ref unwrappedKeyId);
+                rv = pkcs11.C_UnwrapKey(session, ref mechanism, privKeyId, wrappedKey, wrappedKeyLen, template, NativeULongUtils.ConvertUInt32FromInt32(template.Length), ref unwrappedKeyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 

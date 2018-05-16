@@ -55,8 +55,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 
                 int nativeULongSize = UnmanagedMemory.SizeOf(typeof(NativeULong));
                 byte[] outputLenBytes = UnmanagedMemory.Read(_lowLevelStruct.OutputLen, nativeULongSize);
-                NativeULong outputLen = NativeLongUtils.ConvertFromByteArray(outputLenBytes);
-                return UnmanagedMemory.Read(_lowLevelStruct.Output, NativeLongUtils.ConvertToInt32(outputLen));
+                NativeULong outputLen = NativeULongUtils.ConvertUInt64FromByteArray(outputLenBytes);
+                return UnmanagedMemory.Read(_lowLevelStruct.Output, NativeULongUtils.ConvertUInt64ToInt32(outputLen));
             }
         }
 
@@ -79,22 +79,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
             {
                 _lowLevelStruct.Seed = UnmanagedMemory.Allocate(seed.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Seed, seed);
-                _lowLevelStruct.SeedLen = NativeLongUtils.ConvertFromInt32(seed.Length);
+                _lowLevelStruct.SeedLen = NativeULongUtils.ConvertUInt64FromInt32(seed.Length);
             }
             
             if (label != null)
             {
                 _lowLevelStruct.Label = UnmanagedMemory.Allocate(label.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Label, label);
-                _lowLevelStruct.LabelLen = NativeLongUtils.ConvertFromInt32(label.Length);
+                _lowLevelStruct.LabelLen = NativeULongUtils.ConvertUInt64FromInt32(label.Length);
             }
 
             if (outputLen < 1)
                 throw new ArgumentException("Value has to be positive number", "outputLen");
 
-            _lowLevelStruct.Output = UnmanagedMemory.Allocate(NativeLongUtils.ConvertToInt32(outputLen));
+            _lowLevelStruct.Output = UnmanagedMemory.Allocate(NativeULongUtils.ConvertUInt64ToInt32(outputLen));
 
-            byte[] outputLenBytes = NativeLongUtils.ConvertToByteArray(outputLen);
+            byte[] outputLenBytes = NativeULongUtils.ConvertUInt64ToByteArray(outputLen);
             _lowLevelStruct.OutputLen = UnmanagedMemory.Allocate(outputLenBytes.Length);
             UnmanagedMemory.Write(_lowLevelStruct.OutputLen, outputLenBytes);
         }

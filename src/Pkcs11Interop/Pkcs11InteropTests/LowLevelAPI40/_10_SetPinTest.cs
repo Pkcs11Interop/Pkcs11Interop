@@ -59,12 +59,12 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeULongUtils.ConvertUInt32FromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Set new pin for the logged in user
-                rv = pkcs11.C_SetPIN(session, Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length), Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_SetPIN(session, Settings.NormalUserPinArray, NativeULongUtils.ConvertUInt32FromInt32(Settings.NormalUserPinArray.Length), Settings.NormalUserPinArray, NativeULongUtils.ConvertUInt32FromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 

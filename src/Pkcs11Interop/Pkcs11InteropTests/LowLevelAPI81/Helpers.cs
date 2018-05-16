@@ -125,7 +125,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
             template[4] = CkaUtils.CreateAttribute(CKA.CKA_VALUE, "Data object content");
             
             // Create object
-            rv = pkcs11.C_CreateObject(session, template, NativeLongUtils.ConvertFromInt32(template.Length), ref objectId);
+            rv = pkcs11.C_CreateObject(session, template, NativeULongUtils.ConvertUInt64FromInt32(template.Length), ref objectId);
 
             // In LowLevelAPI caller has to free unmanaged memory taken by attributes
             for (int i = 0; i < template.Length; i++)
@@ -161,7 +161,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
             CK_MECHANISM mechanism = CkmUtils.CreateMechanism(CKM.CKM_DES3_KEY_GEN);
             
             // Generate key
-            rv = pkcs11.C_GenerateKey(session, ref mechanism, template, NativeLongUtils.ConvertFromInt32(template.Length), ref keyId);
+            rv = pkcs11.C_GenerateKey(session, ref mechanism, template, NativeULongUtils.ConvertUInt64FromInt32(template.Length), ref keyId);
 
             // In LowLevelAPI we have to free unmanaged memory taken by attributes
             for (int i = 0; i < template.Length; i++)
@@ -187,7 +187,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
 
             // The CKA_ID attribute is intended as a means of distinguishing multiple key pairs held by the same subject
             byte[] ckaId = new byte[20];
-            rv = pkcs11.C_GenerateRandom(session, ckaId, NativeLongUtils.ConvertFromInt32(ckaId.Length));
+            rv = pkcs11.C_GenerateRandom(session, ckaId, NativeULongUtils.ConvertUInt64FromInt32(ckaId.Length));
             if (rv != CKR.CKR_OK)
                 return rv;
             
@@ -220,7 +220,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
             CK_MECHANISM mechanism = CkmUtils.CreateMechanism(CKM.CKM_RSA_PKCS_KEY_PAIR_GEN);
             
             // Generate key pair
-            rv = pkcs11.C_GenerateKeyPair(session, ref mechanism, pubKeyTemplate, NativeLongUtils.ConvertFromInt32(pubKeyTemplate.Length), privKeyTemplate, NativeLongUtils.ConvertFromInt32(privKeyTemplate.Length), ref pubKeyId, ref privKeyId);
+            rv = pkcs11.C_GenerateKeyPair(session, ref mechanism, pubKeyTemplate, NativeULongUtils.ConvertUInt64FromInt32(pubKeyTemplate.Length), privKeyTemplate, NativeULongUtils.ConvertUInt64FromInt32(privKeyTemplate.Length), ref pubKeyId, ref privKeyId);
 
             // In LowLevelAPI we have to free unmanaged memory taken by attributes
             for (int i = 0; i < privKeyTemplate.Length; i++)

@@ -55,7 +55,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             {
                 _lowLevelStruct.Data = UnmanagedMemory.Allocate(data.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Data, data);
-                _lowLevelStruct.Len = NativeLongUtils.ConvertFromInt32(data.Length);
+                _lowLevelStruct.Len = NativeULongUtils.ConvertUInt32FromInt32(data.Length);
             }
         }
 

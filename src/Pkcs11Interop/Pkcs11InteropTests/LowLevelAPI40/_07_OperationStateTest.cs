@@ -75,7 +75,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     Assert.Fail(rv.ToString());
 
                 // Let's set state so the test is complete
-                rv = pkcs11.C_SetOperationState(session, state, NativeLongUtils.ConvertFromInt32(state.Length), CK.CK_INVALID_HANDLE, CK.CK_INVALID_HANDLE);
+                rv = pkcs11.C_SetOperationState(session, state, NativeULongUtils.ConvertUInt32FromInt32(state.Length), CK.CK_INVALID_HANDLE, CK.CK_INVALID_HANDLE);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 

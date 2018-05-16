@@ -19,9 +19,9 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
+using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.HighLevelAPI.Factories;
-using Net.Pkcs11Interop.LowLevelAPI41;
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.Factories
 {
@@ -46,7 +46,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.Factories
         /// <returns>Token-specific identifier for an object</returns>
         public IObjectHandle CreateObjectHandle(ulong objectId)
         {
-            return new ObjectHandle(NativeLongUtils.ConvertFromUInt64(objectId));
+            return new ObjectHandle(NativeULongUtils.ConvertUInt32FromUInt64(objectId));
         }
     }
 }

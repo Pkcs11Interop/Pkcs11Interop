@@ -43,7 +43,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         {
             get
             {
-                return  NativeLongUtils.ConvertToUInt64(_slotId);
+                return  NativeULongUtils.ConvertUInt32ToUInt64(_slotId);
             }
         }
 

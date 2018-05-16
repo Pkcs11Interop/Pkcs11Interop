@@ -57,7 +57,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
                 // Allocate memory for parameters
                 int ckOtpParamSize = UnmanagedMemory.SizeOf(typeof(CK_OTP_PARAM));
                 _lowLevelStruct.Params = UnmanagedMemory.Allocate(ckOtpParamSize * parameters.Count);
-                _lowLevelStruct.Count = NativeLongUtils.ConvertFromInt32(parameters.Count);
+                _lowLevelStruct.Count = NativeULongUtils.ConvertUInt64FromInt32(parameters.Count);
 
                 // Copy paramaters to allocated memory
                 for (int i = 0; i < parameters.Count; i++)

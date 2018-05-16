@@ -23,9 +23,10 @@ for file in $files; do
 	sed -i -e 's/Net.Pkcs11Interop.LowLevelAPI41/Net.Pkcs11Interop.'"$API"'/' $file
 	sed -i -e 's/using NativeULong = System.UInt32;/using NativeULong = System.UInt64;/' $file
 	sed -i -e 's/Pack = 1/Pack = 0/' $file
+	sed -i -e 's/NativeULongUtils.ConvertUInt32/NativeULongUtils.ConvertUInt64/g' $file
 done
-sed -i -e 's/#if true \/\/ DO NOT REMOVE - UInt32/#if false \/\/ DO NOT REMOVE - UInt32/' ./$API/NativeLongUtils.cs
-sed -i -e 's/#if false \/\/ DO NOT REMOVE - UInt64/#if true \/\/ DO NOT REMOVE - UInt64/' ./$API/NativeLongUtils.cs
+#sed -i -e 's/#if true \/\/ DO NOT REMOVE - UInt32/#if false \/\/ DO NOT REMOVE - UInt32/' ./$API/NativeULongUtils.cs
+#sed -i -e 's/#if false \/\/ DO NOT REMOVE - UInt64/#if true \/\/ DO NOT REMOVE - UInt64/' ./$API/NativeULongUtils.cs
 
 API=LowLevelAPI81
 echo "Regenerating $API"
@@ -36,9 +37,10 @@ for file in $files; do
 	echo "  Processing $file"
 	sed -i -e 's/Net.Pkcs11Interop.LowLevelAPI41/Net.Pkcs11Interop.'"$API"'/' $file
 	sed -i -e 's/using NativeULong = System.UInt32;/using NativeULong = System.UInt64;/' $file
+	sed -i -e 's/NativeULongUtils.ConvertUInt32/NativeULongUtils.ConvertUInt64/g' $file
 done
-sed -i -e 's/#if true \/\/ DO NOT REMOVE - UInt32/#if false \/\/ DO NOT REMOVE - UInt32/' ./$API/NativeLongUtils.cs
-sed -i -e 's/#if false \/\/ DO NOT REMOVE - UInt64/#if true \/\/ DO NOT REMOVE - UInt64/' ./$API/NativeLongUtils.cs
+#sed -i -e 's/#if true \/\/ DO NOT REMOVE - UInt32/#if false \/\/ DO NOT REMOVE - UInt32/' ./$API/NativeULongUtils.cs
+#sed -i -e 's/#if false \/\/ DO NOT REMOVE - UInt64/#if true \/\/ DO NOT REMOVE - UInt64/' ./$API/NativeULongUtils.cs
 
 API=HighLevelAPI40
 echo "Regenerating $API"
@@ -61,6 +63,7 @@ for file in $files; do
 	sed -i -e 's/HighLevelAPI41/'"$API"'/g' $file
 	sed -i -e 's/LowLevelAPI41/LowLevelAPI80/g' $file
 	sed -i -e 's/using NativeULong = System.UInt32;/using NativeULong = System.UInt64;/' $file
+	sed -i -e 's/NativeULongUtils.ConvertUInt32/NativeULongUtils.ConvertUInt64/g' $file
 done
 
 API=HighLevelAPI81
@@ -73,4 +76,5 @@ for file in $files; do
 	sed -i -e 's/HighLevelAPI41/'"$API"'/g' $file
 	sed -i -e 's/LowLevelAPI41/LowLevelAPI81/g' $file
 	sed -i -e 's/using NativeULong = System.UInt32;/using NativeULong = System.UInt64;/' $file
+	sed -i -e 's/NativeULongUtils.ConvertUInt32/NativeULongUtils.ConvertUInt64/g' $file
 done

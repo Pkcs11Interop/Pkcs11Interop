@@ -39,7 +39,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <returns>Attribute of given type structure with no value</returns>
         public static CK_ATTRIBUTE CreateAttribute(CKA type)
         {
-            return CreateAttribute(NativeLongUtils.ConvertFromCKA(type));
+            return CreateAttribute(NativeULongUtils.ConvertUInt64FromCKA(type));
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <returns>Attribute of given type with NativeULong value</returns>
         public static CK_ATTRIBUTE CreateAttribute(CKA type, NativeULong value)
         {
-            return CreateAttribute(NativeLongUtils.ConvertFromCKA(type), value);
+            return CreateAttribute(NativeULongUtils.ConvertUInt64FromCKA(type), value);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <returns>Attribute of given type with CKC value</returns>
         public static CK_ATTRIBUTE CreateAttribute(CKA type, CKC value)
         {
-            return CreateAttribute(NativeLongUtils.ConvertFromCKA(type), NativeLongUtils.ConvertFromCKC(value));
+            return CreateAttribute(NativeULongUtils.ConvertUInt64FromCKA(type), NativeULongUtils.ConvertUInt64FromCKC(value));
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <returns>Attribute of given type with CKK value</returns>
         public static CK_ATTRIBUTE CreateAttribute(CKA type, CKK value)
         {
-            return CreateAttribute(NativeLongUtils.ConvertFromCKA(type), NativeLongUtils.ConvertFromCKK(value));
+            return CreateAttribute(NativeULongUtils.ConvertUInt64FromCKA(type), NativeULongUtils.ConvertUInt64FromCKK(value));
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <returns>Attribute of given type with CKO value</returns>
         public static CK_ATTRIBUTE CreateAttribute(CKA type, CKO value)
         {
-            return CreateAttribute(NativeLongUtils.ConvertFromCKA(type), NativeLongUtils.ConvertFromCKO(value));
+            return CreateAttribute(NativeULongUtils.ConvertUInt64FromCKA(type), NativeULongUtils.ConvertUInt64FromCKO(value));
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <returns>Attribute of given type with NativeULong value</returns>
         public static CK_ATTRIBUTE CreateAttribute(NativeULong type, NativeULong value)
         {
-            return _CreateAttribute(type, NativeLongUtils.ConvertToByteArray(value));
+            return _CreateAttribute(type, NativeULongUtils.ConvertUInt64ToByteArray(value));
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         public static void ConvertValue(ref CK_ATTRIBUTE attribute, out NativeULong value)
         {
             byte[] bytes = ConvertValue(ref attribute);
-            value = NativeLongUtils.ConvertFromByteArray(bytes);
+            value = NativeULongUtils.ConvertUInt64FromByteArray(bytes);
         }
 
         #endregion
@@ -134,7 +134,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <returns>Attribute of given type with bool value</returns>
         public static CK_ATTRIBUTE CreateAttribute(CKA type, bool value)
         {
-            return CreateAttribute(NativeLongUtils.ConvertFromCKA(type), value);
+            return CreateAttribute(NativeULongUtils.ConvertUInt64FromCKA(type), value);
         }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <returns>Attribute of given type with string value</returns>
         public static CK_ATTRIBUTE CreateAttribute(CKA type, string value)
         {
-            return CreateAttribute(NativeLongUtils.ConvertFromCKA(type), value);
+            return CreateAttribute(NativeULongUtils.ConvertUInt64FromCKA(type), value);
         }
 
         /// <summary>
@@ -208,7 +208,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <returns>Attribute of given type with byte array value</returns>
         public static CK_ATTRIBUTE CreateAttribute(CKA type, byte[] value)
         {
-            return CreateAttribute(NativeLongUtils.ConvertFromCKA(type), value);
+            return CreateAttribute(NativeULongUtils.ConvertUInt64FromCKA(type), value);
         }
 
         /// <summary>
@@ -246,7 +246,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         {
             // Possible TODO - Implement with nullable DateTime
 
-            return CreateAttribute(NativeLongUtils.ConvertFromCKA(type), value);
+            return CreateAttribute(NativeULongUtils.ConvertUInt64FromCKA(type), value);
         }
 
         /// <summary>
@@ -321,7 +321,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <returns>Attribute of given type with attribute array value</returns>
         public static CK_ATTRIBUTE CreateAttribute(CKA type, CK_ATTRIBUTE[] value)
         {
-            return CreateAttribute(NativeLongUtils.ConvertFromCKA(type), value);
+            return CreateAttribute(NativeULongUtils.ConvertUInt64FromCKA(type), value);
         }
 
         /// <summary>
@@ -343,7 +343,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
                     IntPtr tempPointer = new IntPtr(attribute.value.ToInt64() + (i * ckAttributeSize));
                     UnmanagedMemory.Write(tempPointer, value[i]);
                 }
-                attribute.valueLen = NativeLongUtils.ConvertFromInt32(ckAttributeSize * value.Length);
+                attribute.valueLen = NativeULongUtils.ConvertUInt64FromInt32(ckAttributeSize * value.Length);
             }
             else
             {
@@ -362,8 +362,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         public static void ConvertValue(ref CK_ATTRIBUTE attribute, out CK_ATTRIBUTE[] value)
         {
             int ckAttributeSize = UnmanagedMemory.SizeOf(typeof(CK_ATTRIBUTE));
-            int attrCount = NativeLongUtils.ConvertToInt32(attribute.valueLen) / ckAttributeSize;
-            int attrCountMod = NativeLongUtils.ConvertToInt32(attribute.valueLen) % ckAttributeSize;
+            int attrCount = NativeULongUtils.ConvertUInt64ToInt32(attribute.valueLen) / ckAttributeSize;
+            int attrCountMod = NativeULongUtils.ConvertUInt64ToInt32(attribute.valueLen) % ckAttributeSize;
 
             if (attrCountMod != 0)
                 throw new Exception("Unable to convert attribute value to attribute array");
@@ -398,7 +398,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <returns>Attribute of given type with NativeULong array value</returns>
         public static CK_ATTRIBUTE CreateAttribute(CKA type, NativeULong[] value)
         {
-            return CreateAttribute(NativeLongUtils.ConvertFromCKA(type), value);
+            return CreateAttribute(NativeULongUtils.ConvertUInt64FromCKA(type), value);
         }
 
         /// <summary>
@@ -418,9 +418,9 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
                 for (int i = 0; i < value.Length; i++)
                 {
                     IntPtr tempPointer = new IntPtr(attribute.value.ToInt64() + (i * ckmSize));
-                    UnmanagedMemory.Write(tempPointer, NativeLongUtils.ConvertToByteArray(value[i]));
+                    UnmanagedMemory.Write(tempPointer, NativeULongUtils.ConvertUInt64ToByteArray(value[i]));
                 }
-                attribute.valueLen = NativeLongUtils.ConvertFromInt32(ckmSize * value.Length);
+                attribute.valueLen = NativeULongUtils.ConvertUInt64FromInt32(ckmSize * value.Length);
             }
             else
             {
@@ -439,8 +439,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         public static void ConvertValue(ref CK_ATTRIBUTE attribute, out NativeULong[] value)
         {
             int ckmSize = UnmanagedMemory.SizeOf(typeof(NativeULong));
-            int attrCount = NativeLongUtils.ConvertToInt32(attribute.valueLen) / ckmSize;
-            int attrCountMod = NativeLongUtils.ConvertToInt32(attribute.valueLen) % ckmSize;
+            int attrCount = NativeULongUtils.ConvertUInt64ToInt32(attribute.valueLen) / ckmSize;
+            int attrCountMod = NativeULongUtils.ConvertUInt64ToInt32(attribute.valueLen) % ckmSize;
             
             if (attrCountMod != 0)
                 throw new Exception("Unable to convert attribute value to NativeULong array");
@@ -456,7 +456,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
                 for (int i = 0; i < attrCount; i++)
                 {
                     IntPtr tempPointer = new IntPtr(attribute.value.ToInt64() + (i * ckmSize));
-                    attrs[i] = NativeLongUtils.ConvertFromByteArray(UnmanagedMemory.Read(tempPointer, ckmSize));
+                    attrs[i] = NativeULongUtils.ConvertUInt64FromByteArray(UnmanagedMemory.Read(tempPointer, ckmSize));
                 }
                 
                 value = attrs;
@@ -480,7 +480,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             {
                 nativeULongArray = new NativeULong[value.Length];
                 for (int i = 0; i < value.Length; i++)
-                    nativeULongArray[i] = NativeLongUtils.ConvertFromCKM(value[i]);
+                    nativeULongArray[i] = NativeULongUtils.ConvertUInt64FromCKM(value[i]);
             }
 
             return CreateAttribute(type, nativeULongArray);
@@ -499,7 +499,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             {
                 nativeULongArray = new NativeULong[value.Length];
                 for (int i = 0; i < value.Length; i++)
-                    nativeULongArray[i] = NativeLongUtils.ConvertFromCKM(value[i]);
+                    nativeULongArray[i] = NativeULongUtils.ConvertUInt64FromCKM(value[i]);
             }
 
             return CreateAttribute(type, nativeULongArray);
@@ -520,7 +520,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             {
                 ckmArray = new CKM[nativeULongArray.Length];
                 for (int i = 0; i < nativeULongArray.Length; i++)
-                    ckmArray[i] = NativeLongUtils.ConvertToCKM(nativeULongArray[i]);
+                    ckmArray[i] = NativeULongUtils.ConvertUInt64ToCKM(nativeULongArray[i]);
             }
             value = ckmArray;
         }
@@ -543,7 +543,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             {
                 attribute.value = UnmanagedMemory.Allocate(value.Length);
                 UnmanagedMemory.Write(attribute.value, value);
-                attribute.valueLen = NativeLongUtils.ConvertFromInt32(value.Length);
+                attribute.valueLen = NativeULongUtils.ConvertUInt64FromInt32(value.Length);
             }
             else
             {
@@ -564,7 +564,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             byte[] value = null;
 
             if (attribute.value != IntPtr.Zero)
-                value = UnmanagedMemory.Read(attribute.value, NativeLongUtils.ConvertToInt32(attribute.valueLen));
+                value = UnmanagedMemory.Read(attribute.value, NativeULongUtils.ConvertUInt64ToInt32(attribute.valueLen));
 
             return value;
         }

@@ -58,14 +58,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             {
                 _lowLevelStruct.ClientRandom = UnmanagedMemory.Allocate(clientRandom.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.ClientRandom, clientRandom);
-                _lowLevelStruct.ClientRandomLen = NativeLongUtils.ConvertFromInt32(clientRandom.Length);
+                _lowLevelStruct.ClientRandomLen = NativeULongUtils.ConvertUInt64FromInt32(clientRandom.Length);
             }
 
             if (serverRandom != null)
             {
                 _lowLevelStruct.ServerRandom = UnmanagedMemory.Allocate(serverRandom.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.ServerRandom, serverRandom);
-                _lowLevelStruct.ServerRandomLen = NativeLongUtils.ConvertFromInt32(serverRandom.Length);
+                _lowLevelStruct.ServerRandomLen = NativeULongUtils.ConvertUInt64FromInt32(serverRandom.Length);
             }
         }
         

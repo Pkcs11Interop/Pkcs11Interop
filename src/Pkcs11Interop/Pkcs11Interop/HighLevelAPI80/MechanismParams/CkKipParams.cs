@@ -59,7 +59,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 
             if (mechanism != null)
             {
-                byte[] bytes = NativeLongUtils.ConvertToByteArray(mechanism.Value);
+                byte[] bytes = NativeULongUtils.ConvertUInt64ToByteArray(mechanism.Value);
                 _lowLevelStruct.Mechanism = UnmanagedMemory.Allocate(bytes.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Mechanism, bytes);
             }
@@ -67,13 +67,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             if (key == null)
                 throw new ArgumentNullException("key");
             
-            _lowLevelStruct.Key = NativeLongUtils.ConvertFromUInt64(key.ObjectId);
+            _lowLevelStruct.Key = NativeULongUtils.ConvertUInt64FromUInt64(key.ObjectId);
 
             if (seed != null)
             {
                 _lowLevelStruct.Seed = UnmanagedMemory.Allocate(seed.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Seed, seed);
-                _lowLevelStruct.SeedLen = NativeLongUtils.ConvertFromInt32(seed.Length);
+                _lowLevelStruct.SeedLen = NativeULongUtils.ConvertUInt64FromInt32(seed.Length);
             }
         }
         

@@ -73,14 +73,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
             {
                 _lowLevelStruct.OtherInfo = UnmanagedMemory.Allocate(otherInfo.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.OtherInfo, otherInfo);
-                _lowLevelStruct.OtherInfoLen = NativeLongUtils.ConvertFromInt32(otherInfo.Length);
+                _lowLevelStruct.OtherInfoLen = NativeULongUtils.ConvertUInt32FromInt32(otherInfo.Length);
             }
             
             if (publicData != null)
             {
                 _lowLevelStruct.PublicData = UnmanagedMemory.Allocate(publicData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
-                _lowLevelStruct.PublicDataLen = NativeLongUtils.ConvertFromInt32(publicData.Length);
+                _lowLevelStruct.PublicDataLen = NativeULongUtils.ConvertUInt32FromInt32(publicData.Length);
             }
             
             _lowLevelStruct.PrivateDataLen = privateDataLen;
@@ -88,19 +88,19 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
             if (privateData == null)
                 throw new ArgumentNullException("privateData");
             
-            _lowLevelStruct.PrivateData = NativeLongUtils.ConvertFromUInt64(privateData.ObjectId);
+            _lowLevelStruct.PrivateData = NativeULongUtils.ConvertUInt32FromUInt64(privateData.ObjectId);
             
             if (publicData2 != null)
             {
                 _lowLevelStruct.PublicData2 = UnmanagedMemory.Allocate(publicData2.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.PublicData2, publicData2);
-                _lowLevelStruct.PublicDataLen2 = NativeLongUtils.ConvertFromInt32(publicData2.Length);
+                _lowLevelStruct.PublicDataLen2 = NativeULongUtils.ConvertUInt32FromInt32(publicData2.Length);
             }
             
             if (publicKey == null)
                 throw new ArgumentNullException("publicKey");
             
-            _lowLevelStruct.PublicKey = NativeLongUtils.ConvertFromUInt64(publicKey.ObjectId);
+            _lowLevelStruct.PublicKey = NativeULongUtils.ConvertUInt32FromUInt64(publicKey.ObjectId);
         }
         
         #region IMechanismParams

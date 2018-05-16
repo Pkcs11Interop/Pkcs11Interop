@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
-using Net.Pkcs11Interop.LowLevelAPI40;
 using Net.Pkcs11Interop.Mock.HighLevelAPI;
 using NativeULong = System.UInt32;
 
@@ -98,10 +97,10 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI40
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetUnmanagedStructSizeList", rv);
 
-            if (sizeList.Length != NativeLongUtils.ConvertToInt32(sizeCount))
-                Array.Resize(ref sizeList, NativeLongUtils.ConvertToInt32(sizeCount));
+            if (sizeList.Length != NativeULongUtils.ConvertUInt32ToInt32(sizeCount))
+                Array.Resize(ref sizeList, NativeULongUtils.ConvertUInt32ToInt32(sizeCount));
 
-            ulong[] ulongList = Array.ConvertAll(sizeList, p => NativeLongUtils.ConvertToUInt64(p));
+            ulong[] ulongList = Array.ConvertAll(sizeList, p => NativeULongUtils.ConvertUInt32ToUInt64(p));
 
             return new List<ulong>(ulongList);
         }

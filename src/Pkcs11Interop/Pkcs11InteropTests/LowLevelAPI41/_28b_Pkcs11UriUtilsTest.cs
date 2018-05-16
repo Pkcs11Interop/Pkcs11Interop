@@ -448,17 +448,17 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
             Assert.IsTrue(attributes != null);
             Assert.IsTrue(attributes.Length == 3);
 
-            Assert.IsTrue(attributes[0].type == NativeLongUtils.ConvertFromCKA(CKA.CKA_CLASS));
+            Assert.IsTrue(attributes[0].type == NativeULongUtils.ConvertUInt32FromCKA(CKA.CKA_CLASS));
             NativeULong ckaClass = 0;
             CkaUtils.ConvertValue(ref attributes[0], out ckaClass);
-            Assert.IsTrue(ckaClass == NativeLongUtils.ConvertFromCKO(CKO.CKO_PRIVATE_KEY));
+            Assert.IsTrue(ckaClass == NativeULongUtils.ConvertUInt32FromCKO(CKO.CKO_PRIVATE_KEY));
 
-            Assert.IsTrue(attributes[1].type == NativeLongUtils.ConvertFromCKA(CKA.CKA_LABEL));
+            Assert.IsTrue(attributes[1].type == NativeULongUtils.ConvertUInt32FromCKA(CKA.CKA_LABEL));
             string ckaLabel = null;
             CkaUtils.ConvertValue(ref attributes[1], out ckaLabel);
             Assert.IsTrue(ckaLabel == "foo");
 
-            Assert.IsTrue(attributes[2].type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ID));
+            Assert.IsTrue(attributes[2].type == NativeULongUtils.ConvertUInt32FromCKA(CKA.CKA_ID));
             byte[] ckaId = null;
             CkaUtils.ConvertValue(ref attributes[2], out ckaId);
             Assert.IsTrue(Common.Helpers.ByteArraysMatch(ckaId, new byte[] { 0x01, 0x02, 0x03 }));

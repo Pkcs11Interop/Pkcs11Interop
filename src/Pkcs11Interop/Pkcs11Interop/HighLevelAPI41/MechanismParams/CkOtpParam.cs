@@ -53,7 +53,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return NativeLongUtils.ConvertToUInt64(_lowLevelStruct.Type);
+                return NativeULongUtils.ConvertUInt32ToUInt64(_lowLevelStruct.Type);
             }
         }
 
@@ -67,7 +67,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (_lowLevelStruct.Value == IntPtr.Zero) ? null : UnmanagedMemory.Read(_lowLevelStruct.Value, NativeLongUtils.ConvertToInt32(_lowLevelStruct.ValueLen));
+                return (_lowLevelStruct.Value == IntPtr.Zero) ? null : UnmanagedMemory.Read(_lowLevelStruct.Value, NativeULongUtils.ConvertUInt32ToInt32(_lowLevelStruct.ValueLen));
             }
         }
 
@@ -88,7 +88,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
             {
                 _lowLevelStruct.Value = UnmanagedMemory.Allocate(value.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Value, value);
-                _lowLevelStruct.ValueLen = NativeLongUtils.ConvertFromInt32(value.Length);
+                _lowLevelStruct.ValueLen = NativeULongUtils.ConvertUInt32FromInt32(value.Length);
             }
         }
         

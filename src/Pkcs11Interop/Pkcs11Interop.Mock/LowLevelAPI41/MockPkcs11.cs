@@ -88,7 +88,7 @@ namespace Net.Pkcs11Interop.Mock.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _mockDelegates.C_GetUnmanagedStructSizeList(sizeList, ref count);
-            return NativeLongUtils.ConvertToCKR(rv);
+            return NativeULongUtils.ConvertUInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace Net.Pkcs11Interop.Mock.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _mockDelegates.C_EjectToken(slotId);
-            return NativeLongUtils.ConvertToCKR(rv);
+            return NativeULongUtils.ConvertUInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace Net.Pkcs11Interop.Mock.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _mockDelegates.C_InteractiveLogin(session);
-            return NativeLongUtils.ConvertToCKR(rv);
+            return NativeULongUtils.ConvertUInt32ToCKR(rv);
         }
     }
 }

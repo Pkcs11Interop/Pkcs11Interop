@@ -66,7 +66,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
             {
                 _lowLevelStruct.SourceData = UnmanagedMemory.Allocate(sourceData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.SourceData, sourceData);
-                _lowLevelStruct.SourceDataLen = NativeLongUtils.ConvertFromInt32(sourceData.Length);
+                _lowLevelStruct.SourceDataLen = NativeULongUtils.ConvertUInt64FromInt32(sourceData.Length);
             }
         }
 

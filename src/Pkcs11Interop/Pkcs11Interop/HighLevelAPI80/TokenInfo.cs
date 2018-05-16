@@ -44,7 +44,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         {
             get
             {
-                return NativeLongUtils.ConvertToUInt64(_slotId);
+                return NativeULongUtils.ConvertUInt64ToUInt64(_slotId);
             }
         }
 
@@ -140,7 +140,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         {
             get
             {
-                return NativeLongUtils.ConvertToUInt64(_maxSessionCount);
+                return NativeULongUtils.ConvertUInt64ToUInt64(_maxSessionCount);
             }
         }
 
@@ -156,7 +156,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         {
             get
             {
-                return NativeLongUtils.ConvertToUInt64(_sessionCount);
+                return NativeULongUtils.ConvertUInt64ToUInt64(_sessionCount);
             }
         }
 
@@ -172,7 +172,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         {
             get
             {
-                return NativeLongUtils.ConvertToUInt64(_maxRwSessionCount);
+                return NativeULongUtils.ConvertUInt64ToUInt64(_maxRwSessionCount);
             }
         }
 
@@ -188,7 +188,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         {
             get
             {
-                return NativeLongUtils.ConvertToUInt64(_rwSessionCount);
+                return NativeULongUtils.ConvertUInt64ToUInt64(_rwSessionCount);
             }
         }
 
@@ -204,7 +204,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         {
             get
             {
-                return NativeLongUtils.ConvertToUInt64(_maxPinLen);
+                return NativeULongUtils.ConvertUInt64ToUInt64(_maxPinLen);
             }
         }
 
@@ -220,7 +220,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         {
             get
             {
-                return NativeLongUtils.ConvertToUInt64(_minPinLen);
+                return NativeULongUtils.ConvertUInt64ToUInt64(_minPinLen);
             }
         }
 
@@ -236,7 +236,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         {
             get
             {
-                return NativeLongUtils.ConvertToUInt64(_totalPublicMemory);
+                return NativeULongUtils.ConvertUInt64ToUInt64(_totalPublicMemory);
             }
         }
 
@@ -252,7 +252,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         {
             get
             {
-                return NativeLongUtils.ConvertToUInt64(_freePublicMemory);
+                return NativeULongUtils.ConvertUInt64ToUInt64(_freePublicMemory);
             }
         }
 
@@ -268,7 +268,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         {
             get
             {
-                return NativeLongUtils.ConvertToUInt64(_totalPrivateMemory);
+                return NativeULongUtils.ConvertUInt64ToUInt64(_totalPrivateMemory);
             }
         }
 
@@ -284,7 +284,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         {
             get
             {
-                return NativeLongUtils.ConvertToUInt64(_freePrivateMemory);
+                return NativeULongUtils.ConvertUInt64ToUInt64(_freePrivateMemory);
             }
         }
 

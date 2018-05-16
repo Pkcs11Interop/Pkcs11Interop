@@ -128,7 +128,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                 // Login as normal user with PIN acquired from URI
                 byte[] pinValue = ConvertUtils.Utf8StringToBytes(pkcs11Uri.PinValue);
 
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, pinValue, NativeLongUtils.ConvertFromInt32(pinValue.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, pinValue, NativeULongUtils.ConvertUInt32FromInt32(pinValue.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -141,11 +141,11 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                 NativeULong foundObjectCount = 0;
                 NativeULong[] foundObjectIds = new NativeULong[] { CK.CK_INVALID_HANDLE };
 
-                rv = pkcs11.C_FindObjectsInit(session, attributes, NativeLongUtils.ConvertFromInt32(attributes.Length));
+                rv = pkcs11.C_FindObjectsInit(session, attributes, NativeULongUtils.ConvertUInt32FromInt32(attributes.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
-                rv = pkcs11.C_FindObjects(session, foundObjectIds, NativeLongUtils.ConvertFromInt32(foundObjectIds.Length), ref foundObjectCount);
+                rv = pkcs11.C_FindObjects(session, foundObjectIds, NativeULongUtils.ConvertUInt32FromInt32(foundObjectIds.Length), ref foundObjectCount);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -165,7 +165,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
 
                 NativeULong signatureLen = 0;
 
-                rv = pkcs11.C_Sign(session, data, NativeLongUtils.ConvertFromInt32(data.Length), null, ref signatureLen);
+                rv = pkcs11.C_Sign(session, data, NativeULongUtils.ConvertUInt32FromInt32(data.Length), null, ref signatureLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -173,12 +173,12 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
 
                 byte[] signature = new byte[signatureLen];
 
-                rv = pkcs11.C_Sign(session, data, NativeLongUtils.ConvertFromInt32(data.Length), signature, ref signatureLen);
+                rv = pkcs11.C_Sign(session, data, NativeULongUtils.ConvertUInt32FromInt32(data.Length), signature, ref signatureLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
-                if (signature.Length != NativeLongUtils.ConvertToInt32(signatureLen))
-                    Array.Resize(ref signature, NativeLongUtils.ConvertToInt32(signatureLen));
+                if (signature.Length != NativeULongUtils.ConvertUInt32ToInt32(signatureLen))
+                    Array.Resize(ref signature, NativeULongUtils.ConvertUInt32ToInt32(signatureLen));
 
                 // Release PKCS#11 resources
                 rv = pkcs11.C_Logout(session);

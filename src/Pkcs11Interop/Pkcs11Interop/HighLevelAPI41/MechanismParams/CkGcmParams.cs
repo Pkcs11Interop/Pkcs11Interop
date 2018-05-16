@@ -63,7 +63,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
             {
                 _lowLevelStruct.Iv = UnmanagedMemory.Allocate(iv.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Iv, iv);
-                _lowLevelStruct.IvLen = NativeLongUtils.ConvertFromInt32(iv.Length);
+                _lowLevelStruct.IvLen = NativeULongUtils.ConvertUInt32FromInt32(iv.Length);
             }
 
             _lowLevelStruct.IvBits = ivBits;
@@ -72,7 +72,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
             {
                 _lowLevelStruct.AAD = UnmanagedMemory.Allocate(aad.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.AAD, aad);
-                _lowLevelStruct.AADLen = NativeLongUtils.ConvertFromInt32(aad.Length);
+                _lowLevelStruct.AADLen = NativeULongUtils.ConvertUInt32FromInt32(aad.Length);
             }
 
             _lowLevelStruct.TagBits = tagBits;
