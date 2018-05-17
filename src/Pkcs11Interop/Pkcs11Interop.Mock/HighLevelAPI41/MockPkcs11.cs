@@ -104,5 +104,14 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI41
 
             return new List<ulong>(ulongList);
         }
+
+        /// <summary>
+        /// Disposes object
+        /// </summary>
+        /// <param name="disposing">Flag indicating whether managed resources should be disposed</param>
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose();
+        }
     }
 }

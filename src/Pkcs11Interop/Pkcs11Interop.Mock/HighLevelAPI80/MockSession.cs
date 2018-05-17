@@ -19,6 +19,7 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
+using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.Mock.HighLevelAPI;
@@ -49,9 +50,21 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI80
         /// <param name="session">Instance of the extended class</param>
         public void InteractiveLogin()
         {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
             CKR rv = ((LowLevelAPI80.MockPkcs11)_p11).C_InteractiveLogin(_sessionId);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_InteractiveLogin", rv);
+        }
+
+        /// <summary>
+        /// Disposes object
+        /// </summary>
+        /// <param name="disposing">Flag indicating whether managed resources should be disposed</param>
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose();
         }
     }
 }
