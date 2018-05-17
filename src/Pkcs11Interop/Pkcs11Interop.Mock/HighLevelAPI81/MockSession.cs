@@ -64,7 +64,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI81
         /// <param name="disposing">Flag indicating whether managed resources should be disposed</param>
         protected override void Dispose(bool disposing)
         {
-            base.Dispose();
+            base.Dispose(disposing);
         }
     }
 }
