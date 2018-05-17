@@ -380,13 +380,13 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             Assert.IsTrue(attributes != null);
             Assert.IsTrue(attributes.Count == 3);
 
-            Assert.IsTrue(attributes[0].Type == (ulong)CKA.CKA_CLASS);
-            Assert.IsTrue(attributes[0].GetValueAsUlong() == (ulong)CKO.CKO_PRIVATE_KEY);
+            Assert.IsTrue(attributes[0].Type == NativeULongUtils.ConvertUInt64FromCKA(CKA.CKA_CLASS));
+            Assert.IsTrue(attributes[0].GetValueAsUlong() == NativeULongUtils.ConvertUInt64FromCKO(CKO.CKO_PRIVATE_KEY));
 
-            Assert.IsTrue(attributes[1].Type == (ulong)CKA.CKA_LABEL);
+            Assert.IsTrue(attributes[1].Type == NativeULongUtils.ConvertUInt64FromCKA(CKA.CKA_LABEL));
             Assert.IsTrue(attributes[1].GetValueAsString() == "foo");
 
-            Assert.IsTrue(attributes[2].Type == (ulong)CKA.CKA_ID);
+            Assert.IsTrue(attributes[2].Type == NativeULongUtils.ConvertUInt64FromCKA(CKA.CKA_ID));
             Assert.IsTrue(Common.Helpers.ByteArraysMatch(attributes[2].GetValueAsByteArray(), new byte[] { 0x01, 0x02, 0x03 }));
         }
     }

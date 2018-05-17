@@ -165,7 +165,12 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     Helpers.GenerateKeyPair(session, out publicKey, out privateKey);
 
                     // Specify mechanism parameters
-                    ICkRsaPkcsOaepParams mechanismParams = Settings.Factories.MechanismParamsFactory.CreateCkRsaPkcsOaepParams((ulong)CKM.CKM_SHA_1, (ulong)CKG.CKG_MGF1_SHA1, (ulong)CKZ.CKZ_DATA_SPECIFIED, null);
+                    ICkRsaPkcsOaepParams mechanismParams = Settings.Factories.MechanismParamsFactory.CreateCkRsaPkcsOaepParams(
+                        NativeULongUtils.ConvertUInt64FromCKM(CKM.CKM_SHA_1),
+                        NativeULongUtils.ConvertUInt64FromCKG(CKG.CKG_MGF1_SHA1),
+                        NativeULongUtils.ConvertUInt64FromUInt32(CKZ.CKZ_DATA_SPECIFIED), 
+                        null
+                    );
 
                     // Specify encryption mechanism with parameters
                     IMechanism mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_RSA_PKCS_OAEP, mechanismParams);
