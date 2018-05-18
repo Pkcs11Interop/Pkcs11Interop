@@ -26,7 +26,7 @@ using Net.Pkcs11Interop.Common;
 namespace Net.Pkcs11Interop.HighLevelAPI.Factories
 {
     /// <summary>
-    /// Factory for creation of IObjectAttribute instances
+    /// Developer uses this factory to create correct IObjectAttribute instances.
     /// </summary>
     public class ObjectAttributeFactory : IObjectAttributeFactory
     {

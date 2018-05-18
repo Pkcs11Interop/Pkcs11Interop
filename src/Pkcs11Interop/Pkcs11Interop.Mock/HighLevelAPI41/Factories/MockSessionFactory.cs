@@ -34,7 +34,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI41.Factories
         /// <summary>
         /// Initializes session with specified handle
         /// </summary>
-        /// <param name="factories">Factories used by Pkcs11Interop library</param>
+        /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
         /// <param name="sessionId">PKCS#11 handle of session</param>
         public ISession CreateSession(Pkcs11Factories factories, LowLevelPkcs11 pkcs11, ulong sessionId)

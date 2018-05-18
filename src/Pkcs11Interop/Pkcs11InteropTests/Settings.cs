@@ -39,7 +39,7 @@ namespace Net.Pkcs11Interop.Tests
         #region Properties that almost always need to be configured before the tests are executed
 
         /// <summary>
-        /// Factories used by Pkcs11Interop library
+        /// Factories to be used by Developer and Pkcs11Interop library
         /// </summary>
         public static Pkcs11Factories Factories = new Pkcs11Factories();
 

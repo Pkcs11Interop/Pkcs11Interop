@@ -27,7 +27,7 @@ using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 namespace Net.Pkcs11Interop.HighLevelAPI.Factories
 {
     /// <summary>
-    /// Factory for creation of IMechanismParams instances
+    /// Developer uses this factory to create correct IMechanismParams instances.
     /// </summary>
     public class MechanismParamsFactory : IMechanismParamsFactory
     {

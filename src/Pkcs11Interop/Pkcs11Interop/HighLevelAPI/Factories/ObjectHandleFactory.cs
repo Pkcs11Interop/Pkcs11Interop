@@ -24,7 +24,7 @@ using Net.Pkcs11Interop.Common;
 namespace Net.Pkcs11Interop.HighLevelAPI.Factories
 {
     /// <summary>
-    /// Factory for creation of IObjectHandle instances
+    /// Developer rarely uses this factory to create correct IObjectHandle instances.
     /// </summary>
     public class ObjectHandleFactory : IObjectHandleFactory
     {

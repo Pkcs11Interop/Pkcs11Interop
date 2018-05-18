@@ -34,7 +34,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.Factories
         /// <summary>
         /// Creates slot with specified handle
         /// </summary>
-        /// <param name="factories">Factories used by Pkcs11Interop library</param>
+        /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
         /// <param name="slotId">PKCS#11 handle of slot</param>
         public ISlot CreateSlot(Pkcs11Factories factories, LowLevelPkcs11 pkcs11, ulong slotId)

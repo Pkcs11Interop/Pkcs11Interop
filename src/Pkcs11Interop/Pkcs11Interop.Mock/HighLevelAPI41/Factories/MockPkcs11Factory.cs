@@ -33,7 +33,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI41.Factories
         /// <summary>
         /// Loads and initializes PCKS#11 library
         /// </summary>
-        /// <param name="factories">Factories used by Pkcs11Interop library</param>
+        /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
         /// <returns>High level PKCS#11 wrapper</returns>
@@ -45,7 +45,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI41.Factories
         /// <summary>
         /// Loads and initializes PCKS#11 library
         /// </summary>
-        /// <param name="factories">Factories used by Pkcs11Interop library</param>
+        /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
         /// <param name="initType">Source of PKCS#11 function pointers</param>

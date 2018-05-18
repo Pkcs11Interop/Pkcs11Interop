@@ -39,12 +39,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         protected bool _disposed = false;
 
         /// <summary>
-        /// Factories used by Pkcs11Interop library
+        /// Factories to be used by Developer and Pkcs11Interop library
         /// </summary>
         protected Pkcs11Factories _factories = null;
 
         /// <summary>
-        /// Factories used by Pkcs11Interop library
+        /// Factories to be used by Developer and Pkcs11Interop library
         /// </summary>
         public Pkcs11Factories Factories
         {
@@ -72,7 +72,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Initializes new instance of Pkcs11 class
         /// </summary>
-        /// <param name="factories">Factories used by Pkcs11Interop library</param>
+        /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         protected Pkcs11(Pkcs11Factories factories)
         {
             if (factories == null)
@@ -84,7 +84,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Loads and initializes PCKS#11 library
         /// </summary>
-        /// <param name="factories">Factories used by Pkcs11Interop library</param>
+        /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
         public Pkcs11(Pkcs11Factories factories, string libraryPath, AppType appType)
@@ -106,7 +106,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Loads and initializes PCKS#11 library
         /// </summary>
-        /// <param name="factories">Factories used by Pkcs11Interop library</param>
+        /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
         /// <param name="initType">Source of PKCS#11 function pointers</param>

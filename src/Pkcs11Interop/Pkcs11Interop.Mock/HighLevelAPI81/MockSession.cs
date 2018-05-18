@@ -35,7 +35,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI81
         /// <summary>
         /// Initializes new instance of Session class
         /// </summary>
-        /// <param name="factories">Factories used by Pkcs11Interop library</param>
+        /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
         /// <param name="sessionId">PKCS#11 handle of session</param>
         internal MockSession(Pkcs11Factories factories, LowLevelAPI81.MockPkcs11 pkcs11, ulong sessionId)

@@ -25,7 +25,7 @@ using Net.Pkcs11Interop.HighLevelAPI.Factories;
 namespace Net.Pkcs11Interop.HighLevelAPI
 {
     /// <summary>
-    /// Factories used by Pkcs11Interop library
+    /// Factories to be used by Developer and Pkcs11Interop library
     /// </summary>
     public class Pkcs11Factories
     {
@@ -35,7 +35,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         protected IPkcs11Factory _pkcs11Factory = null;
 
         /// <summary>
-        /// Factory for creation of IPkcs11 instances
+        /// Developer uses this factory to create correct IPkcs11 instances possibly extended with vendor specific methods.
         /// </summary>
         public IPkcs11Factory Pkcs11Factory
         {
@@ -58,7 +58,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         protected ISlotFactory _slotFactory = null;
 
         /// <summary>
-        /// Factory for creation of ISlot instances
+        /// Pkcs11Interop uses this factory to create ISlot instances possibly extended with vendor specific methods.
         /// </summary>
         public ISlotFactory SlotFactory
         {
@@ -81,7 +81,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         protected ISessionFactory _sessionFactory = null;
 
         /// <summary>
-        /// Factory for creation of ISession instances
+        /// Pkcs11Interop uses this factory to create ISession instances possibly extended with vendor specific methods.
         /// </summary>
         public ISessionFactory SessionFactory
         {
@@ -104,7 +104,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         protected IObjectAttributeFactory _objectAttributeFactory = null;
 
         /// <summary>
-        /// Factory for creation of IObjectAttribute instances
+        /// Developer uses this factory to create correct IObjectAttribute instances.
         /// </summary>
         public IObjectAttributeFactory ObjectAttributeFactory
         {
@@ -127,7 +127,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         protected IObjectHandleFactory _objectHandleFactory = null;
 
         /// <summary>
-        /// Factory for creation of IObjectHandle instances
+        /// Developer rarely uses this factory to create correct IObjectHandle instances.
         /// </summary>
         public IObjectHandleFactory ObjectHandleFactory
         {
@@ -150,7 +150,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         protected IMechanismFactory _mechanismFactory = null;
 
         /// <summary>
-        /// Factory for creation of IMechanism instances
+        /// Developer uses this factory to create correct IMechanism instances.
         /// </summary>
         public IMechanismFactory MechanismFactory
         {
@@ -173,7 +173,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         protected IMechanismParamsFactory _mechanismParamsFactory = null;
 
         /// <summary>
-        /// Factory for creation of IMechanismParams instances
+        /// Developer uses this factory to create correct IMechanismParams instances.
         /// </summary>
         public IMechanismParamsFactory MechanismParamsFactory
         {
