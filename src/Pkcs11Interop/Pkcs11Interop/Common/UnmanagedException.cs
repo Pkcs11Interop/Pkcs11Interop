@@ -24,6 +24,8 @@ using System;
 using System.Runtime.Serialization;
 #endif
 
+// Note: Code in this file is maintained manually.
+
 namespace Net.Pkcs11Interop.Common
 {
     /// <summary>

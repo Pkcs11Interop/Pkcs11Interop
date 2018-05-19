@@ -22,6 +22,8 @@
 using System.Collections.Generic;
 using Net.Pkcs11Interop.HighLevelAPI;
 
+// Note: Code in this file is maintained manually.
+
 namespace Net.Pkcs11Interop.Mock.HighLevelAPI
 {
     /// <summary>

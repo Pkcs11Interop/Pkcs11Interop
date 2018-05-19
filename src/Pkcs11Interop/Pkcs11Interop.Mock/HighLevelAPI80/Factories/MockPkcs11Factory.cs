@@ -23,6 +23,8 @@ using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.HighLevelAPI.Factories;
 
+// Note: Code in this file is generated automatically.
+
 namespace Net.Pkcs11Interop.Mock.HighLevelAPI80.Factories
 {
     /// <summary>

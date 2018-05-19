@@ -22,6 +22,8 @@
 using System;
 using System.Collections.Generic;
 
+// Note: Code in this file is maintained manually.
+
 namespace Net.Pkcs11Interop.HighLevelAPI.MechanismParams
 {
     /// <summary>

@@ -25,6 +25,8 @@ using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
 using NativeULong = System.UInt64;
 
+// Note: Code in this file is generated automatically.
+
 namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 {
     /// <summary>

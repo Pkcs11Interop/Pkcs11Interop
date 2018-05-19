@@ -25,6 +25,8 @@ using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.Mock.HighLevelAPI;
 using NativeULong = System.UInt32;
 
+// Note: Code in this file is maintained manually.
+
 namespace Net.Pkcs11Interop.Mock.HighLevelAPI41
 {
     /// <summary>

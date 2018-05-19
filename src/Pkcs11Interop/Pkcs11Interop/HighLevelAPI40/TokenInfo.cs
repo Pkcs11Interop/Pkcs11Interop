@@ -25,6 +25,8 @@ using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.LowLevelAPI40;
 using NativeULong = System.UInt32;
 
+// Note: Code in this file is generated automatically.
+
 namespace Net.Pkcs11Interop.HighLevelAPI40
 {
     /// <summary>

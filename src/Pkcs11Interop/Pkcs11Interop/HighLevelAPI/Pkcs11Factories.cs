@@ -22,6 +22,8 @@
 using System;
 using Net.Pkcs11Interop.HighLevelAPI.Factories;
 
+// Note: Code in this file is maintained manually.
+
 namespace Net.Pkcs11Interop.HighLevelAPI
 {
     /// <summary>

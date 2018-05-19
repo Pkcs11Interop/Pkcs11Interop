@@ -20,9 +20,10 @@
  */
 
 using System;
-using System.Runtime.InteropServices;
 using Net.Pkcs11Interop.Common;
 using NativeULong = System.UInt64;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.LowLevelAPI80
 {

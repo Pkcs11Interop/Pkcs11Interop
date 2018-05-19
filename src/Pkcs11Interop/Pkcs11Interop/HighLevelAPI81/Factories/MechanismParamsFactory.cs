@@ -26,6 +26,8 @@ using Net.Pkcs11Interop.HighLevelAPI.Factories;
 using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.HighLevelAPI81.MechanismParams;
 
+// Note: Code in this file is generated automatically.
+
 namespace Net.Pkcs11Interop.HighLevelAPI81.Factories
 {
     /// <summary>

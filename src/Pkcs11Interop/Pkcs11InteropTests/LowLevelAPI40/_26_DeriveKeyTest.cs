@@ -26,6 +26,8 @@ using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
 using NUnit.Framework;
 using NativeULong = System.UInt32;
 
+// Note: Code in this file is generated automatically.
+
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
 {
     /// <summary>

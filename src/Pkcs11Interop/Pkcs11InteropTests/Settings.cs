@@ -29,6 +29,8 @@ using LLA41 = Net.Pkcs11Interop.LowLevelAPI41;
 using LLA80 = Net.Pkcs11Interop.LowLevelAPI80;
 using LLA81 = Net.Pkcs11Interop.LowLevelAPI81;
 
+// Note: Code in this file is maintained manually.
+
 namespace Net.Pkcs11Interop.Tests
 {
     /// <summary>

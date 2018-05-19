@@ -24,6 +24,8 @@ using System.Runtime.InteropServices;
 using Net.Pkcs11Interop.Common;
 using NativeULong = System.UInt32;
 
+// Note: Code in this file is generated automatically.
+
 namespace Net.Pkcs11Interop.Mock.LowLevelAPI40
 {
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]

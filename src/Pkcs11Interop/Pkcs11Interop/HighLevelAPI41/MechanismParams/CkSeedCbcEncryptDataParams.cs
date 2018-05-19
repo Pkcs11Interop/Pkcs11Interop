@@ -22,8 +22,9 @@
 using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
-using Net.Pkcs11Interop.LowLevelAPI41;
 using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
+
+// Note: Code in this file is maintained manually.
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {

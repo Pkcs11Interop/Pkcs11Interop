@@ -24,6 +24,8 @@ using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.LowLevelAPI81;
 using NativeULong = System.UInt64;
 
+// Note: Code in this file is generated automatically.
+
 namespace Net.Pkcs11Interop.Mock.LowLevelAPI81
 {
     /// <summary>

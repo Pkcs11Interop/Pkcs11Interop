@@ -22,6 +22,8 @@
 using System.Runtime.InteropServices;
 using NativeULong = System.UInt32;
 
+// Note: Code in this file is maintained manually.
+
 namespace Net.Pkcs11Interop.LowLevelAPI41.MechanismParams
 {
     /// <summary>

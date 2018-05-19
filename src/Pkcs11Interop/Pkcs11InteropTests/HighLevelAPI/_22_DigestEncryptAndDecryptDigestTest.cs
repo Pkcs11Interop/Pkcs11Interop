@@ -19,10 +19,11 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
-using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
 using NUnit.Framework;
+
+// Note: Code in this file is maintained manually.
 
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 {

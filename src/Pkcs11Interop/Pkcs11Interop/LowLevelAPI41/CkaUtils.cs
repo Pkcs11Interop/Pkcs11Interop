@@ -23,6 +23,8 @@ using System;
 using Net.Pkcs11Interop.Common;
 using NativeULong = System.UInt32;
 
+// Note: Code in this file is maintained manually.
+
 namespace Net.Pkcs11Interop.LowLevelAPI41
 {
     /// <summary>

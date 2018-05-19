@@ -26,6 +26,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 using Net.Pkcs11Interop.Common;
 using NUnit.Framework;
 
+// Note: Code in this file is maintained manually.
+
 namespace Net.Pkcs11Interop.Tests.Common
 {
     /// <summary>

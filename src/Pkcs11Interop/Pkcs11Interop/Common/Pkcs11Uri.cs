@@ -24,6 +24,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
+// Note: Code in this file is maintained manually.
+
 namespace Net.Pkcs11Interop.Common
 {
     /// <summary>

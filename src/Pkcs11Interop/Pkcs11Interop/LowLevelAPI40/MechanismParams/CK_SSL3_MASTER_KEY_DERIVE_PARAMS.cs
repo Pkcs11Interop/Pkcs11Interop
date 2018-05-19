@@ -22,6 +22,8 @@
 using System;
 using System.Runtime.InteropServices;
 
+// Note: Code in this file is generated automatically.
+
 namespace Net.Pkcs11Interop.LowLevelAPI40.MechanismParams
 {
     /// <summary>

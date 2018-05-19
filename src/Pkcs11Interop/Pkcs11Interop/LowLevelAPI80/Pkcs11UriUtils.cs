@@ -19,10 +19,12 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
-using Net.Pkcs11Interop.Common;
 using System;
 using System.Collections.Generic;
+using Net.Pkcs11Interop.Common;
 using NativeULong = System.UInt64;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.LowLevelAPI80
 {

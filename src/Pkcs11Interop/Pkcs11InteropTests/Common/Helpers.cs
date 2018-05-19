@@ -19,6 +19,10 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
+using System;
+
+// Note: Code in this file is maintained manually.
+
 namespace Net.Pkcs11Interop.Tests.Common
 {
     /// <summary>

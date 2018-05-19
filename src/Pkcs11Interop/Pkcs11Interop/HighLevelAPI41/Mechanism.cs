@@ -25,6 +25,8 @@ using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI41;
 
+// Note: Code in this file is maintained manually.
+
 namespace Net.Pkcs11Interop.HighLevelAPI41
 {
     /// <summary>
