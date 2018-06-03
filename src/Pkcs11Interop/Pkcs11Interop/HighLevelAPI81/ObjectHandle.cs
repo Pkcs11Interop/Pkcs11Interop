@@ -60,9 +60,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// Initializes new instance of ObjectHandle class
         /// </summary>
         /// <param name="objectId">PKCS#11 handle of object</param>
-        public ObjectHandle(NativeULong objectId)
+        public ObjectHandle(ulong objectId)
         {
-            _objectId = objectId;
+            _objectId = NativeULongUtils.ConvertUInt64FromUInt64(objectId);
         }
     }
 }

@@ -48,7 +48,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.Factories
         /// <returns>Token-specific identifier for an object</returns>
         public IObjectHandle CreateObjectHandle(ulong objectId)
         {
-            return new ObjectHandle(NativeULongUtils.ConvertUInt64FromUInt64(objectId));
+            return new ObjectHandle(objectId);
         }
     }
 }
