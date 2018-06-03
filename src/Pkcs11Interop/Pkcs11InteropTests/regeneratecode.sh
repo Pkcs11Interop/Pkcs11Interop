@@ -14,7 +14,7 @@ for file in $files; do
 	sed -i -e 's/Net.Pkcs11Interop.Tests.LowLevelAPI41/Net.Pkcs11Interop.Tests.'"$API"'/' $file
 	sed -i -e 's/Settings.InitArgs41/Settings.InitArgs40/' $file
 done
-sed -i -e 's/(Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 1)/(Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 0)/' ./$API/Helpers.cs
+sed -i -e 's/(Platform.NativeULongSize != 4 || Platform.StructPackingSize != 1)/(Platform.NativeULongSize != 4 || Platform.StructPackingSize != 0)/' ./$API/Helpers.cs
 
 API=LowLevelAPI80
 echo "Regenerating $API"
@@ -30,7 +30,7 @@ for file in $files; do
 	sed -i -e 's/using NativeULong = System.UInt32;/using NativeULong = System.UInt64;/' $file
 	sed -i -e 's/NativeULongUtils.ConvertUInt32/NativeULongUtils.ConvertUInt64/g' $file
 done
-sed -i -e 's/(Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 1)/(Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 0)/' ./$API/Helpers.cs
+sed -i -e 's/(Platform.NativeULongSize != 4 || Platform.StructPackingSize != 1)/(Platform.NativeULongSize != 8 || Platform.StructPackingSize != 0)/' ./$API/Helpers.cs
 
 API=LowLevelAPI81
 echo "Regenerating $API"
@@ -46,4 +46,4 @@ for file in $files; do
 	sed -i -e 's/using NativeULong = System.UInt32;/using NativeULong = System.UInt64;/' $file
 	sed -i -e 's/NativeULongUtils.ConvertUInt32/NativeULongUtils.ConvertUInt64/g' $file
 done
-sed -i -e 's/(Platform.UnmanagedLongSize != 4 || Platform.StructPackingSize != 1)/(Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)/' ./$API/Helpers.cs
+sed -i -e 's/(Platform.NativeULongSize != 4 || Platform.StructPackingSize != 1)/(Platform.NativeULongSize != 8 || Platform.StructPackingSize != 1)/' ./$API/Helpers.cs

@@ -42,7 +42,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI.Factories
         /// </summary>
         public MockPkcs11Factory()
         {
-            if (Platform.UnmanagedLongSize == 4)
+            if (Platform.NativeULongSize == 4)
             {
                 if (Platform.StructPackingSize == 0)
                     _factory = new HighLevelAPI40.Factories.MockPkcs11Factory();

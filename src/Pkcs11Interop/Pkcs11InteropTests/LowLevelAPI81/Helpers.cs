@@ -39,7 +39,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
         /// </summary>
         public static void CheckPlatform()
         {
-            if (Platform.UnmanagedLongSize != 8 || Platform.StructPackingSize != 1)
+            if (Platform.NativeULongSize != 8 || Platform.StructPackingSize != 1)
                 Assert.Inconclusive("Test cannot be executed on this platform");
         }
 

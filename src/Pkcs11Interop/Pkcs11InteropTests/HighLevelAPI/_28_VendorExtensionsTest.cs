@@ -122,7 +122,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         {
             List<ulong> sizeList = new List<ulong>();
 
-            if (Platform.UnmanagedLongSize == 4)
+            if (Platform.NativeULongSize == 4)
             {
                 if (Platform.StructPackingSize == 0)
                 {

@@ -97,7 +97,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             Assert.IsTrue(mechanism.Type == NativeULongUtils.ConvertUInt64FromCKM(CKM.CKM_RSA_PKCS));
 
             // We access private Mechanism member just for the testing purposes
-            if (Platform.UnmanagedLongSize == 4)
+            if (Platform.NativeULongSize == 4)
             {
                 if (Platform.StructPackingSize == 0)
                 {
@@ -152,7 +152,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             Assert.IsTrue(mechanism.Type == NativeULongUtils.ConvertUInt64FromCKM(CKM.CKM_AES_CBC));
 
             // We access private members here just for the testing purposes
-            if (Platform.UnmanagedLongSize == 4)
+            if (Platform.NativeULongSize == 4)
             {
                 if (Platform.StructPackingSize == 0)
                 {
@@ -198,7 +198,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             Assert.IsTrue(mechanism.Type == NativeULongUtils.ConvertUInt64FromCKM(CKM.CKM_AES_CBC));
 
             // We access private members here just for the testing purposes
-            if (Platform.UnmanagedLongSize == 4)
+            if (Platform.NativeULongSize == 4)
             {
                 if (Platform.StructPackingSize == 0)
                 {
@@ -256,7 +256,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             Assert.IsTrue(mechanism.Type == NativeULongUtils.ConvertUInt64FromCKM(CKM.CKM_XOR_BASE_AND_DATA));
 
             // We access private Mechanism member here just for the testing purposes
-            if (Platform.UnmanagedLongSize == 4)
+            if (Platform.NativeULongSize == 4)
             {
                 if (Platform.StructPackingSize == 0)
                 {

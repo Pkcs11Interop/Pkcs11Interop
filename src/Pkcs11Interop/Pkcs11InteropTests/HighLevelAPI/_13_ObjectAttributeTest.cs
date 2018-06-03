@@ -219,7 +219,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 Assert.IsTrue(recoveredValue[1].GetValueAsBool() == true);
             }
 
-            if (Platform.UnmanagedLongSize == 4)
+            if (Platform.NativeULongSize == 4)
             {
                 if (Platform.StructPackingSize == 0)
                 {

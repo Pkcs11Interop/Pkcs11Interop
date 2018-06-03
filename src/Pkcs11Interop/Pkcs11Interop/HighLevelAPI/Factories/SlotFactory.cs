@@ -40,7 +40,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// </summary>
         public SlotFactory()
         {
-            if (Platform.UnmanagedLongSize == 4)
+            if (Platform.NativeULongSize == 4)
             {
                 if (Platform.StructPackingSize == 0)
                     _factory = new HighLevelAPI40.Factories.SlotFactory();
