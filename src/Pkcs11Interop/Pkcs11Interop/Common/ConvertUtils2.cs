@@ -23,7 +23,9 @@ using System;
 
 // Note: Code in this file is maintained manually.
 
-// Note: This file holds the code for NativeULong (UInt32 and UInt64) conversions
+// This file holds the code for NativeULong (UInt32 and UInt64) conversions.
+// LowLevelAPI4* and HighLevelAPI4* APIs use ConvertUtils.UInt32* methods.
+// Code generation script replaces them with ConvertUtils.UInt64* methods in LowLevelAPI8* and HighLevelAPI8* APIs.
 
 namespace Net.Pkcs11Interop.Common
 {
