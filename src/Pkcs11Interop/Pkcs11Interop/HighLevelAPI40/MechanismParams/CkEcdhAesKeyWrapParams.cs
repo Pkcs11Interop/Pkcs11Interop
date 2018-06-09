@@ -64,7 +64,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             {
                 _lowLevelStruct.SharedData = UnmanagedMemory.Allocate(sharedData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.SharedData, sharedData);
-                _lowLevelStruct.SharedDataLen = NativeULongUtils.ConvertUInt32FromInt32(sharedData.Length);
+                _lowLevelStruct.SharedDataLen = NativeULongUtils.GetUInt32FromInt32(sharedData.Length);
             }
         }
 

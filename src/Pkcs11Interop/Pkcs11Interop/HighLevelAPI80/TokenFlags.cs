@@ -44,7 +44,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         {
             get
             {
-                return NativeULongUtils.ConvertUInt64ToUInt64(_flags);
+                return NativeULongUtils.PutUInt64ToUInt64(_flags);
             }
         }
 

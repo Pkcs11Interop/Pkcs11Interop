@@ -66,14 +66,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             {
                 _lowLevelStruct.Nonce = UnmanagedMemory.Allocate(nonce.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Nonce, nonce);
-                _lowLevelStruct.NonceLen = NativeULongUtils.ConvertUInt64FromInt32(nonce.Length);
+                _lowLevelStruct.NonceLen = NativeULongUtils.GetUInt64FromInt32(nonce.Length);
             }
 
             if (aad != null)
             {
                 _lowLevelStruct.AAD = UnmanagedMemory.Allocate(aad.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.AAD, aad);
-                _lowLevelStruct.AADLen = NativeULongUtils.ConvertUInt64FromInt32(aad.Length);
+                _lowLevelStruct.AADLen = NativeULongUtils.GetUInt64FromInt32(aad.Length);
             }
 
             _lowLevelStruct.MACLen = macLen;

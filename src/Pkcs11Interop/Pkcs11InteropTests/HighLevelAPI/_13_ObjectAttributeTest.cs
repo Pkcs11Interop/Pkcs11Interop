@@ -90,7 +90,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             // Create attribute without the value
             using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS))
             {
-                Assert.IsTrue(attr.Type == NativeULongUtils.ConvertUInt64FromCKA(CKA.CKA_CLASS));
+                Assert.IsTrue(attr.Type == NativeULongUtils.GetUInt64FromCKA(CKA.CKA_CLASS));
                 Assert.IsTrue(attr.GetValueAsByteArray() == null);
             }
         }
@@ -101,12 +101,12 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _03_ULongAttributeTest()
         {
-            ulong value = NativeULongUtils.ConvertUInt64FromCKO(CKO.CKO_DATA);
+            ulong value = NativeULongUtils.GetUInt64FromCKO(CKO.CKO_DATA);
 
             // Create attribute with ulong value
             using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, value))
             {
-                Assert.IsTrue(attr.Type == NativeULongUtils.ConvertUInt64FromCKA(CKA.CKA_CLASS));
+                Assert.IsTrue(attr.Type == NativeULongUtils.GetUInt64FromCKA(CKA.CKA_CLASS));
                 Assert.IsTrue(attr.GetValueAsUlong() == value);
             }
         }
@@ -122,7 +122,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             // Create attribute with bool value
             using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_TOKEN, value))
             {
-                Assert.IsTrue(attr.Type == NativeULongUtils.ConvertUInt64FromCKA(CKA.CKA_TOKEN));
+                Assert.IsTrue(attr.Type == NativeULongUtils.GetUInt64FromCKA(CKA.CKA_TOKEN));
                 Assert.IsTrue(attr.GetValueAsBool() == value);
             }
         }
@@ -138,7 +138,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             // Create attribute with string value
             using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_LABEL, value))
             {
-                Assert.IsTrue(attr.Type == NativeULongUtils.ConvertUInt64FromCKA(CKA.CKA_LABEL));
+                Assert.IsTrue(attr.Type == NativeULongUtils.GetUInt64FromCKA(CKA.CKA_LABEL));
                 Assert.IsTrue(attr.GetValueAsString() == value);
             }
 
@@ -147,7 +147,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             // Create attribute with null string value
             using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_LABEL, value))
             {
-                Assert.IsTrue(attr.Type == NativeULongUtils.ConvertUInt64FromCKA(CKA.CKA_LABEL));
+                Assert.IsTrue(attr.Type == NativeULongUtils.GetUInt64FromCKA(CKA.CKA_LABEL));
                 Assert.IsTrue(attr.GetValueAsString() == value);
             }
         }
@@ -163,7 +163,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             // Create attribute with byte array value
             using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ID, value))
             {
-                Assert.IsTrue(attr.Type == NativeULongUtils.ConvertUInt64FromCKA(CKA.CKA_ID));
+                Assert.IsTrue(attr.Type == NativeULongUtils.GetUInt64FromCKA(CKA.CKA_ID));
                 Assert.IsTrue(ConvertUtils.BytesToBase64String(attr.GetValueAsByteArray()) == ConvertUtils.BytesToBase64String(value));
             }
 
@@ -172,7 +172,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             // Create attribute with null byte array value
             using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ID, value))
             {
-                Assert.IsTrue(attr.Type == NativeULongUtils.ConvertUInt64FromCKA(CKA.CKA_ID));
+                Assert.IsTrue(attr.Type == NativeULongUtils.GetUInt64FromCKA(CKA.CKA_ID));
                 Assert.IsTrue(attr.GetValueAsByteArray() == value);
             }
         }
@@ -188,7 +188,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             // Create attribute with DateTime value
             using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_START_DATE, value))
             {
-                Assert.IsTrue(attr.Type == NativeULongUtils.ConvertUInt64FromCKA(CKA.CKA_START_DATE));
+                Assert.IsTrue(attr.Type == NativeULongUtils.GetUInt64FromCKA(CKA.CKA_START_DATE));
                 Assert.IsTrue(attr.GetValueAsDateTime() == value);
             }
         }
@@ -209,13 +209,13 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             // Create attribute with attribute array value
             using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_WRAP_TEMPLATE, originalValue))
             {
-                Assert.IsTrue(attr.Type == NativeULongUtils.ConvertUInt64FromCKA(CKA.CKA_WRAP_TEMPLATE));
+                Assert.IsTrue(attr.Type == NativeULongUtils.GetUInt64FromCKA(CKA.CKA_WRAP_TEMPLATE));
 
                 List<IObjectAttribute> recoveredValue = attr.GetValueAsObjectAttributeList();
                 Assert.IsTrue(recoveredValue.Count == 2);
-                Assert.IsTrue(recoveredValue[0].Type == NativeULongUtils.ConvertUInt64FromCKA(CKA.CKA_TOKEN));
+                Assert.IsTrue(recoveredValue[0].Type == NativeULongUtils.GetUInt64FromCKA(CKA.CKA_TOKEN));
                 Assert.IsTrue(recoveredValue[0].GetValueAsBool() == true);
-                Assert.IsTrue(recoveredValue[1].Type == NativeULongUtils.ConvertUInt64FromCKA(CKA.CKA_PRIVATE));
+                Assert.IsTrue(recoveredValue[1].Type == NativeULongUtils.GetUInt64FromCKA(CKA.CKA_PRIVATE));
                 Assert.IsTrue(recoveredValue[1].GetValueAsBool() == true);
             }
 
@@ -311,7 +311,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             // Create attribute with null attribute array value
             using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_WRAP_TEMPLATE, originalValue))
             {
-                Assert.IsTrue(attr.Type == NativeULongUtils.ConvertUInt64FromCKA(CKA.CKA_WRAP_TEMPLATE));
+                Assert.IsTrue(attr.Type == NativeULongUtils.GetUInt64FromCKA(CKA.CKA_WRAP_TEMPLATE));
                 Assert.IsTrue(attr.GetValueAsObjectAttributeList() == originalValue);
             }
 
@@ -320,7 +320,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             // Create attribute with empty attribute array value
             using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_WRAP_TEMPLATE, originalValue))
             {
-                Assert.IsTrue(attr.Type == NativeULongUtils.ConvertUInt64FromCKA(CKA.CKA_WRAP_TEMPLATE));
+                Assert.IsTrue(attr.Type == NativeULongUtils.GetUInt64FromCKA(CKA.CKA_WRAP_TEMPLATE));
                 Assert.IsTrue(attr.GetValueAsObjectAttributeList() == null);
             }
         }
@@ -338,7 +338,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             // Create attribute with ulong array value
             using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
             {
-                Assert.IsTrue(attr.Type == NativeULongUtils.ConvertUInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
+                Assert.IsTrue(attr.Type == NativeULongUtils.GetUInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
 
                 List<ulong> recoveredValue = attr.GetValueAsULongList();
                 for (int i = 0; i < recoveredValue.Count; i++)
@@ -350,7 +350,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             // Create attribute with null ulong array value
             using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
             {
-                Assert.IsTrue(attr.Type == NativeULongUtils.ConvertUInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
+                Assert.IsTrue(attr.Type == NativeULongUtils.GetUInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
                 Assert.IsTrue(attr.GetValueAsULongList() == originalValue);
             }
 
@@ -359,7 +359,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             // Create attribute with empty ulong array value
             using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
             {
-                Assert.IsTrue(attr.Type == NativeULongUtils.ConvertUInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
+                Assert.IsTrue(attr.Type == NativeULongUtils.GetUInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
                 Assert.IsTrue(attr.GetValueAsULongList() == null);
             }
         }
@@ -377,7 +377,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             // Create attribute with mechanism array value
             using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
             {
-                Assert.IsTrue(attr.Type == NativeULongUtils.ConvertUInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
+                Assert.IsTrue(attr.Type == NativeULongUtils.GetUInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
                 
                 List<CKM> recoveredValue = attr.GetValueAsCkmList();
                 for (int i = 0; i < recoveredValue.Count; i++)
@@ -389,7 +389,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             // Create attribute with null mechanism array value
             using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
             {
-                Assert.IsTrue(attr.Type == NativeULongUtils.ConvertUInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
+                Assert.IsTrue(attr.Type == NativeULongUtils.GetUInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
                 Assert.IsTrue(attr.GetValueAsCkmList() == originalValue);
             }
             
@@ -398,7 +398,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             // Create attribute with empty mechanism array value
             using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
             {
-                Assert.IsTrue(attr.Type == NativeULongUtils.ConvertUInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
+                Assert.IsTrue(attr.Type == NativeULongUtils.GetUInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
                 Assert.IsTrue(attr.GetValueAsCkmList() == null);
             }
         }

@@ -61,7 +61,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeULongUtils.ConvertUInt32FromInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeULongUtils.GetUInt32FromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -84,7 +84,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
 
                 // Get length of signature in first call
                 NativeULong signatureLen = 0;
-                rv = pkcs11.C_Sign(session, sourceData, NativeULongUtils.ConvertUInt32FromInt32(sourceData.Length), null, ref signatureLen);
+                rv = pkcs11.C_Sign(session, sourceData, NativeULongUtils.GetUInt32FromInt32(sourceData.Length), null, ref signatureLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -94,7 +94,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                 byte[] signature = new byte[signatureLen];
 
                 // Get signature in second call
-                rv = pkcs11.C_Sign(session, sourceData, NativeULongUtils.ConvertUInt32FromInt32(sourceData.Length), signature, ref signatureLen);
+                rv = pkcs11.C_Sign(session, sourceData, NativeULongUtils.GetUInt32FromInt32(sourceData.Length), signature, ref signatureLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -106,7 +106,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     Assert.Fail(rv.ToString());
 
                 // Verify signature
-                rv = pkcs11.C_Verify(session, sourceData, NativeULongUtils.ConvertUInt32FromInt32(sourceData.Length), signature, NativeULongUtils.ConvertUInt32FromInt32(signature.Length));
+                rv = pkcs11.C_Verify(session, sourceData, NativeULongUtils.GetUInt32FromInt32(sourceData.Length), signature, NativeULongUtils.GetUInt32FromInt32(signature.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -159,7 +159,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeULongUtils.ConvertUInt32FromInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeULongUtils.GetUInt32FromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -193,7 +193,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     while ((bytesRead = inputStream.Read(part, 0, part.Length)) > 0)
                     {
                         // Process each individual source data part
-                        rv = pkcs11.C_SignUpdate(session, part, NativeULongUtils.ConvertUInt32FromInt32(bytesRead));
+                        rv = pkcs11.C_SignUpdate(session, part, NativeULongUtils.GetUInt32FromInt32(bytesRead));
                         if (rv != CKR.CKR_OK)
                             Assert.Fail(rv.ToString());
                     }
@@ -234,13 +234,13 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     while ((bytesRead = inputStream.Read(part, 0, part.Length)) > 0)
                     {
                         // Process each individual source data part
-                        rv = pkcs11.C_VerifyUpdate(session, part, NativeULongUtils.ConvertUInt32FromInt32(bytesRead));
+                        rv = pkcs11.C_VerifyUpdate(session, part, NativeULongUtils.GetUInt32FromInt32(bytesRead));
                         if (rv != CKR.CKR_OK)
                             Assert.Fail(rv.ToString());
                     }
 
                     // Verify signature
-                    rv = pkcs11.C_VerifyFinal(session, signature, NativeULongUtils.ConvertUInt32FromInt32(signature.Length));
+                    rv = pkcs11.C_VerifyFinal(session, signature, NativeULongUtils.GetUInt32FromInt32(signature.Length));
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
                 }

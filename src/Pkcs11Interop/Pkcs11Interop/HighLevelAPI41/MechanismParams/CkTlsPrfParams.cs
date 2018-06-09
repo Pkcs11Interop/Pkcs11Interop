@@ -56,8 +56,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 
                 int nativeULongSize = UnmanagedMemory.SizeOf(typeof(NativeULong));
                 byte[] outputLenBytes = UnmanagedMemory.Read(_lowLevelStruct.OutputLen, nativeULongSize);
-                NativeULong outputLen = NativeULongUtils.ConvertUInt32FromByteArray(outputLenBytes);
-                return UnmanagedMemory.Read(_lowLevelStruct.Output, NativeULongUtils.ConvertUInt32ToInt32(outputLen));
+                NativeULong outputLen = NativeULongUtils.GetUInt32FromByteArray(outputLenBytes);
+                return UnmanagedMemory.Read(_lowLevelStruct.Output, NativeULongUtils.PutUInt32ToInt32(outputLen));
             }
         }
 
@@ -80,22 +80,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
             {
                 _lowLevelStruct.Seed = UnmanagedMemory.Allocate(seed.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Seed, seed);
-                _lowLevelStruct.SeedLen = NativeULongUtils.ConvertUInt32FromInt32(seed.Length);
+                _lowLevelStruct.SeedLen = NativeULongUtils.GetUInt32FromInt32(seed.Length);
             }
             
             if (label != null)
             {
                 _lowLevelStruct.Label = UnmanagedMemory.Allocate(label.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Label, label);
-                _lowLevelStruct.LabelLen = NativeULongUtils.ConvertUInt32FromInt32(label.Length);
+                _lowLevelStruct.LabelLen = NativeULongUtils.GetUInt32FromInt32(label.Length);
             }
 
             if (outputLen < 1)
                 throw new ArgumentException("Value has to be positive number", "outputLen");
 
-            _lowLevelStruct.Output = UnmanagedMemory.Allocate(NativeULongUtils.ConvertUInt32ToInt32(outputLen));
+            _lowLevelStruct.Output = UnmanagedMemory.Allocate(NativeULongUtils.PutUInt32ToInt32(outputLen));
 
-            byte[] outputLenBytes = NativeULongUtils.ConvertUInt32ToByteArray(outputLen);
+            byte[] outputLenBytes = NativeULongUtils.PutUInt32ToByteArray(outputLen);
             _lowLevelStruct.OutputLen = UnmanagedMemory.Allocate(outputLenBytes.Length);
             UnmanagedMemory.Write(_lowLevelStruct.OutputLen, outputLenBytes);
         }

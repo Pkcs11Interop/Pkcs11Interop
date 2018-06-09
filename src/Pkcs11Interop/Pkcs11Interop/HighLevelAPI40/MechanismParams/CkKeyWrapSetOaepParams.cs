@@ -60,7 +60,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             {
                 _lowLevelStruct.X = UnmanagedMemory.Allocate(x.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.X, x);
-                _lowLevelStruct.XLen = NativeULongUtils.ConvertUInt32FromInt32(x.Length);
+                _lowLevelStruct.XLen = NativeULongUtils.GetUInt32FromInt32(x.Length);
             }
         }
         

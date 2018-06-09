@@ -60,7 +60,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeULongUtils.ConvertUInt32FromInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeULongUtils.GetUInt32FromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -81,7 +81,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 template[1] = CkaUtils.CreateAttribute(CKA.CKA_TOKEN, true);
 
                 // Initialize searching
-                rv = pkcs11.C_FindObjectsInit(session, template, NativeULongUtils.ConvertUInt32FromInt32(template.Length));
+                rv = pkcs11.C_FindObjectsInit(session, template, NativeULongUtils.GetUInt32FromInt32(template.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -90,7 +90,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 NativeULong[] foundObjectIds = new NativeULong[2];
                 foundObjectIds[0] = CK.CK_INVALID_HANDLE;
                 foundObjectIds[1] = CK.CK_INVALID_HANDLE;
-                rv = pkcs11.C_FindObjects(session, foundObjectIds, NativeULongUtils.ConvertUInt32FromInt32(foundObjectIds.Length), ref foundObjectCount);
+                rv = pkcs11.C_FindObjects(session, foundObjectIds, NativeULongUtils.GetUInt32FromInt32(foundObjectIds.Length), ref foundObjectCount);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 

@@ -44,7 +44,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         {
             get
             {
-                return NativeULongUtils.ConvertUInt64ToUInt64(_objectId);
+                return NativeULongUtils.PutUInt64ToUInt64(_objectId);
             }
         }
 
@@ -62,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <param name="objectId">PKCS#11 handle of object</param>
         public ObjectHandle(ulong objectId)
         {
-            _objectId = NativeULongUtils.ConvertUInt64FromUInt64(objectId);
+            _objectId = NativeULongUtils.GetUInt64FromUInt64(objectId);
         }
     }
 }

@@ -56,7 +56,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return NativeULongUtils.ConvertUInt64ToUInt64(_ckAttribute.type);
+                return NativeULongUtils.PutUInt64ToUInt64(_ckAttribute.type);
             }
         }
 
@@ -108,7 +108,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <param name="type">Attribute type</param>
         public ObjectAttribute(ulong type)
         {
-            _ckAttribute = CkaUtils.CreateAttribute(NativeULongUtils.ConvertUInt64FromUInt64(type));
+            _ckAttribute = CkaUtils.CreateAttribute(NativeULongUtils.GetUInt64FromUInt64(type));
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(ulong type, ulong value)
         {
-            _ckAttribute = CkaUtils.CreateAttribute(NativeULongUtils.ConvertUInt64FromUInt64(type), NativeULongUtils.ConvertUInt64FromUInt64(value));
+            _ckAttribute = CkaUtils.CreateAttribute(NativeULongUtils.GetUInt64FromUInt64(type), NativeULongUtils.GetUInt64FromUInt64(value));
         }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(CKA type, ulong value)
         {
-            _ckAttribute = CkaUtils.CreateAttribute(type, NativeULongUtils.ConvertUInt64FromUInt64(value));
+            _ckAttribute = CkaUtils.CreateAttribute(type, NativeULongUtils.GetUInt64FromUInt64(value));
         }
 
         /// <summary>
@@ -190,7 +190,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             {
                 NativeULong value = 0;
                 CkaUtils.ConvertValue(ref _ckAttribute, out value);
-                return NativeULongUtils.ConvertUInt64ToUInt64(value);
+                return NativeULongUtils.PutUInt64ToUInt64(value);
             }
             catch (Exception ex)
             {
@@ -209,7 +209,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(ulong type, bool value)
         {
-            _ckAttribute = CkaUtils.CreateAttribute(NativeULongUtils.ConvertUInt64FromUInt64(type), value);
+            _ckAttribute = CkaUtils.CreateAttribute(NativeULongUtils.GetUInt64FromUInt64(type), value);
         }
 
         /// <summary>
@@ -257,7 +257,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(ulong type, string value)
         {
-            _ckAttribute = CkaUtils.CreateAttribute(NativeULongUtils.ConvertUInt64FromUInt64(type), value);
+            _ckAttribute = CkaUtils.CreateAttribute(NativeULongUtils.GetUInt64FromUInt64(type), value);
         }
 
         /// <summary>
@@ -305,7 +305,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(ulong type, byte[] value)
         {
-            _ckAttribute = CkaUtils.CreateAttribute(NativeULongUtils.ConvertUInt64FromUInt64(type), value);
+            _ckAttribute = CkaUtils.CreateAttribute(NativeULongUtils.GetUInt64FromUInt64(type), value);
         }
 
         /// <summary>
@@ -353,7 +353,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <param name="value">Attribute value</param>
         public ObjectAttribute(ulong type, DateTime value)
         {
-            _ckAttribute = CkaUtils.CreateAttribute(NativeULongUtils.ConvertUInt64FromUInt64(type), value);
+            _ckAttribute = CkaUtils.CreateAttribute(NativeULongUtils.GetUInt64FromUInt64(type), value);
         }
 
         /// <summary>
@@ -411,7 +411,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             }
 
             // Note: Each attribute in the input list still owns unmanaged memory used by its value and will free it when disposed.
-            _ckAttribute = CkaUtils.CreateAttribute(NativeULongUtils.ConvertUInt64FromUInt64(type), attributes);
+            _ckAttribute = CkaUtils.CreateAttribute(NativeULongUtils.GetUInt64FromUInt64(type), attributes);
         }
 
         /// <summary>
@@ -485,10 +485,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             {
                 array = new NativeULong[value.Count];
                 for (int i = 0; i < value.Count; i++)
-                    array[i] = NativeULongUtils.ConvertUInt64FromUInt64(value[i]);
+                    array[i] = NativeULongUtils.GetUInt64FromUInt64(value[i]);
             }
             
-            _ckAttribute = CkaUtils.CreateAttribute(NativeULongUtils.ConvertUInt64FromUInt64(type), array);
+            _ckAttribute = CkaUtils.CreateAttribute(NativeULongUtils.GetUInt64FromUInt64(type), array);
         }
 
         /// <summary>
@@ -504,7 +504,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             {
                 array = new NativeULong[value.Count];
                 for (int i = 0; i < value.Count; i++)
-                    array[i] = NativeULongUtils.ConvertUInt64FromUInt64(value[i]);
+                    array[i] = NativeULongUtils.GetUInt64FromUInt64(value[i]);
             }
 
             _ckAttribute = CkaUtils.CreateAttribute(type, array);
@@ -532,7 +532,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                 {
                     ulongs = new List<ulong>();
                     for (int i = 0; i < value.Length; i++)
-                        ulongs.Add(NativeULongUtils.ConvertUInt64ToUInt64(value[i]));
+                        ulongs.Add(NativeULongUtils.PutUInt64ToUInt64(value[i]));
                 }
 
                 return ulongs;
@@ -559,7 +559,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             if (value != null)
                 mechanisms = value.ToArray();
             
-            _ckAttribute = CkaUtils.CreateAttribute(NativeULongUtils.ConvertUInt64FromUInt64(type), mechanisms);
+            _ckAttribute = CkaUtils.CreateAttribute(NativeULongUtils.GetUInt64FromUInt64(type), mechanisms);
         }
         
         /// <summary>

@@ -41,7 +41,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <returns>Mechanism of given type with no parameter</returns>
         public static CK_MECHANISM CreateMechanism(CKM mechanism)
         {
-            return CreateMechanism(NativeULongUtils.ConvertUInt32FromCKM(mechanism));
+            return CreateMechanism(NativeULongUtils.GetUInt32FromCKM(mechanism));
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <returns>Mechanism of given type with byte array parameter</returns>
         public static CK_MECHANISM CreateMechanism(CKM mechanism, byte[] parameter)
         {
-            return CreateMechanism(NativeULongUtils.ConvertUInt32FromCKM(mechanism), parameter);
+            return CreateMechanism(NativeULongUtils.GetUInt32FromCKM(mechanism), parameter);
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
             if (parameterStructure == null)
                 throw new ArgumentNullException("parameterStructure");
             
-            return CreateMechanism(NativeULongUtils.ConvertUInt32FromCKM(mechanism), parameterStructure);
+            return CreateMechanism(NativeULongUtils.GetUInt32FromCKM(mechanism), parameterStructure);
         }
         
         /// <summary>
@@ -111,8 +111,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
 
             CK_MECHANISM ckMechanism = new CK_MECHANISM();
             ckMechanism.Mechanism = mechanism;
-            ckMechanism.ParameterLen = NativeULongUtils.ConvertUInt32FromInt32(UnmanagedMemory.SizeOf(parameterStructure.GetType()));
-            ckMechanism.Parameter = UnmanagedMemory.Allocate(NativeULongUtils.ConvertUInt32ToInt32(ckMechanism.ParameterLen));
+            ckMechanism.ParameterLen = NativeULongUtils.GetUInt32FromInt32(UnmanagedMemory.SizeOf(parameterStructure.GetType()));
+            ckMechanism.Parameter = UnmanagedMemory.Allocate(NativeULongUtils.PutUInt32ToInt32(ckMechanism.ParameterLen));
             UnmanagedMemory.Write(ckMechanism.Parameter, parameterStructure);
 
             return ckMechanism;
@@ -136,7 +136,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
             {
                 mech.Parameter = UnmanagedMemory.Allocate(parameter.Length);
                 UnmanagedMemory.Write(mech.Parameter, parameter);
-                mech.ParameterLen = NativeULongUtils.ConvertUInt32FromInt32(parameter.Length);
+                mech.ParameterLen = NativeULongUtils.GetUInt32FromInt32(parameter.Length);
             }
             else
             {

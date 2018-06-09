@@ -65,7 +65,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
             {
                 _lowLevelStruct.Iv = UnmanagedMemory.Allocate(iv.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Iv, iv);
-                _lowLevelStruct.IvLen = NativeULongUtils.ConvertUInt64FromInt32(iv.Length);
+                _lowLevelStruct.IvLen = NativeULongUtils.GetUInt64FromInt32(iv.Length);
             }
         }
         

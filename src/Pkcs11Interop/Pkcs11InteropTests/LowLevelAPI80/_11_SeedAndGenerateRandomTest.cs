@@ -62,7 +62,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
 
                 // Mix additional seed material into the token's random number generator
                 byte[] seed = ConvertUtils.Utf8StringToBytes("Additional seed material");
-                rv = pkcs11.C_SeedRandom(session, seed, NativeULongUtils.ConvertUInt64FromInt32(seed.Length));
+                rv = pkcs11.C_SeedRandom(session, seed, NativeULongUtils.GetUInt64FromInt32(seed.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -107,7 +107,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
                 byte[] randomData = new byte[256];
 
                 // Get random or pseudo-random data
-                rv = pkcs11.C_GenerateRandom(session, randomData, NativeULongUtils.ConvertUInt64FromInt32(randomData.Length));
+                rv = pkcs11.C_GenerateRandom(session, randomData, NativeULongUtils.GetUInt64FromInt32(randomData.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 

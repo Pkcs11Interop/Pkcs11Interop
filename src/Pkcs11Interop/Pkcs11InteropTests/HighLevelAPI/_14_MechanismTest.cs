@@ -94,7 +94,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         {
             // Create mechanism without the parameter
             IMechanism mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_RSA_PKCS);
-            Assert.IsTrue(mechanism.Type == NativeULongUtils.ConvertUInt64FromCKM(CKM.CKM_RSA_PKCS));
+            Assert.IsTrue(mechanism.Type == NativeULongUtils.GetUInt64FromCKM(CKM.CKM_RSA_PKCS));
 
             // We access private Mechanism member just for the testing purposes
             if (Platform.NativeULongSize == 4)
@@ -103,7 +103,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 {
                     HLA40.Mechanism mechanism40 = (HLA40.Mechanism)mechanism;
                     LLA40.CK_MECHANISM ckMechanism40 = (LLA40.CK_MECHANISM)typeof(HLA40.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism40);
-                    Assert.IsTrue(ckMechanism40.Mechanism == NativeULongUtils.ConvertUInt32FromCKM(CKM.CKM_RSA_PKCS));
+                    Assert.IsTrue(ckMechanism40.Mechanism == NativeULongUtils.GetUInt32FromCKM(CKM.CKM_RSA_PKCS));
                     Assert.IsTrue(ckMechanism40.Parameter == IntPtr.Zero);
                     Assert.IsTrue(ckMechanism40.ParameterLen == 0);
                 }
@@ -111,7 +111,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 {
                     HLA41.Mechanism mechanism41 = (HLA41.Mechanism)mechanism;
                     LLA41.CK_MECHANISM ckMechanism41 = (LLA41.CK_MECHANISM)typeof(HLA41.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism41);
-                    Assert.IsTrue(ckMechanism41.Mechanism == NativeULongUtils.ConvertUInt32FromCKM(CKM.CKM_RSA_PKCS));
+                    Assert.IsTrue(ckMechanism41.Mechanism == NativeULongUtils.GetUInt32FromCKM(CKM.CKM_RSA_PKCS));
                     Assert.IsTrue(ckMechanism41.Parameter == IntPtr.Zero);
                     Assert.IsTrue(ckMechanism41.ParameterLen == 0);
                 }
@@ -122,7 +122,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 {
                     HLA80.Mechanism mechanism80 = (HLA80.Mechanism)mechanism;
                     LLA80.CK_MECHANISM ckMechanism80 = (LLA80.CK_MECHANISM)typeof(HLA80.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism80);
-                    Assert.IsTrue(ckMechanism80.Mechanism == NativeULongUtils.ConvertUInt64FromCKM(CKM.CKM_RSA_PKCS));
+                    Assert.IsTrue(ckMechanism80.Mechanism == NativeULongUtils.GetUInt64FromCKM(CKM.CKM_RSA_PKCS));
                     Assert.IsTrue(ckMechanism80.Parameter == IntPtr.Zero);
                     Assert.IsTrue(ckMechanism80.ParameterLen == 0);
                 }
@@ -130,7 +130,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 {
                     HLA81.Mechanism mechanism81 = (HLA81.Mechanism)mechanism;
                     LLA81.CK_MECHANISM ckMechanism81 = (LLA81.CK_MECHANISM)typeof(HLA81.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism81);
-                    Assert.IsTrue(ckMechanism81.Mechanism == NativeULongUtils.ConvertUInt64FromCKM(CKM.CKM_RSA_PKCS));
+                    Assert.IsTrue(ckMechanism81.Mechanism == NativeULongUtils.GetUInt64FromCKM(CKM.CKM_RSA_PKCS));
                     Assert.IsTrue(ckMechanism81.Parameter == IntPtr.Zero);
                     Assert.IsTrue(ckMechanism81.ParameterLen == 0);
                 }
@@ -149,7 +149,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
             // Create mechanism with the byte array parameter
             IMechanism mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_AES_CBC, parameter);
-            Assert.IsTrue(mechanism.Type == NativeULongUtils.ConvertUInt64FromCKM(CKM.CKM_AES_CBC));
+            Assert.IsTrue(mechanism.Type == NativeULongUtils.GetUInt64FromCKM(CKM.CKM_AES_CBC));
 
             // We access private members here just for the testing purposes
             if (Platform.NativeULongSize == 4)
@@ -158,7 +158,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 {
                     HLA40.Mechanism mechanism40 = (HLA40.Mechanism)mechanism;
                     LLA40.CK_MECHANISM ckMechanism40 = (LLA40.CK_MECHANISM)typeof(HLA40.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism40);
-                    Assert.IsTrue(ckMechanism40.Mechanism == NativeULongUtils.ConvertUInt32FromCKM(CKM.CKM_AES_CBC));
+                    Assert.IsTrue(ckMechanism40.Mechanism == NativeULongUtils.GetUInt32FromCKM(CKM.CKM_AES_CBC));
                     Assert.IsTrue(ckMechanism40.Parameter != IntPtr.Zero);
                     Assert.IsTrue(Convert.ToInt32(ckMechanism40.ParameterLen) == parameter.Length);
                 }
@@ -166,7 +166,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 {
                     HLA41.Mechanism mechanism41 = (HLA41.Mechanism)mechanism;
                     LLA41.CK_MECHANISM ckMechanism41 = (LLA41.CK_MECHANISM)typeof(HLA41.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism41);
-                    Assert.IsTrue(ckMechanism41.Mechanism == NativeULongUtils.ConvertUInt32FromCKM(CKM.CKM_AES_CBC));
+                    Assert.IsTrue(ckMechanism41.Mechanism == NativeULongUtils.GetUInt32FromCKM(CKM.CKM_AES_CBC));
                     Assert.IsTrue(ckMechanism41.Parameter != IntPtr.Zero);
                     Assert.IsTrue(Convert.ToInt32(ckMechanism41.ParameterLen) == parameter.Length);
                 }
@@ -177,7 +177,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 {
                     HLA80.Mechanism mechanism80 = (HLA80.Mechanism)mechanism;
                     LLA80.CK_MECHANISM ckMechanism80 = (LLA80.CK_MECHANISM)typeof(HLA80.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism80);
-                    Assert.IsTrue(ckMechanism80.Mechanism == NativeULongUtils.ConvertUInt64FromCKM(CKM.CKM_AES_CBC));
+                    Assert.IsTrue(ckMechanism80.Mechanism == NativeULongUtils.GetUInt64FromCKM(CKM.CKM_AES_CBC));
                     Assert.IsTrue(ckMechanism80.Parameter != IntPtr.Zero);
                     Assert.IsTrue(Convert.ToInt32(ckMechanism80.ParameterLen) == parameter.Length);
                 }
@@ -185,7 +185,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 {
                     HLA81.Mechanism mechanism81 = (HLA81.Mechanism)mechanism;
                     LLA81.CK_MECHANISM ckMechanism81 = (LLA81.CK_MECHANISM)typeof(HLA81.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism81);
-                    Assert.IsTrue(ckMechanism81.Mechanism == NativeULongUtils.ConvertUInt64FromCKM(CKM.CKM_AES_CBC));
+                    Assert.IsTrue(ckMechanism81.Mechanism == NativeULongUtils.GetUInt64FromCKM(CKM.CKM_AES_CBC));
                     Assert.IsTrue(ckMechanism81.Parameter != IntPtr.Zero);
                     Assert.IsTrue(Convert.ToInt32(ckMechanism81.ParameterLen) == parameter.Length);
                 }
@@ -195,7 +195,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
             // Create mechanism with null byte array parameter
             mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_AES_CBC, parameter);
-            Assert.IsTrue(mechanism.Type == NativeULongUtils.ConvertUInt64FromCKM(CKM.CKM_AES_CBC));
+            Assert.IsTrue(mechanism.Type == NativeULongUtils.GetUInt64FromCKM(CKM.CKM_AES_CBC));
 
             // We access private members here just for the testing purposes
             if (Platform.NativeULongSize == 4)
@@ -204,7 +204,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 {
                     HLA40.Mechanism mechanism40 = (HLA40.Mechanism)mechanism;
                     LLA40.CK_MECHANISM ckMechanism40 = (LLA40.CK_MECHANISM)typeof(HLA40.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism40);
-                    Assert.IsTrue(ckMechanism40.Mechanism == NativeULongUtils.ConvertUInt32FromCKM(CKM.CKM_AES_CBC));
+                    Assert.IsTrue(ckMechanism40.Mechanism == NativeULongUtils.GetUInt32FromCKM(CKM.CKM_AES_CBC));
                     Assert.IsTrue(ckMechanism40.Parameter == IntPtr.Zero);
                     Assert.IsTrue(ckMechanism40.ParameterLen == 0);
                 }
@@ -212,7 +212,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 {
                     HLA41.Mechanism mechanism41 = (HLA41.Mechanism)mechanism;
                     LLA41.CK_MECHANISM ckMechanism41 = (LLA41.CK_MECHANISM)typeof(HLA41.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism41);
-                    Assert.IsTrue(ckMechanism41.Mechanism == NativeULongUtils.ConvertUInt32FromCKM(CKM.CKM_AES_CBC));
+                    Assert.IsTrue(ckMechanism41.Mechanism == NativeULongUtils.GetUInt32FromCKM(CKM.CKM_AES_CBC));
                     Assert.IsTrue(ckMechanism41.Parameter == IntPtr.Zero);
                     Assert.IsTrue(ckMechanism41.ParameterLen == 0);
                 }
@@ -223,7 +223,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 {
                     HLA80.Mechanism mechanism80 = (HLA80.Mechanism)mechanism;
                     LLA80.CK_MECHANISM ckMechanism80 = (LLA80.CK_MECHANISM)typeof(HLA80.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism80);
-                    Assert.IsTrue(ckMechanism80.Mechanism == NativeULongUtils.ConvertUInt64FromCKM(CKM.CKM_AES_CBC));
+                    Assert.IsTrue(ckMechanism80.Mechanism == NativeULongUtils.GetUInt64FromCKM(CKM.CKM_AES_CBC));
                     Assert.IsTrue(ckMechanism80.Parameter == IntPtr.Zero);
                     Assert.IsTrue(ckMechanism80.ParameterLen == 0);
                 }
@@ -231,7 +231,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 {
                     HLA81.Mechanism mechanism81 = (HLA81.Mechanism)mechanism;
                     LLA81.CK_MECHANISM ckMechanism81 = (LLA81.CK_MECHANISM)typeof(HLA81.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism81);
-                    Assert.IsTrue(ckMechanism81.Mechanism == NativeULongUtils.ConvertUInt64FromCKM(CKM.CKM_AES_CBC));
+                    Assert.IsTrue(ckMechanism81.Mechanism == NativeULongUtils.GetUInt64FromCKM(CKM.CKM_AES_CBC));
                     Assert.IsTrue(ckMechanism81.Parameter == IntPtr.Zero);
                     Assert.IsTrue(ckMechanism81.ParameterLen == 0);
                 }
@@ -253,7 +253,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
             // Create mechanism with the object as parameter
             IMechanism mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_XOR_BASE_AND_DATA, parameter);
-            Assert.IsTrue(mechanism.Type == NativeULongUtils.ConvertUInt64FromCKM(CKM.CKM_XOR_BASE_AND_DATA));
+            Assert.IsTrue(mechanism.Type == NativeULongUtils.GetUInt64FromCKM(CKM.CKM_XOR_BASE_AND_DATA));
 
             // We access private Mechanism member here just for the testing purposes
             if (Platform.NativeULongSize == 4)
@@ -262,7 +262,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 {
                     HLA40.Mechanism mechanism40 = (HLA40.Mechanism)mechanism;
                     LLA40.CK_MECHANISM ckMechanism40 = (LLA40.CK_MECHANISM)typeof(HLA40.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism40);
-                    Assert.IsTrue(ckMechanism40.Mechanism == NativeULongUtils.ConvertUInt32FromCKM(CKM.CKM_XOR_BASE_AND_DATA));
+                    Assert.IsTrue(ckMechanism40.Mechanism == NativeULongUtils.GetUInt32FromCKM(CKM.CKM_XOR_BASE_AND_DATA));
                     Assert.IsTrue(ckMechanism40.Parameter != IntPtr.Zero);
                     Assert.IsTrue(Convert.ToInt32(ckMechanism40.ParameterLen) == UnmanagedMemory.SizeOf(typeof(LLA40.MechanismParams.CK_KEY_DERIVATION_STRING_DATA)));
                 }
@@ -270,7 +270,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 {
                     HLA41.Mechanism mechanism41 = (HLA41.Mechanism)mechanism;
                     LLA41.CK_MECHANISM ckMechanism41 = (LLA41.CK_MECHANISM)typeof(HLA41.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism41);
-                    Assert.IsTrue(ckMechanism41.Mechanism == NativeULongUtils.ConvertUInt32FromCKM(CKM.CKM_XOR_BASE_AND_DATA));
+                    Assert.IsTrue(ckMechanism41.Mechanism == NativeULongUtils.GetUInt32FromCKM(CKM.CKM_XOR_BASE_AND_DATA));
                     Assert.IsTrue(ckMechanism41.Parameter != IntPtr.Zero);
                     Assert.IsTrue(Convert.ToInt32(ckMechanism41.ParameterLen) == UnmanagedMemory.SizeOf(typeof(LLA41.MechanismParams.CK_KEY_DERIVATION_STRING_DATA)));
                 }
@@ -281,7 +281,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 {
                     HLA80.Mechanism mechanism80 = (HLA80.Mechanism)mechanism;
                     LLA80.CK_MECHANISM ckMechanism80 = (LLA80.CK_MECHANISM)typeof(HLA80.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism80);
-                    Assert.IsTrue(ckMechanism80.Mechanism == NativeULongUtils.ConvertUInt64FromCKM(CKM.CKM_XOR_BASE_AND_DATA));
+                    Assert.IsTrue(ckMechanism80.Mechanism == NativeULongUtils.GetUInt64FromCKM(CKM.CKM_XOR_BASE_AND_DATA));
                     Assert.IsTrue(ckMechanism80.Parameter != IntPtr.Zero);
                     Assert.IsTrue(Convert.ToInt32(ckMechanism80.ParameterLen) == UnmanagedMemory.SizeOf(typeof(LLA80.MechanismParams.CK_KEY_DERIVATION_STRING_DATA)));
                 }
@@ -289,7 +289,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 {
                     HLA81.Mechanism mechanism81 = (HLA81.Mechanism)mechanism;
                     LLA81.CK_MECHANISM ckMechanism81 = (LLA81.CK_MECHANISM)typeof(HLA81.Mechanism).GetField("_ckMechanism", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mechanism81);
-                    Assert.IsTrue(ckMechanism81.Mechanism == NativeULongUtils.ConvertUInt64FromCKM(CKM.CKM_XOR_BASE_AND_DATA));
+                    Assert.IsTrue(ckMechanism81.Mechanism == NativeULongUtils.GetUInt64FromCKM(CKM.CKM_XOR_BASE_AND_DATA));
                     Assert.IsTrue(ckMechanism81.Parameter != IntPtr.Zero);
                     Assert.IsTrue(Convert.ToInt32(ckMechanism81.ParameterLen) == UnmanagedMemory.SizeOf(typeof(LLA81.MechanismParams.CK_KEY_DERIVATION_STRING_DATA)));
                 }

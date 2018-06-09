@@ -64,14 +64,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
             {
                 _lowLevelStruct.OtherInfo = UnmanagedMemory.Allocate(otherInfo.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.OtherInfo, otherInfo);
-                _lowLevelStruct.OtherInfoLen = NativeULongUtils.ConvertUInt32FromInt32(otherInfo.Length);
+                _lowLevelStruct.OtherInfoLen = NativeULongUtils.GetUInt32FromInt32(otherInfo.Length);
             }
             
             if (publicData != null)
             {
                 _lowLevelStruct.PublicData = UnmanagedMemory.Allocate(publicData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
-                _lowLevelStruct.PublicDataLen = NativeULongUtils.ConvertUInt32FromInt32(publicData.Length);
+                _lowLevelStruct.PublicDataLen = NativeULongUtils.GetUInt32FromInt32(publicData.Length);
             }
         }
         

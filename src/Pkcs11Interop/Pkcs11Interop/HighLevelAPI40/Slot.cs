@@ -75,7 +75,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         {
             get
             {
-                return NativeULongUtils.ConvertUInt32ToUInt64(_slotId);
+                return NativeULongUtils.PutUInt32ToUInt64(_slotId);
             }
         }
 
@@ -95,7 +95,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
 
             _factories = factories;
             _p11 = pkcs11;
-            _slotId = NativeULongUtils.ConvertUInt32FromUInt64(slotId);
+            _slotId = NativeULongUtils.GetUInt32FromUInt64(slotId);
          }
 
         /// <summary>
@@ -145,8 +145,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetMechanismList", rv);
 
-            if (mechanismList.Length != NativeULongUtils.ConvertUInt32ToInt32(mechanismCount))
-                Array.Resize(ref mechanismList, NativeULongUtils.ConvertUInt32ToInt32(mechanismCount));
+            if (mechanismList.Length != NativeULongUtils.PutUInt32ToInt32(mechanismCount))
+                Array.Resize(ref mechanismList, NativeULongUtils.PutUInt32ToInt32(mechanismCount));
 
             return new List<CKM>(mechanismList);
         }
@@ -178,7 +178,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
             if (soPin != null)
             {
                 soPinValue = ConvertUtils.Utf8StringToBytes(soPin);
-                soPinValueLen = NativeULongUtils.ConvertUInt32FromInt32(soPinValue.Length);
+                soPinValueLen = NativeULongUtils.GetUInt32FromInt32(soPinValue.Length);
             }
 
             byte[] tokenLabel = ConvertUtils.Utf8StringToBytes(label, 32, 0x20);
@@ -200,7 +200,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
             if (soPin != null)
             {
                 soPinValue = soPin;
-                soPinValueLen = NativeULongUtils.ConvertUInt32FromInt32(soPin.Length);
+                soPinValueLen = NativeULongUtils.GetUInt32FromInt32(soPin.Length);
             }
 
             // PKCS#11 v2.20 page 113:

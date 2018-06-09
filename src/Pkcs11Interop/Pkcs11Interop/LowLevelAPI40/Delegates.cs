@@ -837,7 +837,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
 
             IntPtr functionList = IntPtr.Zero;
 
-            CKR rv = NativeULongUtils.ConvertUInt32ToCKR(cGetFunctionList(out functionList));
+            CKR rv = NativeULongUtils.PutUInt32ToCKR(cGetFunctionList(out functionList));
             if ((rv != CKR.CKR_OK) || (functionList == IntPtr.Zero))
                 throw new Pkcs11Exception("C_GetFunctionList", rv);
 
@@ -852,7 +852,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         {
             IntPtr functionList = IntPtr.Zero;
 
-            CKR rv = NativeULongUtils.ConvertUInt32ToCKR(NativeMethods.C_GetFunctionList(out functionList));
+            CKR rv = NativeULongUtils.PutUInt32ToCKR(NativeMethods.C_GetFunctionList(out functionList));
             if ((rv != CKR.CKR_OK) || (functionList == IntPtr.Zero))
                 throw new Pkcs11Exception("C_GetFunctionList", rv);
 

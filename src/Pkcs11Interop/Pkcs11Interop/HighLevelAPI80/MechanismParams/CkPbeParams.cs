@@ -73,14 +73,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             {
                 _lowLevelStruct.Password = UnmanagedMemory.Allocate(password.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Password, password);
-                _lowLevelStruct.PasswordLen = NativeULongUtils.ConvertUInt64FromInt32(password.Length);
+                _lowLevelStruct.PasswordLen = NativeULongUtils.GetUInt64FromInt32(password.Length);
             }
 
             if (salt != null)
             {
                 _lowLevelStruct.Salt = UnmanagedMemory.Allocate(salt.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Salt, salt);
-                _lowLevelStruct.SaltLen = NativeULongUtils.ConvertUInt64FromInt32(salt.Length);
+                _lowLevelStruct.SaltLen = NativeULongUtils.GetUInt64FromInt32(salt.Length);
             }
 
             _lowLevelStruct.Iteration = iteration;
