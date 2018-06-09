@@ -54,7 +54,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return NativeULongUtils.PutUInt64ToUInt64(_ckMechanism.Mechanism);
+                return ConvertUtils.UInt64ToUInt64(_ckMechanism.Mechanism);
             }
         }
 
@@ -81,7 +81,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <param name="type">Mechanism type</param>
         public Mechanism(ulong type)
         {
-            _ckMechanism = CkmUtils.CreateMechanism(NativeULongUtils.GetUInt64FromUInt64(type));
+            _ckMechanism = CkmUtils.CreateMechanism(ConvertUtils.UInt64FromUInt64(type));
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <param name="parameter">Mechanism parameter</param>
         public Mechanism(ulong type, byte[] parameter)
         {
-            _ckMechanism = CkmUtils.CreateMechanism(NativeULongUtils.GetUInt64FromUInt64(type), parameter);
+            _ckMechanism = CkmUtils.CreateMechanism(ConvertUtils.UInt64FromUInt64(type), parameter);
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             _mechanismParams = parameter;
 
             object lowLevelParams = _mechanismParams.ToMarshalableStructure();
-            _ckMechanism = CkmUtils.CreateMechanism(NativeULongUtils.GetUInt64FromUInt64(type), lowLevelParams);
+            _ckMechanism = CkmUtils.CreateMechanism(ConvertUtils.UInt64FromUInt64(type), lowLevelParams);
         }
 
         /// <summary>

@@ -54,7 +54,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (_lowLevelStruct.Seed == IntPtr.Zero) ? null : UnmanagedMemory.Read(_lowLevelStruct.Seed, NativeULongUtils.PutUInt64ToInt32(_lowLevelStruct.SeedLen));
+                return (_lowLevelStruct.Seed == IntPtr.Zero) ? null : UnmanagedMemory.Read(_lowLevelStruct.Seed, ConvertUtils.UInt64ToInt32(_lowLevelStruct.SeedLen));
             }
         }
 
@@ -77,7 +77,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
             {
                 _lowLevelStruct.Seed = UnmanagedMemory.Allocate(seed.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Seed, seed);
-                _lowLevelStruct.SeedLen = NativeULongUtils.GetUInt64FromInt32(seed.Length);
+                _lowLevelStruct.SeedLen = ConvertUtils.UInt64FromInt32(seed.Length);
             }
 
             _lowLevelStruct.Index = index;

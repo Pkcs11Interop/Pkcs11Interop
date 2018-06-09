@@ -68,18 +68,18 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
             if (certificateHandle == null)
                 throw new ArgumentNullException("certificateHandle");
 
-            _lowLevelStruct.CertificateHandle = NativeULongUtils.GetUInt32FromUInt64(certificateHandle.ObjectId);
+            _lowLevelStruct.CertificateHandle = ConvertUtils.UInt32FromUInt64(certificateHandle.ObjectId);
 
             if (signingMechanism != null)
             {
-                byte[] bytes = NativeULongUtils.PutUInt32ToByteArray(signingMechanism.Value);
+                byte[] bytes = ConvertUtils.UInt32ToBytes(signingMechanism.Value);
                 _lowLevelStruct.SigningMechanism = UnmanagedMemory.Allocate(bytes.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.SigningMechanism, bytes);
             }
 
             if (digestMechanism != null)
             {
-                byte[] bytes = NativeULongUtils.PutUInt32ToByteArray(digestMechanism.Value);
+                byte[] bytes = ConvertUtils.UInt32ToBytes(digestMechanism.Value);
                 _lowLevelStruct.DigestMechanism = UnmanagedMemory.Allocate(bytes.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.DigestMechanism, bytes);
             }
@@ -98,14 +98,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
             {
                 _lowLevelStruct.RequestedAttributes = UnmanagedMemory.Allocate(requestedAttributes.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.RequestedAttributes, requestedAttributes);
-                _lowLevelStruct.RequestedAttributesLen = NativeULongUtils.GetUInt32FromInt32(requestedAttributes.Length);
+                _lowLevelStruct.RequestedAttributesLen = ConvertUtils.UInt32FromInt32(requestedAttributes.Length);
             }
 
             if (requiredAttributes != null)
             {
                 _lowLevelStruct.RequiredAttributes = UnmanagedMemory.Allocate(requiredAttributes.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.RequiredAttributes, requiredAttributes);
-                _lowLevelStruct.RequiredAttributesLen = NativeULongUtils.GetUInt32FromInt32(requiredAttributes.Length);
+                _lowLevelStruct.RequiredAttributesLen = ConvertUtils.UInt32FromInt32(requiredAttributes.Length);
             }
         }
         

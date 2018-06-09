@@ -61,7 +61,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         {
             get
             {
-                return NativeULongUtils.PutUInt32ToUInt64(_minKeySize);
+                return ConvertUtils.UInt32ToUInt64(_minKeySize);
             }
         }
 
@@ -77,7 +77,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         {
             get
             {
-                return NativeULongUtils.PutUInt32ToUInt64(_maxKeySize);
+                return ConvertUtils.UInt32ToUInt64(_maxKeySize);
             }
         }
 

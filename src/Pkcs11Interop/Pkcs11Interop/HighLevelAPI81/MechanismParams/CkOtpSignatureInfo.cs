@@ -109,7 +109,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 
             // Read all CK_OTP_PARAMs from CK_OTP_SIGNATURE_INFO
             int ckOtpParamSize = UnmanagedMemory.SizeOf(typeof(CK_OTP_PARAM));
-            for (int i = 0; i < NativeULongUtils.PutUInt64ToInt32(_lowLevelStruct.Count); i++)
+            for (int i = 0; i < ConvertUtils.UInt64ToInt32(_lowLevelStruct.Count); i++)
             {
                 // Read CK_OTP_PARAM from CK_OTP_SIGNATURE_INFO
                 IntPtr tempPointer = new IntPtr(_lowLevelStruct.Params.ToInt64() + (i * ckOtpParamSize));
@@ -118,7 +118,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 
                 // Read members of CK_OTP_PARAM structure
                 NativeULong ckOtpParamType = ckOtpParam.Type;
-                byte[] ckOtpParamValue = UnmanagedMemory.Read(ckOtpParam.Value, NativeULongUtils.PutUInt64ToInt32(ckOtpParam.ValueLen));
+                byte[] ckOtpParamValue = UnmanagedMemory.Read(ckOtpParam.Value, ConvertUtils.UInt64ToInt32(ckOtpParam.ValueLen));
 
                 // Construct new high level CkOtpParam object (creates copy of CK_OTP_PARAM structure which is good)
                 _params.Add(new CkOtpParam(ckOtpParamType, ckOtpParamValue));

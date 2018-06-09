@@ -167,9 +167,9 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
                     // Specify mechanism parameters
                     ICkRsaPkcsOaepParams mechanismParams = Settings.Factories.MechanismParamsFactory.CreateCkRsaPkcsOaepParams(
-                        NativeULongUtils.GetUInt64FromCKM(CKM.CKM_SHA_1),
-                        NativeULongUtils.GetUInt64FromCKG(CKG.CKG_MGF1_SHA1),
-                        NativeULongUtils.GetUInt64FromUInt32(CKZ.CKZ_DATA_SPECIFIED), 
+                        ConvertUtils.UInt64FromCKM(CKM.CKM_SHA_1),
+                        ConvertUtils.UInt64FromCKG(CKG.CKG_MGF1_SHA1),
+                        ConvertUtils.UInt64FromUInt32(CKZ.CKZ_DATA_SPECIFIED), 
                         null
                     );
 

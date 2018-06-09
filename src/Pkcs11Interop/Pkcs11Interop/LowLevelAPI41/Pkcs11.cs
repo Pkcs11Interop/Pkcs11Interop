@@ -114,7 +114,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_Initialize(initArgs);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_Finalize(reserved);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_GetInfo(ref info);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_GetFunctionList(out functionList);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -175,7 +175,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_GetSlotList(tokenPresent, slotList, ref count);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -190,7 +190,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_GetSlotInfo(slotId, ref info);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -205,7 +205,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_GetTokenInfo(slotId, ref info);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -232,10 +232,10 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
             if (mechanismList != null)
             {
                 for (int i = 0; i < mechanismList.Length; i++)
-                    mechanismList[i] = NativeULongUtils.PutUInt32ToCKM(nativeULongList[i]);
+                    mechanismList[i] = ConvertUtils.UInt32ToCKM(nativeULongList[i]);
             }
 
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -250,8 +250,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeULong rv = _delegates.C_GetMechanismInfo(slotId, NativeULongUtils.GetUInt32FromCKM(type), ref info);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            NativeULong rv = _delegates.C_GetMechanismInfo(slotId, ConvertUtils.UInt32FromCKM(type), ref info);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -268,7 +268,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_InitToken(slotId, pin, pinLen, label);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -284,7 +284,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_InitPIN(session, pin, pinLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -302,7 +302,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_SetPIN(session, oldPin, oldPinLen, newPin, newPinLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -320,7 +320,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_OpenSession(slotId, flags, application, notify, ref session);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -334,7 +334,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_CloseSession(session);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -348,7 +348,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_CloseAllSessions(slotId);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -363,7 +363,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_GetSessionInfo(session, ref info);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -382,7 +382,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_GetOperationState(session, operationState, ref operationStateLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -400,7 +400,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_SetOperationState(session, operationState, operationStateLen, encryptionKey, authenticationKey);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -416,8 +416,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            NativeULong rv = _delegates.C_Login(session, NativeULongUtils.GetUInt32FromCKU(userType), pin, pinLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            NativeULong rv = _delegates.C_Login(session, ConvertUtils.UInt32FromCKU(userType), pin, pinLen);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -431,7 +431,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_Logout(session);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -448,7 +448,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_CreateObject(session, template, count, ref objectId);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -466,7 +466,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_CopyObject(session, objectId, template, count, ref newObjectId);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -481,7 +481,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_DestroyObject(session, objectId);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -497,7 +497,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_GetObjectSize(session, objectId, ref size);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -514,7 +514,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_GetAttributeValue(session, objectId, template, count);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -531,7 +531,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_SetAttributeValue(session, objectId, template, count);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -547,7 +547,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_FindObjectsInit(session, template, count);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -564,7 +564,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_FindObjects(session, objectId, maxObjectCount, ref objectCount);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -578,7 +578,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_FindObjectsFinal(session);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -594,7 +594,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_EncryptInit(session, ref mechanism, key);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -615,7 +615,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_Encrypt(session, data, dataLen, encryptedData, ref encryptedDataLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -636,7 +636,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_EncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -655,7 +655,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_EncryptFinal(session, lastEncryptedPart, ref lastEncryptedPartLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -671,7 +671,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_DecryptInit(session, ref mechanism, key);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -692,7 +692,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_Decrypt(session, encryptedData, encryptedDataLen, data, ref dataLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -713,7 +713,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_DecryptUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -732,7 +732,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_DecryptFinal(session, lastPart, ref lastPartLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -747,7 +747,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_DigestInit(session, ref mechanism);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -768,7 +768,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_Digest(session, data, dataLen, digest, ref digestLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -784,7 +784,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_DigestUpdate(session, part, partLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -799,7 +799,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_DigestKey(session, key);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -818,7 +818,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_DigestFinal(session, digest, ref digestLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -834,7 +834,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_SignInit(session, ref mechanism, key);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -855,7 +855,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_Sign(session, data, dataLen, signature, ref signatureLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -871,7 +871,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_SignUpdate(session, part, partLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -890,7 +890,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_SignFinal(session, signature, ref signatureLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -906,7 +906,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_SignRecoverInit(session, ref mechanism, key);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -927,7 +927,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_SignRecover(session, data, dataLen, signature, ref signatureLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -943,7 +943,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_VerifyInit(session, ref mechanism, key);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -961,7 +961,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_Verify(session, data, dataLen, signature, signatureLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -977,7 +977,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_VerifyUpdate(session, part, partLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -993,7 +993,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_VerifyFinal(session, signature, signatureLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -1009,7 +1009,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_VerifyRecoverInit(session, ref mechanism, key);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -1030,7 +1030,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_VerifyRecover(session, signature, signatureLen, data, ref dataLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -1051,7 +1051,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_DigestEncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -1072,7 +1072,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_DecryptDigestUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -1093,7 +1093,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_SignEncryptUpdate(session, part, partLen, encryptedPart, ref encryptedPartLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -1114,7 +1114,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_DecryptVerifyUpdate(session, encryptedPart, encryptedPartLen, part, ref partLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -1132,7 +1132,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_GenerateKey(session, ref mechanism, template, count, ref key);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -1153,7 +1153,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_GenerateKeyPair(session, ref mechanism, publicKeyTemplate, publicKeyAttributeCount, privateKeyTemplate, privateKeyAttributeCount, ref publicKey, ref privateKey);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -1175,7 +1175,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_WrapKey(session, ref mechanism, wrappingKey, key, wrappedKey, ref wrappedKeyLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -1196,7 +1196,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_UnwrapKey(session, ref mechanism, unwrappingKey, wrappedKey, wrappedKeyLen, template, attributeCount, ref key);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -1215,7 +1215,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_DeriveKey(session, ref mechanism, baseKey, template, attributeCount, ref key);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -1231,7 +1231,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_SeedRandom(session, seed, seedLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -1247,7 +1247,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_GenerateRandom(session, randomData, randomLen);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -1261,7 +1261,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_GetFunctionStatus(session);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -1275,7 +1275,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_CancelFunction(session);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -1291,7 +1291,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _delegates.C_WaitForSlotEvent(flags, ref slot, reserved);
-            return NativeULongUtils.PutUInt32ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         #region IDisposable

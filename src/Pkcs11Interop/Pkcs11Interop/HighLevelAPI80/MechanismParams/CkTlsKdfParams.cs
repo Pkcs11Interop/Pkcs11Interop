@@ -75,7 +75,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             {
                 _lowLevelStruct.Label = UnmanagedMemory.Allocate(label.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Label, label);
-                _lowLevelStruct.LabelLength = NativeULongUtils.GetUInt64FromInt32(label.Length);
+                _lowLevelStruct.LabelLength = ConvertUtils.UInt64FromInt32(label.Length);
             }
 
             _lowLevelStruct.RandomInfo = (CK_SSL3_RANDOM_DATA)_randomInfo.ToMarshalableStructure();
@@ -84,7 +84,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             {
                 _lowLevelStruct.ContextData = UnmanagedMemory.Allocate(contextData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.ContextData, contextData);
-                _lowLevelStruct.ContextDataLength = NativeULongUtils.GetUInt64FromInt32(contextData.Length);
+                _lowLevelStruct.ContextDataLength = ConvertUtils.UInt64FromInt32(contextData.Length);
             }
         }
 

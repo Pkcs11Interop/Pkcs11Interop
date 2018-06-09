@@ -62,7 +62,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeULongUtils.GetUInt32FromInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, ConvertUtils.UInt32FromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -74,7 +74,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 
                 // Generate random initialization vector
                 byte[] iv = new byte[8];
-                rv = pkcs11.C_GenerateRandom(session, iv, NativeULongUtils.GetUInt32FromInt32(iv.Length));
+                rv = pkcs11.C_GenerateRandom(session, iv, ConvertUtils.UInt32FromInt32(iv.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -91,7 +91,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 
                 // Get length of encrypted data in first call
                 NativeULong encryptedDataLen = 0;
-                rv = pkcs11.C_Encrypt(session, sourceData, NativeULongUtils.GetUInt32FromInt32(sourceData.Length), null, ref encryptedDataLen);
+                rv = pkcs11.C_Encrypt(session, sourceData, ConvertUtils.UInt32FromInt32(sourceData.Length), null, ref encryptedDataLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -101,7 +101,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 byte[] encryptedData = new byte[encryptedDataLen];
 
                 // Get encrypted data in second call
-                rv = pkcs11.C_Encrypt(session, sourceData, NativeULongUtils.GetUInt32FromInt32(sourceData.Length), encryptedData, ref encryptedDataLen);
+                rv = pkcs11.C_Encrypt(session, sourceData, ConvertUtils.UInt32FromInt32(sourceData.Length), encryptedData, ref encryptedDataLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -114,7 +114,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 
                 // Get length of decrypted data in first call
                 NativeULong decryptedDataLen = 0;
-                rv = pkcs11.C_Decrypt(session, encryptedData, NativeULongUtils.GetUInt32FromInt32(encryptedData.Length), null, ref decryptedDataLen);
+                rv = pkcs11.C_Decrypt(session, encryptedData, ConvertUtils.UInt32FromInt32(encryptedData.Length), null, ref decryptedDataLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -124,7 +124,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 byte[] decryptedData = new byte[decryptedDataLen];
 
                 // Get decrypted data in second call
-                rv = pkcs11.C_Decrypt(session, encryptedData, NativeULongUtils.GetUInt32FromInt32(encryptedData.Length), decryptedData, ref decryptedDataLen);
+                rv = pkcs11.C_Decrypt(session, encryptedData, ConvertUtils.UInt32FromInt32(encryptedData.Length), decryptedData, ref decryptedDataLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -178,7 +178,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeULongUtils.GetUInt32FromInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, ConvertUtils.UInt32FromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -190,7 +190,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 
                 // Generate random initialization vector
                 byte[] iv = new byte[8];
-                rv = pkcs11.C_GenerateRandom(session, iv, NativeULongUtils.GetUInt32FromInt32(iv.Length));
+                rv = pkcs11.C_GenerateRandom(session, iv, ConvertUtils.UInt32FromInt32(iv.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -217,20 +217,20 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     // Prepare buffer for encrypted data part
                     // Note that in real world application we would rather use bigger buffer i.e. 4096 bytes long
                     byte[] encryptedPart = new byte[8];
-                    NativeULong encryptedPartLen = NativeULongUtils.GetUInt32FromInt32(encryptedPart.Length);
+                    NativeULong encryptedPartLen = ConvertUtils.UInt32FromInt32(encryptedPart.Length);
 
                     // Read input stream with source data
                     int bytesRead = 0;
                     while ((bytesRead = inputStream.Read(part, 0, part.Length)) > 0)
                     {
                         // Encrypt each individual source data part
-                        encryptedPartLen = NativeULongUtils.GetUInt32FromInt32(encryptedPart.Length);
-                        rv = pkcs11.C_EncryptUpdate(session, part, NativeULongUtils.GetUInt32FromInt32(bytesRead), encryptedPart, ref encryptedPartLen);
+                        encryptedPartLen = ConvertUtils.UInt32FromInt32(encryptedPart.Length);
+                        rv = pkcs11.C_EncryptUpdate(session, part, ConvertUtils.UInt32FromInt32(bytesRead), encryptedPart, ref encryptedPartLen);
                         if (rv != CKR.CKR_OK)
                             Assert.Fail(rv.ToString());
 
                         // Append encrypted data part to the output stream
-                        outputStream.Write(encryptedPart, 0, NativeULongUtils.PutUInt32ToInt32(encryptedPartLen));
+                        outputStream.Write(encryptedPart, 0, ConvertUtils.UInt32ToInt32(encryptedPartLen));
                     }
 
                     // Get the length of last encrypted data part in first call
@@ -249,7 +249,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                         Assert.Fail(rv.ToString());
 
                     // Append the last encrypted data part to the output stream
-                    outputStream.Write(lastEncryptedPart, 0, NativeULongUtils.PutUInt32ToInt32(lastEncryptedPartLen));
+                    outputStream.Write(lastEncryptedPart, 0, ConvertUtils.UInt32ToInt32(lastEncryptedPartLen));
 
                     // Read whole output stream to the byte array so we can compare results more easily
                     encryptedData = outputStream.ToArray();
@@ -272,20 +272,20 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     // Prepare buffer for decrypted data part
                     // Note that in real world application we would rather use bigger buffer i.e. 4096 bytes long
                     byte[] part = new byte[8];
-                    NativeULong partLen = NativeULongUtils.GetUInt32FromInt32(part.Length);
+                    NativeULong partLen = ConvertUtils.UInt32FromInt32(part.Length);
 
                     // Read input stream with encrypted data
                     int bytesRead = 0;
                     while ((bytesRead = inputStream.Read(encryptedPart, 0, encryptedPart.Length)) > 0)
                     {
                         // Decrypt each individual encrypted data part
-                        partLen = NativeULongUtils.GetUInt32FromInt32(part.Length);
-                        rv = pkcs11.C_DecryptUpdate(session, encryptedPart, NativeULongUtils.GetUInt32FromInt32(bytesRead), part, ref partLen);
+                        partLen = ConvertUtils.UInt32FromInt32(part.Length);
+                        rv = pkcs11.C_DecryptUpdate(session, encryptedPart, ConvertUtils.UInt32FromInt32(bytesRead), part, ref partLen);
                         if (rv != CKR.CKR_OK)
                             Assert.Fail(rv.ToString());
 
                         // Append decrypted data part to the output stream
-                        outputStream.Write(part, 0, NativeULongUtils.PutUInt32ToInt32(partLen));
+                        outputStream.Write(part, 0, ConvertUtils.UInt32ToInt32(partLen));
                     }
 
                     // Get the length of last decrypted data part in first call
@@ -304,7 +304,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                         Assert.Fail(rv.ToString());
 
                     // Append the last decrypted data part to the output stream
-                    outputStream.Write(lastPart, 0, NativeULongUtils.PutUInt32ToInt32(lastPartLen));
+                    outputStream.Write(lastPart, 0, ConvertUtils.UInt32ToInt32(lastPartLen));
 
                     // Read whole output stream to the byte array so we can compare results more easily
                     decryptedData = outputStream.ToArray();
@@ -360,7 +360,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeULongUtils.GetUInt32FromInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, ConvertUtils.UInt32FromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -373,9 +373,9 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 
                 // Specify mechanism parameters
                 CK_RSA_PKCS_OAEP_PARAMS mechanismParams = new CK_RSA_PKCS_OAEP_PARAMS();
-                mechanismParams.HashAlg = NativeULongUtils.GetUInt32FromCKM(CKM.CKM_SHA_1);
-                mechanismParams.Mgf = NativeULongUtils.GetUInt32FromCKG(CKG.CKG_MGF1_SHA1);
-                mechanismParams.Source = NativeULongUtils.GetUInt32FromUInt32(CKZ.CKZ_DATA_SPECIFIED);
+                mechanismParams.HashAlg = ConvertUtils.UInt32FromCKM(CKM.CKM_SHA_1);
+                mechanismParams.Mgf = ConvertUtils.UInt32FromCKG(CKG.CKG_MGF1_SHA1);
+                mechanismParams.Source = ConvertUtils.UInt32FromUInt32(CKZ.CKZ_DATA_SPECIFIED);
                 mechanismParams.SourceData = IntPtr.Zero;
                 mechanismParams.SourceDataLen = 0;
                 
@@ -392,7 +392,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 
                 // Get length of encrypted data in first call
                 NativeULong encryptedDataLen = 0;
-                rv = pkcs11.C_Encrypt(session, sourceData, NativeULongUtils.GetUInt32FromInt32(sourceData.Length), null, ref encryptedDataLen);
+                rv = pkcs11.C_Encrypt(session, sourceData, ConvertUtils.UInt32FromInt32(sourceData.Length), null, ref encryptedDataLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -402,7 +402,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 byte[] encryptedData = new byte[encryptedDataLen];
                 
                 // Get encrypted data in second call
-                rv = pkcs11.C_Encrypt(session, sourceData, NativeULongUtils.GetUInt32FromInt32(sourceData.Length), encryptedData, ref encryptedDataLen);
+                rv = pkcs11.C_Encrypt(session, sourceData, ConvertUtils.UInt32FromInt32(sourceData.Length), encryptedData, ref encryptedDataLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -415,7 +415,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 
                 // Get length of decrypted data in first call
                 NativeULong decryptedDataLen = 0;
-                rv = pkcs11.C_Decrypt(session, encryptedData, NativeULongUtils.GetUInt32FromInt32(encryptedData.Length), null, ref decryptedDataLen);
+                rv = pkcs11.C_Decrypt(session, encryptedData, ConvertUtils.UInt32FromInt32(encryptedData.Length), null, ref decryptedDataLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -425,13 +425,13 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 byte[] decryptedData = new byte[decryptedDataLen];
                 
                 // Get decrypted data in second call
-                rv = pkcs11.C_Decrypt(session, encryptedData, NativeULongUtils.GetUInt32FromInt32(encryptedData.Length), decryptedData, ref decryptedDataLen);
+                rv = pkcs11.C_Decrypt(session, encryptedData, ConvertUtils.UInt32FromInt32(encryptedData.Length), decryptedData, ref decryptedDataLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 // Array may need to be shrinked
-                if (decryptedData.Length != NativeULongUtils.PutUInt32ToInt32(decryptedDataLen))
-                    Array.Resize(ref decryptedData, NativeULongUtils.PutUInt32ToInt32(decryptedDataLen));
+                if (decryptedData.Length != ConvertUtils.UInt32ToInt32(decryptedDataLen))
+                    Array.Resize(ref decryptedData, ConvertUtils.UInt32ToInt32(decryptedDataLen));
 
                 // Do something interesting with decrypted data
                 Assert.IsTrue(ConvertUtils.BytesToBase64String(sourceData) == ConvertUtils.BytesToBase64String(decryptedData));

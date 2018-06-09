@@ -74,11 +74,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 
             _lowLevelStruct.PublicData = UnmanagedMemory.Allocate(publicData.Length);
             UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
-            _lowLevelStruct.PublicDataLen = NativeULongUtils.GetUInt64FromInt32(publicData.Length);
+            _lowLevelStruct.PublicDataLen = ConvertUtils.UInt64FromInt32(publicData.Length);
 
             _lowLevelStruct.UKM = UnmanagedMemory.Allocate(ukm.Length);
             UnmanagedMemory.Write(_lowLevelStruct.UKM, ukm);
-            _lowLevelStruct.UKMLen = NativeULongUtils.GetUInt64FromInt32(ukm.Length);
+            _lowLevelStruct.UKMLen = ConvertUtils.UInt64FromInt32(ukm.Length);
         }
 
         #region IMechanismParams

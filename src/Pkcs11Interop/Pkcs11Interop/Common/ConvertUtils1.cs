@@ -29,8 +29,10 @@ namespace Net.Pkcs11Interop.Common
     /// <summary>
     /// Utility class that helps with data type conversions.
     /// </summary>
-    public static class ConvertUtils
+    public static partial class ConvertUtils
     {
+        #region Bool <-> Bytes
+
         /// <summary>
         /// Converts bool to byte array
         /// </summary>
@@ -61,6 +63,10 @@ namespace Net.Pkcs11Interop.Common
             
             return BitConverter.ToBoolean(value, 0);
         }
+
+        #endregion
+
+        #region Utf8String <-> Bytes
 
         /// <summary>
         /// Converts UTF-8 string to byte array (not null terminated)
@@ -138,6 +144,10 @@ namespace Net.Pkcs11Interop.Common
             return (value == null) ? null : UTF8Encoding.UTF8.GetString(value, index, count);
         }
 
+        #endregion
+
+        #region UtcTimeString <-> DateTime
+
         /// <summary>
         /// Converts string with UTC time to DateTime
         /// </summary>
@@ -165,6 +175,10 @@ namespace Net.Pkcs11Interop.Common
             
             return dateTime;
         }
+
+        #endregion
+
+        #region String <-> HexString
 
         /// <summary>
         /// Converts byte array to hex encoded string
@@ -200,6 +214,10 @@ namespace Net.Pkcs11Interop.Common
             return bytes;
         }
 
+        #endregion
+
+        #region String <-> Base64String
+
         /// <summary>
         /// Converts byte array to Base64 encoded string
         /// </summary>
@@ -219,5 +237,8 @@ namespace Net.Pkcs11Interop.Common
         {
             return Convert.FromBase64String(value);
         }
+
+        #endregion
+
     }
 }

@@ -59,14 +59,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
             {
                 _lowLevelStruct.ClientRandom = UnmanagedMemory.Allocate(clientRandom.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.ClientRandom, clientRandom);
-                _lowLevelStruct.ClientRandomLen = NativeULongUtils.GetUInt32FromInt32(clientRandom.Length);
+                _lowLevelStruct.ClientRandomLen = ConvertUtils.UInt32FromInt32(clientRandom.Length);
             }
 
             if (serverRandom != null)
             {
                 _lowLevelStruct.ServerRandom = UnmanagedMemory.Allocate(serverRandom.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.ServerRandom, serverRandom);
-                _lowLevelStruct.ServerRandomLen = NativeULongUtils.GetUInt32FromInt32(serverRandom.Length);
+                _lowLevelStruct.ServerRandomLen = ConvertUtils.UInt32FromInt32(serverRandom.Length);
             }
         }
         

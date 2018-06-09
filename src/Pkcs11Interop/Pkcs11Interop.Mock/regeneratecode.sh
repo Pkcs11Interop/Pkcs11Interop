@@ -25,8 +25,7 @@ for file in $files; do
 	sed -i -e 's/LowLevelAPI41/'"$API"'/g' $file
 	sed -i -e 's/using NativeULong = System.UInt32;/using NativeULong = System.UInt64;/' $file
 	sed -i -e 's/Pack = 1/Pack = 0/' $file
-	sed -i -e 's/NativeULongUtils.GetUInt32/NativeULongUtils.GetUInt64/g' $file
-	sed -i -e 's/NativeULongUtils.PutUInt32/NativeULongUtils.PutUInt64/g' $file
+	sed -i -e 's/ConvertUtils.UInt32/ConvertUtils.UInt64/g' $file
 done
 
 API=LowLevelAPI81
@@ -39,8 +38,7 @@ for file in $files; do
 	sed -i -e 's/Code in this file is maintained manually/Code in this file is generated automatically/' $file
 	sed -i -e 's/LowLevelAPI41/'"$API"'/g' $file
 	sed -i -e 's/using NativeULong = System.UInt32;/using NativeULong = System.UInt64;/' $file
-	sed -i -e 's/NativeULongUtils.GetUInt32/NativeULongUtils.GetUInt64/g' $file
-	sed -i -e 's/NativeULongUtils.PutUInt32/NativeULongUtils.PutUInt64/g' $file
+	sed -i -e 's/ConvertUtils.UInt32/ConvertUtils.UInt64/g' $file
 done
 
 
@@ -67,8 +65,7 @@ for file in $files; do
 	sed -i -e 's/HighLevelAPI41/'"$API"'/g' $file
 	sed -i -e 's/LowLevelAPI41/LowLevelAPI80/g' $file
 	sed -i -e 's/using NativeULong = System.UInt32;/using NativeULong = System.UInt64;/' $file
-	sed -i -e 's/NativeULongUtils.GetUInt32/NativeULongUtils.GetUInt64/g' $file
-	sed -i -e 's/NativeULongUtils.PutUInt32/NativeULongUtils.PutUInt64/g' $file
+	sed -i -e 's/ConvertUtils.UInt32/ConvertUtils.UInt64/g' $file
 done
 
 API=HighLevelAPI81
@@ -82,6 +79,5 @@ for file in $files; do
 	sed -i -e 's/HighLevelAPI41/'"$API"'/g' $file
 	sed -i -e 's/LowLevelAPI41/LowLevelAPI81/g' $file
 	sed -i -e 's/using NativeULong = System.UInt32;/using NativeULong = System.UInt64;/' $file
-	sed -i -e 's/NativeULongUtils.GetUInt32/NativeULongUtils.GetUInt64/g' $file
-	sed -i -e 's/NativeULongUtils.PutUInt32/NativeULongUtils.PutUInt64/g' $file
+	sed -i -e 's/ConvertUtils.UInt32/ConvertUtils.UInt64/g' $file
 done

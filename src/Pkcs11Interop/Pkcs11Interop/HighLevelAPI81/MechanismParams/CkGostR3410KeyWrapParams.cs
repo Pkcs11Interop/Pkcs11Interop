@@ -62,14 +62,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
             {
                 _lowLevelStruct.WrapOID = UnmanagedMemory.Allocate(wrapOID.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.WrapOID, wrapOID);
-                _lowLevelStruct.WrapOIDLen = NativeULongUtils.GetUInt64FromInt32(wrapOID.Length);
+                _lowLevelStruct.WrapOIDLen = ConvertUtils.UInt64FromInt32(wrapOID.Length);
             }
 
             if (ukm != null)
             {
                 _lowLevelStruct.UKM = UnmanagedMemory.Allocate(ukm.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.UKM, ukm);
-                _lowLevelStruct.UKMLen = NativeULongUtils.GetUInt64FromInt32(ukm.Length);
+                _lowLevelStruct.UKMLen = ConvertUtils.UInt64FromInt32(ukm.Length);
             }
 
             _lowLevelStruct.Key = key;

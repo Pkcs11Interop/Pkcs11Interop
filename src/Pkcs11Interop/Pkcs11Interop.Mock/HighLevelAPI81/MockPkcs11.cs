@@ -99,10 +99,10 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI81
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetUnmanagedStructSizeList", rv);
 
-            if (sizeList.Length != NativeULongUtils.PutUInt64ToInt32(sizeCount))
-                Array.Resize(ref sizeList, NativeULongUtils.PutUInt64ToInt32(sizeCount));
+            if (sizeList.Length != ConvertUtils.UInt64ToInt32(sizeCount))
+                Array.Resize(ref sizeList, ConvertUtils.UInt64ToInt32(sizeCount));
 
-            ulong[] ulongList = Array.ConvertAll(sizeList, p => NativeULongUtils.PutUInt64ToUInt64(p));
+            ulong[] ulongList = Array.ConvertAll(sizeList, p => ConvertUtils.UInt64ToUInt64(p));
 
             return new List<ulong>(ulongList);
         }

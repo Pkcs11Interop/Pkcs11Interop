@@ -23,12 +23,14 @@ using System;
 
 // Note: Code in this file is maintained manually.
 
+// Note: This file holds the code for NativeULong (UInt32 and UInt64) conversions
+
 namespace Net.Pkcs11Interop.Common
 {
     /// <summary>
-    /// Utility class that helps with UInt32 and UInt64 conversions
+    /// Utility class that helps with data type conversions
     /// </summary>
-    public static class NativeULongUtils
+    public static partial class ConvertUtils
     {
         #region CKA
 
@@ -37,7 +39,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKA that should be converted</param>
         /// <returns>UInt32 with value from CKA</returns>
-        public static UInt32 GetUInt32FromCKA(CKA value)
+        public static UInt32 UInt32FromCKA(CKA value)
         {
             return Convert.ToUInt32(value);
         }
@@ -47,7 +49,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKA that should be converted</param>
         /// <returns>UInt64 with value from CKA</returns>
-        public static UInt64 GetUInt64FromCKA(CKA value)
+        public static UInt64 UInt64FromCKA(CKA value)
         {
             return Convert.ToUInt64(value);
         }
@@ -57,7 +59,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt32 that should be converted</param>
         /// <returns>CKA with UInt32 value</returns>
-        public static CKA PutUInt32ToCKA(UInt32 value)
+        public static CKA UInt32ToCKA(UInt32 value)
         {
             return (CKA)value;
         }
@@ -67,7 +69,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt64 that should be converted</param>
         /// <returns>CKA with UInt64 value</returns>
-        public static CKA PutUInt64ToCKA(UInt64 value)
+        public static CKA UInt64ToCKA(UInt64 value)
         {
             return (CKA)Convert.ToUInt32(value);
         }
@@ -81,7 +83,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKC that should be converted</param>
         /// <returns>UInt32 with value from CKC</returns>
-        public static UInt32 GetUInt32FromCKC(CKC value)
+        public static UInt32 UInt32FromCKC(CKC value)
         {
             return Convert.ToUInt32(value);
         }
@@ -91,7 +93,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKC that should be converted</param>
         /// <returns>UInt64 with value from CKC</returns>
-        public static UInt64 GetUInt64FromCKC(CKC value)
+        public static UInt64 UInt64FromCKC(CKC value)
         {
             return Convert.ToUInt64(value);
         }
@@ -101,7 +103,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt32 that should be converted</param>
         /// <returns>CKC with UInt32 value</returns>
-        public static CKC PutUInt32ToCKC(UInt32 value)
+        public static CKC UInt32ToCKC(UInt32 value)
         {
             return (CKC)value;
         }
@@ -111,7 +113,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt64 that should be converted</param>
         /// <returns>CKC with UInt64 value</returns>
-        public static CKC PutUInt64ToCKC(UInt64 value)
+        public static CKC UInt64ToCKC(UInt64 value)
         {
             return (CKC)Convert.ToUInt32(value);
         }
@@ -125,7 +127,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKD that should be converted</param>
         /// <returns>UInt32 with value from CKD</returns>
-        public static UInt32 GetUInt32FromCKD(CKD value)
+        public static UInt32 UInt32FromCKD(CKD value)
         {
             return Convert.ToUInt32(value);
         }
@@ -135,7 +137,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKD that should be converted</param>
         /// <returns>UInt64 with value from CKD</returns>
-        public static UInt64 GetUInt64FromCKD(CKD value)
+        public static UInt64 UInt64FromCKD(CKD value)
         {
             return Convert.ToUInt64(value);
         }
@@ -145,7 +147,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt32 that should be converted</param>
         /// <returns>CKD with UInt32 value</returns>
-        public static CKD PutUInt32ToCKD(UInt32 value)
+        public static CKD UInt32ToCKD(UInt32 value)
         {
             return (CKD)value;
         }
@@ -155,7 +157,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt64 that should be converted</param>
         /// <returns>CKD with UInt64 value</returns>
-        public static CKD PutUInt64ToCKD(UInt64 value)
+        public static CKD UInt64ToCKD(UInt64 value)
         {
             return (CKD)Convert.ToUInt32(value);
         }
@@ -169,7 +171,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKG that should be converted</param>
         /// <returns>UInt32 with value from CKG</returns>
-        public static UInt32 GetUInt32FromCKG(CKG value)
+        public static UInt32 UInt32FromCKG(CKG value)
         {
             return Convert.ToUInt32(value);
         }
@@ -179,7 +181,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKG that should be converted</param>
         /// <returns>UInt64 with value from CKG</returns>
-        public static UInt64 GetUInt64FromCKG(CKG value)
+        public static UInt64 UInt64FromCKG(CKG value)
         {
             return Convert.ToUInt64(value);
         }
@@ -189,7 +191,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt32 that should be converted</param>
         /// <returns>CKG with UInt32 value</returns>
-        public static CKG PutUInt32ToCKG(UInt32 value)
+        public static CKG UInt32ToCKG(UInt32 value)
         {
             return (CKG)value;
         }
@@ -199,7 +201,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt64 that should be converted</param>
         /// <returns>CKG with UInt64 value</returns>
-        public static CKG PutUInt64ToCKG(UInt64 value)
+        public static CKG UInt64ToCKG(UInt64 value)
         {
             return (CKG)Convert.ToUInt32(value);
         }
@@ -213,7 +215,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKH that should be converted</param>
         /// <returns>UInt32 with value from CKH</returns>
-        public static UInt32 GetUInt32FromCKH(CKH value)
+        public static UInt32 UInt32FromCKH(CKH value)
         {
             return Convert.ToUInt32(value);
         }
@@ -223,7 +225,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKH that should be converted</param>
         /// <returns>UInt64 with value from CKH</returns>
-        public static UInt64 GetUInt64FromCKH(CKH value)
+        public static UInt64 UInt64FromCKH(CKH value)
         {
             return Convert.ToUInt64(value);
         }
@@ -233,7 +235,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt32 that should be converted</param>
         /// <returns>CKH with UInt32 value</returns>
-        public static CKH PutUInt32ToCKH(UInt32 value)
+        public static CKH UInt32ToCKH(UInt32 value)
         {
             return (CKH)value;
         }
@@ -243,7 +245,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt64 that should be converted</param>
         /// <returns>CKH with UInt64 value</returns>
-        public static CKH PutUInt64ToCKH(UInt64 value)
+        public static CKH UInt64ToCKH(UInt64 value)
         {
             return (CKH)Convert.ToUInt32(value);
         }
@@ -257,7 +259,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKK that should be converted</param>
         /// <returns>UInt32 with value from CKK</returns>
-        public static UInt32 GetUInt32FromCKK(CKK value)
+        public static UInt32 UInt32FromCKK(CKK value)
         {
             return Convert.ToUInt32(value);
         }
@@ -267,7 +269,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKK that should be converted</param>
         /// <returns>UInt64 with value from CKK</returns>
-        public static UInt64 GetUInt64FromCKK(CKK value)
+        public static UInt64 UInt64FromCKK(CKK value)
         {
             return Convert.ToUInt64(value);
         }
@@ -277,7 +279,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt32 that should be converted</param>
         /// <returns>CKK with UInt32 value</returns>
-        public static CKK PutUInt32ToCKK(UInt32 value)
+        public static CKK UInt32ToCKK(UInt32 value)
         {
             return (CKK)value;
         }
@@ -287,7 +289,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt64 that should be converted</param>
         /// <returns>CKK with UInt64 value</returns>
-        public static CKK PutUInt64ToCKK(UInt64 value)
+        public static CKK UInt64ToCKK(UInt64 value)
         {
             return (CKK)Convert.ToUInt32(value);
         }
@@ -301,7 +303,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKM that should be converted</param>
         /// <returns>UInt32 with value from CKM</returns>
-        public static UInt32 GetUInt32FromCKM(CKM value)
+        public static UInt32 UInt32FromCKM(CKM value)
         {
             return Convert.ToUInt32(value);
         }
@@ -311,7 +313,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKM that should be converted</param>
         /// <returns>UInt64 with value from CKM</returns>
-        public static UInt64 GetUInt64FromCKM(CKM value)
+        public static UInt64 UInt64FromCKM(CKM value)
         {
             return Convert.ToUInt64(value);
         }
@@ -321,7 +323,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt32 that should be converted</param>
         /// <returns>CKM with UInt32 value</returns>
-        public static CKM PutUInt32ToCKM(UInt32 value)
+        public static CKM UInt32ToCKM(UInt32 value)
         {
             return (CKM)value;
         }
@@ -331,7 +333,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt64 that should be converted</param>
         /// <returns>CKM with UInt64 value</returns>
-        public static CKM PutUInt64ToCKM(UInt64 value)
+        public static CKM UInt64ToCKM(UInt64 value)
         {
             return (CKM)Convert.ToUInt32(value);
         }
@@ -345,7 +347,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKN that should be converted</param>
         /// <returns>UInt32 with value from CKN</returns>
-        public static UInt32 GetUInt32FromCKN(CKN value)
+        public static UInt32 UInt32FromCKN(CKN value)
         {
             return Convert.ToUInt32(value);
         }
@@ -355,7 +357,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKN that should be converted</param>
         /// <returns>UInt64 with value from CKN</returns>
-        public static UInt64 GetUInt64FromCKN(CKN value)
+        public static UInt64 UInt64FromCKN(CKN value)
         {
             return Convert.ToUInt64(value);
         }
@@ -365,7 +367,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt32 that should be converted</param>
         /// <returns>CKN with UInt32 value</returns>
-        public static CKN PutUInt32ToCKN(UInt32 value)
+        public static CKN UInt32ToCKN(UInt32 value)
         {
             return (CKN)value;
         }
@@ -375,7 +377,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt64 that should be converted</param>
         /// <returns>CKN with UInt64 value</returns>
-        public static CKN PutUInt64ToCKN(UInt64 value)
+        public static CKN UInt64ToCKN(UInt64 value)
         {
             return (CKN)Convert.ToUInt32(value);
         }
@@ -389,7 +391,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKO that should be converted</param>
         /// <returns>UInt32 with value from CKO</returns>
-        public static UInt32 GetUInt32FromCKO(CKO value)
+        public static UInt32 UInt32FromCKO(CKO value)
         {
             return Convert.ToUInt32(value);
         }
@@ -399,7 +401,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKO that should be converted</param>
         /// <returns>UInt64 with value from CKO</returns>
-        public static UInt64 GetUInt64FromCKO(CKO value)
+        public static UInt64 UInt64FromCKO(CKO value)
         {
             return Convert.ToUInt64(value);
         }
@@ -409,7 +411,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt32 that should be converted</param>
         /// <returns>CKO with UInt32 value</returns>
-        public static CKO PutUInt32ToCKO(UInt32 value)
+        public static CKO UInt32ToCKO(UInt32 value)
         {
             return (CKO)value;
         }
@@ -419,7 +421,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt64 that should be converted</param>
         /// <returns>CKO with UInt64 value</returns>
-        public static CKO PutUInt64ToCKO(UInt64 value)
+        public static CKO UInt64ToCKO(UInt64 value)
         {
             return (CKO)Convert.ToUInt32(value);
         }
@@ -433,7 +435,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKP that should be converted</param>
         /// <returns>UInt32 with value from CKP</returns>
-        public static UInt32 GetUInt32FromCKP(CKP value)
+        public static UInt32 UInt32FromCKP(CKP value)
         {
             return Convert.ToUInt32(value);
         }
@@ -443,7 +445,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKP that should be converted</param>
         /// <returns>UInt64 with value from CKP</returns>
-        public static UInt64 GetUInt64FromCKP(CKP value)
+        public static UInt64 UInt64FromCKP(CKP value)
         {
             return Convert.ToUInt64(value);
         }
@@ -453,7 +455,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt32 that should be converted</param>
         /// <returns>CKP with UInt32 value</returns>
-        public static CKP PutUInt32ToCKP(UInt32 value)
+        public static CKP UInt32ToCKP(UInt32 value)
         {
             return (CKP)value;
         }
@@ -463,7 +465,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt64 that should be converted</param>
         /// <returns>CKP with UInt64 value</returns>
-        public static CKP PutUInt64ToCKP(UInt64 value)
+        public static CKP UInt64ToCKP(UInt64 value)
         {
             return (CKP)Convert.ToUInt32(value);
         }
@@ -477,7 +479,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKR that should be converted</param>
         /// <returns>UInt32 with value from CKR</returns>
-        public static UInt32 GetUInt32FromCKR(CKR value)
+        public static UInt32 UInt32FromCKR(CKR value)
         {
             return Convert.ToUInt32(value);
         }
@@ -487,7 +489,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKR that should be converted</param>
         /// <returns>UInt64 with value from CKR</returns>
-        public static UInt64 GetUInt64FromCKR(CKR value)
+        public static UInt64 UInt64FromCKR(CKR value)
         {
             return Convert.ToUInt64(value);
         }
@@ -497,7 +499,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt32 that should be converted</param>
         /// <returns>CKR with UInt32 value</returns>
-        public static CKR PutUInt32ToCKR(UInt32 value)
+        public static CKR UInt32ToCKR(UInt32 value)
         {
             return (CKR)value;
         }
@@ -507,7 +509,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt64 that should be converted</param>
         /// <returns>CKR with UInt64 value</returns>
-        public static CKR PutUInt64ToCKR(UInt64 value)
+        public static CKR UInt64ToCKR(UInt64 value)
         {
             return (CKR)Convert.ToUInt32(value);
         }
@@ -521,7 +523,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKS that should be converted</param>
         /// <returns>UInt32 with value from CKS</returns>
-        public static UInt32 GetUInt32FromCKS(CKS value)
+        public static UInt32 UInt32FromCKS(CKS value)
         {
             return Convert.ToUInt32(value);
         }
@@ -531,7 +533,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKS that should be converted</param>
         /// <returns>UInt64 with value from CKS</returns>
-        public static UInt64 GetUInt64FromCKS(CKS value)
+        public static UInt64 UInt64FromCKS(CKS value)
         {
             return Convert.ToUInt64(value);
         }
@@ -541,7 +543,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt32 that should be converted</param>
         /// <returns>CKS with UInt32 value</returns>
-        public static CKS PutUInt32ToCKS(UInt32 value)
+        public static CKS UInt32ToCKS(UInt32 value)
         {
             return (CKS)value;
         }
@@ -551,7 +553,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt64 that should be converted</param>
         /// <returns>CKS with UInt64 value</returns>
-        public static CKS PutUInt64ToCKS(UInt64 value)
+        public static CKS UInt64ToCKS(UInt64 value)
         {
             return (CKS)Convert.ToUInt32(value);
         }
@@ -565,7 +567,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKU that should be converted</param>
         /// <returns>UInt32 with value from CKU</returns>
-        public static UInt32 GetUInt32FromCKU(CKU value)
+        public static UInt32 UInt32FromCKU(CKU value)
         {
             return Convert.ToUInt32(value);
         }
@@ -575,7 +577,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">CKU that should be converted</param>
         /// <returns>UInt64 with value from CKU</returns>
-        public static UInt64 GetUInt64FromCKU(CKU value)
+        public static UInt64 UInt64FromCKU(CKU value)
         {
             return Convert.ToUInt64(value);
         }
@@ -585,7 +587,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt32 that should be converted</param>
         /// <returns>CKU with UInt32 value</returns>
-        public static CKU PutUInt32ToCKU(UInt32 value)
+        public static CKU UInt32ToCKU(UInt32 value)
         {
             return (CKU)value;
         }
@@ -595,7 +597,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt64 that should be converted</param>
         /// <returns>CKU with UInt64 value</returns>
-        public static CKU PutUInt64ToCKU(UInt64 value)
+        public static CKU UInt64ToCKU(UInt64 value)
         {
             return (CKU)Convert.ToUInt32(value);
         }
@@ -609,7 +611,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">Int32 that should be converted</param>
         /// <returns>UInt32 with value from Int32</returns>
-        public static UInt32 GetUInt32FromInt32(Int32 value)
+        public static UInt32 UInt32FromInt32(Int32 value)
         {
             return Convert.ToUInt32(value);
         }
@@ -619,7 +621,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">Int32 that should be converted</param>
         /// <returns>UInt64 with value from Int32</returns>
-        public static UInt64 GetUInt64FromInt32(Int32 value)
+        public static UInt64 UInt64FromInt32(Int32 value)
         {
             return Convert.ToUInt64(value);
         }
@@ -629,7 +631,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt32 that should be converted</param>
         /// <returns>Int32 with UInt32 value</returns>
-        public static Int32 PutUInt32ToInt32(UInt32 value)
+        public static Int32 UInt32ToInt32(UInt32 value)
         {
             return Convert.ToInt32(value);
         }
@@ -639,7 +641,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt64 that should be converted</param>
         /// <returns>Int32 with UInt64 value</returns>
-        public static Int32 PutUInt64ToInt32(UInt64 value)
+        public static Int32 UInt64ToInt32(UInt64 value)
         {
             return Convert.ToInt32(value);
         }
@@ -653,7 +655,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt32 that should be converted</param>
         /// <returns>UInt32 with value from UInt32</returns>
-        public static UInt32 GetUInt32FromUInt32(UInt32 value)
+        public static UInt32 UInt32FromUInt32(UInt32 value)
         {
             return value;
         }
@@ -663,7 +665,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt32 that should be converted</param>
         /// <returns>UInt64 with value from UInt32</returns>
-        public static UInt64 GetUInt64FromUInt32(UInt32 value)
+        public static UInt64 UInt64FromUInt32(UInt32 value)
         {
             return Convert.ToUInt64(value);
         }
@@ -673,7 +675,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt32 that should be converted</param>
         /// <returns>UInt32 with UInt32 value</returns>
-        public static UInt32 PutUInt32ToUInt32(UInt32 value)
+        public static UInt32 UInt32ToUInt32(UInt32 value)
         {
             return value;
         }
@@ -683,7 +685,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt64 that should be converted</param>
         /// <returns>UInt32 with UInt64 value</returns>
-        public static UInt32 PutUInt64ToUInt32(UInt64 value)
+        public static UInt32 UInt64ToUInt32(UInt64 value)
         {
             return Convert.ToUInt32(value);
         }
@@ -697,7 +699,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt64 that should be converted</param>
         /// <returns>UInt32 with value from UInt64</returns>
-        public static UInt32 GetUInt32FromUInt64(UInt64 value)
+        public static UInt32 UInt32FromUInt64(UInt64 value)
         {
             return Convert.ToUInt32(value);
         }
@@ -707,7 +709,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt64 that should be converted</param>
         /// <returns>UInt64 with value from UInt64</returns>
-        public static UInt64 GetUInt64FromUInt64(UInt64 value)
+        public static UInt64 UInt64FromUInt64(UInt64 value)
         {
             return Convert.ToUInt64(value);
         }
@@ -717,7 +719,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt32 that should be converted</param>
         /// <returns>UInt64 with UInt32 value</returns>
-        public static UInt64 PutUInt32ToUInt64(UInt32 value)
+        public static UInt64 UInt32ToUInt64(UInt32 value)
         {
             return Convert.ToUInt64(value);
         }
@@ -727,7 +729,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt64 that should be converted</param>
         /// <returns>UInt64 with UInt64 value</returns>
-        public static UInt64 PutUInt64ToUInt64(UInt64 value)
+        public static UInt64 UInt64ToUInt64(UInt64 value)
         {
             return Convert.ToUInt64(value);
         }
@@ -741,9 +743,9 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt64? that should be converted</param>
         /// <returns>UInt32? with value from UInt64?</returns>
-        public static UInt32? GetUInt32FromUInt64(UInt64? value)
+        public static UInt32? UInt32FromUInt64(UInt64? value)
         {
-            return (value == null) ? null : (UInt32?)GetUInt32FromUInt64(value.Value);
+            return (value == null) ? null : (UInt32?)UInt32FromUInt64(value.Value);
         }
 
         /// <summary>
@@ -751,9 +753,9 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt64? that should be converted</param>
         /// <returns>UInt64? with value from UInt64?</returns>
-        public static UInt64? GetUInt64FromUInt64(UInt64? value)
+        public static UInt64? UInt64FromUInt64(UInt64? value)
         {
-            return (value == null) ? null : (UInt64?)GetUInt64FromUInt64(value.Value);
+            return (value == null) ? null : (UInt64?)UInt64FromUInt64(value.Value);
         }
 
         /// <summary>
@@ -761,9 +763,9 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt32 that should be converted</param>
         /// <returns>UInt64 with UInt32 value</returns>
-        public static UInt64? PutUInt32ToUInt64(UInt32? value)
+        public static UInt64? UInt32ToUInt64(UInt32? value)
         {
-            return (value == null) ? null : (UInt64?)PutUInt32ToUInt64(value.Value);
+            return (value == null) ? null : (UInt64?)UInt32ToUInt64(value.Value);
         }
 
         /// <summary>
@@ -771,9 +773,9 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name="value">UInt64 that should be converted</param>
         /// <returns>UInt64 with UInt64 value</returns>
-        public static UInt64? PutUInt64ToUInt64(UInt64? value)
+        public static UInt64? UInt64ToUInt64(UInt64? value)
         {
-            return (value == null) ? null : (UInt64?)PutUInt64ToUInt64(value.Value);
+            return (value == null) ? null : (UInt64?)UInt64ToUInt64(value.Value);
         }
 
         #endregion
@@ -785,7 +787,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name='value'>Byte array that should be converted</param>
         /// <returns>UInt32 with value from byte array</returns>
-        public static UInt32 GetUInt32FromByteArray(byte[] value)
+        public static UInt32 UInt32FromBytes(byte[] value)
         {
             if ((value == null) || (value.Length != UnmanagedMemory.SizeOf(typeof(UInt32))))
                 throw new Exception("Unable to convert bytes to UInt32");
@@ -798,7 +800,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name='value'>Byte array that should be converted</param>
         /// <returns>UInt64 with value from byte array</returns>
-        public static UInt64 GetUInt64FromByteArray(byte[] value)
+        public static UInt64 UInt64FromBytes(byte[] value)
         {
             if ((value == null) || (value.Length != UnmanagedMemory.SizeOf(typeof(UInt64))))
                 throw new Exception("Unable to convert bytes to UInt64");
@@ -811,7 +813,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name='value'>UInt32 that should be converted</param>
         /// <returns>Byte array with UInt32 value</returns>
-        public static byte[] PutUInt32ToByteArray(UInt32 value)
+        public static byte[] UInt32ToBytes(UInt32 value)
         {
             byte[] bytes = BitConverter.GetBytes(value);
 
@@ -827,7 +829,7 @@ namespace Net.Pkcs11Interop.Common
         /// </summary>
         /// <param name='value'>UInt64 that should be converted</param>
         /// <returns>Byte array with UInt64 value</returns>
-        public static byte[] PutUInt64ToByteArray(UInt64 value)
+        public static byte[] UInt64ToBytes(UInt64 value)
         {
             byte[] bytes = BitConverter.GetBytes(value);
 

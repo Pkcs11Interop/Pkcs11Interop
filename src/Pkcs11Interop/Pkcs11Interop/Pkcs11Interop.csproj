@@ -61,9 +61,9 @@
     <Compile Include="Common\CKS.cs" />
     <Compile Include="Common\CKU.cs" />
     <Compile Include="Common\CKZ.cs" />
-    <Compile Include="Common\ConvertUtils.cs" />
+    <Compile Include="Common\ConvertUtils1.cs" />
     <Compile Include="Common\LowLevelPkcs11.cs" />
-    <Compile Include="Common\NativeULongUtils.cs" />
+    <Compile Include="Common\ConvertUtils2.cs" />
     <Compile Include="HighLevelAPI40\Factories\MechanismFactory.cs" />
     <Compile Include="HighLevelAPI40\Factories\MechanismParamsFactory.cs" />
     <Compile Include="HighLevelAPI40\Factories\ObjectAttributeFactory.cs" />

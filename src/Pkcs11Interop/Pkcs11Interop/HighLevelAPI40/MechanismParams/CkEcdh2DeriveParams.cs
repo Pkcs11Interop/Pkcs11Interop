@@ -72,14 +72,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             {
                 _lowLevelStruct.SharedData = UnmanagedMemory.Allocate(sharedData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.SharedData, sharedData);
-                _lowLevelStruct.SharedDataLen = NativeULongUtils.GetUInt32FromInt32(sharedData.Length);
+                _lowLevelStruct.SharedDataLen = ConvertUtils.UInt32FromInt32(sharedData.Length);
             }
 
             if (publicData != null)
             {
                 _lowLevelStruct.PublicData = UnmanagedMemory.Allocate(publicData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
-                _lowLevelStruct.PublicDataLen = NativeULongUtils.GetUInt32FromInt32(publicData.Length);
+                _lowLevelStruct.PublicDataLen = ConvertUtils.UInt32FromInt32(publicData.Length);
             }
 
             _lowLevelStruct.PrivateDataLen = privateDataLen;
@@ -87,13 +87,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             if (privateData == null)
                 throw new ArgumentNullException("privateData");
 
-            _lowLevelStruct.PrivateData = NativeULongUtils.GetUInt32FromUInt64(privateData.ObjectId);
+            _lowLevelStruct.PrivateData = ConvertUtils.UInt32FromUInt64(privateData.ObjectId);
 
             if (publicData2 != null)
             {
                 _lowLevelStruct.PublicData2 = UnmanagedMemory.Allocate(publicData2.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.PublicData2, publicData2);
-                _lowLevelStruct.PublicDataLen2 = NativeULongUtils.GetUInt32FromInt32(publicData2.Length);
+                _lowLevelStruct.PublicDataLen2 = ConvertUtils.UInt32FromInt32(publicData2.Length);
             }
         }
         

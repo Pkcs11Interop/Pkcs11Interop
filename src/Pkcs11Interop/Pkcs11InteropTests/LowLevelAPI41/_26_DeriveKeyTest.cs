@@ -62,7 +62,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeULongUtils.GetUInt32FromInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, ConvertUtils.UInt32FromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -74,7 +74,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 
                 // Generate random data needed for key derivation
                 byte[] data = new byte[24];
-                rv = pkcs11.C_GenerateRandom(session, data, NativeULongUtils.GetUInt32FromInt32(data.Length));
+                rv = pkcs11.C_GenerateRandom(session, data, ConvertUtils.UInt32FromInt32(data.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -83,7 +83,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 CK_KEY_DERIVATION_STRING_DATA mechanismParams = new CK_KEY_DERIVATION_STRING_DATA();
                 mechanismParams.Data = UnmanagedMemory.Allocate(data.Length);
                 UnmanagedMemory.Write(mechanismParams.Data, data);
-                mechanismParams.Len = NativeULongUtils.GetUInt32FromInt32(data.Length);
+                mechanismParams.Len = ConvertUtils.UInt32FromInt32(data.Length);
 
                 // Specify derivation mechanism with parameters
                 // Note that CkmUtils.CreateMechanism() automaticaly copies mechanismParams into newly allocated unmanaged memory

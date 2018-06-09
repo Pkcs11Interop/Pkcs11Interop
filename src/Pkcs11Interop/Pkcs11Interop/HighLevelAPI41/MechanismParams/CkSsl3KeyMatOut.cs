@@ -111,7 +111,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (_ivLength < 1) ? null : UnmanagedMemory.Read(_lowLevelStruct.IVClient, NativeULongUtils.PutUInt32ToInt32(_ivLength));
+                return (_ivLength < 1) ? null : UnmanagedMemory.Read(_lowLevelStruct.IVClient, ConvertUtils.UInt32ToInt32(_ivLength));
             }
         }
 
@@ -125,7 +125,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (_ivLength < 1) ? null : UnmanagedMemory.Read(_lowLevelStruct.IVServer, NativeULongUtils.PutUInt32ToInt32(_ivLength));
+                return (_ivLength < 1) ? null : UnmanagedMemory.Read(_lowLevelStruct.IVServer, ConvertUtils.UInt32ToInt32(_ivLength));
             }
         }
 
@@ -151,8 +151,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 
             if (_ivLength > 0)
             {
-                _lowLevelStruct.IVClient = UnmanagedMemory.Allocate(NativeULongUtils.PutUInt32ToInt32(_ivLength));
-                _lowLevelStruct.IVServer = UnmanagedMemory.Allocate(NativeULongUtils.PutUInt32ToInt32(_ivLength));
+                _lowLevelStruct.IVClient = UnmanagedMemory.Allocate(ConvertUtils.UInt32ToInt32(_ivLength));
+                _lowLevelStruct.IVServer = UnmanagedMemory.Allocate(ConvertUtils.UInt32ToInt32(_ivLength));
             }
         }
 
