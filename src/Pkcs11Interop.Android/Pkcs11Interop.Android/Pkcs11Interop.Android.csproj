@@ -160,23 +160,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Pkcs11Interop\Pkcs11Interop\CHANGELOG.txt">
-      <Link>CHANGELOG.txt</Link>
-    </None>
-    <None Include="..\..\Pkcs11Interop\Pkcs11Interop\ISSUES.txt">
-      <Link>ISSUES.txt</Link>
-    </None>
-    <None Include="..\..\Pkcs11Interop\Pkcs11Interop\LICENSE.txt">
-      <Link>LICENSE.txt</Link>
-    </None>
-    <None Include="..\..\Pkcs11Interop\Pkcs11Interop\NOTICE.txt">
-      <Link>NOTICE.txt</Link>
-    </None>
-    <None Include="..\..\Pkcs11Interop\Pkcs11Interop\regeneratecode.sh">
-      <Link>regeneratecode.sh</Link>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\Factories\MechanismFactory.cs">
       <Link>HighLevelAPI40\Factories\MechanismFactory.cs</Link>
     </Compile>
@@ -2273,12 +2256,22 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Pkcs11Interop\Pkcs11Interop\CHANGELOG.txt">
+      <Link>CHANGELOG.txt</Link>
+    </None>
+    <None Include="..\..\Pkcs11Interop\Pkcs11Interop\ISSUES.txt">
+      <Link>ISSUES.txt</Link>
+    </None>
+    <None Include="..\..\Pkcs11Interop\Pkcs11Interop\LICENSE.txt">
+      <Link>LICENSE.txt</Link>
+    </None>
+    <None Include="..\..\Pkcs11Interop\Pkcs11Interop\NOTICE.txt">
+      <Link>NOTICE.txt</Link>
+    </None>
+    <None Include="..\..\Pkcs11Interop\Pkcs11Interop\regeneratecode.sh">
+      <Link>regeneratecode.sh</Link>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
