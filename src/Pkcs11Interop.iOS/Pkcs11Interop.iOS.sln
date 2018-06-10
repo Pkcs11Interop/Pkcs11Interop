@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pkcs11Interop.iOS", "Pkcs11Interop.iOS\Pkcs11Interop.iOS.csproj", "{1DF7AFD7-8498-41C2-B83A-161E2D2A01E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pkcs11Interop", "Pkcs11Interop\Pkcs11Interop.csproj", "{1DF7AFD7-8498-41C2-B83A-161E2D2A01E9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pkcs11Interop.iOS.Tests", "Pkcs11Interop.iOS.Tests\Pkcs11Interop.iOS.Tests.csproj", "{EDFECDDE-5DF5-423C-925B-2064437275D3}"
 EndProject

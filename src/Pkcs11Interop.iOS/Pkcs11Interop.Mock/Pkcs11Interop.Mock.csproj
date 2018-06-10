@@ -158,9 +158,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Pkcs11Interop.iOS\Pkcs11Interop.iOS.csproj">
+    <ProjectReference Include="..\Pkcs11Interop\Pkcs11Interop.csproj">
       <Project>{1df7afd7-8498-41c2-b83a-161e2d2a01e9}</Project>
-      <Name>Pkcs11Interop.iOS</Name>
+      <Name>Pkcs11Interop</Name>
       <IsAppExtension>false</IsAppExtension>
       <IsWatchApp>false</IsWatchApp>
     </ProjectReference>
