@@ -12,7 +12,6 @@
     <RootNamespace>Net.Pkcs11Interop.Mock</RootNamespace>
     <AssemblyName>Pkcs11Interop.Mock</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v2.3</TargetFrameworkVersion>
@@ -156,8 +155,12 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\LowLevelAPI81\MockPkcs11.cs">
       <Link>LowLevelAPI81\MockPkcs11.cs</Link>
     </Compile>
-    <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\regeneratecode.sh">
+      <Link>regeneratecode.sh</Link>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Pkcs11Interop.Android\Pkcs11Interop.Android.csproj">
@@ -165,17 +168,5 @@
       <Name>Pkcs11Interop.Android</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\regeneratecode.sh">
-      <Link>regeneratecode.sh</Link>
-    </None>
-  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
