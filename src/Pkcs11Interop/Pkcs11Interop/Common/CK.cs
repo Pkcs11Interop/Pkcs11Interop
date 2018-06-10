@@ -19,6 +19,10 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
+using System;
+
+// Note: Code in this file is maintained manually.
+
 namespace Net.Pkcs11Interop.Common
 {
     /// <summary>
@@ -48,7 +52,7 @@ namespace Net.Pkcs11Interop.Common
         /// <returns>True if number has value of CK_UNAVAILABLE_INFORMATION constant false otherwise</returns>
         public static bool IsCkInformationUnavailable(ulong value)
         {
-            if (Platform.UnmanagedLongSize == 4)
+            if (Platform.NativeULongSize == 4)
                 return (value == CK_UNAVAILABLE_INFORMATION_4);
             else
                 return (value == CK_UNAVAILABLE_INFORMATION_8);

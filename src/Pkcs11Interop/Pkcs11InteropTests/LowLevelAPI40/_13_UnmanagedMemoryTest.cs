@@ -23,6 +23,8 @@ using System;
 using Net.Pkcs11Interop.Common;
 using NUnit.Framework;
 
+// Note: Code in this file is generated automatically.
+
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
 {
     /// <summary>

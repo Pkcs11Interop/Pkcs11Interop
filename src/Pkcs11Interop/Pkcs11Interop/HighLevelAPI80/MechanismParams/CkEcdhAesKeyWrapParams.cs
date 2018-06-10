@@ -21,16 +21,18 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI80;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
 using NativeULong = System.UInt64;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_ECDH_AES_KEY_WRAP mechanism
     /// </summary>
-    public class CkEcdhAesKeyWrapParams : IMechanismParams, IDisposable
+    public class CkEcdhAesKeyWrapParams : ICkEcdhAesKeyWrapParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -62,7 +64,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             {
                 _lowLevelStruct.SharedData = UnmanagedMemory.Allocate(sharedData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.SharedData, sharedData);
-                _lowLevelStruct.SharedDataLen = NativeLongUtils.ConvertFromInt32(sharedData.Length);
+                _lowLevelStruct.SharedDataLen = ConvertUtils.UInt64FromInt32(sharedData.Length);
             }
         }
 

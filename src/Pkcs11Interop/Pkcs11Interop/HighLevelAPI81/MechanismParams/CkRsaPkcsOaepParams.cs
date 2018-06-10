@@ -21,16 +21,18 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI81;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
 using NativeULong = System.UInt64;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_RSA_PKCS_OAEP mechanism
     /// </summary>
-    public class CkRsaPkcsOaepParams : IMechanismParams, IDisposable
+    public class CkRsaPkcsOaepParams : ICkRsaPkcsOaepParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -65,7 +67,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
             {
                 _lowLevelStruct.SourceData = UnmanagedMemory.Allocate(sourceData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.SourceData, sourceData);
-                _lowLevelStruct.SourceDataLen = NativeLongUtils.ConvertFromInt32(sourceData.Length);
+                _lowLevelStruct.SourceDataLen = ConvertUtils.UInt64FromInt32(sourceData.Length);
             }
         }
 

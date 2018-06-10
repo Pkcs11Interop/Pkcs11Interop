@@ -21,15 +21,17 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI40;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_KEY_WRAP_SET_OAEP mechanism
     /// </summary>
-    public class CkKeyWrapSetOaepParams : IMechanismParams, IDisposable
+    public class CkKeyWrapSetOaepParams : ICkKeyWrapSetOaepParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -58,7 +60,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             {
                 _lowLevelStruct.X = UnmanagedMemory.Allocate(x.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.X, x);
-                _lowLevelStruct.XLen = NativeLongUtils.ConvertFromInt32(x.Length);
+                _lowLevelStruct.XLen = ConvertUtils.UInt32FromInt32(x.Length);
             }
         }
         

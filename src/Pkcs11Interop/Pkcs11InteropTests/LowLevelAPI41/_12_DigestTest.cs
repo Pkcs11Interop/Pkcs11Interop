@@ -26,6 +26,8 @@ using Net.Pkcs11Interop.LowLevelAPI41;
 using NUnit.Framework;
 using NativeULong = System.UInt32;
 
+// Note: Code in this file is maintained manually.
+
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 {
     /// <summary>
@@ -70,7 +72,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 
                 // Get length of digest value in first call
                 NativeULong digestLen = 0;
-                rv = pkcs11.C_Digest(session, sourceData, NativeLongUtils.ConvertFromInt32(sourceData.Length), null, ref digestLen);
+                rv = pkcs11.C_Digest(session, sourceData, ConvertUtils.UInt32FromInt32(sourceData.Length), null, ref digestLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -80,7 +82,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 byte[] digest = new byte[digestLen];
 
                 // Get digest value in second call
-                rv = pkcs11.C_Digest(session, sourceData, NativeLongUtils.ConvertFromInt32(sourceData.Length), digest, ref digestLen);
+                rv = pkcs11.C_Digest(session, sourceData, ConvertUtils.UInt32FromInt32(sourceData.Length), digest, ref digestLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -143,7 +145,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     while ((bytesRead = inputStream.Read(part, 0, part.Length)) > 0)
                     {
                         // Digest each individual source data part
-                        rv = pkcs11.C_DigestUpdate(session, part, NativeLongUtils.ConvertFromInt32(bytesRead));
+                        rv = pkcs11.C_DigestUpdate(session, part, ConvertUtils.UInt32FromInt32(bytesRead));
                         if (rv != CKR.CKR_OK)
                             Assert.Fail(rv.ToString());
                     }
@@ -202,7 +204,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, ConvertUtils.UInt32FromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 

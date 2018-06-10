@@ -21,15 +21,18 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
 using NativeULong = System.UInt32;
+
+// Note: Code in this file is maintained manually.
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_TLS12_KEY_AND_MAC_DERIVE mechanism
     /// </summary>
-    public class CkTls12KeyMatParams : IMechanismParams, IDisposable
+    public class CkTls12KeyMatParams : ICkTls12KeyMatParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -54,7 +57,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// <summary>
         /// Resulting key handles and initialization vectors
         /// </summary>
-        public CkSsl3KeyMatOut ReturnedKeyMaterial
+        public ICkSsl3KeyMatOut ReturnedKeyMaterial
         {
             get
             {
@@ -74,7 +77,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// <summary>
         /// Client's and server's random data information
         /// </summary>
-        private CkSsl3RandomData _randomInfo = null;
+        private ICkSsl3RandomData _randomInfo = null;
 
         /// <summary>
         /// Initializes a new instance of the CkTls12KeyMatParams class.
@@ -85,7 +88,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// <param name="isExport">Flag which must be set to false because export cipher suites must not be used in TLS 1.1 and later</param>
         /// <param name="randomInfo">Client's and server's random data information</param>
         /// <param name="prfHashMechanism">Base hash used in the underlying TLS1.2 PRF operation used to derive the master key (CKM)</param>
-        public CkTls12KeyMatParams(NativeULong macSizeInBits, NativeULong keySizeInBits, NativeULong ivSizeInBits, bool isExport, CkSsl3RandomData randomInfo, NativeULong prfHashMechanism)
+        public CkTls12KeyMatParams(NativeULong macSizeInBits, NativeULong keySizeInBits, NativeULong ivSizeInBits, bool isExport, ICkSsl3RandomData randomInfo, NativeULong prfHashMechanism)
         {
             if (randomInfo == null)
                 throw new ArgumentNullException("randomInfo");

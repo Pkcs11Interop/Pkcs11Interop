@@ -21,16 +21,18 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI40;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
 using NativeULong = System.UInt32;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_AES_GCM mechanism
     /// </summary>
-    public class CkGcmParams : IMechanismParams, IDisposable
+    public class CkGcmParams : ICkGcmParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -62,7 +64,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             {
                 _lowLevelStruct.Iv = UnmanagedMemory.Allocate(iv.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Iv, iv);
-                _lowLevelStruct.IvLen = NativeLongUtils.ConvertFromInt32(iv.Length);
+                _lowLevelStruct.IvLen = ConvertUtils.UInt32FromInt32(iv.Length);
             }
 
             _lowLevelStruct.IvBits = ivBits;
@@ -71,7 +73,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             {
                 _lowLevelStruct.AAD = UnmanagedMemory.Allocate(aad.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.AAD, aad);
-                _lowLevelStruct.AADLen = NativeLongUtils.ConvertFromInt32(aad.Length);
+                _lowLevelStruct.AADLen = ConvertUtils.UInt32FromInt32(aad.Length);
             }
 
             _lowLevelStruct.TagBits = tagBits;

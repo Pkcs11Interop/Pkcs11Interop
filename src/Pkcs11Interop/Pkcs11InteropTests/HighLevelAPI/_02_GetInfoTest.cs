@@ -23,6 +23,8 @@ using System;
 using Net.Pkcs11Interop.HighLevelAPI;
 using NUnit.Framework;
 
+// Note: Code in this file is maintained manually.
+
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 {
     /// <summary>
@@ -37,9 +39,9 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_BasicGetInfoTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
-                LibraryInfo libraryInfo = pkcs11.GetInfo();
+                ILibraryInfo libraryInfo = pkcs11.GetInfo();
 
                 // Do something interesting with library information
                 Assert.IsFalse(String.IsNullOrEmpty(libraryInfo.ManufacturerId));
@@ -47,4 +49,3 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         }
     }
 }
-

@@ -21,16 +21,18 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI41;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
 using NativeULong = System.UInt32;
+
+// Note: Code in this file is maintained manually.
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_ECDH1_DERIVE and CKM_ECDH1_COFACTOR_DERIVE key derivation mechanisms
     /// </summary>
-    public class CkEcdh1DeriveParams : IMechanismParams, IDisposable
+    public class CkEcdh1DeriveParams : ICkEcdh1DeriveParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -62,14 +64,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
             {
                 _lowLevelStruct.SharedData = UnmanagedMemory.Allocate(sharedData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.SharedData, sharedData);
-                _lowLevelStruct.SharedDataLen = NativeLongUtils.ConvertFromInt32(sharedData.Length);
+                _lowLevelStruct.SharedDataLen = ConvertUtils.UInt32FromInt32(sharedData.Length);
             }
 
             if (publicData != null)
             {
                 _lowLevelStruct.PublicData = UnmanagedMemory.Allocate(publicData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
-                _lowLevelStruct.PublicDataLen = NativeLongUtils.ConvertFromInt32(publicData.Length);
+                _lowLevelStruct.PublicDataLen = ConvertUtils.UInt32FromInt32(publicData.Length);
             }
         }
         

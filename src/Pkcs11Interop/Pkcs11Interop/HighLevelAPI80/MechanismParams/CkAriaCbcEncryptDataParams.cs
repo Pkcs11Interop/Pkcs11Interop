@@ -21,15 +21,17 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI80;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_ARIA_CBC_ENCRYPT_DATA mechanism
     /// </summary>
-    public class CkAriaCbcEncryptDataParams : IMechanismParams, IDisposable
+    public class CkAriaCbcEncryptDataParams : ICkAriaCbcEncryptDataParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -64,7 +66,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             {
                 _lowLevelStruct.Data = UnmanagedMemory.Allocate(data.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Data, data);
-                _lowLevelStruct.Length = NativeLongUtils.ConvertFromInt32(data.Length);
+                _lowLevelStruct.Length = ConvertUtils.UInt64FromInt32(data.Length);
             }
         }
         

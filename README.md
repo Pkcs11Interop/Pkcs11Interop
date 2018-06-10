@@ -9,6 +9,11 @@ Pkcs11Interop
 [![Stack Overflow](https://img.shields.io/badge/stack%20overflow-pkcs11interop-blue.svg)](https://stackoverflow.com/questions/tagged/pkcs11interop)
 [![Twitter](https://img.shields.io/badge/twitter-p11interop-blue.svg)](https://twitter.com/p11interop)
 
+## Warning
+
+**This is [master branch](https://github.com/Pkcs11Interop/Pkcs11Interop/tree/master) and it contains the current development version with several API breaking changes.**  
+**Current stable release can be found in [4.0.0 branch](https://github.com/Pkcs11Interop/Pkcs11Interop/tree/4.0.0).**
+
 ## Table of Contents
 
 * [Overview](#overview)

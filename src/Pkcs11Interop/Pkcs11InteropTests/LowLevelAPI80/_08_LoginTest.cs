@@ -25,6 +25,8 @@ using Net.Pkcs11Interop.LowLevelAPI80;
 using NUnit.Framework;
 using NativeULong = System.UInt64;
 
+// Note: Code in this file is generated automatically.
+
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
 {
     /// <summary>
@@ -58,7 +60,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, ConvertUtils.UInt64FromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -103,7 +105,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
                     Assert.Fail(rv.ToString());
                 
                 // Login as SO (security officer)
-                rv = pkcs11.C_Login(session, CKU.CKU_SO, Settings.SecurityOfficerPinArray, NativeLongUtils.ConvertFromInt32(Settings.SecurityOfficerPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_SO, Settings.SecurityOfficerPinArray, ConvertUtils.UInt64FromInt32(Settings.SecurityOfficerPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 

@@ -21,15 +21,17 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI41;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
+
+// Note: Code in this file is maintained manually.
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
     /// <summary>
     /// Information about the random data of a client and a server in an SSL context
     /// </summary>
-    public class CkSsl3RandomData : IMechanismParams, IDisposable
+    public class CkSsl3RandomData : ICkSsl3RandomData
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -57,14 +59,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
             {
                 _lowLevelStruct.ClientRandom = UnmanagedMemory.Allocate(clientRandom.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.ClientRandom, clientRandom);
-                _lowLevelStruct.ClientRandomLen = NativeLongUtils.ConvertFromInt32(clientRandom.Length);
+                _lowLevelStruct.ClientRandomLen = ConvertUtils.UInt32FromInt32(clientRandom.Length);
             }
 
             if (serverRandom != null)
             {
                 _lowLevelStruct.ServerRandom = UnmanagedMemory.Allocate(serverRandom.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.ServerRandom, serverRandom);
-                _lowLevelStruct.ServerRandomLen = NativeLongUtils.ConvertFromInt32(serverRandom.Length);
+                _lowLevelStruct.ServerRandomLen = ConvertUtils.UInt32FromInt32(serverRandom.Length);
             }
         }
         

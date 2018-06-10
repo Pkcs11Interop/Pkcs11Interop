@@ -21,16 +21,19 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI41;
+using Net.Pkcs11Interop.HighLevelAPI;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
 using NativeULong = System.UInt32;
+
+// Note: Code in this file is maintained manually.
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_ECMQV_DERIVE mechanism
     /// </summary>
-    public class CkEcdh2DeriveParams : IMechanismParams, IDisposable
+    public class CkEcdh2DeriveParams : ICkEcdh2DeriveParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -51,7 +54,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// <param name='privateDataLen'>The length in bytes of the second EC private key</param>
         /// <param name='privateData'>Key handle for second EC private key value</param>
         /// <param name='publicData2'>Other party's second EC public key value</param>
-        public CkEcdh2DeriveParams(NativeULong kdf, byte[] sharedData, byte[] publicData, NativeULong privateDataLen, ObjectHandle privateData, byte[] publicData2)
+        public CkEcdh2DeriveParams(NativeULong kdf, byte[] sharedData, byte[] publicData, NativeULong privateDataLen, IObjectHandle privateData, byte[] publicData2)
         {
             _lowLevelStruct.Kdf = 0;
             _lowLevelStruct.SharedDataLen = 0;
@@ -69,14 +72,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
             {
                 _lowLevelStruct.SharedData = UnmanagedMemory.Allocate(sharedData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.SharedData, sharedData);
-                _lowLevelStruct.SharedDataLen = NativeLongUtils.ConvertFromInt32(sharedData.Length);
+                _lowLevelStruct.SharedDataLen = ConvertUtils.UInt32FromInt32(sharedData.Length);
             }
 
             if (publicData != null)
             {
                 _lowLevelStruct.PublicData = UnmanagedMemory.Allocate(publicData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
-                _lowLevelStruct.PublicDataLen = NativeLongUtils.ConvertFromInt32(publicData.Length);
+                _lowLevelStruct.PublicDataLen = ConvertUtils.UInt32FromInt32(publicData.Length);
             }
 
             _lowLevelStruct.PrivateDataLen = privateDataLen;
@@ -84,13 +87,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
             if (privateData == null)
                 throw new ArgumentNullException("privateData");
 
-            _lowLevelStruct.PrivateData = privateData.ObjectId;
+            _lowLevelStruct.PrivateData = ConvertUtils.UInt32FromUInt64(privateData.ObjectId);
 
             if (publicData2 != null)
             {
                 _lowLevelStruct.PublicData2 = UnmanagedMemory.Allocate(publicData2.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.PublicData2, publicData2);
-                _lowLevelStruct.PublicDataLen2 = NativeLongUtils.ConvertFromInt32(publicData2.Length);
+                _lowLevelStruct.PublicDataLen2 = ConvertUtils.UInt32FromInt32(publicData2.Length);
             }
         }
         

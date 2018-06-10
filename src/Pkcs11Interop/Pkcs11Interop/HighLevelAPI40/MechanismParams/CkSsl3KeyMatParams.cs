@@ -21,15 +21,18 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
 using NativeULong = System.UInt32;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_SSL3_KEY_AND_MAC_DERIVE mechanism
     /// </summary>
-    public class CkSsl3KeyMatParams : IMechanismParams, IDisposable
+    public class CkSsl3KeyMatParams : ICkSsl3KeyMatParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -54,7 +57,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <summary>
         /// Resulting key handles and initialization vectors after performing a DeriveKey method
         /// </summary>
-        public CkSsl3KeyMatOut ReturnedKeyMaterial
+        public ICkSsl3KeyMatOut ReturnedKeyMaterial
         {
             get
             {
@@ -74,7 +77,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <summary>
         /// Client's and server's random data information
         /// </summary>
-        private CkSsl3RandomData _randomInfo = null;
+        private ICkSsl3RandomData _randomInfo = null;
 
         /// <summary>
         /// Initializes a new instance of the CkSsl3KeyMatParams class.
@@ -84,7 +87,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
         /// <param name='ivSizeInBits'>The length (in bits) of the IV agreed upon during the protocol handshake phase or if no IV is required, the length should be set to 0</param>
         /// <param name='isExport'>Flag indicating whether the keys have to be derived for an export version of the protocol</param>
         /// <param name='randomInfo'>Client's and server's random data information</param>
-        public CkSsl3KeyMatParams(NativeULong macSizeInBits, NativeULong keySizeInBits, NativeULong ivSizeInBits, bool isExport, CkSsl3RandomData randomInfo)
+        public CkSsl3KeyMatParams(NativeULong macSizeInBits, NativeULong keySizeInBits, NativeULong ivSizeInBits, bool isExport, ICkSsl3RandomData randomInfo)
         {
             if (randomInfo == null)
                 throw new ArgumentNullException("randomInfo");

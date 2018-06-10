@@ -21,15 +21,17 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI81;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_CONCATENATE_BASE_AND_DATA, CKM_CONCATENATE_DATA_AND_BASE and CKM_XOR_BASE_AND_DATA mechanisms
     /// </summary>
-    public class CkKeyDerivationStringData : IMechanismParams, IDisposable
+    public class CkKeyDerivationStringData : ICkKeyDerivationStringData
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -54,7 +56,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
             {
                 _lowLevelStruct.Data = UnmanagedMemory.Allocate(data.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Data, data);
-                _lowLevelStruct.Len = NativeLongUtils.ConvertFromInt32(data.Length);
+                _lowLevelStruct.Len = ConvertUtils.UInt64FromInt32(data.Length);
             }
         }
 

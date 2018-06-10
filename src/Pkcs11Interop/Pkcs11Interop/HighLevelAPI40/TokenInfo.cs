@@ -21,36 +21,39 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.LowLevelAPI40;
 using NativeULong = System.UInt32;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI40
 {
     /// <summary>
     /// Information about a token
     /// </summary>
-    public class TokenInfo
+    public class TokenInfo : ITokenInfo
     {
         /// <summary>
         /// PKCS#11 handle of slot
         /// </summary>
-        private NativeULong _slotId = CK.CK_INVALID_HANDLE;
+        protected NativeULong _slotId = CK.CK_INVALID_HANDLE;
 
         /// <summary>
         /// PKCS#11 handle of slot
         /// </summary>
-        public NativeULong SlotId
+        public ulong SlotId
         {
             get
             {
-                return _slotId;
+                return ConvertUtils.UInt32ToUInt64(_slotId);
             }
         }
 
         /// <summary>
         /// Application-defined label, assigned during token initialization
         /// </summary>
-        private string _label = null;
+        protected string _label = null;
 
         /// <summary>
         /// Application-defined label, assigned during token initialization
@@ -66,7 +69,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// ID of the device manufacturer
         /// </summary>
-        private string _manufacturerId = null;
+        protected string _manufacturerId = null;
 
         /// <summary>
         /// ID of the device manufacturer
@@ -82,7 +85,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// Model of the device
         /// </summary>
-        private string _model = null;
+        protected string _model = null;
 
         /// <summary>
         /// Model of the device
@@ -98,7 +101,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// Serial number of the device
         /// </summary>
-        private string _serialNumber = null;
+        protected string _serialNumber = null;
 
         /// <summary>
         /// Serial number of the device
@@ -114,12 +117,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// Bit flags indicating capabilities and status of the device
         /// </summary>
-        private TokenFlags _tokenFlags = null;
+        protected TokenFlags _tokenFlags = null;
 
         /// <summary>
         /// Bit flags indicating capabilities and status of the device
         /// </summary>
-        public TokenFlags TokenFlags
+        public ITokenFlags TokenFlags
         {
             get
             {
@@ -130,167 +133,167 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// Maximum number of sessions that can be opened with the token at one time by a single application
         /// </summary>
-        private NativeULong _maxSessionCount = 0;
+        protected NativeULong _maxSessionCount = 0;
 
         /// <summary>
         /// Maximum number of sessions that can be opened with the token at one time by a single application
         /// </summary>
-        public NativeULong MaxSessionCount
+        public ulong MaxSessionCount
         {
             get
             {
-                return _maxSessionCount;
+                return ConvertUtils.UInt32ToUInt64(_maxSessionCount);
             }
         }
 
         /// <summary>
         /// Number of sessions that this application currently has open with the token
         /// </summary>
-        private NativeULong _sessionCount = 0;
+        protected NativeULong _sessionCount = 0;
 
         /// <summary>
         /// Number of sessions that this application currently has open with the token
         /// </summary>
-        public NativeULong SessionCount
+        public ulong SessionCount
         {
             get
             {
-                return _sessionCount;
+                return ConvertUtils.UInt32ToUInt64(_sessionCount);
             }
         }
 
         /// <summary>
         /// Maximum number of read/write sessions that can be opened with the token at one time by a single application
         /// </summary>
-        private NativeULong _maxRwSessionCount = 0;
+        protected NativeULong _maxRwSessionCount = 0;
 
         /// <summary>
         /// Maximum number of read/write sessions that can be opened with the token at one time by a single application
         /// </summary>
-        public NativeULong MaxRwSessionCount
+        public ulong MaxRwSessionCount
         {
             get
             {
-                return _maxRwSessionCount;
+                return ConvertUtils.UInt32ToUInt64(_maxRwSessionCount);
             }
         }
 
         /// <summary>
         /// Number of read/write sessions that this application currently has open with the token
         /// </summary>
-        private NativeULong _rwSessionCount = 0;
+        protected NativeULong _rwSessionCount = 0;
 
         /// <summary>
         /// Number of read/write sessions that this application currently has open with the token
         /// </summary>
-        public NativeULong RwSessionCount
+        public ulong RwSessionCount
         {
             get
             {
-                return _rwSessionCount;
+                return ConvertUtils.UInt32ToUInt64(_rwSessionCount);
             }
         }
 
         /// <summary>
         /// Maximum length in bytes of the PIN
         /// </summary>
-        private NativeULong _maxPinLen = 0;
+        protected NativeULong _maxPinLen = 0;
 
         /// <summary>
         /// Maximum length in bytes of the PIN
         /// </summary>
-        public NativeULong MaxPinLen
+        public ulong MaxPinLen
         {
             get
             {
-                return _maxPinLen;
+                return ConvertUtils.UInt32ToUInt64(_maxPinLen);
             }
         }
 
         /// <summary>
         /// Minimum length in bytes of the PIN
         /// </summary>
-        private NativeULong _minPinLen = 0;
+        protected NativeULong _minPinLen = 0;
 
         /// <summary>
         /// Minimum length in bytes of the PIN
         /// </summary>
-        public NativeULong MinPinLen
+        public ulong MinPinLen
         {
             get
             {
-                return _minPinLen;
+                return ConvertUtils.UInt32ToUInt64(_minPinLen);
             }
         }
 
         /// <summary>
         /// The total amount of memory on the token in bytes in which public objects may be stored
         /// </summary>
-        private NativeULong _totalPublicMemory = 0;
+        protected NativeULong _totalPublicMemory = 0;
 
         /// <summary>
         /// The total amount of memory on the token in bytes in which public objects may be stored
         /// </summary>
-        public NativeULong TotalPublicMemory
+        public ulong TotalPublicMemory
         {
             get
             {
-                return _totalPublicMemory;
+                return ConvertUtils.UInt32ToUInt64(_totalPublicMemory);
             }
         }
 
         /// <summary>
         /// The amount of free (unused) memory on the token in bytes for public objects
         /// </summary>
-        private NativeULong _freePublicMemory = 0;
+        protected NativeULong _freePublicMemory = 0;
 
         /// <summary>
         /// The amount of free (unused) memory on the token in bytes for public objects
         /// </summary>
-        public NativeULong FreePublicMemory
+        public ulong FreePublicMemory
         {
             get
             {
-                return _freePublicMemory;
+                return ConvertUtils.UInt32ToUInt64(_freePublicMemory);
             }
         }
 
         /// <summary>
         /// The total amount of memory on the token in bytes in which private objects may be stored
         /// </summary>
-        private NativeULong _totalPrivateMemory = 0;
+        protected NativeULong _totalPrivateMemory = 0;
 
         /// <summary>
         /// The total amount of memory on the token in bytes in which private objects may be stored
         /// </summary>
-        public NativeULong TotalPrivateMemory
+        public ulong TotalPrivateMemory
         {
             get
             {
-                return _totalPrivateMemory;
+                return ConvertUtils.UInt32ToUInt64(_totalPrivateMemory);
             }
         }
 
         /// <summary>
         /// The amount of free (unused) memory on the token in bytes for private objects
         /// </summary>
-        private NativeULong _freePrivateMemory = 0;
+        protected NativeULong _freePrivateMemory = 0;
 
         /// <summary>
         /// The amount of free (unused) memory on the token in bytes for private objects
         /// </summary>
-        public NativeULong FreePrivateMemory
+        public ulong FreePrivateMemory
         {
             get
             {
-                return _freePrivateMemory;
+                return ConvertUtils.UInt32ToUInt64(_freePrivateMemory);
             }
         }
 
         /// <summary>
         /// Version number of hardware
         /// </summary>
-        private string _hardwareVersion = null;
+        protected string _hardwareVersion = null;
 
         /// <summary>
         /// Version number of hardware
@@ -306,7 +309,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// Version number of firmware
         /// </summary>
-        private string _firmwareVersion = null;
+        protected string _firmwareVersion = null;
 
         /// <summary>
         /// Version number of firmware
@@ -322,7 +325,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// Current time (the value of this field only makes sense for tokens equipped with a clock)
         /// </summary>
-        private string _utcTimeString = null;
+        protected string _utcTimeString = null;
 
         /// <summary>
         /// Current time (the value of this field only makes sense for tokens equipped with a clock)
@@ -338,7 +341,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// UtcTimeString converted to DateTime or null if conversion failed
         /// </summary>
-        private DateTime? _utcTime = null;
+        protected DateTime? _utcTime = null;
 
         /// <summary>
         /// UtcTimeString converted to DateTime or null if conversion failed
@@ -356,7 +359,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// </summary>
         /// <param name="slotId">PKCS#11 handle of slot</param>
         /// <param name="ck_token_info">Low level CK_TOKEN_INFO structure</param>
-        internal TokenInfo(NativeULong slotId, CK_TOKEN_INFO ck_token_info)
+        protected internal TokenInfo(NativeULong slotId, CK_TOKEN_INFO ck_token_info)
         {
             _slotId = slotId;
             _label = ConvertUtils.BytesToUtf8String(ck_token_info.Label, true);

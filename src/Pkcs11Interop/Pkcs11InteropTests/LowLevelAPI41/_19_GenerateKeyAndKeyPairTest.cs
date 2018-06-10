@@ -25,6 +25,8 @@ using Net.Pkcs11Interop.LowLevelAPI41;
 using NUnit.Framework;
 using NativeULong = System.UInt32;
 
+// Note: Code in this file is maintained manually.
+
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 {
     /// <summary>
@@ -58,7 +60,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, ConvertUtils.UInt32FromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -74,7 +76,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 
                 // Generate key
                 NativeULong keyId = CK.CK_INVALID_HANDLE;
-                rv = pkcs11.C_GenerateKey(session, ref mechanism, template, NativeLongUtils.ConvertFromInt32(template.Length), ref keyId);
+                rv = pkcs11.C_GenerateKey(session, ref mechanism, template, ConvertUtils.UInt32FromInt32(template.Length), ref keyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -131,13 +133,13 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, ConvertUtils.UInt32FromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 // The CKA_ID attribute is intended as a means of distinguishing multiple key pairs held by the same subject
                 byte[] ckaId = new byte[20];
-                rv = pkcs11.C_GenerateRandom(session, ckaId, NativeLongUtils.ConvertFromInt32(ckaId.Length));
+                rv = pkcs11.C_GenerateRandom(session, ckaId, ConvertUtils.UInt32FromInt32(ckaId.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -172,7 +174,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 // Generate key pair
                 NativeULong pubKeyId = CK.CK_INVALID_HANDLE;
                 NativeULong privKeyId = CK.CK_INVALID_HANDLE;
-                rv = pkcs11.C_GenerateKeyPair(session, ref mechanism, pubKeyTemplate, NativeLongUtils.ConvertFromInt32(pubKeyTemplate.Length), privKeyTemplate, NativeLongUtils.ConvertFromInt32(privKeyTemplate.Length), ref pubKeyId, ref privKeyId);
+                rv = pkcs11.C_GenerateKeyPair(session, ref mechanism, pubKeyTemplate, ConvertUtils.UInt32FromInt32(pubKeyTemplate.Length), privKeyTemplate, ConvertUtils.UInt32FromInt32(privKeyTemplate.Length), ref pubKeyId, ref privKeyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 

@@ -24,6 +24,8 @@ using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
 using NUnit.Framework;
 
+// Note: Code in this file is maintained manually.
+
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 {
     /// <summary>
@@ -38,19 +40,19 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_GetAttributeValueTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RW session
-                using (Session session = slot.OpenSession(SessionType.ReadWrite))
+                using (ISession session = slot.OpenSession(SessionType.ReadWrite))
                 {
                     // Login as normal user
                     session.Login(CKU.CKU_USER, Settings.NormalUserPin);
                     
                     // Create object
-                    ObjectHandle objectHandle = Helpers.CreateDataObject(session);
+                    IObjectHandle objectHandle = Helpers.CreateDataObject(session);
 
                     // Prepare list of empty attributes we want to read
                     List<CKA> attributes = new List<CKA>();
@@ -58,7 +60,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     attributes.Add(CKA.CKA_VALUE);
 
                     // Get value of specified attributes
-                    List<ObjectAttribute> objectAttributes = session.GetAttributeValue(objectHandle, attributes);
+                    List<IObjectAttribute> objectAttributes = session.GetAttributeValue(objectHandle, attributes);
 
                     // Do something interesting with attribute value
                     Assert.IsTrue(objectAttributes[0].GetValueAsString() == Settings.ApplicationName);
@@ -75,20 +77,20 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _02_GetInvalidAttributeValueTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RW session
-                using (Session session = slot.OpenSession(SessionType.ReadWrite))
+                using (ISession session = slot.OpenSession(SessionType.ReadWrite))
                 {
                     // Login as normal user
                     session.Login(CKU.CKU_USER, Settings.NormalUserPin);
                     
                     // Generate key pair
-                    ObjectHandle publicKey = null;
-                    ObjectHandle privateKey = null;
+                    IObjectHandle publicKey = null;
+                    IObjectHandle privateKey = null;
                     Helpers.GenerateKeyPair(session, out publicKey, out privateKey);
                     
                     // Prepare list of empty attributes we want to read
@@ -97,7 +99,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     attributes.Add(CKA.CKA_VALUE);
                     
                     // Get value of specified attributes
-                    List<ObjectAttribute> objectAttributes = session.GetAttributeValue(privateKey, attributes);
+                    List<IObjectAttribute> objectAttributes = session.GetAttributeValue(privateKey, attributes);
                     
                     // Do something interesting with attribute value
                     Assert.IsTrue(objectAttributes[0].GetValueAsString() == Settings.ApplicationName);
@@ -116,24 +118,24 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _03_SetAttributeValueTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RW session
-                using (Session session = slot.OpenSession(SessionType.ReadWrite))
+                using (ISession session = slot.OpenSession(SessionType.ReadWrite))
                 {
                     // Login as normal user
                     session.Login(CKU.CKU_USER, Settings.NormalUserPin);
                     
                     // Create object
-                    ObjectHandle objectHandle = Helpers.CreateDataObject(session);
+                    IObjectHandle objectHandle = Helpers.CreateDataObject(session);
 
                     // Prepare list of attributes we want to set
-                    List<ObjectAttribute> objectAttributes = new List<ObjectAttribute>();
-                    objectAttributes.Add(new ObjectAttribute(CKA.CKA_LABEL, Settings.ApplicationName + "_2"));
-                    objectAttributes.Add(new ObjectAttribute(CKA.CKA_VALUE, "New data object content"));
+                    List<IObjectAttribute> objectAttributes = new List<IObjectAttribute>();
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_LABEL, Settings.ApplicationName + "_2"));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_VALUE, "New data object content"));
 
                     // Set attributes
                     session.SetAttributeValue(objectHandle, objectAttributes);
@@ -147,4 +149,3 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         }
     }
 }
-

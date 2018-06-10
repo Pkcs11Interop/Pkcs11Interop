@@ -20,52 +20,55 @@
  */
 
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.LowLevelAPI80;
 using NativeULong = System.UInt64;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI80
 {
     /// <summary>
     /// Information about a session
     /// </summary>
-    public class SessionInfo
-    {   
+    public class SessionInfo : ISessionInfo
+    {
         /// <summary>
         /// PKCS#11 handle of session
         /// </summary>
-        private NativeULong _sessionId = CK.CK_INVALID_HANDLE;
+        protected NativeULong _sessionId = CK.CK_INVALID_HANDLE;
 
         /// <summary>
         /// PKCS#11 handle of session
         /// </summary>
-        public NativeULong SessionId
+        public ulong SessionId
         {
             get
             {
-                return _sessionId;
+                return ConvertUtils.UInt64ToUInt64(_sessionId);
             }
         }
 
         /// <summary>
         /// PKCS#11 handle of slot that interfaces with the token
         /// </summary>
-        private NativeULong _slotId = CK.CK_INVALID_HANDLE;
+        protected NativeULong _slotId = CK.CK_INVALID_HANDLE;
 
         /// <summary>
         /// PKCS#11 handle of slot that interfaces with the token
         /// </summary>
-        public NativeULong SlotId
+        public ulong SlotId
         {
             get
             {
-                return _slotId;
+                return ConvertUtils.UInt64ToUInt64(_slotId);
             }
         }
 
         /// <summary>
         /// The state of the session
         /// </summary>
-        private CKS _state = 0;
+        protected CKS _state = 0;
 
         /// <summary>
         /// The state of the session
@@ -81,12 +84,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <summary>
         /// Flags that define the type of session
         /// </summary>
-        private SessionFlags _sessionFlags = null;
+        protected SessionFlags _sessionFlags = null;
 
         /// <summary>
         /// Flags that define the type of session
         /// </summary>
-        public SessionFlags SessionFlags
+        public ISessionFlags SessionFlags
         {
             get
             {
@@ -97,16 +100,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <summary>
         /// An error code defined by the cryptographic device used for errors not covered by Cryptoki
         /// </summary>
-        private NativeULong _deviceError = 0;
+        protected NativeULong _deviceError = 0;
 
         /// <summary>
         /// An error code defined by the cryptographic device used for errors not covered by Cryptoki
         /// </summary>
-        public NativeULong DeviceError
+        public ulong DeviceError
         {
             get
             {
-                return _deviceError;
+                return ConvertUtils.UInt64ToUInt64(_deviceError);
             }
         }
 
@@ -115,7 +118,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// </summary>
         /// <param name="sessionId">PKCS#11 handle of session</param>
         /// <param name="ck_session_info">Low level CK_SESSION_INFO structure</param>
-        internal SessionInfo(NativeULong sessionId, CK_SESSION_INFO ck_session_info)
+        protected internal SessionInfo(NativeULong sessionId, CK_SESSION_INFO ck_session_info)
         {
             _sessionId = sessionId;
             _slotId = ck_session_info.SlotId;

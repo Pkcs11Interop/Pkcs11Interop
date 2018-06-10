@@ -21,16 +21,18 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI40;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
 using NativeULong = System.UInt32;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_PKCS5_PBKD2 mechanism
     /// </summary>
-    public class CkPkcs5Pbkd2Params2 : IMechanismParams, IDisposable
+    public class CkPkcs5Pbkd2Params2 : ICkPkcs5Pbkd2Params2
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -69,7 +71,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             {
                 _lowLevelStruct.SaltSourceData = UnmanagedMemory.Allocate(saltSourceData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.SaltSourceData, saltSourceData);
-                _lowLevelStruct.SaltSourceDataLen = NativeLongUtils.ConvertFromInt32(saltSourceData.Length);
+                _lowLevelStruct.SaltSourceDataLen = ConvertUtils.UInt32FromInt32(saltSourceData.Length);
             }
 
             _lowLevelStruct.Iterations = iterations;
@@ -80,14 +82,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             {
                 _lowLevelStruct.PrfData = UnmanagedMemory.Allocate(prfData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.PrfData, prfData);
-                _lowLevelStruct.PrfDataLen = NativeLongUtils.ConvertFromInt32(prfData.Length);
+                _lowLevelStruct.PrfDataLen = ConvertUtils.UInt32FromInt32(prfData.Length);
             }
 
             if (password != null)
             {
                 _lowLevelStruct.Password = UnmanagedMemory.Allocate(password.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Password, password);
-                _lowLevelStruct.PasswordLen = NativeLongUtils.ConvertFromInt32(password.Length);
+                _lowLevelStruct.PasswordLen = ConvertUtils.UInt32FromInt32(password.Length);
             }
         }
 

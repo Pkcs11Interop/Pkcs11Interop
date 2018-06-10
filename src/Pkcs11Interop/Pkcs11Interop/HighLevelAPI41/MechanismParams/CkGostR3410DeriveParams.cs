@@ -21,16 +21,18 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI41;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
 using NativeULong = System.UInt32;
+
+// Note: Code in this file is maintained manually.
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_GOSTR3410_DERIVE mechanism
     /// </summary>
-    public class CkGostR3410DeriveParams : IMechanismParams, IDisposable
+    public class CkGostR3410DeriveParams : ICkGostR3410DeriveParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -72,11 +74,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 
             _lowLevelStruct.PublicData = UnmanagedMemory.Allocate(publicData.Length);
             UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
-            _lowLevelStruct.PublicDataLen = NativeLongUtils.ConvertFromInt32(publicData.Length);
+            _lowLevelStruct.PublicDataLen = ConvertUtils.UInt32FromInt32(publicData.Length);
 
             _lowLevelStruct.UKM = UnmanagedMemory.Allocate(ukm.Length);
             UnmanagedMemory.Write(_lowLevelStruct.UKM, ukm);
-            _lowLevelStruct.UKMLen = NativeLongUtils.ConvertFromInt32(ukm.Length);
+            _lowLevelStruct.UKMLen = ConvertUtils.UInt32FromInt32(ukm.Length);
         }
 
         #region IMechanismParams

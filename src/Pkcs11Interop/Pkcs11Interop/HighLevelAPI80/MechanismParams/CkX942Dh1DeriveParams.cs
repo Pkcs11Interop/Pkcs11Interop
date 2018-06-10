@@ -21,16 +21,18 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI80;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
 using NativeULong = System.UInt64;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_X9_42_DH_DERIVE key derivation mechanism
     /// </summary>
-    public class CkX942Dh1DeriveParams : IMechanismParams, IDisposable
+    public class CkX942Dh1DeriveParams : ICkX942Dh1DeriveParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -62,14 +64,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             {
                 _lowLevelStruct.OtherInfo = UnmanagedMemory.Allocate(otherInfo.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.OtherInfo, otherInfo);
-                _lowLevelStruct.OtherInfoLen = NativeLongUtils.ConvertFromInt32(otherInfo.Length);
+                _lowLevelStruct.OtherInfoLen = ConvertUtils.UInt64FromInt32(otherInfo.Length);
             }
             
             if (publicData != null)
             {
                 _lowLevelStruct.PublicData = UnmanagedMemory.Allocate(publicData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
-                _lowLevelStruct.PublicDataLen = NativeLongUtils.ConvertFromInt32(publicData.Length);
+                _lowLevelStruct.PublicDataLen = ConvertUtils.UInt64FromInt32(publicData.Length);
             }
         }
         

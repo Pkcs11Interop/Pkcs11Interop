@@ -22,52 +22,41 @@
 using System;
 using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.LowLevelAPI80;
-using NativeULong = System.UInt64;
 using NativeLong = System.Int32;
+using NativeULong = System.UInt64;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI80
 {
     /// <summary>
     /// Attribute of cryptoki object (CK_ATTRIBUTE alternative)
     /// </summary>
-    public class ObjectAttribute : IDisposable
+    public class ObjectAttribute : IObjectAttribute
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
         /// </summary>
-        private bool _disposed = false;
+        protected bool _disposed = false;
 
         /// <summary>
         /// Low level attribute structure
         /// </summary>
-        private CK_ATTRIBUTE _ckAttribute;
-
-        /// <summary>
-        /// Low level attribute structure
-        /// </summary>
-        internal CK_ATTRIBUTE CkAttribute
-        {
-            get
-            {
-                if (this._disposed)
-                    throw new ObjectDisposedException(this.GetType().FullName);
-
-                return _ckAttribute;
-            }
-        }
+        protected CK_ATTRIBUTE _ckAttribute;
 
         /// <summary>
         /// Attribute type
         /// </summary>
-        public NativeULong Type
+        public ulong Type
         {
             get
             {
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return _ckAttribute.type;
+                return ConvertUtils.UInt64ToUInt64(_ckAttribute.type);
             }
         }
 
@@ -91,10 +80,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         }
 
         /// <summary>
+        /// Returns managed object corresponding to CK_ATTRIBUTE structure that can be marshaled to an unmanaged block of memory
+        /// </summary>
+        /// <returns>A managed object holding the data to be marshaled. This object must be an instance of a formatted class.</returns>
+        public object ToMarshalableStructure()
+        {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
+            return _ckAttribute;
+        }
+
+        /// <summary>
         /// Creates attribute defined by low level CK_ATTRIBUTE structure
         /// </summary>
         /// <param name="attribute">CK_ATTRIBUTE structure</param>
-        internal ObjectAttribute(CK_ATTRIBUTE attribute)
+        protected internal ObjectAttribute(CK_ATTRIBUTE attribute)
         {
             _ckAttribute = attribute;
         }
@@ -105,9 +106,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// Creates attribute of given type with no value
         /// </summary>
         /// <param name="type">Attribute type</param>
-        public ObjectAttribute(NativeULong type)
+        public ObjectAttribute(ulong type)
         {
-            _ckAttribute = CkaUtils.CreateAttribute(type);
+            _ckAttribute = CkaUtils.CreateAttribute(ConvertUtils.UInt64FromUInt64(type));
         }
 
         /// <summary>
@@ -121,26 +122,26 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
 
         #endregion
 
-        #region Attribute with NativeULong value
+        #region Attribute with ulong value
 
         /// <summary>
-        /// Creates attribute of given type with NativeULong value
+        /// Creates attribute of given type with ulong value
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(NativeULong type, NativeULong value)
+        public ObjectAttribute(ulong type, ulong value)
         {
-            _ckAttribute = CkaUtils.CreateAttribute(type, value);
+            _ckAttribute = CkaUtils.CreateAttribute(ConvertUtils.UInt64FromUInt64(type), ConvertUtils.UInt64FromUInt64(value));
         }
 
         /// <summary>
-        /// Creates attribute of given type with NativeULong value
+        /// Creates attribute of given type with ulong value
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(CKA type, NativeULong value)
+        public ObjectAttribute(CKA type, ulong value)
         {
-            _ckAttribute = CkaUtils.CreateAttribute(type, value);
+            _ckAttribute = CkaUtils.CreateAttribute(type, ConvertUtils.UInt64FromUInt64(value));
         }
 
         /// <summary>
@@ -174,10 +175,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         }
 
         /// <summary>
-        /// Reads value of attribute and returns it as NativeULong
+        /// Reads value of attribute and returns it as ulong
         /// </summary>
         /// <returns>Value of attribute</returns>
-        public NativeULong GetValueAsNativeUlong()
+        public ulong GetValueAsUlong()
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
@@ -189,7 +190,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             {
                 NativeULong value = 0;
                 CkaUtils.ConvertValue(ref _ckAttribute, out value);
-                return value;
+                return ConvertUtils.UInt64ToUInt64(value);
             }
             catch (Exception ex)
             {
@@ -206,9 +207,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(NativeULong type, bool value)
+        public ObjectAttribute(ulong type, bool value)
         {
-            _ckAttribute = CkaUtils.CreateAttribute(type, value);
+            _ckAttribute = CkaUtils.CreateAttribute(ConvertUtils.UInt64FromUInt64(type), value);
         }
 
         /// <summary>
@@ -254,9 +255,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(NativeULong type, string value)
+        public ObjectAttribute(ulong type, string value)
         {
-            _ckAttribute = CkaUtils.CreateAttribute(type, value);
+            _ckAttribute = CkaUtils.CreateAttribute(ConvertUtils.UInt64FromUInt64(type), value);
         }
 
         /// <summary>
@@ -302,9 +303,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(NativeULong type, byte[] value)
+        public ObjectAttribute(ulong type, byte[] value)
         {
-            _ckAttribute = CkaUtils.CreateAttribute(type, value);
+            _ckAttribute = CkaUtils.CreateAttribute(ConvertUtils.UInt64FromUInt64(type), value);
         }
 
         /// <summary>
@@ -350,9 +351,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(NativeULong type, DateTime value)
+        public ObjectAttribute(ulong type, DateTime value)
         {
-            _ckAttribute = CkaUtils.CreateAttribute(type, value);
+            _ckAttribute = CkaUtils.CreateAttribute(ConvertUtils.UInt64FromUInt64(type), value);
         }
 
         /// <summary>
@@ -398,7 +399,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(NativeULong type, List<ObjectAttribute> value)
+        public ObjectAttribute(ulong type, List<IObjectAttribute> value)
         {
             CK_ATTRIBUTE[] attributes = null;
 
@@ -406,11 +407,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             {
                 attributes = new CK_ATTRIBUTE[value.Count];
                 for (int i = 0; i < value.Count; i++)
-                    attributes[i] = value[i].CkAttribute;
+                    attributes[i] = (CK_ATTRIBUTE)value[i].ToMarshalableStructure();
             }
 
             // Note: Each attribute in the input list still owns unmanaged memory used by its value and will free it when disposed.
-            _ckAttribute = CkaUtils.CreateAttribute(type, attributes);
+            _ckAttribute = CkaUtils.CreateAttribute(ConvertUtils.UInt64FromUInt64(type), attributes);
         }
 
         /// <summary>
@@ -418,7 +419,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(CKA type, List<ObjectAttribute> value)
+        public ObjectAttribute(CKA type, List<IObjectAttribute> value)
         {
             CK_ATTRIBUTE[] attributes = null;
             
@@ -426,7 +427,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             {
                 attributes = new CK_ATTRIBUTE[value.Count];
                 for (int i = 0; i < value.Count; i++)
-                    attributes[i] = value[i].CkAttribute;
+                    attributes[i] = (CK_ATTRIBUTE)value[i].ToMarshalableStructure();
             }
 
             // Note: Each attribute in the input list still owns unmanaged memory used by its value and will free it when disposed.
@@ -437,7 +438,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// Reads value of attribute and returns it as attribute array
         /// </summary>
         /// <returns>Value of attribute</returns>
-        public List<ObjectAttribute> GetValueAsObjectAttributeList()
+        public List<IObjectAttribute> GetValueAsObjectAttributeList()
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
@@ -450,11 +451,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                 CK_ATTRIBUTE[] value = null;
                 CkaUtils.ConvertValue(ref _ckAttribute, out value);
 
-                List<ObjectAttribute> attributes = null;
+                List<IObjectAttribute> attributes = null;
 
                 if (value != null)
                 {
-                    attributes = new List<ObjectAttribute>();
+                    attributes = new List<IObjectAttribute>();
                     for (int i = 0; i < value.Length; i++)
                         attributes.Add(new ObjectAttribute(value[i]));
                 }
@@ -469,43 +470,51 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
 
         #endregion
 
-        #region Attribute with NativeULong array value
+        #region Attribute with ulong array value
 
         /// <summary>
-        /// Creates attribute of given type with NativeULong array value
+        /// Creates attribute of given type with ulong array value
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(NativeULong type, List<NativeULong> value)
+        public ObjectAttribute(ulong type, List<ulong> value)
         {
             NativeULong[] array = null;
             
             if (value != null)
-                array = value.ToArray();
+            {
+                array = new NativeULong[value.Count];
+                for (int i = 0; i < value.Count; i++)
+                    array[i] = ConvertUtils.UInt64FromUInt64(value[i]);
+            }
             
-            _ckAttribute = CkaUtils.CreateAttribute(type, array);
+            _ckAttribute = CkaUtils.CreateAttribute(ConvertUtils.UInt64FromUInt64(type), array);
         }
 
         /// <summary>
-        /// Creates attribute of given type with NativeULong array value
+        /// Creates attribute of given type with ulong array value
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(CKA type, List<NativeULong> value)
+        public ObjectAttribute(CKA type, List<ulong> value)
         {
             NativeULong[] array = null;
 
             if (value != null)
-                array = value.ToArray();
-            
+            {
+                array = new NativeULong[value.Count];
+                for (int i = 0; i < value.Count; i++)
+                    array[i] = ConvertUtils.UInt64FromUInt64(value[i]);
+            }
+
             _ckAttribute = CkaUtils.CreateAttribute(type, array);
         }
 
         /// <summary>
-        /// Reads value of attribute and returns it as list of NativeULong
+        /// Reads value of attribute and returns it as list of ulong
         /// </summary>
         /// <returns>Value of attribute</returns>
-        public List<NativeULong> GetValueAsNativeULongList()
+        public List<ulong> GetValueAsULongList()
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
@@ -517,7 +526,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             {
                 NativeULong[] value = null;
                 CkaUtils.ConvertValue(ref _ckAttribute, out value);
-                return (value == null) ? null : new List<NativeULong>(value);
+
+                List<ulong> ulongs = null;
+                if (value != null)
+                {
+                    ulongs = new List<ulong>();
+                    for (int i = 0; i < value.Length; i++)
+                        ulongs.Add(ConvertUtils.UInt64ToUInt64(value[i]));
+                }
+
+                return ulongs;
             }
             catch (Exception ex)
             {
@@ -534,14 +552,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
-        public ObjectAttribute(NativeULong type, List<CKM> value)
+        public ObjectAttribute(ulong type, List<CKM> value)
         {
             CKM[] mechanisms = null;
             
             if (value != null)
                 mechanisms = value.ToArray();
             
-            _ckAttribute = CkaUtils.CreateAttribute(type, mechanisms);
+            _ckAttribute = CkaUtils.CreateAttribute(ConvertUtils.UInt64FromUInt64(type), mechanisms);
         }
         
         /// <summary>

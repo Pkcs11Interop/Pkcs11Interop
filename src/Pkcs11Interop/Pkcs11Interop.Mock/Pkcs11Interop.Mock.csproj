@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D8A4317F-410B-48F6-88BF-EB898C1C74A6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Net.Pkcs11Interop.Mock</RootNamespace>
+    <AssemblyName>Pkcs11Interop.Mock</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="HighLevelAPI40\Factories\MockPkcs11Factory.cs" />
+    <Compile Include="HighLevelAPI40\Factories\MockSessionFactory.cs" />
+    <Compile Include="HighLevelAPI40\Factories\MockSlotFactory.cs" />
+    <Compile Include="HighLevelAPI40\MockPkcs11.cs" />
+    <Compile Include="HighLevelAPI40\MockSession.cs" />
+    <Compile Include="HighLevelAPI40\MockSlot.cs" />
+    <Compile Include="HighLevelAPI41\Factories\MockSessionFactory.cs" />
+    <Compile Include="HighLevelAPI41\MockPkcs11.cs" />
+    <Compile Include="HighLevelAPI41\Factories\MockPkcs11Factory.cs" />
+    <Compile Include="HighLevelAPI41\MockSession.cs" />
+    <Compile Include="HighLevelAPI41\MockSlot.cs" />
+    <Compile Include="HighLevelAPI41\Factories\MockSlotFactory.cs" />
+    <Compile Include="HighLevelAPI80\Factories\MockPkcs11Factory.cs" />
+    <Compile Include="HighLevelAPI80\Factories\MockSessionFactory.cs" />
+    <Compile Include="HighLevelAPI80\Factories\MockSlotFactory.cs" />
+    <Compile Include="HighLevelAPI80\MockPkcs11.cs" />
+    <Compile Include="HighLevelAPI80\MockSession.cs" />
+    <Compile Include="HighLevelAPI80\MockSlot.cs" />
+    <Compile Include="HighLevelAPI81\Factories\MockPkcs11Factory.cs" />
+    <Compile Include="HighLevelAPI81\Factories\MockSessionFactory.cs" />
+    <Compile Include="HighLevelAPI81\Factories\MockSlotFactory.cs" />
+    <Compile Include="HighLevelAPI81\MockPkcs11.cs" />
+    <Compile Include="HighLevelAPI81\MockSession.cs" />
+    <Compile Include="HighLevelAPI81\MockSlot.cs" />
+    <Compile Include="HighLevelAPI\Factories\MockSessionFactory.cs" />
+    <Compile Include="HighLevelAPI\Factories\MockSlotFactory.cs" />
+    <Compile Include="HighLevelAPI\IMockPkcs11.cs" />
+    <Compile Include="HighLevelAPI\IMockSession.cs" />
+    <Compile Include="HighLevelAPI\IMockSlot.cs" />
+    <Compile Include="HighLevelAPI\Factories\MockPkcs11Factory.cs" />
+    <Compile Include="HighLevelAPI\MockPkcs11Factories.cs" />
+    <Compile Include="LowLevelAPI40\MockDelegates.cs" />
+    <Compile Include="LowLevelAPI40\MockPkcs11.cs" />
+    <Compile Include="LowLevelAPI41\MockDelegates.cs" />
+    <Compile Include="LowLevelAPI41\MockPkcs11.cs" />
+    <Compile Include="LowLevelAPI80\MockDelegates.cs" />
+    <Compile Include="LowLevelAPI80\MockPkcs11.cs" />
+    <Compile Include="LowLevelAPI81\MockDelegates.cs" />
+    <Compile Include="LowLevelAPI81\MockPkcs11.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pkcs11Interop\Pkcs11Interop.csproj">
+      <Project>{9bc3ee70-6b0b-4b26-8c06-b7ae50be202e}</Project>
+      <Name>Pkcs11Interop</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="regeneratecode.sh" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

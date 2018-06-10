@@ -21,15 +21,17 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI81;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_KEA_DERIVE mechanism
     /// </summary>
-    public class CkKeaDeriveParams : IMechanismParams, IDisposable
+    public class CkKeaDeriveParams : ICkKeaDeriveParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -69,21 +71,21 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
             {
                 _lowLevelStruct.RandomA = UnmanagedMemory.Allocate(randomA.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.RandomA, randomA);
-                _lowLevelStruct.RandomLen = NativeLongUtils.ConvertFromInt32(randomA.Length);
+                _lowLevelStruct.RandomLen = ConvertUtils.UInt64FromInt32(randomA.Length);
             }
             
             if (randomB != null)
             {
                 _lowLevelStruct.RandomB = UnmanagedMemory.Allocate(randomB.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.RandomB, randomB);
-                _lowLevelStruct.RandomLen = NativeLongUtils.ConvertFromInt32(randomB.Length);
+                _lowLevelStruct.RandomLen = ConvertUtils.UInt64FromInt32(randomB.Length);
             }
 
             if (publicData != null)
             {
                 _lowLevelStruct.PublicData = UnmanagedMemory.Allocate(publicData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.PublicData, publicData);
-                _lowLevelStruct.PublicDataLen = NativeLongUtils.ConvertFromInt32(publicData.Length);
+                _lowLevelStruct.PublicDataLen = ConvertUtils.UInt64FromInt32(publicData.Length);
             }
         }
 

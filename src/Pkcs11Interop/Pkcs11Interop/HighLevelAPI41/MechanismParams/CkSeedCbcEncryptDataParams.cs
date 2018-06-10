@@ -21,15 +21,17 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI41;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
+
+// Note: Code in this file is maintained manually.
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_SEED_CBC_ENCRYPT_DATA mechanism
     /// </summary>
-    public class CkSeedCbcEncryptDataParams : IMechanismParams, IDisposable
+    public class CkSeedCbcEncryptDataParams : ICkSeedCbcEncryptDataParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -64,7 +66,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
             {
                 _lowLevelStruct.Data = UnmanagedMemory.Allocate(data.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Data, data);
-                _lowLevelStruct.Length = NativeLongUtils.ConvertFromInt32(data.Length);
+                _lowLevelStruct.Length = ConvertUtils.UInt32FromInt32(data.Length);
             }
         }
 

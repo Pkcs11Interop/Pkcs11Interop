@@ -23,6 +23,8 @@ using System;
 using Net.Pkcs11Interop.HighLevelAPI;
 using NUnit.Framework;
 
+// Note: Code in this file is maintained manually.
+
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 {
     /// <summary>
@@ -37,13 +39,13 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_BasicTokenInfoTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
 
                 // Get token info
-                TokenInfo tokenInfo = slot.GetTokenInfo();
+                ITokenInfo tokenInfo = slot.GetTokenInfo();
 
                 // Do something interesting with token info
                 Assert.IsFalse(String.IsNullOrEmpty(tokenInfo.ManufacturerId));
@@ -51,4 +53,3 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         }
     }
 }
-

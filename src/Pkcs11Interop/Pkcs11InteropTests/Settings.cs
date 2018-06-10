@@ -23,10 +23,13 @@ using System;
 using System.IO;
 using System.Reflection;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
 using LLA40 = Net.Pkcs11Interop.LowLevelAPI40;
 using LLA41 = Net.Pkcs11Interop.LowLevelAPI41;
 using LLA80 = Net.Pkcs11Interop.LowLevelAPI80;
 using LLA81 = Net.Pkcs11Interop.LowLevelAPI81;
+
+// Note: Code in this file is maintained manually.
 
 namespace Net.Pkcs11Interop.Tests
 {
@@ -36,6 +39,11 @@ namespace Net.Pkcs11Interop.Tests
     public static class Settings
     {
         #region Properties that almost always need to be configured before the tests are executed
+
+        /// <summary>
+        /// Factories to be used by Developer and Pkcs11Interop library
+        /// </summary>
+        public static Pkcs11Factories Factories = new Pkcs11Factories();
 
         /// <summary>
         /// Relative name or absolute path of unmanaged PKCS#11 library provided by smartcard or HSM vendor.

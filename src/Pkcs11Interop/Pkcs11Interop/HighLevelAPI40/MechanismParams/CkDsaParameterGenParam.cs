@@ -21,16 +21,18 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI40;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
 using NativeULong = System.UInt32;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_DSA_PROBABLISTIC_PARAMETER_GEN, CKM_DSA_SHAWE_TAYLOR_PARAMETER_GEN a CKM_DSA_FIPS_G_GEN mechanisms
     /// </summary>
-    public class CkDsaParameterGenParam : IMechanismParams, IDisposable
+    public class CkDsaParameterGenParam : ICkDsaParameterGenParam
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -52,7 +54,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (_lowLevelStruct.Seed == IntPtr.Zero) ? null : UnmanagedMemory.Read(_lowLevelStruct.Seed, NativeLongUtils.ConvertToInt32(_lowLevelStruct.SeedLen));
+                return (_lowLevelStruct.Seed == IntPtr.Zero) ? null : UnmanagedMemory.Read(_lowLevelStruct.Seed, ConvertUtils.UInt32ToInt32(_lowLevelStruct.SeedLen));
             }
         }
 
@@ -75,7 +77,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             {
                 _lowLevelStruct.Seed = UnmanagedMemory.Allocate(seed.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Seed, seed);
-                _lowLevelStruct.SeedLen = NativeLongUtils.ConvertFromInt32(seed.Length);
+                _lowLevelStruct.SeedLen = ConvertUtils.UInt32FromInt32(seed.Length);
             }
 
             _lowLevelStruct.Index = index;

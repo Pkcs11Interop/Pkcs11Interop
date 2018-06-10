@@ -19,12 +19,12 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
-using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.HighLevelAPI;
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
+using NUnit.Framework;
 using HLA40 = Net.Pkcs11Interop.HighLevelAPI40;
 using HLA41 = Net.Pkcs11Interop.HighLevelAPI41;
 using HLA80 = Net.Pkcs11Interop.HighLevelAPI80;
@@ -33,6 +33,8 @@ using LLA40 = Net.Pkcs11Interop.LowLevelAPI40;
 using LLA41 = Net.Pkcs11Interop.LowLevelAPI41;
 using LLA80 = Net.Pkcs11Interop.LowLevelAPI80;
 using LLA81 = Net.Pkcs11Interop.LowLevelAPI81;
+
+// Note: Code in this file is maintained manually.
 
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 {
@@ -50,7 +52,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         {
             // Unmanaged memory for attribute value stored in low level CK_ATTRIBUTE struct
             // is allocated by constructor of ObjectAttribute class.
-            ObjectAttribute attr1 = new ObjectAttribute(CKA.CKA_CLASS, CKO.CKO_DATA);
+            IObjectAttribute attr1 = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_DATA);
 
             // Do something interesting with attribute
 
@@ -60,7 +62,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
             // ObjectAttribute class can be used in using statement which defines a scope 
             // at the end of which an object will be disposed (and unmanaged memory freed).
-            using (ObjectAttribute attr2 = new ObjectAttribute(CKA.CKA_CLASS, CKO.CKO_DATA))
+            using (IObjectAttribute attr2 = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_DATA))
             {
                 // Do something interesting with attribute
             }
@@ -69,7 +71,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             #pragma warning disable 0219
 
             // Explicit calling of Dispose() method can also be ommitted.
-            ObjectAttribute attr3 = new ObjectAttribute(CKA.CKA_CLASS, CKO.CKO_DATA);
+            IObjectAttribute attr3 = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_DATA);
 
             // Do something interesting with attribute
 
@@ -86,9 +88,9 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         public void _02_EmptyAttributeTest()
         {
             // Create attribute without the value
-            using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_CLASS))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS))
             {
-                Assert.IsTrue(attr.Type == (ulong)CKA.CKA_CLASS);
+                Assert.IsTrue(attr.Type == ConvertUtils.UInt64FromCKA(CKA.CKA_CLASS));
                 Assert.IsTrue(attr.GetValueAsByteArray() == null);
             }
         }
@@ -97,14 +99,14 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         /// Attribute with ulong value test.
         /// </summary>
         [Test()]
-        public void _03_UintAttributeTest()
+        public void _03_ULongAttributeTest()
         {
-            ulong value = (ulong)CKO.CKO_DATA;
+            ulong value = ConvertUtils.UInt64FromCKO(CKO.CKO_DATA);
 
             // Create attribute with ulong value
-            using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_CLASS, value))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, value))
             {
-                Assert.IsTrue(attr.Type == (ulong)CKA.CKA_CLASS);
+                Assert.IsTrue(attr.Type == ConvertUtils.UInt64FromCKA(CKA.CKA_CLASS));
                 Assert.IsTrue(attr.GetValueAsUlong() == value);
             }
         }
@@ -118,9 +120,9 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             bool value = true;
 
             // Create attribute with bool value
-            using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_TOKEN, value))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_TOKEN, value))
             {
-                Assert.IsTrue(attr.Type == (ulong)CKA.CKA_TOKEN);
+                Assert.IsTrue(attr.Type == ConvertUtils.UInt64FromCKA(CKA.CKA_TOKEN));
                 Assert.IsTrue(attr.GetValueAsBool() == value);
             }
         }
@@ -134,18 +136,18 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             string value = "Hello world";
 
             // Create attribute with string value
-            using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_LABEL, value))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_LABEL, value))
             {
-                Assert.IsTrue(attr.Type == (ulong)CKA.CKA_LABEL);
+                Assert.IsTrue(attr.Type == ConvertUtils.UInt64FromCKA(CKA.CKA_LABEL));
                 Assert.IsTrue(attr.GetValueAsString() == value);
             }
 
             value = null;
 
             // Create attribute with null string value
-            using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_LABEL, value))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_LABEL, value))
             {
-                Assert.IsTrue(attr.Type == (ulong)CKA.CKA_LABEL);
+                Assert.IsTrue(attr.Type == ConvertUtils.UInt64FromCKA(CKA.CKA_LABEL));
                 Assert.IsTrue(attr.GetValueAsString() == value);
             }
         }
@@ -159,18 +161,18 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             byte[] value = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 };
 
             // Create attribute with byte array value
-            using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_ID, value))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ID, value))
             {
-                Assert.IsTrue(attr.Type == (ulong)CKA.CKA_ID);
-                Assert.IsTrue(Convert.ToBase64String(attr.GetValueAsByteArray()) == Convert.ToBase64String(value));
+                Assert.IsTrue(attr.Type == ConvertUtils.UInt64FromCKA(CKA.CKA_ID));
+                Assert.IsTrue(ConvertUtils.BytesToBase64String(attr.GetValueAsByteArray()) == ConvertUtils.BytesToBase64String(value));
             }
 
             value = null;
 
             // Create attribute with null byte array value
-            using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_ID, value))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ID, value))
             {
-                Assert.IsTrue(attr.Type == (ulong)CKA.CKA_ID);
+                Assert.IsTrue(attr.Type == ConvertUtils.UInt64FromCKA(CKA.CKA_ID));
                 Assert.IsTrue(attr.GetValueAsByteArray() == value);
             }
         }
@@ -184,9 +186,9 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             DateTime value = new DateTime(2012, 1, 30, 0, 0, 0, DateTimeKind.Utc);
 
             // Create attribute with DateTime value
-            using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_START_DATE, value))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_START_DATE, value))
             {
-                Assert.IsTrue(attr.Type == (ulong)CKA.CKA_START_DATE);
+                Assert.IsTrue(attr.Type == ConvertUtils.UInt64FromCKA(CKA.CKA_START_DATE));
                 Assert.IsTrue(attr.GetValueAsDateTime() == value);
             }
         }
@@ -197,34 +199,34 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _08_AttributeArrayAttributeTest()
         {
-            ObjectAttribute nestedAttribute1 = new ObjectAttribute(CKA.CKA_TOKEN, true);
-            ObjectAttribute nestedAttribute2 = new ObjectAttribute(CKA.CKA_PRIVATE, true);
+            IObjectAttribute nestedAttribute1 = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_TOKEN, true);
+            IObjectAttribute nestedAttribute2 = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_PRIVATE, true);
 
-            List<ObjectAttribute> originalValue = new List<ObjectAttribute>();
+            List<IObjectAttribute> originalValue = new List<IObjectAttribute>();
             originalValue.Add(nestedAttribute1);
             originalValue.Add(nestedAttribute2);
 
             // Create attribute with attribute array value
-            using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_WRAP_TEMPLATE, originalValue))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_WRAP_TEMPLATE, originalValue))
             {
-                Assert.IsTrue(attr.Type == (ulong)CKA.CKA_WRAP_TEMPLATE);
+                Assert.IsTrue(attr.Type == ConvertUtils.UInt64FromCKA(CKA.CKA_WRAP_TEMPLATE));
 
-                List<ObjectAttribute> recoveredValue = attr.GetValueAsObjectAttributeList();
+                List<IObjectAttribute> recoveredValue = attr.GetValueAsObjectAttributeList();
                 Assert.IsTrue(recoveredValue.Count == 2);
-                Assert.IsTrue(recoveredValue[0].Type == (ulong)CKA.CKA_TOKEN);
+                Assert.IsTrue(recoveredValue[0].Type == ConvertUtils.UInt64FromCKA(CKA.CKA_TOKEN));
                 Assert.IsTrue(recoveredValue[0].GetValueAsBool() == true);
-                Assert.IsTrue(recoveredValue[1].Type == (ulong)CKA.CKA_PRIVATE);
+                Assert.IsTrue(recoveredValue[1].Type == ConvertUtils.UInt64FromCKA(CKA.CKA_PRIVATE));
                 Assert.IsTrue(recoveredValue[1].GetValueAsBool() == true);
             }
 
-            if (Platform.UnmanagedLongSize == 4)
+            if (Platform.NativeULongSize == 4)
             {
                 if (Platform.StructPackingSize == 0)
                 {
                     // There is the same pointer to unmanaged memory in both nestedAttribute1 and recoveredValue[0] instances
                     // therefore private low level attribute structure needs to be modified to prevent double free.
                     // This special handling is needed only in this synthetic test and should be avoided in real world application.
-                    HLA40.ObjectAttribute objectAttribute40a = (HLA40.ObjectAttribute)typeof(ObjectAttribute).GetField("_objectAttribute40", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute1);
+                    HLA40.ObjectAttribute objectAttribute40a = (HLA40.ObjectAttribute)nestedAttribute1;
                     LLA40.CK_ATTRIBUTE ckAttribute40a = (LLA40.CK_ATTRIBUTE)typeof(HLA40.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(objectAttribute40a);
                     ckAttribute40a.value = IntPtr.Zero;
                     ckAttribute40a.valueLen = 0;
@@ -233,7 +235,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     // There is the same pointer to unmanaged memory in both nestedAttribute2 and recoveredValue[1] instances
                     // therefore private low level attribute structure needs to be modified to prevent double free.
                     // This special handling is needed only in this synthetic test and should be avoided in real world application.
-                    HLA40.ObjectAttribute objectAttribute40b = (HLA40.ObjectAttribute)typeof(ObjectAttribute).GetField("_objectAttribute40", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute2);
+                    HLA40.ObjectAttribute objectAttribute40b = (HLA40.ObjectAttribute)nestedAttribute2;
                     LLA40.CK_ATTRIBUTE ckAttribute40b = (LLA40.CK_ATTRIBUTE)typeof(HLA40.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(objectAttribute40b);
                     ckAttribute40b.value = IntPtr.Zero;
                     ckAttribute40b.valueLen = 0;
@@ -244,7 +246,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     // There is the same pointer to unmanaged memory in both nestedAttribute1 and recoveredValue[0] instances
                     // therefore private low level attribute structure needs to be modified to prevent double free.
                     // This special handling is needed only in this synthetic test and should be avoided in real world application.
-                    HLA41.ObjectAttribute objectAttribute41a = (HLA41.ObjectAttribute)typeof(ObjectAttribute).GetField("_objectAttribute41", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute1);
+                    HLA41.ObjectAttribute objectAttribute41a = (HLA41.ObjectAttribute)nestedAttribute1;
                     LLA41.CK_ATTRIBUTE ckAttribute41a = (LLA41.CK_ATTRIBUTE)typeof(HLA41.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(objectAttribute41a);
                     ckAttribute41a.value = IntPtr.Zero;
                     ckAttribute41a.valueLen = 0;
@@ -253,7 +255,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     // There is the same pointer to unmanaged memory in both nestedAttribute2 and recoveredValue[1] instances
                     // therefore private low level attribute structure needs to be modified to prevent double free.
                     // This special handling is needed only in this synthetic test and should be avoided in real world application.
-                    HLA41.ObjectAttribute objectAttribute41b = (HLA41.ObjectAttribute)typeof(ObjectAttribute).GetField("_objectAttribute41", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute2);
+                    HLA41.ObjectAttribute objectAttribute41b = (HLA41.ObjectAttribute)nestedAttribute2;
                     LLA41.CK_ATTRIBUTE ckAttribute41b = (LLA41.CK_ATTRIBUTE)typeof(HLA41.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(objectAttribute41b);
                     ckAttribute41b.value = IntPtr.Zero;
                     ckAttribute41b.valueLen = 0;
@@ -267,7 +269,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     // There is the same pointer to unmanaged memory in both nestedAttribute1 and recoveredValue[0] instances
                     // therefore private low level attribute structure needs to be modified to prevent double free.
                     // This special handling is needed only in this synthetic test and should be avoided in real world application.
-                    HLA80.ObjectAttribute objectAttribute80a = (HLA80.ObjectAttribute)typeof(ObjectAttribute).GetField("_objectAttribute80", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute1);
+                    HLA80.ObjectAttribute objectAttribute80a = (HLA80.ObjectAttribute)nestedAttribute1;
                     LLA80.CK_ATTRIBUTE ckAttribute80a = (LLA80.CK_ATTRIBUTE)typeof(HLA80.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(objectAttribute80a);
                     ckAttribute80a.value = IntPtr.Zero;
                     ckAttribute80a.valueLen = 0;
@@ -276,7 +278,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     // There is the same pointer to unmanaged memory in both nestedAttribute2 and recoveredValue[1] instances
                     // therefore private low level attribute structure needs to be modified to prevent double free.
                     // This special handling is needed only in this synthetic test and should be avoided in real world application.
-                    HLA80.ObjectAttribute objectAttribute80b = (HLA80.ObjectAttribute)typeof(ObjectAttribute).GetField("_objectAttribute80", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute2);
+                    HLA80.ObjectAttribute objectAttribute80b = (HLA80.ObjectAttribute)nestedAttribute2;
                     LLA80.CK_ATTRIBUTE ckAttribute80b = (LLA80.CK_ATTRIBUTE)typeof(HLA80.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(objectAttribute80b);
                     ckAttribute80b.value = IntPtr.Zero;
                     ckAttribute80b.valueLen = 0;
@@ -287,7 +289,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     // There is the same pointer to unmanaged memory in both nestedAttribute1 and recoveredValue[0] instances
                     // therefore private low level attribute structure needs to be modified to prevent double free.
                     // This special handling is needed only in this synthetic test and should be avoided in real world application.
-                    HLA81.ObjectAttribute objectAttribute81a = (HLA81.ObjectAttribute)typeof(ObjectAttribute).GetField("_objectAttribute81", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute1);
+                    HLA81.ObjectAttribute objectAttribute81a = (HLA81.ObjectAttribute)nestedAttribute1;
                     LLA81.CK_ATTRIBUTE ckAttribute81a = (LLA81.CK_ATTRIBUTE)typeof(HLA81.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(objectAttribute81a);
                     ckAttribute81a.value = IntPtr.Zero;
                     ckAttribute81a.valueLen = 0;
@@ -296,7 +298,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     // There is the same pointer to unmanaged memory in both nestedAttribute2 and recoveredValue[1] instances
                     // therefore private low level attribute structure needs to be modified to prevent double free.
                     // This special handling is needed only in this synthetic test and should be avoided in real world application.
-                    HLA81.ObjectAttribute objectAttribute81b = (HLA81.ObjectAttribute)typeof(ObjectAttribute).GetField("_objectAttribute81", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(nestedAttribute2);
+                    HLA81.ObjectAttribute objectAttribute81b = (HLA81.ObjectAttribute)nestedAttribute2;
                     LLA81.CK_ATTRIBUTE ckAttribute81b = (LLA81.CK_ATTRIBUTE)typeof(HLA81.ObjectAttribute).GetField("_ckAttribute", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(objectAttribute81b);
                     ckAttribute81b.value = IntPtr.Zero;
                     ckAttribute81b.valueLen = 0;
@@ -307,18 +309,18 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             originalValue = null;
 
             // Create attribute with null attribute array value
-            using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_WRAP_TEMPLATE, originalValue))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_WRAP_TEMPLATE, originalValue))
             {
-                Assert.IsTrue(attr.Type == (ulong)CKA.CKA_WRAP_TEMPLATE);
+                Assert.IsTrue(attr.Type == ConvertUtils.UInt64FromCKA(CKA.CKA_WRAP_TEMPLATE));
                 Assert.IsTrue(attr.GetValueAsObjectAttributeList() == originalValue);
             }
 
-            originalValue = new List<ObjectAttribute>();
+            originalValue = new List<IObjectAttribute>();
 
             // Create attribute with empty attribute array value
-            using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_WRAP_TEMPLATE, originalValue))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_WRAP_TEMPLATE, originalValue))
             {
-                Assert.IsTrue(attr.Type == (ulong)CKA.CKA_WRAP_TEMPLATE);
+                Assert.IsTrue(attr.Type == ConvertUtils.UInt64FromCKA(CKA.CKA_WRAP_TEMPLATE));
                 Assert.IsTrue(attr.GetValueAsObjectAttributeList() == null);
             }
         }
@@ -327,18 +329,18 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         /// Attribute with ulong array value test.
         /// </summary>
         [Test()]
-        public void _09_UintArrayAttributeTest()
+        public void _09_ULongArrayAttributeTest()
         {
             List<ulong> originalValue = new List<ulong>();
             originalValue.Add(333333);
             originalValue.Add(666666);
             
             // Create attribute with ulong array value
-            using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
             {
-                Assert.IsTrue(attr.Type == (ulong)CKA.CKA_ALLOWED_MECHANISMS);
+                Assert.IsTrue(attr.Type == ConvertUtils.UInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
 
-                List<ulong> recoveredValue = attr.GetValueAsUlongList();
+                List<ulong> recoveredValue = attr.GetValueAsULongList();
                 for (int i = 0; i < recoveredValue.Count; i++)
                     Assert.IsTrue(originalValue[i] == recoveredValue[i]);
             }
@@ -346,19 +348,19 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             originalValue = null;
 
             // Create attribute with null ulong array value
-            using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
             {
-                Assert.IsTrue(attr.Type == (ulong)CKA.CKA_ALLOWED_MECHANISMS);
-                Assert.IsTrue(attr.GetValueAsUlongList() == originalValue);
+                Assert.IsTrue(attr.Type == ConvertUtils.UInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
+                Assert.IsTrue(attr.GetValueAsULongList() == originalValue);
             }
 
             originalValue = new List<ulong>();
 
             // Create attribute with empty ulong array value
-            using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
             {
-                Assert.IsTrue(attr.Type == (ulong)CKA.CKA_ALLOWED_MECHANISMS);
-                Assert.IsTrue(attr.GetValueAsUlongList() == null);
+                Assert.IsTrue(attr.Type == ConvertUtils.UInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
+                Assert.IsTrue(attr.GetValueAsULongList() == null);
             }
         }
 
@@ -373,9 +375,9 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             originalValue.Add(CKM.CKM_AES_CBC);
 
             // Create attribute with mechanism array value
-            using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
             {
-                Assert.IsTrue(attr.Type == (ulong)CKA.CKA_ALLOWED_MECHANISMS);
+                Assert.IsTrue(attr.Type == ConvertUtils.UInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
                 
                 List<CKM> recoveredValue = attr.GetValueAsCkmList();
                 for (int i = 0; i < recoveredValue.Count; i++)
@@ -385,18 +387,18 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             originalValue = null;
             
             // Create attribute with null mechanism array value
-            using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
             {
-                Assert.IsTrue(attr.Type == (ulong)CKA.CKA_ALLOWED_MECHANISMS);
+                Assert.IsTrue(attr.Type == ConvertUtils.UInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
                 Assert.IsTrue(attr.GetValueAsCkmList() == originalValue);
             }
             
             originalValue = new List<CKM>();
             
             // Create attribute with empty mechanism array value
-            using (ObjectAttribute attr = new ObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
+            using (IObjectAttribute attr = Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue))
             {
-                Assert.IsTrue(attr.Type == (ulong)CKA.CKA_ALLOWED_MECHANISMS);
+                Assert.IsTrue(attr.Type == ConvertUtils.UInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
                 Assert.IsTrue(attr.GetValueAsCkmList() == null);
             }
         }

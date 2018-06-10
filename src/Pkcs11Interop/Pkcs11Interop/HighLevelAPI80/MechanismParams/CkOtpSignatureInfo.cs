@@ -22,16 +22,18 @@
 using System;
 using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI80;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
 using NativeULong = System.UInt64;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
     /// <summary>
     /// Parameters returned by all OTP mechanisms in successful calls to Sign method
     /// </summary>
-    public class CkOtpSignatureInfo : IDisposable
+    public class CkOtpSignatureInfo : ICkOtpSignatureInfo
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -51,12 +53,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
         /// <summary>
         /// List of OTP parameters
         /// </summary>
-        private List<CkOtpParam> _params = new List<CkOtpParam>();
+        private List<ICkOtpParam> _params = new List<ICkOtpParam>();
 
         /// <summary>
         /// List of OTP parameters
         /// </summary>
-        public IList<CkOtpParam> Params
+        public IList<ICkOtpParam> Params
         {
             get
             {
@@ -107,7 +109,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 
             // Read all CK_OTP_PARAMs from CK_OTP_SIGNATURE_INFO
             int ckOtpParamSize = UnmanagedMemory.SizeOf(typeof(CK_OTP_PARAM));
-            for (int i = 0; i < NativeLongUtils.ConvertToInt32(_lowLevelStruct.Count); i++)
+            for (int i = 0; i < ConvertUtils.UInt64ToInt32(_lowLevelStruct.Count); i++)
             {
                 // Read CK_OTP_PARAM from CK_OTP_SIGNATURE_INFO
                 IntPtr tempPointer = new IntPtr(_lowLevelStruct.Params.ToInt64() + (i * ckOtpParamSize));
@@ -116,7 +118,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 
                 // Read members of CK_OTP_PARAM structure
                 NativeULong ckOtpParamType = ckOtpParam.Type;
-                byte[] ckOtpParamValue = UnmanagedMemory.Read(ckOtpParam.Value, NativeLongUtils.ConvertToInt32(ckOtpParam.ValueLen));
+                byte[] ckOtpParamValue = UnmanagedMemory.Read(ckOtpParam.Value, ConvertUtils.UInt64ToInt32(ckOtpParam.ValueLen));
 
                 // Construct new high level CkOtpParam object (creates copy of CK_OTP_PARAM structure which is good)
                 _params.Add(new CkOtpParam(ckOtpParamType, ckOtpParamValue));

@@ -23,6 +23,8 @@ using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
 using NUnit.Framework;
 
+// Note: Code in this file is maintained manually.
+
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 {
     /// <summary>
@@ -37,13 +39,13 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_BasicOperationStateTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RO (read-only) session
-                using (Session session = slot.OpenSession(SessionType.ReadOnly))
+                using (ISession session = slot.OpenSession(SessionType.ReadOnly))
                 {
                     // Get operation state
                     byte[] state = session.GetOperationState();
@@ -53,10 +55,9 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
                     // Let's set state so the test is complete
                     // Note that CK_INVALID_HANDLE is passed in as encryptionKey and authenticationKey
-                    session.SetOperationState(state, new ObjectHandle(), new ObjectHandle());
+                    session.SetOperationState(state, Settings.Factories.ObjectHandleFactory.CreateObjectHandle(), Settings.Factories.ObjectHandleFactory.CreateObjectHandle());
                 }
             }
         }
     }
 }
-

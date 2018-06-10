@@ -22,72 +22,80 @@
 using System;
 using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.LowLevelAPI40;
 using NativeULong = System.UInt32;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI40
 {
     /// <summary>
     /// High level PKCS#11 wrapper
     /// </summary>
-    public class Pkcs11 : IDisposable
+    public class Pkcs11 : IPkcs11
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
         /// </summary>
-        private bool _disposed = false;
+        protected bool _disposed = false;
 
         /// <summary>
-        /// Flag indicating whether instance has been disposed
+        /// Factories to be used by Developer and Pkcs11Interop library
         /// </summary>
-        public bool Disposed
-        {
-            get
-            {
-                return _disposed;
-            }
-        }
+        protected Pkcs11Factories _factories = null;
 
         /// <summary>
-        /// Low level PKCS#11 wrapper
+        /// Factories to be used by Developer and Pkcs11Interop library
         /// </summary>
-        private LowLevelAPI40.Pkcs11 _p11 = null;
-
-        /// <summary>
-        /// Low level PKCS#11 wrapper. Use with caution!
-        /// </summary>
-        public LowLevelAPI40.Pkcs11 LowLevelPkcs11
+        public Pkcs11Factories Factories
         {
             get
             {
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return _p11;
+                return _factories;
             }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException("Factories");
+
+                _factories = value;
+            }
+        }
+
+        /// <summary>
+        /// Low level PKCS#11 wrapper
+        /// </summary>
+        protected LowLevelAPI40.Pkcs11 _p11 = null;
+
+        /// <summary>
+        /// Initializes new instance of Pkcs11 class
+        /// </summary>
+        /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
+        protected Pkcs11(Pkcs11Factories factories)
+        {
+            if (factories == null)
+                throw new ArgumentNullException("factories");
+
+            _factories = factories;
         }
 
         /// <summary>
         /// Loads and initializes PCKS#11 library
         /// </summary>
+        /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
-        public Pkcs11(string libraryPath, AppType appType)
+        public Pkcs11(Pkcs11Factories factories, string libraryPath, AppType appType)
+            : this(factories)
         {
-            _p11 = new LowLevelAPI40.Pkcs11(libraryPath);
-
             try
             {
-                CK_C_INITIALIZE_ARGS initArgs = null;
-                if (appType == AppType.MultiThreaded)
-                {
-                    initArgs = new CK_C_INITIALIZE_ARGS();
-                    initArgs.Flags = CKF.CKF_OS_LOCKING_OK;
-                }
-
-                CKR rv = _p11.C_Initialize(initArgs);
-                if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
-                    throw new Pkcs11Exception("C_Initialize", rv);
+                _p11 = new LowLevelAPI40.Pkcs11(libraryPath);
+                Initialize(appType);
             }
             catch
             {
@@ -100,25 +108,17 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <summary>
         /// Loads and initializes PCKS#11 library
         /// </summary>
+        /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
         /// <param name="initType">Source of PKCS#11 function pointers</param>
-        public Pkcs11(string libraryPath, AppType appType, InitType initType)
+        public Pkcs11(Pkcs11Factories factories, string libraryPath, AppType appType, InitType initType)
+            : this(factories)
         {
-            _p11 = new LowLevelAPI40.Pkcs11(libraryPath, (initType == InitType.WithFunctionList));
-
             try
             {
-                CK_C_INITIALIZE_ARGS initArgs = null;
-                if (appType == AppType.MultiThreaded)
-                {
-                    initArgs = new CK_C_INITIALIZE_ARGS();
-                    initArgs.Flags = CKF.CKF_OS_LOCKING_OK;
-                }
-
-                CKR rv = _p11.C_Initialize(initArgs);
-                if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
-                    throw new Pkcs11Exception("C_Initialize", rv);
+                _p11 = new LowLevelAPI40.Pkcs11(libraryPath, (initType == InitType.WithFunctionList));
+                Initialize(appType);
             }
             catch
             {
@@ -126,13 +126,31 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
                 _p11 = null;
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Initializes PCKS#11 library
+        /// </summary>
+        /// <param name="appType">Type of application that will be using PKCS#11 library</param>
+        protected void Initialize(AppType appType)
+        {
+            CK_C_INITIALIZE_ARGS initArgs = null;
+            if (appType == AppType.MultiThreaded)
+            {
+                initArgs = new CK_C_INITIALIZE_ARGS();
+                initArgs.Flags = CKF.CKF_OS_LOCKING_OK;
+            }
+
+            CKR rv = _p11.C_Initialize(initArgs);
+            if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
+                throw new Pkcs11Exception("C_Initialize", rv);
         }
 
         /// <summary>
         /// Gets general information about loaded PKCS#11 library
         /// </summary>
         /// <returns>General information about loaded PKCS#11 library</returns>
-        public LibraryInfo GetInfo()
+        public ILibraryInfo GetInfo()
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
@@ -150,7 +168,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// </summary>
         /// <param name="slotsType">Type of slots to be obtained</param>
         /// <returns>List of available slots</returns>
-        public List<Slot> GetSlotList(SlotsType slotsType)
+        public List<ISlot> GetSlotList(SlotsType slotsType)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
@@ -162,7 +180,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
 
             if (slotCount == 0)
             {
-                return new List<Slot>();
+                return new List<ISlot>();
             }
             else
             {
@@ -171,12 +189,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
                 if (rv != CKR.CKR_OK)
                     throw new Pkcs11Exception("C_GetSlotList", rv);
 
-                if (slotList.Length != NativeLongUtils.ConvertToInt32(slotCount))
-                    Array.Resize(ref slotList, NativeLongUtils.ConvertToInt32(slotCount));
+                if (slotList.Length != ConvertUtils.UInt32ToInt32(slotCount))
+                    Array.Resize(ref slotList, ConvertUtils.UInt32ToInt32(slotCount));
 
-                List<Slot> list = new List<Slot>();
+                List<ISlot> list = new List<ISlot>();
                 foreach (NativeULong slot in slotList)
-                    list.Add(new Slot(_p11, slot));
+                    list.Add(_factories.SlotFactory.CreateSlot(_factories, _p11, slot));
 
                 return list;
             }
@@ -188,7 +206,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <param name="waitType">Type of waiting for a slot event</param>
         /// <param name="eventOccured">Flag indicating whether event occured</param>
         /// <param name="slotId">PKCS#11 handle of slot that the event occurred in</param>
-        public void WaitForSlotEvent(WaitType waitType, out bool eventOccured, out NativeULong slotId)
+        public void WaitForSlotEvent(WaitType waitType, out bool eventOccured, out ulong slotId)
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
@@ -202,12 +220,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
                 if (rv == CKR.CKR_OK)
                 {
                     eventOccured = true;
-                    slotId = slotId_;
+                    slotId = ConvertUtils.UInt32ToUInt64(slotId_);
                 }
                 else if (rv == CKR.CKR_NO_EVENT)
                 {
                     eventOccured = false;
-                    slotId = slotId_;
+                    slotId = ConvertUtils.UInt32ToUInt64(slotId_);
                 }
                 else
                 {
@@ -219,7 +237,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
                 if (rv == CKR.CKR_OK)
                 {
                     eventOccured = true;
-                    slotId = slotId_;
+                    slotId = ConvertUtils.UInt32ToUInt64(slotId_);
                 }
                 else
                 {

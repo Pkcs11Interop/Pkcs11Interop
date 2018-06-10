@@ -25,6 +25,8 @@ using Net.Pkcs11Interop.LowLevelAPI80;
 using NUnit.Framework;
 using NativeULong = System.UInt64;
 
+// Note: Code in this file is generated automatically.
+
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
 {
     /// <summary>
@@ -43,7 +45,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
 
             // Create attribute without the value
             CK_ATTRIBUTE attr = CkaUtils.CreateAttribute(CKA.CKA_CLASS);
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_CLASS));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_CLASS));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
         }
@@ -56,12 +58,12 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
         {
             Helpers.CheckPlatform();
 
-            NativeULong originalValue = NativeLongUtils.ConvertFromCKO(CKO.CKO_DATA);
+            NativeULong originalValue = ConvertUtils.UInt64FromCKO(CKO.CKO_DATA);
             // Create attribute with NativeULong value
             CK_ATTRIBUTE attr = CkaUtils.CreateAttribute(CKA.CKA_CLASS, originalValue);
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_CLASS));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_CLASS));
             Assert.IsTrue(attr.value != IntPtr.Zero);
-            Assert.IsTrue(attr.valueLen == NativeLongUtils.ConvertFromInt32(UnmanagedMemory.SizeOf(typeof(NativeULong))));
+            Assert.IsTrue(attr.valueLen == ConvertUtils.UInt64FromInt32(UnmanagedMemory.SizeOf(typeof(NativeULong))));
             
             NativeULong recoveredValue = 0;
             // Read the value of attribute
@@ -71,7 +73,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
             // Free attribute value
             UnmanagedMemory.Free(ref attr.value);
             attr.valueLen = 0;
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_CLASS));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_CLASS));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
         }
@@ -87,7 +89,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
             bool originalValue = true;
             // Create attribute with bool value
             CK_ATTRIBUTE attr = CkaUtils.CreateAttribute(CKA.CKA_TOKEN, originalValue);
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_TOKEN));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_TOKEN));
             Assert.IsTrue(attr.value != IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 1);
             
@@ -99,7 +101,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
             // Free attribute value
             UnmanagedMemory.Free(ref attr.value);
             attr.valueLen = 0;
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_TOKEN));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_TOKEN));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
         }
@@ -115,9 +117,9 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
             string originalValue = "Hello world";
             // Create attribute with string value
             CK_ATTRIBUTE attr = CkaUtils.CreateAttribute(CKA.CKA_LABEL, originalValue);
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_LABEL));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_LABEL));
             Assert.IsTrue(attr.value != IntPtr.Zero);
-            Assert.IsTrue(attr.valueLen == NativeLongUtils.ConvertFromInt32(originalValue.Length));
+            Assert.IsTrue(attr.valueLen == ConvertUtils.UInt64FromInt32(originalValue.Length));
             
             string recoveredValue = null;
             // Read the value of attribute
@@ -127,13 +129,13 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
             // Free attribute value
             UnmanagedMemory.Free(ref attr.value);
             attr.valueLen = 0;
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_LABEL));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_LABEL));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
 
             // Create attribute with null string value
             attr = CkaUtils.CreateAttribute(CKA.CKA_LABEL, (string)null);
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_LABEL));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_LABEL));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
         }
@@ -149,9 +151,9 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
             byte[] originalValue = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 };
             // Create attribute with byte array value
             CK_ATTRIBUTE attr = CkaUtils.CreateAttribute(CKA.CKA_ID, originalValue);
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ID));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_ID));
             Assert.IsTrue(attr.value != IntPtr.Zero);
-            Assert.IsTrue(attr.valueLen == NativeLongUtils.ConvertFromInt32(originalValue.Length));
+            Assert.IsTrue(attr.valueLen == ConvertUtils.UInt64FromInt32(originalValue.Length));
             
             byte[] recoveredValue = null;
             // Read the value of attribute
@@ -161,13 +163,13 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
             // Free attribute value
             UnmanagedMemory.Free(ref attr.value);
             attr.valueLen = 0;
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ID));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_ID));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
 
             // Create attribute with null byte array value
             attr = CkaUtils.CreateAttribute(CKA.CKA_ID, (byte[])null);
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ID));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_ID));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
         }
@@ -183,7 +185,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
             DateTime originalValue = new DateTime(2012, 1, 30, 0, 0, 0, DateTimeKind.Utc);
             // Create attribute with DateTime value
             CK_ATTRIBUTE attr = CkaUtils.CreateAttribute(CKA.CKA_START_DATE, originalValue);
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_START_DATE));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_START_DATE));
             Assert.IsTrue(attr.value != IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 8);
             
@@ -195,7 +197,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
             // Free attribute value
             UnmanagedMemory.Free(ref attr.value);
             attr.valueLen = 0;
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_START_DATE));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_START_DATE));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
         }
@@ -213,9 +215,9 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
             originalValue[1] = CkaUtils.CreateAttribute(CKA.CKA_PRIVATE, true);
             // Create attribute with attribute array value
             CK_ATTRIBUTE attr = CkaUtils.CreateAttribute(CKA.CKA_WRAP_TEMPLATE, originalValue);
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_WRAP_TEMPLATE));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_WRAP_TEMPLATE));
             Assert.IsTrue(attr.value != IntPtr.Zero);
-            Assert.IsTrue(attr.valueLen == NativeLongUtils.ConvertFromInt32(UnmanagedMemory.SizeOf(typeof(CK_ATTRIBUTE)) * originalValue.Length));
+            Assert.IsTrue(attr.valueLen == ConvertUtils.UInt64FromInt32(UnmanagedMemory.SizeOf(typeof(CK_ATTRIBUTE)) * originalValue.Length));
 
             CK_ATTRIBUTE[] recoveredValue = null;
             // Read the value of attribute
@@ -249,19 +251,19 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
             // Free attribute value
             UnmanagedMemory.Free(ref attr.value);
             attr.valueLen = 0;
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_WRAP_TEMPLATE));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_WRAP_TEMPLATE));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
 
             // Create attribute with null attribute array value
             attr = CkaUtils.CreateAttribute(CKA.CKA_WRAP_TEMPLATE, (CK_ATTRIBUTE[])null);
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_WRAP_TEMPLATE));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_WRAP_TEMPLATE));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
 
             // Create attribute with empty attribute array value
             attr = CkaUtils.CreateAttribute(CKA.CKA_WRAP_TEMPLATE, new CK_ATTRIBUTE[0]);
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_WRAP_TEMPLATE));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_WRAP_TEMPLATE));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
         }
@@ -279,9 +281,9 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
             originalValue[1] = 666666;
             // Create attribute with NativeULong array value
             CK_ATTRIBUTE attr = CkaUtils.CreateAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue);
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ALLOWED_MECHANISMS));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
             Assert.IsTrue(attr.value != IntPtr.Zero);
-            Assert.IsTrue(attr.valueLen == NativeLongUtils.ConvertFromInt32(UnmanagedMemory.SizeOf(typeof(NativeULong)) * originalValue.Length));
+            Assert.IsTrue(attr.valueLen == ConvertUtils.UInt64FromInt32(UnmanagedMemory.SizeOf(typeof(NativeULong)) * originalValue.Length));
             
             NativeULong[] recoveredValue = null;
             // Read the value of attribute
@@ -295,19 +297,19 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
             // Free attribute value
             UnmanagedMemory.Free(ref attr.value);
             attr.valueLen = 0;
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ALLOWED_MECHANISMS));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
             
             // Create attribute with null NativeULong array value
             attr = CkaUtils.CreateAttribute(CKA.CKA_ALLOWED_MECHANISMS, (NativeULong[])null);
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ALLOWED_MECHANISMS));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
             
             // Create attribute with empty NativeULong array value
             attr = CkaUtils.CreateAttribute(CKA.CKA_ALLOWED_MECHANISMS, new NativeULong[0]);
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ALLOWED_MECHANISMS));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
         }
@@ -325,9 +327,9 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
             originalValue[1] = CKM.CKM_AES_CBC;
             // Create attribute with mechanism array value
             CK_ATTRIBUTE attr = CkaUtils.CreateAttribute(CKA.CKA_ALLOWED_MECHANISMS, originalValue);
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ALLOWED_MECHANISMS));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
             Assert.IsTrue(attr.value != IntPtr.Zero);
-            Assert.IsTrue(attr.valueLen == NativeLongUtils.ConvertFromInt32(UnmanagedMemory.SizeOf(typeof(NativeULong)) * originalValue.Length));
+            Assert.IsTrue(attr.valueLen == ConvertUtils.UInt64FromInt32(UnmanagedMemory.SizeOf(typeof(NativeULong)) * originalValue.Length));
             
             CKM[] recoveredValue = null;
             // Read the value of attribute
@@ -341,19 +343,19 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
             // Free attribute value
             UnmanagedMemory.Free(ref attr.value);
             attr.valueLen = 0;
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ALLOWED_MECHANISMS));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
 
             // Create attribute with null mechanism array value
             attr = CkaUtils.CreateAttribute(CKA.CKA_ALLOWED_MECHANISMS, (CKM[])null);
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ALLOWED_MECHANISMS));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
             
             // Create attribute with empty mechanism array value
             attr = CkaUtils.CreateAttribute(CKA.CKA_ALLOWED_MECHANISMS, new CKM[0]);
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_ALLOWED_MECHANISMS));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_ALLOWED_MECHANISMS));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
         }
@@ -370,7 +372,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
 
             // Create attribute without the value
             CK_ATTRIBUTE attr = CkaUtils.CreateAttribute(CKA.CKA_VALUE);
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_VALUE));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_VALUE));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
 
@@ -379,19 +381,19 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
             // ..then set the value of attribute..
             UnmanagedMemory.Write(attr.value, originalValue);
             // ..and finally set the length of attribute value.
-            attr.valueLen = NativeLongUtils.ConvertFromInt32(originalValue.Length);
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_VALUE));
+            attr.valueLen = ConvertUtils.UInt64FromInt32(originalValue.Length);
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_VALUE));
             Assert.IsTrue(attr.value != IntPtr.Zero);
-            Assert.IsTrue(attr.valueLen == NativeLongUtils.ConvertFromInt32(originalValue.Length));
+            Assert.IsTrue(attr.valueLen == ConvertUtils.UInt64FromInt32(originalValue.Length));
 
             // Read the value of attribute
-            byte[] recoveredValue = UnmanagedMemory.Read(attr.value, NativeLongUtils.ConvertToInt32(attr.valueLen));
+            byte[] recoveredValue = UnmanagedMemory.Read(attr.value, ConvertUtils.UInt64ToInt32(attr.valueLen));
             Assert.IsTrue(ConvertUtils.BytesToBase64String(originalValue) == ConvertUtils.BytesToBase64String(recoveredValue));
 
             // Free attribute value
             UnmanagedMemory.Free(ref attr.value);
             attr.valueLen = 0;
-            Assert.IsTrue(attr.type == NativeLongUtils.ConvertFromCKA(CKA.CKA_VALUE));
+            Assert.IsTrue(attr.type == ConvertUtils.UInt64FromCKA(CKA.CKA_VALUE));
             Assert.IsTrue(attr.value == IntPtr.Zero);
             Assert.IsTrue(attr.valueLen == 0);
         }

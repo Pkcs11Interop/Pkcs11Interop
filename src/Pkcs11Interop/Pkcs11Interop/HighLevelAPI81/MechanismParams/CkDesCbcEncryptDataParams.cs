@@ -21,15 +21,17 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI81;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_DES_CBC_ENCRYPT_DATA and CKM_DES3_CBC_ENCRYPT_DATA mechanisms
     /// </summary>
-    public class CkDesCbcEncryptDataParams : IMechanismParams, IDisposable
+    public class CkDesCbcEncryptDataParams : ICkDesCbcEncryptDataParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -64,7 +66,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
             {
                 _lowLevelStruct.Data = UnmanagedMemory.Allocate(data.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Data, data);
-                _lowLevelStruct.Length = NativeLongUtils.ConvertFromInt32(data.Length);
+                _lowLevelStruct.Length = ConvertUtils.UInt64FromInt32(data.Length);
             }
         }
         

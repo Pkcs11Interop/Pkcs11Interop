@@ -19,10 +19,11 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
-using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
 using NUnit.Framework;
+
+// Note: Code in this file is maintained manually.
 
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 {
@@ -38,28 +39,28 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_BasicDigestEncryptAndDecryptDigestTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RW session
-                using (Session session = slot.OpenSession(SessionType.ReadWrite))
+                using (ISession session = slot.OpenSession(SessionType.ReadWrite))
                 {
                     // Login as normal user
                     session.Login(CKU.CKU_USER, Settings.NormalUserPin);
                     
                     // Generate symetric key
-                    ObjectHandle generatedKey = Helpers.GenerateKey(session);
+                    IObjectHandle generatedKey = Helpers.GenerateKey(session);
                     
                     // Generate random initialization vector
                     byte[] iv = session.GenerateRandom(8);
 
                     // Specify encryption mechanism with initialization vector as parameter
-                    Mechanism encryptionMechanism = new Mechanism(CKM.CKM_DES3_CBC, iv);
+                    IMechanism encryptionMechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_DES3_CBC, iv);
 
                     // Specify digesting mechanism
-                    Mechanism digestingMechanism = new Mechanism(CKM.CKM_SHA_1);
+                    IMechanism digestingMechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_SHA_1);
 
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Our new password");
 
@@ -76,8 +77,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     session.DecryptDigest(digestingMechanism, encryptionMechanism, generatedKey, encryptedData, out digest2, out decryptedData);
 
                     // Do something interesting with decrypted data and digest
-                    Assert.IsTrue(Convert.ToBase64String(sourceData) == Convert.ToBase64String(decryptedData));
-                    Assert.IsTrue(Convert.ToBase64String(digest1) == Convert.ToBase64String(digest2));
+                    Assert.IsTrue(ConvertUtils.BytesToBase64String(sourceData) == ConvertUtils.BytesToBase64String(decryptedData));
+                    Assert.IsTrue(ConvertUtils.BytesToBase64String(digest1) == ConvertUtils.BytesToBase64String(digest2));
 
                     session.DestroyObject(generatedKey);
                     session.Logout();

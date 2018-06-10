@@ -19,10 +19,12 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
-using Net.Pkcs11Interop.Common;
 using System;
 using System.Collections.Generic;
+using Net.Pkcs11Interop.Common;
 using NativeULong = System.UInt64;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.LowLevelAPI81
 {
@@ -100,15 +102,15 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
             if (objectAttributes == null)
                 throw new ArgumentNullException("objectAttributes");
 
-            NativeULong ckaClassType = NativeLongUtils.ConvertFromCKA(CKA.CKA_CLASS);
+            NativeULong ckaClassType = ConvertUtils.UInt64FromCKA(CKA.CKA_CLASS);
             CKO? ckaClassValue = null;
             bool ckaClassFound = false;
 
-            NativeULong ckaLabelType = NativeLongUtils.ConvertFromCKA(CKA.CKA_LABEL);
+            NativeULong ckaLabelType = ConvertUtils.UInt64FromCKA(CKA.CKA_LABEL);
             string ckaLabelValue = null;
             bool ckaLabelFound = false;
 
-            NativeULong ckaIdType = NativeLongUtils.ConvertFromCKA(CKA.CKA_ID);
+            NativeULong ckaIdType = ConvertUtils.UInt64FromCKA(CKA.CKA_ID);
             byte[] ckaIdValue = null;
             bool ckaIdFound = false;
 
@@ -120,7 +122,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
                 {
                     NativeULong nativeUlongValue = 0;
                     CkaUtils.ConvertValue(ref attribute, out nativeUlongValue);
-                    ckaClassValue = NativeLongUtils.ConvertToCKO(nativeUlongValue);
+                    ckaClassValue = ConvertUtils.UInt64ToCKO(nativeUlongValue);
                     ckaClassFound = true;
                 }
                 else if (attribute.type == ckaLabelType)
@@ -211,8 +213,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
             }
 
             // Shrink array if needed
-            if (slots.Length != NativeLongUtils.ConvertToInt32(slotCount))
-                Array.Resize(ref slots, NativeLongUtils.ConvertToInt32(slotCount));
+            if (slots.Length != ConvertUtils.UInt64ToInt32(slotCount))
+                Array.Resize(ref slots, ConvertUtils.UInt64ToInt32(slotCount));
 
             // Match slots with Pkcs11Uri
             foreach (NativeULong slot in slots)

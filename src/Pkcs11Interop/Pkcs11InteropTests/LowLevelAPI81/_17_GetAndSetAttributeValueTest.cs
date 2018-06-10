@@ -25,6 +25,8 @@ using Net.Pkcs11Interop.LowLevelAPI81;
 using NUnit.Framework;
 using NativeULong = System.UInt64;
 
+// Note: Code in this file is generated automatically.
+
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
 {
     /// <summary>
@@ -58,7 +60,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, ConvertUtils.UInt64FromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -74,21 +76,21 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                 template[1] = CkaUtils.CreateAttribute(CKA.CKA_VALUE);
 
                 // Get size of each individual attribute value in first call
-                rv = pkcs11.C_GetAttributeValue(session, objectId, template, NativeLongUtils.ConvertFromInt32(template.Length));
+                rv = pkcs11.C_GetAttributeValue(session, objectId, template, ConvertUtils.UInt64FromInt32(template.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 // In LowLevelAPI we have to allocate unmanaged memory for attribute value
                 for (int i = 0; i < template.Length; i++)
-                    template[i].value = UnmanagedMemory.Allocate(NativeLongUtils.ConvertToInt32(template[i].valueLen));
+                    template[i].value = UnmanagedMemory.Allocate(ConvertUtils.UInt64ToInt32(template[i].valueLen));
 
                 // Get attribute value in second call
-                rv = pkcs11.C_GetAttributeValue(session, objectId, template, NativeLongUtils.ConvertFromInt32(template.Length));
+                rv = pkcs11.C_GetAttributeValue(session, objectId, template, ConvertUtils.UInt64FromInt32(template.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 // Do something interesting with attribute value
-                byte[] ckaLabel = UnmanagedMemory.Read(template[0].value, NativeLongUtils.ConvertToInt32(template[0].valueLen));
+                byte[] ckaLabel = UnmanagedMemory.Read(template[0].value, ConvertUtils.UInt64ToInt32(template[0].valueLen));
                 Assert.IsTrue(ConvertUtils.BytesToBase64String(ckaLabel) == ConvertUtils.BytesToBase64String(Settings.ApplicationNameArray));
 
                 // In LowLevelAPI we have to free unmanaged memory taken by attributes
@@ -141,7 +143,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, NativeLongUtils.ConvertFromInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, ConvertUtils.UInt64FromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -157,7 +159,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                 template[1] = CkaUtils.CreateAttribute(CKA.CKA_VALUE, "New data object content");
 
                 // Set attributes
-                rv = pkcs11.C_SetAttributeValue(session, objectId, template, NativeLongUtils.ConvertFromInt32(template.Length));
+                rv = pkcs11.C_SetAttributeValue(session, objectId, template, ConvertUtils.UInt64FromInt32(template.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 

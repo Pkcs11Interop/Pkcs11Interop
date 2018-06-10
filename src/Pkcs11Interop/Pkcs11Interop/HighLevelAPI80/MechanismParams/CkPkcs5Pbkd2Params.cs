@@ -21,16 +21,18 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI80;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
 using NativeULong = System.UInt64;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_PKCS5_PBKD2 mechanism
     /// </summary>
-    public class CkPkcs5Pbkd2Params : IMechanismParams, IDisposable
+    public class CkPkcs5Pbkd2Params : ICkPkcs5Pbkd2Params
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -69,7 +71,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             {
                 _lowLevelStruct.SaltSourceData = UnmanagedMemory.Allocate(saltSourceData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.SaltSourceData, saltSourceData);
-                _lowLevelStruct.SaltSourceDataLen = NativeLongUtils.ConvertFromInt32(saltSourceData.Length);
+                _lowLevelStruct.SaltSourceDataLen = ConvertUtils.UInt64FromInt32(saltSourceData.Length);
             }
 
             _lowLevelStruct.Iterations = iterations;
@@ -80,7 +82,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             {
                 _lowLevelStruct.PrfData = UnmanagedMemory.Allocate(prfData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.PrfData, prfData);
-                _lowLevelStruct.PrfDataLen = NativeLongUtils.ConvertFromInt32(prfData.Length);
+                _lowLevelStruct.PrfDataLen = ConvertUtils.UInt64FromInt32(prfData.Length);
             }
 
             if (password != null)
@@ -88,7 +90,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
                 _lowLevelStruct.Password = UnmanagedMemory.Allocate(password.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Password, password);
 
-                NativeULong passwordLength = NativeLongUtils.ConvertFromInt32(password.Length);
+                NativeULong passwordLength = ConvertUtils.UInt64FromInt32(password.Length);
                 _lowLevelStruct.PasswordLen = UnmanagedMemory.Allocate(UnmanagedMemory.SizeOf(typeof(NativeULong)));
                 UnmanagedMemory.Write(_lowLevelStruct.PasswordLen, BitConverter.GetBytes(passwordLength));
             }

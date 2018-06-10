@@ -24,6 +24,8 @@ using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
 using NUnit.Framework;
 
+// Note: Code in this file is maintained manually.
+
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 {
     /// <summary>
@@ -38,27 +40,27 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_BasicWrapAndUnwrapKeyTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RW session
-                using (Session session = slot.OpenSession(SessionType.ReadWrite))
+                using (ISession session = slot.OpenSession(SessionType.ReadWrite))
                 {
                     // Login as normal user
                     session.Login(CKU.CKU_USER, Settings.NormalUserPin);
                     
                     // Generate asymetric key pair
-                    ObjectHandle publicKey = null;
-                    ObjectHandle privateKey = null;
+                    IObjectHandle publicKey = null;
+                    IObjectHandle privateKey = null;
                     Helpers.GenerateKeyPair(session, out publicKey, out privateKey);
                     
                     // Generate symetric key
-                    ObjectHandle secretKey = Helpers.GenerateKey(session);
+                    IObjectHandle secretKey = Helpers.GenerateKey(session);
 
                     // Specify wrapping mechanism
-                    Mechanism mechanism = new Mechanism(CKM.CKM_RSA_PKCS);
+                    IMechanism mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_RSA_PKCS);
 
                     // Wrap key
                     byte[] wrappedKey = session.WrapKey(mechanism, publicKey, secretKey);
@@ -67,16 +69,16 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     Assert.IsNotNull(wrappedKey);
 
                     // Define attributes for unwrapped key
-                    List<ObjectAttribute> objectAttributes = new List<ObjectAttribute>();
-                    objectAttributes.Add(new ObjectAttribute(CKA.CKA_CLASS, CKO.CKO_SECRET_KEY));
-                    objectAttributes.Add(new ObjectAttribute(CKA.CKA_KEY_TYPE, CKK.CKK_DES3));
-                    objectAttributes.Add(new ObjectAttribute(CKA.CKA_ENCRYPT, true));
-                    objectAttributes.Add(new ObjectAttribute(CKA.CKA_DECRYPT, true));
-                    objectAttributes.Add(new ObjectAttribute(CKA.CKA_DERIVE, true));
-                    objectAttributes.Add(new ObjectAttribute(CKA.CKA_EXTRACTABLE, true));
+                    List<IObjectAttribute> objectAttributes = new List<IObjectAttribute>();
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_SECRET_KEY));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_KEY_TYPE, CKK.CKK_DES3));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ENCRYPT, true));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_DECRYPT, true));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_DERIVE, true));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_EXTRACTABLE, true));
 
                     // Unwrap key
-                    ObjectHandle unwrappedKey = session.UnwrapKey(mechanism, privateKey, wrappedKey, objectAttributes);
+                    IObjectHandle unwrappedKey = session.UnwrapKey(mechanism, privateKey, wrappedKey, objectAttributes);
 
                     // Do something interesting with unwrapped key
                     Assert.IsTrue(unwrappedKey.ObjectId != CK.CK_INVALID_HANDLE);
@@ -90,4 +92,3 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         }
     }
 }
-

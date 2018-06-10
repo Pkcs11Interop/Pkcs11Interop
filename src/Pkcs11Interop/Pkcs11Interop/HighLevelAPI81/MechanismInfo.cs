@@ -20,20 +20,23 @@
  */
 
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.LowLevelAPI81;
 using NativeULong = System.UInt64;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI81
 {
     /// <summary>
     /// Provides information about a particular mechanism
     /// </summary>
-    public class MechanismInfo
+    public class MechanismInfo : IMechanismInfo
     {
         /// <summary>
         /// Mechanism
         /// </summary>
-        private CKM _mechanism = 0;
+        protected CKM _mechanism = 0;
 
         /// <summary>
         /// Mechanism
@@ -49,44 +52,44 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// The minimum size of the key for the mechanism (whether this is measured in bits or in bytes is mechanism-dependent)
         /// </summary>
-        private NativeULong _minKeySize = 0;
+        protected NativeULong _minKeySize = 0;
 
         /// <summary>
         /// The minimum size of the key for the mechanism (whether this is measured in bits or in bytes is mechanism-dependent)
         /// </summary>
-        public NativeULong MinKeySize
+        public ulong MinKeySize
         {
             get
             {
-                return _minKeySize;
+                return ConvertUtils.UInt64ToUInt64(_minKeySize);
             }
         }
 
         /// <summary>
         /// The maximum size of the key for the mechanism (whether this is measured in bits or in bytes is mechanism-dependent)
         /// </summary>
-        private NativeULong _maxKeySize = 0;
+        protected NativeULong _maxKeySize = 0;
 
         /// <summary>
         /// The maximum size of the key for the mechanism (whether this is measured in bits or in bytes is mechanism-dependent)
         /// </summary>
-        public NativeULong MaxKeySize
+        public ulong MaxKeySize
         {
             get
             {
-                return _maxKeySize;
+                return ConvertUtils.UInt64ToUInt64(_maxKeySize);
             }
         }
 
         /// <summary>
         /// Flags specifying mechanism capabilities
         /// </summary>
-        private MechanismFlags _mechanismFlags = null;
+        protected MechanismFlags _mechanismFlags = null;
 
         /// <summary>
         /// Flags specifying mechanism capabilities
         /// </summary>
-        public MechanismFlags MechanismFlags
+        public IMechanismFlags MechanismFlags
         {
             get
             {
@@ -99,7 +102,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// </summary>
         /// <param name="mechanism">Mechanism</param>
         /// <param name="ck_mechanism_info">Low level CK_MECHANISM_INFO structure</param>
-        internal MechanismInfo(CKM mechanism, CK_MECHANISM_INFO ck_mechanism_info)
+        protected internal MechanismInfo(CKM mechanism, CK_MECHANISM_INFO ck_mechanism_info)
         {
             _mechanism = mechanism;
             _minKeySize = ck_mechanism_info.MinKeySize;

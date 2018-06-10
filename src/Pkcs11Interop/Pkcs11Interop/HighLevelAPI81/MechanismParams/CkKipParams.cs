@@ -21,16 +21,19 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI81;
+using Net.Pkcs11Interop.HighLevelAPI;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
 using NativeULong = System.UInt64;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_KIP_DERIVE, CKM_KIP_WRAP and CKM_KIP_MAC mechanisms
     /// </summary>
-    public class CkKipParams : IMechanismParams, IDisposable
+    public class CkKipParams : ICkKipParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -48,7 +51,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <param name='mechanism'>Underlying cryptographic mechanism (CKM)</param>
         /// <param name='key'>Handle to a key that will contribute to the entropy of the derived key (CKM_KIP_DERIVE) or will be used in the MAC operation (CKM_KIP_MAC)</param>
         /// <param name='seed'>Input seed</param>
-        public CkKipParams(NativeULong? mechanism, ObjectHandle key, byte[] seed)
+        public CkKipParams(NativeULong? mechanism, IObjectHandle key, byte[] seed)
         {
             _lowLevelStruct.Mechanism = IntPtr.Zero;
             _lowLevelStruct.Key = 0;
@@ -57,7 +60,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 
             if (mechanism != null)
             {
-                byte[] bytes = NativeLongUtils.ConvertToByteArray(mechanism.Value);
+                byte[] bytes = ConvertUtils.UInt64ToBytes(mechanism.Value);
                 _lowLevelStruct.Mechanism = UnmanagedMemory.Allocate(bytes.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Mechanism, bytes);
             }
@@ -65,13 +68,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
             if (key == null)
                 throw new ArgumentNullException("key");
             
-            _lowLevelStruct.Key = key.ObjectId;
+            _lowLevelStruct.Key = ConvertUtils.UInt64FromUInt64(key.ObjectId);
 
             if (seed != null)
             {
                 _lowLevelStruct.Seed = UnmanagedMemory.Allocate(seed.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Seed, seed);
-                _lowLevelStruct.SeedLen = NativeLongUtils.ConvertFromInt32(seed.Length);
+                _lowLevelStruct.SeedLen = ConvertUtils.UInt64FromInt32(seed.Length);
             }
         }
         

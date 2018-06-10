@@ -21,66 +21,67 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI80;
-using NativeULong = System.UInt64;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI80
 {
     /// <summary>
     /// Mechanism and its parameters (CK_MECHANISM alternative)
     /// </summary>
-    public class Mechanism : IDisposable
+    public class Mechanism : IMechanism
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
         /// </summary>
-        private bool _disposed = false;
+        protected bool _disposed = false;
 
         /// <summary>
         /// Low level mechanism structure
         /// </summary>
-        private CK_MECHANISM _ckMechanism;
-
-        /// <summary>
-        /// Low level mechanism structure
-        /// </summary>
-        internal CK_MECHANISM CkMechanism
-        {
-            get
-            {
-                if (this._disposed)
-                    throw new ObjectDisposedException(this.GetType().FullName);
-
-                return _ckMechanism;
-            }
-        }
+        protected CK_MECHANISM _ckMechanism;
 
         /// <summary>
         /// The type of mechanism
         /// </summary>
-        public NativeULong Type
+        public ulong Type
         {
             get
             {
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return _ckMechanism.Mechanism;
+                return ConvertUtils.UInt64ToUInt64(_ckMechanism.Mechanism);
             }
+        }
+
+        /// <summary>
+        /// Returns managed object corresponding to CK_MECHANISM structure that can be marshaled to an unmanaged block of memory
+        /// </summary>
+        /// <returns>A managed object holding the data to be marshaled. This object must be an instance of a formatted class.</returns>
+        public object ToMarshalableStructure()
+        {
+            if (this._disposed)
+                throw new ObjectDisposedException(this.GetType().FullName);
+
+            return _ckMechanism;
         }
 
         /// <summary>
         /// High level object with mechanism parameters
         /// </summary>
-        private IMechanismParams _mechanismParams = null;
+        protected IMechanismParams _mechanismParams = null;
 
         /// <summary>
         /// Creates mechanism of given type with no parameter
         /// </summary>
         /// <param name="type">Mechanism type</param>
-        public Mechanism(NativeULong type)
+        public Mechanism(ulong type)
         {
-            _ckMechanism = CkmUtils.CreateMechanism(type);
+            _ckMechanism = CkmUtils.CreateMechanism(ConvertUtils.UInt64FromUInt64(type));
         }
 
         /// <summary>
@@ -97,9 +98,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// </summary>
         /// <param name="type">Mechanism type</param>
         /// <param name="parameter">Mechanism parameter</param>
-        public Mechanism(NativeULong type, byte[] parameter)
+        public Mechanism(ulong type, byte[] parameter)
         {
-            _ckMechanism = CkmUtils.CreateMechanism(type, parameter);
+            _ckMechanism = CkmUtils.CreateMechanism(ConvertUtils.UInt64FromUInt64(type), parameter);
         }
 
         /// <summary>
@@ -117,7 +118,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// </summary>
         /// <param name="type">Mechanism type</param>
         /// <param name="parameter">Mechanism parameter</param>
-        public Mechanism(NativeULong type, IMechanismParams parameter)
+        public Mechanism(ulong type, IMechanismParams parameter)
         {
             if (parameter == null)
                 throw new ArgumentNullException("parameter");
@@ -126,7 +127,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             _mechanismParams = parameter;
 
             object lowLevelParams = _mechanismParams.ToMarshalableStructure();
-            _ckMechanism = CkmUtils.CreateMechanism(type, lowLevelParams);
+            _ckMechanism = CkmUtils.CreateMechanism(ConvertUtils.UInt64FromUInt64(type), lowLevelParams);
         }
 
         /// <summary>

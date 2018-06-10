@@ -19,11 +19,12 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
-using System;
 using System.IO;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
 using NUnit.Framework;
+
+// Note: Code in this file is maintained manually.
 
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 {
@@ -39,16 +40,16 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_DigestSinglePartTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RO session
-                using (Session session = slot.OpenSession(SessionType.ReadOnly))
+                using (ISession session = slot.OpenSession(SessionType.ReadOnly))
                 {
                     // Specify digesting mechanism
-                    Mechanism mechanism = new Mechanism(CKM.CKM_SHA_1);
+                    IMechanism mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_SHA_1);
                     
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
                     
@@ -56,7 +57,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     byte[] digest = session.Digest(mechanism, sourceData);
                     
                     // Do something interesting with digest value
-                    Assert.IsTrue(Convert.ToBase64String(digest) == "e1AsOh9IyGCa4hLN+2Od7jlnP14=");
+                    Assert.IsTrue(ConvertUtils.BytesToBase64String(digest) == "e1AsOh9IyGCa4hLN+2Od7jlnP14=");
                 }
             }
         }
@@ -67,16 +68,16 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _02_DigestMultiPartTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RO session
-                using (Session session = slot.OpenSession(SessionType.ReadOnly))
+                using (ISession session = slot.OpenSession(SessionType.ReadOnly))
                 {
                     // Specify digesting mechanism
-                    Mechanism mechanism = new Mechanism(CKM.CKM_SHA_1);
+                    IMechanism mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_SHA_1);
                     
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
                     byte[] digest = null;
@@ -89,7 +90,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     }
 
                     // Do something interesting with digest value
-                    Assert.IsTrue(Convert.ToBase64String(digest) == "e1AsOh9IyGCa4hLN+2Od7jlnP14=");
+                    Assert.IsTrue(ConvertUtils.BytesToBase64String(digest) == "e1AsOh9IyGCa4hLN+2Od7jlnP14=");
                 }
             }
         }
@@ -100,22 +101,22 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _03_DigestKeyTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RW session
-                using (Session session = slot.OpenSession(SessionType.ReadWrite))
+                using (ISession session = slot.OpenSession(SessionType.ReadWrite))
                 {
                     // Login as normal user
                     session.Login(CKU.CKU_USER, Settings.NormalUserPin);
                     
                     // Generate symetric key
-                    ObjectHandle generatedKey = Helpers.GenerateKey(session);
+                    IObjectHandle generatedKey = Helpers.GenerateKey(session);
 
                     // Specify digesting mechanism
-                    Mechanism mechanism = new Mechanism(CKM.CKM_SHA_1);
+                    IMechanism mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_SHA_1);
                     
                     // Digest key
                     byte[] digest = session.DigestKey(mechanism, generatedKey);
@@ -130,4 +131,3 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         }
     }
 }
-

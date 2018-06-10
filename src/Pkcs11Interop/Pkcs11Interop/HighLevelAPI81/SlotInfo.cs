@@ -20,36 +20,39 @@
  */
 
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.LowLevelAPI81;
 using NativeULong = System.UInt64;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI81
 {
     /// <summary>
     /// Information about a slot
     /// </summary>
-    public class SlotInfo
+    public class SlotInfo : ISlotInfo
     {
         /// <summary>
         /// PKCS#11 handle of slot
         /// </summary>
-        private NativeULong _slotId = CK.CK_INVALID_HANDLE;
+        protected NativeULong _slotId = CK.CK_INVALID_HANDLE;
 
         /// <summary>
         /// PKCS#11 handle of slot
         /// </summary>
-        public NativeULong SlotId
+        public ulong SlotId
         {
             get
             {
-                return _slotId;
+                return  ConvertUtils.UInt64ToUInt64(_slotId);
             }
         }
 
         /// <summary>
         /// Description of the slot
         /// </summary>
-        private string _slotDescription = null;
+        protected string _slotDescription = null;
 
         /// <summary>
         /// Description of the slot
@@ -65,7 +68,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// ID of the slot manufacturer
         /// </summary>
-        private string _manufacturerId = null;
+        protected string _manufacturerId = null;
 
         /// <summary>
         /// ID of the slot manufacturer
@@ -81,12 +84,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// Flags that provide capabilities of the slot
         /// </summary>
-        private SlotFlags _slotFlags = null;
+        protected SlotFlags _slotFlags = null;
 
         /// <summary>
         /// Flags that provide capabilities of the slot
         /// </summary>
-        public SlotFlags SlotFlags
+        public ISlotFlags SlotFlags
         {
             get
             {
@@ -97,7 +100,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// Version number of the slot's hardware
         /// </summary>
-        private string _hardwareVersion = null;
+        protected string _hardwareVersion = null;
 
         /// <summary>
         /// Version number of the slot's hardware
@@ -113,7 +116,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// Version number of the slot's firmware
         /// </summary>
-        private string _firmwareVersion = null;
+        protected string _firmwareVersion = null;
         
         /// <summary>
         /// Version number of the slot's firmware
@@ -131,7 +134,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// </summary>
         /// <param name="slotId">PKCS#11 handle of slot</param>
         /// <param name="ck_slot_info">Low level CK_SLOT_INFO structure</param>
-        internal SlotInfo(NativeULong slotId, CK_SLOT_INFO ck_slot_info)
+        protected internal SlotInfo(NativeULong slotId, CK_SLOT_INFO ck_slot_info)
         {
             _slotId = slotId;
             _slotDescription = ConvertUtils.BytesToUtf8String(ck_slot_info.SlotDescription, true);

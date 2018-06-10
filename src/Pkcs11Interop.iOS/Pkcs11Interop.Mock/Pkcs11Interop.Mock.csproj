@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E71F3053-056C-4381-9638-048ED73BDFF6}</ProjectGuid>
+    <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Net.Pkcs11Interop.Mock</RootNamespace>
+    <AssemblyName>Pkcs11Interop.Mock</AssemblyName>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="Xamarin.iOS" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI40\Factories\MockPkcs11Factory.cs">
+      <Link>HighLevelAPI40\Factories\MockPkcs11Factory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI40\Factories\MockSessionFactory.cs">
+      <Link>HighLevelAPI40\Factories\MockSessionFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI40\Factories\MockSlotFactory.cs">
+      <Link>HighLevelAPI40\Factories\MockSlotFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI40\MockPkcs11.cs">
+      <Link>HighLevelAPI40\MockPkcs11.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI40\MockSession.cs">
+      <Link>HighLevelAPI40\MockSession.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI40\MockSlot.cs">
+      <Link>HighLevelAPI40\MockSlot.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI41\Factories\MockPkcs11Factory.cs">
+      <Link>HighLevelAPI41\Factories\MockPkcs11Factory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI41\Factories\MockSessionFactory.cs">
+      <Link>HighLevelAPI41\Factories\MockSessionFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI41\Factories\MockSlotFactory.cs">
+      <Link>HighLevelAPI41\Factories\MockSlotFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI41\MockPkcs11.cs">
+      <Link>HighLevelAPI41\MockPkcs11.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI41\MockSession.cs">
+      <Link>HighLevelAPI41\MockSession.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI41\MockSlot.cs">
+      <Link>HighLevelAPI41\MockSlot.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI80\Factories\MockPkcs11Factory.cs">
+      <Link>HighLevelAPI80\Factories\MockPkcs11Factory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI80\Factories\MockSessionFactory.cs">
+      <Link>HighLevelAPI80\Factories\MockSessionFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI80\Factories\MockSlotFactory.cs">
+      <Link>HighLevelAPI80\Factories\MockSlotFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI80\MockPkcs11.cs">
+      <Link>HighLevelAPI80\MockPkcs11.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI80\MockSession.cs">
+      <Link>HighLevelAPI80\MockSession.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI80\MockSlot.cs">
+      <Link>HighLevelAPI80\MockSlot.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI81\Factories\MockPkcs11Factory.cs">
+      <Link>HighLevelAPI81\Factories\MockPkcs11Factory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI81\Factories\MockSessionFactory.cs">
+      <Link>HighLevelAPI81\Factories\MockSessionFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI81\Factories\MockSlotFactory.cs">
+      <Link>HighLevelAPI81\Factories\MockSlotFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI81\MockPkcs11.cs">
+      <Link>HighLevelAPI81\MockPkcs11.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI81\MockSession.cs">
+      <Link>HighLevelAPI81\MockSession.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI81\MockSlot.cs">
+      <Link>HighLevelAPI81\MockSlot.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI\Factories\MockPkcs11Factory.cs">
+      <Link>HighLevelAPI\Factories\MockPkcs11Factory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI\Factories\MockSessionFactory.cs">
+      <Link>HighLevelAPI\Factories\MockSessionFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI\Factories\MockSlotFactory.cs">
+      <Link>HighLevelAPI\Factories\MockSlotFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI\IMockPkcs11.cs">
+      <Link>HighLevelAPI\IMockPkcs11.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI\IMockSession.cs">
+      <Link>HighLevelAPI\IMockSession.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI\IMockSlot.cs">
+      <Link>HighLevelAPI\IMockSlot.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI\MockPkcs11Factories.cs">
+      <Link>HighLevelAPI\MockPkcs11Factories.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\LowLevelAPI40\MockDelegates.cs">
+      <Link>LowLevelAPI40\MockDelegates.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\LowLevelAPI40\MockPkcs11.cs">
+      <Link>LowLevelAPI40\MockPkcs11.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\LowLevelAPI41\MockDelegates.cs">
+      <Link>LowLevelAPI41\MockDelegates.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\LowLevelAPI41\MockPkcs11.cs">
+      <Link>LowLevelAPI41\MockPkcs11.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\LowLevelAPI80\MockDelegates.cs">
+      <Link>LowLevelAPI80\MockDelegates.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\LowLevelAPI80\MockPkcs11.cs">
+      <Link>LowLevelAPI80\MockPkcs11.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\LowLevelAPI81\MockDelegates.cs">
+      <Link>LowLevelAPI81\MockDelegates.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\LowLevelAPI81\MockPkcs11.cs">
+      <Link>LowLevelAPI81\MockPkcs11.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\regeneratecode.sh">
+      <Link>regeneratecode.sh</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pkcs11Interop.iOS\Pkcs11Interop.iOS.csproj">
+      <Project>{1df7afd7-8498-41c2-b83a-161e2d2a01e9}</Project>
+      <Name>Pkcs11Interop.iOS</Name>
+      <IsAppExtension>false</IsAppExtension>
+      <IsWatchApp>false</IsWatchApp>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+</Project>

@@ -20,17 +20,24 @@
  */
 
 using System;
-using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
 using NativeULong = System.UInt64;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_CAMELLIA_CTR mechanism
     /// </summary>
-    public class CkCamelliaCtrParams : IMechanismParams
+    public class CkCamelliaCtrParams : ICkCamelliaCtrParams
     {
+        /// <summary>
+        /// Flag indicating whether instance has been disposed
+        /// </summary>
+        private bool _disposed = false;
+
         /// <summary>
         /// Low level mechanism parameters
         /// </summary>
@@ -67,7 +74,47 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         {
             return _lowLevelStruct;
         }
-        
+
+        #endregion
+
+        #region IDisposable
+
+        /// <summary>
+        /// Disposes object
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Disposes object
+        /// </summary>
+        /// <param name="disposing">Flag indicating whether managed resources should be disposed</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this._disposed)
+            {
+                if (disposing)
+                {
+                    // Dispose managed objects
+                }
+
+                // Dispose unmanaged objects
+
+                _disposed = true;
+            }
+        }
+
+        /// <summary>
+        /// Class destructor that disposes object if caller forgot to do so
+        /// </summary>
+        ~CkCamelliaCtrParams()
+        {
+            Dispose(false);
+        }
+
         #endregion
     }
 }

@@ -21,16 +21,18 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI40;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
 using NativeULong = System.UInt32;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_GOSTR3410_KEY_WRAP mechanism
     /// </summary>
-    public class CkGostR3410KeyWrapParams : IMechanismParams, IDisposable
+    public class CkGostR3410KeyWrapParams : ICkGostR3410KeyWrapParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -60,14 +62,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             {
                 _lowLevelStruct.WrapOID = UnmanagedMemory.Allocate(wrapOID.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.WrapOID, wrapOID);
-                _lowLevelStruct.WrapOIDLen = NativeLongUtils.ConvertFromInt32(wrapOID.Length);
+                _lowLevelStruct.WrapOIDLen = ConvertUtils.UInt32FromInt32(wrapOID.Length);
             }
 
             if (ukm != null)
             {
                 _lowLevelStruct.UKM = UnmanagedMemory.Allocate(ukm.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.UKM, ukm);
-                _lowLevelStruct.UKMLen = NativeLongUtils.ConvertFromInt32(ukm.Length);
+                _lowLevelStruct.UKMLen = ConvertUtils.UInt32FromInt32(ukm.Length);
             }
 
             _lowLevelStruct.Key = key;

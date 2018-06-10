@@ -21,16 +21,18 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI80;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
 using NativeULong = System.UInt64;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_AES_CCM mechanism
     /// </summary>
-    public class CkCcmParams : IMechanismParams, IDisposable
+    public class CkCcmParams : ICkCcmParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -64,14 +66,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             {
                 _lowLevelStruct.Nonce = UnmanagedMemory.Allocate(nonce.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Nonce, nonce);
-                _lowLevelStruct.NonceLen = NativeLongUtils.ConvertFromInt32(nonce.Length);
+                _lowLevelStruct.NonceLen = ConvertUtils.UInt64FromInt32(nonce.Length);
             }
 
             if (aad != null)
             {
                 _lowLevelStruct.AAD = UnmanagedMemory.Allocate(aad.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.AAD, aad);
-                _lowLevelStruct.AADLen = NativeLongUtils.ConvertFromInt32(aad.Length);
+                _lowLevelStruct.AADLen = ConvertUtils.UInt64FromInt32(aad.Length);
             }
 
             _lowLevelStruct.MACLen = macLen;

@@ -21,16 +21,19 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI41;
+using Net.Pkcs11Interop.HighLevelAPI;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
 using NativeULong = System.UInt32;
+
+// Note: Code in this file is maintained manually.
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
     /// <summary>
     /// Resulting key handles and initialization vectors after performing a DeriveKey method with the CKM_WTLS_SERVER_KEY_AND_MAC_DERIVE or with the CKM_WTLS_CLIENT_KEY_AND_MAC_DERIVE mechanism
     /// </summary>
-    public class CkWtlsKeyMatOut : IDisposable
+    public class CkWtlsKeyMatOut : ICkWtlsKeyMatOut
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -45,7 +48,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// <summary>
         /// Key handle for the resulting MAC secret key
         /// </summary>
-        public ObjectHandle MacSecret
+        public IObjectHandle MacSecret
         {
             get
             {
@@ -59,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// <summary>
         /// Key handle for the resulting Secret key
         /// </summary>
-        public ObjectHandle Key
+        public IObjectHandle Key
         {
             get
             {
@@ -80,7 +83,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (_ivLength < 1) ? null : UnmanagedMemory.Read(_lowLevelStruct.IV, NativeLongUtils.ConvertToInt32(_ivLength));
+                return (_ivLength < 1) ? null : UnmanagedMemory.Read(_lowLevelStruct.IV, ConvertUtils.UInt32ToInt32(_ivLength));
             }
         }
         
@@ -103,7 +106,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
             
             if (_ivLength > 0)
             {
-                _lowLevelStruct.IV = UnmanagedMemory.Allocate(NativeLongUtils.ConvertToInt32(_ivLength));
+                _lowLevelStruct.IV = UnmanagedMemory.Allocate(ConvertUtils.UInt32ToInt32(_ivLength));
             }
         }
         

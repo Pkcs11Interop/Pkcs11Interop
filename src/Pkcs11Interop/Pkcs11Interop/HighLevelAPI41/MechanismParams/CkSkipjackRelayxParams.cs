@@ -21,15 +21,17 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI41;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
+
+// Note: Code in this file is maintained manually.
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_SKIPJACK_RELAYX mechanism
     /// </summary>
-    public class CkSkipjackRelayxParams : IMechanismParams, IDisposable
+    public class CkSkipjackRelayxParams : ICkSkipjackRelayxParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -72,49 +74,49 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
             {
                 _lowLevelStruct.OldWrappedX = UnmanagedMemory.Allocate(oldWrappedX.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.OldWrappedX, oldWrappedX);
-                _lowLevelStruct.OldWrappedXLen = NativeLongUtils.ConvertFromInt32(oldWrappedX.Length);
+                _lowLevelStruct.OldWrappedXLen = ConvertUtils.UInt32FromInt32(oldWrappedX.Length);
             }
 
             if (oldPassword != null)
             {
                 _lowLevelStruct.OldPassword = UnmanagedMemory.Allocate(oldPassword.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.OldPassword, oldPassword);
-                _lowLevelStruct.OldPasswordLen = NativeLongUtils.ConvertFromInt32(oldPassword.Length);
+                _lowLevelStruct.OldPasswordLen = ConvertUtils.UInt32FromInt32(oldPassword.Length);
             }
 
             if (oldPublicData != null)
             {
                 _lowLevelStruct.OldPublicData = UnmanagedMemory.Allocate(oldPublicData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.OldPublicData, oldPublicData);
-                _lowLevelStruct.OldPublicDataLen = NativeLongUtils.ConvertFromInt32(oldPublicData.Length);
+                _lowLevelStruct.OldPublicDataLen = ConvertUtils.UInt32FromInt32(oldPublicData.Length);
             }
 
             if (oldRandomA != null)
             {
                 _lowLevelStruct.OldRandomA = UnmanagedMemory.Allocate(oldRandomA.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.OldRandomA, oldRandomA);
-                _lowLevelStruct.OldRandomLen = NativeLongUtils.ConvertFromInt32(oldRandomA.Length);
+                _lowLevelStruct.OldRandomLen = ConvertUtils.UInt32FromInt32(oldRandomA.Length);
             }
 
             if (newPassword != null)
             {
                 _lowLevelStruct.NewPassword = UnmanagedMemory.Allocate(newPassword.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.NewPassword, newPassword);
-                _lowLevelStruct.NewPasswordLen = NativeLongUtils.ConvertFromInt32(newPassword.Length);
+                _lowLevelStruct.NewPasswordLen = ConvertUtils.UInt32FromInt32(newPassword.Length);
             }
 
             if (newPublicData != null)
             {
                 _lowLevelStruct.NewPublicData = UnmanagedMemory.Allocate(newPublicData.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.NewPublicData, newPublicData);
-                _lowLevelStruct.NewPublicDataLen = NativeLongUtils.ConvertFromInt32(newPublicData.Length);
+                _lowLevelStruct.NewPublicDataLen = ConvertUtils.UInt32FromInt32(newPublicData.Length);
             }
 
             if (newRandomA != null)
             {
                 _lowLevelStruct.NewRandomA = UnmanagedMemory.Allocate(newRandomA.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.NewRandomA, newRandomA);
-                _lowLevelStruct.NewRandomLen = NativeLongUtils.ConvertFromInt32(newRandomA.Length);
+                _lowLevelStruct.NewRandomLen = ConvertUtils.UInt32FromInt32(newRandomA.Length);
             }
         }
         

@@ -21,16 +21,18 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI80;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
 using NativeULong = System.UInt64;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_PBE mechanisms and the CKM_PBA_SHA1_WITH_SHA1_HMAC mechanism
     /// </summary>
-    public class CkPbeParams : IMechanismParams, IDisposable
+    public class CkPbeParams : ICkPbeParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -71,14 +73,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             {
                 _lowLevelStruct.Password = UnmanagedMemory.Allocate(password.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Password, password);
-                _lowLevelStruct.PasswordLen = NativeLongUtils.ConvertFromInt32(password.Length);
+                _lowLevelStruct.PasswordLen = ConvertUtils.UInt64FromInt32(password.Length);
             }
 
             if (salt != null)
             {
                 _lowLevelStruct.Salt = UnmanagedMemory.Allocate(salt.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Salt, salt);
-                _lowLevelStruct.SaltLen = NativeLongUtils.ConvertFromInt32(salt.Length);
+                _lowLevelStruct.SaltLen = ConvertUtils.UInt64FromInt32(salt.Length);
             }
 
             _lowLevelStruct.Iteration = iteration;

@@ -22,67 +22,87 @@
 using System;
 using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.LowLevelAPI81;
 using NativeULong = System.UInt64;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI81
 {
     /// <summary>
     /// Logical reader that potentially contains a token
     /// </summary>
-    public class Slot
+    public class Slot : ISlot
     {
         /// <summary>
-        /// Low level PKCS#11 wrapper
+        /// Factories to be used by Developer and Pkcs11Interop library
         /// </summary>
-        private LowLevelAPI81.Pkcs11 _p11 = null;
+        protected Pkcs11Factories _factories = null;
 
         /// <summary>
-        /// Low level PKCS#11 wrapper. Use with caution!
+        /// Factories to be used by Developer and Pkcs11Interop library
         /// </summary>
-        public LowLevelAPI81.Pkcs11 LowLevelPkcs11
+        public Pkcs11Factories Factories
         {
             get
             {
-                return _p11;
+                return _factories;
+            }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException("Factories");
+
+                _factories = value;
             }
         }
 
         /// <summary>
+        /// Low level PKCS#11 wrapper
+        /// </summary>
+        protected LowLevelAPI81.Pkcs11 _p11 = null;
+
+        /// <summary>
         /// PKCS#11 handle of slot
         /// </summary>
-        private NativeULong _slotId = 0;
+        protected NativeULong _slotId = 0;
         
         /// <summary>
         /// PKCS#11 handle of slot
         /// </summary>
-        public NativeULong SlotId
+        public ulong SlotId
         {
             get
             {
-                return _slotId;
+                return ConvertUtils.UInt64ToUInt64(_slotId);
             }
         }
 
         /// <summary>
         /// Initializes new instance of Slot class
         /// </summary>
+        /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
         /// <param name="slotId">PKCS#11 handle of slot</param>
-        internal Slot(LowLevelAPI81.Pkcs11 pkcs11, NativeULong slotId)
+        protected internal Slot(Pkcs11Factories factories, LowLevelAPI81.Pkcs11 pkcs11, ulong slotId)
         {
+            if (factories == null)
+                throw new ArgumentNullException("factories");
+
             if (pkcs11 == null)
                 throw new ArgumentNullException("pkcs11");
 
+            _factories = factories;
             _p11 = pkcs11;
-            _slotId = slotId;
-        }
+            _slotId = ConvertUtils.UInt64FromUInt64(slotId);
+         }
 
         /// <summary>
         /// Obtains information about a particular slot in the system
         /// </summary>
         /// <returns>Slot information</returns>
-        public SlotInfo GetSlotInfo()
+        public ISlotInfo GetSlotInfo()
         {
             CK_SLOT_INFO slotInfo = new CK_SLOT_INFO();
             CKR rv = _p11.C_GetSlotInfo(_slotId, ref slotInfo);
@@ -96,7 +116,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// Obtains information about a particular token in the system.
         /// </summary>
         /// <returns>Token information</returns>
-        public TokenInfo GetTokenInfo()
+        public ITokenInfo GetTokenInfo()
         {
             CK_TOKEN_INFO tokenInfo = new CK_TOKEN_INFO();
             CKR rv = _p11.C_GetTokenInfo(_slotId, ref tokenInfo);
@@ -125,8 +145,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetMechanismList", rv);
 
-            if (mechanismList.Length != NativeLongUtils.ConvertToInt32(mechanismCount))
-                Array.Resize(ref mechanismList, NativeLongUtils.ConvertToInt32(mechanismCount));
+            if (mechanismList.Length != ConvertUtils.UInt64ToInt32(mechanismCount))
+                Array.Resize(ref mechanismList, ConvertUtils.UInt64ToInt32(mechanismCount));
 
             return new List<CKM>(mechanismList);
         }
@@ -136,7 +156,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// </summary>
         /// <param name="mechanism">Mechanism</param>
         /// <returns>Information about mechanism</returns>
-        public MechanismInfo GetMechanismInfo(CKM mechanism)
+        public IMechanismInfo GetMechanismInfo(CKM mechanism)
         {
             CK_MECHANISM_INFO mechanismInfo = new CK_MECHANISM_INFO();
             CKR rv = _p11.C_GetMechanismInfo(_slotId, mechanism, ref mechanismInfo);
@@ -158,7 +178,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
             if (soPin != null)
             {
                 soPinValue = ConvertUtils.Utf8StringToBytes(soPin);
-                soPinValueLen = NativeLongUtils.ConvertFromInt32(soPinValue.Length);
+                soPinValueLen = ConvertUtils.UInt64FromInt32(soPinValue.Length);
             }
 
             byte[] tokenLabel = ConvertUtils.Utf8StringToBytes(label, 32, 0x20);
@@ -180,7 +200,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
             if (soPin != null)
             {
                 soPinValue = soPin;
-                soPinValueLen = NativeLongUtils.ConvertFromInt32(soPin.Length);
+                soPinValueLen = ConvertUtils.UInt64FromInt32(soPin.Length);
             }
 
             // PKCS#11 v2.20 page 113:
@@ -207,7 +227,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// </summary>
         /// <param name="sessionType">Type of session to be opened</param>
         /// <returns>Session</returns>
-        public Session OpenSession(SessionType sessionType)
+        public ISession OpenSession(SessionType sessionType)
         {
             NativeULong flags = CKF.CKF_SERIAL_SESSION;
             if (sessionType == SessionType.ReadWrite)
@@ -218,14 +238,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_OpenSession", rv);
 
-            return new Session(_p11, sessionId);
+            return _factories.SessionFactory.CreateSession(_factories, _p11, sessionId);
         }
 
         /// <summary>
         /// Closes a session between an application and a token
         /// </summary>
         /// <param name="session">Session</param>
-        public void CloseSession(Session session)
+        public void CloseSession(ISession session)
         {
             if (session == null)
                 throw new ArgumentNullException("session");

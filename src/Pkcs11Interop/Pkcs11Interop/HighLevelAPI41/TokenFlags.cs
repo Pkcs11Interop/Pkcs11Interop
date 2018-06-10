@@ -20,28 +20,31 @@
  */
 
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
 using NativeULong = System.UInt32;
+
+// Note: Code in this file is maintained manually.
 
 namespace Net.Pkcs11Interop.HighLevelAPI41
 {
     /// <summary>
     /// Flags indicating capabilities and status of the device
     /// </summary>
-    public class TokenFlags
+    public class TokenFlags : ITokenFlags
     {
         /// <summary>
         /// Bits flags indicating capabilities and status of the device
         /// </summary>
-        private NativeULong _flags;
+        protected NativeULong _flags;
 
         /// <summary>
         /// Bits flags indicating capabilities and status of the device
         /// </summary>
-        public NativeULong Flags
+        public ulong Flags
         {
             get
             {
-                return _flags;
+                return ConvertUtils.UInt32ToUInt64(_flags);
             }
         }
 
@@ -112,7 +115,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         }
         
         /// <summary>
-        /// True if token has a “protected authentication path”, whereby a user can log into the token without passing a PIN through the Cryptoki library
+        /// True if token has a "protected authentication path", whereby a user can log into the token without passing a PIN through the Cryptoki library
         /// </summary>
         public bool ProtectedAuthenticationPath
         {
@@ -247,7 +250,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// Initializes new instance of TokenFlags class
         /// </summary>
         /// <param name="flags">Bits flags indicating capabilities and status of the device</param>
-        internal TokenFlags(NativeULong flags)
+        protected internal TokenFlags(NativeULong flags)
         {
             _flags = flags;
         }

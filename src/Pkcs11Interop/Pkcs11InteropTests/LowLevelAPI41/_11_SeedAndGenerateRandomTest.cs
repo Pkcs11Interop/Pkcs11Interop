@@ -25,6 +25,8 @@ using Net.Pkcs11Interop.LowLevelAPI41;
 using NUnit.Framework;
 using NativeULong = System.UInt32;
 
+// Note: Code in this file is maintained manually.
+
 namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 {
     /// <summary>
@@ -60,7 +62,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 
                 // Mix additional seed material into the token's random number generator
                 byte[] seed = ConvertUtils.Utf8StringToBytes("Additional seed material");
-                rv = pkcs11.C_SeedRandom(session, seed, NativeLongUtils.ConvertFromInt32(seed.Length));
+                rv = pkcs11.C_SeedRandom(session, seed, ConvertUtils.UInt32FromInt32(seed.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -105,7 +107,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 byte[] randomData = new byte[256];
 
                 // Get random or pseudo-random data
-                rv = pkcs11.C_GenerateRandom(session, randomData, NativeLongUtils.ConvertFromInt32(randomData.Length));
+                rv = pkcs11.C_GenerateRandom(session, randomData, ConvertUtils.UInt32FromInt32(randomData.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 

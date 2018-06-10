@@ -24,6 +24,8 @@ using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
 using NUnit.Framework;
 
+// Note: Code in this file is maintained manually.
+
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 {
     /// <summary>
@@ -38,10 +40,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_SlotListTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Get list of available slots
-                List<Slot> slots = pkcs11.GetSlotList(SlotsType.WithOrWithoutTokenPresent);
+                List<ISlot> slots = pkcs11.GetSlotList(SlotsType.WithOrWithoutTokenPresent);
 
                 // Do something interesting with slots
                 Assert.IsNotNull(slots);
@@ -55,17 +57,17 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _02_BasicSlotListAndInfoTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Get list of available slots
-                List<Slot> slots = pkcs11.GetSlotList(SlotsType.WithOrWithoutTokenPresent);
+                List<ISlot> slots = pkcs11.GetSlotList(SlotsType.WithOrWithoutTokenPresent);
                 
                 // Do something interesting with slots
                 Assert.IsNotNull(slots);
                 Assert.IsTrue(slots.Count > 0);
 
                 // Analyze first slot
-                SlotInfo slotInfo = slots[0].GetSlotInfo();
+                ISlotInfo slotInfo = slots[0].GetSlotInfo();
 
                 // Do something interesting with slot info
                 Assert.IsNotNull(slotInfo.ManufacturerId);
@@ -78,7 +80,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _03_WaitForSlotEventTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Wait for a slot event
                 bool eventOccured = false;
@@ -89,4 +91,3 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         }
     }
 }
-

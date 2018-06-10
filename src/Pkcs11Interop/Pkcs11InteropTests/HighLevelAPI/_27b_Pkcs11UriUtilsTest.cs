@@ -19,11 +19,13 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
+using System;
+using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
+
+// Note: Code in this file is maintained manually.
 
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 {
@@ -39,9 +41,9 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _02_LibraryInfoMatches()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
-                LibraryInfo libraryInfo = pkcs11.GetInfo();
+                ILibraryInfo libraryInfo = pkcs11.GetInfo();
 
                 // Empty URI
                 Pkcs11Uri pkcs11uri = new Pkcs11Uri(@"pkcs11:");
@@ -91,11 +93,11 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _03_SlotInfoMatches()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
-                List<Slot> slots = pkcs11.GetSlotList(SlotsType.WithTokenPresent);
+                List<ISlot> slots = pkcs11.GetSlotList(SlotsType.WithTokenPresent);
                 Assert.IsTrue(slots != null && slots.Count > 0);
-                SlotInfo slotInfo = slots[0].GetSlotInfo();
+                ISlotInfo slotInfo = slots[0].GetSlotInfo();
 
                 // Empty URI
                 Pkcs11Uri pkcs11uri = new Pkcs11Uri(@"pkcs11:");
@@ -145,11 +147,11 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _04_TokenInfoMatches()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
-                List<Slot> slots = pkcs11.GetSlotList(SlotsType.WithTokenPresent);
+                List<ISlot> slots = pkcs11.GetSlotList(SlotsType.WithTokenPresent);
                 Assert.IsTrue(slots != null && slots.Count > 0);
-                TokenInfo tokenInfo = slots[0].GetTokenInfo();
+                ITokenInfo tokenInfo = slots[0].GetTokenInfo();
 
                 // Empty URI
                 Pkcs11Uri pkcs11uri = new Pkcs11Uri(@"pkcs11:");
@@ -214,67 +216,67 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         {
             // Empty URI
             Pkcs11Uri pkcs11uri = new Pkcs11Uri(@"pkcs11:");
-            List<ObjectAttribute> objectAttributes = new List<ObjectAttribute>();
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PRIVATE_KEY));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_LABEL, "foobar"));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_ID, new byte[] { 0x01, 0x02, 0x03 }));
+            List<IObjectAttribute> objectAttributes = new List<IObjectAttribute>();
+            objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PRIVATE_KEY));
+            objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_LABEL, "foobar"));
+            objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ID, new byte[] { 0x01, 0x02, 0x03 }));
             Assert.IsTrue(Pkcs11UriUtils.Matches(pkcs11uri, objectAttributes));
 
             // Empty attribute
             pkcs11uri = new Pkcs11Uri(@"pkcs11:type=private;object=;id=%01%02%03");
-            objectAttributes = new List<ObjectAttribute>();
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PRIVATE_KEY));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_LABEL, string.Empty));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_ID, new byte[] { 0x01, 0x02, 0x03 }));
+            objectAttributes = new List<IObjectAttribute>();
+            objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PRIVATE_KEY));
+            objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_LABEL, string.Empty));
+            objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ID, new byte[] { 0x01, 0x02, 0x03 }));
             Assert.IsTrue(Pkcs11UriUtils.Matches(pkcs11uri, objectAttributes));
 
             // Unknown path attribute in URI
             pkcs11uri = new Pkcs11Uri(@"pkcs11:type=private;object=foobar;id=%01%02%03;foo=bar");
-            objectAttributes = new List<ObjectAttribute>();
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PRIVATE_KEY));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_LABEL, "foobar"));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_ID, new byte[] { 0x01, 0x02, 0x03 }));
+            objectAttributes = new List<IObjectAttribute>();
+            objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PRIVATE_KEY));
+            objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_LABEL, "foobar"));
+            objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ID, new byte[] { 0x01, 0x02, 0x03 }));
             Assert.IsFalse(Pkcs11UriUtils.Matches(pkcs11uri, objectAttributes));
 
             // All attributes matching
             pkcs11uri = new Pkcs11Uri(@"pkcs11:type=private;object=foobar;id=%01%02%03");
-            objectAttributes = new List<ObjectAttribute>();
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PRIVATE_KEY));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_LABEL, "foobar"));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_ID, new byte[] { 0x01, 0x02, 0x03 }));
+            objectAttributes = new List<IObjectAttribute>();
+            objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PRIVATE_KEY));
+            objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_LABEL, "foobar"));
+            objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ID, new byte[] { 0x01, 0x02, 0x03 }));
             Assert.IsTrue(Pkcs11UriUtils.Matches(pkcs11uri, objectAttributes));
 
             // Type nonmatching
             pkcs11uri = new Pkcs11Uri(@"pkcs11:type=private;object=foobar;id=%01%02%03");
-            objectAttributes = new List<ObjectAttribute>();
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PUBLIC_KEY));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_LABEL, "foobar"));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_ID, new byte[] { 0x01, 0x02, 0x03 }));
+            objectAttributes = new List<IObjectAttribute>();
+            objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PUBLIC_KEY));
+            objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_LABEL, "foobar"));
+            objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ID, new byte[] { 0x01, 0x02, 0x03 }));
             Assert.IsFalse(Pkcs11UriUtils.Matches(pkcs11uri, objectAttributes));
 
             // Object nonmatching
             pkcs11uri = new Pkcs11Uri(@"pkcs11:type=private;object=foobar;id=%01%02%03");
-            objectAttributes = new List<ObjectAttribute>();
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PUBLIC_KEY));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_LABEL, "foo bar"));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_ID, new byte[] { 0x01, 0x02, 0x03 }));
+            objectAttributes = new List<IObjectAttribute>();
+            objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PUBLIC_KEY));
+            objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_LABEL, "foo bar"));
+            objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ID, new byte[] { 0x01, 0x02, 0x03 }));
             Assert.IsFalse(Pkcs11UriUtils.Matches(pkcs11uri, objectAttributes));
 
             // Id nonmatching
             pkcs11uri = new Pkcs11Uri(@"pkcs11:type=private;object=foobar;id=%01%02%03");
-            objectAttributes = new List<ObjectAttribute>();
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PUBLIC_KEY));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_LABEL, "foobar"));
-            objectAttributes.Add(new ObjectAttribute(CKA.CKA_ID, new byte[] { 0x04, 0x05, 0x06 }));
+            objectAttributes = new List<IObjectAttribute>();
+            objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PUBLIC_KEY));
+            objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_LABEL, "foobar"));
+            objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ID, new byte[] { 0x04, 0x05, 0x06 }));
             Assert.IsFalse(Pkcs11UriUtils.Matches(pkcs11uri, objectAttributes));
 
             try
             {
                 // Type present in URI but missing in list
                 pkcs11uri = new Pkcs11Uri(@"pkcs11:type=private;object=foobar;id=%01%02%03");
-                objectAttributes = new List<ObjectAttribute>();
-                objectAttributes.Add(new ObjectAttribute(CKA.CKA_LABEL, "foobar"));
-                objectAttributes.Add(new ObjectAttribute(CKA.CKA_ID, new byte[] { 0x01, 0x02, 0x03 }));
+                objectAttributes = new List<IObjectAttribute>();
+                objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_LABEL, "foobar"));
+                objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ID, new byte[] { 0x01, 0x02, 0x03 }));
                 Pkcs11UriUtils.Matches(pkcs11uri, objectAttributes);
                 Assert.Fail("Exception expected but not thrown");
             }
@@ -287,9 +289,9 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             {
                 // Object present in URI but missing in list
                 pkcs11uri = new Pkcs11Uri(@"pkcs11:type=private;object=foobar;id=%01%02%03");
-                objectAttributes = new List<ObjectAttribute>();
-                objectAttributes.Add(new ObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PUBLIC_KEY));
-                objectAttributes.Add(new ObjectAttribute(CKA.CKA_ID, new byte[] { 0x01, 0x02, 0x03 }));
+                objectAttributes = new List<IObjectAttribute>();
+                objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PUBLIC_KEY));
+                objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ID, new byte[] { 0x01, 0x02, 0x03 }));
                 Pkcs11UriUtils.Matches(pkcs11uri, objectAttributes);
                 Assert.Fail("Exception expected but not thrown");
             }
@@ -302,9 +304,9 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             {
                 // Id present in URI but missing in list
                 pkcs11uri = new Pkcs11Uri(@"pkcs11:type=private;object=foobar;id=%01%02%03");
-                objectAttributes = new List<ObjectAttribute>();
-                objectAttributes.Add(new ObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PUBLIC_KEY));
-                objectAttributes.Add(new ObjectAttribute(CKA.CKA_ID, new byte[] { 0x04, 0x05, 0x06 }));
+                objectAttributes = new List<IObjectAttribute>();
+                objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_PUBLIC_KEY));
+                objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_ID, new byte[] { 0x04, 0x05, 0x06 }));
                 Pkcs11UriUtils.Matches(pkcs11uri, objectAttributes);
                 Assert.Fail("Exception expected but not thrown");
             }
@@ -320,26 +322,26 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _06_GetMatchingSlotList()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Get all slots
-                List<Slot> allSlots = pkcs11.GetSlotList(SlotsType.WithTokenPresent);
+                List<ISlot> allSlots = pkcs11.GetSlotList(SlotsType.WithTokenPresent);
                 Assert.IsTrue(allSlots != null && allSlots.Count > 0);
 
                 // Empty URI
                 Pkcs11Uri pkcs11uri = new Pkcs11Uri(@"pkcs11:");
-                List<Slot> matchedSlots = Pkcs11UriUtils.GetMatchingSlotList(pkcs11uri, pkcs11, true);
+                List<ISlot> matchedSlots = Pkcs11UriUtils.GetMatchingSlotList(pkcs11uri, pkcs11, SlotsType.WithTokenPresent);
                 Assert.IsTrue(matchedSlots.Count == allSlots.Count);
 
                 // Unknown path attribute in URI
                 pkcs11uri = new Pkcs11Uri(@"pkcs11:vendor=foobar");
-                matchedSlots = Pkcs11UriUtils.GetMatchingSlotList(pkcs11uri, pkcs11, true);
+                matchedSlots = Pkcs11UriUtils.GetMatchingSlotList(pkcs11uri, pkcs11, SlotsType.WithTokenPresent);
                 Assert.IsTrue(matchedSlots.Count == 0);
 
                 // All attributes matching one slot
-                LibraryInfo libraryInfo = pkcs11.GetInfo();
-                SlotInfo slotInfo = allSlots[0].GetSlotInfo();
-                TokenInfo tokenInfo = allSlots[0].GetTokenInfo();
+                ILibraryInfo libraryInfo = pkcs11.GetInfo();
+                ISlotInfo slotInfo = allSlots[0].GetSlotInfo();
+                ITokenInfo tokenInfo = allSlots[0].GetTokenInfo();
 
                 Pkcs11UriBuilder pkcs11UriBuilder = new Pkcs11UriBuilder();
                 pkcs11UriBuilder.LibraryManufacturer = libraryInfo.ManufacturerId;
@@ -354,13 +356,13 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 pkcs11UriBuilder.Model = tokenInfo.Model;
                 pkcs11uri = pkcs11UriBuilder.ToPkcs11Uri();
 
-                matchedSlots = Pkcs11UriUtils.GetMatchingSlotList(pkcs11uri, pkcs11, true);
+                matchedSlots = Pkcs11UriUtils.GetMatchingSlotList(pkcs11uri, pkcs11, SlotsType.WithTokenPresent);
                 Assert.IsTrue(matchedSlots.Count == 1);
 
                 // One attribute nonmatching
                 pkcs11UriBuilder.Serial = "foobar";
                 pkcs11uri = pkcs11UriBuilder.ToPkcs11Uri();
-                matchedSlots = Pkcs11UriUtils.GetMatchingSlotList(pkcs11uri, pkcs11, true);
+                matchedSlots = Pkcs11UriUtils.GetMatchingSlotList(pkcs11uri, pkcs11, SlotsType.WithTokenPresent);
                 Assert.IsTrue(matchedSlots.Count == 0);
             }
         }
@@ -375,19 +377,18 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
             Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri);
 
-            List<ObjectAttribute> attributes = null;
-            Pkcs11UriUtils.GetObjectAttributes(pkcs11uri, out attributes);
+            List<IObjectAttribute> attributes = Pkcs11UriUtils.GetObjectAttributes(pkcs11uri, Settings.Factories.ObjectAttributeFactory);
 
             Assert.IsTrue(attributes != null);
             Assert.IsTrue(attributes.Count == 3);
 
-            Assert.IsTrue(attributes[0].Type == (ulong)CKA.CKA_CLASS);
-            Assert.IsTrue(attributes[0].GetValueAsUlong() == (ulong)CKO.CKO_PRIVATE_KEY);
+            Assert.IsTrue(attributes[0].Type == ConvertUtils.UInt64FromCKA(CKA.CKA_CLASS));
+            Assert.IsTrue(attributes[0].GetValueAsUlong() == ConvertUtils.UInt64FromCKO(CKO.CKO_PRIVATE_KEY));
 
-            Assert.IsTrue(attributes[1].Type == (ulong)CKA.CKA_LABEL);
+            Assert.IsTrue(attributes[1].Type == ConvertUtils.UInt64FromCKA(CKA.CKA_LABEL));
             Assert.IsTrue(attributes[1].GetValueAsString() == "foo");
 
-            Assert.IsTrue(attributes[2].Type == (ulong)CKA.CKA_ID);
+            Assert.IsTrue(attributes[2].Type == ConvertUtils.UInt64FromCKA(CKA.CKA_ID));
             Assert.IsTrue(Common.Helpers.ByteArraysMatch(attributes[2].GetValueAsByteArray(), new byte[] { 0x01, 0x02, 0x03 }));
         }
     }

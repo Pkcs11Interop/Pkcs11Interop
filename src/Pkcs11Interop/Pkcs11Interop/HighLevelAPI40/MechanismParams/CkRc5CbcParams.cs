@@ -21,16 +21,18 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI40;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI40.MechanismParams;
 using NativeULong = System.UInt32;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_RC5_CBC and CKM_RC5_CBC_PAD mechanisms
     /// </summary>
-    public class CkRc5CbcParams : IMechanismParams, IDisposable
+    public class CkRc5CbcParams : ICkRc5CbcParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -63,7 +65,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40.MechanismParams
             {
                 _lowLevelStruct.Iv = UnmanagedMemory.Allocate(iv.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Iv, iv);
-                _lowLevelStruct.IvLen = NativeLongUtils.ConvertFromInt32(iv.Length);
+                _lowLevelStruct.IvLen = ConvertUtils.UInt32FromInt32(iv.Length);
             }
         }
         

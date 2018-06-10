@@ -20,28 +20,31 @@
  */
 
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI;
 using NativeULong = System.UInt64;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI80
 {
     /// <summary>
     /// Flags that define the type of session
     /// </summary>
-    public class SessionFlags
+    public class SessionFlags : ISessionFlags
     {
         /// <summary>
         /// Bit flags that define the type of session
         /// </summary>
-        private NativeULong _flags;
+        protected NativeULong _flags;
 
         /// <summary>
         /// Bit flags that define the type of session
         /// </summary>
-        public NativeULong Flags
+        public ulong Flags
         {
             get
             {
-                return _flags;
+                return ConvertUtils.UInt64ToUInt64(_flags);
             }
         }
 
@@ -71,7 +74,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// Initializes new instance of SessionFlags class
         /// </summary>
         /// <param name="flags">Bit flags that define the type of session</param>
-        internal SessionFlags(NativeULong flags)
+        protected internal SessionFlags(NativeULong flags)
         {
             _flags = flags;
         }

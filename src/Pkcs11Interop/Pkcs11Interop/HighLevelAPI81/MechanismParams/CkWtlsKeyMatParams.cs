@@ -21,15 +21,18 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
 using NativeULong = System.UInt64;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_WTLS_SERVER_KEY_AND_MAC_DERIVE and the CKM_WTLS_CLIENT_KEY_AND_MAC_DERIVE mechanisms
     /// </summary>
-    public class CkWtlsKeyMatParams : IMechanismParams, IDisposable
+    public class CkWtlsKeyMatParams : ICkWtlsKeyMatParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -54,7 +57,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <summary>
         /// Resulting key handles and initialization vector after performing a DeriveKey method
         /// </summary>
-        public CkWtlsKeyMatOut ReturnedKeyMaterial
+        public ICkWtlsKeyMatOut ReturnedKeyMaterial
         {
             get
             {
@@ -74,7 +77,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <summary>
         /// Client's and server's random data information
         /// </summary>
-        private CkWtlsRandomData _randomInfo = null;
+        private ICkWtlsRandomData _randomInfo = null;
         
         /// <summary>
         /// Initializes a new instance of the CkWtlsKeyMatParams class.
@@ -86,7 +89,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <param name='sequenceNumber'>The current sequence number used for records sent by the client and server respectively</param>
         /// <param name='isExport'>Flag indicating whether the keys have to be derived for an export version of the protocol</param>
         /// <param name='randomInfo'>Client's and server's random data information</param>
-        public CkWtlsKeyMatParams(NativeULong digestMechanism, NativeULong macSizeInBits, NativeULong keySizeInBits, NativeULong ivSizeInBits, NativeULong sequenceNumber, bool isExport, CkWtlsRandomData randomInfo)
+        public CkWtlsKeyMatParams(NativeULong digestMechanism, NativeULong macSizeInBits, NativeULong keySizeInBits, NativeULong ivSizeInBits, NativeULong sequenceNumber, bool isExport, ICkWtlsRandomData randomInfo)
         {
             if (randomInfo == null)
                 throw new ArgumentNullException("randomInfo");

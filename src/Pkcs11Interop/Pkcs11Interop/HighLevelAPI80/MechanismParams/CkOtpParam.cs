@@ -21,16 +21,18 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI80;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
 using NativeULong = System.UInt64;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
     /// <summary>
     /// Type, value and length of an OTP parameter
     /// </summary>
-    public class CkOtpParam : IMechanismParams, IDisposable
+    public class CkOtpParam : ICkOtpParam
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -45,14 +47,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
         /// <summary>
         /// Parameter type
         /// </summary>
-        public NativeULong Type
+        public ulong Type
         {
             get
             {
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return _lowLevelStruct.Type;
+                return ConvertUtils.UInt64ToUInt64(_lowLevelStruct.Type);
             }
         }
 
@@ -66,7 +68,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (_lowLevelStruct.Value == IntPtr.Zero) ? null : UnmanagedMemory.Read(_lowLevelStruct.Value, NativeLongUtils.ConvertToInt32(_lowLevelStruct.ValueLen));
+                return (_lowLevelStruct.Value == IntPtr.Zero) ? null : UnmanagedMemory.Read(_lowLevelStruct.Value, ConvertUtils.UInt64ToInt32(_lowLevelStruct.ValueLen));
             }
         }
 
@@ -87,7 +89,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             {
                 _lowLevelStruct.Value = UnmanagedMemory.Allocate(value.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Value, value);
-                _lowLevelStruct.ValueLen = NativeLongUtils.ConvertFromInt32(value.Length);
+                _lowLevelStruct.ValueLen = ConvertUtils.UInt64FromInt32(value.Length);
             }
         }
         

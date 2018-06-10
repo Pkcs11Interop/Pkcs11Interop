@@ -22,15 +22,17 @@
 using System;
 using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI41;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI41.MechanismParams;
+
+// Note: Code in this file is maintained manually.
 
 namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
 {
     /// <summary>
     /// Parameters for OTP mechanisms in a generic fashion
     /// </summary>
-    public class CkOtpParams : IMechanismParams, IDisposable
+    public class CkOtpParams : ICkOtpParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -46,7 +48,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
         /// Initializes a new instance of the CkOtpParams class.
         /// </summary>
         /// <param name='parameters'>List of OTP parameters</param>
-        public CkOtpParams(List<CkOtpParam> parameters)
+        public CkOtpParams(List<ICkOtpParam> parameters)
         {
             _lowLevelStruct.Params = IntPtr.Zero;
             _lowLevelStruct.Count = 0;
@@ -56,7 +58,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.MechanismParams
                 // Allocate memory for parameters
                 int ckOtpParamSize = UnmanagedMemory.SizeOf(typeof(CK_OTP_PARAM));
                 _lowLevelStruct.Params = UnmanagedMemory.Allocate(ckOtpParamSize * parameters.Count);
-                _lowLevelStruct.Count = NativeLongUtils.ConvertFromInt32(parameters.Count);
+                _lowLevelStruct.Count = ConvertUtils.UInt32FromInt32(parameters.Count);
 
                 // Copy paramaters to allocated memory
                 for (int i = 0; i < parameters.Count; i++)

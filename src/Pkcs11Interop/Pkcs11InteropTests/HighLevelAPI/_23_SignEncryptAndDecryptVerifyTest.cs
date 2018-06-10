@@ -19,10 +19,11 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
-using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
 using NUnit.Framework;
+
+// Note: Code in this file is maintained manually.
 
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 {
@@ -38,33 +39,33 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_BasicSignEncryptAndDecryptVerifyTest()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                Slot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11);
                 
                 // Open RW session
-                using (Session session = slot.OpenSession(SessionType.ReadWrite))
+                using (ISession session = slot.OpenSession(SessionType.ReadWrite))
                 {
                     // Login as normal user
                     session.Login(CKU.CKU_USER, Settings.NormalUserPin);
 
                     // Generate asymetric key pair
-                    ObjectHandle publicKey = null;
-                    ObjectHandle privateKey = null;
+                    IObjectHandle publicKey = null;
+                    IObjectHandle privateKey = null;
                     Helpers.GenerateKeyPair(session, out publicKey, out privateKey);
                     
                     // Specify signing mechanism
-                    Mechanism signingMechanism = new Mechanism(CKM.CKM_SHA1_RSA_PKCS);
+                    IMechanism signingMechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_SHA1_RSA_PKCS);
 
                     // Generate symetric key
-                    ObjectHandle secretKey = Helpers.GenerateKey(session);
+                    IObjectHandle secretKey = Helpers.GenerateKey(session);
 
                     // Generate random initialization vector
                     byte[] iv = session.GenerateRandom(8);
                     
                     // Specify encryption mechanism with initialization vector as parameter
-                    Mechanism encryptionMechanism = new Mechanism(CKM.CKM_DES3_CBC, iv);
+                    IMechanism encryptionMechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_DES3_CBC, iv);
 
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Passw0rd");
 
@@ -81,7 +82,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     session.DecryptVerify(signingMechanism, publicKey, encryptionMechanism, secretKey, encryptedData, signature, out decryptedData, out isValid);
 
                     // Do something interesting with decrypted data and verification result
-                    Assert.IsTrue(Convert.ToBase64String(sourceData) == Convert.ToBase64String(decryptedData));
+                    Assert.IsTrue(ConvertUtils.BytesToBase64String(sourceData) == ConvertUtils.BytesToBase64String(decryptedData));
                     Assert.IsTrue(isValid);
 
                     session.DestroyObject(privateKey);

@@ -21,16 +21,19 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI81;
+using Net.Pkcs11Interop.HighLevelAPI;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI81.MechanismParams;
 using NativeULong = System.UInt64;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 {
     /// <summary>
     /// Resulting key handles and initialization vectors after performing a DeriveKey method with the CKM_SSL3_KEY_AND_MAC_DERIVE mechanism
     /// </summary>
-    public class CkSsl3KeyMatOut : IDisposable
+    public class CkSsl3KeyMatOut : ICkSsl3KeyMatOut
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -45,7 +48,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <summary>
         /// Key handle for the resulting Client MAC Secret key
         /// </summary>
-        public ObjectHandle ClientMacSecret
+        public IObjectHandle ClientMacSecret
         {
             get
             {
@@ -59,7 +62,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <summary>
         /// Key handle for the resulting Server MAC Secret key
         /// </summary>
-        public ObjectHandle ServerMacSecret
+        public IObjectHandle ServerMacSecret
         {
             get
             {
@@ -73,7 +76,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <summary>
         /// Key handle for the resulting Client Secret key
         /// </summary>
-        public ObjectHandle ClientKey
+        public IObjectHandle ClientKey
         {
             get
             {
@@ -87,7 +90,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
         /// <summary>
         /// Key handle for the resulting Server Secret key
         /// </summary>
-        public ObjectHandle ServerKey
+        public IObjectHandle ServerKey
         {
             get
             {
@@ -108,7 +111,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (_ivLength < 1) ? null : UnmanagedMemory.Read(_lowLevelStruct.IVClient, NativeLongUtils.ConvertToInt32(_ivLength));
+                return (_ivLength < 1) ? null : UnmanagedMemory.Read(_lowLevelStruct.IVClient, ConvertUtils.UInt64ToInt32(_ivLength));
             }
         }
 
@@ -122,7 +125,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
-                return (_ivLength < 1) ? null : UnmanagedMemory.Read(_lowLevelStruct.IVServer, NativeLongUtils.ConvertToInt32(_ivLength));
+                return (_ivLength < 1) ? null : UnmanagedMemory.Read(_lowLevelStruct.IVServer, ConvertUtils.UInt64ToInt32(_ivLength));
             }
         }
 
@@ -148,8 +151,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
 
             if (_ivLength > 0)
             {
-                _lowLevelStruct.IVClient = UnmanagedMemory.Allocate(NativeLongUtils.ConvertToInt32(_ivLength));
-                _lowLevelStruct.IVServer = UnmanagedMemory.Allocate(NativeLongUtils.ConvertToInt32(_ivLength));
+                _lowLevelStruct.IVClient = UnmanagedMemory.Allocate(ConvertUtils.UInt64ToInt32(_ivLength));
+                _lowLevelStruct.IVServer = UnmanagedMemory.Allocate(ConvertUtils.UInt64ToInt32(_ivLength));
             }
         }
 

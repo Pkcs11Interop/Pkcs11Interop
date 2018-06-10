@@ -21,16 +21,18 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI80;
+using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
 using Net.Pkcs11Interop.LowLevelAPI80.MechanismParams;
 using NativeULong = System.UInt64;
+
+// Note: Code in this file is generated automatically.
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
     /// <summary>
     /// Parameters for the CKM_WTLS_PRF mechanism
     /// </summary>
-    public class CkWtlsPrfParams : IMechanismParams, IDisposable
+    public class CkWtlsPrfParams : ICkWtlsPrfParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -54,8 +56,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 
                 int nativeULongSize = UnmanagedMemory.SizeOf(typeof(NativeULong));
                 byte[] outputLenBytes = UnmanagedMemory.Read(_lowLevelStruct.OutputLen, nativeULongSize);
-                NativeULong outputLen = NativeLongUtils.ConvertFromByteArray(outputLenBytes);
-                return UnmanagedMemory.Read(_lowLevelStruct.Output, NativeLongUtils.ConvertToInt32(outputLen));
+                NativeULong outputLen = ConvertUtils.UInt64FromBytes(outputLenBytes);
+                return UnmanagedMemory.Read(_lowLevelStruct.Output, ConvertUtils.UInt64ToInt32(outputLen));
             }
         }
         
@@ -82,22 +84,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
             {
                 _lowLevelStruct.Seed = UnmanagedMemory.Allocate(seed.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Seed, seed);
-                _lowLevelStruct.SeedLen = NativeLongUtils.ConvertFromInt32(seed.Length);
+                _lowLevelStruct.SeedLen = ConvertUtils.UInt64FromInt32(seed.Length);
             }
             
             if (label != null)
             {
                 _lowLevelStruct.Label = UnmanagedMemory.Allocate(label.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.Label, label);
-                _lowLevelStruct.LabelLen = NativeLongUtils.ConvertFromInt32(label.Length);
+                _lowLevelStruct.LabelLen = ConvertUtils.UInt64FromInt32(label.Length);
             }
             
             if (outputLen < 1)
                 throw new ArgumentException("Value has to be positive number", "outputLen");
             
-            _lowLevelStruct.Output = UnmanagedMemory.Allocate(NativeLongUtils.ConvertToInt32(outputLen));
+            _lowLevelStruct.Output = UnmanagedMemory.Allocate(ConvertUtils.UInt64ToInt32(outputLen));
             
-            byte[] outputLenBytes = NativeLongUtils.ConvertToByteArray(outputLen);
+            byte[] outputLenBytes = ConvertUtils.UInt64ToBytes(outputLen);
             _lowLevelStruct.OutputLen = UnmanagedMemory.Allocate(outputLenBytes.Length);
             UnmanagedMemory.Write(_lowLevelStruct.OutputLen, outputLenBytes);
         }
