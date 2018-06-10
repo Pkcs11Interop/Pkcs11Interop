@@ -26,11 +26,11 @@ netstandard1.3\Pkcs11Interop.dll ^
 monoandroid2.3\Pkcs11Interop.dll ^
 xamarinios1.0\Pkcs11Interop.dll || goto :error
 
-@echo *** SIGNING SUCCESSFUL ***
+@echo *** SIGN ALL SUCCESSFUL ***
 @endlocal
 @exit /b 0
 
 :error
-@echo *** SIGNING FAILED ***
+@echo *** SIGN ALL FAILED ***
 @endlocal
 @exit /b 1
