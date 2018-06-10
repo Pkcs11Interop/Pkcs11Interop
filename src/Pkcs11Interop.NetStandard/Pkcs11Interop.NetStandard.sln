@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pkcs11Interop.NetStandard",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pkcs11Interop.DotNetCore.Tests", "Pkcs11Interop.DotNetCore.Tests\Pkcs11Interop.DotNetCore.Tests.csproj", "{77010EA5-A254-4158-BE87-19964350FFD8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pkcs11Interop.Mock", "Pkcs11Interop.Mock\Pkcs11Interop.Mock.csproj", "{A81819C1-779B-4644-A994-12A935FA83CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,8 +23,15 @@ Global
 		{77010EA5-A254-4158-BE87-19964350FFD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77010EA5-A254-4158-BE87-19964350FFD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77010EA5-A254-4158-BE87-19964350FFD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A81819C1-779B-4644-A994-12A935FA83CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A81819C1-779B-4644-A994-12A935FA83CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A81819C1-779B-4644-A994-12A935FA83CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A81819C1-779B-4644-A994-12A935FA83CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8B37C453-130D-49BC-80D1-FDEA61FBB6B8}
 	EndGlobalSection
 EndGlobal
