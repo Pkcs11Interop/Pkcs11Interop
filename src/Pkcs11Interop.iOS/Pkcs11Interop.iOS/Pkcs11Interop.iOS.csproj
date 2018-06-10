@@ -157,23 +157,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Pkcs11Interop\Pkcs11Interop\CHANGELOG.txt">
-      <Link>CHANGELOG.txt</Link>
-    </None>
-    <None Include="..\..\Pkcs11Interop\Pkcs11Interop\ISSUES.txt">
-      <Link>ISSUES.txt</Link>
-    </None>
-    <None Include="..\..\Pkcs11Interop\Pkcs11Interop\LICENSE.txt">
-      <Link>LICENSE.txt</Link>
-    </None>
-    <None Include="..\..\Pkcs11Interop\Pkcs11Interop\NOTICE.txt">
-      <Link>NOTICE.txt</Link>
-    </None>
-    <None Include="..\..\Pkcs11Interop\Pkcs11Interop\regeneratecode.sh">
-      <Link>regeneratecode.sh</Link>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI40\Factories\MechanismFactory.cs">
       <Link>HighLevelAPI40\Factories\MechanismFactory.cs</Link>
     </Compile>
@@ -2269,6 +2252,23 @@
       <Link>LowLevelAPI81\Pkcs11UriUtils.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Pkcs11Interop\Pkcs11Interop\CHANGELOG.txt">
+      <Link>CHANGELOG.txt</Link>
+    </None>
+    <None Include="..\..\Pkcs11Interop\Pkcs11Interop\ISSUES.txt">
+      <Link>ISSUES.txt</Link>
+    </None>
+    <None Include="..\..\Pkcs11Interop\Pkcs11Interop\LICENSE.txt">
+      <Link>LICENSE.txt</Link>
+    </None>
+    <None Include="..\..\Pkcs11Interop\Pkcs11Interop\NOTICE.txt">
+      <Link>NOTICE.txt</Link>
+    </None>
+    <None Include="..\..\Pkcs11Interop\Pkcs11Interop\regeneratecode.sh">
+      <Link>regeneratecode.sh</Link>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

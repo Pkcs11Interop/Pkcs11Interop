@@ -579,19 +579,17 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\Settings.cs">
       <Link>Settings.cs</Link>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <InterfaceDefinition Include="LaunchScreen.storyboard" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Info.plist" />
-    <None Include="Entitlements.plist" />
-    <Content Include="libpkcs11-mock.a" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitTestAppDelegate.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\Pkcs11Interop\Pkcs11InteropTests\README.txt">
+      <Link>README.txt</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Pkcs11Interop\Pkcs11InteropTests\regeneratecode.sh">
+      <Link>regeneratecode.sh</Link>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Pkcs11Interop.iOS\Pkcs11Interop.iOS.csproj">
@@ -604,6 +602,18 @@
       <IsAppExtension>false</IsAppExtension>
       <IsWatchApp>false</IsWatchApp>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="LaunchScreen.storyboard" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Info.plist" />
+    <None Include="Entitlements.plist" />
+    <Content Include="libpkcs11-mock.a" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="UnitTestAppDelegate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
