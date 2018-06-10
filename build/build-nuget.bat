@@ -35,11 +35,11 @@ copy ..\src\Pkcs11Interop\Pkcs11Interop\NOTICE.txt nuget || goto :error
 copy Pkcs11Interop.nuspec nuget || goto :error
 %NUGET% pack nuget\Pkcs11Interop.nuspec || goto :error
 
-@echo *** CREATE NUGET SUCCESSFUL ***
+@echo *** BUILD NUGET SUCCESSFUL ***
 @endlocal
 @exit /b 0
 
 :error
-@echo *** CREATE NUGET FAILED ***
+@echo *** BUILD NUGET FAILED ***
 @endlocal
 @exit /b 1
