@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pkcs11Interop.Android", "Pkcs11Interop.Android\Pkcs11Interop.Android.csproj", "{E70D0CEE-348C-4311-A087-753871275EB9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pkcs11Interop", "Pkcs11Interop\Pkcs11Interop.csproj", "{E70D0CEE-348C-4311-A087-753871275EB9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pkcs11Interop.Android.Tests", "Pkcs11Interop.Android.Tests\Pkcs11Interop.Android.Tests.csproj", "{B23402D6-483A-44A4-8D6A-1693AD006812}"
 EndProject

@@ -1,9 +1,10 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using Android.App;
 
-[assembly: AssemblyTitle("Pkcs11Interop.NetStandard")]
-[assembly: AssemblyDescription("Managed .NET wrapper for unmanaged PKCS#11 libraries")]
+[assembly: AssemblyTitle("Pkcs11Interop")]
+[assembly: AssemblyDescription("Managed .NET wrapper for unmanaged PKCS#11 libraries (Android version)")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Pkcs11Interop")]
@@ -11,7 +12,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
-[assembly: Guid("af7dfa22-9f88-4497-bf4f-ddd2eda16fb5")]
+[assembly: Guid("7102332a-1ac0-4823-8fcc-5037550e715d")]
 [assembly: AssemblyVersion("4.0.0")]
 [assembly: AssemblyFileVersion("4.0.0")]
-[assembly: AssemblyInformationalVersion("4.0.0")]

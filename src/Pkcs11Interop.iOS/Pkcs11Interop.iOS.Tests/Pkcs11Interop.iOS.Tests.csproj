@@ -592,9 +592,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Pkcs11Interop.iOS\Pkcs11Interop.iOS.csproj">
+    <ProjectReference Include="..\Pkcs11Interop\Pkcs11Interop.csproj">
       <Project>{1DF7AFD7-8498-41C2-B83A-161E2D2A01E9}</Project>
-      <Name>Pkcs11Interop.iOS</Name>
+      <Name>Pkcs11Interop</Name>
     </ProjectReference>
     <ProjectReference Include="..\Pkcs11Interop.Mock\Pkcs11Interop.Mock.csproj">
       <Project>{e71f3053-056c-4381-9638-048ed73bdff6}</Project>

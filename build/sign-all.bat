@@ -13,18 +13,18 @@ set LIBURL=https://www.pkcs11interop.net/
 net20\Pkcs11Interop.dll ^
 net40\Pkcs11Interop.dll ^
 net45\Pkcs11Interop.dll ^
-netstandard1.3\Pkcs11Interop.NetStandard.dll ^
-monoandroid2.3\Pkcs11Interop.Android.dll ^
-xamarinios1.0\Pkcs11Interop.iOS.dll || goto :error
+netstandard1.3\Pkcs11Interop.dll ^
+monoandroid2.3\Pkcs11Interop.dll ^
+xamarinios1.0\Pkcs11Interop.dll || goto :error
 
 @rem Sign all assemblies using SHA256withRSA algorithm
 %SIGNTOOL% sign /sha1 %CERTHASH% /as /fd sha256 /tr %TSAURL% /td sha256 /d %LIBNAME% /du %LIBURL% ^
 net20\Pkcs11Interop.dll ^
 net40\Pkcs11Interop.dll ^
 net45\Pkcs11Interop.dll ^
-netstandard1.3\Pkcs11Interop.NetStandard.dll ^
-monoandroid2.3\Pkcs11Interop.Android.dll ^
-xamarinios1.0\Pkcs11Interop.iOS.dll || goto :error
+netstandard1.3\Pkcs11Interop.dll ^
+monoandroid2.3\Pkcs11Interop.dll ^
+xamarinios1.0\Pkcs11Interop.dll || goto :error
 
 @echo *** SIGNING SUCCESSFUL ***
 @endlocal
