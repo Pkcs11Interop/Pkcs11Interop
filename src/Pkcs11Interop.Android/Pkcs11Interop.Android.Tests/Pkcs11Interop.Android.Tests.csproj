@@ -521,9 +521,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Pkcs11Interop.Android\Pkcs11Interop.Android.csproj">
+    <ProjectReference Include="..\Pkcs11Interop\Pkcs11Interop.csproj">
       <Project>{e70d0cee-348c-4311-a087-753871275eb9}</Project>
-      <Name>Pkcs11Interop.Android</Name>
+      <Name>Pkcs11Interop</Name>
     </ProjectReference>
     <ProjectReference Include="..\Pkcs11Interop.Mock\Pkcs11Interop.Mock.csproj">
       <Project>{6ab18e20-f297-447c-8bbf-f89c9ac61cf5}</Project>

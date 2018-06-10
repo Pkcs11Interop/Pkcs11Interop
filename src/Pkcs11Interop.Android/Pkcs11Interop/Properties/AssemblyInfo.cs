@@ -3,8 +3,8 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Android.App;
 
-[assembly: AssemblyTitle("Pkcs11Interop.Android")]
-[assembly: AssemblyDescription("Managed .NET wrapper for unmanaged PKCS#11 libraries")]
+[assembly: AssemblyTitle("Pkcs11Interop")]
+[assembly: AssemblyDescription("Managed .NET wrapper for unmanaged PKCS#11 libraries (Android version)")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Pkcs11Interop")]

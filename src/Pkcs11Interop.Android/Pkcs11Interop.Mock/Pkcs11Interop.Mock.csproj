@@ -163,9 +163,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Pkcs11Interop.Android\Pkcs11Interop.Android.csproj">
+    <ProjectReference Include="..\Pkcs11Interop\Pkcs11Interop.csproj">
       <Project>{e70d0cee-348c-4311-a087-753871275eb9}</Project>
-      <Name>Pkcs11Interop.Android</Name>
+      <Name>Pkcs11Interop</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

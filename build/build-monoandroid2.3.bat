@@ -27,19 +27,19 @@ msbuild ..\src\Pkcs11Interop.Android\Pkcs11Interop.Android.sln ^
 	/p:Configuration=Release /p:Platform="Any CPU" /target:Clean || goto :error
 
 @if "%arg1%"=="--with-tests" (
-	@rem Build both Pkcs11Interop.Android and Pkcs11Interop.Android.Tests projects via solution
+	@rem Build both Pkcs11Interop and Pkcs11Interop.Android.Tests projects via solution
 	msbuild ..\src\Pkcs11Interop.Android\Pkcs11Interop.Android.sln ^
 		/p:Configuration=Release /p:Platform="Any CPU" /target:Build || goto :error
 ) else (
-	@rem Build only Pkcs11Interop.Android project
-	msbuild ..\src\Pkcs11Interop.Android\Pkcs11Interop.Android\Pkcs11Interop.Android.csproj ^
+	@rem Build only Pkcs11Interop project
+	msbuild ..\src\Pkcs11Interop.Android\Pkcs11Interop\Pkcs11Interop.csproj ^
 		/p:Configuration=Release /p:Platform=AnyCPU /target:Build || goto :error
 )
 
 @rem Copy result to output directory
 mkdir monoandroid2.3 || goto :error
-copy ..\src\Pkcs11Interop.Android\Pkcs11Interop.Android\bin\Release\Pkcs11Interop.Android.dll monoandroid2.3 || goto :error
-copy ..\src\Pkcs11Interop.Android\Pkcs11Interop.Android\bin\Release\Pkcs11Interop.Android.xml monoandroid2.3 || goto :error
+copy ..\src\Pkcs11Interop.Android\Pkcs11Interop\bin\Release\Pkcs11Interop.dll monoandroid2.3 || goto :error
+copy ..\src\Pkcs11Interop.Android\Pkcs11Interop\bin\Release\Pkcs11Interop.xml monoandroid2.3 || goto :error
 
 @echo *** BUILD MONOANDROID2.3 SUCCESSFUL ***
 @endlocal
