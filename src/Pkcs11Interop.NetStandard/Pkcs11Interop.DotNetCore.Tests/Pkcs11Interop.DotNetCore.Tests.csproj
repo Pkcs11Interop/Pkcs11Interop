@@ -19,7 +19,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.csproj" />
+    <ProjectReference Include="..\Pkcs11Interop\Pkcs11Interop.csproj" />
     <ProjectReference Include="..\Pkcs11Interop.Mock\Pkcs11Interop.Mock.csproj" />
   </ItemGroup>
 

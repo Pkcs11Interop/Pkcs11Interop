@@ -143,7 +143,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.csproj" />
+    <ProjectReference Include="..\Pkcs11Interop\Pkcs11Interop.csproj" />
   </ItemGroup>
 
 </Project>

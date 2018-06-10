@@ -13,7 +13,7 @@ set LIBURL=https://www.pkcs11interop.net/
 net20\Pkcs11Interop.dll ^
 net40\Pkcs11Interop.dll ^
 net45\Pkcs11Interop.dll ^
-netstandard1.3\Pkcs11Interop.NetStandard.dll ^
+netstandard1.3\Pkcs11Interop.dll ^
 monoandroid2.3\Pkcs11Interop.Android.dll ^
 xamarinios1.0\Pkcs11Interop.iOS.dll || goto :error
 
@@ -22,7 +22,7 @@ xamarinios1.0\Pkcs11Interop.iOS.dll || goto :error
 net20\Pkcs11Interop.dll ^
 net40\Pkcs11Interop.dll ^
 net45\Pkcs11Interop.dll ^
-netstandard1.3\Pkcs11Interop.NetStandard.dll ^
+netstandard1.3\Pkcs11Interop.dll ^
 monoandroid2.3\Pkcs11Interop.Android.dll ^
 xamarinios1.0\Pkcs11Interop.iOS.dll || goto :error
 
