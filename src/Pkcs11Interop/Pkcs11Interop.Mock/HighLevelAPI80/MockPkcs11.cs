@@ -102,9 +102,11 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI80
             if (sizeList.Length != ConvertUtils.UInt64ToInt32(sizeCount))
                 Array.Resize(ref sizeList, ConvertUtils.UInt64ToInt32(sizeCount));
 
-            ulong[] ulongList = Array.ConvertAll(sizeList, p => ConvertUtils.UInt64ToUInt64(p));
+            List<ulong> ulongList = new List<ulong>();
+            foreach (NativeULong size in sizeList)
+                ulongList.Add(ConvertUtils.UInt64ToUInt64(size));
 
-            return new List<ulong>(ulongList);
+            return ulongList;
         }
 
         /// <summary>
