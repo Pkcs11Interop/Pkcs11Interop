@@ -3,6 +3,9 @@
 @rem Argument "--with-tests" forces the build of test project
 @set arg1=%1
 
+@rem Argument "--skip-cleaning" skips solution cleaning
+@set arg2=%2
+
 @rem Initialize build environment of Visual Studio 2017 Community/Professional/Enterprise
 @set tools=
 @set tmptools="c:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsMSBuildCmd.bat"
@@ -18,9 +21,11 @@ call %tools%
 @rem Delete output directory
 rmdir /S /Q netstandard2.0
 
-@rem Clean solution
-msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.sln ^
-	/p:Configuration=Release /p:Platform="Any CPU" /target:Clean || goto :error
+@if not "%arg2%"=="--skip-cleaning" (
+	@rem Clean solution
+	msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.sln ^
+		/p:Configuration=Release /p:Platform="Any CPU" /target:Clean || goto :error
+)
 
 @rem Restore dependencies for the solution
 msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.sln ^
