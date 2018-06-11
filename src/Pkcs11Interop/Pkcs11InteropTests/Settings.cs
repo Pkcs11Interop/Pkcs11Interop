@@ -185,7 +185,7 @@ namespace Net.Pkcs11Interop.Tests
             return string.Empty;
 #else
 
-#if NETSTANDARD1_3
+#if NETCOREAPP1_0
             string path = typeof(Settings).GetTypeInfo().Assembly.CodeBase;
 #else
             string path = typeof(Settings).Assembly.CodeBase;

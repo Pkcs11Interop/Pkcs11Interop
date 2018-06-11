@@ -14,6 +14,7 @@ net20\Pkcs11Interop.dll ^
 net40\Pkcs11Interop.dll ^
 net45\Pkcs11Interop.dll ^
 netstandard1.3\Pkcs11Interop.dll ^
+netstandard2.0\Pkcs11Interop.dll ^
 monoandroid2.3\Pkcs11Interop.dll ^
 xamarinios1.0\Pkcs11Interop.dll || goto :error
 
@@ -23,6 +24,7 @@ net20\Pkcs11Interop.dll ^
 net40\Pkcs11Interop.dll ^
 net45\Pkcs11Interop.dll ^
 netstandard1.3\Pkcs11Interop.dll ^
+netstandard2.0\Pkcs11Interop.dll ^
 monoandroid2.3\Pkcs11Interop.dll ^
 xamarinios1.0\Pkcs11Interop.dll || goto :error
 

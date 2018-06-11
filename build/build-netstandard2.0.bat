@@ -19,7 +19,7 @@ call %tools%
 @echo on
 
 @rem Delete output directory
-rmdir /S /Q netstandard1.3
+rmdir /S /Q netstandard2.0
 
 @if not "%arg2%"=="--skip-cleaning" (
 	@rem Clean solution
@@ -33,26 +33,26 @@ msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.sln ^
 
 @rem Build Pkcs11Interop project
 msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop\Pkcs11Interop.csproj ^
-	/p:Configuration=Release /p:Platform=AnyCPU /p:TargetFramework=netstandard1.3 ^
+	/p:Configuration=Release /p:Platform=AnyCPU /p:TargetFramework=netstandard2.0 ^
 	/target:Build || goto :error
 
 @if "%arg1%"=="--with-tests" (
 	@rem Build Pkcs11Interop.DotNetCore.Tests project
 	msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\Pkcs11Interop.DotNetCore.Tests.csproj ^
-		/p:Configuration=Release /p:Platform=AnyCPU /p:TargetFramework=netcoreapp1.0 ^
+		/p:Configuration=Release /p:Platform=AnyCPU /p:TargetFramework=netcoreapp2.0 ^
 		/target:Build || goto :error
 )
 
 @rem Copy result to output directory
-mkdir netstandard1.3 || goto :error
-copy ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop\bin\Release\netstandard1.3\Pkcs11Interop.dll netstandard1.3 || goto :error
-copy ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop\bin\Release\netstandard1.3\Pkcs11Interop.xml netstandard1.3 || goto :error
+mkdir netstandard2.0 || goto :error
+copy ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop\bin\Release\netstandard2.0\Pkcs11Interop.dll netstandard2.0 || goto :error
+copy ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop\bin\Release\netstandard2.0\Pkcs11Interop.xml netstandard2.0 || goto :error
 
-@echo *** BUILD NETSTANDARD1.3 SUCCESSFUL ***
+@echo *** BUILD NETSTANDARD2.0 SUCCESSFUL ***
 @endlocal
 @exit /b 0
 
 :error
-@echo *** BUILD NETSTANDARD1.3 FAILED ***
+@echo *** BUILD NETSTANDARD2.0 FAILED ***
 @endlocal
 @exit /b 1

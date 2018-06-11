@@ -19,7 +19,7 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
-#if (!NETSTANDARD1_3)
+#if (!NETCOREAPP1_0)
 
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
