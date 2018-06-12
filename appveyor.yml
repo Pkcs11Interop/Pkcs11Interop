@@ -4,6 +4,7 @@ branches:
   only:
   - master
 skip_tags: true
+build: off
 environment:
   matrix:
   - Platform: net20
