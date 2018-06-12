@@ -1,0 +1,18 @@
+language: csharp
+
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      sudo: required
+      dotnet: 2.1.3
+
+branches:
+  only:
+    - master
+
+script:
+  - dotnet --info
+  - dotnet restore ./src/Pkcs11Interop.NetStandard/
+  - dotnet build ./src/Pkcs11Interop.NetStandard/
+  - dotnet test ./src/Pkcs11Interop.NetStandard/
