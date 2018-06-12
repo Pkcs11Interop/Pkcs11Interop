@@ -16,4 +16,4 @@ script:
   - dotnet --info
   - dotnet restore ./src/Pkcs11Interop.NetStandard/
   - dotnet build ./src/Pkcs11Interop.NetStandard/
-  - dotnet test ./src/Pkcs11Interop.NetStandard/
+  - dotnet test ./src/Pkcs11Interop.NetStandard/Pkcs11Interop.DotNetCore.Tests/
