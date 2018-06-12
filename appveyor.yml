@@ -4,16 +4,15 @@ branches:
   only:
   - master
 skip_tags: true
-build: off
 environment:
   matrix:
-  - Platform: net20
-  - Platform: net40
-  - Platform: net45
-  - Platform: netstandard1.3
-  - Platform: netstandard2.0
-  - Platform: monoandroid2.3
-  - Platform: xamarinios1.0
+#  - Platform: net20
+#  - Platform: net40
+#  - Platform: net45
+#  - Platform: netstandard1.3
+#  - Platform: netstandard2.0
+#  - Platform: monoandroid2.3
+#  - Platform: xamarinios1.0
 install:
 - cmd: IF "%Platform%"=="monoandroid2.3" (powershell -File ./build/appveyor-switch-android-sdk.ps1)
 build_script:
