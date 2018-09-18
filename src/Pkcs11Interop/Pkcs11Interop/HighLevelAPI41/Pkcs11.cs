@@ -99,8 +99,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             }
             catch
             {
-                _p11.Dispose();
-                _p11 = null;
+                if (_p11 != null)
+                {
+                    _p11.Dispose();
+                    _p11 = null;
+                }
                 throw;
             }
         }
@@ -122,8 +125,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             }
             catch
             {
-                _p11.Dispose();
-                _p11 = null;
+                if (_p11 != null)
+                {
+                    _p11.Dispose();
+                    _p11 = null;
+                }
                 throw;
             }
         }
