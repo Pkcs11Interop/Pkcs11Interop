@@ -1374,6 +1374,33 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\Pkcs11UriUtils.cs">
       <Link>HighLevelAPI\Pkcs11UriUtils.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\ConsolePkcs11InteropLogger.cs">
+      <Link>Logging\ConsolePkcs11InteropLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\ConsolePkcs11InteropLoggerFactory.cs">
+      <Link>Logging\ConsolePkcs11InteropLoggerFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\IPkcs11InteropLogger.cs">
+      <Link>Logging\IPkcs11InteropLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\IPkcs11InteropLoggerFactory.cs">
+      <Link>Logging\IPkcs11InteropLoggerFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\NullPkcs11InteropLogger.cs">
+      <Link>Logging\NullPkcs11InteropLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\NullPkcs11InteropLoggerFactory.cs">
+      <Link>Logging\NullPkcs11InteropLoggerFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\Pkcs11InteropLogger.cs">
+      <Link>Logging\Pkcs11InteropLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\Pkcs11InteropLoggerFactory.cs">
+      <Link>Logging\Pkcs11InteropLoggerFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\Pkcs11InteropLogLevel.cs">
+      <Link>Logging\Pkcs11InteropLogLevel.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\CkaUtils.cs">
       <Link>LowLevelAPI40\CkaUtils.cs</Link>
     </Compile>
