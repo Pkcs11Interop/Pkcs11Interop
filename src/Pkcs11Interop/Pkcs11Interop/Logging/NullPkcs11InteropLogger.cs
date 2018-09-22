@@ -49,5 +49,15 @@ namespace Net.Pkcs11Interop.Logging
         {
 
         }
+
+        /// <summary>
+        /// Checks whether messages with specified level will be logged
+        /// </summary>
+        /// <param name="level">Message log level</param>
+        /// <returns>True if log level is enabled false otherwise</returns>
+        public bool IsEnabled(Pkcs11InteropLogLevel level)
+        {
+            return false;
+        }
     }
 }
