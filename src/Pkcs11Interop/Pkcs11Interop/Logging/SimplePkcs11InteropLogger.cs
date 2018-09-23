@@ -114,11 +114,7 @@ namespace Net.Pkcs11Interop.Logging
 
             if (_diagnosticsTraceOutputEnabled)
             {
-#if (NETSTANDARD1_3)
-                throw new NotSupportedException("System.Diagnostics.Trace is not supported by netstandard1.3");
-#else
                 System.Diagnostics.Trace.WriteLine(formattedMessage);
-#endif
             }
 
             if (_consoleOutputEnabled)

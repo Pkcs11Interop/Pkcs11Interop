@@ -24,6 +24,11 @@
     <DelaySign>False</DelaySign>
   </PropertyGroup>
 
+  <ItemGroup Condition="$(TargetFramework) == 'netstandard1.3'">
+    <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
+    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
+  </ItemGroup>
+
   <ItemGroup>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Common\AppType.cs">
       <Link>Common\AppType.cs</Link>
