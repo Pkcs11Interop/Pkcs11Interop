@@ -33,31 +33,36 @@ namespace Net.Pkcs11Interop.Logging
         /// <summary>
         /// Trace log level
         /// </summary>
-        Trace,
+        Trace = 0,
 
         /// <summary>
         /// Debug log level
         /// </summary>
-        Debug,
+        Debug = 1,
 
         /// <summary>
         /// Info log level
         /// </summary>
-        Info,
+        Info = 2,
 
         /// <summary>
         /// Warning log level
         /// </summary>
-        Warn,
+        Warn = 3,
 
         /// <summary>
         /// Error log level
         /// </summary>
-        Error,
+        Error = 4,
 
         /// <summary>
         /// Fatal log level
         /// </summary>
-        Fatal
+        Fatal = 5,
+
+        /// <summary>
+        /// None log level
+        /// </summary>
+        None = 6
     }
 }

@@ -492,8 +492,8 @@
     <Compile Include="HighLevelAPI\Factories\Pkcs11Factory.cs" />
     <Compile Include="HighLevelAPI\Pkcs11Factories.cs" />
     <Compile Include="HighLevelAPI\Pkcs11UriUtils.cs" />
-    <Compile Include="Logging\ConsolePkcs11InteropLogger.cs" />
-    <Compile Include="Logging\ConsolePkcs11InteropLoggerFactory.cs" />
+    <Compile Include="Logging\SimplePkcs11InteropLogger.cs" />
+    <Compile Include="Logging\SimplePkcs11InteropLoggerFactory.cs" />
     <Compile Include="Logging\IPkcs11InteropLogger.cs" />
     <Compile Include="Logging\IPkcs11InteropLoggerFactory.cs" />
     <Compile Include="Logging\NullPkcs11InteropLogger.cs" />

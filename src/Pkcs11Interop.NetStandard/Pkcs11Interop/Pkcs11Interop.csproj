@@ -1374,11 +1374,11 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\Pkcs11UriUtils.cs">
       <Link>HighLevelAPI\Pkcs11UriUtils.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\ConsolePkcs11InteropLogger.cs">
-      <Link>Logging\ConsolePkcs11InteropLogger.cs</Link>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\SimplePkcs11InteropLogger.cs">
+      <Link>Logging\SimplePkcs11InteropLogger.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\ConsolePkcs11InteropLoggerFactory.cs">
-      <Link>Logging\ConsolePkcs11InteropLoggerFactory.cs</Link>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\SimplePkcs11InteropLoggerFactory.cs">
+      <Link>Logging\SimplePkcs11InteropLoggerFactory.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\IPkcs11InteropLogger.cs">
       <Link>Logging\IPkcs11InteropLogger.cs</Link>
