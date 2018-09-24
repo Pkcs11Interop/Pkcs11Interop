@@ -20,7 +20,9 @@
       <group targetFramework=".NETFramework4.0" />
       <group targetFramework=".NETFramework4.5" />
       <group targetFramework=".NETStandard1.3">
-        <dependency id="NETStandard.Library" version="1.6.0" />
+        <dependency id="NETStandard.Library" version="1.6.0" exclude="Build,Analyzers" />
+        <dependency id="System.Diagnostics.TraceSource" version="4.3.0" exclude="Build,Analyzers" />
+        <dependency id="System.Threading.Thread" version="4.3.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework="MonoAndroid2.3" />
       <group targetFramework="Xamarin.iOS1.0" />
