@@ -33,6 +33,11 @@ namespace Net.Pkcs11Interop.Logging
     public class SimplePkcs11InteropLogger : IPkcs11InteropLogger
     {
         /// <summary>
+        /// Static object for global trace/console/file access locking
+        /// </summary>
+        private static readonly object _lockObject = new object();
+
+        /// <summary>
         /// Logger name
         /// </summary>
         private readonly string _loggerName = null;
@@ -86,7 +91,7 @@ namespace Net.Pkcs11Interop.Logging
             if (!IsEnabled(level))
                 return;
 
-            if (_diagnosticsTraceOutputEnabled == false && _consoleOutputEnabled == false && _filePath == null)
+            if (!IsOutputEnabled())
                 return;
 
             string formattedMessage = null;
@@ -112,19 +117,22 @@ namespace Net.Pkcs11Interop.Logging
                     );
             }
 
-            if (_diagnosticsTraceOutputEnabled)
+            lock (_lockObject)
             {
-                System.Diagnostics.Trace.WriteLine(formattedMessage);
-            }
+                if (_diagnosticsTraceOutputEnabled)
+                {
+                    System.Diagnostics.Trace.WriteLine(formattedMessage);
+                }
 
-            if (_consoleOutputEnabled)
-            {
-                Console.WriteLine(formattedMessage);
-            }
+                if (_consoleOutputEnabled)
+                {
+                    Console.WriteLine(formattedMessage);
+                }
 
-            if (_filePath != null)
-            {
-                File.AppendAllText(_filePath, formattedMessage + Environment.NewLine, Encoding.UTF8);
+                if (_filePath != null)
+                {
+                    File.AppendAllText(_filePath, formattedMessage + Environment.NewLine, Encoding.UTF8);
+                }
             }
         }
 
@@ -136,6 +144,15 @@ namespace Net.Pkcs11Interop.Logging
         public bool IsEnabled(Pkcs11InteropLogLevel level)
         {
             return (level >= _minLogLevel);
+        }
+
+        /// <summary>
+        /// Checks whether any kind of output is enabled
+        /// </summary>
+        /// <returns>True if any kind of output is enabled false otherwise</returns>
+        public bool IsOutputEnabled()
+        {
+            return (_diagnosticsTraceOutputEnabled || _consoleOutputEnabled || _filePath != null);
         }
     }
 }
