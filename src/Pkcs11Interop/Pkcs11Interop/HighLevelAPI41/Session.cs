@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.IO;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
+using Net.Pkcs11Interop.Logging;
 using Net.Pkcs11Interop.LowLevelAPI41;
 using NativeLong = System.Int32;
 using NativeULong = System.UInt32;
@@ -41,6 +42,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// Flag indicating whether instance has been disposed
         /// </summary>
         protected bool _disposed = false;
+
+        /// <summary>
+        /// Logger responsible for message logging
+        /// </summary>
+        private static Pkcs11InteropLogger _logger = Pkcs11InteropLoggerFactory.GetLogger(typeof(Session));
 
         /// <summary>
         /// Factories to be used by Developer and Pkcs11Interop library
@@ -114,6 +120,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
                 if (this._disposed)
                     throw new ObjectDisposedException(this.GetType().FullName);
 
+                _logger.Debug("Session({0})::CloseWhenDisposed", _sessionId);
+
                 _closeWhenDisposed = value;
             }
         }
@@ -126,6 +134,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <param name="sessionId">PKCS#11 handle of session</param>
         protected internal Session(Pkcs11Factories factories, LowLevelAPI41.Pkcs11 pkcs11, ulong sessionId)
         {
+            _logger.Debug("Session({0})::ctor", sessionId);
+
             if (factories == null)
                 throw new ArgumentNullException("factories");
 
@@ -148,6 +158,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::CloseSession", _sessionId);
+
+            _logger.Info("Closing session {0}", _sessionId);
+
             CKR rv = _p11.C_CloseSession(_sessionId);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_CloseSession", rv);
@@ -163,6 +177,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
+
+            _logger.Debug("Session({0})::InitPin1", _sessionId);
 
             byte[] pinValue = null;
             NativeULong pinValueLen = 0;
@@ -186,6 +202,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::InitPin2", _sessionId);
+
             byte[] pinValue = null;
             NativeULong pinValueLen = 0;
             if (userPin != null)
@@ -208,6 +226,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
+
+            _logger.Debug("Session({0})::SetPin1", _sessionId);
 
             byte[] oldPinValue = null;
             NativeULong oldPinValueLen = 0;
@@ -240,6 +260,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::SetPin2", _sessionId);
+
             byte[] oldPinValue = null;
             NativeULong oldPinValueLen = 0;
             if (oldPin != null)
@@ -270,6 +292,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::GetSessionInfo", _sessionId);
+
             CK_SESSION_INFO sessionInfo = new CK_SESSION_INFO();
             CKR rv = _p11.C_GetSessionInfo(_sessionId, ref sessionInfo);
             if (rv != CKR.CKR_OK)
@@ -286,6 +310,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
+
+            _logger.Debug("Session({0})::GetOperationState", _sessionId);
 
             NativeULong operationStateLen = 0;
             CKR rv = _p11.C_GetOperationState(_sessionId, null, ref operationStateLen);
@@ -311,6 +337,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::SetOperationState", _sessionId);
+
             if (state == null)
                 throw new ArgumentNullException("state");
 
@@ -335,6 +363,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::Login1", _sessionId);
+
+            if (_logger.IsEnabled(Pkcs11InteropLogLevel.Info))
+                _logger.Info("Logging as {0} into session {1}", Pkcs11InteropLogUtils.ToString(userType), _sessionId);
+
             byte[] pinValue = null;
             NativeULong pinValueLen = 0;
             if (pin != null)
@@ -358,6 +391,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::Login2", _sessionId);
+
+            if (_logger.IsEnabled(Pkcs11InteropLogLevel.Info))
+                _logger.Info("Logging as {0} into session {1}", Pkcs11InteropLogUtils.ToString(userType), _sessionId);
+
             byte[] pinValue = null;
             NativeULong pinValueLen = 0;
             if (pin != null)
@@ -365,7 +403,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
                 pinValue = pin;
                 pinValueLen = ConvertUtils.UInt32FromInt32(pin.Length);
             }
-            
+
             CKR rv = _p11.C_Login(_sessionId, userType, pinValue, pinValueLen);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_Login", rv);
@@ -378,6 +416,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
+
+            _logger.Debug("Session({0})::Logout", _sessionId);
+
+            _logger.Info("Logging out of session {0}", _sessionId);
 
             CKR rv = _p11.C_Logout(_sessionId);
             if (rv != CKR.CKR_OK)
@@ -393,6 +435,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
+
+            _logger.Debug("Session({0})::CreateObject", _sessionId);
 
             NativeULong objectId = CK.CK_INVALID_HANDLE;
 
@@ -424,6 +468,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
+
+            _logger.Debug("Session({0})::CopyObject", _sessionId);
 
             if (objectHandle == null)
                 throw new ArgumentNullException("objectHandle");
@@ -457,6 +503,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::DestroyObject", _sessionId);
+
             if (objectHandle == null)
                 throw new ArgumentNullException("objectHandle");
 
@@ -474,6 +522,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
+
+            _logger.Debug("Session({0})::GetObjectSize", _sessionId);
 
             if (objectHandle == null)
                 throw new ArgumentNullException("objectHandle");
@@ -496,6 +546,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
+
+            _logger.Debug("Session({0})::GetAttributeValue1", _sessionId);
 
             if (objectHandle == null)
                 throw new ArgumentNullException("objectHandle");
@@ -523,6 +575,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
+
+            _logger.Debug("Session({0})::GetAttributeValue2", _sessionId);
 
             if (objectHandle == null)
                 throw new ArgumentNullException("objectHandle");
@@ -578,6 +632,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::SetAttributeValue", _sessionId);
+
             if (objectHandle == null)
                 throw new ArgumentNullException("objectHandle");
 
@@ -605,6 +661,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::FindObjectsInit", _sessionId);
+
             CK_ATTRIBUTE[] template = null;
             NativeULong templateLength = 0;
             
@@ -631,6 +689,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::FindObjects", _sessionId);
+
             List<IObjectHandle> foundObjects = new List<IObjectHandle>();
 
             NativeULong[] objects = new NativeULong[objectCount];
@@ -653,6 +713,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::FindObjectsFinal", _sessionId);
+
             CKR rv = _p11.C_FindObjectsFinal(_sessionId);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_FindObjectsFinal", rv);
@@ -667,6 +729,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
+
+            _logger.Debug("Session({0})::FindAllObjects", _sessionId);
 
             List<IObjectHandle> foundObjects = new List<IObjectHandle>();
 
@@ -717,6 +781,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::Encrypt1", _sessionId);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
 
@@ -760,6 +826,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::Encrypt2", _sessionId);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -787,6 +855,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
+
+            _logger.Debug("Session({0})::Encrypt3", _sessionId);
 
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
@@ -851,6 +921,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::Decrypt1", _sessionId);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -894,6 +966,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::Decrypt2", _sessionId);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -921,6 +995,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
+
+            _logger.Debug("Session({0})::Decrypt3", _sessionId);
 
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
@@ -984,6 +1060,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::DigestKey", _sessionId);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -1027,6 +1105,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::Digest1", _sessionId);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -1066,6 +1146,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::Digest2", _sessionId);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -1086,6 +1168,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
+
+            _logger.Debug("Session({0})::Digest3", _sessionId);
 
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
@@ -1140,6 +1224,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::Sign1", _sessionId);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -1183,6 +1269,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::Sign2", _sessionId);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -1207,6 +1295,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
+
+            _logger.Debug("Session({0})::Sign3", _sessionId);
 
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
@@ -1264,6 +1354,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::SignRecover", _sessionId);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -1308,6 +1400,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::Verify1", _sessionId);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -1348,6 +1442,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::Verify2", _sessionId);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -1376,6 +1472,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
+
+            _logger.Debug("Session({0})::Verify3", _sessionId);
 
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
@@ -1430,6 +1528,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::VerifyRecover", _sessionId);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -1479,6 +1579,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::DigestEncrypt1", _sessionId);
+
             if (digestingMechanism == null)
                 throw new ArgumentNullException("digestingMechanism");
             
@@ -1512,6 +1614,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::DigestEncrypt2", _sessionId);
+
             if (digestingMechanism == null)
                 throw new ArgumentNullException("digestingMechanism");
             
@@ -1544,6 +1648,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
+
+            _logger.Debug("Session({0})::DigestEncrypt3", _sessionId);
 
             if (digestingMechanism == null)
                 throw new ArgumentNullException("digestingMechanism");
@@ -1634,6 +1740,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::DecryptDigest1", _sessionId);
+
             if (digestingMechanism == null)
                 throw new ArgumentNullException("digestingMechanism");
             
@@ -1667,6 +1775,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::DecryptDigest2", _sessionId);
+
             if (digestingMechanism == null)
                 throw new ArgumentNullException("digestingMechanism");
             
@@ -1699,6 +1809,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
+
+            _logger.Debug("Session({0})::DecryptDigest3", _sessionId);
 
             if (digestingMechanism == null)
                 throw new ArgumentNullException("digestingMechanism");
@@ -1790,6 +1902,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::SignEncrypt1", _sessionId);
+
             if (signingMechanism == null)
                 throw new ArgumentNullException("signingMechanism");
             
@@ -1827,6 +1941,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::SignEncrypt2", _sessionId);
+
             if (signingMechanism == null)
                 throw new ArgumentNullException("signingMechanism");
             
@@ -1863,6 +1979,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
+
+            _logger.Debug("Session({0})::SignEncrypt3", _sessionId);
 
             if (signingMechanism == null)
                 throw new ArgumentNullException("signingMechanism");
@@ -1958,6 +2076,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::DecryptVerify1", _sessionId);
+
             if (verificationMechanism == null)
                 throw new ArgumentNullException("verificationMechanism");
             
@@ -1999,6 +2119,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::DecryptVerify2", _sessionId);
+
             if (verificationMechanism == null)
                 throw new ArgumentNullException("verificationMechanism");
             
@@ -2039,6 +2161,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
+
+            _logger.Debug("Session({0})::DecryptVerify3", _sessionId);
 
             if (verificationMechanism == null)
                 throw new ArgumentNullException("verificationMechanism");
@@ -2125,6 +2249,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::GenerateKey", _sessionId);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
 
@@ -2161,6 +2287,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
+
+            _logger.Debug("Session({0})::GenerateKeyPair", _sessionId);
 
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
@@ -2211,6 +2339,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::WrapKey", _sessionId);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -2250,6 +2380,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
+
+            _logger.Debug("Session({0})::UnwrapKey", _sessionId);
 
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
@@ -2292,6 +2424,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::DeriveKey", _sessionId);
+
             if (mechanism == null)
                 throw new ArgumentNullException("mechanism");
             
@@ -2327,6 +2461,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::SeedRandom", _sessionId);
+
             if (seed == null)
                 throw new ArgumentNullException("seed");
 
@@ -2344,6 +2480,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
+
+            _logger.Debug("Session({0})::GenerateRandom", _sessionId);
 
             if (length < 1)
                 throw new ArgumentException("Value has to be positive number", "length");
@@ -2364,6 +2502,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::GetFunctionStatus", _sessionId);
+
             CKR rv = _p11.C_GetFunctionStatus(_sessionId);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetFunctionStatus", rv);
@@ -2377,6 +2517,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
+            _logger.Debug("Session({0})::CancelFunction", _sessionId);
+
             CKR rv = _p11.C_CancelFunction(_sessionId);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_CancelFunction", rv);
@@ -2389,6 +2531,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// </summary>
         public void Dispose()
         {
+            _logger.Debug("Session({0})::Dispose1", _sessionId);
+
             Dispose(true);
             GC.SuppressFinalize(this);
         }
@@ -2399,6 +2543,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <param name="disposing">Flag indicating whether managed resources should be disposed</param>
         protected virtual void Dispose(bool disposing)
         {
+            _logger.Debug("Session({0})::Dispose2", _sessionId);
+
             if (!this._disposed)
             {
                 if (disposing)

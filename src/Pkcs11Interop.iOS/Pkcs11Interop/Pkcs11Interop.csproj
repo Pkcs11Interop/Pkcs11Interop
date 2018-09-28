@@ -1387,6 +1387,9 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\Pkcs11UriUtils.cs">
       <Link>HighLevelAPI\Pkcs11UriUtils.cs</Link>
     </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\Pkcs11InteropLogUtils.cs">
+      <Link>Logging\Pkcs11InteropLogUtils.cs</Link>
+    </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\SimplePkcs11InteropLogger.cs">
       <Link>Logging\SimplePkcs11InteropLogger.cs</Link>
     </Compile>

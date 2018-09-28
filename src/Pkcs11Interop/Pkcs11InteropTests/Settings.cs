@@ -24,6 +24,7 @@ using System.IO;
 using System.Reflection;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
+using Net.Pkcs11Interop.Logging;
 using LLA40 = Net.Pkcs11Interop.LowLevelAPI40;
 using LLA41 = Net.Pkcs11Interop.LowLevelAPI41;
 using LLA80 = Net.Pkcs11Interop.LowLevelAPI80;
@@ -134,7 +135,12 @@ namespace Net.Pkcs11Interop.Tests
         /// </summary>
         static Settings()
         {
-            // Uncomment following three lines to enable logging of PKCS#11 calls with PKCS11-LOGGER library
+            // Uncomment following three lines to enable managed logging via System.Diagnostics.Trace class
+            // SimplePkcs11InteropLoggerFactory simpleLoggerFactory = new SimplePkcs11InteropLoggerFactory();
+            // simpleLoggerFactory.EnableDiagnosticsTraceOutput();
+            // Pkcs11InteropLoggerFactory.SetLoggerFactory(simpleLoggerFactory);
+
+            // Uncomment following three lines to enable unmanaged logging via PKCS11-LOGGER library
             // System.Environment.SetEnvironmentVariable("PKCS11_LOGGER_LIBRARY_PATH", Pkcs11LibraryPath);
             // System.Environment.SetEnvironmentVariable("PKCS11_LOGGER_LOG_FILE_PATH", @"c:\pkcs11-logger.txt");
             // Pkcs11LibraryPath = @"c:\pkcs11-logger-x86.dll";
