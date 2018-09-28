@@ -100,7 +100,7 @@ namespace Net.Pkcs11Interop.Logging
         /// <summary>
         /// Minimal level of messages that should be logged
         /// </summary>
-        private Pkcs11InteropLogLevel _minLogLevel = Pkcs11InteropLogLevel.Trace;
+        private Pkcs11InteropLogLevel _minLogLevel = Pkcs11InteropLogLevel.Info;
 
         /// <summary>
         /// Minimal level of messages that should be logged
