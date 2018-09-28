@@ -102,7 +102,7 @@ namespace Net.Pkcs11Interop.Logging
                         System.Threading.Thread.CurrentThread.ManagedThreadId,
                         level.ToString(),
                         _loggerName,
-                        (message == null) ? "<message not provided>" : string.Format(message, args)
+                        (message == null) ? "<message not provided>" : ((args == null) ? message : string.Format(message, args))
                     );
             }
             else
@@ -112,7 +112,7 @@ namespace Net.Pkcs11Interop.Logging
                         System.Threading.Thread.CurrentThread.ManagedThreadId,
                         level.ToString(),
                         _loggerName,
-                        (message == null) ? "<message not provided>" : string.Format(message, args),
+                        (message == null) ? "<message not provided>" : ((args == null) ? message : string.Format(message, args)),
                         exception.ToString()
                     );
             }
