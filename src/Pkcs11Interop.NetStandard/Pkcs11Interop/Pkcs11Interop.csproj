@@ -24,6 +24,11 @@
     <DelaySign>False</DelaySign>
   </PropertyGroup>
 
+  <ItemGroup Condition="$(TargetFramework) == 'netstandard1.3'">
+    <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
+    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
+  </ItemGroup>
+
   <ItemGroup>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Common\AppType.cs">
       <Link>Common\AppType.cs</Link>
@@ -1373,6 +1378,36 @@
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\Pkcs11UriUtils.cs">
       <Link>HighLevelAPI\Pkcs11UriUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\Pkcs11InteropLogUtils.cs">
+      <Link>Logging\Pkcs11InteropLogUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\SimplePkcs11InteropLogger.cs">
+      <Link>Logging\SimplePkcs11InteropLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\SimplePkcs11InteropLoggerFactory.cs">
+      <Link>Logging\SimplePkcs11InteropLoggerFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\IPkcs11InteropLogger.cs">
+      <Link>Logging\IPkcs11InteropLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\IPkcs11InteropLoggerFactory.cs">
+      <Link>Logging\IPkcs11InteropLoggerFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\NullPkcs11InteropLogger.cs">
+      <Link>Logging\NullPkcs11InteropLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\NullPkcs11InteropLoggerFactory.cs">
+      <Link>Logging\NullPkcs11InteropLoggerFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\Pkcs11InteropLogger.cs">
+      <Link>Logging\Pkcs11InteropLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\Pkcs11InteropLoggerFactory.cs">
+      <Link>Logging\Pkcs11InteropLoggerFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\Logging\Pkcs11InteropLogLevel.cs">
+      <Link>Logging\Pkcs11InteropLogLevel.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\LowLevelAPI40\CkaUtils.cs">
       <Link>LowLevelAPI40\CkaUtils.cs</Link>

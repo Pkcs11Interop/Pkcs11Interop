@@ -21,6 +21,7 @@
 
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
+using Net.Pkcs11Interop.Logging;
 using Net.Pkcs11Interop.Mock.HighLevelAPI;
 using NativeULong = System.UInt64;
 
@@ -34,6 +35,11 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI81
     public class MockSlot : Net.Pkcs11Interop.HighLevelAPI81.Slot, IMockSlot
     {
         /// <summary>
+        /// Logger responsible for message logging
+        /// </summary>
+        private static Pkcs11InteropLogger _logger = Pkcs11InteropLoggerFactory.GetLogger(typeof(MockSlot));
+
+        /// <summary>
         /// Initializes new instance of Slot class
         /// </summary>
         /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
@@ -42,7 +48,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI81
         internal MockSlot(Pkcs11Factories factories, LowLevelAPI81.MockPkcs11 pkcs11, ulong slotId)
             : base(factories, pkcs11, slotId)
         {
-
+            _logger.Debug("MockSlot({0})::ctor", _slotId);
         }
 
         /// <summary>
@@ -50,6 +56,8 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI81
         /// </summary>
         public void EjectToken()
         {
+            _logger.Debug("MockSlot({0})::EjectToken", _slotId);
+
             CKR rv = ((LowLevelAPI81.MockPkcs11)_p11).C_EjectToken(_slotId);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_EjectToken", rv);

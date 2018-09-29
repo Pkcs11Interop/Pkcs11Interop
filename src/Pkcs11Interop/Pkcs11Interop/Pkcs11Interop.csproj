@@ -492,6 +492,16 @@
     <Compile Include="HighLevelAPI\Factories\Pkcs11Factory.cs" />
     <Compile Include="HighLevelAPI\Pkcs11Factories.cs" />
     <Compile Include="HighLevelAPI\Pkcs11UriUtils.cs" />
+    <Compile Include="Logging\Pkcs11InteropLogUtils.cs" />
+    <Compile Include="Logging\SimplePkcs11InteropLogger.cs" />
+    <Compile Include="Logging\SimplePkcs11InteropLoggerFactory.cs" />
+    <Compile Include="Logging\IPkcs11InteropLogger.cs" />
+    <Compile Include="Logging\IPkcs11InteropLoggerFactory.cs" />
+    <Compile Include="Logging\NullPkcs11InteropLogger.cs" />
+    <Compile Include="Logging\NullPkcs11InteropLoggerFactory.cs" />
+    <Compile Include="Logging\Pkcs11InteropLogger.cs" />
+    <Compile Include="Logging\Pkcs11InteropLoggerFactory.cs" />
+    <Compile Include="Logging\Pkcs11InteropLogLevel.cs" />
     <Compile Include="LowLevelAPI40\CkaUtils.cs" />
     <Compile Include="LowLevelAPI40\CkmUtils.cs" />
     <Compile Include="LowLevelAPI40\CK_ATTRIBUTE.cs" />
