@@ -22,6 +22,7 @@
 using System;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
+using Net.Pkcs11Interop.Logging;
 using Net.Pkcs11Interop.Mock.HighLevelAPI;
 using NativeULong = System.UInt32;
 
@@ -35,6 +36,11 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI41
     public class MockSession : Net.Pkcs11Interop.HighLevelAPI41.Session, IMockSession
     {
         /// <summary>
+        /// Logger responsible for message logging
+        /// </summary>
+        private static Pkcs11InteropLogger _logger = Pkcs11InteropLoggerFactory.GetLogger(typeof(MockSession));
+
+        /// <summary>
         /// Initializes new instance of Session class
         /// </summary>
         /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
@@ -43,7 +49,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI41
         internal MockSession(Pkcs11Factories factories, LowLevelAPI41.MockPkcs11 pkcs11, ulong sessionId)
             : base(factories, pkcs11, sessionId)
         {
-
+            _logger.Debug("MockSession({0})::ctor", _sessionId);
         }
 
         /// <summary>
@@ -54,6 +60,8 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI41
         {
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
+
+            _logger.Debug("MockSession({0})::InteractiveLogin", _sessionId);
 
             CKR rv = ((LowLevelAPI41.MockPkcs11)_p11).C_InteractiveLogin(_sessionId);
             if (rv != CKR.CKR_OK)
@@ -66,6 +74,8 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI41
         /// <param name="disposing">Flag indicating whether managed resources should be disposed</param>
         protected override void Dispose(bool disposing)
         {
+            _logger.Debug("MockSession({0})::Dispose", _sessionId);
+
             base.Dispose(disposing);
         }
     }
