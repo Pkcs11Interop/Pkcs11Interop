@@ -42,7 +42,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI41
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
         public MockPkcs11(Pkcs11Factories factories, string libraryPath, AppType appType)
-            : base(factories)
+            : base(factories, libraryPath)
         {
             try
             {
@@ -68,7 +68,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI41
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
         /// <param name="initType">Source of PKCS#11 function pointers</param>
         public MockPkcs11(Pkcs11Factories factories, string libraryPath, AppType appType, InitType initType)
-            : base(factories)
+            : base(factories, libraryPath)
         {
             try
             {

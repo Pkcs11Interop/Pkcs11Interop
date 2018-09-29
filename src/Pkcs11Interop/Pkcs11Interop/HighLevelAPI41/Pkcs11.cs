@@ -86,14 +86,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// Initializes new instance of Pkcs11 class
         /// </summary>
         /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
-        protected Pkcs11(Pkcs11Factories factories)
+        /// <param name="libraryPath">Library name or path</param>
+        protected Pkcs11(Pkcs11Factories factories, string libraryPath)
         {
-            _logger.Debug("Pkcs11()::ctor");
+            _logger.Debug("Pkcs11({0})::ctor1", libraryPath);
 
             if (factories == null)
                 throw new ArgumentNullException("factories");
 
             _factories = factories;
+            _libraryPath = libraryPath;
         }
 
         /// <summary>
@@ -103,14 +105,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
         public Pkcs11(Pkcs11Factories factories, string libraryPath, AppType appType)
-            : this(factories)
+            : this(factories, libraryPath)
         {
-            _logger.Debug("Pkcs11({0})::ctor1", libraryPath);
+            _logger.Debug("Pkcs11({0})::ctor2", _libraryPath);
 
             try
             {
-                _libraryPath = libraryPath;
-
                 _logger.Info("Loading PKCS#11 library {0}", _libraryPath);
                 _p11 = new LowLevelAPI41.Pkcs11(_libraryPath);
                 Initialize(appType);
@@ -136,14 +136,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
         /// <param name="initType">Source of PKCS#11 function pointers</param>
         public Pkcs11(Pkcs11Factories factories, string libraryPath, AppType appType, InitType initType)
-            : this(factories)
+            : this(factories, libraryPath)
         {
-            _logger.Debug("Pkcs11({0})::ctor2", libraryPath);
+            _logger.Debug("Pkcs11({0})::ctor3", _libraryPath);
 
             try
             {
-                _libraryPath = libraryPath;
-
                 _logger.Info("Loading PKCS#11 library {0}", _libraryPath);
                 _p11 = new LowLevelAPI41.Pkcs11(_libraryPath, (initType == InitType.WithFunctionList));
                 Initialize(appType);
