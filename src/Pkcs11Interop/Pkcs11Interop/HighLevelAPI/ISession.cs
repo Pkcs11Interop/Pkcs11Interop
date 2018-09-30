@@ -303,6 +303,26 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         byte[] Sign(IMechanism mechanism, IObjectHandle keyHandle, byte[] data);
 
         /// <summary>
+        /// Signs single-part data, where the signature is an appendix to the data
+        /// </summary>
+        /// <param name="mechanism">Signature mechanism</param>
+        /// <param name="keyHandle">Signature key</param>
+        /// <param name="keyPin">Context specific signature pin</param>
+        /// <param name="data">Data to be signed</param>
+        /// <returns>Signature</returns>
+        byte[] Sign(IMechanism mechanism, IObjectHandle keyHandle, string keyPin, byte[] data);
+
+        /// <summary>
+        /// Signs single-part data, where the signature is an appendix to the data
+        /// </summary>
+        /// <param name="mechanism">Signature mechanism</param>
+        /// <param name="keyHandle">Signature key</param>
+        /// <param name="keyPin">Context specific signature pin</param>
+        /// <param name="data">Data to be signed</param>
+        /// <returns>Signature</returns>
+        byte[] Sign(IMechanism mechanism, IObjectHandle keyHandle, byte[] keyPin, byte[] data);
+
+        /// <summary>
         /// Signs multi-part data, where the signature is an appendix to the data
         /// </summary>
         /// <param name="mechanism">Signature mechanism</param>
@@ -316,10 +336,52 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         /// <param name="mechanism">Signature mechanism</param>
         /// <param name="keyHandle">Signature key</param>
+        /// <param name="keyPin">Context specific signature pin</param>
+        /// <param name="inputStream">Input stream from which data should be read</param>
+        /// <returns>Signature</returns>
+        byte[] Sign(IMechanism mechanism, IObjectHandle keyHandle, string keyPin, Stream inputStream);
+
+        /// <summary>
+        /// Signs multi-part data, where the signature is an appendix to the data
+        /// </summary>
+        /// <param name="mechanism">Signature mechanism</param>
+        /// <param name="keyHandle">Signature key</param>
+        /// <param name="keyPin">Context specific signature pin</param>
+        /// <param name="inputStream">Input stream from which data should be read</param>
+        /// <returns>Signature</returns>
+        byte[] Sign(IMechanism mechanism, IObjectHandle keyHandle, byte[] keyPin, Stream inputStream);
+
+        /// <summary>
+        /// Signs multi-part data, where the signature is an appendix to the data
+        /// </summary>
+        /// <param name="mechanism">Signature mechanism</param>
+        /// <param name="keyHandle">Signature key</param>
         /// <param name="inputStream">Input stream from which data should be read</param>
         /// <param name="bufferLength">Size of read buffer in bytes</param>
         /// <returns>Signature</returns>
         byte[] Sign(IMechanism mechanism, IObjectHandle keyHandle, Stream inputStream, int bufferLength);
+
+        /// <summary>
+        /// Signs multi-part data, where the signature is an appendix to the data
+        /// </summary>
+        /// <param name="mechanism">Signature mechanism</param>
+        /// <param name="keyHandle">Signature key</param>
+        /// <param name="keyPin">Context specific signature pin</param>
+        /// <param name="inputStream">Input stream from which data should be read</param>
+        /// <param name="bufferLength">Size of read buffer in bytes</param>
+        /// <returns>Signature</returns>
+        byte[] Sign(IMechanism mechanism, IObjectHandle keyHandle, string keyPin, Stream inputStream, int bufferLength);
+
+        /// <summary>
+        /// Signs multi-part data, where the signature is an appendix to the data
+        /// </summary>
+        /// <param name="mechanism">Signature mechanism</param>
+        /// <param name="keyHandle">Signature key</param>
+        /// <param name="keyPin">Context specific signature pin</param>
+        /// <param name="inputStream">Input stream from which data should be read</param>
+        /// <param name="bufferLength">Size of read buffer in bytes</param>
+        /// <returns>Signature</returns>
+        byte[] Sign(IMechanism mechanism, IObjectHandle keyHandle, byte[] keyPin, Stream inputStream, int bufferLength);
 
         /// <summary>
         /// Signs single-part data, where the data can be recovered from the signature
@@ -329,6 +391,26 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="data">Data to be signed</param>
         /// <returns>Signature</returns>
         byte[] SignRecover(IMechanism mechanism, IObjectHandle keyHandle, byte[] data);
+
+        /// <summary>
+        /// Signs single-part data, where the data can be recovered from the signature
+        /// </summary>
+        /// <param name="mechanism">Signature mechanism</param>
+        /// <param name="keyHandle">Signature key</param>
+        /// <param name="keyPin">Context specific signature pin</param>
+        /// <param name="data">Data to be signed</param>
+        /// <returns>Signature</returns>
+        byte[] SignRecover(IMechanism mechanism, IObjectHandle keyHandle, string keyPin, byte[] data);
+
+        /// <summary>
+        /// Signs single-part data, where the data can be recovered from the signature
+        /// </summary>
+        /// <param name="mechanism">Signature mechanism</param>
+        /// <param name="keyHandle">Signature key</param>
+        /// <param name="keyPin">Context specific signature pin</param>
+        /// <param name="data">Data to be signed</param>
+        /// <returns>Signature</returns>
+        byte[] SignRecover(IMechanism mechanism, IObjectHandle keyHandle, byte[] keyPin, byte[] data);
 
         /// <summary>
         /// Verifies a signature of data, where the signature is an appendix to the data
@@ -456,12 +538,64 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         /// <param name="signingMechanism">Signing mechanism</param>
         /// <param name="signingKeyHandle">Handle of the signing key</param>
+        /// <param name="signingKeyPin">Context specific signature pin</param>
+        /// <param name="encryptionMechanism">Encryption mechanism</param>
+        /// <param name="encryptionKeyHandle">Handle of the encryption key</param>
+        /// <param name="data">Data to be processed</param>
+        /// <param name="signature">Signature</param>
+        /// <param name="encryptedData">Encrypted data</param>
+        void SignEncrypt(IMechanism signingMechanism, IObjectHandle signingKeyHandle, string signingKeyPin, IMechanism encryptionMechanism, IObjectHandle encryptionKeyHandle, byte[] data, out byte[] signature, out byte[] encryptedData);
+
+        /// <summary>
+        /// Signs and encrypts data
+        /// </summary>
+        /// <param name="signingMechanism">Signing mechanism</param>
+        /// <param name="signingKeyHandle">Handle of the signing key</param>
+        /// <param name="signingKeyPin">Context specific signature pin</param>
+        /// <param name="encryptionMechanism">Encryption mechanism</param>
+        /// <param name="encryptionKeyHandle">Handle of the encryption key</param>
+        /// <param name="data">Data to be processed</param>
+        /// <param name="signature">Signature</param>
+        /// <param name="encryptedData">Encrypted data</param>
+        void SignEncrypt(IMechanism signingMechanism, IObjectHandle signingKeyHandle, byte[] signingKeyPin, IMechanism encryptionMechanism, IObjectHandle encryptionKeyHandle, byte[] data, out byte[] signature, out byte[] encryptedData);
+
+        /// <summary>
+        /// Signs and encrypts data
+        /// </summary>
+        /// <param name="signingMechanism">Signing mechanism</param>
+        /// <param name="signingKeyHandle">Handle of the signing key</param>
         /// <param name="encryptionMechanism">Encryption mechanism</param>
         /// <param name="encryptionKeyHandle">Handle of the encryption key</param>
         /// <param name="inputStream">Input stream from which data to be processed should be read</param>
         /// <param name="outputStream">Output stream where encrypted data should be written</param>
         /// <returns>Signature</returns>
         byte[] SignEncrypt(IMechanism signingMechanism, IObjectHandle signingKeyHandle, IMechanism encryptionMechanism, IObjectHandle encryptionKeyHandle, Stream inputStream, Stream outputStream);
+
+        /// <summary>
+        /// Signs and encrypts data
+        /// </summary>
+        /// <param name="signingMechanism">Signing mechanism</param>
+        /// <param name="signingKeyHandle">Handle of the signing key</param>
+        /// <param name="signingKeyPin">Context specific signature pin</param>
+        /// <param name="encryptionMechanism">Encryption mechanism</param>
+        /// <param name="encryptionKeyHandle">Handle of the encryption key</param>
+        /// <param name="inputStream">Input stream from which data to be processed should be read</param>
+        /// <param name="outputStream">Output stream where encrypted data should be written</param>
+        /// <returns>Signature</returns>
+        byte[] SignEncrypt(IMechanism signingMechanism, IObjectHandle signingKeyHandle, string signingKeyPin, IMechanism encryptionMechanism, IObjectHandle encryptionKeyHandle, Stream inputStream, Stream outputStream);
+
+        /// <summary>
+        /// Signs and encrypts data
+        /// </summary>
+        /// <param name="signingMechanism">Signing mechanism</param>
+        /// <param name="signingKeyHandle">Handle of the signing key</param>
+        /// <param name="signingKeyPin">Context specific signature pin</param>
+        /// <param name="encryptionMechanism">Encryption mechanism</param>
+        /// <param name="encryptionKeyHandle">Handle of the encryption key</param>
+        /// <param name="inputStream">Input stream from which data to be processed should be read</param>
+        /// <param name="outputStream">Output stream where encrypted data should be written</param>
+        /// <returns>Signature</returns>
+        byte[] SignEncrypt(IMechanism signingMechanism, IObjectHandle signingKeyHandle, byte[] signingKeyPin, IMechanism encryptionMechanism, IObjectHandle encryptionKeyHandle, Stream inputStream, Stream outputStream);
 
         /// <summary>
         /// Signs and encrypts data
@@ -475,6 +609,34 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="bufferLength">Size of read buffer in bytes</param>
         /// <returns>Signature</returns>
         byte[] SignEncrypt(IMechanism signingMechanism, IObjectHandle signingKeyHandle, IMechanism encryptionMechanism, IObjectHandle encryptionKeyHandle, Stream inputStream, Stream outputStream, int bufferLength);
+
+        /// <summary>
+        /// Signs and encrypts data
+        /// </summary>
+        /// <param name="signingMechanism">Signing mechanism</param>
+        /// <param name="signingKeyHandle">Handle of the signing key</param>
+        /// <param name="signingKeyPin">Context specific signature pin</param>
+        /// <param name="encryptionMechanism">Encryption mechanism</param>
+        /// <param name="encryptionKeyHandle">Handle of the encryption key</param>
+        /// <param name="inputStream">Input stream from which data to be processed should be read</param>
+        /// <param name="outputStream">Output stream where encrypted data should be written</param>
+        /// <param name="bufferLength">Size of read buffer in bytes</param>
+        /// <returns>Signature</returns>
+        byte[] SignEncrypt(IMechanism signingMechanism, IObjectHandle signingKeyHandle, string signingKeyPin, IMechanism encryptionMechanism, IObjectHandle encryptionKeyHandle, Stream inputStream, Stream outputStream, int bufferLength);
+
+        /// <summary>
+        /// Signs and encrypts data
+        /// </summary>
+        /// <param name="signingMechanism">Signing mechanism</param>
+        /// <param name="signingKeyHandle">Handle of the signing key</param>
+        /// <param name="signingKeyPin">Context specific signature pin</param>
+        /// <param name="encryptionMechanism">Encryption mechanism</param>
+        /// <param name="encryptionKeyHandle">Handle of the encryption key</param>
+        /// <param name="inputStream">Input stream from which data to be processed should be read</param>
+        /// <param name="outputStream">Output stream where encrypted data should be written</param>
+        /// <param name="bufferLength">Size of read buffer in bytes</param>
+        /// <returns>Signature</returns>
+        byte[] SignEncrypt(IMechanism signingMechanism, IObjectHandle signingKeyHandle, byte[] signingKeyPin, IMechanism encryptionMechanism, IObjectHandle encryptionKeyHandle, Stream inputStream, Stream outputStream, int bufferLength);
 
         /// <summary>
         /// Decrypts data and verifies a signature of data
