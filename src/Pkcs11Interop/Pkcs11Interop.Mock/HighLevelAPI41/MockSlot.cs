@@ -45,7 +45,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI41
         /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
         /// <param name="slotId">PKCS#11 handle of slot</param>
-        internal MockSlot(Pkcs11Factories factories, LowLevelAPI41.MockPkcs11 pkcs11, ulong slotId)
+        internal MockSlot(Pkcs11InteropFactories factories, LowLevelAPI41.MockPkcs11 pkcs11, ulong slotId)
             : base(factories, pkcs11, slotId)
         {
             _logger.Debug("MockSlot({0})::ctor", _slotId);

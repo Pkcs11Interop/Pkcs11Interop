@@ -49,12 +49,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <summary>
         /// Factories to be used by Developer and Pkcs11Interop library
         /// </summary>
-        protected Pkcs11Factories _factories = null;
+        protected Pkcs11InteropFactories _factories = null;
 
         /// <summary>
         /// Factories to be used by Developer and Pkcs11Interop library
         /// </summary>
-        public Pkcs11Factories Factories
+        public Pkcs11InteropFactories Factories
         {
             get
             {
@@ -87,7 +87,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// </summary>
         /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="libraryPath">Library name or path</param>
-        protected Pkcs11(Pkcs11Factories factories, string libraryPath)
+        protected Pkcs11(Pkcs11InteropFactories factories, string libraryPath)
         {
             _logger.Debug("Pkcs11({0})::ctor1", libraryPath);
 
@@ -104,7 +104,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
-        public Pkcs11(Pkcs11Factories factories, string libraryPath, AppType appType)
+        public Pkcs11(Pkcs11InteropFactories factories, string libraryPath, AppType appType)
             : this(factories, libraryPath)
         {
             _logger.Debug("Pkcs11({0})::ctor2", _libraryPath);
@@ -135,7 +135,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
         /// <param name="initType">Source of PKCS#11 function pointers</param>
-        public Pkcs11(Pkcs11Factories factories, string libraryPath, AppType appType, InitType initType)
+        public Pkcs11(Pkcs11InteropFactories factories, string libraryPath, AppType appType, InitType initType)
             : this(factories, libraryPath)
         {
             _logger.Debug("Pkcs11({0})::ctor3", _libraryPath);

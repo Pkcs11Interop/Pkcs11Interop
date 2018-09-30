@@ -44,7 +44,7 @@ namespace Net.Pkcs11Interop.Tests
         /// <summary>
         /// Factories to be used by Developer and Pkcs11Interop library
         /// </summary>
-        public static Pkcs11Factories Factories = new Pkcs11Factories();
+        public static Pkcs11InteropFactories Factories = new Pkcs11InteropFactories();
 
         /// <summary>
         /// Relative name or absolute path of unmanaged PKCS#11 library provided by smartcard or HSM vendor.

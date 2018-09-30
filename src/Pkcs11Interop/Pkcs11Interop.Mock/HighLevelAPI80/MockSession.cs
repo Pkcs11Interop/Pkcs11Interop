@@ -46,7 +46,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI80
         /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
         /// <param name="sessionId">PKCS#11 handle of session</param>
-        internal MockSession(Pkcs11Factories factories, LowLevelAPI80.MockPkcs11 pkcs11, ulong sessionId)
+        internal MockSession(Pkcs11InteropFactories factories, LowLevelAPI80.MockPkcs11 pkcs11, ulong sessionId)
             : base(factories, pkcs11, sessionId)
         {
             _logger.Debug("MockSession({0})::ctor", _sessionId);
