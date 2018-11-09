@@ -39,7 +39,6 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         Pkcs11InteropFactories Factories
         {
             get;
-            set;
         }
 
         /// <summary>

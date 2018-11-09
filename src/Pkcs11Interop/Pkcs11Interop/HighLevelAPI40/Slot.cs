@@ -55,13 +55,6 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
             {
                 return _factories;
             }
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException("Factories");
-
-                _factories = value;
-            }
         }
 
         /// <summary>
