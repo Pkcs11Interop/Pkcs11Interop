@@ -63,7 +63,7 @@
     <Compile Include="HighLevelAPI\IMockSession.cs" />
     <Compile Include="HighLevelAPI\IMockSlot.cs" />
     <Compile Include="HighLevelAPI\Factories\MockPkcs11Factory.cs" />
-    <Compile Include="HighLevelAPI\MockPkcs11Factories.cs" />
+    <Compile Include="HighLevelAPI\MockPkcs11InteropFactories.cs" />
     <Compile Include="LowLevelAPI40\MockDelegates.cs" />
     <Compile Include="LowLevelAPI40\MockPkcs11.cs" />
     <Compile Include="LowLevelAPI41\MockDelegates.cs" />

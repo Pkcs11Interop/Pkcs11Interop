@@ -44,7 +44,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         /// <summary>
         /// Factories from Pkcs11Interop.Mock library
         /// </summary>
-        private MockPkcs11Factories _mockFactories = new MockPkcs11Factories();
+        private MockPkcs11InteropFactories _mockFactories = new MockPkcs11InteropFactories();
 
         /// <summary>
         /// C_GetUnmanagedStructSizeList vendor specific function test
