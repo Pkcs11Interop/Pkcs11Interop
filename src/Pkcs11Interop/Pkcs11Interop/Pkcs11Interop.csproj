@@ -490,7 +490,7 @@
     <Compile Include="HighLevelAPI\Factories\ObjectAttributeFactory.cs" />
     <Compile Include="HighLevelAPI\Factories\ObjectHandleFactory.cs" />
     <Compile Include="HighLevelAPI\Factories\Pkcs11Factory.cs" />
-    <Compile Include="HighLevelAPI\Pkcs11Factories.cs" />
+    <Compile Include="HighLevelAPI\Pkcs11InteropFactories.cs" />
     <Compile Include="HighLevelAPI\Pkcs11UriUtils.cs" />
     <Compile Include="Logging\Pkcs11InteropLogUtils.cs" />
     <Compile Include="Logging\SimplePkcs11InteropLogger.cs" />

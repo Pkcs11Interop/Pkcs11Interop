@@ -108,8 +108,8 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI\IMockSlot.cs">
       <Link>HighLevelAPI\IMockSlot.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI\MockPkcs11Factories.cs">
-      <Link>HighLevelAPI\MockPkcs11Factories.cs</Link>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\HighLevelAPI\MockPkcs11InteropFactories.cs">
+      <Link>HighLevelAPI\MockPkcs11InteropFactories.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Mock\LowLevelAPI40\MockDelegates.cs">
       <Link>LowLevelAPI40\MockDelegates.cs</Link>

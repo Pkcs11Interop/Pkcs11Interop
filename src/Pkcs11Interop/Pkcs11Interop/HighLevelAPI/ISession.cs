@@ -36,10 +36,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Factories to be used by Developer and Pkcs11Interop library
         /// </summary>
-        Pkcs11Factories Factories
+        Pkcs11InteropFactories Factories
         {
             get;
-            set;
         }
 
         /// <summary>

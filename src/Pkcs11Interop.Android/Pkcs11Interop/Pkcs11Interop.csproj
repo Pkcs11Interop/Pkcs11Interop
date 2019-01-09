@@ -1384,8 +1384,8 @@
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\MechanismParams\IMechanismParams.cs">
       <Link>HighLevelAPI\MechanismParams\IMechanismParams.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\Pkcs11Factories.cs">
-      <Link>HighLevelAPI\Pkcs11Factories.cs</Link>
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\Pkcs11InteropFactories.cs">
+      <Link>HighLevelAPI\Pkcs11InteropFactories.cs</Link>
     </Compile>
     <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop\HighLevelAPI\Pkcs11UriUtils.cs">
       <Link>HighLevelAPI\Pkcs11UriUtils.cs</Link>

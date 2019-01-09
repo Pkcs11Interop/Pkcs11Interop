@@ -29,12 +29,12 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI
     /// <summary>
     /// PKCS11-MOCK specific factories used by Pkcs11Interop library
     /// </summary>
-    public class MockPkcs11Factories : Pkcs11Factories
+    public class MockPkcs11InteropFactories : Pkcs11InteropFactories
     {
         /// <summary>
-        /// Initializes new instance of MockPkcs11Factories class
+        /// Initializes new instance of MockPkcs11InteropFactories class
         /// </summary>
-        public MockPkcs11Factories()
+        public MockPkcs11InteropFactories()
         {
             _pkcs11Factory = new MockPkcs11Factory();
             _slotFactory = new MockSlotFactory();

@@ -51,12 +51,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Factories to be used by Developer and Pkcs11Interop library
         /// </summary>
-        protected Pkcs11Factories _factories = null;
+        protected Pkcs11InteropFactories _factories = null;
 
         /// <summary>
         /// Factories to be used by Developer and Pkcs11Interop library
         /// </summary>
-        public Pkcs11Factories Factories
+        public Pkcs11InteropFactories Factories
         {
             get
             {
@@ -64,13 +64,6 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
                     throw new ObjectDisposedException(this.GetType().FullName);
 
                 return _factories;
-            }
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException("Factories");
-
-                _factories = value;
             }
         }
 
@@ -132,7 +125,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
         /// <param name="sessionId">PKCS#11 handle of session</param>
-        protected internal Session(Pkcs11Factories factories, LowLevelAPI41.Pkcs11 pkcs11, ulong sessionId)
+        protected internal Session(Pkcs11InteropFactories factories, LowLevelAPI41.Pkcs11 pkcs11, ulong sessionId)
         {
             _logger.Debug("Session({0})::ctor", sessionId);
 
