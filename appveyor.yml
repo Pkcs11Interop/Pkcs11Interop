@@ -1,4 +1,4 @@
-version: 4.0.0-{build}
+version: 5.0.0-alpha{build}
 image: Visual Studio 2017
 branches:
   only:
@@ -13,6 +13,7 @@ environment:
   - Platform: netstandard2.0
   - Platform: monoandroid2.3
   - Platform: xamarinios1.0
+  - Platform: xamarinmac2.0
 install:
 - cmd: IF "%Platform%"=="monoandroid2.3" (powershell -File ./build/appveyor-switch-android-sdk.ps1)
 build_script:
@@ -23,6 +24,7 @@ build_script:
 - cmd: IF "%Platform%"=="netstandard2.0" (cd build && build-netstandard2.0.bat --with-tests --skip-cleaning)
 - cmd: IF "%Platform%"=="monoandroid2.3" (cd build && build-monoandroid2.3.bat)
 - cmd: IF "%Platform%"=="xamarinios1.0" (cd build && build-xamarinios1.0.bat)
+- cmd: IF "%Platform%"=="xamarinmac2.0" (cd build && build-xamarinmac2.0.bat)
 test_script:
 - cmd: IF "%Platform%"=="net20" (nunit-console-x86 .\src\Pkcs11Interop\Pkcs11InteropTests\bin\Release\Pkcs11InteropTests.dll)
 - cmd: IF "%Platform%"=="net40" (nunit-console .\src\Pkcs11Interop\Pkcs11InteropTests\bin\Release\Pkcs11InteropTests.dll)
