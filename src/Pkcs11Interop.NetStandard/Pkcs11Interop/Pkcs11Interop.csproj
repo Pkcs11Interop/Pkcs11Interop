@@ -1,7 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSBuild.Sdk.Extras/1.6.65">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.3;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard1.3;netstandard2.0;xamarinmac2.0</TargetFrameworks>
     <RootNamespace>Net.Pkcs11Interop</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
