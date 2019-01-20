@@ -46,477 +46,477 @@
     <Reference Include="Xamarin.Android.NUnitLite" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\Common\Helpers.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\Common\Helpers.cs">
       <Link>Common\Helpers.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\Common\_01_Pkcs11UriAndBuilderTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\Common\_01_Pkcs11UriAndBuilderTest.cs">
       <Link>Common\_01_Pkcs11UriAndBuilderTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\Common\_02_CustomExceptionsTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\Common\_02_CustomExceptionsTest.cs">
       <Link>Common\_02_CustomExceptionsTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\Helpers.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\Helpers.cs">
       <Link>HighLevelAPI\Helpers.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_01_InitializeTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_01_InitializeTest.cs">
       <Link>HighLevelAPI\_01_InitializeTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_02_GetInfoTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_02_GetInfoTest.cs">
       <Link>HighLevelAPI\_02_GetInfoTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_03_SlotListInfoAndEventTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_03_SlotListInfoAndEventTest.cs">
       <Link>HighLevelAPI\_03_SlotListInfoAndEventTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_04_TokenInfoTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_04_TokenInfoTest.cs">
       <Link>HighLevelAPI\_04_TokenInfoTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_05_MechanismListAndInfoTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_05_MechanismListAndInfoTest.cs">
       <Link>HighLevelAPI\_05_MechanismListAndInfoTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_06_SessionTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_06_SessionTest.cs">
       <Link>HighLevelAPI\_06_SessionTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_07_OperationStateTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_07_OperationStateTest.cs">
       <Link>HighLevelAPI\_07_OperationStateTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_08_LoginTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_08_LoginTest.cs">
       <Link>HighLevelAPI\_08_LoginTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_09_InitTokenAndPinTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_09_InitTokenAndPinTest.cs">
       <Link>HighLevelAPI\_09_InitTokenAndPinTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_10_SetPinTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_10_SetPinTest.cs">
       <Link>HighLevelAPI\_10_SetPinTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_11_SeedAndGenerateRandomTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_11_SeedAndGenerateRandomTest.cs">
       <Link>HighLevelAPI\_11_SeedAndGenerateRandomTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_12_DigestTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_12_DigestTest.cs">
       <Link>HighLevelAPI\_12_DigestTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_13_ObjectAttributeTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_13_ObjectAttributeTest.cs">
       <Link>HighLevelAPI\_13_ObjectAttributeTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_14_MechanismTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_14_MechanismTest.cs">
       <Link>HighLevelAPI\_14_MechanismTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_15_CreateCopyDestroyObjectTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_15_CreateCopyDestroyObjectTest.cs">
       <Link>HighLevelAPI\_15_CreateCopyDestroyObjectTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_16_GetAndSetAttributeValueTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_16_GetAndSetAttributeValueTest.cs">
       <Link>HighLevelAPI\_16_GetAndSetAttributeValueTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_17_ObjectFindingTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_17_ObjectFindingTest.cs">
       <Link>HighLevelAPI\_17_ObjectFindingTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_18_GenerateKeyAndKeyPairTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_18_GenerateKeyAndKeyPairTest.cs">
       <Link>HighLevelAPI\_18_GenerateKeyAndKeyPairTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_19_EncryptAndDecryptTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_19_EncryptAndDecryptTest.cs">
       <Link>HighLevelAPI\_19_EncryptAndDecryptTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_20_SignAndVerifyTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_20_SignAndVerifyTest.cs">
       <Link>HighLevelAPI\_20_SignAndVerifyTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_21_SignAndVerifyRecoverTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_21_SignAndVerifyRecoverTest.cs">
       <Link>HighLevelAPI\_21_SignAndVerifyRecoverTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_22_DigestEncryptAndDecryptDigestTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_22_DigestEncryptAndDecryptDigestTest.cs">
       <Link>HighLevelAPI\_22_DigestEncryptAndDecryptDigestTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_23_SignEncryptAndDecryptVerifyTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_23_SignEncryptAndDecryptVerifyTest.cs">
       <Link>HighLevelAPI\_23_SignEncryptAndDecryptVerifyTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_24_WrapAndUnwrapKeyTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_24_WrapAndUnwrapKeyTest.cs">
       <Link>HighLevelAPI\_24_WrapAndUnwrapKeyTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_25_DeriveKeyTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_25_DeriveKeyTest.cs">
       <Link>HighLevelAPI\_25_DeriveKeyTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_26_LegacyParallelFunctionsTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_26_LegacyParallelFunctionsTest.cs">
       <Link>HighLevelAPI\_26_LegacyParallelFunctionsTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_27b_Pkcs11UriUtilsTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_27b_Pkcs11UriUtilsTest.cs">
       <Link>HighLevelAPI\_27b_Pkcs11UriUtilsTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_27_Pkcs11UriUtilsTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_27_Pkcs11UriUtilsTest.cs">
       <Link>HighLevelAPI\_27_Pkcs11UriUtilsTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\HighLevelAPI\_28_VendorExtensionsTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\HighLevelAPI\_28_VendorExtensionsTest.cs">
       <Link>HighLevelAPI\_28_VendorExtensionsTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\Helpers.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\Helpers.cs">
       <Link>LowLevelAPI40\Helpers.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_01_InitializeTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_01_InitializeTest.cs">
       <Link>LowLevelAPI40\_01_InitializeTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_02_GetInfoTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_02_GetInfoTest.cs">
       <Link>LowLevelAPI40\_02_GetInfoTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_03_SlotListInfoAndEventTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_03_SlotListInfoAndEventTest.cs">
       <Link>LowLevelAPI40\_03_SlotListInfoAndEventTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_04_TokenInfoTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_04_TokenInfoTest.cs">
       <Link>LowLevelAPI40\_04_TokenInfoTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_05_MechanismListAndInfoTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_05_MechanismListAndInfoTest.cs">
       <Link>LowLevelAPI40\_05_MechanismListAndInfoTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_06_SessionTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_06_SessionTest.cs">
       <Link>LowLevelAPI40\_06_SessionTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_07_OperationStateTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_07_OperationStateTest.cs">
       <Link>LowLevelAPI40\_07_OperationStateTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_08_LoginTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_08_LoginTest.cs">
       <Link>LowLevelAPI40\_08_LoginTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_09_InitTokenAndPinTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_09_InitTokenAndPinTest.cs">
       <Link>LowLevelAPI40\_09_InitTokenAndPinTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_10_SetPinTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_10_SetPinTest.cs">
       <Link>LowLevelAPI40\_10_SetPinTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_11_SeedAndGenerateRandomTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_11_SeedAndGenerateRandomTest.cs">
       <Link>LowLevelAPI40\_11_SeedAndGenerateRandomTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_12_DigestTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_12_DigestTest.cs">
       <Link>LowLevelAPI40\_12_DigestTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_13_UnmanagedMemoryTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_13_UnmanagedMemoryTest.cs">
       <Link>LowLevelAPI40\_13_UnmanagedMemoryTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_14_ObjectAttributeTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_14_ObjectAttributeTest.cs">
       <Link>LowLevelAPI40\_14_ObjectAttributeTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_15_MechanismTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_15_MechanismTest.cs">
       <Link>LowLevelAPI40\_15_MechanismTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_16_CreateCopyDestroyObjectTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_16_CreateCopyDestroyObjectTest.cs">
       <Link>LowLevelAPI40\_16_CreateCopyDestroyObjectTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_17_GetAndSetAttributeValueTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_17_GetAndSetAttributeValueTest.cs">
       <Link>LowLevelAPI40\_17_GetAndSetAttributeValueTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_18_ObjectFindingTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_18_ObjectFindingTest.cs">
       <Link>LowLevelAPI40\_18_ObjectFindingTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_19_GenerateKeyAndKeyPairTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_19_GenerateKeyAndKeyPairTest.cs">
       <Link>LowLevelAPI40\_19_GenerateKeyAndKeyPairTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_20_EncryptAndDecryptTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_20_EncryptAndDecryptTest.cs">
       <Link>LowLevelAPI40\_20_EncryptAndDecryptTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_21_SignAndVerifyTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_21_SignAndVerifyTest.cs">
       <Link>LowLevelAPI40\_21_SignAndVerifyTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_22_SignAndVerifyRecoverTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_22_SignAndVerifyRecoverTest.cs">
       <Link>LowLevelAPI40\_22_SignAndVerifyRecoverTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_23_DigestEncryptAndDecryptDigestTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_23_DigestEncryptAndDecryptDigestTest.cs">
       <Link>LowLevelAPI40\_23_DigestEncryptAndDecryptDigestTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_24_SignEncryptAndDecryptVerifyTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_24_SignEncryptAndDecryptVerifyTest.cs">
       <Link>LowLevelAPI40\_24_SignEncryptAndDecryptVerifyTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_25_WrapAndUnwrapKeyTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_25_WrapAndUnwrapKeyTest.cs">
       <Link>LowLevelAPI40\_25_WrapAndUnwrapKeyTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_26_DeriveKeyTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_26_DeriveKeyTest.cs">
       <Link>LowLevelAPI40\_26_DeriveKeyTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_27_LegacyParallelFunctionsTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_27_LegacyParallelFunctionsTest.cs">
       <Link>LowLevelAPI40\_27_LegacyParallelFunctionsTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_28b_Pkcs11UriUtilsTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_28b_Pkcs11UriUtilsTest.cs">
       <Link>LowLevelAPI40\_28b_Pkcs11UriUtilsTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI40\_28_Pkcs11UriUtilsTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI40\_28_Pkcs11UriUtilsTest.cs">
       <Link>LowLevelAPI40\_28_Pkcs11UriUtilsTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\Helpers.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\Helpers.cs">
       <Link>LowLevelAPI41\Helpers.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_01_InitializeTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_01_InitializeTest.cs">
       <Link>LowLevelAPI41\_01_InitializeTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_02_GetInfoTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_02_GetInfoTest.cs">
       <Link>LowLevelAPI41\_02_GetInfoTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_03_SlotListInfoAndEventTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_03_SlotListInfoAndEventTest.cs">
       <Link>LowLevelAPI41\_03_SlotListInfoAndEventTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_04_TokenInfoTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_04_TokenInfoTest.cs">
       <Link>LowLevelAPI41\_04_TokenInfoTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_05_MechanismListAndInfoTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_05_MechanismListAndInfoTest.cs">
       <Link>LowLevelAPI41\_05_MechanismListAndInfoTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_06_SessionTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_06_SessionTest.cs">
       <Link>LowLevelAPI41\_06_SessionTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_07_OperationStateTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_07_OperationStateTest.cs">
       <Link>LowLevelAPI41\_07_OperationStateTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_08_LoginTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_08_LoginTest.cs">
       <Link>LowLevelAPI41\_08_LoginTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_09_InitTokenAndPinTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_09_InitTokenAndPinTest.cs">
       <Link>LowLevelAPI41\_09_InitTokenAndPinTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_10_SetPinTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_10_SetPinTest.cs">
       <Link>LowLevelAPI41\_10_SetPinTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_11_SeedAndGenerateRandomTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_11_SeedAndGenerateRandomTest.cs">
       <Link>LowLevelAPI41\_11_SeedAndGenerateRandomTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_12_DigestTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_12_DigestTest.cs">
       <Link>LowLevelAPI41\_12_DigestTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_13_UnmanagedMemoryTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_13_UnmanagedMemoryTest.cs">
       <Link>LowLevelAPI41\_13_UnmanagedMemoryTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_14_ObjectAttributeTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_14_ObjectAttributeTest.cs">
       <Link>LowLevelAPI41\_14_ObjectAttributeTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_15_MechanismTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_15_MechanismTest.cs">
       <Link>LowLevelAPI41\_15_MechanismTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_16_CreateCopyDestroyObjectTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_16_CreateCopyDestroyObjectTest.cs">
       <Link>LowLevelAPI41\_16_CreateCopyDestroyObjectTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_17_GetAndSetAttributeValueTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_17_GetAndSetAttributeValueTest.cs">
       <Link>LowLevelAPI41\_17_GetAndSetAttributeValueTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_18_ObjectFindingTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_18_ObjectFindingTest.cs">
       <Link>LowLevelAPI41\_18_ObjectFindingTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_19_GenerateKeyAndKeyPairTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_19_GenerateKeyAndKeyPairTest.cs">
       <Link>LowLevelAPI41\_19_GenerateKeyAndKeyPairTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_20_EncryptAndDecryptTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_20_EncryptAndDecryptTest.cs">
       <Link>LowLevelAPI41\_20_EncryptAndDecryptTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_21_SignAndVerifyTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_21_SignAndVerifyTest.cs">
       <Link>LowLevelAPI41\_21_SignAndVerifyTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_22_SignAndVerifyRecoverTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_22_SignAndVerifyRecoverTest.cs">
       <Link>LowLevelAPI41\_22_SignAndVerifyRecoverTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_23_DigestEncryptAndDecryptDigestTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_23_DigestEncryptAndDecryptDigestTest.cs">
       <Link>LowLevelAPI41\_23_DigestEncryptAndDecryptDigestTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_24_SignEncryptAndDecryptVerifyTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_24_SignEncryptAndDecryptVerifyTest.cs">
       <Link>LowLevelAPI41\_24_SignEncryptAndDecryptVerifyTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_25_WrapAndUnwrapKeyTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_25_WrapAndUnwrapKeyTest.cs">
       <Link>LowLevelAPI41\_25_WrapAndUnwrapKeyTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_26_DeriveKeyTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_26_DeriveKeyTest.cs">
       <Link>LowLevelAPI41\_26_DeriveKeyTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_27_LegacyParallelFunctionsTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_27_LegacyParallelFunctionsTest.cs">
       <Link>LowLevelAPI41\_27_LegacyParallelFunctionsTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_28b_Pkcs11UriUtilsTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_28b_Pkcs11UriUtilsTest.cs">
       <Link>LowLevelAPI41\_28b_Pkcs11UriUtilsTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI41\_28_Pkcs11UriUtilsTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI41\_28_Pkcs11UriUtilsTest.cs">
       <Link>LowLevelAPI41\_28_Pkcs11UriUtilsTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\Helpers.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\Helpers.cs">
       <Link>LowLevelAPI80\Helpers.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_01_InitializeTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_01_InitializeTest.cs">
       <Link>LowLevelAPI80\_01_InitializeTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_02_GetInfoTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_02_GetInfoTest.cs">
       <Link>LowLevelAPI80\_02_GetInfoTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_03_SlotListInfoAndEventTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_03_SlotListInfoAndEventTest.cs">
       <Link>LowLevelAPI80\_03_SlotListInfoAndEventTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_04_TokenInfoTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_04_TokenInfoTest.cs">
       <Link>LowLevelAPI80\_04_TokenInfoTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_05_MechanismListAndInfoTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_05_MechanismListAndInfoTest.cs">
       <Link>LowLevelAPI80\_05_MechanismListAndInfoTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_06_SessionTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_06_SessionTest.cs">
       <Link>LowLevelAPI80\_06_SessionTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_07_OperationStateTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_07_OperationStateTest.cs">
       <Link>LowLevelAPI80\_07_OperationStateTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_08_LoginTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_08_LoginTest.cs">
       <Link>LowLevelAPI80\_08_LoginTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_09_InitTokenAndPinTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_09_InitTokenAndPinTest.cs">
       <Link>LowLevelAPI80\_09_InitTokenAndPinTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_10_SetPinTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_10_SetPinTest.cs">
       <Link>LowLevelAPI80\_10_SetPinTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_11_SeedAndGenerateRandomTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_11_SeedAndGenerateRandomTest.cs">
       <Link>LowLevelAPI80\_11_SeedAndGenerateRandomTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_12_DigestTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_12_DigestTest.cs">
       <Link>LowLevelAPI80\_12_DigestTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_13_UnmanagedMemoryTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_13_UnmanagedMemoryTest.cs">
       <Link>LowLevelAPI80\_13_UnmanagedMemoryTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_14_ObjectAttributeTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_14_ObjectAttributeTest.cs">
       <Link>LowLevelAPI80\_14_ObjectAttributeTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_15_MechanismTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_15_MechanismTest.cs">
       <Link>LowLevelAPI80\_15_MechanismTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_16_CreateCopyDestroyObjectTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_16_CreateCopyDestroyObjectTest.cs">
       <Link>LowLevelAPI80\_16_CreateCopyDestroyObjectTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_17_GetAndSetAttributeValueTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_17_GetAndSetAttributeValueTest.cs">
       <Link>LowLevelAPI80\_17_GetAndSetAttributeValueTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_18_ObjectFindingTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_18_ObjectFindingTest.cs">
       <Link>LowLevelAPI80\_18_ObjectFindingTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_19_GenerateKeyAndKeyPairTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_19_GenerateKeyAndKeyPairTest.cs">
       <Link>LowLevelAPI80\_19_GenerateKeyAndKeyPairTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_20_EncryptAndDecryptTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_20_EncryptAndDecryptTest.cs">
       <Link>LowLevelAPI80\_20_EncryptAndDecryptTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_21_SignAndVerifyTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_21_SignAndVerifyTest.cs">
       <Link>LowLevelAPI80\_21_SignAndVerifyTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_22_SignAndVerifyRecoverTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_22_SignAndVerifyRecoverTest.cs">
       <Link>LowLevelAPI80\_22_SignAndVerifyRecoverTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_23_DigestEncryptAndDecryptDigestTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_23_DigestEncryptAndDecryptDigestTest.cs">
       <Link>LowLevelAPI80\_23_DigestEncryptAndDecryptDigestTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_24_SignEncryptAndDecryptVerifyTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_24_SignEncryptAndDecryptVerifyTest.cs">
       <Link>LowLevelAPI80\_24_SignEncryptAndDecryptVerifyTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_25_WrapAndUnwrapKeyTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_25_WrapAndUnwrapKeyTest.cs">
       <Link>LowLevelAPI80\_25_WrapAndUnwrapKeyTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_26_DeriveKeyTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_26_DeriveKeyTest.cs">
       <Link>LowLevelAPI80\_26_DeriveKeyTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_27_LegacyParallelFunctionsTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_27_LegacyParallelFunctionsTest.cs">
       <Link>LowLevelAPI80\_27_LegacyParallelFunctionsTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_28b_Pkcs11UriUtilsTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_28b_Pkcs11UriUtilsTest.cs">
       <Link>LowLevelAPI80\_28b_Pkcs11UriUtilsTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI80\_28_Pkcs11UriUtilsTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI80\_28_Pkcs11UriUtilsTest.cs">
       <Link>LowLevelAPI80\_28_Pkcs11UriUtilsTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\Helpers.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\Helpers.cs">
       <Link>LowLevelAPI81\Helpers.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_01_InitializeTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_01_InitializeTest.cs">
       <Link>LowLevelAPI81\_01_InitializeTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_02_GetInfoTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_02_GetInfoTest.cs">
       <Link>LowLevelAPI81\_02_GetInfoTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_03_SlotListInfoAndEventTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_03_SlotListInfoAndEventTest.cs">
       <Link>LowLevelAPI81\_03_SlotListInfoAndEventTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_04_TokenInfoTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_04_TokenInfoTest.cs">
       <Link>LowLevelAPI81\_04_TokenInfoTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_05_MechanismListAndInfoTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_05_MechanismListAndInfoTest.cs">
       <Link>LowLevelAPI81\_05_MechanismListAndInfoTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_06_SessionTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_06_SessionTest.cs">
       <Link>LowLevelAPI81\_06_SessionTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_07_OperationStateTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_07_OperationStateTest.cs">
       <Link>LowLevelAPI81\_07_OperationStateTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_08_LoginTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_08_LoginTest.cs">
       <Link>LowLevelAPI81\_08_LoginTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_09_InitTokenAndPinTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_09_InitTokenAndPinTest.cs">
       <Link>LowLevelAPI81\_09_InitTokenAndPinTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_10_SetPinTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_10_SetPinTest.cs">
       <Link>LowLevelAPI81\_10_SetPinTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_11_SeedAndGenerateRandomTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_11_SeedAndGenerateRandomTest.cs">
       <Link>LowLevelAPI81\_11_SeedAndGenerateRandomTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_12_DigestTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_12_DigestTest.cs">
       <Link>LowLevelAPI81\_12_DigestTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_13_UnmanagedMemoryTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_13_UnmanagedMemoryTest.cs">
       <Link>LowLevelAPI81\_13_UnmanagedMemoryTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_14_ObjectAttributeTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_14_ObjectAttributeTest.cs">
       <Link>LowLevelAPI81\_14_ObjectAttributeTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_15_MechanismTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_15_MechanismTest.cs">
       <Link>LowLevelAPI81\_15_MechanismTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_16_CreateCopyDestroyObjectTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_16_CreateCopyDestroyObjectTest.cs">
       <Link>LowLevelAPI81\_16_CreateCopyDestroyObjectTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_17_GetAndSetAttributeValueTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_17_GetAndSetAttributeValueTest.cs">
       <Link>LowLevelAPI81\_17_GetAndSetAttributeValueTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_18_ObjectFindingTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_18_ObjectFindingTest.cs">
       <Link>LowLevelAPI81\_18_ObjectFindingTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_19_GenerateKeyAndKeyPairTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_19_GenerateKeyAndKeyPairTest.cs">
       <Link>LowLevelAPI81\_19_GenerateKeyAndKeyPairTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_20_EncryptAndDecryptTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_20_EncryptAndDecryptTest.cs">
       <Link>LowLevelAPI81\_20_EncryptAndDecryptTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_21_SignAndVerifyTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_21_SignAndVerifyTest.cs">
       <Link>LowLevelAPI81\_21_SignAndVerifyTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_22_SignAndVerifyRecoverTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_22_SignAndVerifyRecoverTest.cs">
       <Link>LowLevelAPI81\_22_SignAndVerifyRecoverTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_23_DigestEncryptAndDecryptDigestTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_23_DigestEncryptAndDecryptDigestTest.cs">
       <Link>LowLevelAPI81\_23_DigestEncryptAndDecryptDigestTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_24_SignEncryptAndDecryptVerifyTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_24_SignEncryptAndDecryptVerifyTest.cs">
       <Link>LowLevelAPI81\_24_SignEncryptAndDecryptVerifyTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_25_WrapAndUnwrapKeyTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_25_WrapAndUnwrapKeyTest.cs">
       <Link>LowLevelAPI81\_25_WrapAndUnwrapKeyTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_26_DeriveKeyTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_26_DeriveKeyTest.cs">
       <Link>LowLevelAPI81\_26_DeriveKeyTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_27_LegacyParallelFunctionsTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_27_LegacyParallelFunctionsTest.cs">
       <Link>LowLevelAPI81\_27_LegacyParallelFunctionsTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_28b_Pkcs11UriUtilsTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_28b_Pkcs11UriUtilsTest.cs">
       <Link>LowLevelAPI81\_28b_Pkcs11UriUtilsTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\LowLevelAPI81\_28_Pkcs11UriUtilsTest.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\LowLevelAPI81\_28_Pkcs11UriUtilsTest.cs">
       <Link>LowLevelAPI81\_28_Pkcs11UriUtilsTest.cs</Link>
     </Compile>
-    <Compile Include="..\..\Pkcs11Interop\Pkcs11InteropTests\Settings.cs">
+    <Compile Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\Settings.cs">
       <Link>Settings.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\Pkcs11Interop\Pkcs11InteropTests\README.txt">
+    <Content Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\README.txt">
       <Link>README.txt</Link>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Pkcs11Interop\Pkcs11InteropTests\regeneratecode.sh">
+    <None Include="..\..\Pkcs11Interop\Pkcs11Interop.Tests\regeneratecode.sh">
       <Link>regeneratecode.sh</Link>
     </None>
   </ItemGroup>
