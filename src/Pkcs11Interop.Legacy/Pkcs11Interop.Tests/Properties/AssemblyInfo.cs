@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Pkcs11InteropTests")]
+[assembly: AssemblyTitle("Pkcs11Interop.Tests")]
 [assembly: AssemblyDescription("Managed .NET wrapper for unmanaged PKCS#11 libraries")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]

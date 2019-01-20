@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Net.Pkcs11Interop.Tests</RootNamespace>
-    <AssemblyName>Pkcs11InteropTests</AssemblyName>
+    <AssemblyName>Pkcs11Interop.Tests</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
