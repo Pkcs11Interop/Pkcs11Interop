@@ -9,4 +9,10 @@
     <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
   </ItemGroup>
 
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>Pkcs11Interop.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+
 </Project>
