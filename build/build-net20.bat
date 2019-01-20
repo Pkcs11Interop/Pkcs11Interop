@@ -23,26 +23,26 @@ call %tools%
 rmdir /S /Q net20
 
 @rem Clean solution
-msbuild ..\src\Pkcs11Interop\Pkcs11Interop.sln ^
+msbuild ..\src\Pkcs11Interop.Legacy\Pkcs11Interop.sln ^
 	/p:Configuration=Release /p:Platform="Any CPU" /p:TargetFrameworkVersion=v2.0 ^
 	/target:Clean || goto :error
 
 @rem Build Pkcs11Interop project
-msbuild ..\src\Pkcs11Interop\Pkcs11Interop\Pkcs11Interop.csproj ^
+msbuild ..\src\Pkcs11Interop.Legacy\Pkcs11Interop\Pkcs11Interop.csproj ^
 	/p:Configuration=Release /p:Platform=AnyCPU /p:TargetFrameworkVersion=v2.0 ^
 	/target:Build || goto :error
 
 @if "%arg1%"=="--with-tests" (
 	@rem Build Pkcs11InteropTests project
-	msbuild ..\src\Pkcs11Interop\Pkcs11InteropTests\Pkcs11InteropTests.csproj ^
+	msbuild ..\src\Pkcs11Interop.Legacy\Pkcs11InteropTests\Pkcs11InteropTests.csproj ^
 		/p:Configuration=Release /p:Platform=AnyCPU /p:TargetFrameworkVersion=v2.0 ^
 		/target:Build || goto :error
 )
 
 @rem Copy result to output directory
 mkdir net20 || goto :error
-copy ..\src\Pkcs11Interop\Pkcs11Interop\bin\Release\Pkcs11Interop.dll net20 || goto :error
-copy ..\src\Pkcs11Interop\Pkcs11Interop\bin\Release\Pkcs11Interop.xml net20 || goto :error
+copy ..\src\Pkcs11Interop.Legacy\Pkcs11Interop\bin\Release\Pkcs11Interop.dll net20 || goto :error
+copy ..\src\Pkcs11Interop.Legacy\Pkcs11Interop\bin\Release\Pkcs11Interop.xml net20 || goto :error
 
 @echo *** BUILD NET20 SUCCESSFUL ***
 @endlocal
