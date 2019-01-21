@@ -1,4 +1,4 @@
-$file = 'src\Pkcs11Interop.Android\Pkcs11Interop.Android\Pkcs11Interop.Android.csproj'
+$file = 'src\Pkcs11Interop.Android\Pkcs11Interop\Pkcs11Interop.csproj'
 $s1 = '<AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>'
 $s2 = '<AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>'
 

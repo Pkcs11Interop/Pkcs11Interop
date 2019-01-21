@@ -25,8 +25,8 @@ copy sl5\Pkcs11Interop.Silverlight.dll nuget\lib\sl5 || goto :error
 copy sl5\Pkcs11Interop.Silverlight.xml nuget\lib\sl5 || goto :error
 copy netstandard1.3\Pkcs11Interop.NetStandard.dll nuget\lib\netstandard1.3 || goto :error
 copy netstandard1.3\Pkcs11Interop.NetStandard.xml nuget\lib\netstandard1.3 || goto :error
-copy monoandroid2.3\Pkcs11Interop.Android.dll nuget\lib\monoandroid2.3 || goto :error
-copy monoandroid2.3\Pkcs11Interop.Android.xml nuget\lib\monoandroid2.3 || goto :error
+copy monoandroid2.3\Pkcs11Interop.dll nuget\lib\monoandroid2.3 || goto :error
+copy monoandroid2.3\Pkcs11Interop.xml nuget\lib\monoandroid2.3 || goto :error
 copy xamarinios1.0\Pkcs11Interop.iOS.dll nuget\lib\xamarinios1.0 || goto :error
 copy xamarinios1.0\Pkcs11Interop.iOS.xml nuget\lib\xamarinios1.0 || goto :error
 
