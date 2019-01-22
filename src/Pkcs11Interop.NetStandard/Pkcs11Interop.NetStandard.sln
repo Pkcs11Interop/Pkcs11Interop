@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pkcs11Interop.NetStandard", "Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.csproj", "{C60DA2E2-69E7-4B63-A77B-EFBBA1579C9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pkcs11Interop", "Pkcs11Interop\Pkcs11Interop.csproj", "{C60DA2E2-69E7-4B63-A77B-EFBBA1579C9D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pkcs11Interop.DotNetCore.Tests", "Pkcs11Interop.DotNetCore.Tests\Pkcs11Interop.DotNetCore.Tests.csproj", "{77010EA5-A254-4158-BE87-19964350FFD8}"
 EndProject

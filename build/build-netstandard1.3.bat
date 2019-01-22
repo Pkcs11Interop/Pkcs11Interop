@@ -26,8 +26,8 @@ msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.sln ^
 msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.sln ^
 	/p:Configuration=Release /p:Platform="Any CPU" /target:Restore || goto :error
 
-@rem Build Pkcs11Interop.NetStandard project
-msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard.csproj ^
+@rem Build Pkcs11Interop project
+msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop\Pkcs11Interop.csproj ^
 	/p:Configuration=Release /p:Platform=AnyCPU /target:Build || goto :error
 
 @if "%arg1%"=="--with-tests" (
@@ -38,8 +38,8 @@ msbuild ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard\Pkcs11Interop
 
 @rem Copy result to output directory
 mkdir netstandard1.3 || goto :error
-copy ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard\bin\Release\Pkcs11Interop.NetStandard.dll netstandard1.3 || goto :error
-copy ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop.NetStandard\bin\Release\Pkcs11Interop.NetStandard.xml netstandard1.3 || goto :error
+copy ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop\bin\Release\Pkcs11Interop.dll netstandard1.3 || goto :error
+copy ..\src\Pkcs11Interop.NetStandard\Pkcs11Interop\bin\Release\Pkcs11Interop.xml netstandard1.3 || goto :error
 
 @echo *** BUILD NETSTANDARD1.3 SUCCESSFUL ***
 @endlocal
