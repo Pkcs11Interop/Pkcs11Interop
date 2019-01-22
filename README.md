@@ -3,16 +3,16 @@ Pkcs11Interop
 **Managed .NET wrapper for unmanaged PKCS#11 libraries**
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/Pkcs11Interop/Pkcs11Interop/blob/master/LICENSE.md)
-[![AppVeyor](https://ci.appveyor.com/api/projects/status/lb1jxb4t4203g3t9?svg=true)](https://ci.appveyor.com/project/pkcs11interop/pkcs11interop)
+[![AppVeyor](https://ci.appveyor.com/api/projects/status/lb1jxb4t4203g3t9/branch/master?svg=true)](https://ci.appveyor.com/project/pkcs11interop/pkcs11interop/branch/master)
 [![Travis](https://travis-ci.org/Pkcs11Interop/Pkcs11Interop.svg?branch=master)](https://travis-ci.org/Pkcs11Interop/Pkcs11Interop)
 [![NuGet](https://img.shields.io/badge/nuget-pkcs11interop-blue.svg)](https://www.nuget.org/packages/Pkcs11Interop/)
-[![Stack Overflow](https://img.shields.io/badge/so-pkcs11interop-blue.svg)](https://stackoverflow.com/questions/tagged/pkcs11interop)
+[![Stack Overflow](https://img.shields.io/badge/stack-pkcs11interop-blue.svg)](https://stackoverflow.com/questions/tagged/pkcs11interop)
 [![Twitter](https://img.shields.io/badge/twitter-p11interop-blue.svg)](https://twitter.com/p11interop)
 
 ## Warning
 
 **This is [master branch](https://github.com/Pkcs11Interop/Pkcs11Interop/tree/master) and it contains the current development version with several API breaking changes.**  
-**Current stable release can be found in [4.0.0 branch](https://github.com/Pkcs11Interop/Pkcs11Interop/tree/4.0.0).**
+**Current stable release can be found in [4.x-maintenance branch](https://github.com/Pkcs11Interop/Pkcs11Interop/tree/4.x-maintenance).**
 
 ## Table of Contents
 
