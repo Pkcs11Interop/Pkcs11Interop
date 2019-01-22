@@ -2,8 +2,8 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Pkcs11Interop.Silverlight")]
-[assembly: AssemblyDescription("Managed .NET wrapper for unmanaged PKCS#11 libraries")]
+[assembly: AssemblyTitle("Pkcs11Interop")]
+[assembly: AssemblyDescription("Managed .NET wrapper for unmanaged PKCS#11 libraries (Silverlight version)")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Pkcs11Interop")]
