@@ -946,9 +946,9 @@
     <None Include="Properties\AppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight.csproj">
+    <ProjectReference Include="..\Pkcs11Interop\Pkcs11Interop.csproj">
       <Project>{e4b6e4b2-8248-4f9f-8e6f-71c487d9c050}</Project>
-      <Name>Pkcs11Interop.Silverlight</Name>
+      <Name>Pkcs11Interop</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

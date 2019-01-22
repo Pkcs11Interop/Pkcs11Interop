@@ -3,6 +3,7 @@ image: Visual Studio 2017
 branches:
   only:
   - master
+  - 4.x-maintenance
 skip_tags: true
 environment:
   matrix:

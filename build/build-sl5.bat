@@ -29,8 +29,8 @@ rmdir /S /Q sl5
 msbuild ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight.sln ^
 	/p:Configuration=Release /p:Platform="Any CPU" /target:Clean || goto :error
 
-@rem Build Pkcs11Interop.Silverlight project
-msbuild ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight.csproj ^
+@rem Build Pkcs11Interop project
+msbuild ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop\Pkcs11Interop.csproj ^
 	/p:Configuration=Release /p:Platform=AnyCPU /target:Build || goto :error
 
 @if "%arg1%"=="--with-tests" (
@@ -41,8 +41,8 @@ msbuild ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight\Pkcs11Interop
 
 @rem Copy result to output directory
 mkdir sl5 || goto :error
-copy ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight\bin\Release\Pkcs11Interop.Silverlight.dll sl5 || goto :error
-copy ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop.Silverlight\bin\Release\Pkcs11Interop.Silverlight.xml sl5 || goto :error
+copy ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop\bin\Release\Pkcs11Interop.dll sl5 || goto :error
+copy ..\src\Pkcs11Interop.Silverlight\Pkcs11Interop\bin\Release\Pkcs11Interop.xml sl5 || goto :error
 
 @echo *** BUILD SL5 SUCCESSFUL ***
 @endlocal

@@ -27,19 +27,19 @@ msbuild ..\src\Pkcs11Interop.iOS\Pkcs11Interop.iOS.sln ^
 	/p:Configuration=Release /p:Platform="Any CPU" /target:Clean || goto :error
 
 @if "%arg1%"=="--with-tests" (
-	@rem Build both Pkcs11Interop.iOS and Pkcs11Interop.iOS.Tests projects via solution
+	@rem Build both Pkcs11Interop and Pkcs11Interop.iOS.Tests projects via solution
 	msbuild ..\src\Pkcs11Interop.iOS\Pkcs11Interop.iOS.sln ^
 		/p:Configuration=Release /p:Platform="Any CPU" /target:Build || goto :error
 ) else (
-	@rem Build only Pkcs11Interop.iOS project
-	msbuild ..\src\Pkcs11Interop.iOS\Pkcs11Interop.iOS\Pkcs11Interop.iOS.csproj ^
+	@rem Build only Pkcs11Interop project
+	msbuild ..\src\Pkcs11Interop.iOS\Pkcs11Interop\Pkcs11Interop.csproj ^
 		/p:Configuration=Release /p:Platform=AnyCPU /target:Build || goto :error
 )
 
 @rem Copy result to output directory
 mkdir xamarinios1.0 || goto :error
-copy ..\src\Pkcs11Interop.iOS\Pkcs11Interop.iOS\bin\Release\Pkcs11Interop.iOS.dll xamarinios1.0 || goto :error
-copy ..\src\Pkcs11Interop.iOS\Pkcs11Interop.iOS\bin\Release\Pkcs11Interop.iOS.xml xamarinios1.0 || goto :error
+copy ..\src\Pkcs11Interop.iOS\Pkcs11Interop\bin\Release\Pkcs11Interop.dll xamarinios1.0 || goto :error
+copy ..\src\Pkcs11Interop.iOS\Pkcs11Interop\bin\Release\Pkcs11Interop.xml xamarinios1.0 || goto :error
 
 @echo *** BUILD XAMARINIOS1.0 SUCCESSFUL ***
 @endlocal
