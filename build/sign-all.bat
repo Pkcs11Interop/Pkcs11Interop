@@ -3,7 +3,7 @@
 set SIGNTOOL="C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe"
 
 @rem Define signing options
-set CERTHASH=d5de31ea974f5ea8581d633eeffa8f3ea0d479bb
+set CERTHASH=ef1bfeaa474bb078923831bf7732186673a5b5c9
 set TSAURL=http://time.certum.pl/
 set LIBNAME=Pkcs11Interop
 set LIBURL=https://www.pkcs11interop.net/
@@ -28,11 +28,11 @@ netstandard1.3\Pkcs11Interop.dll ^
 monoandroid2.3\Pkcs11Interop.dll ^
 xamarinios1.0\Pkcs11Interop.dll || goto :error
 
-@echo *** SIGNING SUCCESSFUL ***
+@echo *** SIGN ALL SUCCESSFUL ***
 @endlocal
 @exit /b 0
 
 :error
-@echo *** SIGNING FAILED ***
+@echo *** SIGN ALL FAILED ***
 @endlocal
 @exit /b 1
