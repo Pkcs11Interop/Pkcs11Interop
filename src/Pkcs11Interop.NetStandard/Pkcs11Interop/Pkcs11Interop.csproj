@@ -16,6 +16,9 @@
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
     <GenerateNeutralResourcesLanguageAttribute>false</GenerateNeutralResourcesLanguageAttribute>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\Pkcs11Interop\Pkcs11Interop\Pkcs11Interop.snk</AssemblyOriginatorKeyFile>
     <DelaySign>False</DelaySign>
