@@ -4,7 +4,6 @@ Pkcs11Interop
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/Pkcs11Interop/Pkcs11Interop/blob/master/LICENSE.md)
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/lb1jxb4t4203g3t9?svg=true)](https://ci.appveyor.com/project/pkcs11interop/pkcs11interop)
-[![Coverity](https://img.shields.io/coverity/scan/2961.svg)](https://scan.coverity.com/projects/pkcs11interop-pkcs11interop)
 [![NuGet](https://img.shields.io/badge/nuget-pkcs11interop-blue.svg)](https://www.nuget.org/packages/Pkcs11Interop/)
 [![Stack Overflow](https://img.shields.io/badge/stack%20overflow-pkcs11interop-blue.svg)](https://stackoverflow.com/questions/tagged/pkcs11interop)
 [![Twitter](https://img.shields.io/badge/twitter-p11interop-blue.svg)](https://twitter.com/p11interop)

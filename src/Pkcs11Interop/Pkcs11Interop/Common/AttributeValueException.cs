@@ -122,10 +122,8 @@ namespace Net.Pkcs11Interop.Common
         protected AttributeValueException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
-#if !COVERITY // To avoid false positive - CID 181201:  Null pointer dereferences (REVERSE_INULL) >>> Null - checking "info" suggests that it may be null, but it has already been dereferenced on all paths leading to the check.
             if (info == null)
                 throw new ArgumentNullException("info");
-#endif
 
             _attribute = (CKA)info.GetUInt32("Attribute");
         }
