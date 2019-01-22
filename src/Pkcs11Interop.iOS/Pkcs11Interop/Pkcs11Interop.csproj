@@ -7,7 +7,7 @@
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <RootNamespace>Net.Pkcs11Interop</RootNamespace>
-    <AssemblyName>Pkcs11Interop.iOS</AssemblyName>
+    <AssemblyName>Pkcs11Interop</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -21,7 +21,7 @@
     <ConsolePause>false</ConsolePause>
     <MtouchUseSGen>true</MtouchUseSGen>
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
-    <DocumentationFile>bin\Debug\Pkcs11Interop.iOS.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\Pkcs11Interop.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
@@ -31,7 +31,7 @@
     <ConsolePause>false</ConsolePause>
     <MtouchUseSGen>true</MtouchUseSGen>
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
-    <DocumentationFile>bin\Release\Pkcs11Interop.iOS.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\Pkcs11Interop.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Pkcs11Interop.iOS")]
-[assembly: AssemblyDescription("Managed .NET wrapper for unmanaged PKCS#11 libraries")]
+[assembly: AssemblyTitle("Pkcs11Interop")]
+[assembly: AssemblyDescription("Managed .NET wrapper for unmanaged PKCS#11 libraries (iOS version)")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Pkcs11Interop")]
