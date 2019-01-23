@@ -225,10 +225,16 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         /// </summary>
         private static class NativeMethods
         {
-            [DllImport("__Internal", EntryPoint = "C_GetUnmanagedStructSizeList", CallingConvention = CallingConvention.Cdecl)]
+#if XAMARINMAC2_0
+            private const string _dllName = "NonExistingLibrary";
+#else
+            private const string _dllName = "__Internal";
+#endif
+
+            [DllImport(_dllName, EntryPoint = "C_GetUnmanagedStructSizeList", CallingConvention = CallingConvention.Cdecl)]
             internal static extern uint C_GetUnmanagedStructSizeList4x(uint[] sizeList, ref uint count);
 
-            [DllImport("__Internal", EntryPoint = "C_GetUnmanagedStructSizeList", CallingConvention = CallingConvention.Cdecl)]
+            [DllImport(_dllName, EntryPoint = "C_GetUnmanagedStructSizeList", CallingConvention = CallingConvention.Cdecl)]
             internal static extern ulong C_GetUnmanagedStructSizeList8x(ulong[] sizeList, ref ulong count);
         }
 

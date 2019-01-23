@@ -147,10 +147,16 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         /// </summary>
         private static class NativeMethods
         {
-            [DllImport("__Internal", EntryPoint = "C_InteractiveLogin", CallingConvention = CallingConvention.Cdecl)]
+#if XAMARINMAC2_0
+            private const string _dllName = "NonExistingLibrary";
+#else
+            private const string _dllName = "__Internal";
+#endif
+
+            [DllImport(_dllName, EntryPoint = "C_InteractiveLogin", CallingConvention = CallingConvention.Cdecl)]
             internal static extern uint C_InteractiveLogin4x(uint session);
 
-            [DllImport("__Internal", EntryPoint = "C_InteractiveLogin", CallingConvention = CallingConvention.Cdecl)]
+            [DllImport(_dllName, EntryPoint = "C_InteractiveLogin", CallingConvention = CallingConvention.Cdecl)]
             internal static extern ulong C_InteractiveLogin8x(ulong session);
         }
 
