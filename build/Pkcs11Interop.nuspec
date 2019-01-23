@@ -12,7 +12,7 @@
     <iconUrl>https://www.pkcs11interop.net/nuget/pkcs11interop-icon-64x64.png</iconUrl>
     <description>Managed .NET wrapper for unmanaged PKCS#11 libraries</description>
     <releaseNotes></releaseNotes>
-    <copyright>Copyright 2012-2017 The Pkcs11Interop Project</copyright>
+    <copyright>Copyright 2012-2019 The Pkcs11Interop Project</copyright>
     <language></language>
     <tags>pkcs pkcs11 security crypto cryptography smartcard hsm</tags>
     <dependencies>
