@@ -17,7 +17,8 @@ sl5\Pkcs11Interop.dll ^
 netstandard1.3\Pkcs11Interop.dll ^
 netstandard2.0\Pkcs11Interop.dll ^
 monoandroid2.3\Pkcs11Interop.dll ^
-xamarinios1.0\Pkcs11Interop.dll || goto :error
+xamarinios1.0\Pkcs11Interop.dll ^
+xamarinmac2.0\Pkcs11Interop.dll || goto :error
 
 @rem Sign all assemblies using SHA256withRSA algorithm
 %SIGNTOOL% sign /sha1 %CERTHASH% /as /fd sha256 /tr %TSAURL% /td sha256 /d %LIBNAME% /du %LIBURL% ^
@@ -28,7 +29,8 @@ sl5\Pkcs11Interop.dll ^
 netstandard1.3\Pkcs11Interop.dll ^
 netstandard2.0\Pkcs11Interop.dll ^
 monoandroid2.3\Pkcs11Interop.dll ^
-xamarinios1.0\Pkcs11Interop.dll || goto :error
+xamarinios1.0\Pkcs11Interop.dll ^
+xamarinmac2.0\Pkcs11Interop.dll || goto :error
 
 @echo *** SIGN ALL SUCCESSFUL ***
 @endlocal
