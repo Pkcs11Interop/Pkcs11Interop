@@ -1,8 +1,7 @@
-<Project Sdk="MSBuild.Sdk.Extras/1.6.65">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!-- Note: xamarinmac2.0 is not listed here because I wasn't able to get it working with NUnit -->
-    <TargetFrameworks>net20;net40;net45;netcoreapp1.0;netcoreapp2.0;xamarinios1.0;monoandroid8.0</TargetFrameworks>
+    <TargetFrameworks>net20;net40;net45;netcoreapp1.0;netcoreapp2.0</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,7 +12,7 @@
     <PackageReference Include="NUnit3TestAdapter" Version="3.12.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
   </ItemGroup>
-
+  
   <ItemGroup>
     <ProjectReference Include="..\Pkcs11Interop.Mock\Pkcs11Interop.Mock.csproj" />
     <ProjectReference Include="..\Pkcs11Interop\Pkcs11Interop.csproj" />
