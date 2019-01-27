@@ -10,5 +10,5 @@ cd $SLNDIR/Pkcs11Interop
 cd $SLNDIR/Pkcs11Interop.Mock
 ./regeneratecode.sh
 
-cd $SLNDIR/Pkcs11InteropTests
+cd $SLNDIR/Pkcs11Interop.Tests
 ./regeneratecode.sh
