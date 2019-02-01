@@ -47,19 +47,13 @@ namespace Net.Pkcs11Interop.Mock.LowLevelAPI81
         /// </summary>
         private static class NativeMethods
         {
-#if XAMARINMAC2_0
-            private const string _dllName = "NonExistingLibrary";
-#else
-            private const string _dllName = "__Internal";
-#endif
-
-            [DllImport(_dllName, EntryPoint = "C_GetUnmanagedStructSizeList", CallingConvention = CallingConvention.Cdecl)]
+            [DllImport("Pkcs11Library", EntryPoint = "C_GetUnmanagedStructSizeList", CallingConvention = CallingConvention.Cdecl)]
             internal static extern NativeULong C_GetUnmanagedStructSizeList(NativeULong[] sizeList, ref NativeULong count);
 
-            [DllImport(_dllName, EntryPoint = "C_EjectToken", CallingConvention = CallingConvention.Cdecl)]
+            [DllImport("Pkcs11Library", EntryPoint = "C_EjectToken", CallingConvention = CallingConvention.Cdecl)]
             internal static extern NativeULong C_EjectToken(NativeULong slotId);
 
-            [DllImport(_dllName, EntryPoint = "C_InteractiveLogin", CallingConvention = CallingConvention.Cdecl)]
+            [DllImport("Pkcs11Library", EntryPoint = "C_InteractiveLogin", CallingConvention = CallingConvention.Cdecl)]
             internal static extern NativeULong C_InteractiveLogin(NativeULong session);
         }
 
