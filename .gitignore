@@ -7,3 +7,5 @@ test-results/
 doxygen-output/
 .vs/
 *.lock.json
+/build/nuget-signed
+/build/nuget-unsigned
