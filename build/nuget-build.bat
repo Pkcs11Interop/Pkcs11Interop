@@ -1,6 +1,8 @@
 @setlocal
 
-set outputdir=nuget-unsigned
+@rem Define paths to necessary directories
+set workingdir=%~dp0
+set outputdir=%workingdir%nuget-unsigned
 
 @rem Initialize build environment of Visual Studio 2017 Community/Professional/Enterprise
 @set tools=

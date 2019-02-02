@@ -16,6 +16,11 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
+  <ItemGroup Label="PackExtraContent">
+    <None Include="LICENSE.txt" pack="true" PackagePath="." />
+    <None Include="NOTICE.txt" pack="true" PackagePath="." />
+  </ItemGroup>
+  
   <PropertyGroup>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>

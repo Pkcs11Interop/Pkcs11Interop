@@ -1,7 +1,9 @@
 @setlocal
 
-set inputdir=nuget-unsigned
-set outputdir=nuget-signed
+@rem Define paths to necessary directories
+set workingdir=%~dp0
+set inputdir=%workingdir%nuget-unsigned
+set outputdir=%workingdir%nuget-signed
 
 @rem Define paths to necessary tools
 set NUGET=c:\nuget\nuget.exe 
@@ -20,7 +22,6 @@ mkdir %outputdir% || goto :error
 
 @rem Copy unsigned package to output directory
 copy %inputdir%\*.nupkg %outputdir% || goto :error
-copy %inputdir%\*.snupkg %outputdir% || goto :error
 
 @rem Extract unsigned package contents into the output directory
 cd %outputdir% || goto :error
@@ -50,10 +51,12 @@ lib\netstandard2.0\Pkcs11Interop.dll || goto :error
 %NUGET% pack Pkcs11Interop.nuspec || goto :error
 %NUGET% sign Pkcs11Interop*.nupkg -CertificateFingerprint %CERTHASH% -Timestamper %TSAURL% || goto :error
 %NUGET% verify -Signature Pkcs11Interop*.nupkg || goto :error
+copy %inputdir%\*.snupkg . || goto :error
 
 @rem Clean up
 rmdir /S /Q lib || goto :error
 del /Q *.nuspec || goto :error
+del /Q *.txt || goto :error
 
 @echo *** SIGN SUCCESSFUL ***
 @endlocal
