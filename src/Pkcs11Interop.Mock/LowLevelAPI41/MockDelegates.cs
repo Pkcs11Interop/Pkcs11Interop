@@ -47,13 +47,13 @@ namespace Net.Pkcs11Interop.Mock.LowLevelAPI41
         /// </summary>
         private static class NativeMethods
         {
-            [DllImport("Pkcs11Library", EntryPoint = "C_GetUnmanagedStructSizeList", CallingConvention = CallingConvention.Cdecl)]
+            [DllImport("__Internal", EntryPoint = "C_GetUnmanagedStructSizeList", CallingConvention = CallingConvention.Cdecl)]
             internal static extern NativeULong C_GetUnmanagedStructSizeList(NativeULong[] sizeList, ref NativeULong count);
 
-            [DllImport("Pkcs11Library", EntryPoint = "C_EjectToken", CallingConvention = CallingConvention.Cdecl)]
+            [DllImport("__Internal", EntryPoint = "C_EjectToken", CallingConvention = CallingConvention.Cdecl)]
             internal static extern NativeULong C_EjectToken(NativeULong slotId);
 
-            [DllImport("Pkcs11Library", EntryPoint = "C_InteractiveLogin", CallingConvention = CallingConvention.Cdecl)]
+            [DllImport("__Internal", EntryPoint = "C_InteractiveLogin", CallingConvention = CallingConvention.Cdecl)]
             internal static extern NativeULong C_InteractiveLogin(NativeULong session);
         }
 
