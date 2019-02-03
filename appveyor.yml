@@ -9,7 +9,7 @@ build_script:
 test_script:
 - cmd: nunit3-console .\src\Pkcs11Interop.Tests\bin\Release\net20\Pkcs11Interop.Tests.dll --result=myresults.xml;format=AppVeyor
 - cmd: nunit3-console .\src\Pkcs11Interop.Tests\bin\Release\net40\Pkcs11Interop.Tests.dll --result=myresults.xml;format=AppVeyor
-- cmd: dotnet vstest .\src\Pkcs11Interop.Tests\bin\Release\netstandard1.3\Pkcs11Interop.Tests.dll --Framework:".NETCoreApp,Version=v1.0"
-- cmd: dotnet vstest .\src\Pkcs11Interop.Tests\bin\Release\netstandard2.0\Pkcs11Interop.Tests.dll --Framework:".NETCoreApp,Version=v2.0"
+- cmd: dotnet vstest .\src\Pkcs11Interop.Tests\bin\Release\netcoreapp1.0\Pkcs11Interop.Tests.dll --Framework:".NETCoreApp,Version=v1.0"
+- cmd: dotnet vstest .\src\Pkcs11Interop.Tests\bin\Release\netcoreapp2.0\Pkcs11Interop.Tests.dll --Framework:".NETCoreApp,Version=v2.0"
 artifacts:
 - path: build/nuget-unsigned/
