@@ -17,5 +17,29 @@
     <ProjectReference Include="..\Pkcs11Interop.Mock\Pkcs11Interop.Mock.csproj" />
     <ProjectReference Include="..\Pkcs11Interop\Pkcs11Interop.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="pkcs11-mock\linux\pkcs11-mock-x64.so">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="pkcs11-mock\linux\pkcs11-mock-x86.so">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="pkcs11-mock\osx\pkcs11-mock-x64.dylib">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="pkcs11-mock\osx\pkcs11-mock-x86.dylib">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="pkcs11-mock\README.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="pkcs11-mock\windows\pkcs11-mock-x64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="pkcs11-mock\windows\pkcs11-mock-x86.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
 </Project>
