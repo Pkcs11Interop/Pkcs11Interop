@@ -4,32 +4,14 @@ branches:
   only:
   - master
 skip_tags: true
-environment:
-  matrix:
-  - Platform: net20
-  - Platform: net40
-  - Platform: net45
-  - Platform: netstandard1.3
-  - Platform: netstandard2.0
-  - Platform: monoandroid2.3
-  - Platform: xamarinios1.0
-  - Platform: xamarinmac2.0
-install:
-- cmd: IF "%Platform%"=="monoandroid2.3" (powershell -File ./build/appveyor-switch-android-sdk.ps1)
 build_script:
-- cmd: IF "%Platform%"=="net20" (cd build && build-net20.bat --with-tests)
-- cmd: IF "%Platform%"=="net40" (cd build && build-net40.bat --with-tests)
-- cmd: IF "%Platform%"=="net45" (cd build && build-net45.bat)
-- cmd: IF "%Platform%"=="netstandard1.3" (cd build && build-netstandard1.3.bat --with-tests)
-- cmd: IF "%Platform%"=="netstandard2.0" (cd build && build-netstandard2.0.bat --with-tests --skip-cleaning)
-- cmd: IF "%Platform%"=="monoandroid2.3" (cd build && build-monoandroid2.3.bat)
-- cmd: IF "%Platform%"=="xamarinios1.0" (cd build && build-xamarinios1.0.bat)
-- cmd: IF "%Platform%"=="xamarinmac2.0" (cd build && build-xamarinmac2.0.bat)
+- cmd: cd build && nuget-build.bat
 test_script:
-- cmd: IF "%Platform%"=="net20" (nunit-console-x86 .\src\Pkcs11Interop\Pkcs11InteropTests\bin\Release\Pkcs11InteropTests.dll)
-- cmd: IF "%Platform%"=="net40" (nunit-console .\src\Pkcs11Interop\Pkcs11InteropTests\bin\Release\Pkcs11InteropTests.dll)
-- cmd: IF "%Platform%"=="netstandard1.3" (dotnet vstest .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\bin\Release\netcoreapp1.0\Pkcs11Interop.DotNetCore.Tests.dll --Framework:".NETCoreApp,Version=v1.0")
-- cmd: IF "%Platform%"=="netstandard2.0" (dotnet vstest .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\bin\Release\netcoreapp2.0\Pkcs11Interop.DotNetCore.Tests.dll --Framework:".NETCoreApp,Version=v2.0")
+- cmd: nunit-console .\src\Pkcs11Interop.Tests\bin\Release\net20\Pkcs11Interop.Tests.dll
+- cmd: nunit-console-x86 .\src\Pkcs11Interop.Tests\bin\Release\net20\Pkcs11Interop.Tests.dll
+- cmd: nunit-console .\src\Pkcs11Interop.Tests\bin\Release\net40\Pkcs11Interop.Tests.dll
+- cmd: nunit-console-x86 .\src\Pkcs11Interop.Tests\bin\Release\net40\Pkcs11Interop.Tests.dll
+- cmd: dotnet vstest .\src\Pkcs11Interop.Tests\bin\Release\netstandard1.3\Pkcs11Interop.Tests.dll --Framework:".NETCoreApp,Version=v1.0"
+- cmd: dotnet vstest .\src\Pkcs11Interop.Tests\bin\Release\netstandard2.0\Pkcs11Interop.Tests.dll --Framework:".NETCoreApp,Version=v2.0"
 artifacts:
-- path: build/$(Platform)
-  name: $(Platform)
+- path: build/nuget-unsigned/
