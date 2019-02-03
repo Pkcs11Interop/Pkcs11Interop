@@ -17,6 +17,9 @@ branches:
     - master
 
 script:
+  - sed -i -e 's/net20;net40;net45;//' ./src/Pkcs11Interop/Pkcs11Interop.csproj
+  - sed -i -e 's/net20;net40;net45;//' ./src/Pkcs11Interop.Mock/Pkcs11Interop.Mock.csproj
+  - sed -i -e 's/net20;net40;net45;//' ./src/Pkcs11Interop.Tests/Pkcs11Interop.Tests.csproj
   - dotnet --info
   - dotnet restore ./src/
   - dotnet build ./src/
