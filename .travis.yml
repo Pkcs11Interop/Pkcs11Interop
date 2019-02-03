@@ -18,6 +18,6 @@ branches:
 
 script:
   - dotnet --info
-  - dotnet restore ./src/Pkcs11Interop.NetStandard/
-  - dotnet build ./src/Pkcs11Interop.NetStandard/
-  - dotnet test -f netcoreapp2.0 ./src/Pkcs11Interop.NetStandard/Pkcs11Interop.DotNetCore.Tests/
+  - dotnet restore ./src/
+  - dotnet build ./src/
+  - dotnet test -f netcoreapp2.0 ./src/Pkcs11Interop.Tests/
