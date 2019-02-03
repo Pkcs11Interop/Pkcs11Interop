@@ -2,13 +2,81 @@
 
 set -e
 
-SLNDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+API=LowLevelAPI40
+echo "Regenerating $API"
+rm -rf $API || :
+cp -r LowLevelAPI41 $API
+files=`find ./$API -type f`
+for file in $files; do
+	echo "  Processing $file"
+	sed -i -e 's/Code in this file is maintained manually/Code in this file is generated automatically/' $file
+	sed -i -e 's/LowLevelAPI41/'"$API"'/g' $file
+	sed -i -e 's/Pack = 1/Pack = 0/' $file
+done
 
-cd $SLNDIR/Pkcs11Interop
-./regeneratecode.sh
+API=LowLevelAPI80
+echo "Regenerating $API"
+rm -rf $API || :
+cp -r LowLevelAPI41 $API
+files=`find ./$API -type f`
+for file in $files; do
+	echo "  Processing $file"
+	sed -i -e 's/Code in this file is maintained manually/Code in this file is generated automatically/' $file
+	sed -i -e 's/LowLevelAPI41/'"$API"'/g' $file
+	sed -i -e 's/using NativeULong = System.UInt32;/using NativeULong = System.UInt64;/' $file
+	sed -i -e 's/Pack = 1/Pack = 0/' $file
+	sed -i -e 's/ConvertUtils.UInt32/ConvertUtils.UInt64/g' $file
+done
 
-cd $SLNDIR/Pkcs11Interop.Mock
-./regeneratecode.sh
+API=LowLevelAPI81
+echo "Regenerating $API"
+rm -rf $API || :
+cp -r LowLevelAPI41 $API
+files=`find ./$API -type f`
+for file in $files; do
+	echo "  Processing $file"
+	sed -i -e 's/Code in this file is maintained manually/Code in this file is generated automatically/' $file
+	sed -i -e 's/LowLevelAPI41/'"$API"'/g' $file
+	sed -i -e 's/using NativeULong = System.UInt32;/using NativeULong = System.UInt64;/' $file
+	sed -i -e 's/ConvertUtils.UInt32/ConvertUtils.UInt64/g' $file
+done
 
-cd $SLNDIR/Pkcs11InteropTests
-./regeneratecode.sh
+API=HighLevelAPI40
+echo "Regenerating $API"
+rm -rf $API || :
+cp -r HighLevelAPI41 $API
+files=`find ./$API -type f`
+for file in $files; do
+	echo "  Processing $file"
+	sed -i -e 's/Code in this file is maintained manually/Code in this file is generated automatically/' $file
+	sed -i -e 's/HighLevelAPI41/'"$API"'/g' $file
+	sed -i -e 's/LowLevelAPI41/LowLevelAPI40/g' $file
+done
+
+API=HighLevelAPI80
+echo "Regenerating $API"
+rm -rf $API || :
+cp -r HighLevelAPI41 $API
+files=`find ./$API -type f`
+for file in $files; do
+	echo "  Processing $file"
+	sed -i -e 's/Code in this file is maintained manually/Code in this file is generated automatically/' $file
+	sed -i -e 's/HighLevelAPI41/'"$API"'/g' $file
+	sed -i -e 's/LowLevelAPI41/LowLevelAPI80/g' $file
+	sed -i -e 's/using NativeULong = System.UInt32;/using NativeULong = System.UInt64;/' $file
+	sed -i -e 's/ConvertUtils.UInt32/ConvertUtils.UInt64/g' $file
+done
+
+API=HighLevelAPI81
+echo "Regenerating $API"
+rm -rf $API || :
+cp -r HighLevelAPI41 $API
+files=`find ./$API -type f`
+for file in $files; do
+	echo "  Processing $file"
+	sed -i -e 's/Code in this file is maintained manually/Code in this file is generated automatically/' $file
+	sed -i -e 's/HighLevelAPI41/'"$API"'/g' $file
+	sed -i -e 's/LowLevelAPI41/LowLevelAPI81/g' $file
+	sed -i -e 's/using NativeULong = System.UInt32;/using NativeULong = System.UInt64;/' $file
+	sed -i -e 's/ConvertUtils.UInt32/ConvertUtils.UInt64/g' $file
+done

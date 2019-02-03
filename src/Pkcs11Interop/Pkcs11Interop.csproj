@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net20;net40;net45;netstandard1.3;netstandard2.0</TargetFrameworks>
+    <Version>5.0.0-alpha2</Version>
+    <Authors>Jaroslav Imrich</Authors>
+    <Description>Managed .NET wrapper for unmanaged PKCS#11 libraries</Description>
+    <Copyright>Copyright (c) 2012-2019 The Pkcs11Interop Project</Copyright>
+    <PackageLicenseUrl>https://www.pkcs11interop.net/nuget/pkcs11interop-apache-license-2.0.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://www.pkcs11interop.net/</PackageProjectUrl>
+    <PackageIconUrl>https://www.pkcs11interop.net/nuget/pkcs11interop-icon-64x64.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/Pkcs11Interop/Pkcs11Interop.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>pkcs pkcs11 security crypto cryptography smartcard hsm</PackageTags>
+    <Company />
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup Label="PackExtraContent">
+    <None Include="LICENSE.txt" pack="true" PackagePath="." />
+    <None Include="NOTICE.txt" pack="true" PackagePath="." />
+  </ItemGroup>
+  
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>Pkcs11Interop.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(OS)' == 'Windows_NT'">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-18618-05" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(TargetFramework) == 'netstandard1.3'">
+    <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
+    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
+  </ItemGroup>
+
+</Project>
