@@ -1,7 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
     <TargetFrameworks>net20;net40;net45;netstandard1.3;netstandard2.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(OS)' != 'Windows_NT'">
+    <TargetFrameworks>netstandard1.3;netstandard2.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <Version>5.0.0-alpha2</Version>
     <Authors>Jaroslav Imrich</Authors>
     <Description>Managed .NET wrapper for unmanaged PKCS#11 libraries</Description>
