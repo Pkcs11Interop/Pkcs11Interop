@@ -13,3 +13,4 @@ test_script:
 - cmd: dotnet vstest .\src\Pkcs11Interop.Tests\bin\Release\netcoreapp2.0\Pkcs11Interop.Tests.dll --Framework:".NETCoreApp,Version=v2.0"
 artifacts:
 - path: build/nuget-unsigned/
+  name: Pkcs11Interop
