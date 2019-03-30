@@ -191,7 +191,15 @@ namespace Net.Pkcs11Interop.Common
             if (_isWindows || _isLinux || _isMacOsX)
                 return;
 
-#if SILVERLIGHT
+#if __ANDROID__
+
+            _isLinux = true;
+
+#elif __IOS__
+
+            _isMacOsX = true;
+
+#elif SILVERLIGHT
 
             if (System.Windows.Application.Current.HasElevatedPermissions)
             {
@@ -235,7 +243,6 @@ namespace Net.Pkcs11Interop.Common
                 string osType = File.ReadAllText(@"/proc/sys/kernel/ostype");
                 if (osType.StartsWith("Linux", StringComparison.OrdinalIgnoreCase))
                 {
-                    // Note: Android gets here too
                     _isLinux = true;
                 }
                 else
@@ -245,7 +252,6 @@ namespace Net.Pkcs11Interop.Common
             }
             else if (File.Exists(@"/System/Library/CoreServices/SystemVersion.plist"))
             {
-                // Note: iOS gets here too
                 _isMacOsX = true;
             }
             else
@@ -254,7 +260,6 @@ namespace Net.Pkcs11Interop.Common
             }
 
 #endif
-
         }
     }
 }
