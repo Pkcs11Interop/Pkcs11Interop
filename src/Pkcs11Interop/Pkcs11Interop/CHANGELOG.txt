@@ -1,3 +1,9 @@
+Pkcs11Interop 4.1.1 (2019-03-31)
+ - #115 - Fixed automatic platform detection on new versions of Android
+   and updated Android TargetFrameworkVersion to v8.0 (API level 26)
+ - #116 - LibraryArchitectureException won't be thrown on macOS
+   for errors unrelated to unmanaged library platform
+
 Pkcs11Interop 4.1.0 (2019-01-24)
  - #68 - Unified assembly name for all platforms to Pkcs11Interop.dll
  - #88 - Adopted NuGet package signing
