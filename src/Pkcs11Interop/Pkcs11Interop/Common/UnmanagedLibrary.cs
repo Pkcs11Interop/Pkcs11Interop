@@ -63,15 +63,8 @@ namespace Net.Pkcs11Interop.Common
                     }
                 }
 
-                // Perform Mac OS X specific library compatibility checks
-                if (Platform.IsMacOsX && !NativeMethods.dlopen_preflight(fileName))
-                {
-                    IntPtr error = NativeMethods.dlerror();
-                    if (error == IntPtr.Zero)
-                        throw new LibraryArchitectureException();
-                    else
-                        throw new LibraryArchitectureException(new UnmanagedException(Marshal.PtrToStringAnsi(error)));
-                }
+                // Note: On Mac OS X there's dlopen_preflight function that checks whether the library is compatible with current process or not but it cannot be used here
+                //       as it just returns the same errors as dlopen function and does not allow us to distinguish between invalid path, invalid architecture and other errors.
 
                 // Load library
                 int flags = Platform.IsLinux ? (NativeMethods.RTLD_NOW_LINUX | NativeMethods.RTLD_LOCAL_LINUX) : (NativeMethods.RTLD_NOW_MACOSX | NativeMethods.RTLD_LOCAL_MACOSX);
