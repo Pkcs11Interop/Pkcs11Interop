@@ -39,7 +39,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI41.Factories
         /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
         /// <param name="slotId">PKCS#11 handle of slot</param>
-        public ISlot CreateSlot(Pkcs11InteropFactories factories, LowLevelPkcs11 pkcs11, ulong slotId)
+        public ISlot CreateSlot(Pkcs11InteropFactories factories, LowLevelPkcs11Library pkcs11, ulong slotId)
         {
             LowLevelAPI41.MockPkcs11 p11 = pkcs11 as LowLevelAPI41.MockPkcs11;
             if (p11 == null)

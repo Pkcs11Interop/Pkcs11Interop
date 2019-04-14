@@ -39,7 +39,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.Factories
         /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
         /// <param name="sessionId">PKCS#11 handle of session</param>
-        public ISession CreateSession(Pkcs11InteropFactories factories, LowLevelPkcs11 pkcs11, ulong sessionId)
+        public ISession CreateSession(Pkcs11InteropFactories factories, LowLevelPkcs11Library pkcs11, ulong sessionId)
         {
             LowLevelAPI41.Pkcs11 p11 = pkcs11 as LowLevelAPI41.Pkcs11;
             if (p11 == null)
