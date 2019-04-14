@@ -28,7 +28,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
     /// <summary>
     /// Developer uses this factory to create correct IPkcs11 instances possibly extended with vendor specific methods.
     /// </summary>
-    public class Pkcs11Factory : IPkcs11LibraryFactory
+    public class Pkcs11LibraryFactory : IPkcs11LibraryFactory
     {
         /// <summary>
         /// Platform specific factory for creation of IPkcs11 instances
@@ -38,7 +38,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <summary>
         /// Initializes a new instance of the Pkcs11Factory class
         /// </summary>
-        public Pkcs11Factory()
+        public Pkcs11LibraryFactory()
         {
             if (Platform.NativeULongSize == 4)
             {

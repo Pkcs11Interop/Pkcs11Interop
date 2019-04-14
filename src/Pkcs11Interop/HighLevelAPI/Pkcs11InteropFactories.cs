@@ -147,7 +147,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         public Pkcs11InteropFactories()
         {
-            _pkcs11Factory = new Pkcs11Factory();
+            _pkcs11Factory = new Pkcs11LibraryFactory();
             _slotFactory = new SlotFactory();
             _sessionFactory = new SessionFactory();
             _objectAttributeFactory = new ObjectAttributeFactory();
@@ -168,7 +168,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="mechanismParamsFactory">Custom factory for creation of IMechanismParams instances or null for the default factory</param>
         public Pkcs11InteropFactories(IPkcs11LibraryFactory pkcs11Factory, ISlotFactory slotFactory, ISessionFactory sessionFactory, IObjectAttributeFactory objectAttributeFactory, IObjectHandleFactory objectHandleFactory, IMechanismFactory mechanismFactory, IMechanismParamsFactory mechanismParamsFactory)
         {
-            _pkcs11Factory = (pkcs11Factory != null) ? pkcs11Factory : new Pkcs11Factory();
+            _pkcs11Factory = (pkcs11Factory != null) ? pkcs11Factory : new Pkcs11LibraryFactory();
             _slotFactory = (slotFactory != null) ? slotFactory : new SlotFactory();
             _sessionFactory = (sessionFactory != null) ? sessionFactory : new SessionFactory();
             _objectAttributeFactory = (objectAttributeFactory != null) ? objectAttributeFactory : new ObjectAttributeFactory();
