@@ -44,21 +44,21 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
 
             CKR rv = CKR.CKR_OK;
             
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath))
+            using (Pkcs11Library pkcs11Library = new Pkcs11Library(Settings.Pkcs11LibraryPath))
             {
-                rv = pkcs11.C_Initialize(Settings.InitArgs80);
+                rv = pkcs11Library.C_Initialize(Settings.InitArgs80);
                 if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
                     Assert.Fail(rv.ToString());
                 
                 CK_INFO info = new CK_INFO();
-                rv = pkcs11.C_GetInfo(ref info);
+                rv = pkcs11Library.C_GetInfo(ref info);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Do something interesting with library information
                 Assert.IsFalse(String.IsNullOrEmpty(ConvertUtils.BytesToUtf8String(info.ManufacturerId)));
                 
-                rv = pkcs11.C_Finalize(IntPtr.Zero);
+                rv = pkcs11Library.C_Finalize(IntPtr.Zero);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
             }

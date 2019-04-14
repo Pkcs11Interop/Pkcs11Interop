@@ -45,33 +45,33 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
 
             CKR rv = CKR.CKR_OK;
             
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath))
+            using (Pkcs11Library pkcs11Library = new Pkcs11Library(Settings.Pkcs11LibraryPath))
             {
-                rv = pkcs11.C_Initialize(Settings.InitArgs40);
+                rv = pkcs11Library.C_Initialize(Settings.InitArgs40);
                 if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                NativeULong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeULong slotId = Helpers.GetUsableSlot(pkcs11Library);
                 
                 NativeULong session = CK.CK_INVALID_HANDLE;
-                rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
+                rv = pkcs11Library.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, ConvertUtils.UInt32FromInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11Library.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, ConvertUtils.UInt32FromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Let's create two objects so we can find something
                 NativeULong objectId1 = CK.CK_INVALID_HANDLE;
-                rv = Helpers.CreateDataObject(pkcs11, session, ref objectId1);
+                rv = Helpers.CreateDataObject(pkcs11Library, session, ref objectId1);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 NativeULong objectId2 = CK.CK_INVALID_HANDLE;
-                rv = Helpers.CreateDataObject(pkcs11, session, ref objectId2);
+                rv = Helpers.CreateDataObject(pkcs11Library, session, ref objectId2);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -81,7 +81,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                 template[1] = CkaUtils.CreateAttribute(CKA.CKA_TOKEN, true);
 
                 // Initialize searching
-                rv = pkcs11.C_FindObjectsInit(session, template, ConvertUtils.UInt32FromInt32(template.Length));
+                rv = pkcs11Library.C_FindObjectsInit(session, template, ConvertUtils.UInt32FromInt32(template.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -90,12 +90,12 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                 NativeULong[] foundObjectIds = new NativeULong[2];
                 foundObjectIds[0] = CK.CK_INVALID_HANDLE;
                 foundObjectIds[1] = CK.CK_INVALID_HANDLE;
-                rv = pkcs11.C_FindObjects(session, foundObjectIds, ConvertUtils.UInt32FromInt32(foundObjectIds.Length), ref foundObjectCount);
+                rv = pkcs11Library.C_FindObjects(session, foundObjectIds, ConvertUtils.UInt32FromInt32(foundObjectIds.Length), ref foundObjectCount);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 // Terminate searching
-                rv = pkcs11.C_FindObjectsFinal(session);
+                rv = pkcs11Library.C_FindObjectsFinal(session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -109,23 +109,23 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     template[i].valueLen = 0;
                 }
 
-                rv = pkcs11.C_DestroyObject(session, objectId2);
+                rv = pkcs11Library.C_DestroyObject(session, objectId2);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
-                rv = pkcs11.C_DestroyObject(session, objectId1);
+                rv = pkcs11Library.C_DestroyObject(session, objectId1);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
-                rv = pkcs11.C_Logout(session);
+                rv = pkcs11Library.C_Logout(session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                rv = pkcs11.C_CloseSession(session);
+                rv = pkcs11Library.C_CloseSession(session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                rv = pkcs11.C_Finalize(IntPtr.Zero);
+                rv = pkcs11Library.C_Finalize(IntPtr.Zero);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
             }

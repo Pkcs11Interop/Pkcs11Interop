@@ -28,7 +28,7 @@ namespace Net.Pkcs11Interop.Common
     /// <summary>
     /// Base class for low level PKCS#11 wrappers
     /// </summary>
-    public abstract class LowLevelPkcs11
+    public abstract class LowLevelPkcs11Library
     {
 
     }

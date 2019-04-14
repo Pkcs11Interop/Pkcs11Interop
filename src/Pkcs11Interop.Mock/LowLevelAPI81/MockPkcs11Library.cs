@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.Mock.LowLevelAPI81
     /// <summary>
     /// Low level PKCS#11 wrapper extended with vendor specific functions of PKCS11-MOCK module.
     /// </summary>
-    public class MockPkcs11 : Pkcs11
+    public class MockPkcs11Library : Pkcs11Library
     {
         /// <summary>
         /// Delegates for vendor specific unmanaged functions
@@ -42,7 +42,7 @@ namespace Net.Pkcs11Interop.Mock.LowLevelAPI81
         /// Loads PCKS#11 library
         /// </summary>
         /// <param name="libraryPath">Library name or path</param>
-        public MockPkcs11(string libraryPath)
+        public MockPkcs11Library(string libraryPath)
             : base(libraryPath)
         {
             try
@@ -61,7 +61,7 @@ namespace Net.Pkcs11Interop.Mock.LowLevelAPI81
         /// </summary>
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="useGetFunctionList">Flag indicating whether cryptoki function pointers should be acquired via C_GetFunctionList (true) or via platform native function (false)</param>
-        public MockPkcs11(string libraryPath, bool useGetFunctionList)
+        public MockPkcs11Library(string libraryPath, bool useGetFunctionList)
             : base(libraryPath, useGetFunctionList)
         {
             try

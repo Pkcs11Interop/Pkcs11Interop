@@ -30,7 +30,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
     /// <summary>
     /// High level PKCS#11 wrapper
     /// </summary>
-    public interface IPkcs11 : IDisposable
+    public interface IPkcs11Library : IDisposable
     {
         /// <summary>
         /// Factories to be used by Developer and Pkcs11Interop library

@@ -41,10 +41,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_EncryptAndDecryptSinglePartTest()
         {
-            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11Library = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                ISlot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11Library);
                 
                 // Open RW session
                 using (ISession session = slot.OpenSession(SessionType.ReadWrite))
@@ -59,7 +59,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     byte[] iv = session.GenerateRandom(8);
 
                     // Specify encryption mechanism with initialization vector as parameter
-                    IMechanism mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_DES3_CBC, iv);
+                    IMechanism mechanism = Settings.Factories.MechanismFactory.Create(CKM.CKM_DES3_CBC, iv);
 
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Our new password");
 
@@ -86,10 +86,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _02_EncryptAndDecryptMultiPartTest()
         {
-            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11Library = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                ISlot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11Library);
                 
                 // Open RW session
                 using (ISession session = slot.OpenSession(SessionType.ReadWrite))
@@ -104,7 +104,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     byte[] iv = session.GenerateRandom(8);
                     
                     // Specify encryption mechanism with initialization vector as parameter
-                    IMechanism mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_DES3_CBC, iv);
+                    IMechanism mechanism = Settings.Factories.MechanismFactory.Create(CKM.CKM_DES3_CBC, iv);
 
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Our new password");
                     byte[] encryptedData = null;
@@ -149,10 +149,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _03_EncryptAndDecryptSinglePartOaepTest()
         {
-            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11Library = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                ISlot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11Library);
                 
                 // Open RW session
                 using (ISession session = slot.OpenSession(SessionType.ReadWrite))
@@ -174,7 +174,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     );
 
                     // Specify encryption mechanism with parameters
-                    IMechanism mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_RSA_PKCS_OAEP, mechanismParams);
+                    IMechanism mechanism = Settings.Factories.MechanismFactory.Create(CKM.CKM_RSA_PKCS_OAEP, mechanismParams);
                     
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
                     

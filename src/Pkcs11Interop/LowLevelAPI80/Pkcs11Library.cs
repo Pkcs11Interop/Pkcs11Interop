@@ -30,7 +30,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
     /// <summary>
     /// Low level PKCS#11 wrapper
     /// </summary>
-    public class Pkcs11 : LowLevelPkcs11, IDisposable
+    public class Pkcs11Library : LowLevelPkcs11Library, IDisposable
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -51,7 +51,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// Loads PCKS#11 library
         /// </summary>
         /// <param name="libraryPath">Library name or path</param>
-        public Pkcs11(string libraryPath)
+        public Pkcs11Library(string libraryPath)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// </summary>
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="useGetFunctionList">Flag indicating whether cryptoki function pointers should be acquired via C_GetFunctionList (true) or via platform native function (false)</param>
-        public Pkcs11(string libraryPath, bool useGetFunctionList)
+        public Pkcs11Library(string libraryPath, bool useGetFunctionList)
         {
             try
             {
@@ -1328,7 +1328,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
         /// <summary>
         /// Class destructor that disposes object if caller forgot to do so
         /// </summary>
-        ~Pkcs11()
+        ~Pkcs11Library()
         {
             Dispose(false);
         }

@@ -39,9 +39,9 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_BasicGetInfoTest()
         {
-            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11Library = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
-                ILibraryInfo libraryInfo = pkcs11.GetInfo();
+                ILibraryInfo libraryInfo = pkcs11Library.GetInfo();
 
                 // Do something interesting with library information
                 Assert.IsFalse(String.IsNullOrEmpty(libraryInfo.ManufacturerId));

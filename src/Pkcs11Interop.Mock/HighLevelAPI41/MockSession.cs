@@ -44,10 +44,10 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI41
         /// Initializes new instance of Session class
         /// </summary>
         /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
-        /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
+        /// <param name="pkcs11Library">Low level PKCS#11 wrapper</param>
         /// <param name="sessionId">PKCS#11 handle of session</param>
-        internal MockSession(Pkcs11InteropFactories factories, LowLevelAPI41.MockPkcs11 pkcs11, ulong sessionId)
-            : base(factories, pkcs11, sessionId)
+        internal MockSession(Pkcs11InteropFactories factories, LowLevelAPI41.MockPkcs11Library pkcs11Library, ulong sessionId)
+            : base(factories, pkcs11Library, sessionId)
         {
             _logger.Debug("MockSession({0})::ctor", _sessionId);
         }
@@ -63,7 +63,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI41
 
             _logger.Debug("MockSession({0})::InteractiveLogin", _sessionId);
 
-            CKR rv = ((LowLevelAPI41.MockPkcs11)_p11).C_InteractiveLogin(_sessionId);
+            CKR rv = ((LowLevelAPI41.MockPkcs11Library)_pkcs11Library).C_InteractiveLogin(_sessionId);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_InteractiveLogin", rv);
         }

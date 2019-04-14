@@ -46,29 +46,29 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
 
             CKR rv = CKR.CKR_OK;
             
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath))
+            using (Pkcs11Library pkcs11Library = new Pkcs11Library(Settings.Pkcs11LibraryPath))
             {
-                rv = pkcs11.C_Initialize(Settings.InitArgs81);
+                rv = pkcs11Library.C_Initialize(Settings.InitArgs81);
                 if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                NativeULong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeULong slotId = Helpers.GetUsableSlot(pkcs11Library);
                 
                 NativeULong session = CK.CK_INVALID_HANDLE;
-                rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
+                rv = pkcs11Library.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, ConvertUtils.UInt64FromInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11Library.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, ConvertUtils.UInt64FromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Generate asymetric key pair
                 NativeULong pubKeyId = CK.CK_INVALID_HANDLE;
                 NativeULong privKeyId = CK.CK_INVALID_HANDLE;
-                rv = Helpers.GenerateKeyPair(pkcs11, session, ref pubKeyId, ref privKeyId);
+                rv = Helpers.GenerateKeyPair(pkcs11Library, session, ref pubKeyId, ref privKeyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -76,7 +76,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                 CK_MECHANISM mechanism = CkmUtils.CreateMechanism(CKM.CKM_SHA1_RSA_PKCS);
 
                 // Initialize signing operation
-                rv = pkcs11.C_SignInit(session, ref mechanism, privKeyId);
+                rv = pkcs11Library.C_SignInit(session, ref mechanism, privKeyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -84,7 +84,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
 
                 // Get length of signature in first call
                 NativeULong signatureLen = 0;
-                rv = pkcs11.C_Sign(session, sourceData, ConvertUtils.UInt64FromInt32(sourceData.Length), null, ref signatureLen);
+                rv = pkcs11Library.C_Sign(session, sourceData, ConvertUtils.UInt64FromInt32(sourceData.Length), null, ref signatureLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -94,41 +94,41 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                 byte[] signature = new byte[signatureLen];
 
                 // Get signature in second call
-                rv = pkcs11.C_Sign(session, sourceData, ConvertUtils.UInt64FromInt32(sourceData.Length), signature, ref signatureLen);
+                rv = pkcs11Library.C_Sign(session, sourceData, ConvertUtils.UInt64FromInt32(sourceData.Length), signature, ref signatureLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 // Do something interesting with signature
 
                 // Initialize verification operation
-                rv = pkcs11.C_VerifyInit(session, ref mechanism, pubKeyId);
+                rv = pkcs11Library.C_VerifyInit(session, ref mechanism, pubKeyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 // Verify signature
-                rv = pkcs11.C_Verify(session, sourceData, ConvertUtils.UInt64FromInt32(sourceData.Length), signature, ConvertUtils.UInt64FromInt32(signature.Length));
+                rv = pkcs11Library.C_Verify(session, sourceData, ConvertUtils.UInt64FromInt32(sourceData.Length), signature, ConvertUtils.UInt64FromInt32(signature.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 // Do something interesting with verification result
 
-                rv = pkcs11.C_DestroyObject(session, privKeyId);
+                rv = pkcs11Library.C_DestroyObject(session, privKeyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
-                rv = pkcs11.C_DestroyObject(session, pubKeyId);
+                rv = pkcs11Library.C_DestroyObject(session, pubKeyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                rv = pkcs11.C_Logout(session);
+                rv = pkcs11Library.C_Logout(session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                rv = pkcs11.C_CloseSession(session);
+                rv = pkcs11Library.C_CloseSession(session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                rv = pkcs11.C_Finalize(IntPtr.Zero);
+                rv = pkcs11Library.C_Finalize(IntPtr.Zero);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
             }
@@ -144,29 +144,29 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
 
             CKR rv = CKR.CKR_OK;
             
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath))
+            using (Pkcs11Library pkcs11Library = new Pkcs11Library(Settings.Pkcs11LibraryPath))
             {
-                rv = pkcs11.C_Initialize(Settings.InitArgs81);
+                rv = pkcs11Library.C_Initialize(Settings.InitArgs81);
                 if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                NativeULong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeULong slotId = Helpers.GetUsableSlot(pkcs11Library);
                 
                 NativeULong session = CK.CK_INVALID_HANDLE;
-                rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
+                rv = pkcs11Library.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, ConvertUtils.UInt64FromInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11Library.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, ConvertUtils.UInt64FromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Generate asymetric key pair
                 NativeULong pubKeyId = CK.CK_INVALID_HANDLE;
                 NativeULong privKeyId = CK.CK_INVALID_HANDLE;
-                rv = Helpers.GenerateKeyPair(pkcs11, session, ref pubKeyId, ref privKeyId);
+                rv = Helpers.GenerateKeyPair(pkcs11Library, session, ref pubKeyId, ref privKeyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -180,7 +180,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                 using (MemoryStream inputStream = new MemoryStream(sourceData))
                 {
                     // Initialize signing operation
-                    rv = pkcs11.C_SignInit(session, ref mechanism, privKeyId);
+                    rv = pkcs11Library.C_SignInit(session, ref mechanism, privKeyId);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
 
@@ -193,14 +193,14 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                     while ((bytesRead = inputStream.Read(part, 0, part.Length)) > 0)
                     {
                         // Process each individual source data part
-                        rv = pkcs11.C_SignUpdate(session, part, ConvertUtils.UInt64FromInt32(bytesRead));
+                        rv = pkcs11Library.C_SignUpdate(session, part, ConvertUtils.UInt64FromInt32(bytesRead));
                         if (rv != CKR.CKR_OK)
                             Assert.Fail(rv.ToString());
                     }
 
                     // Get the length of signature in first call
                     NativeULong signatureLen = 0;
-                    rv = pkcs11.C_SignFinal(session, null, ref signatureLen);
+                    rv = pkcs11Library.C_SignFinal(session, null, ref signatureLen);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
 
@@ -210,7 +210,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                     signature = new byte[signatureLen];
 
                     // Get signature in second call
-                    rv = pkcs11.C_SignFinal(session, signature, ref signatureLen);
+                    rv = pkcs11Library.C_SignFinal(session, signature, ref signatureLen);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
                 }
@@ -221,7 +221,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                 using (MemoryStream inputStream = new MemoryStream(sourceData))
                 {
                     // Initialize verification operation
-                    rv = pkcs11.C_VerifyInit(session, ref mechanism, pubKeyId);
+                    rv = pkcs11Library.C_VerifyInit(session, ref mechanism, pubKeyId);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
                     
@@ -234,36 +234,36 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                     while ((bytesRead = inputStream.Read(part, 0, part.Length)) > 0)
                     {
                         // Process each individual source data part
-                        rv = pkcs11.C_VerifyUpdate(session, part, ConvertUtils.UInt64FromInt32(bytesRead));
+                        rv = pkcs11Library.C_VerifyUpdate(session, part, ConvertUtils.UInt64FromInt32(bytesRead));
                         if (rv != CKR.CKR_OK)
                             Assert.Fail(rv.ToString());
                     }
 
                     // Verify signature
-                    rv = pkcs11.C_VerifyFinal(session, signature, ConvertUtils.UInt64FromInt32(signature.Length));
+                    rv = pkcs11Library.C_VerifyFinal(session, signature, ConvertUtils.UInt64FromInt32(signature.Length));
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
                 }
 
                 // Do something interesting with verification result
 
-                rv = pkcs11.C_DestroyObject(session, privKeyId);
+                rv = pkcs11Library.C_DestroyObject(session, privKeyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                rv = pkcs11.C_DestroyObject(session, pubKeyId);
+                rv = pkcs11Library.C_DestroyObject(session, pubKeyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                rv = pkcs11.C_Logout(session);
+                rv = pkcs11Library.C_Logout(session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                rv = pkcs11.C_CloseSession(session);
+                rv = pkcs11Library.C_CloseSession(session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                rv = pkcs11.C_Finalize(IntPtr.Zero);
+                rv = pkcs11Library.C_Finalize(IntPtr.Zero);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
             }

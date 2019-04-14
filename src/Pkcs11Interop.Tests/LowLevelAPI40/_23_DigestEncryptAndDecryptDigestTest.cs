@@ -46,34 +46,34 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
 
             CKR rv = CKR.CKR_OK;
             
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath))
+            using (Pkcs11Library pkcs11Library = new Pkcs11Library(Settings.Pkcs11LibraryPath))
             {
-                rv = pkcs11.C_Initialize(Settings.InitArgs40);
+                rv = pkcs11Library.C_Initialize(Settings.InitArgs40);
                 if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                NativeULong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeULong slotId = Helpers.GetUsableSlot(pkcs11Library);
                 
                 NativeULong session = CK.CK_INVALID_HANDLE;
-                rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
+                rv = pkcs11Library.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, ConvertUtils.UInt32FromInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11Library.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, ConvertUtils.UInt32FromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Generate symetric key
                 NativeULong keyId = CK.CK_INVALID_HANDLE;
-                rv = Helpers.GenerateKey(pkcs11, session, ref keyId);
+                rv = Helpers.GenerateKey(pkcs11Library, session, ref keyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Generate random initialization vector
                 byte[] iv = new byte[8];
-                rv = pkcs11.C_GenerateRandom(session, iv, ConvertUtils.UInt32FromInt32(iv.Length));
+                rv = pkcs11Library.C_GenerateRandom(session, iv, ConvertUtils.UInt32FromInt32(iv.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -94,12 +94,12 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                 using (MemoryStream inputStream = new MemoryStream(sourceData), outputStream = new MemoryStream())
                 {
                     // Initialize digesting operation
-                    rv = pkcs11.C_DigestInit(session, ref digestingMechanism);
+                    rv = pkcs11Library.C_DigestInit(session, ref digestingMechanism);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
 
                     // Initialize encryption operation
-                    rv = pkcs11.C_EncryptInit(session, ref encryptionMechanism, keyId);
+                    rv = pkcs11Library.C_EncryptInit(session, ref encryptionMechanism, keyId);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
 
@@ -118,7 +118,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     {
                         // Process each individual source data part
                         encryptedPartLen = ConvertUtils.UInt32FromInt32(encryptedPart.Length);
-                        rv = pkcs11.C_DigestEncryptUpdate(session, part, ConvertUtils.UInt32FromInt32(bytesRead), encryptedPart, ref encryptedPartLen);
+                        rv = pkcs11Library.C_DigestEncryptUpdate(session, part, ConvertUtils.UInt32FromInt32(bytesRead), encryptedPart, ref encryptedPartLen);
                         if (rv != CKR.CKR_OK)
                             Assert.Fail(rv.ToString());
                         
@@ -128,7 +128,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
 
                     // Get length of digest value in first call
                     NativeULong digestLen = 0;
-                    rv = pkcs11.C_DigestFinal(session, null, ref digestLen);
+                    rv = pkcs11Library.C_DigestFinal(session, null, ref digestLen);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
                     
@@ -138,14 +138,14 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     digest1 = new byte[digestLen];
                     
                     // Get digest value in second call
-                    rv = pkcs11.C_DigestFinal(session, digest1, ref digestLen);
+                    rv = pkcs11Library.C_DigestFinal(session, digest1, ref digestLen);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
 
                     // Get the length of last encrypted data part in first call
                     byte[] lastEncryptedPart = null;
                     NativeULong lastEncryptedPartLen = 0;
-                    rv = pkcs11.C_EncryptFinal(session, null, ref lastEncryptedPartLen);
+                    rv = pkcs11Library.C_EncryptFinal(session, null, ref lastEncryptedPartLen);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
                     
@@ -153,7 +153,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     lastEncryptedPart = new byte[lastEncryptedPartLen];
                     
                     // Get the last encrypted data part in second call
-                    rv = pkcs11.C_EncryptFinal(session, lastEncryptedPart, ref lastEncryptedPartLen);
+                    rv = pkcs11Library.C_EncryptFinal(session, lastEncryptedPart, ref lastEncryptedPartLen);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
                     
@@ -170,12 +170,12 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                 using (MemoryStream inputStream = new MemoryStream(encryptedData), outputStream = new MemoryStream())
                 {
                     // Initialize decryption operation
-                    rv = pkcs11.C_DecryptInit(session, ref encryptionMechanism, keyId);
+                    rv = pkcs11Library.C_DecryptInit(session, ref encryptionMechanism, keyId);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
 
                     // Initialize digesting operation
-                    rv = pkcs11.C_DigestInit(session, ref digestingMechanism);
+                    rv = pkcs11Library.C_DigestInit(session, ref digestingMechanism);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
 
@@ -194,7 +194,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     {
                         // Process each individual encrypted data part
                         partLen = ConvertUtils.UInt32FromInt32(part.Length);
-                        rv = pkcs11.C_DecryptDigestUpdate(session, encryptedPart, ConvertUtils.UInt32FromInt32(bytesRead), part, ref partLen);
+                        rv = pkcs11Library.C_DecryptDigestUpdate(session, encryptedPart, ConvertUtils.UInt32FromInt32(bytesRead), part, ref partLen);
                         if (rv != CKR.CKR_OK)
                             Assert.Fail(rv.ToString());
                         
@@ -205,7 +205,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     // Get the length of last decrypted data part in first call
                     byte[] lastPart = null;
                     NativeULong lastPartLen = 0;
-                    rv = pkcs11.C_DecryptFinal(session, null, ref lastPartLen);
+                    rv = pkcs11Library.C_DecryptFinal(session, null, ref lastPartLen);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
                     
@@ -213,7 +213,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     lastPart = new byte[lastPartLen];
                     
                     // Get the last decrypted data part in second call
-                    rv = pkcs11.C_DecryptFinal(session, lastPart, ref lastPartLen);
+                    rv = pkcs11Library.C_DecryptFinal(session, lastPart, ref lastPartLen);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
                     
@@ -225,7 +225,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
 
                     // Get length of digest value in first call
                     NativeULong digestLen = 0;
-                    rv = pkcs11.C_DigestFinal(session, null, ref digestLen);
+                    rv = pkcs11Library.C_DigestFinal(session, null, ref digestLen);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
 
@@ -235,7 +235,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                     digest2 = new byte[digestLen];
                     
                     // Get digest value in second call
-                    rv = pkcs11.C_DigestFinal(session, digest2, ref digestLen);
+                    rv = pkcs11Library.C_DigestFinal(session, digest2, ref digestLen);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
                 }
@@ -248,19 +248,19 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                 UnmanagedMemory.Free(ref encryptionMechanism.Parameter);
                 encryptionMechanism.ParameterLen = 0;
                 
-                rv = pkcs11.C_DestroyObject(session, keyId);
+                rv = pkcs11Library.C_DestroyObject(session, keyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                rv = pkcs11.C_Logout(session);
+                rv = pkcs11Library.C_Logout(session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                rv = pkcs11.C_CloseSession(session);
+                rv = pkcs11Library.C_CloseSession(session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                rv = pkcs11.C_Finalize(IntPtr.Zero);
+                rv = pkcs11Library.C_Finalize(IntPtr.Zero);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
             }

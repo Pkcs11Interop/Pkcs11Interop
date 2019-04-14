@@ -45,15 +45,15 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 
             CKR rv = CKR.CKR_OK;
             
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath))
+            using (Pkcs11Library pkcs11Library = new Pkcs11Library(Settings.Pkcs11LibraryPath))
             {
-                rv = pkcs11.C_Initialize(Settings.InitArgs41);
+                rv = pkcs11Library.C_Initialize(Settings.InitArgs41);
                 if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
                     Assert.Fail(rv.ToString());
                 
                 // Get number of slots in first call
                 NativeULong slotCount = 0;
-                rv = pkcs11.C_GetSlotList(true, null, ref slotCount);
+                rv = pkcs11Library.C_GetSlotList(true, null, ref slotCount);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -63,13 +63,13 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 NativeULong[] slotList = new NativeULong[slotCount];
                 
                 // Get slot IDs in second call
-                rv = pkcs11.C_GetSlotList(true, slotList, ref slotCount);
+                rv = pkcs11Library.C_GetSlotList(true, slotList, ref slotCount);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 // Do something interesting with slots
 
-                rv = pkcs11.C_Finalize(IntPtr.Zero);
+                rv = pkcs11Library.C_Finalize(IntPtr.Zero);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
             }
@@ -85,15 +85,15 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 
             CKR rv = CKR.CKR_OK;
             
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath))
+            using (Pkcs11Library pkcs11Library = new Pkcs11Library(Settings.Pkcs11LibraryPath))
             {
-                rv = pkcs11.C_Initialize(Settings.InitArgs41);
+                rv = pkcs11Library.C_Initialize(Settings.InitArgs41);
                 if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
                     Assert.Fail(rv.ToString());
                 
                 // Get number of slots in first call
                 NativeULong slotCount = 0;
-                rv = pkcs11.C_GetSlotList(true, null, ref slotCount);
+                rv = pkcs11Library.C_GetSlotList(true, null, ref slotCount);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -103,20 +103,20 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 NativeULong[] slotList = new NativeULong[slotCount];
                 
                 // Get slot IDs in second call
-                rv = pkcs11.C_GetSlotList(true, slotList, ref slotCount);
+                rv = pkcs11Library.C_GetSlotList(true, slotList, ref slotCount);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Analyze first slot
                 CK_SLOT_INFO slotInfo = new CK_SLOT_INFO();
-                rv = pkcs11.C_GetSlotInfo(slotList[0], ref slotInfo);
+                rv = pkcs11Library.C_GetSlotInfo(slotList[0], ref slotInfo);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Do something interesting with slot info
                 Assert.IsFalse(String.IsNullOrEmpty(ConvertUtils.BytesToUtf8String(slotInfo.ManufacturerId)));
                 
-                rv = pkcs11.C_Finalize(IntPtr.Zero);
+                rv = pkcs11Library.C_Finalize(IntPtr.Zero);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
             }
@@ -132,19 +132,19 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 
             CKR rv = CKR.CKR_OK;
             
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath))
+            using (Pkcs11Library pkcs11Library = new Pkcs11Library(Settings.Pkcs11LibraryPath))
             {
-                rv = pkcs11.C_Initialize(Settings.InitArgs41);
+                rv = pkcs11Library.C_Initialize(Settings.InitArgs41);
                 if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
                     Assert.Fail(rv.ToString());
 
                 // Wait for a slot event
                 NativeULong slot = 0;
-                rv = pkcs11.C_WaitForSlotEvent(CKF.CKF_DONT_BLOCK, ref slot, IntPtr.Zero);
+                rv = pkcs11Library.C_WaitForSlotEvent(CKF.CKF_DONT_BLOCK, ref slot, IntPtr.Zero);
                 if (rv != CKR.CKR_NO_EVENT)
                     Assert.Fail(rv.ToString());
 
-                rv = pkcs11.C_Finalize(IntPtr.Zero);
+                rv = pkcs11Library.C_Finalize(IntPtr.Zero);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
             }

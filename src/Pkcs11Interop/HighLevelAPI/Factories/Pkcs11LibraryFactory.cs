@@ -20,18 +20,42 @@
  */
 
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.HighLevelAPI;
-using Net.Pkcs11Interop.HighLevelAPI.Factories;
 
-// Note: Code in this file is generated automatically.
+// Note: Code in this file is maintained manually.
 
-namespace Net.Pkcs11Interop.Mock.HighLevelAPI40.Factories
+namespace Net.Pkcs11Interop.HighLevelAPI.Factories
 {
     /// <summary>
-    /// Factory for creation of IPkcs11 instances
+    /// Developer uses this factory to create correct IPkcs11Library instances possibly extended with vendor specific methods.
     /// </summary>
-    public class MockPkcs11Factory : IPkcs11Factory
+    public class Pkcs11LibraryFactory : IPkcs11LibraryFactory
     {
+        /// <summary>
+        /// Platform specific factory for creation of IPkcs11Library instances
+        /// </summary>
+        private IPkcs11LibraryFactory _factory = null;
+
+        /// <summary>
+        /// Initializes a new instance of the Pkcs11LibraryFactory class
+        /// </summary>
+        public Pkcs11LibraryFactory()
+        {
+            if (Platform.NativeULongSize == 4)
+            {
+                if (Platform.StructPackingSize == 0)
+                    _factory = new HighLevelAPI40.Factories.Pkcs11LibraryFactory();
+                else
+                    _factory = new HighLevelAPI41.Factories.Pkcs11LibraryFactory();
+            }
+            else
+            {
+                if (Platform.StructPackingSize == 0)
+                    _factory = new HighLevelAPI80.Factories.Pkcs11LibraryFactory();
+                else
+                    _factory = new HighLevelAPI81.Factories.Pkcs11LibraryFactory();
+            }
+        }
+
         /// <summary>
         /// Loads and initializes PCKS#11 library
         /// </summary>
@@ -39,9 +63,9 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI40.Factories
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
         /// <returns>High level PKCS#11 wrapper</returns>
-        public IPkcs11 CreatePkcs11(Pkcs11InteropFactories factories, string libraryPath, AppType appType)
+        public IPkcs11Library LoadPkcs11Library(Pkcs11InteropFactories factories, string libraryPath, AppType appType)
         {
-            return new MockPkcs11(factories, libraryPath, appType);
+            return _factory.LoadPkcs11Library(factories, libraryPath, appType);
         }
 
         /// <summary>
@@ -52,9 +76,9 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI40.Factories
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
         /// <param name="initType">Source of PKCS#11 function pointers</param>
         /// <returns>High level PKCS#11 wrapper</returns>
-        public IPkcs11 CreatePkcs11(Pkcs11InteropFactories factories, string libraryPath, AppType appType, InitType initType)
+        public IPkcs11Library LoadPkcs11Library(Pkcs11InteropFactories factories, string libraryPath, AppType appType, InitType initType)
         {
-            return new MockPkcs11(factories, libraryPath, appType, initType);
+            return _factory.LoadPkcs11Library(factories, libraryPath, appType, initType);
         }
     }
 }

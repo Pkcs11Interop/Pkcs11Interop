@@ -45,35 +45,35 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
 
             CKR rv = CKR.CKR_OK;
             
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath))
+            using (Pkcs11Library pkcs11Library = new Pkcs11Library(Settings.Pkcs11LibraryPath))
             {
-                rv = pkcs11.C_Initialize(Settings.InitArgs40);
+                rv = pkcs11Library.C_Initialize(Settings.InitArgs40);
                 if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                NativeULong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeULong slotId = Helpers.GetUsableSlot(pkcs11Library);
                 
                 NativeULong session = CK.CK_INVALID_HANDLE;
-                rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
+                rv = pkcs11Library.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, ConvertUtils.UInt32FromInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11Library.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, ConvertUtils.UInt32FromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Generate asymetric key pair
                 NativeULong pubKeyId = CK.CK_INVALID_HANDLE;
                 NativeULong privKeyId = CK.CK_INVALID_HANDLE;
-                rv = Helpers.GenerateKeyPair(pkcs11, session, ref pubKeyId, ref privKeyId);
+                rv = Helpers.GenerateKeyPair(pkcs11Library, session, ref pubKeyId, ref privKeyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Generate symetric key
                 NativeULong keyId = CK.CK_INVALID_HANDLE;
-                rv = Helpers.GenerateKey(pkcs11, session, ref keyId);
+                rv = Helpers.GenerateKey(pkcs11Library, session, ref keyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -82,7 +82,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
 
                 // Get length of wrapped key in first call
                 NativeULong wrappedKeyLen = 0;
-                rv = pkcs11.C_WrapKey(session, ref mechanism, pubKeyId, keyId, null, ref wrappedKeyLen);
+                rv = pkcs11Library.C_WrapKey(session, ref mechanism, pubKeyId, keyId, null, ref wrappedKeyLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -92,7 +92,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                 byte[] wrappedKey = new byte[wrappedKeyLen];
 
                 // Get wrapped key in second call
-                rv = pkcs11.C_WrapKey(session, ref mechanism, pubKeyId, keyId, wrappedKey, ref wrappedKeyLen);
+                rv = pkcs11Library.C_WrapKey(session, ref mechanism, pubKeyId, keyId, wrappedKey, ref wrappedKeyLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -109,33 +109,33 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
 
                 // Unwrap key
                 NativeULong unwrappedKeyId = 0;
-                rv = pkcs11.C_UnwrapKey(session, ref mechanism, privKeyId, wrappedKey, wrappedKeyLen, template, ConvertUtils.UInt32FromInt32(template.Length), ref unwrappedKeyId);
+                rv = pkcs11Library.C_UnwrapKey(session, ref mechanism, privKeyId, wrappedKey, wrappedKeyLen, template, ConvertUtils.UInt32FromInt32(template.Length), ref unwrappedKeyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 // Do something interesting with unwrapped key
 
-                rv = pkcs11.C_DestroyObject(session, privKeyId);
+                rv = pkcs11Library.C_DestroyObject(session, privKeyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                rv = pkcs11.C_DestroyObject(session, pubKeyId);
+                rv = pkcs11Library.C_DestroyObject(session, pubKeyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                rv = pkcs11.C_DestroyObject(session, keyId);
+                rv = pkcs11Library.C_DestroyObject(session, keyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                rv = pkcs11.C_Logout(session);
+                rv = pkcs11Library.C_Logout(session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                rv = pkcs11.C_CloseSession(session);
+                rv = pkcs11Library.C_CloseSession(session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                rv = pkcs11.C_Finalize(IntPtr.Zero);
+                rv = pkcs11Library.C_Finalize(IntPtr.Zero);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
             }

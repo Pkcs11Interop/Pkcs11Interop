@@ -39,10 +39,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_BasicDigestEncryptAndDecryptDigestTest()
         {
-            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11Library = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                ISlot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11Library);
                 
                 // Open RW session
                 using (ISession session = slot.OpenSession(SessionType.ReadWrite))
@@ -57,10 +57,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     byte[] iv = session.GenerateRandom(8);
 
                     // Specify encryption mechanism with initialization vector as parameter
-                    IMechanism encryptionMechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_DES3_CBC, iv);
+                    IMechanism encryptionMechanism = Settings.Factories.MechanismFactory.Create(CKM.CKM_DES3_CBC, iv);
 
                     // Specify digesting mechanism
-                    IMechanism digestingMechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_SHA_1);
+                    IMechanism digestingMechanism = Settings.Factories.MechanismFactory.Create(CKM.CKM_SHA_1);
 
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Our new password");
 

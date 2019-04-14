@@ -29,17 +29,17 @@ using NativeULong = System.UInt64;
 
 // Note: Code in this file is generated automatically.
 
-namespace Net.Pkcs11Interop.Mock.HighLevelAPI80
+namespace Net.Pkcs11Interop.Mock.HighLevelAPI81
 {
     /// <summary>
     /// High level PKCS#11 wrapper extended with vendor specific functions of PKCS11-MOCK module.
     /// </summary>
-    public class MockPkcs11 : Net.Pkcs11Interop.HighLevelAPI80.Pkcs11, IMockPkcs11
+    public class MockPkcs11Library : Net.Pkcs11Interop.HighLevelAPI81.Pkcs11Library, IMockPkcs11Library
     {
         /// <summary>
         /// Logger responsible for message logging
         /// </summary>
-        private static Pkcs11InteropLogger _logger = Pkcs11InteropLoggerFactory.GetLogger(typeof(MockPkcs11));
+        private static Pkcs11InteropLogger _logger = Pkcs11InteropLoggerFactory.GetLogger(typeof(MockPkcs11Library));
 
         /// <summary>
         /// Loads and initializes PCKS#11 library
@@ -47,24 +47,24 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI80
         /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
-        public MockPkcs11(Pkcs11InteropFactories factories, string libraryPath, AppType appType)
+        public MockPkcs11Library(Pkcs11InteropFactories factories, string libraryPath, AppType appType)
             : base(factories, libraryPath)
         {
-            _logger.Debug("MockPkcs11({0})::ctor1", _libraryPath);
+            _logger.Debug("MockPkcs11Library({0})::ctor1", _libraryPath);
 
             try
             {
                 _logger.Info("Loading PKCS#11 library {0}", _libraryPath);
-                _p11 = new LowLevelAPI80.MockPkcs11(libraryPath);
+                _pkcs11Library = new LowLevelAPI81.MockPkcs11Library(libraryPath);
                 Initialize(appType);
             }
             catch
             {
-                if (_p11 != null)
+                if (_pkcs11Library != null)
                 {
                     _logger.Info("Unloading PKCS#11 library {0}", _libraryPath);
-                    _p11.Dispose();
-                    _p11 = null;
+                    _pkcs11Library.Dispose();
+                    _pkcs11Library = null;
                 }
                 throw;
             }
@@ -77,24 +77,24 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI80
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
         /// <param name="initType">Source of PKCS#11 function pointers</param>
-        public MockPkcs11(Pkcs11InteropFactories factories, string libraryPath, AppType appType, InitType initType)
+        public MockPkcs11Library(Pkcs11InteropFactories factories, string libraryPath, AppType appType, InitType initType)
             : base(factories, libraryPath)
         {
-            _logger.Debug("MockPkcs11({0})::ctor2", _libraryPath);
+            _logger.Debug("MockPkcs11Library({0})::ctor2", _libraryPath);
 
             try
             {
                 _logger.Info("Loading PKCS#11 library {0}", _libraryPath);
-                _p11 = new LowLevelAPI80.MockPkcs11(libraryPath, (initType == InitType.WithFunctionList));
+                _pkcs11Library = new LowLevelAPI81.MockPkcs11Library(libraryPath, (initType == InitType.WithFunctionList));
                 Initialize(appType);
             }
             catch
             {
-                if (_p11 != null)
+                if (_pkcs11Library != null)
                 {
                     _logger.Info("Unloading PKCS#11 library {0}", _libraryPath);
-                    _p11.Dispose();
-                    _p11 = null;
+                    _pkcs11Library.Dispose();
+                    _pkcs11Library = null;
                 }
                 throw;
             }
@@ -109,15 +109,15 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            _logger.Debug("MockPkcs11({0})::GetUnmanagedStructSizeList", _libraryPath);
+            _logger.Debug("MockPkcs11Library({0})::GetUnmanagedStructSizeList", _libraryPath);
 
             NativeULong sizeCount = 0;
-            CKR rv = ((LowLevelAPI80.MockPkcs11)_p11).C_GetUnmanagedStructSizeList(null, ref sizeCount);
+            CKR rv = ((LowLevelAPI81.MockPkcs11Library)_pkcs11Library).C_GetUnmanagedStructSizeList(null, ref sizeCount);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetUnmanagedStructSizeList", rv);
 
             NativeULong[] sizeList = new NativeULong[sizeCount];
-            rv = ((LowLevelAPI80.MockPkcs11)_p11).C_GetUnmanagedStructSizeList(sizeList, ref sizeCount);
+            rv = ((LowLevelAPI81.MockPkcs11Library)_pkcs11Library).C_GetUnmanagedStructSizeList(sizeList, ref sizeCount);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetUnmanagedStructSizeList", rv);
 
@@ -137,7 +137,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI80
         /// <param name="disposing">Flag indicating whether managed resources should be disposed</param>
         protected override void Dispose(bool disposing)
         {
-            _logger.Debug("MockPkcs11({0})::Dispose", _libraryPath);
+            _logger.Debug("MockPkcs11Library({0})::Dispose", _libraryPath);
 
             base.Dispose(disposing);
         }

@@ -28,7 +28,7 @@ using NUnit.Framework;
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 {
     /// <summary>
-    /// Pkcs11 constructor, dispose, initialize and finalize tests.
+    /// Pkcs11Library constructor, dispose, initialize and finalize tests.
     /// </summary>
     [TestFixture()]
     public class _01_InitializeTest
@@ -39,15 +39,15 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_BasicPkcs11DisposeTest()
         {
-            // Unmanaged PKCS#11 library is usually loaded by the constructor of class implementing IPkcs11 interface.
+            // Unmanaged PKCS#11 library is usually loaded by the constructor of class implementing IPkcs11Library interface.
             // Every PKCS#11 library needs to be initialized with C_Initialize method which is also called automatically by the constructor mentioned above.
-            IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType);
+            IPkcs11Library pkcs11Library = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType);
 
-            // Do something  interesting
+            // Do something interesting
 
-            // Unmanaged PKCS#11 library is usually unloaded by Dispose() method of class implementing IPkcs11 interface.
+            // Unmanaged PKCS#11 library is usually unloaded by Dispose() method of class implementing IPkcs11Library interface.
             // C_Finalize should be the last call made by an application and it is also called automatically by Dispose() method mentioned above.
-            pkcs11.Dispose();
+            pkcs11Library.Dispose();
         }
         
         /// <summary>
@@ -56,9 +56,9 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _02_UsingPkcs11DisposeTest()
         {
-            // Instance of class implementing IPkcs11 interface can be used in using statement 
+            // Instance of class implementing IPkcs11Library interface can be used in using statement 
             // which defines a scope at the end of which an object will be disposed.
-            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11Library = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Do something interesting
             }
@@ -72,7 +72,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         {
             // If an application will not be accessing PKCS#11 library from multiple threads simultaneously, 
             // it should specify "AppType.SingleThreaded" as a value of "appType" parameter.
-            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, AppType.SingleThreaded))
+            using (IPkcs11Library pkcs11Library = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, AppType.SingleThreaded))
             {
                 // Do something interesting
             }
@@ -87,7 +87,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             // If an application will be accessing PKCS#11 library from multiple threads simultaneously,
             // it should specify "AppType.MultiThreaded" as a value of "appType" parameter.
             // PKCS#11 library will use the native operation system threading model for locking.
-            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, AppType.MultiThreaded))
+            using (IPkcs11Library pkcs11Library = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, AppType.MultiThreaded))
             {
                 // Do something interesting
             }
@@ -103,7 +103,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             // it has to obtain function pointers for all the Cryptoki API routines present in the library.
             // This can be done either via C_GetFunctionList() function or via platform specific native function - GetProcAddress() on Windows and dlsym() on Unix.
             // InitType enum can be used to specify which approach should be used.
-            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType, InitType.WithFunctionList))
+            using (IPkcs11Library pkcs11Library = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType, InitType.WithFunctionList))
             {
                 // Do something interesting
             }
@@ -119,7 +119,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             // it has to obtain function pointers for all the Cryptoki API routines present in the library.
             // This can be done either via C_GetFunctionList() function or via platform specific native function - GetProcAddress() on Windows and dlsym() on Unix.
             // InitType enum can be used to specify which approach should be used.
-            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType, InitType.WithoutFunctionList))
+            using (IPkcs11Library pkcs11Library = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType, InitType.WithoutFunctionList))
             {
                 // Do something interesting
             }

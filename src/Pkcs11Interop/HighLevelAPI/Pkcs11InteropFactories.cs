@@ -31,18 +31,18 @@ namespace Net.Pkcs11Interop.HighLevelAPI
     public class Pkcs11InteropFactories
     {
         /// <summary>
-        /// Factory for creation of IPkcs11 instances
+        /// Factory for creation of IPkcs11Library instances
         /// </summary>
-        protected IPkcs11Factory _pkcs11Factory = null;
+        protected IPkcs11LibraryFactory _pkcs11LibraryFactory = null;
 
         /// <summary>
-        /// Developer uses this factory to create correct IPkcs11 instances possibly extended with vendor specific methods.
+        /// Developer uses this factory to create correct IPkcs11Library instances possibly extended with vendor specific methods.
         /// </summary>
-        public IPkcs11Factory Pkcs11Factory
+        public IPkcs11LibraryFactory Pkcs11LibraryFactory
         {
             get
             {
-                return _pkcs11Factory;
+                return _pkcs11LibraryFactory;
             }
         }
 
@@ -147,7 +147,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         public Pkcs11InteropFactories()
         {
-            _pkcs11Factory = new Pkcs11Factory();
+            _pkcs11LibraryFactory = new Pkcs11LibraryFactory();
             _slotFactory = new SlotFactory();
             _sessionFactory = new SessionFactory();
             _objectAttributeFactory = new ObjectAttributeFactory();
@@ -159,16 +159,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Initializes new instance of Pkcs11Factories class with custom or default factories
         /// </summary>
-        /// <param name="pkcs11Factory">Custom factory for creation of IPkcs11 instances or null for the default factory</param>
+        /// <param name="pkcs11LibraryFactory">Custom factory for creation of IPkcs11Library instances or null for the default factory</param>
         /// <param name="slotFactory">Custom factory for creation of ISlot instances or null for the default factory</param>
         /// <param name="sessionFactory">Custom factory for creation of ISession instances or null for the default factory</param>
         /// <param name="objectAttributeFactory">Custom factory for creation of IObjectAttribute instances or null for the default factory</param>
         /// <param name="objectHandleFactory">Custom factory for creation of IObjectHandle instances or null for the default factory</param>
         /// <param name="mechanismFactory">Custom factory for creation of IMechanism instances or null for the default factory</param>
         /// <param name="mechanismParamsFactory">Custom factory for creation of IMechanismParams instances or null for the default factory</param>
-        public Pkcs11InteropFactories(IPkcs11Factory pkcs11Factory, ISlotFactory slotFactory, ISessionFactory sessionFactory, IObjectAttributeFactory objectAttributeFactory, IObjectHandleFactory objectHandleFactory, IMechanismFactory mechanismFactory, IMechanismParamsFactory mechanismParamsFactory)
+        public Pkcs11InteropFactories(IPkcs11LibraryFactory pkcs11LibraryFactory, ISlotFactory slotFactory, ISessionFactory sessionFactory, IObjectAttributeFactory objectAttributeFactory, IObjectHandleFactory objectHandleFactory, IMechanismFactory mechanismFactory, IMechanismParamsFactory mechanismParamsFactory)
         {
-            _pkcs11Factory = (pkcs11Factory != null) ? pkcs11Factory : new Pkcs11Factory();
+            _pkcs11LibraryFactory = (pkcs11LibraryFactory != null) ? pkcs11LibraryFactory : new Pkcs11LibraryFactory();
             _slotFactory = (slotFactory != null) ? slotFactory : new SlotFactory();
             _sessionFactory = (sessionFactory != null) ? sessionFactory : new SessionFactory();
             _objectAttributeFactory = (objectAttributeFactory != null) ? objectAttributeFactory : new ObjectAttributeFactory();

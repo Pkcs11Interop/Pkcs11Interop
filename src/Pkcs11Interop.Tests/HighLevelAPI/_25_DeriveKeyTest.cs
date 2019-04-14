@@ -40,10 +40,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_BasicDeriveKeyTest()
         {
-            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11Library = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                ISlot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11Library);
                 
                 // Open RW session
                 using (ISession session = slot.OpenSession(SessionType.ReadWrite))
@@ -61,7 +61,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     ICkKeyDerivationStringData mechanismParams = Settings.Factories.MechanismParamsFactory.CreateCkKeyDerivationStringData(data);
 
                     // Specify derivation mechanism with parameters
-                    IMechanism mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_XOR_BASE_AND_DATA, mechanismParams);
+                    IMechanism mechanism = Settings.Factories.MechanismFactory.Create(CKM.CKM_XOR_BASE_AND_DATA, mechanismParams);
                     
                     // Derive key
                     IObjectHandle derivedKey = session.DeriveKey(mechanism, baseKey, null);

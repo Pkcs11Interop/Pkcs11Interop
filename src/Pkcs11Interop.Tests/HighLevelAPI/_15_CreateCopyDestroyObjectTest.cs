@@ -40,10 +40,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_CreateDestroyObjectTest()
         {
-            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11Library = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                ISlot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11Library);
                 
                 // Open RW session
                 using (ISession session = slot.OpenSession(SessionType.ReadWrite))
@@ -53,11 +53,11 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
                     // Prepare attribute template of new data object
                     List<IObjectAttribute> objectAttributes = new List<IObjectAttribute>();
-                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, CKO.CKO_DATA));
-                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_TOKEN, true));
-                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_APPLICATION, Settings.ApplicationName));
-                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_LABEL, Settings.ApplicationName));
-                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.CreateObjectAttribute(CKA.CKA_VALUE, "Data object content"));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.Create(CKA.CKA_CLASS, CKO.CKO_DATA));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.Create(CKA.CKA_TOKEN, true));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.Create(CKA.CKA_APPLICATION, Settings.ApplicationName));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.Create(CKA.CKA_LABEL, Settings.ApplicationName));
+                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.Create(CKA.CKA_VALUE, "Data object content"));
 
                     // Create object
                     IObjectHandle objectHandle = session.CreateObject(objectAttributes);
@@ -78,10 +78,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _02_CopyObjectTest()
         {
-            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11Library = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                ISlot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11Library);
                 
                 // Open RW session
                 using (ISession session = slot.OpenSession(SessionType.ReadWrite))
@@ -110,10 +110,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _03_GetObjectSizeTest()
         {
-            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11Library = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
-                ISlot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11Library);
                 
                 // Open RW session
                 using (ISession session = slot.OpenSession(SessionType.ReadWrite))

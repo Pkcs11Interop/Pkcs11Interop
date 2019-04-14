@@ -46,17 +46,17 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 
             CKR rv = CKR.CKR_OK;
             
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath))
+            using (Pkcs11Library pkcs11Library = new Pkcs11Library(Settings.Pkcs11LibraryPath))
             {
-                rv = pkcs11.C_Initialize(Settings.InitArgs41);
+                rv = pkcs11Library.C_Initialize(Settings.InitArgs41);
                 if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                NativeULong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeULong slotId = Helpers.GetUsableSlot(pkcs11Library);
                 
                 NativeULong session = CK.CK_INVALID_HANDLE;
-                rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
+                rv = pkcs11Library.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -64,7 +64,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 CK_MECHANISM mechanism = CkmUtils.CreateMechanism(CKM.CKM_SHA_1);
 
                 // Initialize digesting operation
-                rv = pkcs11.C_DigestInit(session, ref mechanism);
+                rv = pkcs11Library.C_DigestInit(session, ref mechanism);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -72,7 +72,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 
                 // Get length of digest value in first call
                 NativeULong digestLen = 0;
-                rv = pkcs11.C_Digest(session, sourceData, ConvertUtils.UInt32FromInt32(sourceData.Length), null, ref digestLen);
+                rv = pkcs11Library.C_Digest(session, sourceData, ConvertUtils.UInt32FromInt32(sourceData.Length), null, ref digestLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -82,17 +82,17 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 byte[] digest = new byte[digestLen];
 
                 // Get digest value in second call
-                rv = pkcs11.C_Digest(session, sourceData, ConvertUtils.UInt32FromInt32(sourceData.Length), digest, ref digestLen);
+                rv = pkcs11Library.C_Digest(session, sourceData, ConvertUtils.UInt32FromInt32(sourceData.Length), digest, ref digestLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 // Do something interesting with digest value
                 
-                rv = pkcs11.C_CloseSession(session);
+                rv = pkcs11Library.C_CloseSession(session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                rv = pkcs11.C_Finalize(IntPtr.Zero);
+                rv = pkcs11Library.C_Finalize(IntPtr.Zero);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
             }
@@ -108,17 +108,17 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 
             CKR rv = CKR.CKR_OK;
             
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath))
+            using (Pkcs11Library pkcs11Library = new Pkcs11Library(Settings.Pkcs11LibraryPath))
             {
-                rv = pkcs11.C_Initialize(Settings.InitArgs41);
+                rv = pkcs11Library.C_Initialize(Settings.InitArgs41);
                 if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                NativeULong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeULong slotId = Helpers.GetUsableSlot(pkcs11Library);
                 
                 NativeULong session = CK.CK_INVALID_HANDLE;
-                rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
+                rv = pkcs11Library.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -132,7 +132,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 using (MemoryStream inputStream = new MemoryStream(sourceData))
                 {
                     // Initialize digesting operation
-                    rv = pkcs11.C_DigestInit(session, ref mechanism);
+                    rv = pkcs11Library.C_DigestInit(session, ref mechanism);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
 
@@ -145,14 +145,14 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     while ((bytesRead = inputStream.Read(part, 0, part.Length)) > 0)
                     {
                         // Digest each individual source data part
-                        rv = pkcs11.C_DigestUpdate(session, part, ConvertUtils.UInt32FromInt32(bytesRead));
+                        rv = pkcs11Library.C_DigestUpdate(session, part, ConvertUtils.UInt32FromInt32(bytesRead));
                         if (rv != CKR.CKR_OK)
                             Assert.Fail(rv.ToString());
                     }
 
                     // Get length of digest value in first call
                     NativeULong digestLen = 0;
-                    rv = pkcs11.C_DigestFinal(session, null, ref digestLen);
+                    rv = pkcs11Library.C_DigestFinal(session, null, ref digestLen);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
 
@@ -162,18 +162,18 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     digest = new byte[digestLen];
 
                     // Get digest value in second call
-                    rv = pkcs11.C_DigestFinal(session, digest, ref digestLen);
+                    rv = pkcs11Library.C_DigestFinal(session, digest, ref digestLen);
                     if (rv != CKR.CKR_OK)
                         Assert.Fail(rv.ToString());
                 }
 
                 // Do something interesting with digest value
                 
-                rv = pkcs11.C_CloseSession(session);
+                rv = pkcs11Library.C_CloseSession(session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                rv = pkcs11.C_Finalize(IntPtr.Zero);
+                rv = pkcs11Library.C_Finalize(IntPtr.Zero);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
             }
@@ -189,28 +189,28 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 
             CKR rv = CKR.CKR_OK;
             
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath))
+            using (Pkcs11Library pkcs11Library = new Pkcs11Library(Settings.Pkcs11LibraryPath))
             {
-                rv = pkcs11.C_Initialize(Settings.InitArgs41);
+                rv = pkcs11Library.C_Initialize(Settings.InitArgs41);
                 if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                NativeULong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeULong slotId = Helpers.GetUsableSlot(pkcs11Library);
                 
                 NativeULong session = CK.CK_INVALID_HANDLE;
-                rv = pkcs11.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
+                rv = pkcs11Library.C_OpenSession(slotId, (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Login as normal user
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, ConvertUtils.UInt32FromInt32(Settings.NormalUserPinArray.Length));
+                rv = pkcs11Library.C_Login(session, CKU.CKU_USER, Settings.NormalUserPinArray, ConvertUtils.UInt32FromInt32(Settings.NormalUserPinArray.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Generate symetric key
                 NativeULong keyId = CK.CK_INVALID_HANDLE;
-                rv = Helpers.GenerateKey(pkcs11, session, ref keyId);
+                rv = Helpers.GenerateKey(pkcs11Library, session, ref keyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -218,18 +218,18 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 CK_MECHANISM mechanism = CkmUtils.CreateMechanism(CKM.CKM_SHA_1);
                 
                 // Initialize digesting operation
-                rv = pkcs11.C_DigestInit(session, ref mechanism);
+                rv = pkcs11Library.C_DigestInit(session, ref mechanism);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 // Digest key
-                rv = pkcs11.C_DigestKey(session, keyId);
+                rv = pkcs11Library.C_DigestKey(session, keyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 // Get length of digest value in first call
                 NativeULong digestLen = 0;
-                rv = pkcs11.C_DigestFinal(session, null, ref digestLen);
+                rv = pkcs11Library.C_DigestFinal(session, null, ref digestLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -239,25 +239,25 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 byte[] digest = new byte[digestLen];
                 
                 // Get digest value in second call
-                rv = pkcs11.C_DigestFinal(session, digest, ref digestLen);
+                rv = pkcs11Library.C_DigestFinal(session, digest, ref digestLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 // Do something interesting with digest value
 
-                rv = pkcs11.C_DestroyObject(session, keyId);
+                rv = pkcs11Library.C_DestroyObject(session, keyId);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                rv = pkcs11.C_Logout(session);
+                rv = pkcs11Library.C_Logout(session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                rv = pkcs11.C_CloseSession(session);
+                rv = pkcs11Library.C_CloseSession(session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                rv = pkcs11.C_Finalize(IntPtr.Zero);
+                rv = pkcs11Library.C_Finalize(IntPtr.Zero);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
             }

@@ -23,14 +23,14 @@ using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.HighLevelAPI.Factories;
 
-// Note: Code in this file is generated automatically.
+// Note: Code in this file is maintained manually.
 
-namespace Net.Pkcs11Interop.Mock.HighLevelAPI81.Factories
+namespace Net.Pkcs11Interop.Mock.HighLevelAPI41.Factories
 {
     /// <summary>
-    /// Factory for creation of IPkcs11 instances
+    /// Factory for creation of IPkcs11Library instances
     /// </summary>
-    public class MockPkcs11Factory : IPkcs11Factory
+    public class MockPkcs11LibraryFactory : IPkcs11LibraryFactory
     {
         /// <summary>
         /// Loads and initializes PCKS#11 library
@@ -39,9 +39,9 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI81.Factories
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
         /// <returns>High level PKCS#11 wrapper</returns>
-        public IPkcs11 CreatePkcs11(Pkcs11InteropFactories factories, string libraryPath, AppType appType)
+        public IPkcs11Library LoadPkcs11Library(Pkcs11InteropFactories factories, string libraryPath, AppType appType)
         {
-            return new MockPkcs11(factories, libraryPath, appType);
+            return new MockPkcs11Library(factories, libraryPath, appType);
         }
 
         /// <summary>
@@ -52,9 +52,9 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI81.Factories
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
         /// <param name="initType">Source of PKCS#11 function pointers</param>
         /// <returns>High level PKCS#11 wrapper</returns>
-        public IPkcs11 CreatePkcs11(Pkcs11InteropFactories factories, string libraryPath, AppType appType, InitType initType)
+        public IPkcs11Library LoadPkcs11Library(Pkcs11InteropFactories factories, string libraryPath, AppType appType, InitType initType)
         {
-            return new MockPkcs11(factories, libraryPath, appType, initType);
+            return new MockPkcs11Library(factories, libraryPath, appType, initType);
         }
     }
 }

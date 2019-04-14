@@ -45,24 +45,24 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
 
             CKR rv = CKR.CKR_OK;
             
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath))
+            using (Pkcs11Library pkcs11Library = new Pkcs11Library(Settings.Pkcs11LibraryPath))
             {
-                rv = pkcs11.C_Initialize(Settings.InitArgs81);
+                rv = pkcs11Library.C_Initialize(Settings.InitArgs81);
                 if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                NativeULong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeULong slotId = Helpers.GetUsableSlot(pkcs11Library);
                 
                 CK_TOKEN_INFO tokenInfo = new CK_TOKEN_INFO();
-                rv = pkcs11.C_GetTokenInfo(slotId, ref tokenInfo);
+                rv = pkcs11Library.C_GetTokenInfo(slotId, ref tokenInfo);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Do something interesting with token info
                 Assert.IsFalse(String.IsNullOrEmpty(ConvertUtils.BytesToUtf8String(tokenInfo.ManufacturerId)));
                 
-                rv = pkcs11.C_Finalize(IntPtr.Zero);
+                rv = pkcs11Library.C_Finalize(IntPtr.Zero);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
             }
