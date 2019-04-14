@@ -41,7 +41,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI40.Factories
         /// <param name="slotId">PKCS#11 handle of slot</param>
         public ISlot CreateSlot(Pkcs11InteropFactories factories, LowLevelPkcs11Library pkcs11, ulong slotId)
         {
-            LowLevelAPI40.MockPkcs11 p11 = pkcs11 as LowLevelAPI40.MockPkcs11;
+            LowLevelAPI40.MockPkcs11Library p11 = pkcs11 as LowLevelAPI40.MockPkcs11Library;
             if (p11 == null)
                 throw new ArgumentException("Incorrect type of low level PKCS#11 wrapper");
 

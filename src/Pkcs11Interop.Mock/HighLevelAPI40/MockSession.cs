@@ -46,7 +46,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI40
         /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
         /// <param name="sessionId">PKCS#11 handle of session</param>
-        internal MockSession(Pkcs11InteropFactories factories, LowLevelAPI40.MockPkcs11 pkcs11, ulong sessionId)
+        internal MockSession(Pkcs11InteropFactories factories, LowLevelAPI40.MockPkcs11Library pkcs11, ulong sessionId)
             : base(factories, pkcs11, sessionId)
         {
             _logger.Debug("MockSession({0})::ctor", _sessionId);
@@ -63,7 +63,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI40
 
             _logger.Debug("MockSession({0})::InteractiveLogin", _sessionId);
 
-            CKR rv = ((LowLevelAPI40.MockPkcs11)_p11).C_InteractiveLogin(_sessionId);
+            CKR rv = ((LowLevelAPI40.MockPkcs11Library)_p11).C_InteractiveLogin(_sessionId);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_InteractiveLogin", rv);
         }

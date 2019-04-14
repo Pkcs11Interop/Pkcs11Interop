@@ -21,17 +21,17 @@
 
 using System;
 using Net.Pkcs11Interop.Common;
-using Net.Pkcs11Interop.LowLevelAPI80;
-using NativeULong = System.UInt64;
+using Net.Pkcs11Interop.LowLevelAPI40;
+using NativeULong = System.UInt32;
 
 // Note: Code in this file is generated automatically.
 
-namespace Net.Pkcs11Interop.Mock.LowLevelAPI80
+namespace Net.Pkcs11Interop.Mock.LowLevelAPI40
 {
     /// <summary>
     /// Low level PKCS#11 wrapper extended with vendor specific functions of PKCS11-MOCK module.
     /// </summary>
-    public class MockPkcs11 : Pkcs11Library
+    public class MockPkcs11Library : Pkcs11Library
     {
         /// <summary>
         /// Delegates for vendor specific unmanaged functions
@@ -42,7 +42,7 @@ namespace Net.Pkcs11Interop.Mock.LowLevelAPI80
         /// Loads PCKS#11 library
         /// </summary>
         /// <param name="libraryPath">Library name or path</param>
-        public MockPkcs11(string libraryPath)
+        public MockPkcs11Library(string libraryPath)
             : base(libraryPath)
         {
             try
@@ -61,7 +61,7 @@ namespace Net.Pkcs11Interop.Mock.LowLevelAPI80
         /// </summary>
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="useGetFunctionList">Flag indicating whether cryptoki function pointers should be acquired via C_GetFunctionList (true) or via platform native function (false)</param>
-        public MockPkcs11(string libraryPath, bool useGetFunctionList)
+        public MockPkcs11Library(string libraryPath, bool useGetFunctionList)
             : base(libraryPath, useGetFunctionList)
         {
             try
@@ -90,7 +90,7 @@ namespace Net.Pkcs11Interop.Mock.LowLevelAPI80
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _mockDelegates.C_GetUnmanagedStructSizeList(sizeList, ref count);
-            return ConvertUtils.UInt64ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace Net.Pkcs11Interop.Mock.LowLevelAPI80
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _mockDelegates.C_EjectToken(slotId);
-            return ConvertUtils.UInt64ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace Net.Pkcs11Interop.Mock.LowLevelAPI80
                 throw new ObjectDisposedException(this.GetType().FullName);
 
             NativeULong rv = _mockDelegates.C_InteractiveLogin(session);
-            return ConvertUtils.UInt64ToCKR(rv);
+            return ConvertUtils.UInt32ToCKR(rv);
         }
     }
 }
