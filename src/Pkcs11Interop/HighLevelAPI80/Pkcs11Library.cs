@@ -24,17 +24,17 @@ using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.Logging;
-using Net.Pkcs11Interop.LowLevelAPI41;
-using NativeULong = System.UInt32;
+using Net.Pkcs11Interop.LowLevelAPI80;
+using NativeULong = System.UInt64;
 
-// Note: Code in this file is maintained manually.
+// Note: Code in this file is generated automatically.
 
-namespace Net.Pkcs11Interop.HighLevelAPI41
+namespace Net.Pkcs11Interop.HighLevelAPI80
 {
     /// <summary>
     /// High level PKCS#11 wrapper
     /// </summary>
-    public class Pkcs11 : IPkcs11Library
+    public class Pkcs11Library : IPkcs11Library
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
@@ -44,7 +44,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Logger responsible for message logging
         /// </summary>
-        private static Pkcs11InteropLogger _logger = Pkcs11InteropLoggerFactory.GetLogger(typeof(Pkcs11));
+        private static Pkcs11InteropLogger _logger = Pkcs11InteropLoggerFactory.GetLogger(typeof(Pkcs11Library));
 
         /// <summary>
         /// Factories to be used by Developer and Pkcs11Interop library
@@ -73,14 +73,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Low level PKCS#11 wrapper
         /// </summary>
-        protected LowLevelAPI41.Pkcs11Library _p11 = null;
+        protected LowLevelAPI80.Pkcs11Library _p11 = null;
 
         /// <summary>
         /// Initializes new instance of Pkcs11 class
         /// </summary>
         /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="libraryPath">Library name or path</param>
-        protected Pkcs11(Pkcs11InteropFactories factories, string libraryPath)
+        protected Pkcs11Library(Pkcs11InteropFactories factories, string libraryPath)
         {
             _logger.Debug("Pkcs11({0})::ctor1", libraryPath);
 
@@ -97,7 +97,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
-        public Pkcs11(Pkcs11InteropFactories factories, string libraryPath, AppType appType)
+        public Pkcs11Library(Pkcs11InteropFactories factories, string libraryPath, AppType appType)
             : this(factories, libraryPath)
         {
             _logger.Debug("Pkcs11({0})::ctor2", _libraryPath);
@@ -105,7 +105,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             try
             {
                 _logger.Info("Loading PKCS#11 library {0}", _libraryPath);
-                _p11 = new LowLevelAPI41.Pkcs11Library(_libraryPath);
+                _p11 = new LowLevelAPI80.Pkcs11Library(_libraryPath);
                 Initialize(appType);
             }
             catch
@@ -128,7 +128,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
         /// <param name="initType">Source of PKCS#11 function pointers</param>
-        public Pkcs11(Pkcs11InteropFactories factories, string libraryPath, AppType appType, InitType initType)
+        public Pkcs11Library(Pkcs11InteropFactories factories, string libraryPath, AppType appType, InitType initType)
             : this(factories, libraryPath)
         {
             _logger.Debug("Pkcs11({0})::ctor3", _libraryPath);
@@ -136,7 +136,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             try
             {
                 _logger.Info("Loading PKCS#11 library {0}", _libraryPath);
-                _p11 = new LowLevelAPI41.Pkcs11Library(_libraryPath, (initType == InitType.WithFunctionList));
+                _p11 = new LowLevelAPI80.Pkcs11Library(_libraryPath, (initType == InitType.WithFunctionList));
                 Initialize(appType);
             }
             catch
@@ -219,8 +219,8 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
                 if (rv != CKR.CKR_OK)
                     throw new Pkcs11Exception("C_GetSlotList", rv);
 
-                if (slotList.Length != ConvertUtils.UInt32ToInt32(slotCount))
-                    Array.Resize(ref slotList, ConvertUtils.UInt32ToInt32(slotCount));
+                if (slotList.Length != ConvertUtils.UInt64ToInt32(slotCount))
+                    Array.Resize(ref slotList, ConvertUtils.UInt64ToInt32(slotCount));
 
                 List<ISlot> list = new List<ISlot>();
                 foreach (NativeULong slot in slotList)
@@ -252,12 +252,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
                 if (rv == CKR.CKR_OK)
                 {
                     eventOccured = true;
-                    slotId = ConvertUtils.UInt32ToUInt64(slotId_);
+                    slotId = ConvertUtils.UInt64ToUInt64(slotId_);
                 }
                 else if (rv == CKR.CKR_NO_EVENT)
                 {
                     eventOccured = false;
-                    slotId = ConvertUtils.UInt32ToUInt64(slotId_);
+                    slotId = ConvertUtils.UInt64ToUInt64(slotId_);
                 }
                 else
                 {
@@ -269,7 +269,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
                 if (rv == CKR.CKR_OK)
                 {
                     eventOccured = true;
-                    slotId = ConvertUtils.UInt32ToUInt64(slotId_);
+                    slotId = ConvertUtils.UInt64ToUInt64(slotId_);
                 }
                 else
                 {
@@ -322,7 +322,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Class destructor that disposes object if caller forgot to do so
         /// </summary>
-        ~Pkcs11()
+        ~Pkcs11Library()
         {
             Dispose(false);
         }
