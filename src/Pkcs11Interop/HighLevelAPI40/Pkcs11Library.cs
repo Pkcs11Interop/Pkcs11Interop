@@ -82,7 +82,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <param name="libraryPath">Library name or path</param>
         protected Pkcs11Library(Pkcs11InteropFactories factories, string libraryPath)
         {
-            _logger.Debug("Pkcs11({0})::ctor1", libraryPath);
+            _logger.Debug("Pkcs11Library({0})::ctor1", libraryPath);
 
             if (factories == null)
                 throw new ArgumentNullException("factories");
@@ -100,7 +100,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         public Pkcs11Library(Pkcs11InteropFactories factories, string libraryPath, AppType appType)
             : this(factories, libraryPath)
         {
-            _logger.Debug("Pkcs11({0})::ctor2", _libraryPath);
+            _logger.Debug("Pkcs11Library({0})::ctor2", _libraryPath);
 
             try
             {
@@ -131,7 +131,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         public Pkcs11Library(Pkcs11InteropFactories factories, string libraryPath, AppType appType, InitType initType)
             : this(factories, libraryPath)
         {
-            _logger.Debug("Pkcs11({0})::ctor3", _libraryPath);
+            _logger.Debug("Pkcs11Library({0})::ctor3", _libraryPath);
 
             try
             {
@@ -158,7 +158,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
         protected void Initialize(AppType appType)
         {
-            _logger.Debug("Pkcs11({0})::Initialize", _libraryPath);
+            _logger.Debug("Pkcs11Library({0})::Initialize", _libraryPath);
 
             CK_C_INITIALIZE_ARGS initArgs = null;
             if (appType == AppType.MultiThreaded)
@@ -181,7 +181,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            _logger.Debug("Pkcs11({0})::GetInfo", _libraryPath);
+            _logger.Debug("Pkcs11Library({0})::GetInfo", _libraryPath);
 
             CK_INFO info = new CK_INFO();
             CKR rv = _p11.C_GetInfo(ref info);
@@ -201,7 +201,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            _logger.Debug("Pkcs11({0})::GetSlotList", _libraryPath);
+            _logger.Debug("Pkcs11Library({0})::GetSlotList", _libraryPath);
 
             NativeULong slotCount = 0;
             CKR rv = _p11.C_GetSlotList((slotsType == SlotsType.WithTokenPresent), null, ref slotCount);
@@ -241,7 +241,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            _logger.Debug("Pkcs11({0})::WaitForSlotEvent", _libraryPath);
+            _logger.Debug("Pkcs11Library({0})::WaitForSlotEvent", _libraryPath);
 
             NativeULong flags = (waitType == WaitType.NonBlocking) ? CKF.CKF_DONT_BLOCK : 0;
 
@@ -285,7 +285,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// </summary>
         public void Dispose()
         {
-            _logger.Debug("Pkcs11({0})::Dispose1", _libraryPath);
+            _logger.Debug("Pkcs11Library({0})::Dispose1", _libraryPath);
 
             Dispose(true);
             GC.SuppressFinalize(this);
@@ -297,7 +297,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <param name="disposing">Flag indicating whether managed resources should be disposed</param>
         protected virtual void Dispose(bool disposing)
         {
-            _logger.Debug("Pkcs11({0})::Dispose2", _libraryPath);
+            _logger.Debug("Pkcs11Library({0})::Dispose2", _libraryPath);
 
             if (!this._disposed)
             {

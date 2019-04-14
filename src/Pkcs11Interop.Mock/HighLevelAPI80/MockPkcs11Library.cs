@@ -50,7 +50,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI80
         public MockPkcs11Library(Pkcs11InteropFactories factories, string libraryPath, AppType appType)
             : base(factories, libraryPath)
         {
-            _logger.Debug("MockPkcs11({0})::ctor1", _libraryPath);
+            _logger.Debug("MockPkcs11Library({0})::ctor1", _libraryPath);
 
             try
             {
@@ -80,7 +80,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI80
         public MockPkcs11Library(Pkcs11InteropFactories factories, string libraryPath, AppType appType, InitType initType)
             : base(factories, libraryPath)
         {
-            _logger.Debug("MockPkcs11({0})::ctor2", _libraryPath);
+            _logger.Debug("MockPkcs11Library({0})::ctor2", _libraryPath);
 
             try
             {
@@ -109,7 +109,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI80
             if (this._disposed)
                 throw new ObjectDisposedException(this.GetType().FullName);
 
-            _logger.Debug("MockPkcs11({0})::GetUnmanagedStructSizeList", _libraryPath);
+            _logger.Debug("MockPkcs11Library({0})::GetUnmanagedStructSizeList", _libraryPath);
 
             NativeULong sizeCount = 0;
             CKR rv = ((LowLevelAPI80.MockPkcs11Library)_p11).C_GetUnmanagedStructSizeList(null, ref sizeCount);
@@ -137,7 +137,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI80
         /// <param name="disposing">Flag indicating whether managed resources should be disposed</param>
         protected override void Dispose(bool disposing)
         {
-            _logger.Debug("MockPkcs11({0})::Dispose", _libraryPath);
+            _logger.Debug("MockPkcs11Library({0})::Dispose", _libraryPath);
 
             base.Dispose(disposing);
         }
