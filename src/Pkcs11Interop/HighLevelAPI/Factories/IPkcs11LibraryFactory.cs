@@ -28,7 +28,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
     /// <summary>
     /// Factory for creation of IPkcs11 instances
     /// </summary>
-    public interface IPkcs11Factory
+    public interface IPkcs11LibraryFactory
     {
         /// <summary>
         /// Loads and initializes PCKS#11 library
