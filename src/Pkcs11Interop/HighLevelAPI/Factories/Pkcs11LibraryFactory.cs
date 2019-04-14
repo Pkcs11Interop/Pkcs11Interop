@@ -43,16 +43,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
             if (Platform.NativeULongSize == 4)
             {
                 if (Platform.StructPackingSize == 0)
-                    _factory = new HighLevelAPI40.Factories.Pkcs11Factory();
+                    _factory = new HighLevelAPI40.Factories.Pkcs11LibraryFactory();
                 else
-                    _factory = new HighLevelAPI41.Factories.Pkcs11Factory();
+                    _factory = new HighLevelAPI41.Factories.Pkcs11LibraryFactory();
             }
             else
             {
                 if (Platform.StructPackingSize == 0)
-                    _factory = new HighLevelAPI80.Factories.Pkcs11Factory();
+                    _factory = new HighLevelAPI80.Factories.Pkcs11LibraryFactory();
                 else
-                    _factory = new HighLevelAPI81.Factories.Pkcs11Factory();
+                    _factory = new HighLevelAPI81.Factories.Pkcs11LibraryFactory();
             }
         }
 

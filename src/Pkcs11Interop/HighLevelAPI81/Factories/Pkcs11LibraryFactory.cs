@@ -25,12 +25,12 @@ using Net.Pkcs11Interop.HighLevelAPI.Factories;
 
 // Note: Code in this file is generated automatically.
 
-namespace Net.Pkcs11Interop.HighLevelAPI80.Factories
+namespace Net.Pkcs11Interop.HighLevelAPI81.Factories
 {
     /// <summary>
     /// Factory for creation of IPkcs11 instances
     /// </summary>
-    public class Pkcs11Factory : IPkcs11LibraryFactory
+    public class Pkcs11LibraryFactory : IPkcs11LibraryFactory
     {
         /// <summary>
         /// Loads and initializes PCKS#11 library
