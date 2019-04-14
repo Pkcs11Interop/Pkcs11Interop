@@ -39,7 +39,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         /// </summary>
         /// <param name='pkcs11'>Initialized PKCS11 wrapper</param>
         /// <returns>Slot containing the token that matches criteria</returns>
-        public static ISlot GetUsableSlot(IPkcs11 pkcs11)
+        public static ISlot GetUsableSlot(IPkcs11Library pkcs11)
         {
             // Get list of available slots with token present
             List<ISlot> slots = pkcs11.GetSlotList(SlotsType.WithTokenPresent);

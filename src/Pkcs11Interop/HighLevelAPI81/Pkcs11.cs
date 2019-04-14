@@ -34,7 +34,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
     /// <summary>
     /// High level PKCS#11 wrapper
     /// </summary>
-    public class Pkcs11 : IPkcs11
+    public class Pkcs11 : IPkcs11Library
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed

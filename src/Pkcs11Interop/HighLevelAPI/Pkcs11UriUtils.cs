@@ -154,7 +154,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <param name="pkcs11">High level PKCS#11 wrapper</param>
         /// <param name="slotsType">Type of slots to be obtained</param>
         /// <returns>List of slots matching PKCS#11 URI</returns>
-        public static List<ISlot> GetMatchingSlotList(Pkcs11Uri pkcs11Uri, IPkcs11 pkcs11, SlotsType slotsType)
+        public static List<ISlot> GetMatchingSlotList(Pkcs11Uri pkcs11Uri, IPkcs11Library pkcs11, SlotsType slotsType)
         {
             if (pkcs11Uri == null)
                 throw new ArgumentNullException("pkcs11Uri");

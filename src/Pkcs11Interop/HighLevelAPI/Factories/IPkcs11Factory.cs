@@ -37,7 +37,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
         /// <returns>High level PKCS#11 wrapper</returns>
-        IPkcs11 CreatePkcs11(Pkcs11InteropFactories factories, string libraryPath, AppType appType);
+        IPkcs11Library CreatePkcs11(Pkcs11InteropFactories factories, string libraryPath, AppType appType);
 
         /// <summary>
         /// Loads and initializes PCKS#11 library
@@ -47,6 +47,6 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
         /// <param name="initType">Source of PKCS#11 function pointers</param>
         /// <returns>High level PKCS#11 wrapper</returns>
-        IPkcs11 CreatePkcs11(Pkcs11InteropFactories factories, string libraryPath, AppType appType, InitType initType);
+        IPkcs11Library CreatePkcs11(Pkcs11InteropFactories factories, string libraryPath, AppType appType, InitType initType);
     }
 }

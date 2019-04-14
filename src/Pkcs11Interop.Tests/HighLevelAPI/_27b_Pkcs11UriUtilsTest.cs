@@ -41,7 +41,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _02_LibraryInfoMatches()
         {
-            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 ILibraryInfo libraryInfo = pkcs11.GetInfo();
 
@@ -93,7 +93,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _03_SlotInfoMatches()
         {
-            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 List<ISlot> slots = pkcs11.GetSlotList(SlotsType.WithTokenPresent);
                 Assert.IsTrue(slots != null && slots.Count > 0);
@@ -147,7 +147,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _04_TokenInfoMatches()
         {
-            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 List<ISlot> slots = pkcs11.GetSlotList(SlotsType.WithTokenPresent);
                 Assert.IsTrue(slots != null && slots.Count > 0);
@@ -322,7 +322,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _06_GetMatchingSlotList()
         {
-            using (IPkcs11 pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Get all slots
                 List<ISlot> allSlots = pkcs11.GetSlotList(SlotsType.WithTokenPresent);
