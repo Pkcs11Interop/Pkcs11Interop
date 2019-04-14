@@ -39,13 +39,13 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_BasicPkcs11DisposeTest()
         {
-            // Unmanaged PKCS#11 library is usually loaded by the constructor of class implementing IPkcs11 interface.
+            // Unmanaged PKCS#11 library is usually loaded by the constructor of class implementing IPkcs11Library interface.
             // Every PKCS#11 library needs to be initialized with C_Initialize method which is also called automatically by the constructor mentioned above.
             IPkcs11Library pkcs11 = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType);
 
-            // Do something  interesting
+            // Do something interesting
 
-            // Unmanaged PKCS#11 library is usually unloaded by Dispose() method of class implementing IPkcs11 interface.
+            // Unmanaged PKCS#11 library is usually unloaded by Dispose() method of class implementing IPkcs11Library interface.
             // C_Finalize should be the last call made by an application and it is also called automatically by Dispose() method mentioned above.
             pkcs11.Dispose();
         }
@@ -56,7 +56,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _02_UsingPkcs11DisposeTest()
         {
-            // Instance of class implementing IPkcs11 interface can be used in using statement 
+            // Instance of class implementing IPkcs11Library interface can be used in using statement 
             // which defines a scope at the end of which an object will be disposed.
             using (IPkcs11Library pkcs11 = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
