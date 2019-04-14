@@ -105,15 +105,6 @@ namespace Net.Pkcs11Interop.Common
         internal static extern IntPtr dlopen(string filename, int flag);
 
         /// <summary>
-        /// Checks if the library (mach-o file) is compatible with the current process
-        /// </summary>
-        /// <param name="path">Library path.</param>
-        /// <returns>True if library is compatible.  If library is not compatible, it returns false and sets an error string that can be examined with dlerror.</returns>
-        [DllImport("libdl", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        internal static extern bool dlopen_preflight(string path);
-
-        /// <summary>
         /// Decrements the reference count on the dynamic library handle. If the reference count drops to zero and no other loaded libraries use symbols in it, then the dynamic library is unloaded.
         /// </summary>
         /// <param name='handle'>Handle for the dynamic library.</param>
