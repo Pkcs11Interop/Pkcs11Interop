@@ -82,20 +82,20 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// Initializes new instance of Slot class
         /// </summary>
         /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
-        /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
+        /// <param name="pkcs11Library">Low level PKCS#11 wrapper</param>
         /// <param name="slotId">PKCS#11 handle of slot</param>
-        protected internal Slot(Pkcs11InteropFactories factories, LowLevelAPI40.Pkcs11Library pkcs11, ulong slotId)
+        protected internal Slot(Pkcs11InteropFactories factories, LowLevelAPI40.Pkcs11Library pkcs11Library, ulong slotId)
         {
             _logger.Debug("Slot({0})::ctor", slotId);
 
             if (factories == null)
                 throw new ArgumentNullException("factories");
 
-            if (pkcs11 == null)
-                throw new ArgumentNullException("pkcs11");
+            if (pkcs11Library == null)
+                throw new ArgumentNullException("pkcs11Library");
 
             _factories = factories;
-            _p11 = pkcs11;
+            _p11 = pkcs11Library;
             _slotId = ConvertUtils.UInt32FromUInt64(slotId);
          }
 

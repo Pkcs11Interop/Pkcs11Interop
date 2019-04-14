@@ -156,23 +156,23 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
         /// Obtains a list of all slots where token that matches PKCS#11 URI is present
         /// </summary>
         /// <param name="pkcs11Uri">PKCS#11 URI</param>
-        /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
+        /// <param name="pkcs11Library">Low level PKCS#11 wrapper</param>
         /// <param name="tokenPresent">Flag indicating whether the list obtained includes only those slots with a token present (true), or all slots (false)</param>
         /// <param name="slotList">List of slots matching PKCS#11 URI</param>
         /// <returns>CKR_OK if successful; any other value otherwise</returns>
-        public static CKR GetMatchingSlotList(Pkcs11Uri pkcs11Uri, Pkcs11Library pkcs11, bool tokenPresent, out NativeULong[] slotList)
+        public static CKR GetMatchingSlotList(Pkcs11Uri pkcs11Uri, Pkcs11Library pkcs11Library, bool tokenPresent, out NativeULong[] slotList)
         {
             if (pkcs11Uri == null)
                 throw new ArgumentNullException("pkcs11Uri");
 
-            if (pkcs11 == null)
-                throw new ArgumentNullException("pkcs11");
+            if (pkcs11Library == null)
+                throw new ArgumentNullException("pkcs11Library");
 
             List<NativeULong> matchingSlots = new List<NativeULong>();
 
             // Get library information
             CK_INFO libraryInfo = new CK_INFO();
-            CKR rv = pkcs11.C_GetInfo(ref libraryInfo);
+            CKR rv = pkcs11Library.C_GetInfo(ref libraryInfo);
             if (rv != CKR.CKR_OK)
             {
                 slotList = new NativeULong[0];
@@ -188,7 +188,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
 
             // Get number of slots in first call
             NativeULong slotCount = 0;
-            rv = pkcs11.C_GetSlotList(false, null, ref slotCount);
+            rv = pkcs11Library.C_GetSlotList(false, null, ref slotCount);
             if (rv != CKR.CKR_OK)
             {
                 slotList = new NativeULong[0];
@@ -205,7 +205,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
             NativeULong[] slots = new NativeULong[slotCount];
 
             // Get slot IDs in second call
-            rv = pkcs11.C_GetSlotList(tokenPresent, slots, ref slotCount);
+            rv = pkcs11Library.C_GetSlotList(tokenPresent, slots, ref slotCount);
             if (rv != CKR.CKR_OK)
             {
                 slotList = new NativeULong[0];
@@ -220,7 +220,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
             foreach (NativeULong slot in slots)
             {
                 CK_SLOT_INFO slotInfo = new CK_SLOT_INFO();
-                rv = pkcs11.C_GetSlotInfo(slot, ref slotInfo);
+                rv = pkcs11Library.C_GetSlotInfo(slot, ref slotInfo);
                 if (rv != CKR.CKR_OK)
                 {
                     slotList = new NativeULong[0];
@@ -233,7 +233,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI81
                     if ((slotInfo.Flags & CKF.CKF_TOKEN_PRESENT) == CKF.CKF_TOKEN_PRESENT)
                     {
                         CK_TOKEN_INFO tokenInfo = new CK_TOKEN_INFO();
-                        rv = pkcs11.C_GetTokenInfo(slot, ref tokenInfo);
+                        rv = pkcs11Library.C_GetTokenInfo(slot, ref tokenInfo);
                         if (rv != CKR.CKR_OK)
                         {
                             slotList = new NativeULong[0];

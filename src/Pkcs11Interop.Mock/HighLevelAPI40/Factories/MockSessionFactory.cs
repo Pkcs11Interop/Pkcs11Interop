@@ -37,11 +37,11 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI40.Factories
         /// Initializes session with specified handle
         /// </summary>
         /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
-        /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
+        /// <param name="pkcs11Library">Low level PKCS#11 wrapper</param>
         /// <param name="sessionId">PKCS#11 handle of session</param>
-        public ISession Create(Pkcs11InteropFactories factories, LowLevelPkcs11Library pkcs11, ulong sessionId)
+        public ISession Create(Pkcs11InteropFactories factories, LowLevelPkcs11Library pkcs11Library, ulong sessionId)
         {
-            LowLevelAPI40.MockPkcs11Library p11 = pkcs11 as LowLevelAPI40.MockPkcs11Library;
+            LowLevelAPI40.MockPkcs11Library p11 = pkcs11Library as LowLevelAPI40.MockPkcs11Library;
             if (p11 == null)
                 throw new ArgumentException("Incorrect type of low level PKCS#11 wrapper");
 

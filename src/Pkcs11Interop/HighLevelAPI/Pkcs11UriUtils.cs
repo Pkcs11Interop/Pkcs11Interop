@@ -151,24 +151,24 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// Obtains a list of all PKCS#11 URI matching slots
         /// </summary>
         /// <param name="pkcs11Uri">PKCS#11 URI</param>
-        /// <param name="pkcs11">High level PKCS#11 wrapper</param>
+        /// <param name="pkcs11Library">High level PKCS#11 wrapper</param>
         /// <param name="slotsType">Type of slots to be obtained</param>
         /// <returns>List of slots matching PKCS#11 URI</returns>
-        public static List<ISlot> GetMatchingSlotList(Pkcs11Uri pkcs11Uri, IPkcs11Library pkcs11, SlotsType slotsType)
+        public static List<ISlot> GetMatchingSlotList(Pkcs11Uri pkcs11Uri, IPkcs11Library pkcs11Library, SlotsType slotsType)
         {
             if (pkcs11Uri == null)
                 throw new ArgumentNullException("pkcs11Uri");
 
-            if (pkcs11 == null)
-                throw new ArgumentNullException("pkcs11");
+            if (pkcs11Library == null)
+                throw new ArgumentNullException("pkcs11Library");
 
             List<ISlot> matchingSlots = new List<ISlot>();
 
-            ILibraryInfo libraryInfo = pkcs11.GetInfo();
+            ILibraryInfo libraryInfo = pkcs11Library.GetInfo();
             if (!Matches(pkcs11Uri, libraryInfo))
                 return matchingSlots;
 
-            List<ISlot> slots = pkcs11.GetSlotList(SlotsType.WithOrWithoutTokenPresent);
+            List<ISlot> slots = pkcs11Library.GetSlotList(SlotsType.WithOrWithoutTokenPresent);
             if ((slots == null) || (slots.Count == 0))
                 return matchingSlots;
 

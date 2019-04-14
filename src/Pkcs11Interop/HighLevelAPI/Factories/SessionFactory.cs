@@ -60,11 +60,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// Initializes session with specified handle
         /// </summary>
         /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
-        /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
+        /// <param name="pkcs11Library">Low level PKCS#11 wrapper</param>
         /// <param name="sessionId">PKCS#11 handle of session</param>
-        public ISession Create(Pkcs11InteropFactories factories, LowLevelPkcs11Library pkcs11, ulong sessionId)
+        public ISession Create(Pkcs11InteropFactories factories, LowLevelPkcs11Library pkcs11Library, ulong sessionId)
         {
-            return _factory.Create(factories, pkcs11, sessionId);
+            return _factory.Create(factories, pkcs11Library, sessionId);
         }
     }
 }

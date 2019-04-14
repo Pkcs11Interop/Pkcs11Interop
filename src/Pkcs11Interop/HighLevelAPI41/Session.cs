@@ -123,23 +123,23 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// Initializes new instance of Session class
         /// </summary>
         /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
-        /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
+        /// <param name="pkcs11Library">Low level PKCS#11 wrapper</param>
         /// <param name="sessionId">PKCS#11 handle of session</param>
-        protected internal Session(Pkcs11InteropFactories factories, LowLevelAPI41.Pkcs11Library pkcs11, ulong sessionId)
+        protected internal Session(Pkcs11InteropFactories factories, LowLevelAPI41.Pkcs11Library pkcs11Library, ulong sessionId)
         {
             _logger.Debug("Session({0})::ctor", sessionId);
 
             if (factories == null)
                 throw new ArgumentNullException("factories");
 
-            if (pkcs11 == null)
-                throw new ArgumentNullException("pkcs11");
+            if (pkcs11Library == null)
+                throw new ArgumentNullException("pkcs11Library");
 
             if (sessionId == CK.CK_INVALID_HANDLE)
                 throw new ArgumentException("Invalid handle specified", "sessionId");
 
             _factories = factories;
-            _p11 = pkcs11;
+            _p11 = pkcs11Library;
             _sessionId = ConvertUtils.UInt32FromUInt64(sessionId);
         }
 
