@@ -28,7 +28,7 @@ using NUnit.Framework;
 namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 {
     /// <summary>
-    /// Pkcs11 constructor, dispose, initialize and finalize tests.
+    /// Pkcs11Library constructor, dispose, initialize and finalize tests.
     /// </summary>
     [TestFixture()]
     public class _01_InitializeTest

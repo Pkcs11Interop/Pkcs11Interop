@@ -76,7 +76,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         protected LowLevelAPI80.Pkcs11Library _p11 = null;
 
         /// <summary>
-        /// Initializes new instance of Pkcs11 class
+        /// Initializes new instance of Pkcs11Library class
         /// </summary>
         /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="libraryPath">Library name or path</param>
