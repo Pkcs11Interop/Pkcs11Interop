@@ -64,9 +64,9 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI.Factories
         /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
         /// <param name="slotId">PKCS#11 handle of slot</param>
-        public ISlot CreateSlot(Pkcs11InteropFactories factories, LowLevelPkcs11Library pkcs11, ulong slotId)
+        public ISlot Create(Pkcs11InteropFactories factories, LowLevelPkcs11Library pkcs11, ulong slotId)
         {
-            return _factory.CreateSlot(factories, pkcs11, slotId);
+            return _factory.Create(factories, pkcs11, slotId);
         }
     }
 }

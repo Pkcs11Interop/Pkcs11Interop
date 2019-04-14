@@ -100,7 +100,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 throw new Exception("PKCS#11 URI does not specify private key");
 
             // Load and initialize PKCS#11 library specified by URI
-            using (IPkcs11Library pkcs11 = Settings.Factories.Pkcs11LibraryFactory.CreatePkcs11Library(Settings.Factories, pkcs11Uri.ModulePath, AppType.MultiThreaded))
+            using (IPkcs11Library pkcs11 = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, pkcs11Uri.ModulePath, AppType.MultiThreaded))
             {
                 // Obtain a list of all slots with tokens that match URI
                 List<ISlot> slots = Pkcs11UriUtils.GetMatchingSlotList(pkcs11Uri, pkcs11, SlotsType.WithTokenPresent);
@@ -122,7 +122,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                         throw new Exception("None of the private keys match PKCS#11 URI");
 
                     // Create signature with the private key specified by URI
-                    return session.Sign(Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_SHA1_RSA_PKCS), foundObjects[0], data);
+                    return session.Sign(Settings.Factories.MechanismFactory.Create(CKM.CKM_SHA1_RSA_PKCS), foundObjects[0], data);
                 }
             }
         }

@@ -256,7 +256,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if (_logger.IsEnabled(Pkcs11InteropLogLevel.Info))
                 _logger.Info("Opened {0} session {1} with token in slot {2}", Pkcs11InteropLogUtils.ToString(sessionType), sessionId, _slotId);
 
-            return _factories.SessionFactory.CreateSession(_factories, _p11, sessionId);
+            return _factories.SessionFactory.Create(_factories, _p11, sessionId);
         }
 
         /// <summary>

@@ -34,13 +34,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// Creates object identifier with CK_INVALID_HANDLE value
         /// </summary>
         /// <returns>Token-specific identifier for an object</returns>
-        IObjectHandle CreateObjectHandle();
+        IObjectHandle Create();
 
         /// <summary>
         /// Creates object identifier with provided value
         /// </summary>
         /// <param name="objectId">PKCS#11 handle of object</param>
         /// <returns>Token-specific identifier for an object</returns>
-        IObjectHandle CreateObjectHandle(ulong objectId);
+        IObjectHandle Create(ulong objectId);
     }
 }

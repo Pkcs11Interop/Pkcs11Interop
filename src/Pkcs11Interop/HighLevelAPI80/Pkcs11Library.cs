@@ -224,7 +224,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
 
                 List<ISlot> list = new List<ISlot>();
                 foreach (NativeULong slot in slotList)
-                    list.Add(_factories.SlotFactory.CreateSlot(_factories, _p11, slot));
+                    list.Add(_factories.SlotFactory.Create(_factories, _p11, slot));
 
                 return list;
             }

@@ -62,9 +62,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// </summary>
         /// <param name="type">Mechanism type</param>
         /// <returns>Mechanism with no parameter</returns>
-        public IMechanism CreateMechanism(ulong type)
+        public IMechanism Create(ulong type)
         {
-            return _factory.CreateMechanism(type);
+            return _factory.Create(type);
         }
 
         /// <summary>
@@ -72,9 +72,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// </summary>
         /// <param name="type">Mechanism type</param>
         /// <returns>Mechanism with no parameter</returns>
-        public IMechanism CreateMechanism(CKM type)
+        public IMechanism Create(CKM type)
         {
-            return _factory.CreateMechanism(type);
+            return _factory.Create(type);
         }
 
         /// <summary>
@@ -83,9 +83,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Mechanism type</param>
         /// <param name="parameter">Mechanism parameter</param>
         /// <returns>Mechanism and its parameter</returns>
-        public IMechanism CreateMechanism(ulong type, byte[] parameter)
+        public IMechanism Create(ulong type, byte[] parameter)
         {
-            return _factory.CreateMechanism(type, parameter);
+            return _factory.Create(type, parameter);
         }
 
         /// <summary>
@@ -94,9 +94,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Mechanism type</param>
         /// <param name="parameter">Mechanism parameter</param>
         /// <returns>Mechanism and its parameter</returns>
-        public IMechanism CreateMechanism(CKM type, byte[] parameter)
+        public IMechanism Create(CKM type, byte[] parameter)
         {
-            return _factory.CreateMechanism(type, parameter);
+            return _factory.Create(type, parameter);
         }
 
         /// <summary>
@@ -105,9 +105,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Mechanism type</param>
         /// <param name="parameter">Mechanism parameter</param>
         /// <returns>Mechanism and its parameter</returns>
-        public IMechanism CreateMechanism(ulong type, IMechanismParams parameter)
+        public IMechanism Create(ulong type, IMechanismParams parameter)
         {
-            return _factory.CreateMechanism(type, parameter);
+            return _factory.Create(type, parameter);
         }
 
         /// <summary>
@@ -116,9 +116,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Mechanism type</param>
         /// <param name="parameter">Mechanism parameter</param>
         /// <returns>Mechanism and its parameter</returns>
-        public IMechanism CreateMechanism(CKM type, IMechanismParams parameter)
+        public IMechanism Create(CKM type, IMechanismParams parameter)
         {
-            return _factory.CreateMechanism(type, parameter);
+            return _factory.Create(type, parameter);
         }
     }
 }

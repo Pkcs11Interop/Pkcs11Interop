@@ -36,14 +36,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// </summary>
         /// <param name="type">Mechanism type</param>
         /// <returns>Mechanism with no parameter</returns>
-        IMechanism CreateMechanism(ulong type);
+        IMechanism Create(ulong type);
 
         /// <summary>
         /// Creates mechanism of given type with no parameter
         /// </summary>
         /// <param name="type">Mechanism type</param>
         /// <returns>Mechanism with no parameter</returns>
-        IMechanism CreateMechanism(CKM type);
+        IMechanism Create(CKM type);
 
         /// <summary>
         /// Creates mechanism of given type with byte array parameter
@@ -51,7 +51,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Mechanism type</param>
         /// <param name="parameter">Mechanism parameter</param>
         /// <returns>Mechanism and its parameter</returns>
-        IMechanism CreateMechanism(ulong type, byte[] parameter);
+        IMechanism Create(ulong type, byte[] parameter);
 
         /// <summary>
         /// Creates mechanism of given type with byte array parameter
@@ -59,7 +59,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Mechanism type</param>
         /// <param name="parameter">Mechanism parameter</param>
         /// <returns>Mechanism and its parameter</returns>
-        IMechanism CreateMechanism(CKM type, byte[] parameter);
+        IMechanism Create(CKM type, byte[] parameter);
 
         /// <summary>
         /// Creates mechanism of given type with object parameter
@@ -67,7 +67,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Mechanism type</param>
         /// <param name="parameter">Mechanism parameter</param>
         /// <returns>Mechanism and its parameter</returns>
-        IMechanism CreateMechanism(ulong type, IMechanismParams parameter);
+        IMechanism Create(ulong type, IMechanismParams parameter);
 
         /// <summary>
         /// Creates mechanism of given type with object parameter
@@ -75,6 +75,6 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Mechanism type</param>
         /// <param name="parameter">Mechanism parameter</param>
         /// <returns>Mechanism and its parameter</returns>
-        IMechanism CreateMechanism(CKM type, IMechanismParams parameter);
+        IMechanism Create(CKM type, IMechanismParams parameter);
     }
 }

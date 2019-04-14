@@ -60,9 +60,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// Creates object identifier with CK_INVALID_HANDLE value
         /// </summary>
         /// <returns>Token-specific identifier for an object</returns>
-        public IObjectHandle CreateObjectHandle()
+        public IObjectHandle Create()
         {
-            return _factory.CreateObjectHandle();
+            return _factory.Create();
         }
 
         /// <summary>
@@ -70,9 +70,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// </summary>
         /// <param name="objectId">PKCS#11 handle of object</param>
         /// <returns>Token-specific identifier for an object</returns>
-        public IObjectHandle CreateObjectHandle(ulong objectId)
+        public IObjectHandle Create(ulong objectId)
         {
-            return _factory.CreateObjectHandle(objectId);
+            return _factory.Create(objectId);
         }
     }
 }

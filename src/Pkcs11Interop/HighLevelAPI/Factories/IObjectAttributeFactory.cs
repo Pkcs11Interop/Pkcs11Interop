@@ -37,14 +37,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <returns>Attribute of cryptoki object</returns>
-        IObjectAttribute CreateObjectAttribute(ulong type);
+        IObjectAttribute Create(ulong type);
 
         /// <summary>
         /// Creates attribute of given type with no value
         /// </summary>
         /// <param name="type">Attribute type</param>
         /// <returns>Attribute of cryptoki object</returns>
-        IObjectAttribute CreateObjectAttribute(CKA type);
+        IObjectAttribute Create(CKA type);
 
         /// <summary>
         /// Creates attribute of given type with ulong value
@@ -52,7 +52,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of cryptoki object</returns>
-        IObjectAttribute CreateObjectAttribute(ulong type, ulong value);
+        IObjectAttribute Create(ulong type, ulong value);
 
         /// <summary>
         /// Creates attribute of given type with ulong value
@@ -60,7 +60,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of cryptoki object</returns>
-        IObjectAttribute CreateObjectAttribute(CKA type, ulong value);
+        IObjectAttribute Create(CKA type, ulong value);
 
         /// <summary>
         /// Creates attribute of given type with CKC value
@@ -68,7 +68,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of cryptoki object</returns>
-        IObjectAttribute CreateObjectAttribute(CKA type, CKC value);
+        IObjectAttribute Create(CKA type, CKC value);
 
         /// <summary>
         /// Creates attribute of given type with CKK value
@@ -76,7 +76,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of cryptoki object</returns>
-        IObjectAttribute CreateObjectAttribute(CKA type, CKK value);
+        IObjectAttribute Create(CKA type, CKK value);
 
         /// <summary>
         /// Creates attribute of given type with CKO value
@@ -84,7 +84,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of cryptoki object</returns>
-        IObjectAttribute CreateObjectAttribute(CKA type, CKO value);
+        IObjectAttribute Create(CKA type, CKO value);
 
         /// <summary>
         /// Creates attribute of given type with bool value
@@ -92,7 +92,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of cryptoki object</returns>
-        IObjectAttribute CreateObjectAttribute(ulong type, bool value);
+        IObjectAttribute Create(ulong type, bool value);
 
         /// <summary>
         /// Creates attribute of given type with bool value
@@ -100,7 +100,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of cryptoki object</returns>
-        IObjectAttribute CreateObjectAttribute(CKA type, bool value);
+        IObjectAttribute Create(CKA type, bool value);
 
         /// <summary>
         /// Creates attribute of given type with string value
@@ -108,7 +108,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of cryptoki object</returns>
-        IObjectAttribute CreateObjectAttribute(ulong type, string value);
+        IObjectAttribute Create(ulong type, string value);
 
         /// <summary>
         /// Creates attribute of given type with string value
@@ -116,7 +116,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of cryptoki object</returns>
-        IObjectAttribute CreateObjectAttribute(CKA type, string value);
+        IObjectAttribute Create(CKA type, string value);
 
         /// <summary>
         /// Creates attribute of given type with byte array value
@@ -124,7 +124,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of cryptoki object</returns>
-        IObjectAttribute CreateObjectAttribute(ulong type, byte[] value);
+        IObjectAttribute Create(ulong type, byte[] value);
 
         /// <summary>
         /// Creates attribute of given type with byte array value
@@ -132,7 +132,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of cryptoki object</returns>
-        IObjectAttribute CreateObjectAttribute(CKA type, byte[] value);
+        IObjectAttribute Create(CKA type, byte[] value);
 
         /// <summary>
         /// Creates attribute of given type with DateTime (CK_DATE) value
@@ -140,7 +140,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of cryptoki object</returns>
-        IObjectAttribute CreateObjectAttribute(ulong type, DateTime value);
+        IObjectAttribute Create(ulong type, DateTime value);
 
         /// <summary>
         /// Creates attribute of given type with DateTime (CK_DATE) value
@@ -148,7 +148,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of cryptoki object</returns>
-        IObjectAttribute CreateObjectAttribute(CKA type, DateTime value);
+        IObjectAttribute Create(CKA type, DateTime value);
 
         /// <summary>
         /// Creates attribute of given type with attribute array value
@@ -156,7 +156,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of cryptoki object</returns>
-        IObjectAttribute CreateObjectAttribute(ulong type, List<IObjectAttribute> value);
+        IObjectAttribute Create(ulong type, List<IObjectAttribute> value);
 
         /// <summary>
         /// Creates attribute of given type with attribute array value
@@ -164,7 +164,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of cryptoki object</returns>
-        IObjectAttribute CreateObjectAttribute(CKA type, List<IObjectAttribute> value);
+        IObjectAttribute Create(CKA type, List<IObjectAttribute> value);
 
         /// <summary>
         /// Creates attribute of given type with ulong array value
@@ -172,7 +172,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of cryptoki object</returns>
-        IObjectAttribute CreateObjectAttribute(ulong type, List<ulong> value);
+        IObjectAttribute Create(ulong type, List<ulong> value);
 
         /// <summary>
         /// Creates attribute of given type with ulong array value
@@ -180,7 +180,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of cryptoki object</returns>
-        IObjectAttribute CreateObjectAttribute(CKA type, List<ulong> value);
+        IObjectAttribute Create(CKA type, List<ulong> value);
 
         /// <summary>
         /// Creates attribute of given type with mechanism array value
@@ -188,7 +188,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of cryptoki object</returns>
-        IObjectAttribute CreateObjectAttribute(ulong type, List<CKM> value);
+        IObjectAttribute Create(ulong type, List<CKM> value);
 
         /// <summary>
         /// Creates attribute of given type with mechanism array value
@@ -196,6 +196,6 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         /// <param name="type">Attribute type</param>
         /// <param name="value">Attribute value</param>
         /// <returns>Attribute of cryptoki object</returns>
-        IObjectAttribute CreateObjectAttribute(CKA type, List<CKM> value);
+        IObjectAttribute Create(CKA type, List<CKM> value);
     }
 }

@@ -40,7 +40,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_SignAndVerifySinglePartTest()
         {
-            using (IPkcs11Library pkcs11 = Settings.Factories.Pkcs11LibraryFactory.CreatePkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11 = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
                 ISlot slot = Helpers.GetUsableSlot(pkcs11);
@@ -57,7 +57,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     Helpers.GenerateKeyPair(session, out publicKey, out privateKey);
                     
                     // Specify signing mechanism
-                    IMechanism mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_SHA1_RSA_PKCS);
+                    IMechanism mechanism = Settings.Factories.MechanismFactory.Create(CKM.CKM_SHA1_RSA_PKCS);
                     
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
 
@@ -86,7 +86,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _02_SignAndVerifyMultiPartTest()
         {
-            using (IPkcs11Library pkcs11 = Settings.Factories.Pkcs11LibraryFactory.CreatePkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11 = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
                 ISlot slot = Helpers.GetUsableSlot(pkcs11);
@@ -103,7 +103,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     Helpers.GenerateKeyPair(session, out publicKey, out privateKey);
                     
                     // Specify signing mechanism
-                    IMechanism mechanism = Settings.Factories.MechanismFactory.CreateMechanism(CKM.CKM_SHA1_RSA_PKCS);
+                    IMechanism mechanism = Settings.Factories.MechanismFactory.Create(CKM.CKM_SHA1_RSA_PKCS);
 
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
                     byte[] signature = null;

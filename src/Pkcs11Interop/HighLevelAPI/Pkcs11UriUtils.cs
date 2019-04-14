@@ -214,11 +214,11 @@ namespace Net.Pkcs11Interop.HighLevelAPI
             {
                 attributes = new List<IObjectAttribute>();
                 if (pkcs11Uri.Type != null)
-                    attributes.Add(objectAttributeFactory.CreateObjectAttribute(CKA.CKA_CLASS, pkcs11Uri.Type.Value));
+                    attributes.Add(objectAttributeFactory.Create(CKA.CKA_CLASS, pkcs11Uri.Type.Value));
                 if (pkcs11Uri.Object != null)
-                    attributes.Add(objectAttributeFactory.CreateObjectAttribute(CKA.CKA_LABEL, pkcs11Uri.Object));
+                    attributes.Add(objectAttributeFactory.Create(CKA.CKA_LABEL, pkcs11Uri.Object));
                 if (pkcs11Uri.Id != null)
-                    attributes.Add(objectAttributeFactory.CreateObjectAttribute(CKA.CKA_ID, pkcs11Uri.Id));
+                    attributes.Add(objectAttributeFactory.Create(CKA.CKA_ID, pkcs11Uri.Id));
             }
 
             return attributes;
