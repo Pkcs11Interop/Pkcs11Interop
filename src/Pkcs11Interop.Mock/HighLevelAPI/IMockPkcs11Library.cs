@@ -29,7 +29,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI
     /// <summary>
     /// High level PKCS#11 wrapper extended with vendor specific functions of PKCS11-MOCK module.
     /// </summary>
-    public interface IMockPkcs11 : IPkcs11Library
+    public interface IMockPkcs11Library : IPkcs11Library
     {
         /// <summary>
         /// Obtains a list of unmanaged struct sizes.

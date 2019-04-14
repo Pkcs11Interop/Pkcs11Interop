@@ -59,7 +59,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     Assert.Inconclusive("Test cannot be executed with this PKCS#11 library");
 
                 // Obtain a list of unmanaged struct sizes via vendor specific function C_GetUnmanagedStructSizeList
-                List<ulong> unmanagedSizes = ((IMockPkcs11)pkcs11).GetUnmanagedStructSizeList();
+                List<ulong> unmanagedSizes = ((IMockPkcs11Library)pkcs11).GetUnmanagedStructSizeList();
 
                 // Obtain a list of managed struct sizes
                 List<ulong> managedSizes = GetManagedStructSizeList();

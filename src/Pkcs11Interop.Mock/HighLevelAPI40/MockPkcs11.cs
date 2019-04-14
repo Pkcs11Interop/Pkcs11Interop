@@ -34,7 +34,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI40
     /// <summary>
     /// High level PKCS#11 wrapper extended with vendor specific functions of PKCS11-MOCK module.
     /// </summary>
-    public class MockPkcs11 : Net.Pkcs11Interop.HighLevelAPI40.Pkcs11, IMockPkcs11
+    public class MockPkcs11 : Net.Pkcs11Interop.HighLevelAPI40.Pkcs11, IMockPkcs11Library
     {
         /// <summary>
         /// Logger responsible for message logging
