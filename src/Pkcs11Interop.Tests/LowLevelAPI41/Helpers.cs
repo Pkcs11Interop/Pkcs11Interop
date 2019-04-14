@@ -110,11 +110,11 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         /// <summary>
         /// Creates the data object.
         /// </summary>
-        /// <param name='pkcs11'>Initialized PKCS11 wrapper</param>
+        /// <param name='pkcs11Library'>Initialized PKCS11 wrapper</param>
         /// <param name='session'>Read-write session with user logged in</param>
         /// <param name='objectId'>Output parameter for data object handle</param>
         /// <returns>Return value of C_CreateObject</returns>
-        public static CKR CreateDataObject(Pkcs11Library pkcs11, NativeULong session, ref NativeULong objectId)
+        public static CKR CreateDataObject(Pkcs11Library pkcs11Library, NativeULong session, ref NativeULong objectId)
         {
             CKR rv = CKR.CKR_OK;
 
@@ -127,7 +127,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
             template[4] = CkaUtils.CreateAttribute(CKA.CKA_VALUE, "Data object content");
             
             // Create object
-            rv = pkcs11.C_CreateObject(session, template, ConvertUtils.UInt32FromInt32(template.Length), ref objectId);
+            rv = pkcs11Library.C_CreateObject(session, template, ConvertUtils.UInt32FromInt32(template.Length), ref objectId);
 
             // In LowLevelAPI caller has to free unmanaged memory taken by attributes
             for (int i = 0; i < template.Length; i++)
@@ -142,11 +142,11 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         /// <summary>
         /// Generates symetric key.
         /// </summary>
-        /// <param name='pkcs11'>Initialized PKCS11 wrapper</param>
+        /// <param name='pkcs11Library'>Initialized PKCS11 wrapper</param>
         /// <param name='session'>Read-write session with user logged in</param>
         /// <param name='keyId'>Output parameter for key object handle</param>
         /// <returns>Return value of C_GenerateKey</returns>
-        public static CKR GenerateKey(Pkcs11Library pkcs11, NativeULong session, ref NativeULong keyId)
+        public static CKR GenerateKey(Pkcs11Library pkcs11Library, NativeULong session, ref NativeULong keyId)
         {
             CKR rv = CKR.CKR_OK;
 
@@ -163,7 +163,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
             CK_MECHANISM mechanism = CkmUtils.CreateMechanism(CKM.CKM_DES3_KEY_GEN);
             
             // Generate key
-            rv = pkcs11.C_GenerateKey(session, ref mechanism, template, ConvertUtils.UInt32FromInt32(template.Length), ref keyId);
+            rv = pkcs11Library.C_GenerateKey(session, ref mechanism, template, ConvertUtils.UInt32FromInt32(template.Length), ref keyId);
 
             // In LowLevelAPI we have to free unmanaged memory taken by attributes
             for (int i = 0; i < template.Length; i++)
@@ -178,18 +178,18 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         /// <summary>
         /// Generates asymetric key pair.
         /// </summary>
-        /// <param name='pkcs11'>Initialized PKCS11 wrapper</param>
+        /// <param name='pkcs11Library'>Initialized PKCS11 wrapper</param>
         /// <param name='session'>Read-write session with user logged in</param>
         /// <param name='pubKeyId'>Output parameter for public key object handle</param>
         /// <param name='privKeyId'>Output parameter for private key object handle</param>
         /// <returns>Return value of C_GenerateKeyPair</returns>
-        public static CKR GenerateKeyPair(Pkcs11Library pkcs11, NativeULong session, ref NativeULong pubKeyId, ref NativeULong privKeyId)
+        public static CKR GenerateKeyPair(Pkcs11Library pkcs11Library, NativeULong session, ref NativeULong pubKeyId, ref NativeULong privKeyId)
         {
             CKR rv = CKR.CKR_OK;
 
             // The CKA_ID attribute is intended as a means of distinguishing multiple key pairs held by the same subject
             byte[] ckaId = new byte[20];
-            rv = pkcs11.C_GenerateRandom(session, ckaId, ConvertUtils.UInt32FromInt32(ckaId.Length));
+            rv = pkcs11Library.C_GenerateRandom(session, ckaId, ConvertUtils.UInt32FromInt32(ckaId.Length));
             if (rv != CKR.CKR_OK)
                 return rv;
             
@@ -222,7 +222,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
             CK_MECHANISM mechanism = CkmUtils.CreateMechanism(CKM.CKM_RSA_PKCS_KEY_PAIR_GEN);
             
             // Generate key pair
-            rv = pkcs11.C_GenerateKeyPair(session, ref mechanism, pubKeyTemplate, ConvertUtils.UInt32FromInt32(pubKeyTemplate.Length), privKeyTemplate, ConvertUtils.UInt32FromInt32(privKeyTemplate.Length), ref pubKeyId, ref privKeyId);
+            rv = pkcs11Library.C_GenerateKeyPair(session, ref mechanism, pubKeyTemplate, ConvertUtils.UInt32FromInt32(pubKeyTemplate.Length), privKeyTemplate, ConvertUtils.UInt32FromInt32(privKeyTemplate.Length), ref pubKeyId, ref privKeyId);
 
             // In LowLevelAPI we have to free unmanaged memory taken by attributes
             for (int i = 0; i < privKeyTemplate.Length; i++)
