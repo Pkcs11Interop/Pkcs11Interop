@@ -40,7 +40,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_CreateDestroyObjectTest()
         {
-            using (IPkcs11Library pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11 = Settings.Factories.Pkcs11LibraryFactory.CreatePkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
                 ISlot slot = Helpers.GetUsableSlot(pkcs11);
@@ -78,7 +78,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _02_CopyObjectTest()
         {
-            using (IPkcs11Library pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11 = Settings.Factories.Pkcs11LibraryFactory.CreatePkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
                 ISlot slot = Helpers.GetUsableSlot(pkcs11);
@@ -110,7 +110,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _03_GetObjectSizeTest()
         {
-            using (IPkcs11Library pkcs11 = Settings.Factories.Pkcs11Factory.CreatePkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11 = Settings.Factories.Pkcs11LibraryFactory.CreatePkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Find first slot with token present
                 ISlot slot = Helpers.GetUsableSlot(pkcs11);

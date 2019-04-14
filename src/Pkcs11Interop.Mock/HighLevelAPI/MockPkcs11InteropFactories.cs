@@ -36,7 +36,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI
         /// </summary>
         public MockPkcs11InteropFactories()
         {
-            _pkcs11Factory = new MockPkcs11LibraryFactory();
+            _pkcs11LibraryFactory = new MockPkcs11LibraryFactory();
             _slotFactory = new MockSlotFactory();
             _sessionFactory = new MockSessionFactory();
         }
