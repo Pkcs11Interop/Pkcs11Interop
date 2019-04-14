@@ -45,16 +45,16 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI.Factories
             if (Platform.NativeULongSize == 4)
             {
                 if (Platform.StructPackingSize == 0)
-                    _factory = new HighLevelAPI40.Factories.MockPkcs11Factory();
+                    _factory = new HighLevelAPI40.Factories.MockPkcs11LibraryFactory();
                 else
-                    _factory = new HighLevelAPI41.Factories.MockPkcs11Factory();
+                    _factory = new HighLevelAPI41.Factories.MockPkcs11LibraryFactory();
             }
             else
             {
                 if (Platform.StructPackingSize == 0)
-                    _factory = new HighLevelAPI80.Factories.MockPkcs11Factory();
+                    _factory = new HighLevelAPI80.Factories.MockPkcs11LibraryFactory();
                 else
-                    _factory = new HighLevelAPI81.Factories.MockPkcs11Factory();
+                    _factory = new HighLevelAPI81.Factories.MockPkcs11LibraryFactory();
             }
         }
 

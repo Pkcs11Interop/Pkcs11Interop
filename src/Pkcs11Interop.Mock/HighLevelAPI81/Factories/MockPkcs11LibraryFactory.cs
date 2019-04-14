@@ -23,14 +23,14 @@ using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.HighLevelAPI.Factories;
 
-// Note: Code in this file is maintained manually.
+// Note: Code in this file is generated automatically.
 
-namespace Net.Pkcs11Interop.Mock.HighLevelAPI41.Factories
+namespace Net.Pkcs11Interop.Mock.HighLevelAPI81.Factories
 {
     /// <summary>
     /// Factory for creation of IPkcs11 instances
     /// </summary>
-    public class MockPkcs11Factory : IPkcs11LibraryFactory
+    public class MockPkcs11LibraryFactory : IPkcs11LibraryFactory
     {
         /// <summary>
         /// Loads and initializes PCKS#11 library
