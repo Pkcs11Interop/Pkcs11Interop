@@ -30,7 +30,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI.Factories
     /// <summary>
     /// Factory for creation of IPkcs11 instances
     /// </summary>
-    public class MockPkcs11Factory : IPkcs11LibraryFactory
+    public class MockPkcs11LibraryFactory : IPkcs11LibraryFactory
     {
         /// <summary>
         /// Platform specific factory for creation of IPkcs11 instances
@@ -40,7 +40,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI.Factories
         /// <summary>
         /// Initializes a new instance of the MockPkcs11Factory class
         /// </summary>
-        public MockPkcs11Factory()
+        public MockPkcs11LibraryFactory()
         {
             if (Platform.NativeULongSize == 4)
             {
