@@ -34,12 +34,12 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI40
     /// <summary>
     /// High level PKCS#11 wrapper extended with vendor specific functions of PKCS11-MOCK module.
     /// </summary>
-    public class MockPkcs11 : Net.Pkcs11Interop.HighLevelAPI40.Pkcs11Library, IMockPkcs11Library
+    public class MockPkcs11Library : Net.Pkcs11Interop.HighLevelAPI40.Pkcs11Library, IMockPkcs11Library
     {
         /// <summary>
         /// Logger responsible for message logging
         /// </summary>
-        private static Pkcs11InteropLogger _logger = Pkcs11InteropLoggerFactory.GetLogger(typeof(MockPkcs11));
+        private static Pkcs11InteropLogger _logger = Pkcs11InteropLoggerFactory.GetLogger(typeof(MockPkcs11Library));
 
         /// <summary>
         /// Loads and initializes PCKS#11 library
@@ -47,7 +47,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI40
         /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
-        public MockPkcs11(Pkcs11InteropFactories factories, string libraryPath, AppType appType)
+        public MockPkcs11Library(Pkcs11InteropFactories factories, string libraryPath, AppType appType)
             : base(factories, libraryPath)
         {
             _logger.Debug("MockPkcs11({0})::ctor1", _libraryPath);
@@ -77,7 +77,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI40
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
         /// <param name="initType">Source of PKCS#11 function pointers</param>
-        public MockPkcs11(Pkcs11InteropFactories factories, string libraryPath, AppType appType, InitType initType)
+        public MockPkcs11Library(Pkcs11InteropFactories factories, string libraryPath, AppType appType, InitType initType)
             : base(factories, libraryPath)
         {
             _logger.Debug("MockPkcs11({0})::ctor2", _libraryPath);

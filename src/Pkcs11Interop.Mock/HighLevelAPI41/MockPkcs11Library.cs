@@ -25,21 +25,21 @@ using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.Logging;
 using Net.Pkcs11Interop.Mock.HighLevelAPI;
-using NativeULong = System.UInt64;
+using NativeULong = System.UInt32;
 
-// Note: Code in this file is generated automatically.
+// Note: Code in this file is maintained manually.
 
-namespace Net.Pkcs11Interop.Mock.HighLevelAPI81
+namespace Net.Pkcs11Interop.Mock.HighLevelAPI41
 {
     /// <summary>
     /// High level PKCS#11 wrapper extended with vendor specific functions of PKCS11-MOCK module.
     /// </summary>
-    public class MockPkcs11 : Net.Pkcs11Interop.HighLevelAPI81.Pkcs11Library, IMockPkcs11Library
+    public class MockPkcs11Library : Net.Pkcs11Interop.HighLevelAPI41.Pkcs11Library, IMockPkcs11Library
     {
         /// <summary>
         /// Logger responsible for message logging
         /// </summary>
-        private static Pkcs11InteropLogger _logger = Pkcs11InteropLoggerFactory.GetLogger(typeof(MockPkcs11));
+        private static Pkcs11InteropLogger _logger = Pkcs11InteropLoggerFactory.GetLogger(typeof(MockPkcs11Library));
 
         /// <summary>
         /// Loads and initializes PCKS#11 library
@@ -47,7 +47,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI81
         /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
-        public MockPkcs11(Pkcs11InteropFactories factories, string libraryPath, AppType appType)
+        public MockPkcs11Library(Pkcs11InteropFactories factories, string libraryPath, AppType appType)
             : base(factories, libraryPath)
         {
             _logger.Debug("MockPkcs11({0})::ctor1", _libraryPath);
@@ -55,7 +55,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI81
             try
             {
                 _logger.Info("Loading PKCS#11 library {0}", _libraryPath);
-                _p11 = new LowLevelAPI81.MockPkcs11Library(libraryPath);
+                _p11 = new LowLevelAPI41.MockPkcs11Library(libraryPath);
                 Initialize(appType);
             }
             catch
@@ -77,7 +77,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI81
         /// <param name="libraryPath">Library name or path</param>
         /// <param name="appType">Type of application that will be using PKCS#11 library</param>
         /// <param name="initType">Source of PKCS#11 function pointers</param>
-        public MockPkcs11(Pkcs11InteropFactories factories, string libraryPath, AppType appType, InitType initType)
+        public MockPkcs11Library(Pkcs11InteropFactories factories, string libraryPath, AppType appType, InitType initType)
             : base(factories, libraryPath)
         {
             _logger.Debug("MockPkcs11({0})::ctor2", _libraryPath);
@@ -85,7 +85,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI81
             try
             {
                 _logger.Info("Loading PKCS#11 library {0}", _libraryPath);
-                _p11 = new LowLevelAPI81.MockPkcs11Library(libraryPath, (initType == InitType.WithFunctionList));
+                _p11 = new LowLevelAPI41.MockPkcs11Library(libraryPath, (initType == InitType.WithFunctionList));
                 Initialize(appType);
             }
             catch
@@ -112,21 +112,21 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI81
             _logger.Debug("MockPkcs11({0})::GetUnmanagedStructSizeList", _libraryPath);
 
             NativeULong sizeCount = 0;
-            CKR rv = ((LowLevelAPI81.MockPkcs11Library)_p11).C_GetUnmanagedStructSizeList(null, ref sizeCount);
+            CKR rv = ((LowLevelAPI41.MockPkcs11Library)_p11).C_GetUnmanagedStructSizeList(null, ref sizeCount);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetUnmanagedStructSizeList", rv);
 
             NativeULong[] sizeList = new NativeULong[sizeCount];
-            rv = ((LowLevelAPI81.MockPkcs11Library)_p11).C_GetUnmanagedStructSizeList(sizeList, ref sizeCount);
+            rv = ((LowLevelAPI41.MockPkcs11Library)_p11).C_GetUnmanagedStructSizeList(sizeList, ref sizeCount);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetUnmanagedStructSizeList", rv);
 
-            if (sizeList.Length != ConvertUtils.UInt64ToInt32(sizeCount))
-                Array.Resize(ref sizeList, ConvertUtils.UInt64ToInt32(sizeCount));
+            if (sizeList.Length != ConvertUtils.UInt32ToInt32(sizeCount))
+                Array.Resize(ref sizeList, ConvertUtils.UInt32ToInt32(sizeCount));
 
             List<ulong> ulongList = new List<ulong>();
             foreach (NativeULong size in sizeList)
-                ulongList.Add(ConvertUtils.UInt64ToUInt64(size));
+                ulongList.Add(ConvertUtils.UInt32ToUInt64(size));
 
             return ulongList;
         }

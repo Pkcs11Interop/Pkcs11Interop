@@ -41,7 +41,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI40.Factories
         /// <returns>High level PKCS#11 wrapper</returns>
         public IPkcs11Library CreatePkcs11(Pkcs11InteropFactories factories, string libraryPath, AppType appType)
         {
-            return new MockPkcs11(factories, libraryPath, appType);
+            return new MockPkcs11Library(factories, libraryPath, appType);
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI40.Factories
         /// <returns>High level PKCS#11 wrapper</returns>
         public IPkcs11Library CreatePkcs11(Pkcs11InteropFactories factories, string libraryPath, AppType appType, InitType initType)
         {
-            return new MockPkcs11(factories, libraryPath, appType, initType);
+            return new MockPkcs11Library(factories, libraryPath, appType, initType);
         }
     }
 }
