@@ -48,7 +48,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
         /// </summary>
         /// <param name='pkcs11'>Initialized PKCS11 wrapper</param>
         /// <returns>Slot containing the token that matches criteria</returns>
-        public static NativeULong GetUsableSlot(Pkcs11 pkcs11)
+        public static NativeULong GetUsableSlot(Pkcs11Library pkcs11)
         {
             CKR rv = CKR.CKR_OK;
 
@@ -114,7 +114,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
         /// <param name='session'>Read-write session with user logged in</param>
         /// <param name='objectId'>Output parameter for data object handle</param>
         /// <returns>Return value of C_CreateObject</returns>
-        public static CKR CreateDataObject(Pkcs11 pkcs11, NativeULong session, ref NativeULong objectId)
+        public static CKR CreateDataObject(Pkcs11Library pkcs11, NativeULong session, ref NativeULong objectId)
         {
             CKR rv = CKR.CKR_OK;
 
@@ -146,7 +146,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
         /// <param name='session'>Read-write session with user logged in</param>
         /// <param name='keyId'>Output parameter for key object handle</param>
         /// <returns>Return value of C_GenerateKey</returns>
-        public static CKR GenerateKey(Pkcs11 pkcs11, NativeULong session, ref NativeULong keyId)
+        public static CKR GenerateKey(Pkcs11Library pkcs11, NativeULong session, ref NativeULong keyId)
         {
             CKR rv = CKR.CKR_OK;
 
@@ -183,7 +183,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
         /// <param name='pubKeyId'>Output parameter for public key object handle</param>
         /// <param name='privKeyId'>Output parameter for private key object handle</param>
         /// <returns>Return value of C_GenerateKeyPair</returns>
-        public static CKR GenerateKeyPair(Pkcs11 pkcs11, NativeULong session, ref NativeULong pubKeyId, ref NativeULong privKeyId)
+        public static CKR GenerateKeyPair(Pkcs11Library pkcs11, NativeULong session, ref NativeULong pubKeyId, ref NativeULong privKeyId)
         {
             CKR rv = CKR.CKR_OK;
 

@@ -160,7 +160,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <param name="tokenPresent">Flag indicating whether the list obtained includes only those slots with a token present (true), or all slots (false)</param>
         /// <param name="slotList">List of slots matching PKCS#11 URI</param>
         /// <returns>CKR_OK if successful; any other value otherwise</returns>
-        public static CKR GetMatchingSlotList(Pkcs11Uri pkcs11Uri, Pkcs11 pkcs11, bool tokenPresent, out NativeULong[] slotList)
+        public static CKR GetMatchingSlotList(Pkcs11Uri pkcs11Uri, Pkcs11Library pkcs11, bool tokenPresent, out NativeULong[] slotList)
         {
             if (pkcs11Uri == null)
                 throw new ArgumentNullException("pkcs11Uri");

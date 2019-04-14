@@ -73,7 +73,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Low level PKCS#11 wrapper
         /// </summary>
-        protected LowLevelAPI41.Pkcs11 _p11 = null;
+        protected LowLevelAPI41.Pkcs11Library _p11 = null;
 
         /// <summary>
         /// Initializes new instance of Pkcs11 class
@@ -105,7 +105,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             try
             {
                 _logger.Info("Loading PKCS#11 library {0}", _libraryPath);
-                _p11 = new LowLevelAPI41.Pkcs11(_libraryPath);
+                _p11 = new LowLevelAPI41.Pkcs11Library(_libraryPath);
                 Initialize(appType);
             }
             catch
@@ -136,7 +136,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             try
             {
                 _logger.Info("Loading PKCS#11 library {0}", _libraryPath);
-                _p11 = new LowLevelAPI41.Pkcs11(_libraryPath, (initType == InitType.WithFunctionList));
+                _p11 = new LowLevelAPI41.Pkcs11Library(_libraryPath, (initType == InitType.WithFunctionList));
                 Initialize(appType);
             }
             catch

@@ -41,7 +41,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41.Factories
         /// <param name="sessionId">PKCS#11 handle of session</param>
         public ISession CreateSession(Pkcs11InteropFactories factories, LowLevelPkcs11Library pkcs11, ulong sessionId)
         {
-            LowLevelAPI41.Pkcs11 p11 = pkcs11 as LowLevelAPI41.Pkcs11;
+            LowLevelAPI41.Pkcs11Library p11 = pkcs11 as LowLevelAPI41.Pkcs11Library;
             if (p11 == null)
                 throw new ArgumentException("Incorrect type of low level PKCS#11 wrapper");
 

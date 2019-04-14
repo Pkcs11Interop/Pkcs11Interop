@@ -44,7 +44,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
 
             // Unmanaged PKCS#11 library is loaded by the constructor of Pkcs11 class
             // and unloaded by Dispose() method.
-            Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath);
+            Pkcs11Library pkcs11 = new Pkcs11Library(Settings.Pkcs11LibraryPath);
             
             // Do something  interesting
             
@@ -61,7 +61,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
 
             // Pkcs11 class can be used in using statement which defines a scope 
             // at the end of which an object will be disposed.
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath))
+            using (Pkcs11Library pkcs11 = new Pkcs11Library(Settings.Pkcs11LibraryPath))
             {
                 // Do something interesting
             }
@@ -77,7 +77,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
 
             CKR rv = CKR.CKR_OK;
             
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath))
+            using (Pkcs11Library pkcs11 = new Pkcs11Library(Settings.Pkcs11LibraryPath))
             {
                 // PKCS#11 library needs to be initialized with C_Initialize method.
                 // If an application will not be accessing PKCS#11 library from multiple threads
@@ -106,7 +106,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
 
             CKR rv = CKR.CKR_OK;
 
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath))
+            using (Pkcs11Library pkcs11 = new Pkcs11Library(Settings.Pkcs11LibraryPath))
             {
                 // If an application will be accessing PKCS#11 library from multiple threads
                 // simultaneously, it has to provide initArgs parameter to C_Initialize method.
@@ -142,7 +142,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
             // The most simple constructor of Pkcs11 class uses C_GetFunctionList() approach 
             // but Pkcs11Interop also provides an alternative constructor 
             // that can specify which approach should be used.
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, true))
+            using (Pkcs11Library pkcs11 = new Pkcs11Library(Settings.Pkcs11LibraryPath, true))
             {
                 // Do something interesting
             }
@@ -163,7 +163,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
             // The most simple constructor of Pkcs11 class uses C_GetFunctionList() approach 
             // but Pkcs11Interop also provides an alternative constructor 
             // that can specify which approach should be used.
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath, false))
+            using (Pkcs11Library pkcs11 = new Pkcs11Library(Settings.Pkcs11LibraryPath, false))
             {
                 // Do something interesting
             }

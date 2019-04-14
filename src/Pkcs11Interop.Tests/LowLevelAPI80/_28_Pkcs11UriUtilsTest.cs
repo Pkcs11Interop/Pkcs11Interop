@@ -104,7 +104,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI80
             // Load and initialize PKCS#11 library specified by URI
             CKR rv = CKR.CKR_OK;
 
-            using (Pkcs11 pkcs11 = new Pkcs11(pkcs11Uri.ModulePath, true))
+            using (Pkcs11Library pkcs11 = new Pkcs11Library(pkcs11Uri.ModulePath, true))
             {
                 rv = pkcs11.C_Initialize(Settings.InitArgs80);
                 if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))

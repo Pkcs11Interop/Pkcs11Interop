@@ -365,7 +365,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
         {
             Helpers.CheckPlatform();
 
-            using (Pkcs11 pkcs11 = new Pkcs11(Settings.Pkcs11LibraryPath))
+            using (Pkcs11Library pkcs11 = new Pkcs11Library(Settings.Pkcs11LibraryPath))
             {
                 CKR rv = pkcs11.C_Initialize(Settings.InitArgs40);
                 Assert.IsTrue(rv == CKR.CKR_OK);

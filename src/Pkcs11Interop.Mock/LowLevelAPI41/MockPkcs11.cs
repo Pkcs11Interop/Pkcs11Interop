@@ -31,7 +31,7 @@ namespace Net.Pkcs11Interop.Mock.LowLevelAPI41
     /// <summary>
     /// Low level PKCS#11 wrapper extended with vendor specific functions of PKCS11-MOCK module.
     /// </summary>
-    public class MockPkcs11 : Pkcs11
+    public class MockPkcs11 : Pkcs11Library
     {
         /// <summary>
         /// Delegates for vendor specific unmanaged functions

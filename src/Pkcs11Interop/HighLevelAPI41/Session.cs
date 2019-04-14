@@ -70,7 +70,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <summary>
         /// Low level PKCS#11 wrapper
         /// </summary>
-        protected LowLevelAPI41.Pkcs11 _p11 = null;
+        protected LowLevelAPI41.Pkcs11Library _p11 = null;
 
         /// <summary>
         /// PKCS#11 handle of session
@@ -125,7 +125,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
         /// <param name="factories">Factories to be used by Developer and Pkcs11Interop library</param>
         /// <param name="pkcs11">Low level PKCS#11 wrapper</param>
         /// <param name="sessionId">PKCS#11 handle of session</param>
-        protected internal Session(Pkcs11InteropFactories factories, LowLevelAPI41.Pkcs11 pkcs11, ulong sessionId)
+        protected internal Session(Pkcs11InteropFactories factories, LowLevelAPI41.Pkcs11Library pkcs11, ulong sessionId)
         {
             _logger.Debug("Session({0})::ctor", sessionId);
 
