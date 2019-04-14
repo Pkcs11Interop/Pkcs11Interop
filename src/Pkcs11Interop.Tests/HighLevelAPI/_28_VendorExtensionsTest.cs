@@ -52,7 +52,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_StructSizeListTest()
         {
-            using (IPkcs11Library pkcs11 = _mockFactories.Pkcs11Factory.CreatePkcs11(_mockFactories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11 = _mockFactories.Pkcs11Factory.CreatePkcs11Library(_mockFactories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 ILibraryInfo libraryInfo = pkcs11.GetInfo();
                 if (libraryInfo.LibraryDescription != "Mock module" && libraryInfo.ManufacturerId != "Pkcs11Interop Project")
@@ -77,7 +77,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _02_EjectTokenTest()
         {
-            using (IPkcs11Library pkcs11 = _mockFactories.Pkcs11Factory.CreatePkcs11(_mockFactories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11 = _mockFactories.Pkcs11Factory.CreatePkcs11Library(_mockFactories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 ILibraryInfo libraryInfo = pkcs11.GetInfo();
                 if (libraryInfo.LibraryDescription != "Mock module" && libraryInfo.ManufacturerId != "Pkcs11Interop Project")
@@ -97,7 +97,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _03_InteractiveLoginTest()
         {
-            using (IPkcs11Library pkcs11 = _mockFactories.Pkcs11Factory.CreatePkcs11(_mockFactories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11 = _mockFactories.Pkcs11Factory.CreatePkcs11Library(_mockFactories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 ILibraryInfo libraryInfo = pkcs11.GetInfo();
                 if (libraryInfo.LibraryDescription != "Mock module" && libraryInfo.ManufacturerId != "Pkcs11Interop Project")
