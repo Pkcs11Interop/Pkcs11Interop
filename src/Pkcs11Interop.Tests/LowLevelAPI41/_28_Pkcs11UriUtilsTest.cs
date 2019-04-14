@@ -104,16 +104,16 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
             // Load and initialize PKCS#11 library specified by URI
             CKR rv = CKR.CKR_OK;
 
-            using (Pkcs11Library pkcs11 = new Pkcs11Library(pkcs11Uri.ModulePath, true))
+            using (Pkcs11Library pkcs11Library = new Pkcs11Library(pkcs11Uri.ModulePath, true))
             {
-                rv = pkcs11.C_Initialize(Settings.InitArgs41);
+                rv = pkcs11Library.C_Initialize(Settings.InitArgs41);
                 if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
                     Assert.Fail(rv.ToString());
 
                 // Obtain a list of all slots with tokens that match URI
                 NativeULong[] slots = null;
                 
-                rv = Pkcs11UriUtils.GetMatchingSlotList(pkcs11Uri, pkcs11, true, out slots);
+                rv = Pkcs11UriUtils.GetMatchingSlotList(pkcs11Uri, pkcs11Library, true, out slots);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -123,14 +123,14 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 // Open read only session with first token that matches URI
                 NativeULong session = CK.CK_INVALID_HANDLE;
 
-                rv = pkcs11.C_OpenSession(slots[0], (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
+                rv = pkcs11Library.C_OpenSession(slots[0], (CKF.CKF_SERIAL_SESSION | CKF.CKF_RW_SESSION), IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 // Login as normal user with PIN acquired from URI
                 byte[] pinValue = ConvertUtils.Utf8StringToBytes(pkcs11Uri.PinValue);
 
-                rv = pkcs11.C_Login(session, CKU.CKU_USER, pinValue, ConvertUtils.UInt32FromInt32(pinValue.Length));
+                rv = pkcs11Library.C_Login(session, CKU.CKU_USER, pinValue, ConvertUtils.UInt32FromInt32(pinValue.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -143,15 +143,15 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 NativeULong foundObjectCount = 0;
                 NativeULong[] foundObjectIds = new NativeULong[] { CK.CK_INVALID_HANDLE };
 
-                rv = pkcs11.C_FindObjectsInit(session, attributes, ConvertUtils.UInt32FromInt32(attributes.Length));
+                rv = pkcs11Library.C_FindObjectsInit(session, attributes, ConvertUtils.UInt32FromInt32(attributes.Length));
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
-                rv = pkcs11.C_FindObjects(session, foundObjectIds, ConvertUtils.UInt32FromInt32(foundObjectIds.Length), ref foundObjectCount);
+                rv = pkcs11Library.C_FindObjects(session, foundObjectIds, ConvertUtils.UInt32FromInt32(foundObjectIds.Length), ref foundObjectCount);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
-                rv = pkcs11.C_FindObjectsFinal(session);
+                rv = pkcs11Library.C_FindObjectsFinal(session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -161,13 +161,13 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 // Create signature with the private key specified by URI
                 CK_MECHANISM mechanism = CkmUtils.CreateMechanism(CKM.CKM_SHA1_RSA_PKCS);
 
-                rv = pkcs11.C_SignInit(session, ref mechanism, foundObjectIds[0]);
+                rv = pkcs11Library.C_SignInit(session, ref mechanism, foundObjectIds[0]);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 NativeULong signatureLen = 0;
 
-                rv = pkcs11.C_Sign(session, data, ConvertUtils.UInt32FromInt32(data.Length), null, ref signatureLen);
+                rv = pkcs11Library.C_Sign(session, data, ConvertUtils.UInt32FromInt32(data.Length), null, ref signatureLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -175,7 +175,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 
                 byte[] signature = new byte[signatureLen];
 
-                rv = pkcs11.C_Sign(session, data, ConvertUtils.UInt32FromInt32(data.Length), signature, ref signatureLen);
+                rv = pkcs11Library.C_Sign(session, data, ConvertUtils.UInt32FromInt32(data.Length), signature, ref signatureLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -183,15 +183,15 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                     Array.Resize(ref signature, ConvertUtils.UInt32ToInt32(signatureLen));
 
                 // Release PKCS#11 resources
-                rv = pkcs11.C_Logout(session);
+                rv = pkcs11Library.C_Logout(session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
-                rv = pkcs11.C_CloseSession(session);
+                rv = pkcs11Library.C_CloseSession(session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
-                rv = pkcs11.C_Finalize(IntPtr.Zero);
+                rv = pkcs11Library.C_Finalize(IntPtr.Zero);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 

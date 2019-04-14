@@ -45,18 +45,18 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 
             CKR rv = CKR.CKR_OK;
             
-            using (Pkcs11Library pkcs11 = new Pkcs11Library(Settings.Pkcs11LibraryPath))
+            using (Pkcs11Library pkcs11Library = new Pkcs11Library(Settings.Pkcs11LibraryPath))
             {
-                rv = pkcs11.C_Initialize(Settings.InitArgs41);
+                rv = pkcs11Library.C_Initialize(Settings.InitArgs41);
                 if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                NativeULong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeULong slotId = Helpers.GetUsableSlot(pkcs11Library);
                 
                 // Get number of supported mechanisms in first call
                 NativeULong mechanismCount = 0;
-                rv = pkcs11.C_GetMechanismList(slotId, null, ref mechanismCount);
+                rv = pkcs11Library.C_GetMechanismList(slotId, null, ref mechanismCount);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
@@ -66,19 +66,19 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 CKM[] mechanismList = new CKM[mechanismCount];
                 
                 // Get supported mechanisms in second call
-                rv = pkcs11.C_GetMechanismList(slotId, mechanismList, ref mechanismCount);
+                rv = pkcs11Library.C_GetMechanismList(slotId, mechanismList, ref mechanismCount);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Analyze first supported mechanism
                 CK_MECHANISM_INFO mechanismInfo = new CK_MECHANISM_INFO();
-                rv = pkcs11.C_GetMechanismInfo(slotId, mechanismList[0], ref mechanismInfo);
+                rv = pkcs11Library.C_GetMechanismInfo(slotId, mechanismList[0], ref mechanismInfo);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Do something interesting with mechanism info
                 
-                rv = pkcs11.C_Finalize(IntPtr.Zero);
+                rv = pkcs11Library.C_Finalize(IntPtr.Zero);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
             }

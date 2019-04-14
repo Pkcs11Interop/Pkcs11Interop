@@ -45,24 +45,24 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
 
             CKR rv = CKR.CKR_OK;
             
-            using (Pkcs11Library pkcs11 = new Pkcs11Library(Settings.Pkcs11LibraryPath))
+            using (Pkcs11Library pkcs11Library = new Pkcs11Library(Settings.Pkcs11LibraryPath))
             {
-                rv = pkcs11.C_Initialize(Settings.InitArgs41);
+                rv = pkcs11Library.C_Initialize(Settings.InitArgs41);
                 if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
                     Assert.Fail(rv.ToString());
                 
                 // Find first slot with token present
-                NativeULong slotId = Helpers.GetUsableSlot(pkcs11);
+                NativeULong slotId = Helpers.GetUsableSlot(pkcs11Library);
                 
                 // Open RO (read-only) session
                 NativeULong session = CK.CK_INVALID_HANDLE;
-                rv = pkcs11.C_OpenSession(slotId, CKF.CKF_SERIAL_SESSION, IntPtr.Zero, IntPtr.Zero, ref session);
+                rv = pkcs11Library.C_OpenSession(slotId, CKF.CKF_SERIAL_SESSION, IntPtr.Zero, IntPtr.Zero, ref session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
                 // Get length of state in first call
                 NativeULong stateLen = 0;
-                rv = pkcs11.C_GetOperationState(session, null, ref stateLen);
+                rv = pkcs11Library.C_GetOperationState(session, null, ref stateLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
@@ -72,20 +72,20 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 byte[] state = new byte[stateLen];
 
                 // Get state in second call
-                rv = pkcs11.C_GetOperationState(session, state, ref stateLen);
+                rv = pkcs11Library.C_GetOperationState(session, state, ref stateLen);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
                 // Let's set state so the test is complete
-                rv = pkcs11.C_SetOperationState(session, state, ConvertUtils.UInt32FromInt32(state.Length), CK.CK_INVALID_HANDLE, CK.CK_INVALID_HANDLE);
+                rv = pkcs11Library.C_SetOperationState(session, state, ConvertUtils.UInt32FromInt32(state.Length), CK.CK_INVALID_HANDLE, CK.CK_INVALID_HANDLE);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
 
-                rv = pkcs11.C_CloseSession(session);
+                rv = pkcs11Library.C_CloseSession(session);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
                 
-                rv = pkcs11.C_Finalize(IntPtr.Zero);
+                rv = pkcs11Library.C_Finalize(IntPtr.Zero);
                 if (rv != CKR.CKR_OK)
                     Assert.Fail(rv.ToString());
             }

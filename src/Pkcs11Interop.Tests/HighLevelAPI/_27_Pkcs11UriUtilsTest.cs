@@ -100,10 +100,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 throw new Exception("PKCS#11 URI does not specify private key");
 
             // Load and initialize PKCS#11 library specified by URI
-            using (IPkcs11Library pkcs11 = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, pkcs11Uri.ModulePath, AppType.MultiThreaded))
+            using (IPkcs11Library pkcs11Library = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, pkcs11Uri.ModulePath, AppType.MultiThreaded))
             {
                 // Obtain a list of all slots with tokens that match URI
-                List<ISlot> slots = Pkcs11UriUtils.GetMatchingSlotList(pkcs11Uri, pkcs11, SlotsType.WithTokenPresent);
+                List<ISlot> slots = Pkcs11UriUtils.GetMatchingSlotList(pkcs11Uri, pkcs11Library, SlotsType.WithTokenPresent);
                 if ((slots == null) || (slots.Count == 0))
                     throw new Exception("None of the slots matches PKCS#11 URI");
 

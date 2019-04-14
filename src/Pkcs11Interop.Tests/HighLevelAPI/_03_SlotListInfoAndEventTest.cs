@@ -40,10 +40,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_SlotListTest()
         {
-            using (IPkcs11Library pkcs11 = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11Library = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Get list of available slots
-                List<ISlot> slots = pkcs11.GetSlotList(SlotsType.WithOrWithoutTokenPresent);
+                List<ISlot> slots = pkcs11Library.GetSlotList(SlotsType.WithOrWithoutTokenPresent);
 
                 // Do something interesting with slots
                 Assert.IsNotNull(slots);
@@ -57,10 +57,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _02_BasicSlotListAndInfoTest()
         {
-            using (IPkcs11Library pkcs11 = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11Library = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Get list of available slots
-                List<ISlot> slots = pkcs11.GetSlotList(SlotsType.WithOrWithoutTokenPresent);
+                List<ISlot> slots = pkcs11Library.GetSlotList(SlotsType.WithOrWithoutTokenPresent);
                 
                 // Do something interesting with slots
                 Assert.IsNotNull(slots);
@@ -80,12 +80,12 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _03_WaitForSlotEventTest()
         {
-            using (IPkcs11Library pkcs11 = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11Library = Settings.Factories.Pkcs11LibraryFactory.LoadPkcs11Library(Settings.Factories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
                 // Wait for a slot event
                 bool eventOccured = false;
                 ulong slotId = 0;
-                pkcs11.WaitForSlotEvent(WaitType.NonBlocking, out eventOccured, out slotId);
+                pkcs11Library.WaitForSlotEvent(WaitType.NonBlocking, out eventOccured, out slotId);
                 Assert.IsFalse(eventOccured);
             }
         }

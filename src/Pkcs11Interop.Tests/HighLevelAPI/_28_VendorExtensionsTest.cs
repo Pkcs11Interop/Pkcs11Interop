@@ -52,14 +52,14 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _01_StructSizeListTest()
         {
-            using (IPkcs11Library pkcs11 = _mockFactories.Pkcs11LibraryFactory.LoadPkcs11Library(_mockFactories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11Library = _mockFactories.Pkcs11LibraryFactory.LoadPkcs11Library(_mockFactories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
-                ILibraryInfo libraryInfo = pkcs11.GetInfo();
+                ILibraryInfo libraryInfo = pkcs11Library.GetInfo();
                 if (libraryInfo.LibraryDescription != "Mock module" && libraryInfo.ManufacturerId != "Pkcs11Interop Project")
                     Assert.Inconclusive("Test cannot be executed with this PKCS#11 library");
 
                 // Obtain a list of unmanaged struct sizes via vendor specific function C_GetUnmanagedStructSizeList
-                List<ulong> unmanagedSizes = ((IMockPkcs11Library)pkcs11).GetUnmanagedStructSizeList();
+                List<ulong> unmanagedSizes = ((IMockPkcs11Library)pkcs11Library).GetUnmanagedStructSizeList();
 
                 // Obtain a list of managed struct sizes
                 List<ulong> managedSizes = GetManagedStructSizeList();
@@ -77,14 +77,14 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _02_EjectTokenTest()
         {
-            using (IPkcs11Library pkcs11 = _mockFactories.Pkcs11LibraryFactory.LoadPkcs11Library(_mockFactories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11Library = _mockFactories.Pkcs11LibraryFactory.LoadPkcs11Library(_mockFactories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
-                ILibraryInfo libraryInfo = pkcs11.GetInfo();
+                ILibraryInfo libraryInfo = pkcs11Library.GetInfo();
                 if (libraryInfo.LibraryDescription != "Mock module" && libraryInfo.ManufacturerId != "Pkcs11Interop Project")
                     Assert.Inconclusive("Test cannot be executed with this PKCS#11 library");
 
                 // Find first slot with token present
-                ISlot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11Library);
 
                 // Eject token via vendor specific function C_EjectToken
                 ((IMockSlot)slot).EjectToken();
@@ -97,14 +97,14 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         [Test()]
         public void _03_InteractiveLoginTest()
         {
-            using (IPkcs11Library pkcs11 = _mockFactories.Pkcs11LibraryFactory.LoadPkcs11Library(_mockFactories, Settings.Pkcs11LibraryPath, Settings.AppType))
+            using (IPkcs11Library pkcs11Library = _mockFactories.Pkcs11LibraryFactory.LoadPkcs11Library(_mockFactories, Settings.Pkcs11LibraryPath, Settings.AppType))
             {
-                ILibraryInfo libraryInfo = pkcs11.GetInfo();
+                ILibraryInfo libraryInfo = pkcs11Library.GetInfo();
                 if (libraryInfo.LibraryDescription != "Mock module" && libraryInfo.ManufacturerId != "Pkcs11Interop Project")
                     Assert.Inconclusive("Test cannot be executed with this PKCS#11 library");
 
                 // Find first slot with token present
-                ISlot slot = Helpers.GetUsableSlot(pkcs11);
+                ISlot slot = Helpers.GetUsableSlot(pkcs11Library);
 
                 // Open RO session
                 using (ISession session = slot.OpenSession(SessionType.ReadOnly))

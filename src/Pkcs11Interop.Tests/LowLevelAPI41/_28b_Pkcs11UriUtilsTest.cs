@@ -365,42 +365,42 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
         {
             Helpers.CheckPlatform();
 
-            using (Pkcs11Library pkcs11 = new Pkcs11Library(Settings.Pkcs11LibraryPath))
+            using (Pkcs11Library pkcs11Library = new Pkcs11Library(Settings.Pkcs11LibraryPath))
             {
-                CKR rv = pkcs11.C_Initialize(Settings.InitArgs41);
+                CKR rv = pkcs11Library.C_Initialize(Settings.InitArgs41);
                 Assert.IsTrue(rv == CKR.CKR_OK);
 
                 // Get all slots
                 NativeULong allSlotsCount = 0;
-                rv = pkcs11.C_GetSlotList(true, null, ref allSlotsCount);
+                rv = pkcs11Library.C_GetSlotList(true, null, ref allSlotsCount);
                 Assert.IsTrue(rv == CKR.CKR_OK);
                 Assert.IsTrue(allSlotsCount > 0);
                 NativeULong[] allSlots = new NativeULong[allSlotsCount];
-                rv = pkcs11.C_GetSlotList(true, allSlots, ref allSlotsCount);
+                rv = pkcs11Library.C_GetSlotList(true, allSlots, ref allSlotsCount);
                 Assert.IsTrue(rv == CKR.CKR_OK);
 
                 // Empty URI
                 Pkcs11Uri pkcs11uri = new Pkcs11Uri(@"pkcs11:");
                 NativeULong[] matchedSlots = null;
-                rv = Pkcs11UriUtils.GetMatchingSlotList(pkcs11uri, pkcs11, true, out matchedSlots);
+                rv = Pkcs11UriUtils.GetMatchingSlotList(pkcs11uri, pkcs11Library, true, out matchedSlots);
                 Assert.IsTrue(rv == CKR.CKR_OK);
                 Assert.IsTrue(matchedSlots.Length == allSlots.Length);
 
                 // Unknown path attribute in URI
                 pkcs11uri = new Pkcs11Uri(@"pkcs11:vendor=foobar");
-                rv = Pkcs11UriUtils.GetMatchingSlotList(pkcs11uri, pkcs11, true, out matchedSlots);
+                rv = Pkcs11UriUtils.GetMatchingSlotList(pkcs11uri, pkcs11Library, true, out matchedSlots);
                 Assert.IsTrue(rv == CKR.CKR_OK);
                 Assert.IsTrue(matchedSlots.Length == 0);
 
                 // All attributes matching one slot
                 CK_INFO libraryInfo = new CK_INFO();
-                rv = pkcs11.C_GetInfo(ref libraryInfo);
+                rv = pkcs11Library.C_GetInfo(ref libraryInfo);
                 Assert.IsTrue(rv == CKR.CKR_OK);
                 CK_SLOT_INFO slotInfo = new CK_SLOT_INFO();
-                rv = pkcs11.C_GetSlotInfo(allSlots[0], ref slotInfo);
+                rv = pkcs11Library.C_GetSlotInfo(allSlots[0], ref slotInfo);
                 Assert.IsTrue(rv == CKR.CKR_OK);
                 CK_TOKEN_INFO tokenInfo = new CK_TOKEN_INFO();
-                rv = pkcs11.C_GetTokenInfo(allSlots[0], ref tokenInfo);
+                rv = pkcs11Library.C_GetTokenInfo(allSlots[0], ref tokenInfo);
                 Assert.IsTrue(rv == CKR.CKR_OK);
 
                 Pkcs11UriBuilder pkcs11UriBuilder = new Pkcs11UriBuilder();
@@ -416,18 +416,18 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI41
                 pkcs11UriBuilder.Model = ConvertUtils.BytesToUtf8String(tokenInfo.Model, true);
                 pkcs11uri = pkcs11UriBuilder.ToPkcs11Uri();
 
-                rv = Pkcs11UriUtils.GetMatchingSlotList(pkcs11uri, pkcs11, true, out matchedSlots);
+                rv = Pkcs11UriUtils.GetMatchingSlotList(pkcs11uri, pkcs11Library, true, out matchedSlots);
                 Assert.IsTrue(rv == CKR.CKR_OK);
                 Assert.IsTrue(matchedSlots.Length == 1);
 
                 // One attribute nonmatching
                 pkcs11UriBuilder.Serial = "foobar";
                 pkcs11uri = pkcs11UriBuilder.ToPkcs11Uri();
-                rv = Pkcs11UriUtils.GetMatchingSlotList(pkcs11uri, pkcs11, true, out matchedSlots);
+                rv = Pkcs11UriUtils.GetMatchingSlotList(pkcs11uri, pkcs11Library, true, out matchedSlots);
                 Assert.IsTrue(rv == CKR.CKR_OK);
                 Assert.IsTrue(matchedSlots.Length == 0);
 
-                rv = pkcs11.C_Finalize(IntPtr.Zero);
+                rv = pkcs11Library.C_Finalize(IntPtr.Zero);
                 Assert.IsTrue(rv == CKR.CKR_OK);
             }
         }
