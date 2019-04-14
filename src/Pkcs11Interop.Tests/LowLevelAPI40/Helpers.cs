@@ -46,15 +46,15 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
         /// <summary>
         /// Finds slot containing the token that matches criteria specified in Settings class
         /// </summary>
-        /// <param name='pkcs11'>Initialized PKCS11 wrapper</param>
+        /// <param name='pkcs11Library'>Initialized PKCS11 wrapper</param>
         /// <returns>Slot containing the token that matches criteria</returns>
-        public static NativeULong GetUsableSlot(Pkcs11Library pkcs11)
+        public static NativeULong GetUsableSlot(Pkcs11Library pkcs11Library)
         {
             CKR rv = CKR.CKR_OK;
 
             // Get list of available slots with token present
             NativeULong slotCount = 0;
-            rv = pkcs11.C_GetSlotList(true, null, ref slotCount);
+            rv = pkcs11Library.C_GetSlotList(true, null, ref slotCount);
             if (rv != CKR.CKR_OK)
                 Assert.Fail(rv.ToString());
 
@@ -62,7 +62,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
 
             NativeULong[] slotList = new NativeULong[slotCount];
 
-            rv = pkcs11.C_GetSlotList(true, slotList, ref slotCount);
+            rv = pkcs11Library.C_GetSlotList(true, slotList, ref slotCount);
             if (rv != CKR.CKR_OK)
                 Assert.Fail(rv.ToString());
 
@@ -81,7 +81,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI40
                 foreach (NativeULong slot in slotList)
                 {
                     CK_TOKEN_INFO tokenInfo = new CK_TOKEN_INFO();
-                    rv = pkcs11.C_GetTokenInfo(slot, ref tokenInfo);
+                    rv = pkcs11Library.C_GetTokenInfo(slot, ref tokenInfo);
                     if (rv != CKR.CKR_OK)
                     {
                         if (rv == CKR.CKR_TOKEN_NOT_RECOGNIZED || rv == CKR.CKR_TOKEN_NOT_PRESENT)

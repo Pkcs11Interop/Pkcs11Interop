@@ -37,12 +37,12 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         /// <summary>
         /// Finds slot containing the token that matches criteria specified in Settings class
         /// </summary>
-        /// <param name='pkcs11'>Initialized PKCS11 wrapper</param>
+        /// <param name='pkcs11Library'>Initialized PKCS11 wrapper</param>
         /// <returns>Slot containing the token that matches criteria</returns>
-        public static ISlot GetUsableSlot(IPkcs11Library pkcs11)
+        public static ISlot GetUsableSlot(IPkcs11Library pkcs11Library)
         {
             // Get list of available slots with token present
-            List<ISlot> slots = pkcs11.GetSlotList(SlotsType.WithTokenPresent);
+            List<ISlot> slots = pkcs11Library.GetSlotList(SlotsType.WithTokenPresent);
 
             Assert.IsNotNull(slots);
             Assert.IsTrue(slots.Count > 0);
