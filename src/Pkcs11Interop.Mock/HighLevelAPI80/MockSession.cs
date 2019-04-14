@@ -63,7 +63,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI80
 
             _logger.Debug("MockSession({0})::InteractiveLogin", _sessionId);
 
-            CKR rv = ((LowLevelAPI80.MockPkcs11Library)_p11).C_InteractiveLogin(_sessionId);
+            CKR rv = ((LowLevelAPI80.MockPkcs11Library)_pkcs11Library).C_InteractiveLogin(_sessionId);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_InteractiveLogin", rv);
         }

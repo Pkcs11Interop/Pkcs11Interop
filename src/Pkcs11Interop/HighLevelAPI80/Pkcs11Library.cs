@@ -73,7 +73,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <summary>
         /// Low level PKCS#11 wrapper
         /// </summary>
-        protected LowLevelAPI80.Pkcs11Library _p11 = null;
+        protected LowLevelAPI80.Pkcs11Library _pkcs11Library = null;
 
         /// <summary>
         /// Initializes new instance of Pkcs11Library class
@@ -105,16 +105,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             try
             {
                 _logger.Info("Loading PKCS#11 library {0}", _libraryPath);
-                _p11 = new LowLevelAPI80.Pkcs11Library(_libraryPath);
+                _pkcs11Library = new LowLevelAPI80.Pkcs11Library(_libraryPath);
                 Initialize(appType);
             }
             catch
             {
-                if (_p11 != null)
+                if (_pkcs11Library != null)
                 {
                     _logger.Info("Unloading PKCS#11 library {0}", _libraryPath);
-                    _p11.Dispose();
-                    _p11 = null;
+                    _pkcs11Library.Dispose();
+                    _pkcs11Library = null;
                 }
 
                 throw;
@@ -136,16 +136,16 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             try
             {
                 _logger.Info("Loading PKCS#11 library {0}", _libraryPath);
-                _p11 = new LowLevelAPI80.Pkcs11Library(_libraryPath, (initType == InitType.WithFunctionList));
+                _pkcs11Library = new LowLevelAPI80.Pkcs11Library(_libraryPath, (initType == InitType.WithFunctionList));
                 Initialize(appType);
             }
             catch
             {
-                if (_p11 != null)
+                if (_pkcs11Library != null)
                 {
                     _logger.Info("Unloading PKCS#11 library {0}", _libraryPath);
-                    _p11.Dispose();
-                    _p11 = null;
+                    _pkcs11Library.Dispose();
+                    _pkcs11Library = null;
                 }
 
                 throw;
@@ -167,7 +167,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                 initArgs.Flags = CKF.CKF_OS_LOCKING_OK;
             }
 
-            CKR rv = _p11.C_Initialize(initArgs);
+            CKR rv = _pkcs11Library.C_Initialize(initArgs);
             if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_CRYPTOKI_ALREADY_INITIALIZED))
                 throw new Pkcs11Exception("C_Initialize", rv);
         }
@@ -184,7 +184,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             _logger.Debug("Pkcs11Library({0})::GetInfo", _libraryPath);
 
             CK_INFO info = new CK_INFO();
-            CKR rv = _p11.C_GetInfo(ref info);
+            CKR rv = _pkcs11Library.C_GetInfo(ref info);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetInfo", rv);
 
@@ -204,7 +204,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             _logger.Debug("Pkcs11Library({0})::GetSlotList", _libraryPath);
 
             NativeULong slotCount = 0;
-            CKR rv = _p11.C_GetSlotList((slotsType == SlotsType.WithTokenPresent), null, ref slotCount);
+            CKR rv = _pkcs11Library.C_GetSlotList((slotsType == SlotsType.WithTokenPresent), null, ref slotCount);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetSlotList", rv);
 
@@ -215,7 +215,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             else
             {
                 NativeULong[] slotList = new NativeULong[slotCount];
-                rv = _p11.C_GetSlotList((slotsType == SlotsType.WithTokenPresent), slotList, ref slotCount);
+                rv = _pkcs11Library.C_GetSlotList((slotsType == SlotsType.WithTokenPresent), slotList, ref slotCount);
                 if (rv != CKR.CKR_OK)
                     throw new Pkcs11Exception("C_GetSlotList", rv);
 
@@ -224,7 +224,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
 
                 List<ISlot> list = new List<ISlot>();
                 foreach (NativeULong slot in slotList)
-                    list.Add(_factories.SlotFactory.Create(_factories, _p11, slot));
+                    list.Add(_factories.SlotFactory.Create(_factories, _pkcs11Library, slot));
 
                 return list;
             }
@@ -246,7 +246,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
             NativeULong flags = (waitType == WaitType.NonBlocking) ? CKF.CKF_DONT_BLOCK : 0;
 
             NativeULong slotId_ = 0;
-            CKR rv = _p11.C_WaitForSlotEvent(flags, ref slotId_, IntPtr.Zero);
+            CKR rv = _pkcs11Library.C_WaitForSlotEvent(flags, ref slotId_, IntPtr.Zero);
             if (waitType == WaitType.NonBlocking)
             {
                 if (rv == CKR.CKR_OK)
@@ -304,13 +304,13 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                 if (disposing)
                 {
                     // Dispose managed objects
-                    if (_p11 != null)
+                    if (_pkcs11Library != null)
                     {
-                        _p11.C_Finalize(IntPtr.Zero);
+                        _pkcs11Library.C_Finalize(IntPtr.Zero);
 
                         _logger.Info("Unloading PKCS#11 library {0}", _libraryPath);
-                        _p11.Dispose();
-                        _p11 = null;
+                        _pkcs11Library.Dispose();
+                        _pkcs11Library = null;
                     }
                 }
 

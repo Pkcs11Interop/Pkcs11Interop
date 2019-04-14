@@ -58,7 +58,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI41
         {
             _logger.Debug("MockSlot({0})::EjectToken", _slotId);
 
-            CKR rv = ((LowLevelAPI41.MockPkcs11Library)_p11).C_EjectToken(_slotId);
+            CKR rv = ((LowLevelAPI41.MockPkcs11Library)_pkcs11Library).C_EjectToken(_slotId);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_EjectToken", rv);
         }

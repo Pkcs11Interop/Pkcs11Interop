@@ -55,16 +55,16 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI80
             try
             {
                 _logger.Info("Loading PKCS#11 library {0}", _libraryPath);
-                _p11 = new LowLevelAPI80.MockPkcs11Library(libraryPath);
+                _pkcs11Library = new LowLevelAPI80.MockPkcs11Library(libraryPath);
                 Initialize(appType);
             }
             catch
             {
-                if (_p11 != null)
+                if (_pkcs11Library != null)
                 {
                     _logger.Info("Unloading PKCS#11 library {0}", _libraryPath);
-                    _p11.Dispose();
-                    _p11 = null;
+                    _pkcs11Library.Dispose();
+                    _pkcs11Library = null;
                 }
                 throw;
             }
@@ -85,16 +85,16 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI80
             try
             {
                 _logger.Info("Loading PKCS#11 library {0}", _libraryPath);
-                _p11 = new LowLevelAPI80.MockPkcs11Library(libraryPath, (initType == InitType.WithFunctionList));
+                _pkcs11Library = new LowLevelAPI80.MockPkcs11Library(libraryPath, (initType == InitType.WithFunctionList));
                 Initialize(appType);
             }
             catch
             {
-                if (_p11 != null)
+                if (_pkcs11Library != null)
                 {
                     _logger.Info("Unloading PKCS#11 library {0}", _libraryPath);
-                    _p11.Dispose();
-                    _p11 = null;
+                    _pkcs11Library.Dispose();
+                    _pkcs11Library = null;
                 }
                 throw;
             }
@@ -112,12 +112,12 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI80
             _logger.Debug("MockPkcs11Library({0})::GetUnmanagedStructSizeList", _libraryPath);
 
             NativeULong sizeCount = 0;
-            CKR rv = ((LowLevelAPI80.MockPkcs11Library)_p11).C_GetUnmanagedStructSizeList(null, ref sizeCount);
+            CKR rv = ((LowLevelAPI80.MockPkcs11Library)_pkcs11Library).C_GetUnmanagedStructSizeList(null, ref sizeCount);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetUnmanagedStructSizeList", rv);
 
             NativeULong[] sizeList = new NativeULong[sizeCount];
-            rv = ((LowLevelAPI80.MockPkcs11Library)_p11).C_GetUnmanagedStructSizeList(sizeList, ref sizeCount);
+            rv = ((LowLevelAPI80.MockPkcs11Library)_pkcs11Library).C_GetUnmanagedStructSizeList(sizeList, ref sizeCount);
             if (rv != CKR.CKR_OK)
                 throw new Pkcs11Exception("C_GetUnmanagedStructSizeList", rv);
 
