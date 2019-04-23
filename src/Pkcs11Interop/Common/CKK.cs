@@ -246,6 +246,11 @@ namespace Net.Pkcs11Interop.Common
         CKK_GOST28147 = 0x00000032,
 
         /// <summary>
+        /// GOST R 34.10-2012 512 bit key
+        /// </summary>
+        CKK_GOSTR3410_512 = 0xD4321003,
+
+        /// <summary>
         /// Permanently reserved for token vendors
         /// </summary>
         CKK_VENDOR_DEFINED = 0x80000000
