@@ -29,6 +29,7 @@
     <DeviceSpecificBuild>false</DeviceSpecificBuild>
     <MtouchVerbosity>
     </MtouchVerbosity>
+<MtouchExtraArgs>-gcc_flags "-L${ProjectDir} -lpkcs11-mock -force_load ${ProjectDir}/libpkcs11-mock.a"</MtouchExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>pdbonly</DebugType>
@@ -47,6 +48,7 @@
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <MtouchVerbosity>
     </MtouchVerbosity>
+    <MtouchExtraArgs>-gcc_flags "-L${ProjectDir} -lpkcs11-mock -force_load ${ProjectDir}/libpkcs11-mock.a"</MtouchExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>pdbonly</DebugType>
@@ -63,6 +65,7 @@
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <MtouchVerbosity>
     </MtouchVerbosity>
+<MtouchExtraArgs>-gcc_flags "-L${ProjectDir} -lpkcs11-mock -force_load ${ProjectDir}/libpkcs11-mock.a"</MtouchExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -85,6 +88,7 @@
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <MtouchVerbosity>
     </MtouchVerbosity>
+    <MtouchExtraArgs>-gcc_flags "-L${ProjectDir} -lpkcs11-mock -force_load ${ProjectDir}/libpkcs11-mock.a"</MtouchExtraArgs>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -99,6 +103,7 @@
   <ItemGroup>
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
+    <None Include="libpkcs11-mock.a" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\src\Pkcs11Interop.Tests\Common\Helpers.cs">
