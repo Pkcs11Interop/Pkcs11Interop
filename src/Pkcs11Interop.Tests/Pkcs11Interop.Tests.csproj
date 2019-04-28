@@ -8,6 +8,10 @@
     <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <RootNamespace>Net.Pkcs11Interop.Tests</RootNamespace>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.11.0" />
   </ItemGroup>

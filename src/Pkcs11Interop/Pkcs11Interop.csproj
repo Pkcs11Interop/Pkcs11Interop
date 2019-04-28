@@ -22,6 +22,7 @@
     <Company />
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <RootNamespace>Net.Pkcs11Interop</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup Label="PackExtraContent">

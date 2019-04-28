@@ -8,6 +8,10 @@
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <RootNamespace>Net.Pkcs11Interop.Mock</RootNamespace>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Pkcs11Interop\Pkcs11Interop.csproj" />
   </ItemGroup>
