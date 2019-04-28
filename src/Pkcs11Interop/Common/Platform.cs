@@ -21,7 +21,7 @@
 
 using System;
 using System.IO;
-#if (NETSTANDARD1_3 || NETSTANDARD2_0)
+#if NETSTANDARD2_0
 using System.Runtime.InteropServices;
 #endif
 
@@ -196,7 +196,7 @@ namespace Net.Pkcs11Interop.Common
             if (_isWindows || _isLinux || _isMacOsX)
                 return;
 
-#if (NETSTANDARD1_3 || NETSTANDARD2_0)
+#if NETSTANDARD2_0
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
