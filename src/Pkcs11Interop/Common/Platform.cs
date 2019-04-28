@@ -21,6 +21,9 @@
 
 using System;
 using System.IO;
+#if NETSTANDARD2_0
+using System.Runtime.InteropServices;
+#endif
 
 // Note: Code in this file is maintained manually.
 
@@ -193,6 +196,29 @@ namespace Net.Pkcs11Interop.Common
             if (_isWindows || _isLinux || _isMacOsX)
                 return;
 
+#if NETSTANDARD2_0
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                _isWindows = true;
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                // Note: Android gets here too
+                _isLinux = true;
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                // Note: iOS gets here too
+                _isMacOsX = true;
+            }
+            else
+            {
+                throw new UnsupportedPlatformException("Pkcs11Interop is not supported on this platform");
+            }
+
+#else
+
             // Detect platform
             //
             // System.Environment.OSVersion.Platform is not used because:
@@ -239,6 +265,8 @@ namespace Net.Pkcs11Interop.Common
             {
                 throw new UnsupportedPlatformException("Pkcs11Interop is not supported on this platform");
             }
+
+#endif
         }
     }
 }
