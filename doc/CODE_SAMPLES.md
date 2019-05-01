@@ -126,4 +126,8 @@ Following source files contain valuable code samples:
 
 * Test file: [HighLevelAPI/_28_VendorExtensionsTest.cs](../src/Pkcs11Interop.Tests/HighLevelAPI/_28_VendorExtensionsTest.cs)  
   Involved vendor specific PKCS#11 functions: `C_GetUnmanagedStructSizeList`, `C_EjectToken`, `C_InteractiveLogin`  
-  Demonstrates how to use Pkcs11Interop.Mock library with vendor specific extensions of [PKCS11-MOCK](https://github.com/Pkcs11Interop/pkcs11-mock) module.
+  Demonstrates how to use [Pkcs11Interop.Mock](../src/Pkcs11Interop.Mock/) library with vendor specific extensions of [PKCS11-MOCK](https://github.com/Pkcs11Interop/pkcs11-mock) module.
+
+* Test file: [HighLevelAPI/_29_LoggingTest.cs](../src/Pkcs11Interop.Tests/HighLevelAPI/_29_LoggingTest.cs)  
+  Involved PKCS#11 functions: None  
+  Demonstrates how to use managed logging of Pkcs11Interop library.

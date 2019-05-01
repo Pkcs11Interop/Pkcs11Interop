@@ -166,5 +166,6 @@
  * \example HighLevelAPI/_26_LegacyParallelFunctionsTest.cs
  * \example HighLevelAPI/_27_Pkcs11UriUtilsTest.cs
  * \example HighLevelAPI/_28_VendorExtensionsTest.cs
+ * \example HighLevelAPI/_29_LoggingTest.cs
  * \example HighLevelAPI/Helpers.cs
  */
