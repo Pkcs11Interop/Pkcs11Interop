@@ -51,7 +51,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         public void _01_DisposeAttributeTest()
         {
             // Unmanaged memory for attribute value stored in low level CK_ATTRIBUTE struct
-            // is allocated by constructor of ObjectAttribute class.
+            // is allocated by constructor of class implementing IObjectAttribute interface.
             IObjectAttribute attr1 = Settings.Factories.ObjectAttributeFactory.Create(CKA.CKA_CLASS, CKO.CKO_DATA);
 
             // Do something interesting with attribute
