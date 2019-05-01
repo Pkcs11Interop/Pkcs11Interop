@@ -41,7 +41,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
         public void _01_BasicLoggingTest()
         {
             // Specify path to the log file
-            string logFilePath = @"Pkcs11Interop.log";
+            string logFilePath = Path.Combine(Path.GetTempPath(), @"Pkcs11Interop.log");
 
             DeleteFile(logFilePath);
 
