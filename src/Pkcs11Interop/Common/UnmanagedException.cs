@@ -20,9 +20,7 @@
  */
 
 using System;
-#if (!NETSTANDARD1_3)
 using System.Runtime.Serialization;
-#endif
 
 // Note: Code in this file is maintained manually.
 
@@ -31,9 +29,7 @@ namespace Net.Pkcs11Interop.Common
     /// <summary>
     /// Exception indicating that unmanaged function has returned error
     /// </summary>
-#if (!NETSTANDARD1_3)
     [Serializable]
-#endif
     public class UnmanagedException : Exception
     {
         /// <summary>
@@ -73,7 +69,6 @@ namespace Net.Pkcs11Interop.Common
             _errorCode = errorCode;
         }
 
-#if (!NETSTANDARD1_3)
         /// <summary>
         /// Initializes new instance of UnmanagedException class with serialized data
         /// </summary>
@@ -109,6 +104,5 @@ namespace Net.Pkcs11Interop.Common
 
             base.GetObjectData(info, context);
         }
-#endif
     }
 }

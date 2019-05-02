@@ -20,9 +20,7 @@
  */
 
 using System;
-#if (!NETSTANDARD1_3)
 using System.Runtime.Serialization;
-#endif
 
 // Note: Code in this file is maintained manually.
 
@@ -31,9 +29,7 @@ namespace Net.Pkcs11Interop.Common
     /// <summary>
     /// Exception indicating that Pkcs11Interop is being used on an unsupported platform
     /// </summary>
-#if (!NETSTANDARD1_3)
     [Serializable]
-#endif
     public class UnsupportedPlatformException : Exception
     {
         /// <summary>
@@ -46,7 +42,6 @@ namespace Net.Pkcs11Interop.Common
 
         }
 
-#if (!NETSTANDARD1_3)
         /// <summary>
         /// Initializes new instance of UnsupportedPlatformException class with serialized data
         /// </summary>
@@ -57,6 +52,5 @@ namespace Net.Pkcs11Interop.Common
         {
 
         }
-#endif
     }
 }
