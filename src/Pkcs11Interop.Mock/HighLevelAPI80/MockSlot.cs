@@ -37,7 +37,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI80
         /// <summary>
         /// Logger responsible for message logging
         /// </summary>
-        private static Pkcs11InteropLogger _logger = Pkcs11InteropLoggerFactory.GetLogger(typeof(MockSlot));
+        private Pkcs11InteropLogger _logger = Pkcs11InteropLoggerFactory.GetLogger(typeof(MockSlot));
 
         /// <summary>
         /// Initializes new instance of Slot class

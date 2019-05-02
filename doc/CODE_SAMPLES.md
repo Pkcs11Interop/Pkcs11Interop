@@ -1,6 +1,6 @@
 # Pkcs11Interop code samples
 
-Pkcs11Interop source code contains unit tests covering all methods of PKCS#11 API. Unit tests are well documented and they also serve as official code samples.
+Pkcs11Interop source code contains unit tests covering all methods of PKCS#11 API. Unit tests are documented and they also serve as official code samples.
 
 **WARNING: Our documentation and code samples do not cover the theory of security/cryptography or the strengths/weaknesses of specific algorithms. You should always understand what you are doing and why. Please do not simply copy our code samples and expect it to fully solve your usage scenario. Cryptography is an advanced topic and one should consult a solid and preferably recent reference in order to make the best of it.**
 
@@ -124,14 +124,10 @@ Following source files contain valuable code samples:
   Involved PKCS#11 functions: None  
   Demonstrates how to use PKCS#11 URI in a signature creation application.
 
-* Test file: [HighLevelAPI/_28_Pkcs11ClassExtensionTest.cs](../src/Pkcs11Interop.Tests/HighLevelAPI/_28_Pkcs11ClassExtensionTest.cs)  
-  Involved PKCS#11 functions: None  
-  Demonstrates how to extend Pkcs11 classes with the ability to call C_GetUnmanagedStructSizeList vendor specific function of [PKCS11-MOCK](https://github.com/Pkcs11Interop/pkcs11-mock) module.
+* Test file: [HighLevelAPI/_28_VendorExtensionsTest.cs](../src/Pkcs11Interop.Tests/HighLevelAPI/_28_VendorExtensionsTest.cs)  
+  Involved vendor specific PKCS#11 functions: `C_GetUnmanagedStructSizeList`, `C_EjectToken`, `C_InteractiveLogin`  
+  Demonstrates how to use [Pkcs11Interop.Mock](../src/Pkcs11Interop.Mock/) library with vendor specific extensions of [PKCS11-MOCK](https://github.com/Pkcs11Interop/pkcs11-mock) module.
 
-* Test file: [HighLevelAPI/_29_SlotClassExtensionTest.cs](../src/Pkcs11Interop.Tests/HighLevelAPI/_29_SlotClassExtensionTest.cs)  
+* Test file: [HighLevelAPI/_29_LoggingTest.cs](../src/Pkcs11Interop.Tests/HighLevelAPI/_29_LoggingTest.cs)  
   Involved PKCS#11 functions: None  
-  Demonstrates how to extend Slot classes with the ability to call C_EjectToken vendor specific function of [PKCS11-MOCK](https://github.com/Pkcs11Interop/pkcs11-mock) module.
-
-* Test file: [HighLevelAPI/_30_SessionClassExtensionTest.cs](../src/Pkcs11Interop.Tests/HighLevelAPI/_30_SessionClassExtensionTest.cs)  
-  Involved PKCS#11 functions: None  
-  Demonstrates how to extend Session classes with the ability to call C_InteractiveLogin vendor specific function of [PKCS11-MOCK](https://github.com/Pkcs11Interop/pkcs11-mock) module.
+  Demonstrates how to use managed logging of Pkcs11Interop library.

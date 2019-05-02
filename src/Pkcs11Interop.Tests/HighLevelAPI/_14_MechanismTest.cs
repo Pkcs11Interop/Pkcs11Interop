@@ -55,7 +55,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
             rng.NextBytes(parameter);
 
             // Unmanaged memory for mechanism parameter stored in low level CK_MECHANISM struct
-            // is allocated by constructor of Mechanism class.
+            // is allocated by constructor class implementing IMechanism interface.
             IMechanism mechanism1 = Settings.Factories.MechanismFactory.Create(CKM.CKM_DES_CBC, parameter);
 
             // Do something interesting with mechanism

@@ -7,18 +7,20 @@ Pkcs11Interop loads unmanaged PKCS#11 library provided by the cryptographic devi
 Next code sample shows how to load PKCS#11 library via Pkcs11Interop in .NET application:
 
 ```csharp
-string pkcs11Library = null;
+string pkcs11LibraryPath = null;
 
 if (Net.Pkcs11Interop.Common.Platform.Uses64BitRuntime)
 {
-    pkcs11Library = @"c:\path\to\pkcs11-x64.dll";
+    pkcs11LibraryPath = @"c:\path\to\pkcs11-x64.dll";
 }
 else
 {
-    pkcs11Library = @"c:\path\to\pkcs11-x86.dll";
+    pkcs11LibraryPath = @"c:\path\to\pkcs11-x86.dll";
 }
 
-using (var pkcs11 = new Net.Pkcs11Interop.HighLevelAPI.Pkcs11(pkcs11Library, AppType.MultiThreaded))
+Pkcs11InteropFactories factories = new Pkcs11InteropFactories();
+
+using (IPkcs11Library pkcs11Library = factories.Pkcs11LibraryFactory.LoadPkcs11Library(factories, pkcs11LibraryPath, AppType.MultiThreaded))
 {
     // Do something interesting
 }
@@ -35,28 +37,30 @@ Following figure presents the typical usage of Pkcs11Interop library with PKCS11
 Next code sample shows how to load PKCS#11 library via PKCS11-LOGGER and Pkcs11Interop in .NET application:
 
 ```csharp
-string pkcs11Library = null;
-string loggerLibrary = null;
-string logFile = null;
+string pkcs11LibraryPath = null;
+string loggerLibraryPath = null;
+string logFilePath = null;
 
 if (Net.Pkcs11Interop.Common.Platform.Uses64BitRuntime)
 {
-    pkcs11Library = @"c:\path\to\pkcs11-x64.dll";
-    loggerLibrary = @"c:\path\to\pkcs11-logger-x64.dll";
-    logFile = @"c:\path\to\pkcs11-logger-x64.log";
+    pkcs11LibraryPath = @"c:\path\to\pkcs11-x64.dll";
+    loggerLibraryPath = @"c:\path\to\pkcs11-logger-x64.dll";
+    logFilePath = @"c:\path\to\pkcs11-logger-x64.log";
 }
 else
 {
-    pkcs11Library = @"c:\path\to\pkcs11-x86.dll";
-    loggerLibrary = @"c:\path\to\pkcs11-logger-x86.dll";
-    logFile = @"c:\path\to\pkcs11-logger-x86.log";
+    pkcs11LibraryPath = @"c:\path\to\pkcs11-x86.dll";
+    loggerLibraryPath = @"c:\path\to\pkcs11-logger-x86.dll";
+    logFilePath = @"c:\path\to\pkcs11-logger-x86.log";
 }
 
-System.Environment.SetEnvironmentVariable("PKCS11_LOGGER_LIBRARY_PATH", pkcs11Library);
-System.Environment.SetEnvironmentVariable("PKCS11_LOGGER_LOG_FILE_PATH", logFile);
+System.Environment.SetEnvironmentVariable("PKCS11_LOGGER_LIBRARY_PATH", pkcs11LibraryPath);
+System.Environment.SetEnvironmentVariable("PKCS11_LOGGER_LOG_FILE_PATH", logFilePath);
 System.Environment.SetEnvironmentVariable("PKCS11_LOGGER_FLAGS", "64");
 
-using (var pkcs11 = new Net.Pkcs11Interop.HighLevelAPI.Pkcs11(loggerLibrary, AppType.MultiThreaded))
+Pkcs11InteropFactories factories = new Pkcs11InteropFactories();
+
+using (IPkcs11Library pkcs11Library = factories.Pkcs11LibraryFactory.LoadPkcs11Library(factories, loggerLibraryPath, AppType.MultiThreaded))
 {
     // Do something interesting
 }

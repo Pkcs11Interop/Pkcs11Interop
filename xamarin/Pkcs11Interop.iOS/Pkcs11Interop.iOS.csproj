@@ -205,6 +205,9 @@
     <Compile Include="..\..\src\Pkcs11Interop.Tests\HighLevelAPI\_28_VendorExtensionsTest.cs">
       <Link>Tests\HighLevelAPI\_28_VendorExtensionsTest.cs</Link>
     </Compile>
+    <Compile Include="..\..\src\Pkcs11Interop.Tests\HighLevelAPI\_29_LoggingTest.cs">
+      <Link>Tests\HighLevelAPI\_29_LoggingTest.cs</Link>
+    </Compile>
     <Compile Include="..\..\src\Pkcs11Interop.Tests\LowLevelAPI40\Helpers.cs">
       <Link>Tests\LowLevelAPI40\Helpers.cs</Link>
     </Compile>
