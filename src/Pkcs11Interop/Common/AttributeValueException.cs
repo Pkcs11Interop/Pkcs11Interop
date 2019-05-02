@@ -20,9 +20,7 @@
  */
 
 using System;
-#if (!NETSTANDARD1_3)
 using System.Runtime.Serialization;
-#endif
 
 // Note: Code in this file is maintained manually.
 
@@ -31,9 +29,7 @@ namespace Net.Pkcs11Interop.Common
     /// <summary>
     /// Exception with the name of PKCS#11 attribute whose value could not be read or converted
     /// </summary>
-#if (!NETSTANDARD1_3)
     [Serializable]
-#endif
     public class AttributeValueException : Exception
     {
         /// <summary>
@@ -115,7 +111,6 @@ namespace Net.Pkcs11Interop.Common
 
         }
 
-#if (!NETSTANDARD1_3)
         /// <summary>
         /// Initializes new instance of AttributeValueException class with serialized data
         /// </summary>
@@ -144,6 +139,5 @@ namespace Net.Pkcs11Interop.Common
 
             base.GetObjectData(info, context);
         }
-#endif
     }
 }

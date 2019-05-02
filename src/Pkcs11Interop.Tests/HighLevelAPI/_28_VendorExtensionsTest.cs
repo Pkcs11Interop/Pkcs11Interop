@@ -129,11 +129,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 {
                     sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA40.CK_ATTRIBUTE))));
                     sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA40.CK_C_INITIALIZE_ARGS))));
-#if NETCOREAPP1_0
-                    sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA40.CK_INFO).GetTypeInfo().Assembly.GetType("Net.Pkcs11Interop.LowLevelAPI40.CK_FUNCTION_LIST"))));
-#else
                     sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA40.CK_INFO).Assembly.GetType("Net.Pkcs11Interop.LowLevelAPI40.CK_FUNCTION_LIST"))));
-#endif
                     sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA40.CK_INFO))));
                     sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA40.CK_MECHANISM))));
                     sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA40.CK_MECHANISM_INFO))));
@@ -190,11 +186,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 {
                     sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA41.CK_ATTRIBUTE))));
                     sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA41.CK_C_INITIALIZE_ARGS))));
-#if NETCOREAPP1_0
-                    sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA41.CK_INFO).GetTypeInfo().Assembly.GetType("Net.Pkcs11Interop.LowLevelAPI41.CK_FUNCTION_LIST"))));
-#else
                     sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA41.CK_INFO).Assembly.GetType("Net.Pkcs11Interop.LowLevelAPI41.CK_FUNCTION_LIST"))));
-#endif
                     sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA41.CK_INFO))));
                     sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA41.CK_MECHANISM))));
                     sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA41.CK_MECHANISM_INFO))));
@@ -254,11 +246,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 {
                     sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA80.CK_ATTRIBUTE))));
                     sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA80.CK_C_INITIALIZE_ARGS))));
-#if NETCOREAPP1_0
-                    sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA80.CK_INFO).GetTypeInfo().Assembly.GetType("Net.Pkcs11Interop.LowLevelAPI80.CK_FUNCTION_LIST"))));
-#else
                     sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA80.CK_INFO).Assembly.GetType("Net.Pkcs11Interop.LowLevelAPI80.CK_FUNCTION_LIST"))));
-#endif
                     sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA80.CK_INFO))));
                     sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA80.CK_MECHANISM))));
                     sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA80.CK_MECHANISM_INFO))));
@@ -315,11 +303,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                 {
                     sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA81.CK_ATTRIBUTE))));
                     sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA81.CK_C_INITIALIZE_ARGS))));
-#if NETCOREAPP1_0
-                    sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA81.CK_INFO).GetTypeInfo().Assembly.GetType("Net.Pkcs11Interop.LowLevelAPI81.CK_FUNCTION_LIST"))));
-#else
                     sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA81.CK_INFO).Assembly.GetType("Net.Pkcs11Interop.LowLevelAPI81.CK_FUNCTION_LIST"))));
-#endif
                     sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA81.CK_INFO))));
                     sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA81.CK_MECHANISM))));
                     sizeList.Add(Convert.ToUInt64(UnmanagedMemory.SizeOf(typeof(LLA81.CK_MECHANISM_INFO))));

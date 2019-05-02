@@ -20,9 +20,7 @@
  */
 
 using System;
-#if (!NETSTANDARD1_3)
 using System.Runtime.Serialization;
-#endif
 
 // Note: Code in this file is maintained manually.
 
@@ -31,9 +29,7 @@ namespace Net.Pkcs11Interop.Common
     /// <summary>
     /// Exception that indicates error in PKCS#11 URI parsing or building process
     /// </summary>
-#if (!NETSTANDARD1_3)
     [Serializable]
-#endif
     public class Pkcs11UriException : Exception
     {
         /// <summary>
@@ -57,7 +53,6 @@ namespace Net.Pkcs11Interop.Common
 
         }
 
-#if (!NETSTANDARD1_3)
         /// <summary>
         /// Initializes new instance of Pkcs11UriException class with serialized data
         /// </summary>
@@ -68,6 +63,5 @@ namespace Net.Pkcs11Interop.Common
         {
 
         }
-#endif
     }
 }

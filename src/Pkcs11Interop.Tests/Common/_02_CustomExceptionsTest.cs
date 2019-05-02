@@ -19,8 +19,6 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
-#if (!NETCOREAPP1_0)
-
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Net.Pkcs11Interop.Common;
@@ -129,5 +127,3 @@ namespace Net.Pkcs11Interop.Tests.Common
         }
     }
 }
-
-#endif

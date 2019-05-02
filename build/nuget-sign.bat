@@ -36,7 +36,6 @@ del /Q *.nupkg || goto :error
 lib\net20\Pkcs11Interop.dll ^
 lib\net40\Pkcs11Interop.dll ^
 lib\net45\Pkcs11Interop.dll ^
-lib\netstandard1.3\Pkcs11Interop.dll ^
 lib\netstandard2.0\Pkcs11Interop.dll || goto :error
 
 @rem Sign all assemblies using SHA256withRSA algorithm
@@ -44,7 +43,6 @@ lib\netstandard2.0\Pkcs11Interop.dll || goto :error
 lib\net20\Pkcs11Interop.dll ^
 lib\net40\Pkcs11Interop.dll ^
 lib\net45\Pkcs11Interop.dll ^
-lib\netstandard1.3\Pkcs11Interop.dll ^
 lib\netstandard2.0\Pkcs11Interop.dll || goto :error
 
 @rem Create signed package with signed assemblies
