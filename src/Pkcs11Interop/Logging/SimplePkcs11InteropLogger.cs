@@ -60,7 +60,7 @@ namespace Net.Pkcs11Interop.Logging
         /// <summary>
         /// Path to the log file - null value indicates disabled file output
         /// </summary>
-        string _filePath = null;
+        private string _filePath = null;
 
         /// <summary>
         /// Initializes new instance of SimplePkcs11InteropLogger class

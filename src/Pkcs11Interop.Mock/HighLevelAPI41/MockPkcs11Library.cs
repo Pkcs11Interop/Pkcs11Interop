@@ -39,7 +39,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI41
         /// <summary>
         /// Logger responsible for message logging
         /// </summary>
-        private static Pkcs11InteropLogger _logger = Pkcs11InteropLoggerFactory.GetLogger(typeof(MockPkcs11Library));
+        private Pkcs11InteropLogger _logger = Pkcs11InteropLoggerFactory.GetLogger(typeof(MockPkcs11Library));
 
         /// <summary>
         /// Loads and initializes PCKS#11 library

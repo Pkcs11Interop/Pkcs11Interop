@@ -38,7 +38,7 @@ namespace Net.Pkcs11Interop.Mock.HighLevelAPI40
         /// <summary>
         /// Logger responsible for message logging
         /// </summary>
-        private static Pkcs11InteropLogger _logger = Pkcs11InteropLoggerFactory.GetLogger(typeof(MockSession));
+        private Pkcs11InteropLogger _logger = Pkcs11InteropLoggerFactory.GetLogger(typeof(MockSession));
 
         /// <summary>
         /// Initializes new instance of Session class

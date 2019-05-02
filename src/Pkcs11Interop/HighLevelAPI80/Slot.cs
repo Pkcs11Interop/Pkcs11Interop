@@ -39,7 +39,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
         /// <summary>
         /// Logger responsible for message logging
         /// </summary>
-        private static Pkcs11InteropLogger _logger = Pkcs11InteropLoggerFactory.GetLogger(typeof(Slot));
+        private Pkcs11InteropLogger _logger = Pkcs11InteropLoggerFactory.GetLogger(typeof(Slot));
 
         /// <summary>
         /// Factories to be used by Developer and Pkcs11Interop library
