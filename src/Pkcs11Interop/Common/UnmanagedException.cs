@@ -33,12 +33,14 @@ namespace Net.Pkcs11Interop.Common
     public class UnmanagedException : Exception
     {
         /// <summary>
-        /// Error code returned by the last unmanaged function
+        /// Error code returned by the last unmanaged function.
+        /// Errors are explained at https://docs.microsoft.com/en-us/windows/desktop/Debug/system-error-codes
         /// </summary>
         private int? _errorCode = null;
 
         /// <summary>
-        /// Error code returned by the last unmanaged function
+        /// Error code returned by the last unmanaged function.
+        /// Errors are explained at https://docs.microsoft.com/en-us/windows/desktop/Debug/system-error-codes
         /// </summary>
         public int? ErrorCode
         {
