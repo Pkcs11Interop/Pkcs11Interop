@@ -20,6 +20,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -90,7 +91,7 @@ namespace Net.Pkcs11Interop.Common
                     if (win32Error == NativeMethods.ERROR_BAD_EXE_FORMAT)
                         throw new LibraryArchitectureException();
                     else
-                        throw new UnmanagedException(string.Format("Unable to load library. Error code: 0x{0:X8}", win32Error), win32Error);
+                        throw new UnmanagedException(string.Format("Unable to load library. Error code: 0x{0:X8}. Error detail: {1}", win32Error, new Win32Exception(win32Error).Message), win32Error);
                 }
             }
 
@@ -122,7 +123,7 @@ namespace Net.Pkcs11Interop.Common
                 if (!NativeMethods.FreeLibrary(libraryHandle))
                 {
                     int win32Error = Marshal.GetLastWin32Error();
-                    throw new UnmanagedException(string.Format("Unable to unload library. Error code: 0x{0:X8}", win32Error), win32Error);
+                    throw new UnmanagedException(string.Format("Unable to unload library. Error code: 0x{0:X8}. Error detail: {1}", win32Error, new Win32Exception(win32Error).Message), win32Error);
                 }
             }
         }
@@ -161,7 +162,7 @@ namespace Net.Pkcs11Interop.Common
                 if (functionPointer == IntPtr.Zero)
                 {
                     int win32Error = Marshal.GetLastWin32Error();
-                    throw new UnmanagedException(string.Format("Unable to get pointer for {0} function. Error code: 0x{1:X8}", function, win32Error), win32Error);
+                    throw new UnmanagedException(string.Format("Unable to get pointer for {0} function. Error code: 0x{1:X8}. Error detail: {2}", function, win32Error, new Win32Exception(win32Error).Message), win32Error);
                 }
             }
 
