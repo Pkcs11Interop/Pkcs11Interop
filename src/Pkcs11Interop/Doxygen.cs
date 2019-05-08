@@ -44,7 +44,7 @@
  * 
  * Up to version 4, Pkcs11Interop used individual classes located in `Net.Pkcs11Interop.HighLevelAPI` namespace that automatically used the correct set of platform dependent API-s.
  * 
- * Since version 5, Pkcs11Interop uses <a href="https://en.wikipedia.org/wiki/Factory_method_pattern">factory method pattern</a> implemented by `Net.Pkcs11Interop.HighLevelAPI.Pkcs11InteropFactories` class that automatically instantiates the correct set of platform dependent API-s.
+ * Since version 5, Pkcs11Interop uses <a href="https://en.wikipedia.org/wiki/Abstract_factory_pattern">factory pattern</a> implemented by `Net.Pkcs11Interop.HighLevelAPI.Pkcs11InteropFactories` class that automatically instantiates the correct set of platform dependent API-s.
  */
 
 

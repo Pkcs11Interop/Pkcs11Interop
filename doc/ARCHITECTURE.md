@@ -58,4 +58,4 @@ One could say that packing with 1-byte alignment should be preferred on all plat
 
 Up to version 4, Pkcs11Interop used individual classes located in `Net.Pkcs11Interop.HighLevelAPI` namespace that automatically used the correct set of platform dependent API-s.
 
-Since version 5, Pkcs11Interop uses [factory method pattern](https://en.wikipedia.org/wiki/Factory_method_pattern) implemented by `Net.Pkcs11Interop.HighLevelAPI.Pkcs11InteropFactories` class that automatically instantiates the correct set of platform dependent API-s.
+Since version 5, Pkcs11Interop uses [factory pattern](https://en.wikipedia.org/wiki/Abstract_factory_pattern) implemented by `Net.Pkcs11Interop.HighLevelAPI.Pkcs11InteropFactories` class that automatically instantiates the correct set of platform dependent API-s.
