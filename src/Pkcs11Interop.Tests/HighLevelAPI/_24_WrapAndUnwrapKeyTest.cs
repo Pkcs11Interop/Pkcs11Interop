@@ -60,7 +60,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     IObjectHandle secretKey = Helpers.GenerateKey(session);
 
                     // Specify wrapping mechanism
-                    IMechanism mechanism = Settings.Factories.MechanismFactory.Create(CKM.CKM_RSA_PKCS);
+                    IMechanism mechanism = session.Factories.MechanismFactory.Create(CKM.CKM_RSA_PKCS);
 
                     // Wrap key
                     byte[] wrappedKey = session.WrapKey(mechanism, publicKey, secretKey);
@@ -70,12 +70,12 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
                     // Define attributes for unwrapped key
                     List<IObjectAttribute> objectAttributes = new List<IObjectAttribute>();
-                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.Create(CKA.CKA_CLASS, CKO.CKO_SECRET_KEY));
-                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.Create(CKA.CKA_KEY_TYPE, CKK.CKK_DES3));
-                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.Create(CKA.CKA_ENCRYPT, true));
-                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.Create(CKA.CKA_DECRYPT, true));
-                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.Create(CKA.CKA_DERIVE, true));
-                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.Create(CKA.CKA_EXTRACTABLE, true));
+                    objectAttributes.Add(session.Factories.ObjectAttributeFactory.Create(CKA.CKA_CLASS, CKO.CKO_SECRET_KEY));
+                    objectAttributes.Add(session.Factories.ObjectAttributeFactory.Create(CKA.CKA_KEY_TYPE, CKK.CKK_DES3));
+                    objectAttributes.Add(session.Factories.ObjectAttributeFactory.Create(CKA.CKA_ENCRYPT, true));
+                    objectAttributes.Add(session.Factories.ObjectAttributeFactory.Create(CKA.CKA_DECRYPT, true));
+                    objectAttributes.Add(session.Factories.ObjectAttributeFactory.Create(CKA.CKA_DERIVE, true));
+                    objectAttributes.Add(session.Factories.ObjectAttributeFactory.Create(CKA.CKA_EXTRACTABLE, true));
 
                     // Unwrap key
                     IObjectHandle unwrappedKey = session.UnwrapKey(mechanism, privateKey, wrappedKey, objectAttributes);

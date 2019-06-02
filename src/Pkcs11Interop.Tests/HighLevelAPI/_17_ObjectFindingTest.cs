@@ -57,8 +57,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
                     // Prepare attribute template that defines search criteria
                     List<IObjectAttribute> objectAttributes = new List<IObjectAttribute>();
-                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.Create(CKA.CKA_CLASS, CKO.CKO_DATA));
-                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.Create(CKA.CKA_TOKEN, true));
+                    objectAttributes.Add(session.Factories.ObjectAttributeFactory.Create(CKA.CKA_CLASS, CKO.CKO_DATA));
+                    objectAttributes.Add(session.Factories.ObjectAttributeFactory.Create(CKA.CKA_TOKEN, true));
 
                     // Initialize searching
                     session.FindObjectsInit(objectAttributes);
@@ -103,8 +103,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     
                     // Prepare attribute template that defines search criteria
                     List<IObjectAttribute> objectAttributes = new List<IObjectAttribute>();
-                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.Create(CKA.CKA_CLASS, CKO.CKO_DATA));
-                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.Create(CKA.CKA_TOKEN, true));
+                    objectAttributes.Add(session.Factories.ObjectAttributeFactory.Create(CKA.CKA_CLASS, CKO.CKO_DATA));
+                    objectAttributes.Add(session.Factories.ObjectAttributeFactory.Create(CKA.CKA_TOKEN, true));
                     
                     // Find all objects that match provided attributes
                     List<IObjectHandle> foundObjects = session.FindAllObjects(objectAttributes);

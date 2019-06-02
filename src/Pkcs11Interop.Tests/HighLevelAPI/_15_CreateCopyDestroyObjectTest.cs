@@ -53,11 +53,11 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
                     // Prepare attribute template of new data object
                     List<IObjectAttribute> objectAttributes = new List<IObjectAttribute>();
-                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.Create(CKA.CKA_CLASS, CKO.CKO_DATA));
-                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.Create(CKA.CKA_TOKEN, true));
-                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.Create(CKA.CKA_APPLICATION, Settings.ApplicationName));
-                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.Create(CKA.CKA_LABEL, Settings.ApplicationName));
-                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.Create(CKA.CKA_VALUE, "Data object content"));
+                    objectAttributes.Add(session.Factories.ObjectAttributeFactory.Create(CKA.CKA_CLASS, CKO.CKO_DATA));
+                    objectAttributes.Add(session.Factories.ObjectAttributeFactory.Create(CKA.CKA_TOKEN, true));
+                    objectAttributes.Add(session.Factories.ObjectAttributeFactory.Create(CKA.CKA_APPLICATION, Settings.ApplicationName));
+                    objectAttributes.Add(session.Factories.ObjectAttributeFactory.Create(CKA.CKA_LABEL, Settings.ApplicationName));
+                    objectAttributes.Add(session.Factories.ObjectAttributeFactory.Create(CKA.CKA_VALUE, "Data object content"));
 
                     // Create object
                     IObjectHandle objectHandle = session.CreateObject(objectAttributes);

@@ -56,7 +56,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     Helpers.GenerateKeyPair(session, out publicKey, out privateKey);
                     
                     // Specify signing mechanism
-                    IMechanism signingMechanism = Settings.Factories.MechanismFactory.Create(CKM.CKM_SHA1_RSA_PKCS);
+                    IMechanism signingMechanism = session.Factories.MechanismFactory.Create(CKM.CKM_SHA1_RSA_PKCS);
 
                     // Generate symetric key
                     IObjectHandle secretKey = Helpers.GenerateKey(session);
@@ -65,7 +65,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     byte[] iv = session.GenerateRandom(8);
                     
                     // Specify encryption mechanism with initialization vector as parameter
-                    IMechanism encryptionMechanism = Settings.Factories.MechanismFactory.Create(CKM.CKM_DES3_CBC, iv);
+                    IMechanism encryptionMechanism = session.Factories.MechanismFactory.Create(CKM.CKM_DES3_CBC, iv);
 
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Passw0rd");
 

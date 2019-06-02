@@ -55,7 +55,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
                     // Let's set state so the test is complete
                     // Note that CK_INVALID_HANDLE is passed in as encryptionKey and authenticationKey
-                    session.SetOperationState(state, Settings.Factories.ObjectHandleFactory.Create(), Settings.Factories.ObjectHandleFactory.Create());
+                    session.SetOperationState(state, session.Factories.ObjectHandleFactory.Create(), session.Factories.ObjectHandleFactory.Create());
                 }
             }
         }

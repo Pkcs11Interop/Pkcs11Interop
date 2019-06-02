@@ -134,8 +134,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
 
                     // Prepare list of attributes we want to set
                     List<IObjectAttribute> objectAttributes = new List<IObjectAttribute>();
-                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.Create(CKA.CKA_LABEL, Settings.ApplicationName + "_2"));
-                    objectAttributes.Add(Settings.Factories.ObjectAttributeFactory.Create(CKA.CKA_VALUE, "New data object content"));
+                    objectAttributes.Add(session.Factories.ObjectAttributeFactory.Create(CKA.CKA_LABEL, Settings.ApplicationName + "_2"));
+                    objectAttributes.Add(session.Factories.ObjectAttributeFactory.Create(CKA.CKA_VALUE, "New data object content"));
 
                     // Set attributes
                     session.SetAttributeValue(objectHandle, objectAttributes);

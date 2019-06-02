@@ -58,10 +58,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     byte[] data = session.GenerateRandom(24);
 
                     // Specify mechanism parameters
-                    ICkKeyDerivationStringData mechanismParams = Settings.Factories.MechanismParamsFactory.CreateCkKeyDerivationStringData(data);
+                    ICkKeyDerivationStringData mechanismParams = session.Factories.MechanismParamsFactory.CreateCkKeyDerivationStringData(data);
 
                     // Specify derivation mechanism with parameters
-                    IMechanism mechanism = Settings.Factories.MechanismFactory.Create(CKM.CKM_XOR_BASE_AND_DATA, mechanismParams);
+                    IMechanism mechanism = session.Factories.MechanismFactory.Create(CKM.CKM_XOR_BASE_AND_DATA, mechanismParams);
                     
                     // Derive key
                     IObjectHandle derivedKey = session.DeriveKey(mechanism, baseKey, null);

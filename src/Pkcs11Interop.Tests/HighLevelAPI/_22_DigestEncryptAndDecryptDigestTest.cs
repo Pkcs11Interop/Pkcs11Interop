@@ -57,10 +57,10 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     byte[] iv = session.GenerateRandom(8);
 
                     // Specify encryption mechanism with initialization vector as parameter
-                    IMechanism encryptionMechanism = Settings.Factories.MechanismFactory.Create(CKM.CKM_DES3_CBC, iv);
+                    IMechanism encryptionMechanism = session.Factories.MechanismFactory.Create(CKM.CKM_DES3_CBC, iv);
 
                     // Specify digesting mechanism
-                    IMechanism digestingMechanism = Settings.Factories.MechanismFactory.Create(CKM.CKM_SHA_1);
+                    IMechanism digestingMechanism = session.Factories.MechanismFactory.Create(CKM.CKM_SHA_1);
 
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Our new password");
 

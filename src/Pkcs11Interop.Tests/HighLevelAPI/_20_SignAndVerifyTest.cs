@@ -57,7 +57,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     Helpers.GenerateKeyPair(session, out publicKey, out privateKey);
                     
                     // Specify signing mechanism
-                    IMechanism mechanism = Settings.Factories.MechanismFactory.Create(CKM.CKM_SHA1_RSA_PKCS);
+                    IMechanism mechanism = session.Factories.MechanismFactory.Create(CKM.CKM_SHA1_RSA_PKCS);
                     
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
 
@@ -103,7 +103,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     Helpers.GenerateKeyPair(session, out publicKey, out privateKey);
                     
                     // Specify signing mechanism
-                    IMechanism mechanism = Settings.Factories.MechanismFactory.Create(CKM.CKM_SHA1_RSA_PKCS);
+                    IMechanism mechanism = session.Factories.MechanismFactory.Create(CKM.CKM_SHA1_RSA_PKCS);
 
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
                     byte[] signature = null;

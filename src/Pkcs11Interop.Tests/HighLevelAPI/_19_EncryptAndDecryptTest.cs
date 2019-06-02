@@ -59,7 +59,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     byte[] iv = session.GenerateRandom(8);
 
                     // Specify encryption mechanism with initialization vector as parameter
-                    IMechanism mechanism = Settings.Factories.MechanismFactory.Create(CKM.CKM_DES3_CBC, iv);
+                    IMechanism mechanism = session.Factories.MechanismFactory.Create(CKM.CKM_DES3_CBC, iv);
 
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Our new password");
 
@@ -104,7 +104,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     byte[] iv = session.GenerateRandom(8);
                     
                     // Specify encryption mechanism with initialization vector as parameter
-                    IMechanism mechanism = Settings.Factories.MechanismFactory.Create(CKM.CKM_DES3_CBC, iv);
+                    IMechanism mechanism = session.Factories.MechanismFactory.Create(CKM.CKM_DES3_CBC, iv);
 
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Our new password");
                     byte[] encryptedData = null;
@@ -166,7 +166,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     Helpers.GenerateKeyPair(session, out publicKey, out privateKey);
 
                     // Specify mechanism parameters
-                    ICkRsaPkcsOaepParams mechanismParams = Settings.Factories.MechanismParamsFactory.CreateCkRsaPkcsOaepParams(
+                    ICkRsaPkcsOaepParams mechanismParams = session.Factories.MechanismParamsFactory.CreateCkRsaPkcsOaepParams(
                         ConvertUtils.UInt64FromCKM(CKM.CKM_SHA_1),
                         ConvertUtils.UInt64FromCKG(CKG.CKG_MGF1_SHA1),
                         ConvertUtils.UInt64FromUInt32(CKZ.CKZ_DATA_SPECIFIED), 
@@ -174,7 +174,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     );
 
                     // Specify encryption mechanism with parameters
-                    IMechanism mechanism = Settings.Factories.MechanismFactory.Create(CKM.CKM_RSA_PKCS_OAEP, mechanismParams);
+                    IMechanism mechanism = session.Factories.MechanismFactory.Create(CKM.CKM_RSA_PKCS_OAEP, mechanismParams);
                     
                     byte[] sourceData = ConvertUtils.Utf8StringToBytes("Hello world");
                     

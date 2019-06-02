@@ -114,7 +114,7 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                     session.Login(CKU.CKU_USER, pkcs11Uri.PinValue);
 
                     // Get list of object attributes for the private key specified by URI
-                    List<IObjectAttribute> searchTemplate = Pkcs11UriUtils.GetObjectAttributes(pkcs11Uri, Settings.Factories.ObjectAttributeFactory);
+                    List<IObjectAttribute> searchTemplate = Pkcs11UriUtils.GetObjectAttributes(pkcs11Uri, session.Factories.ObjectAttributeFactory);
 
                     // Find private key specified by URI
                     List<IObjectHandle> foundObjects = session.FindAllObjects(searchTemplate);
@@ -122,7 +122,8 @@ namespace Net.Pkcs11Interop.Tests.HighLevelAPI
                         throw new Exception("None of the private keys match PKCS#11 URI");
 
                     // Create signature with the private key specified by URI
-                    return session.Sign(Settings.Factories.MechanismFactory.Create(CKM.CKM_SHA1_RSA_PKCS), foundObjects[0], data);
+                    using (IMechanism mechanism = session.Factories.MechanismFactory.Create(CKM.CKM_SHA1_RSA_PKCS))
+                        return session.Sign(mechanism, foundObjects[0], data);
                 }
             }
         }
