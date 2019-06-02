@@ -1,4 +1,4 @@
-Pkcs11Interop 5.0.0 (2019-XX-YY)
+Pkcs11Interop 5.0.0 (2019-06-02)
  - #69 - Improved error message in UnmanagedException
  - #70 - Introduced managed logging
  - #75 - Removed Silverlight 5 support
