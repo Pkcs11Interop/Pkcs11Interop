@@ -43,6 +43,16 @@ namespace Net.Pkcs11Interop.Common
         /// <summary>
         /// Context specific
         /// </summary>
-        CKU_CONTEXT_SPECIFIC = 2
+        CKU_CONTEXT_SPECIFIC = 2,
+        
+        /// <summary>
+        /// Limited User (SafeNet extension)
+        /// </summary>
+        CKU_LIMITED_USER = 0x80000001,
+        
+        /// <summary>
+        /// Audit User (SafeNet extension)
+        /// </summary>
+        CKU_AUDIT_USER = 0x80000002
     }
 }
