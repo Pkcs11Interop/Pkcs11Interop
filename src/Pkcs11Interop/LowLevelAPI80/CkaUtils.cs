@@ -298,7 +298,8 @@ namespace Net.Pkcs11Interop.LowLevelAPI80
             string month = ConvertUtils.BytesToUtf8String(bytes, 4, 2);
             string day = ConvertUtils.BytesToUtf8String(bytes, 6, 2);
 
-            if ((year == "0000") && (month == "00") && (day == "00"))
+            if (((year == "0000") && (month == "00") && (day == "00")) ||
+                ((year == "\0\0\0\0") && (month == "\0\0") && (day == "\0\0")))
             {
                 // PKCS#11 v2.20:
                 // Note that implementations of previous versions of Cryptoki may have used other
