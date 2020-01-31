@@ -42,9 +42,11 @@ namespace Net.Pkcs11Interop.Common
         /// Loads the specified module into the address space of the calling process.
         /// </summary>
         /// <param name="lpFileName">The name of the module.</param>
+        /// <param name="hFile">Reserved for future use, must be 0.</param>
+        /// <param name="dwFlags">Flags determining how the module is loaded.</param>
         /// <returns>If the function succeeds, the return value is a handle to the module. If the function fails, the return value is NULL.</returns>
         [DllImport("kernel32", CallingConvention = CallingConvention.Winapi, SetLastError = true, BestFitMapping = false, ThrowOnUnmappableChar = true)]
-        internal static extern IntPtr LoadLibrary([MarshalAs(UnmanagedType.LPStr)] string lpFileName);
+        internal static extern IntPtr LoadLibraryEx([MarshalAs(UnmanagedType.LPStr)] string lpFileName, IntPtr hFile, uint dwFlags);
 
         /// <summary>
         /// Frees the loaded dynamic-link library (DLL) module and, if necessary, decrements its reference count.

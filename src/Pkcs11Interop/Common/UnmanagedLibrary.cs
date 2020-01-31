@@ -84,7 +84,7 @@ namespace Net.Pkcs11Interop.Common
             else
             {
                 // Load library
-                libraryHandle = NativeMethods.LoadLibrary(fileName);
+                libraryHandle = NativeMethods.LoadLibraryEx(fileName, IntPtr.Zero, 0x00000008); // LOAD_WITH_ALTERED_SEARCH_PATH
                 if (libraryHandle == IntPtr.Zero)
                 {
                     int win32Error = Marshal.GetLastWin32Error();
