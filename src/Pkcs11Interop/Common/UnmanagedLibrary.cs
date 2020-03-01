@@ -83,8 +83,14 @@ namespace Net.Pkcs11Interop.Common
             }
             else
             {
-                // Load library
-                libraryHandle = NativeMethods.LoadLibrary(fileName);
+                // Determine flags for LoadLibraryEx function
+                // Note: If no flags are specified, the behavior LoadLibraryEx function is identical to that of the LoadLibrary function.
+                //       If LOAD_WITH_ALTERED_SEARCH_PATH is used and fileName specifies an absolute path, the system uses the alternate file search strategy 
+                //       to find associated executable modules that the specified module causes to be loaded.
+                //       If LOAD_WITH_ALTERED_SEARCH_PATH is used and fileName specifies a relative path, the behavior is undefined.
+                int flags = IsAbsolutePath(fileName) ? NativeMethods.LOAD_WITH_ALTERED_SEARCH_PATH : 0;
+                
+                libraryHandle = NativeMethods.LoadLibraryEx(fileName, IntPtr.Zero, flags);
                 if (libraryHandle == IntPtr.Zero)
                 {
                     int win32Error = Marshal.GetLastWin32Error();
@@ -191,6 +197,48 @@ namespace Net.Pkcs11Interop.Common
         {
             IntPtr functionPtr = GetFunctionPointer(libraryHandle, function);
             return GetDelegateForFunctionPointer<T>(functionPtr);
+        }
+
+        /// <summary>
+        /// Checks whether path is absolute
+        /// </summary>
+        /// <param name="path">Path that should be checked</param>
+        /// <returns>True if path is aboslute false otherwise</returns>
+        private static bool IsAbsolutePath(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+                return false;
+
+            if (Platform.IsWindows)
+            {
+                if (path.Length < 3)
+                    return false;
+
+                char firstChar = path[0];
+                char secondChar = path[1];
+                char thirdChar = path[2];
+
+                // First character must be valid drive character
+                if ((firstChar < 'A' || firstChar > 'Z') && (firstChar < 'a' || firstChar > 'z'))
+                    return false;
+
+                // Second character must be valid volume separator character
+                if (secondChar != Path.VolumeSeparatorChar)
+                    return false;
+
+                // Third character must be valid directory separator character
+                if (thirdChar != Path.DirectorySeparatorChar && thirdChar != Path.AltDirectorySeparatorChar)
+                    return false;
+
+                return true;
+            }
+            else
+            {
+                if (path.Length < 1)
+                    return false;
+
+                return (path[0] == '/');
+            }
         }
     }
 }
