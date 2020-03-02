@@ -39,12 +39,21 @@ namespace Net.Pkcs11Interop.Common
         internal const int ERROR_BAD_EXE_FORMAT = 0xC1;
 
         /// <summary>
-        /// Loads the specified module into the address space of the calling process.
+        /// Enables alternate file search strategy to find associated executable modules that the specified module causes to be loaded.
+        /// Alternate search strategy uses "the directory the specified module was loaded from" 
+        /// instead of "the directory the calling process was loaded from" that is used by the standard search strategy.
         /// </summary>
-        /// <param name="lpFileName">The name of the module.</param>
-        /// <returns>If the function succeeds, the return value is a handle to the module. If the function fails, the return value is NULL.</returns>
+        internal const int LOAD_WITH_ALTERED_SEARCH_PATH = 0x00000008;
+
+        /// <summary>
+        /// Loads the specified module into the address space of the calling process. The specified module may cause other modules to be loaded.
+        /// </summary>
+        /// <param name="lpFileName">A string that specifies the file name of the module to load.</param>
+        /// <param name="hFile">This parameter is reserved for future use. It must be NULL.</param>
+        /// <param name="dwFlags">The action to be taken when loading the module. If no flags are specified, the behavior of this function is identical to that of the LoadLibrary function.</param>
+        /// <returns>If the function succeeds, the return value is a handle to the loaded module. If the function fails, the return value is NULL.</returns>
         [DllImport("kernel32", CallingConvention = CallingConvention.Winapi, SetLastError = true, BestFitMapping = false, ThrowOnUnmappableChar = true)]
-        internal static extern IntPtr LoadLibrary([MarshalAs(UnmanagedType.LPStr)] string lpFileName);
+        internal static extern IntPtr LoadLibraryEx([MarshalAs(UnmanagedType.LPStr)] string lpFileName, IntPtr hFile, int dwFlags);
 
         /// <summary>
         /// Frees the loaded dynamic-link library (DLL) module and, if necessary, decrements its reference count.
