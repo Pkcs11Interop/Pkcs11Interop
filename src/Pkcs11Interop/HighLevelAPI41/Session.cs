@@ -607,6 +607,50 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_ATTRIBUTE_SENSITIVE) && (rv != CKR.CKR_ATTRIBUTE_TYPE_INVALID))
                 throw new Pkcs11Exception("C_GetAttributeValue", rv);
 
+            // Third call to C_GetAttributeValue is needed if any of the attributes is an array attribute
+            bool thirdCallNeeded = false;
+            for (int i = 0; i < template.Length; i++)
+            {
+                if ((template[i].type & CKF.CKF_ARRAY_ATTRIBUTE) == CKF.CKF_ARRAY_ATTRIBUTE)
+                {
+                    int ckAttributeSize = UnmanagedMemory.SizeOf(typeof(CK_ATTRIBUTE));
+                    int nestedAttrCount = ConvertUtils.UInt32ToInt32(template[i].valueLen) / ckAttributeSize;
+                    int nestedAttrCountMod = ConvertUtils.UInt32ToInt32(template[i].valueLen) % ckAttributeSize;
+
+                    if (nestedAttrCountMod != 0)
+                        throw new Exception("Unable to read attribute value as attribute array");
+
+                    if (nestedAttrCount == 0)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        thirdCallNeeded = true;
+
+                        // Allocate memory for each nested attribute
+                        for (int j = 0; j < nestedAttrCount; j++)
+                        {
+                            IntPtr tempPointer = new IntPtr(template[i].value.ToInt64() + (j * ckAttributeSize));
+                            CK_ATTRIBUTE tempAttribute = (CK_ATTRIBUTE)UnmanagedMemory.Read(tempPointer, typeof(CK_ATTRIBUTE));
+
+                            if ((NativeLong)tempAttribute.valueLen != -1)
+                                tempAttribute.value = Common.UnmanagedMemory.Allocate(ConvertUtils.UInt32ToInt32(tempAttribute.valueLen));
+
+                            Common.UnmanagedMemory.Write(tempPointer, tempAttribute);
+                        }
+                    }
+                }
+
+                // Read values of all nested attributes
+                if (thirdCallNeeded)
+                {
+                    rv = _pkcs11Library.C_GetAttributeValue(_sessionId, ConvertUtils.UInt32FromUInt64(objectHandle.ObjectId), template, ConvertUtils.UInt32FromInt32(template.Length));
+                    if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_ATTRIBUTE_SENSITIVE) && (rv != CKR.CKR_ATTRIBUTE_TYPE_INVALID))
+                        throw new Pkcs11Exception("C_GetAttributeValue", rv);
+                }
+            }
+
             // Convert CK_ATTRIBUTEs to ObjectAttributes
             List<IObjectAttribute> outAttributes = new List<IObjectAttribute>();
             for (int i = 0; i < template.Length; i++)
