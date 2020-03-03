@@ -628,6 +628,22 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
                 }
 
                 // Dispose unmanaged objects
+                if ((_ckAttribute.type & CKF.CKF_ARRAY_ATTRIBUTE) == CKF.CKF_ARRAY_ATTRIBUTE)
+                {
+                    CK_ATTRIBUTE[] nestedAttributes = null;
+                    CkaUtils.ConvertValue(ref _ckAttribute, out nestedAttributes);
+
+                    if (nestedAttributes != null)
+                    {
+                        // Free memory occupied by the value of each nested attribute
+                        for (int i = 0; i < nestedAttributes.Length; i++)
+                        {
+                            Common.UnmanagedMemory.Free(ref nestedAttributes[i].value);
+                            nestedAttributes[i].valueLen = 0;
+                        }
+                    }
+                }
+
                 Common.UnmanagedMemory.Free(ref _ckAttribute.value);
                 _ckAttribute.valueLen = 0;
 
