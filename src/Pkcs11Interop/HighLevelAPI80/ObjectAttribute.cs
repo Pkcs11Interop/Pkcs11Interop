@@ -627,6 +627,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                     // Dispose managed objects
                 }
 
+                /*
                 // Dispose unmanaged objects
                 if (MiscSettings.AttributesWithNestedAttributes.Contains(ConvertUtils.UInt64ToUInt64(_ckAttribute.type)))
                 {
@@ -643,6 +644,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                         }
                     }
                 }
+                */
 
                 Common.UnmanagedMemory.Free(ref _ckAttribute.value);
                 _ckAttribute.valueLen = 0;
