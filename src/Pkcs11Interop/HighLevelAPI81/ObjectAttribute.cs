@@ -628,7 +628,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
                 }
 
                 // Dispose unmanaged objects
-                if ((_ckAttribute.type & CKF.CKF_ARRAY_ATTRIBUTE) == CKF.CKF_ARRAY_ATTRIBUTE)
+                if (MiscSettings.AttributesWithNestedAttributes.Contains(ConvertUtils.UInt64ToUInt64(_ckAttribute.type)))
                 {
                     CK_ATTRIBUTE[] nestedAttributes = null;
                     CkaUtils.ConvertValue(ref _ckAttribute, out nestedAttributes);
