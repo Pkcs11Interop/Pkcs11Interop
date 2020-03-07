@@ -19,7 +19,9 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
+using Net.Pkcs11Interop.Logging;
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 // Note: Code in this file is maintained manually.
@@ -31,6 +33,41 @@ namespace Net.Pkcs11Interop.Common
     /// </summary>
     public static class UnmanagedMemory
     {
+        /// <summary>
+        /// Logger responsible for message logging
+        /// </summary>
+        private static Pkcs11InteropLogger _logger = Pkcs11InteropLoggerFactory.GetLogger(typeof(UnmanagedMemory));
+
+        /// <summary>
+        /// Lock object for list of all memory allocations
+        /// </summary>
+        private static object _allocationsLock = new object();
+
+        /// <summary>
+        /// List of all memory allocations performed by this class
+        /// </summary>
+        private static Dictionary<IntPtr, int> _allocations = new Dictionary<IntPtr, int>();
+
+        /// <summary>
+        /// Flag indicating whether all memory allocations should be logged
+        /// </summary>
+        private static bool _debugModeEnabled = false;
+
+        /// <summary>
+        /// Flag indicating whether all memory allocations should be logged
+        /// </summary>
+        public static bool DebugModeEnabled
+        {
+            get
+            {
+                return _debugModeEnabled;
+            }
+            set
+            {
+                _debugModeEnabled = value;
+            }
+        }
+
         /// <summary>
         /// Allocates unmanaged zero-filled memory
         /// </summary>
@@ -48,6 +85,23 @@ namespace Net.Pkcs11Interop.Common
             memory = Marshal.AllocHGlobal(size);
             Write(memory, new byte[size]);
 
+            if (_debugModeEnabled)
+            {
+                lock (_allocationsLock)
+                {
+                    if (!_allocations.ContainsKey(memory))
+                    {
+                        _allocations.Add(memory, size);
+                        
+                        _logger.Debug("Allocated {0} bytes at {1}. Allocations: {2}", size, memory, _allocations.Count);
+                    }
+                    else
+                    {
+                        throw new Exception(string.Format("Already allocated {0} bytes at {1}", _allocations[memory], memory));
+                    }
+                }
+            }
+
             return memory;
         }
 
@@ -57,11 +111,29 @@ namespace Net.Pkcs11Interop.Common
         /// <param name="memory">Pointer to the previously allocated unmanaged memory</param>
         public static void Free(ref IntPtr memory)
         {
-            if (memory != IntPtr.Zero)
+            if (memory == IntPtr.Zero)
+                return;
+
+            if (_debugModeEnabled)
             {
-                Marshal.FreeHGlobal(memory);
-                memory = IntPtr.Zero;
+                lock (_allocations)
+                {
+                    if (_allocations.ContainsKey(memory))
+                    {
+                        int size = _allocations[memory];
+                        _allocations.Remove(memory);
+
+                        _logger.Debug("Freeing {0} bytes at {1}. Allocations: {2}", size, memory, _allocations.Count);
+                    }
+                    else
+                    {
+                        throw new Exception(string.Format("Unable to free previously unallocated memory at {0}", memory));
+                    }
+                }
             }
+
+            Marshal.FreeHGlobal(memory);
+            memory = IntPtr.Zero;
         }
 
         /// <summary>
