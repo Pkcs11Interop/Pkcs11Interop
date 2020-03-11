@@ -406,11 +406,24 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
             if (value != null)
             {
                 attributes = new CK_ATTRIBUTE[value.Count];
-                for (int i = 0; i < value.Count; i++)
-                    attributes[i] = (CK_ATTRIBUTE)value[i].ToMarshalableStructure();
+
+                try
+                {
+                    for (int i = 0; i < value.Count; i++)
+                    {
+                        CK_ATTRIBUTE attribute = (CK_ATTRIBUTE)value[i].ToMarshalableStructure();
+                        attributes[i] = DuplicateAttribute(ref attribute);
+                    }
+                }
+                catch
+                {
+                    for (int i = 0; i < value.Count; i++)
+                        FreeAttribute(ref attributes[i]);
+
+                    throw;
+                }
             }
 
-            // Note: Each attribute in the input list still owns unmanaged memory used by its value and will free it when disposed.
             _ckAttribute = CkaUtils.CreateAttribute(ConvertUtils.UInt32FromUInt64(type), attributes);
         }
 
@@ -426,11 +439,24 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
             if (value != null)
             {
                 attributes = new CK_ATTRIBUTE[value.Count];
-                for (int i = 0; i < value.Count; i++)
-                    attributes[i] = (CK_ATTRIBUTE)value[i].ToMarshalableStructure();
+
+                try
+                {
+                    for (int i = 0; i < value.Count; i++)
+                    {
+                        CK_ATTRIBUTE attribute = (CK_ATTRIBUTE)value[i].ToMarshalableStructure();
+                        attributes[i] = DuplicateAttribute(ref attribute);
+                    }
+                }
+                catch
+                {
+                    for (int i = 0; i < value.Count; i++)
+                        FreeAttribute(ref attributes[i]);
+
+                    throw;
+                }
             }
 
-            // Note: Each attribute in the input list still owns unmanaged memory used by its value and will free it when disposed.
             _ckAttribute = CkaUtils.CreateAttribute(type, attributes);
         }
 
@@ -457,7 +483,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
                 {
                     attributes = new List<IObjectAttribute>();
                     for (int i = 0; i < value.Length; i++)
-                        attributes.Add(new ObjectAttribute(value[i]));
+                    {
+                        CK_ATTRIBUTE copy = DuplicateAttribute(ref value[i]);
+                        attributes.Add(new ObjectAttribute(copy));
+                    }
                 }
 
                 return attributes;
@@ -465,6 +494,32 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
             catch (Exception ex)
             {
                 throw new AttributeValueException(this.Type, ex);
+            }
+        }
+
+        /// <summary>
+        /// Creates copy of low level attribute
+        /// </summary>
+        /// <param name="attribute">Attribute to be copied</param>
+        /// <returns>Copy of low level attribute</returns>
+        protected CK_ATTRIBUTE DuplicateAttribute(ref CK_ATTRIBUTE attribute)
+        {
+            if (!MiscSettings.AttributesWithNestedAttributes.Contains(ConvertUtils.UInt32ToUInt64(attribute.type)))
+            {
+                byte[] value = null;
+                CkaUtils.ConvertValue(ref attribute, out value);
+                return CkaUtils.CreateAttribute(attribute.type, value);
+            }
+            else
+            {
+                CK_ATTRIBUTE[] srcNestedAttrs = null;
+                CkaUtils.ConvertValue(ref attribute, out srcNestedAttrs);
+
+                CK_ATTRIBUTE[] dstNestedAttrs = new CK_ATTRIBUTE[srcNestedAttrs.Length];
+                for (int i = 0; i < srcNestedAttrs.Length; i++)
+                    dstNestedAttrs[i] = DuplicateAttribute(ref srcNestedAttrs[i]);
+
+                return CkaUtils.CreateAttribute(attribute.type, dstNestedAttrs);
             }
         }
 
@@ -627,30 +682,34 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
                     // Dispose managed objects
                 }
 
-                /*
                 // Dispose unmanaged objects
-                if (MiscSettings.AttributesWithNestedAttributes.Contains(ConvertUtils.UInt32ToUInt64(_ckAttribute.type)))
-                {
-                    CK_ATTRIBUTE[] nestedAttributes = null;
-                    CkaUtils.ConvertValue(ref _ckAttribute, out nestedAttributes);
 
-                    if (nestedAttributes != null)
-                    {
-                        // Free memory occupied by the value of each nested attribute
-                        for (int i = 0; i < nestedAttributes.Length; i++)
-                        {
-                            Common.UnmanagedMemory.Free(ref nestedAttributes[i].value);
-                            nestedAttributes[i].valueLen = 0;
-                        }
-                    }
-                }
-                */
-
-                Common.UnmanagedMemory.Free(ref _ckAttribute.value);
-                _ckAttribute.valueLen = 0;
+                FreeAttribute(ref _ckAttribute);
 
                 _disposed = true;
             }
+        }
+
+        /// <summary>
+        /// Frees low level attribute
+        /// </summary>
+        /// <param name="attribute">Attribute to be freed</param>
+        protected void FreeAttribute(ref CK_ATTRIBUTE attribute)
+        {
+            if (MiscSettings.AttributesWithNestedAttributes.Contains(ConvertUtils.UInt32ToUInt64(attribute.type)))
+            {
+                CK_ATTRIBUTE[] nestedAttributes = null;
+                CkaUtils.ConvertValue(ref attribute, out nestedAttributes);
+
+                if (nestedAttributes != null)
+                {
+                    for (int i = 0; i < nestedAttributes.Length; i++)
+                        FreeAttribute(ref nestedAttributes[i]);
+                }
+            }
+
+            Common.UnmanagedMemory.Free(ref attribute.value);
+            attribute.valueLen = 0;
         }
 
         /// <summary>
