@@ -34,12 +34,12 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// <summary>
         /// Attributes that are known to contain nested attributes
         /// </summary>
-        private static List<ulong> _attributesWithNestedAttributes = null;
+        private static Dictionary<ulong, string> _attributesWithNestedAttributes = null;
 
         /// <summary>
         /// Attributes that are known to contain nested attributes
         /// </summary>
-        public static List<ulong> AttributesWithNestedAttributes
+        public static Dictionary<ulong, string> AttributesWithNestedAttributes
         {
             get
             {
@@ -52,10 +52,10 @@ namespace Net.Pkcs11Interop.HighLevelAPI
         /// </summary>
         static MiscSettings()
         {
-            _attributesWithNestedAttributes = new List<ulong>();
-            _attributesWithNestedAttributes.Add(ConvertUtils.UInt64FromCKA(CKA.CKA_WRAP_TEMPLATE));
-            _attributesWithNestedAttributes.Add(ConvertUtils.UInt64FromCKA(CKA.CKA_UNWRAP_TEMPLATE));
-            _attributesWithNestedAttributes.Add(ConvertUtils.UInt64FromCKA(CKA.CKA_DERIVE_TEMPLATE));
+            _attributesWithNestedAttributes = new Dictionary<ulong, string>();
+            _attributesWithNestedAttributes.Add(ConvertUtils.UInt64FromCKA(CKA.CKA_WRAP_TEMPLATE), "CKA_WRAP_TEMPLATE");
+            _attributesWithNestedAttributes.Add(ConvertUtils.UInt64FromCKA(CKA.CKA_UNWRAP_TEMPLATE), "CKA_UNWRAP_TEMPLATE");
+            _attributesWithNestedAttributes.Add(ConvertUtils.UInt64FromCKA(CKA.CKA_DERIVE_TEMPLATE), "CKA_DERIVE_TEMPLATE");
         }
     }
 }

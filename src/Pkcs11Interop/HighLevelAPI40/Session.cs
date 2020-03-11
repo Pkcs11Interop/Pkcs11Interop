@@ -611,7 +611,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
             bool thirdCallNeeded = false;
             for (int i = 0; i < template.Length; i++)
             {
-                if (MiscSettings.AttributesWithNestedAttributes.Contains(ConvertUtils.UInt32ToUInt64(template[i].type)))
+                if (MiscSettings.AttributesWithNestedAttributes.ContainsKey(ConvertUtils.UInt32ToUInt64(template[i].type)))
                 {
                     int ckAttributeSize = UnmanagedMemory.SizeOf(typeof(CK_ATTRIBUTE));
                     int nestedAttrCount = ConvertUtils.UInt32ToInt32(template[i].valueLen) / ckAttributeSize;

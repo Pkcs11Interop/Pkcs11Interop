@@ -504,7 +504,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <returns>Copy of low level attribute</returns>
         protected CK_ATTRIBUTE DuplicateAttribute(ref CK_ATTRIBUTE attribute)
         {
-            if (!MiscSettings.AttributesWithNestedAttributes.Contains(ConvertUtils.UInt32ToUInt64(attribute.type)))
+            if (!MiscSettings.AttributesWithNestedAttributes.ContainsKey(ConvertUtils.UInt32ToUInt64(attribute.type)))
             {
                 byte[] value = null;
                 CkaUtils.ConvertValue(ref attribute, out value);
@@ -696,7 +696,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
         /// <param name="attribute">Attribute to be freed</param>
         protected void FreeAttribute(ref CK_ATTRIBUTE attribute)
         {
-            if (MiscSettings.AttributesWithNestedAttributes.Contains(ConvertUtils.UInt32ToUInt64(attribute.type)))
+            if (MiscSettings.AttributesWithNestedAttributes.ContainsKey(ConvertUtils.UInt32ToUInt64(attribute.type)))
             {
                 CK_ATTRIBUTE[] nestedAttributes = null;
                 CkaUtils.ConvertValue(ref attribute, out nestedAttributes);
