@@ -5,4 +5,3 @@ with the following exceptions and limitations:
    and CK_UNLOCKMUTEX are not supported, but native OS threading model 
    (CKF_OS_LOCKING_OK) can be used without any problems.
  - CK_NOTIFY notification callbacks are not supported.
- 
