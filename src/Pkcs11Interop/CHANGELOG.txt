@@ -1,3 +1,8 @@
+Pkcs11Interop 5.1.0 (2020-03-12)
+ - Support alternative "empty" value of CK_DATE
+ - #143 - Use LoadLibraryEx instead of LoadLibrary
+ - #144 - Fixed reading of array attributes in HighLevelAPI
+
 Pkcs11Interop 5.0.0 (2019-06-02)
  - #69 - Improved error message in UnmanagedException
  - #70 - Introduced managed logging

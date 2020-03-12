@@ -1,4 +1,4 @@
-version: 5.0.0-beta{build}
+version: 5.1.0-{build}
 image: Visual Studio 2017
 branches:
   only:
