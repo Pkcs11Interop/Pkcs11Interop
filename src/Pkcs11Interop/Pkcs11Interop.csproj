@@ -12,7 +12,7 @@
     <Version>5.0.0</Version>
     <Authors>Jaroslav Imrich</Authors>
     <Description>Managed .NET wrapper for unmanaged PKCS#11 libraries</Description>
-    <Copyright>Copyright (c) 2012-2019 The Pkcs11Interop Project</Copyright>
+    <Copyright>Copyright (c) 2012-2020 The Pkcs11Interop Project</Copyright>
     <PackageLicenseUrl>https://www.pkcs11interop.net/nuget/pkcs11interop-apache-license-2.0.txt</PackageLicenseUrl>
     <PackageProjectUrl>https://www.pkcs11interop.net/</PackageProjectUrl>
     <PackageIconUrl>https://www.pkcs11interop.net/nuget/pkcs11interop-icon-64x64.png</PackageIconUrl>
