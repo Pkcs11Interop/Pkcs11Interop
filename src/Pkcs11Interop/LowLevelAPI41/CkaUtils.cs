@@ -364,6 +364,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
         /// <param name="value">Location that receives attribute value</param>
         public static void ConvertValue(ref CK_ATTRIBUTE attribute, out CK_ATTRIBUTE[] value)
         {
+            if (attribute.valueLen == UInt32.MaxValue)
+            {
+                value = null;
+                return;
+            }
+
             int ckAttributeSize = UnmanagedMemory.SizeOf(typeof(CK_ATTRIBUTE));
             int attrCount = ConvertUtils.UInt32ToInt32(attribute.valueLen) / ckAttributeSize;
             int attrCountMod = ConvertUtils.UInt32ToInt32(attribute.valueLen) % ckAttributeSize;
@@ -441,6 +447,12 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
         /// <param name="value">Location that receives attribute value</param>
         public static void ConvertValue(ref CK_ATTRIBUTE attribute, out NativeULong[] value)
         {
+            if (attribute.valueLen == UInt32.MaxValue)
+            {
+                value = null;
+                return;
+            }
+
             int ckmSize = UnmanagedMemory.SizeOf(typeof(NativeULong));
             int attrCount = ConvertUtils.UInt32ToInt32(attribute.valueLen) / ckmSize;
             int attrCountMod = ConvertUtils.UInt32ToInt32(attribute.valueLen) % ckmSize;
@@ -566,7 +578,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI41
         {
             byte[] value = null;
 
-            if (attribute.value != IntPtr.Zero)
+            if (attribute.value != IntPtr.Zero && attribute.valueLen != UInt32.MaxValue)
                 value = UnmanagedMemory.Read(attribute.value, ConvertUtils.UInt32ToInt32(attribute.valueLen));
 
             return value;
