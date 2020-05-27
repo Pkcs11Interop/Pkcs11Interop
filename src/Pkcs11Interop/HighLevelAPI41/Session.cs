@@ -613,6 +613,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
             {
                 if (MiscSettings.AttributesWithNestedAttributes.ContainsKey(ConvertUtils.UInt32ToUInt64(template[i].type)))
                 {
+                    if (template[i].valueLen == UInt32.MaxValue)
+                        continue;
+
                     int ckAttributeSize = UnmanagedMemory.SizeOf(typeof(CK_ATTRIBUTE));
                     int nestedAttrCount = ConvertUtils.UInt32ToInt32(template[i].valueLen) / ckAttributeSize;
                     int nestedAttrCountMod = ConvertUtils.UInt32ToInt32(template[i].valueLen) % ckAttributeSize;
