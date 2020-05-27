@@ -578,7 +578,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         {
             byte[] value = null;
 
-            if (attribute.value != IntPtr.ZeroZero && attribute.valueLen != UInt32.MaxValue)
+            if (attribute.value != IntPtr.Zero && attribute.valueLen != UInt32.MaxValue)
                 value = UnmanagedMemory.Read(attribute.value, ConvertUtils.UInt32ToInt32(attribute.valueLen));
 
             return value;
