@@ -110,7 +110,7 @@ namespace Net.Pkcs11Interop.Common
 #if XAMARINMAC2_0
         private const string _dllName = "/usr/lib/libSystem.dylib";
 #else
-        private const string _dllName = "libdl";
+        private const string _dllName = "libdl.so.2";
 #endif
 
         /// <summary>
