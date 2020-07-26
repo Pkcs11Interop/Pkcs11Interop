@@ -613,6 +613,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
             {
                 if (MiscSettings.AttributesWithNestedAttributes.ContainsKey(ConvertUtils.UInt64ToUInt64(template[i].type)))
                 {
+                    // PKCS#11 v2.20 page 133:
+                    // If the specified attribute (i.e., the attribute specified by the type field) for the object
+                    // cannot be revealed because the object is sensitive or unextractable, then the
+                    // ulValueLen field in that triple is modified to hold the value -1 (i.e., when it is cast to a
+                    // CK_LONG, it holds -1).
+                    if ((NativeLong)template[i].valueLen == -1)
+                        continue;
+
                     int ckAttributeSize = UnmanagedMemory.SizeOf(typeof(CK_ATTRIBUTE));
                     int nestedAttrCount = ConvertUtils.UInt64ToInt32(template[i].valueLen) / ckAttributeSize;
                     int nestedAttrCountMod = ConvertUtils.UInt64ToInt32(template[i].valueLen) % ckAttributeSize;
@@ -641,14 +649,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
                         }
                     }
                 }
+            }
 
-                // Read values of all nested attributes
-                if (thirdCallNeeded)
-                {
-                    rv = _pkcs11Library.C_GetAttributeValue(_sessionId, ConvertUtils.UInt64FromUInt64(objectHandle.ObjectId), template, ConvertUtils.UInt64FromInt32(template.Length));
-                    if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_ATTRIBUTE_SENSITIVE) && (rv != CKR.CKR_ATTRIBUTE_TYPE_INVALID))
-                        throw new Pkcs11Exception("C_GetAttributeValue", rv);
-                }
+            // Read values of all nested attributes
+            if (thirdCallNeeded)
+            {
+                rv = _pkcs11Library.C_GetAttributeValue(_sessionId, ConvertUtils.UInt64FromUInt64(objectHandle.ObjectId), template, ConvertUtils.UInt64FromInt32(template.Length));
+                if ((rv != CKR.CKR_OK) && (rv != CKR.CKR_ATTRIBUTE_SENSITIVE) && (rv != CKR.CKR_ATTRIBUTE_TYPE_INVALID))
+                    throw new Pkcs11Exception("C_GetAttributeValue", rv);
             }
 
             // Convert CK_ATTRIBUTEs to ObjectAttributes
