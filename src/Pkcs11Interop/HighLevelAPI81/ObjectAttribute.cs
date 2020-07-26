@@ -699,7 +699,9 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
             if (MiscSettings.AttributesWithNestedAttributes.ContainsKey(ConvertUtils.UInt64ToUInt64(attribute.type)))
             {
                 CK_ATTRIBUTE[] nestedAttributes = null;
-                CkaUtils.ConvertValue(ref attribute, out nestedAttributes);
+
+                if (!CannotBeRead)
+                    CkaUtils.ConvertValue(ref attribute, out nestedAttributes);
 
                 if (nestedAttributes != null)
                 {
