@@ -1,3 +1,6 @@
+Pkcs11Interop 5.1.1 (2020-08-02)
+ - #164 - Fixed processing of unextractable array attributes
+
 Pkcs11Interop 5.1.0 (2020-03-12)
  - Support alternative "empty" value of CK_DATE
  - #143 - Use LoadLibraryEx instead of LoadLibrary
