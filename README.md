@@ -57,7 +57,7 @@ Pkcs11Interop has been confirmed to be working with the following devices:
 
 It is highly recommended that before you start using Pkcs11Interop you get familiar at least with *"Chapter 2 - Scope"*, *"Chapter 6 - General overview"* and *"Chapter 10 - Objects"* of [PKCS#11 v2.20](https://github.com/Pkcs11Interop/PKCS11-SPECS/tree/master/v2.20) specification (or equivalent chapters of any previous or subsequent specification version).
 
-Pkcs11Interop API is fully documented with the inline XML documentation that is displayed by the most of the modern IDEs during the application development. Detailed [Pkcs11Interop API documentation](http://pkcs11interop.net/doc/) is also available online.
+Pkcs11Interop API is fully documented with the inline XML documentation that is displayed by the most of the modern IDEs during the application development. Detailed [Pkcs11Interop API documentation](https://pkcs11interop.net/doc/) is also available online.
 
 Following topics are covered by standalone documents:
 * [Pkcs11Interop library architecture](doc/ARCHITECTURE.md)
@@ -67,11 +67,11 @@ Following topics are covered by standalone documents:
 
 ## Download
 
-Archives with the source code and binaries can be downloaded from [our releases page](https://github.com/Pkcs11Interop/Pkcs11Interop/releases/). [Official NuGet packages](https://www.nuget.org/packages/Pkcs11Interop/) are published in nuget.org repository. All official items are signed with [GnuPG key or code-signing certificate of Jaroslav Imrich](https://www.jimrich.sk/crypto/).
+Archives with the source code and binaries can be downloaded from [our releases page](https://github.com/Pkcs11Interop/Pkcs11Interop/releases/). Official [NuGet packages](https://www.nuget.org/packages/Pkcs11Interop/) are published in nuget.org repository. All official items are signed with [GnuPG key or code-signing certificate of Jaroslav Imrich](https://www.jimrich.sk/crypto/) and announced via [public mailing list](https://groups.google.com/d/forum/pkcs11interop).
 
 ## License
 
-Pkcs11Interop is available under the terms of the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).  
+Pkcs11Interop is available under the terms of the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).  
 [Human friendly license summary](https://tldrlegal.com/l/apache2) is available at tldrlegal.com but the [full license text](LICENSE.md) always prevails.
 
 ## Support
@@ -79,16 +79,13 @@ Pkcs11Interop is available under the terms of the [Apache License, Version 2.0](
 If you need help please pick one of the options that best suits your needs:
 
 * Public [issue tracker](https://github.com/Pkcs11Interop/Pkcs11Interop/issues) available at GitHub.com
-* Questions with [pkcs11interop tag](https://stackoverflow.com/questions/tagged/pkcs11interop) posted at StackOverflow.com
-* Public [mailing list](https://groups.google.com/d/forum/pkcs11interop) available at [pkcs11interop@googlegroups.com](mailto:pkcs11interop@googlegroups.com)
-* Commercial support and consulting from the original developer available at [info@pkcs11interop.net](mailto:info@pkcs11interop.net)
+* Questions with [pkcs#11 tag](https://stackoverflow.com/questions/tagged/pkcs%2311) and [pkcs11interop tag](https://stackoverflow.com/questions/tagged/pkcs11interop) posted at StackOverflow.com
+* Commercial support and consulting from the original developer available upon request at [info@pkcs11interop.net](mailto:info@pkcs11interop.net)
 
 ## Related projects
 
-* [Pkcs11Admin](http://www.pkcs11admin.net/)  
+* [Pkcs11Admin](https://www.pkcs11admin.net/)  
   GUI tool for administration of PKCS#11 enabled devices based on Pkcs11Interop library.
-* [Pkcs11Interop.PDF](http://pkcs11interop.net/extensions/pdf/)  
-  Integration layer for Pkcs11Interop and iText (iTextSharp) libraries.
 * [PKCS11-LOGGER](https://github.com/Pkcs11Interop/pkcs11-logger)  
   PKCS#11 logging proxy module useful for debugging of PKCS#11 enabled applications.
 * [SoftHSM2-for-Windows](https://github.com/disig/SoftHSM2-for-Windows)  
@@ -96,5 +93,5 @@ If you need help please pick one of the options that best suits your needs:
 
 ## About
 
-Pkcs11Interop has been written by [Jaroslav Imrich](http://www.jimrich.sk).  
-Please visit project website - [pkcs11interop.net](http://www.pkcs11interop.net) - for more information.
+Pkcs11Interop has been written by [Jaroslav Imrich](https://www.jimrich.sk).  
+Please visit project website - [pkcs11interop.net](https://www.pkcs11interop.net) - for more information.
