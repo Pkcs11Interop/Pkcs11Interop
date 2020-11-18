@@ -799,13 +799,17 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
                 throw new Pkcs11Exception("C_EncryptInit", rv);
 
             byte[] part = new byte[bufferLength];
-            byte[] encryptedPart = new byte[bufferLength];
-            ulong encryptedPartLen = Convert.ToUInt64(encryptedPart.Length);
+            byte[] encryptedPart;
+            ulong encryptedPartLen = 0;
             
             int bytesRead = 0;
             while ((bytesRead = inputStream.Read(part, 0, part.Length)) > 0)
             {
-                encryptedPartLen = Convert.ToUInt64(encryptedPart.Length);
+                rv = _p11.C_EncryptUpdate(_sessionId, part, Convert.ToUInt64(bytesRead), null, ref encryptedPartLen);
+                if (rv != CKR.CKR_OK)
+                    throw new Pkcs11Exception("C_EncryptUpdate", rv);
+
+                encryptedPart = new byte[encryptedPartLen];
                 rv = _p11.C_EncryptUpdate(_sessionId, part, Convert.ToUInt64(bytesRead), encryptedPart, ref encryptedPartLen);
                 if (rv != CKR.CKR_OK)
                     throw new Pkcs11Exception("C_EncryptUpdate", rv);
