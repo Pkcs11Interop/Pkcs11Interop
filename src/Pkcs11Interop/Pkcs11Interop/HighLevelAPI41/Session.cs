@@ -937,13 +937,17 @@ namespace Net.Pkcs11Interop.HighLevelAPI41
                 throw new Pkcs11Exception("C_DecryptInit", rv);
 
             byte[] encryptedPart = new byte[bufferLength];
-            byte[] part = new byte[bufferLength];
-            uint partLen = Convert.ToUInt32(part.Length);
+            byte[] part;
+            uint partLen = 0;
 
             int bytesRead = 0;
             while ((bytesRead = inputStream.Read(encryptedPart, 0, encryptedPart.Length)) > 0)
             {
-                partLen = Convert.ToUInt32(part.Length);
+                rv = _p11.C_DecryptUpdate(_sessionId, encryptedPart, Convert.ToUInt32(bytesRead), null, ref partLen);
+                if (rv != CKR.CKR_OK)
+                    throw new Pkcs11Exception("C_DecryptUpdate", rv);
+
+                part =  new byte[partLen];
                 rv = _p11.C_DecryptUpdate(_sessionId, encryptedPart, Convert.ToUInt32(bytesRead), part, ref partLen);
                 if (rv != CKR.CKR_OK)
                     throw new Pkcs11Exception("C_DecryptUpdate", rv);
