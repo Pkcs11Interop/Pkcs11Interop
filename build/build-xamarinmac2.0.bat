@@ -6,13 +6,13 @@
 @rem Argument "--skip-cleaning" skips solution cleaning
 @set arg2=%2
 
-@rem Initialize build environment of Visual Studio 2017 Community/Professional/Enterprise
+@rem Initialize build environment of Visual Studio 2019 Community/Professional/Enterprise
 @set tools=
-@set tmptools="c:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsMSBuildCmd.bat"
+@set tmptools="c:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\VsMSBuildCmd.bat"
 @if exist %tmptools% set tools=%tmptools%
-@set tmptools="c:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\Tools\VsMSBuildCmd.bat"
+@set tmptools="c:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\Common7\Tools\VsMSBuildCmd.bat"
 @if exist %tmptools% set tools=%tmptools%
-@set tmptools="c:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools\VsMSBuildCmd.bat"
+@set tmptools="c:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools\VsMSBuildCmd.bat"
 @if exist %tmptools% set tools=%tmptools%
 @if not defined tools goto :error
 call %tools%
@@ -60,7 +60,7 @@ call :disablexamarinmac
 :enablexamarinmac
 @rem Use "MSBuild.Sdk.Extras" instead of "Microsoft.NET.Sdk" which does not support "xamarinmac2.0" target framework
 set csprojfile=..\src\Pkcs11Interop.NetStandard\Pkcs11Interop\Pkcs11Interop.csproj
-powershell -Command "(Get-Content %csprojfile%).replace('Microsoft.NET.Sdk', 'MSBuild.Sdk.Extras/1.6.65') | Set-Content -Encoding ASCII %csprojfile%"
+powershell -Command "(Get-Content %csprojfile%).replace('Microsoft.NET.Sdk', 'MSBuild.Sdk.Extras/3.0.22') | Set-Content -Encoding ASCII %csprojfile%"
 powershell -Command "(Get-Content %csprojfile%).replace('</TargetFrameworks>', ';xamarinmac2.0</TargetFrameworks>') | Set-Content -Encoding ASCII %csprojfile%"
 set assemblyinfofile=..\src\Pkcs11Interop.NetStandard\Pkcs11Interop\Properties\AssemblyInfo.cs 
 powershell -Command "(Get-Content %assemblyinfofile%).replace('NetStandard version', 'Mac version') | Set-Content -Encoding ASCII %assemblyinfofile%"
@@ -69,7 +69,7 @@ powershell -Command "(Get-Content %assemblyinfofile%).replace('NetStandard versi
 :disablexamarinmac
 @rem Revert from "MSBuild.Sdk.Extras" back to "Microsoft.NET.Sdk"
 set csprojfile=..\src\Pkcs11Interop.NetStandard\Pkcs11Interop\Pkcs11Interop.csproj
-powershell -Command "(Get-Content %csprojfile%).replace('MSBuild.Sdk.Extras/1.6.65', 'Microsoft.NET.Sdk') | Set-Content -Encoding ASCII %csprojfile%"
+powershell -Command "(Get-Content %csprojfile%).replace('MSBuild.Sdk.Extras/3.0.22', 'Microsoft.NET.Sdk') | Set-Content -Encoding ASCII %csprojfile%"
 powershell -Command "(Get-Content %csprojfile%).replace(';xamarinmac2.0</TargetFrameworks>', '</TargetFrameworks>') | Set-Content -Encoding ASCII %csprojfile%"
 set assemblyinfofile=..\src\Pkcs11Interop.NetStandard\Pkcs11Interop\Properties\AssemblyInfo.cs 
 powershell -Command "(Get-Content %assemblyinfofile%).replace('Mac version', 'NetStandard version') | Set-Content -Encoding ASCII %assemblyinfofile%"
