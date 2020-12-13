@@ -959,7 +959,7 @@ namespace Net.Pkcs11Interop.HighLevelAPI80
 
                     rv = _p11.C_DecryptUpdate(_sessionId, encryptedPart, Convert.ToUInt64(bytesRead), part, ref partLen);
                     if (rv != CKR.CKR_OK)
-                        throw new Pkcs11Exception("C_EncryptUpdate", rv);
+                        throw new Pkcs11Exception("C_DecryptUpdate", rv);
                 }
 
                 outputStream.Write(part, 0, Convert.ToInt32(partLen));
