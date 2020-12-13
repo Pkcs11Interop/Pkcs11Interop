@@ -1931,8 +1931,17 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
             {
                 encryptedPartLen = Convert.ToUInt64(encryptedPart.Length);
                 rv = _p11.C_SignEncryptUpdate(_sessionId, part, Convert.ToUInt64(bytesRead), encryptedPart, ref encryptedPartLen);
-                if (rv != CKR.CKR_OK)
+                if (rv != CKR.CKR_OK && rv != CKR.CKR_BUFFER_TOO_SMALL)
                     throw new Pkcs11Exception("C_SignEncryptUpdate", rv);
+
+                if (rv == CKR.CKR_BUFFER_TOO_SMALL)
+                {
+                    encryptedPart = new byte[encryptedPartLen];
+
+                    rv = _p11.C_SignEncryptUpdate(_sessionId, part, Convert.ToUInt64(bytesRead), encryptedPart, ref encryptedPartLen);
+                    if (rv != CKR.CKR_OK)
+                        throw new Pkcs11Exception("C_SignEncryptUpdate", rv);
+                }
 
                 outputStream.Write(encryptedPart, 0, Convert.ToInt32(encryptedPartLen));
             }
@@ -2110,8 +2119,17 @@ namespace Net.Pkcs11Interop.HighLevelAPI81
             {
                 partLen = Convert.ToUInt64(part.Length);
                 rv = _p11.C_DecryptVerifyUpdate(_sessionId, encryptedPart, Convert.ToUInt64(bytesRead), part, ref partLen);
-                if (rv != CKR.CKR_OK)
+                if (rv != CKR.CKR_OK && rv != CKR.CKR_BUFFER_TOO_SMALL)
                     throw new Pkcs11Exception("C_DecryptVerifyUpdate", rv);
+
+                if (rv == CKR.CKR_BUFFER_TOO_SMALL)
+                {
+                    part = new byte[partLen];
+
+                    rv = _p11.C_DecryptVerifyUpdate(_sessionId, encryptedPart, Convert.ToUInt64(bytesRead), part, ref partLen);
+                    if (rv != CKR.CKR_OK)
+                        throw new Pkcs11Exception("C_DecryptVerifyUpdate", rv);
+                }
 
                 outputStream.Write(part, 0, Convert.ToInt32(partLen));
             }
