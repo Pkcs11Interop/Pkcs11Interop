@@ -6,8 +6,14 @@
 @rem Argument "--skip-cleaning" skips solution cleaning
 @set arg2=%2
 
-@rem Initialize build environment of Visual Studio 2019 Community/Professional/Enterprise
+@rem Initialize build environment of Visual Studio 2017 or 2019 Community/Professional/Enterprise
 @set tools=
+@set tmptools="c:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsMSBuildCmd.bat"
+@if exist %tmptools% set tools=%tmptools%
+@set tmptools="c:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\Tools\VsMSBuildCmd.bat"
+@if exist %tmptools% set tools=%tmptools%
+@set tmptools="c:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools\VsMSBuildCmd.bat"
+@if exist %tmptools% set tools=%tmptools%
 @set tmptools="c:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\VsMSBuildCmd.bat"
 @if exist %tmptools% set tools=%tmptools%
 @set tmptools="c:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\Common7\Tools\VsMSBuildCmd.bat"
