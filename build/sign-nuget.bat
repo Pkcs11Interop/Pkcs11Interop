@@ -3,7 +3,7 @@
 set NUGET=c:\nuget\nuget.exe 
 
 @rem Define signing options
-set CERTHASH=ef1bfeaa474bb078923831bf7732186673a5b5c9
+set CERTHASH=9ccadd88b898155baef4c7b8ff7b17595275b1bb
 set TSAURL=http://time.certum.pl/
 
 %NUGET% sign Pkcs11Interop*.nupkg -CertificateFingerprint %CERTHASH% -Timestamper %TSAURL% || goto :error
