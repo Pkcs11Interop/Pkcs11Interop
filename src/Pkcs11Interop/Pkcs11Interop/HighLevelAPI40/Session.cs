@@ -1591,8 +1591,17 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
             {
                 encryptedPartLen = Convert.ToUInt32(encryptedPart.Length);
                 rv = _p11.C_DigestEncryptUpdate(_sessionId, part, Convert.ToUInt32(bytesRead), encryptedPart, ref encryptedPartLen);
-                if (rv != CKR.CKR_OK)
+                if (rv != CKR.CKR_OK && rv != CKR.CKR_BUFFER_TOO_SMALL)
                     throw new Pkcs11Exception("C_DigestEncryptUpdate", rv);
+
+                if (rv == CKR.CKR_BUFFER_TOO_SMALL)
+                {
+                    encryptedPart = new byte[encryptedPartLen];
+
+                    rv = _p11.C_DigestEncryptUpdate(_sessionId, part, Convert.ToUInt32(bytesRead), encryptedPart, ref encryptedPartLen);
+                    if (rv != CKR.CKR_OK)
+                        throw new Pkcs11Exception("C_DigestEncryptUpdate", rv);
+                }
 
                 outputStream.Write(encryptedPart, 0, Convert.ToInt32(encryptedPartLen));
             }
@@ -1746,8 +1755,17 @@ namespace Net.Pkcs11Interop.HighLevelAPI40
             {
                 partLen = Convert.ToUInt32(part.Length);
                 rv = _p11.C_DecryptDigestUpdate(_sessionId, encryptedPart, Convert.ToUInt32(bytesRead), part, ref partLen);
-                if (rv != CKR.CKR_OK)
+                if (rv != CKR.CKR_OK && rv != CKR.CKR_BUFFER_TOO_SMALL)
                     throw new Pkcs11Exception("C_DecryptDigestUpdate", rv);
+
+                if (rv == CKR.CKR_BUFFER_TOO_SMALL)
+                {
+                    part = new byte[partLen];
+
+                    rv = _p11.C_DecryptDigestUpdate(_sessionId, encryptedPart, Convert.ToUInt32(bytesRead), part, ref partLen);
+                    if (rv != CKR.CKR_OK)
+                        throw new Pkcs11Exception("C_DecryptDigestUpdate", rv);
+                }
 
                 outputStream.Write(part, 0, Convert.ToInt32(partLen));
             }
