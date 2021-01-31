@@ -15,7 +15,7 @@
     <Copyright>Copyright (c) 2012-2021 The Pkcs11Interop Project</Copyright>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageProjectUrl>https://www.pkcs11interop.net/</PackageProjectUrl>
-    <PackageIconUrl>https://www.pkcs11interop.net/nuget/pkcs11interop-icon-64x64.png</PackageIconUrl>
+    <PackageIcon>Pkcs11Interop.png</PackageIcon>
     <RepositoryUrl>https://github.com/Pkcs11Interop/Pkcs11Interop.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>pkcs pkcs11 security crypto cryptography smartcard hsm</PackageTags>
@@ -31,6 +31,7 @@
   <ItemGroup Label="PackExtraContent">
     <None Include="LICENSE.txt" pack="true" PackagePath="." />
     <None Include="NOTICE.txt" pack="true" PackagePath="." />
+    <None Include="Pkcs11Interop.png" pack="true" PackagePath="." />
   </ItemGroup>
   
   <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
