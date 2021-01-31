@@ -16,7 +16,7 @@
     <PackageReference Include="NUnit" Version="3.11.0" />
   </ItemGroup>
 
-  <ItemGroup Condition="$(TargetFramework) == 'netcoreapp1.0' OR $(TargetFramework) == 'netcoreapp2.0'">
+  <ItemGroup Condition="$(TargetFramework) == 'netcoreapp2.0'">
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
   </ItemGroup>
