@@ -33,7 +33,7 @@
     <None Include="NOTICE.txt" pack="true" PackagePath="." />
     <None Include="Pkcs11Interop.png" pack="true" PackagePath="." />
   </ItemGroup>
-  
+
   <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -47,11 +47,6 @@
 
   <ItemGroup Condition="'$(OS)' == 'Windows_NT'">
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework) == 'netstandard1.3'">
-    <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
-    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
   </ItemGroup>
 
 </Project>
