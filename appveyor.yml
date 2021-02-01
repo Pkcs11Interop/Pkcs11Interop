@@ -2,6 +2,7 @@ version: 5.1.1-{build}
 image:
   - Visual Studio 2017
   - Ubuntu2004
+  - macos
 branches:
   only:
   - master
