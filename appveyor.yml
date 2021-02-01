@@ -13,6 +13,10 @@ environment:
   - Platform: sl5
   - Platform: netstandard1.3
   - Platform: netstandard2.0
+    image:
+      - Visual Studio 2017
+      - Ubuntu2004
+      - macos
   - Platform: monoandroid2.3
   - Platform: xamarinios1.0
   - Platform: xamarinmac2.0
@@ -28,11 +32,13 @@ build_script:
 - cmd: IF "%Platform%"=="monoandroid2.3" (cd build && build-monoandroid2.3.bat)
 - cmd: IF "%Platform%"=="xamarinios1.0" (cd build && build-xamarinios1.0.bat)
 - cmd: IF "%Platform%"=="xamarinmac2.0" (cd build && build-xamarinmac2.0.bat)
+- sh: dotnet --info && dotnet restore ./src/Pkcs11Interop.NetStandard/ && dotnet build ./src/Pkcs11Interop.NetStandard/
 test_script:
 - cmd: IF "%Platform%"=="net20" (nunit-console-x86 .\src\Pkcs11Interop\Pkcs11InteropTests\bin\Release\Pkcs11InteropTests.dll)
 - cmd: IF "%Platform%"=="net40" (nunit-console .\src\Pkcs11Interop\Pkcs11InteropTests\bin\Release\Pkcs11InteropTests.dll)
 - cmd: IF "%Platform%"=="netstandard1.3" (dotnet vstest .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\bin\Release\netcoreapp1.0\Pkcs11Interop.DotNetCore.Tests.dll --Framework:".NETCoreApp,Version=v1.0")
 - cmd: IF "%Platform%"=="netstandard2.0" (dotnet vstest .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\bin\Release\netcoreapp2.0\Pkcs11Interop.DotNetCore.Tests.dll --Framework:".NETCoreApp,Version=v2.0")
+- sh: dotnet test -f netcoreapp2.0 ./src/Pkcs11Interop.NetStandard/Pkcs11Interop.DotNetCore.Tests/
 artifacts:
 - path: build/$(Platform)
   name: $(Platform)
