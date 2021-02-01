@@ -13,10 +13,9 @@ environment:
   - Platform: sl5
   - Platform: netstandard1.3
   - Platform: netstandard2.0
-    image:
-      - Visual Studio 2017
-      - Ubuntu2004
-      - macos
+    image: Visual Studio 2017
+    image: Ubuntu2004
+    image: macos
   - Platform: monoandroid2.3
   - Platform: xamarinios1.0
   - Platform: xamarinmac2.0
