@@ -1,4 +1,8 @@
 version: 4.1.2-{build}
+image:
+  - Visual Studio 2017
+  - Ubuntu2004
+  - macos
 branches:
   only:
   - master
@@ -7,27 +11,14 @@ skip_tags: true
 environment:
   matrix:
   - Platform: net20
-    image: Visual Studio 2017
   - Platform: net40
-    image: Visual Studio 2017
   - Platform: net45
-    image: Visual Studio 2017
   - Platform: sl5
-    image: Visual Studio 2017
   - Platform: netstandard1.3
-    image: Visual Studio 2017
   - Platform: netstandard2.0
-    image: Visual Studio 2017
-  - Platform: netstandard2.0
-    image: Ubuntu2004
-  - Platform: netstandard2.0
-    image: macos
   - Platform: monoandroid2.3
-    image: Visual Studio 2017
   - Platform: xamarinios1.0
-    image: Visual Studio 2017
   - Platform: xamarinmac2.0
-    image: Visual Studio 2017
 install:
 - cmd: IF "%Platform%"=="monoandroid2.3" (powershell -File ./build/appveyor-switch-android-sdk.ps1)
 build_script:
