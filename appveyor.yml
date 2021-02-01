@@ -1,15 +1,19 @@
 version: 5.1.1-{build}
-image: Visual Studio 2017
+image:
+  - Visual Studio 2017
+  - Ubuntu2004
 branches:
   only:
   - master
 skip_tags: true
 build_script:
 - cmd: cd build && nuget-build.bat
+- sh: dotnet --info && dotnet restore ./src/ && dotnet build ./src/
 test_script:
 - cmd: nunit3-console .\src\Pkcs11Interop.Tests\bin\Release\net20\Pkcs11Interop.Tests.dll --result=myresults.xml;format=AppVeyor
 - cmd: nunit3-console .\src\Pkcs11Interop.Tests\bin\Release\net40\Pkcs11Interop.Tests.dll --result=myresults.xml;format=AppVeyor
 - cmd: dotnet vstest .\src\Pkcs11Interop.Tests\bin\Release\netcoreapp2.0\Pkcs11Interop.Tests.dll --Framework:".NETCoreApp,Version=v2.0"
+- sh: dotnet test -f netcoreapp2.0 ./src/Pkcs11Interop.Tests/
 artifacts:
 - path: build/nuget-unsigned/
   name: Pkcs11Interop
