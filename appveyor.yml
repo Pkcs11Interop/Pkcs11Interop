@@ -70,9 +70,9 @@ test_script:
 - cmd: IF "%Platform%"=="net20" (nunit-console-x86 .\src\Pkcs11Interop\Pkcs11InteropTests\bin\Release\Pkcs11InteropTests.dll)
 - cmd: IF "%Platform%"=="net40" (nunit-console .\src\Pkcs11Interop\Pkcs11InteropTests\bin\Release\Pkcs11InteropTests.dll)
 - cmd: IF "%Platform%"=="netstandard1.3" (cd .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\ && nuget install Appveyor.TestLogger && cd ..\..\..)
-- cmd: IF "%Platform%"=="netstandard1.3" (dotnet vstest .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\bin\Release\netcoreapp1.0\Pkcs11Interop.DotNetCore.Tests.dll --Framework:".NETCoreApp,Version=v1.0")
+- cmd: IF "%Platform%"=="netstandard1.3" (dotnet vstest --Framework:".NETCoreApp,Version=v1.0" --test-adapter-path:. --logger:Appveyor .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\bin\Release\netcoreapp1.0\Pkcs11Interop.DotNetCore.Tests.dll)
 - cmd: IF "%Platform%"=="netstandard2.0" (cd .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\ && nuget install Appveyor.TestLogger && cd ..\..\..)
-- cmd: IF "%Platform%"=="netstandard2.0" (dotnet vstest .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\bin\Release\netcoreapp2.0\Pkcs11Interop.DotNetCore.Tests.dll --Framework:".NETCoreApp,Version=v2.0")
+- cmd: IF "%Platform%"=="netstandard2.0" (dotnet vstest --Framework:".NETCoreApp,Version=v2.0" --test-adapter-path:. --logger:Appveyor .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\bin\Release\netcoreapp2.0\Pkcs11Interop.DotNetCore.Tests.dll)
 - sh: cd ./src/Pkcs11Interop.NetStandard/Pkcs11Interop.DotNetCore.Tests/ && nuget install Appveyor.TestLogger && cd ../../..
 - sh: dotnet test -f netcoreapp2.0 --test-adapter-path:. --logger:Appveyor ./src/Pkcs11Interop.NetStandard/Pkcs11Interop.DotNetCore.Tests/
 
