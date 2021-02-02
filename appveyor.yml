@@ -1,20 +1,33 @@
-version: 5.1.1-{build}
-image:
-  - Visual Studio 2017
-  - Ubuntu2004
-  - macos
+version: 5-{build}
+
 branches:
   only:
   - master
+
 skip_tags: true
+
+environment:
+  matrix:
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    Platform: net20
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    Platform: net40
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017  
+    Platform: netstandard2.0
+  - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu2004
+    Platform: netstandard2.0
+  - APPVEYOR_BUILD_WORKER_IMAGE: macos
+    Platform: netstandard2.0
+
 build_script:
 - cmd: cd build && nuget-build.bat
 - sh: dotnet --info && dotnet restore ./src/ && dotnet build ./src/
+
 test_script:
-- cmd: nunit3-console .\src\Pkcs11Interop.Tests\bin\Release\net20\Pkcs11Interop.Tests.dll --result=myresults.xml;format=AppVeyor
-- cmd: nunit3-console .\src\Pkcs11Interop.Tests\bin\Release\net40\Pkcs11Interop.Tests.dll --result=myresults.xml;format=AppVeyor
-- cmd: cd .\src\Pkcs11Interop.Tests\ && nuget install Appveyor.TestLogger && cd ..\..
-- cmd: dotnet vstest .\src\Pkcs11Interop.Tests\bin\Release\netcoreapp2.0\Pkcs11Interop.Tests.dll --Framework:".NETCoreApp,Version=v2.0" --TestAdapterPath:. --logger:Appveyor
+- cmd: IF "%Platform%"=="net20" (nunit3-console .\src\Pkcs11Interop.Tests\bin\Release\net20\Pkcs11Interop.Tests.dll --result=myresults.xml;format=AppVeyor)
+- cmd: IF "%Platform%"=="net40" (nunit3-console .\src\Pkcs11Interop.Tests\bin\Release\net40\Pkcs11Interop.Tests.dll --result=myresults.xml;format=AppVeyor)
+- cmd: IF "%Platform%"=="netstandard2.0" (cd .\src\Pkcs11Interop.Tests\ && nuget install Appveyor.TestLogger && cd ..\..)
+- cmd: IF "%Platform%"=="netstandard2.0" (dotnet vstest .\src\Pkcs11Interop.Tests\bin\Release\netcoreapp2.0\Pkcs11Interop.Tests.dll --Framework:".NETCoreApp,Version=v2.0" --TestAdapterPath:. --logger:Appveyor)
 - sh: cd ./src/Pkcs11Interop.Tests/ && nuget install Appveyor.TestLogger && cd ../..
 - sh: dotnet test -f netcoreapp2.0 --test-adapter-path:. --logger:Appveyor ./src/Pkcs11Interop.Tests/
 
