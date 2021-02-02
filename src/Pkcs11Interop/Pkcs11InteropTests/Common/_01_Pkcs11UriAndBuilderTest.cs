@@ -54,7 +54,6 @@ namespace Net.Pkcs11Interop.Tests.Common
             string uri = null;
 
             // Note: Builder cannot be used to produce URI like this one
-			Assert.Fail("AppVeyor test");
 
             try
             {
