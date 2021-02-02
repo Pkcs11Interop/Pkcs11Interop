@@ -1,23 +1,40 @@
 version: 4.1.2-{build}
-image: Visual Studio 2017
+
 branches:
   only:
   - master
   - 4.x-maintenance
+
 skip_tags: true
+
 environment:
   matrix:
-  - Platform: net20
-  - Platform: net40
-  - Platform: net45
-  - Platform: sl5
-  - Platform: netstandard1.3
-  - Platform: netstandard2.0
-  - Platform: monoandroid2.3
-  - Platform: xamarinios1.0
-  - Platform: xamarinmac2.0
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    Platform: net20
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    Platform: net40
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    Platform: net45
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    Platform: sl5
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    Platform: netstandard1.3
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017  
+    Platform: netstandard2.0
+  - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu2004
+    Platform: netstandard2.0
+  - APPVEYOR_BUILD_WORKER_IMAGE: macos
+    Platform: netstandard2.0
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    Platform: monoandroid2.3
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    Platform: xamarinios1.0
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    Platform: xamarinmac2.0
+
 install:
 - cmd: IF "%Platform%"=="monoandroid2.3" (powershell -File ./build/appveyor-switch-android-sdk.ps1)
+
 build_script:
 - cmd: IF "%Platform%"=="net20" (cd build && build-net20.bat --with-tests)
 - cmd: IF "%Platform%"=="net40" (cd build && build-net40.bat --with-tests)
@@ -28,11 +45,18 @@ build_script:
 - cmd: IF "%Platform%"=="monoandroid2.3" (cd build && build-monoandroid2.3.bat)
 - cmd: IF "%Platform%"=="xamarinios1.0" (cd build && build-xamarinios1.0.bat)
 - cmd: IF "%Platform%"=="xamarinmac2.0" (cd build && build-xamarinmac2.0.bat)
+- sh: dotnet --info && dotnet restore -p:Configuration=Release -p:Platform="Any CPU" -v normal ./src/Pkcs11Interop.NetStandard/ && dotnet build -p:Configuration=Release -p:Platform="Any CPU" -v normal ./src/Pkcs11Interop.NetStandard/
+
 test_script:
 - cmd: IF "%Platform%"=="net20" (nunit-console-x86 .\src\Pkcs11Interop\Pkcs11InteropTests\bin\Release\Pkcs11InteropTests.dll)
 - cmd: IF "%Platform%"=="net40" (nunit-console .\src\Pkcs11Interop\Pkcs11InteropTests\bin\Release\Pkcs11InteropTests.dll)
-- cmd: IF "%Platform%"=="netstandard1.3" (dotnet vstest .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\bin\Release\netcoreapp1.0\Pkcs11Interop.DotNetCore.Tests.dll --Framework:".NETCoreApp,Version=v1.0")
-- cmd: IF "%Platform%"=="netstandard2.0" (dotnet vstest .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\bin\Release\netcoreapp2.0\Pkcs11Interop.DotNetCore.Tests.dll --Framework:".NETCoreApp,Version=v2.0")
+- cmd: IF "%Platform%"=="netstandard1.3" (cd .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\ && nuget install Appveyor.TestLogger && cd ..\..\..)
+- cmd: IF "%Platform%"=="netstandard1.3" (dotnet vstest .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\bin\Release\netcoreapp1.0\Pkcs11Interop.DotNetCore.Tests.dll --Framework:".NETCoreApp,Version=v1.0" --TestAdapterPath:. --logger:Appveyor)
+- cmd: IF "%Platform%"=="netstandard2.0" (cd .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\ && nuget install Appveyor.TestLogger && cd ..\..\..)
+- cmd: IF "%Platform%"=="netstandard2.0" (dotnet vstest .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\bin\Release\netcoreapp2.0\Pkcs11Interop.DotNetCore.Tests.dll --Framework:".NETCoreApp,Version=v2.0" --TestAdapterPath:. --logger:Appveyor)
+- sh: cd ./src/Pkcs11Interop.NetStandard/Pkcs11Interop.DotNetCore.Tests/ && nuget install Appveyor.TestLogger && cd ../../..
+- sh: dotnet test -f netcoreapp2.0 --test-adapter-path:. --logger:Appveyor ./src/Pkcs11Interop.NetStandard/Pkcs11Interop.DotNetCore.Tests/
+
 artifacts:
 - path: build/$(Platform)
   name: $(Platform)
