@@ -21,10 +21,10 @@ environment:
 
 build_script:
 - cmd: cd build && nuget-build.bat
-- sh: dotnet --info && dotnet restore ./src/ && dotnet build ./src/
+- sh: dotnet --info && dotnet restore -p:Configuration=Release -p:Platform="Any CPU" -v normal ./src/ && dotnet build -p:Configuration=Release -p:Platform="Any CPU" -v normal ./src/
 
 test_script:
-- cmd: IF "%Platform%"=="net20" (nunit3-console .\src\Pkcs11Interop.Tests\bin\Release\net20\Pkcs11Interop.Tests.dll --result=myresults.xml;format=AppVeyor)
+- cmd: IF "%Platform%"=="net20" (nunit3-console -x86 .\src\Pkcs11Interop.Tests\bin\Release\net20\Pkcs11Interop.Tests.dll --result=myresults.xml;format=AppVeyor)
 - cmd: IF "%Platform%"=="net40" (nunit3-console .\src\Pkcs11Interop.Tests\bin\Release\net40\Pkcs11Interop.Tests.dll --result=myresults.xml;format=AppVeyor)
 - cmd: IF "%Platform%"=="netstandard2.0" (cd .\src\Pkcs11Interop.Tests\ && nuget install Appveyor.TestLogger && cd ..\..)
 - cmd: IF "%Platform%"=="netstandard2.0" (dotnet vstest .\src\Pkcs11Interop.Tests\bin\Release\netcoreapp2.0\Pkcs11Interop.Tests.dll --Framework:".NETCoreApp,Version=v2.0" --TestAdapterPath:. --logger:Appveyor)
