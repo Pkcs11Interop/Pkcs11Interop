@@ -1,6 +1,6 @@
 version: 4.1.2-{build}
 image:
-#  - Visual Studio 2017
+# - Visual Studio 2017
 # - Ubuntu2004
   - macos
 branches:
@@ -72,7 +72,7 @@ test_script:
 - cmd: IF "%Platform%"=="netstandard1.3" (dotnet vstest .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\bin\Release\netcoreapp1.0\Pkcs11Interop.DotNetCore.Tests.dll --Framework:".NETCoreApp,Version=v1.0")
 - cmd: IF "%Platform%"=="netstandard2.0" (dotnet vstest .\src\Pkcs11Interop.NetStandard\Pkcs11Interop.DotNetCore.Tests\bin\Release\netcoreapp2.0\Pkcs11Interop.DotNetCore.Tests.dll --Framework:".NETCoreApp,Version=v2.0")
 - sh: cd ./src/Pkcs11Interop.NetStandard/Pkcs11Interop.DotNetCore.Tests/ && nuget install Appveyor.TestLogger && cd ../../..
-- sh: dotnet test -f netcoreapp2.0 --test-adapter-path:. --logger:Appveyor Test ./src/Pkcs11Interop.NetStandard/Pkcs11Interop.DotNetCore.Tests/
+- sh: dotnet test -f netcoreapp2.0 --test-adapter-path:. --logger:Appveyor ./src/Pkcs11Interop.NetStandard/Pkcs11Interop.DotNetCore.Tests/
 
 artifacts:
 - path: build/$(Platform)
