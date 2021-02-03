@@ -1,3 +1,11 @@
+Pkcs11Interop 5.1.2 (2021-02-03)
+ - #150 - Enabled deterministic builds
+ - #173 - Fixed problem with too small buffer used for encryption
+   and decryption of streams
+ - #177 - Moved Linux and macOS CI builds from Travis CI to AppVeyor
+ - Replaced deprecated PackageLicenseUrl with PackageLicenseFile
+   and PackageIconUrl with PackageIcon in NuGet package
+
 Pkcs11Interop 5.1.1 (2020-08-02)
  - #164 - Fixed processing of unextractable array attributes
 
