@@ -108,6 +108,44 @@ namespace Net.Pkcs11Interop.Common
         }
 
         /// <summary>
+        /// True if runtime is .NET (version >= 5.0) or .NET Core
+        /// </summary>
+        private static bool _isNetCore;
+
+        /// <summary>
+        /// True if runtime is .NET (version >= 5.0) or .NET Core
+        /// </summary>
+        public static bool IsNetCore
+        {
+            get
+            {
+                if (!_runtimeDetected)
+                    DetectRuntime();
+
+                return _isNetCore;
+            }
+        }
+
+        /// <summary>
+        /// True if runtime is Mono
+        /// </summary>
+        private static bool _isMono;
+
+        /// <summary>
+        /// True if runtime is Mono
+        /// </summary>
+        public static bool IsMono
+        {
+            get
+            {
+                if (!_runtimeDetected)
+                    DetectRuntime();
+
+                return _isMono;
+            }
+        }
+
+        /// <summary>
         /// Size of native (unmanaged) long type
         /// </summary>
         private static int _nativeULongSize = 0;
@@ -267,6 +305,28 @@ namespace Net.Pkcs11Interop.Common
             }
 
 #endif
+        }
+
+        /// <summary>
+        /// True if runtime detection was performed
+        /// </summary>
+        private static bool _runtimeDetected = false;
+
+        /// <summary>
+        /// Performs runtime detection
+        /// </summary>
+        private static void DetectRuntime()
+        {
+#if NETSTANDARD
+            _isNetCore = Environment.Version.Major >= 5 || 
+                         RuntimeInformation.FrameworkDescription.StartsWith(".NET Core");
+#else
+            _isNetCore = false;
+#endif
+
+            _isMono = Type.GetType("Mono.Runtime") != null;
+
+            _runtimeDetected = true;
         }
     }
 }

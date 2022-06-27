@@ -101,34 +101,182 @@ namespace Net.Pkcs11Interop.Common
         /// Human readable string describing the most recent error that occurred from dlopen(), dlsym() or dlclose() since the last call to dlerror().
         /// </summary>
         /// <returns>Human readable string describing the most recent error or NULL if no errors have occurred since initialization or since it was last called.</returns>
-        [DllImport("libdl", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr dlerror();
-        
+        internal static IntPtr dlerror()
+        {
+            if (Platform.IsMono)
+                return UnixMono.dlerror();
+            if (Platform.IsNetCore)
+                return UnixNetCore.dlerror();
+
+            return Unix.dlerror();
+        }
+
         /// <summary>
         /// Loads the dynamic library
         /// </summary>
         /// <param name='filename'>Library filename.</param>
         /// <param name='flag'>RTLD_LAZY for lazy function call binding or RTLD_NOW immediate function call binding.</param>
         /// <returns>Handle for the dynamic library if successful, IntPtr.Zero otherwise.</returns>
-        [DllImport("libdl", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
-        internal static extern IntPtr dlopen(string filename, int flag);
+        internal static IntPtr dlopen(string filename, int flag)
+        {
+            if (Platform.IsMono)
+                return UnixMono.dlopen(filename, flag);
+            if (Platform.IsNetCore)
+                return UnixNetCore.dlopen(filename, flag);
+
+            return Unix.dlopen(filename, flag);
+        }
 
         /// <summary>
         /// Decrements the reference count on the dynamic library handle. If the reference count drops to zero and no other loaded libraries use symbols in it, then the dynamic library is unloaded.
         /// </summary>
         /// <param name='handle'>Handle for the dynamic library.</param>
         /// <returns>Returns 0 on success, and nonzero on error.</returns>
-        [DllImport("libdl", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern int dlclose(IntPtr handle);
-        
+        internal static int dlclose(IntPtr handle)
+        {
+            if (Platform.IsMono)
+                return UnixMono.dlclose(handle);
+            if (Platform.IsNetCore)
+                return UnixNetCore.dlclose(handle);
+
+            return Unix.dlclose(handle);
+        }
+
         /// <summary>
         /// Returns the address where the symbol is loaded into memory.
         /// </summary>
         /// <param name='handle'>Handle for the dynamic library.</param>
         /// <param name='symbol'>Name of symbol that should be addressed.</param>
         /// <returns>Returns 0 on success, and nonzero on error.</returns>
-        [DllImport("libdl", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
-        internal static extern IntPtr dlsym(IntPtr handle, string symbol);
+        internal static IntPtr dlsym(IntPtr handle, string symbol)
+        {
+            if (Platform.IsMono)
+                return UnixMono.dlsym(handle, symbol);
+            if (Platform.IsNetCore)
+                return UnixNetCore.dlsym(handle, symbol);
+
+            return Unix.dlsym(handle, symbol);
+        }
+
+        /// <summary>
+        /// On Linux systems, using dlopen and dlsym results in
+        /// DllNotFoundException("libdl.so not found") if libc6-dev
+        /// is not installed. As a workaround, we load symbols for
+        /// dlopen and dlsym from the current process as on Linux
+        /// Mono sure is linked against these symbols.
+        /// </summary>
+        static class UnixMono
+        {
+            /// <summary>
+            /// Human readable string describing the most recent error that occurred from dlopen(), dlsym() or dlclose() since the last call to dlerror().
+            /// </summary>
+            /// <returns>Human readable string describing the most recent error or NULL if no errors have occurred since initialization or since it was last called.</returns>
+            [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern IntPtr dlerror();
+
+            /// <summary>
+            /// Loads the dynamic library
+            /// </summary>
+            /// <param name='filename'>Library filename.</param>
+            /// <param name='flag'>RTLD_LAZY for lazy function call binding or RTLD_NOW immediate function call binding.</param>
+            /// <returns>Handle for the dynamic library if successful, IntPtr.Zero otherwise.</returns>
+            [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
+            internal static extern IntPtr dlopen(string filename, int flag);
+
+            /// <summary>
+            /// Decrements the reference count on the dynamic library handle. If the reference count drops to zero and no other loaded libraries use symbols in it, then the dynamic library is unloaded.
+            /// </summary>
+            /// <param name='handle'>Handle for the dynamic library.</param>
+            /// <returns>Returns 0 on success, and nonzero on error.</returns>
+            [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern int dlclose(IntPtr handle);
+
+            /// <summary>
+            /// Returns the address where the symbol is loaded into memory.
+            /// </summary>
+            /// <param name='handle'>Handle for the dynamic library.</param>
+            /// <param name='symbol'>Name of symbol that should be addressed.</param>
+            /// <returns>Returns 0 on success, and nonzero on error.</returns>
+            [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
+            internal static extern IntPtr dlsym(IntPtr handle, string symbol);
+        }
+
+        /// <summary>
+        /// Similarly as for Mono on Linux, we load symbols for
+        /// dlopen and dlsym from the "libcoreclr.so",
+        /// to avoid the dependency on libc-dev Linux.
+        /// </summary>
+        static class UnixNetCore
+        {
+            /// <summary>
+            /// Human readable string describing the most recent error that occurred from dlopen(), dlsym() or dlclose() since the last call to dlerror().
+            /// </summary>
+            /// <returns>Human readable string describing the most recent error or NULL if no errors have occurred since initialization or since it was last called.</returns>
+            [DllImport("libcoreclr", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern IntPtr dlerror();
+
+            /// <summary>
+            /// Loads the dynamic library
+            /// </summary>
+            /// <param name='filename'>Library filename.</param>
+            /// <param name='flag'>RTLD_LAZY for lazy function call binding or RTLD_NOW immediate function call binding.</param>
+            /// <returns>Handle for the dynamic library if successful, IntPtr.Zero otherwise.</returns>
+            [DllImport("libcoreclr", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
+            internal static extern IntPtr dlopen(string filename, int flag);
+
+            /// <summary>
+            /// Decrements the reference count on the dynamic library handle. If the reference count drops to zero and no other loaded libraries use symbols in it, then the dynamic library is unloaded.
+            /// </summary>
+            /// <param name='handle'>Handle for the dynamic library.</param>
+            /// <returns>Returns 0 on success, and nonzero on error.</returns>
+            [DllImport("libcoreclr", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern int dlclose(IntPtr handle);
+
+            /// <summary>
+            /// Returns the address where the symbol is loaded into memory.
+            /// </summary>
+            /// <param name='handle'>Handle for the dynamic library.</param>
+            /// <param name='symbol'>Name of symbol that should be addressed.</param>
+            /// <returns>Returns 0 on success, and nonzero on error.</returns>
+            [DllImport("libcoreclr", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
+            internal static extern IntPtr dlsym(IntPtr handle, string symbol);
+        }
+
+        static class Unix
+        {
+            /// <summary>
+            /// Human readable string describing the most recent error that occurred from dlopen(), dlsym() or dlclose() since the last call to dlerror().
+            /// </summary>
+            /// <returns>Human readable string describing the most recent error or NULL if no errors have occurred since initialization or since it was last called.</returns>
+            [DllImport("libdl", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern IntPtr dlerror();
+
+            /// <summary>
+            /// Loads the dynamic library
+            /// </summary>
+            /// <param name='filename'>Library filename.</param>
+            /// <param name='flag'>RTLD_LAZY for lazy function call binding or RTLD_NOW immediate function call binding.</param>
+            /// <returns>Handle for the dynamic library if successful, IntPtr.Zero otherwise.</returns>
+            [DllImport("libdl", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
+            internal static extern IntPtr dlopen(string filename, int flag);
+
+            /// <summary>
+            /// Decrements the reference count on the dynamic library handle. If the reference count drops to zero and no other loaded libraries use symbols in it, then the dynamic library is unloaded.
+            /// </summary>
+            /// <param name='handle'>Handle for the dynamic library.</param>
+            /// <returns>Returns 0 on success, and nonzero on error.</returns>
+            [DllImport("libdl", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern int dlclose(IntPtr handle);
+
+            /// <summary>
+            /// Returns the address where the symbol is loaded into memory.
+            /// </summary>
+            /// <param name='handle'>Handle for the dynamic library.</param>
+            /// <param name='symbol'>Name of symbol that should be addressed.</param>
+            /// <returns>Returns 0 on success, and nonzero on error.</returns>
+            [DllImport("libdl", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
+            internal static extern IntPtr dlsym(IntPtr handle, string symbol);
+        }
 
         #endregion
     }
