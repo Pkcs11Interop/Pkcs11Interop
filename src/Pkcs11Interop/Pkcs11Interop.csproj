@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>5.1.2</Version>
+    <Version>5.2.0</Version>
     <Authors>Jaroslav Imrich</Authors>
     <Description>Managed .NET wrapper for unmanaged PKCS#11 libraries</Description>
     <Copyright>Copyright (c) 2012-2021 The Pkcs11Interop Project</Copyright>
