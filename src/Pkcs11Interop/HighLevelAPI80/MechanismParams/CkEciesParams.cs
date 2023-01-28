@@ -27,7 +27,10 @@ using NativeULong = System.UInt64;
 
 namespace Net.Pkcs11Interop.HighLevelAPI80.MechanismParams
 {
-    internal class CkEciesParams : ICkEciesParams
+    /// <summary>
+    /// Parameters for the CKM_ECIES mechanism
+    /// </summary>
+    public class CkEciesParams : ICkEciesParams
     {
         /// <summary>
         /// Flag indicating whether instance has been disposed
