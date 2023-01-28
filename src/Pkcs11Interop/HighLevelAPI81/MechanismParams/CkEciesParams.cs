@@ -77,14 +77,14 @@ namespace Net.Pkcs11Interop.HighLevelAPI81.MechanismParams
             {
                 _lowLevelStruct.SharedData1 = UnmanagedMemory.Allocate(sharedData1.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.SharedData1, sharedData1);
-                _lowLevelStruct.SharedDataLen1 = ConvertUtils.UInt32FromInt32(sharedData1.Length);
+                _lowLevelStruct.SharedDataLen1 = ConvertUtils.UInt64FromInt32(sharedData1.Length);
             }
 
             if (sharedData2 != null)
             {
                 _lowLevelStruct.SharedData2 = UnmanagedMemory.Allocate(sharedData2.Length);
                 UnmanagedMemory.Write(_lowLevelStruct.SharedData2, sharedData2);
-                _lowLevelStruct.SharedDataLen2 = ConvertUtils.UInt32FromInt32(sharedData2.Length);
+                _lowLevelStruct.SharedDataLen2 = ConvertUtils.UInt64FromInt32(sharedData2.Length);
             }
         }
 
