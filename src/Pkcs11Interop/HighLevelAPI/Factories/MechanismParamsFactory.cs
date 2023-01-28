@@ -19,9 +19,9 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
-using System.Collections.Generic;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI.MechanismParams;
+using System.Collections.Generic;
 
 // Note: Code in this file is maintained manually.
 
@@ -748,6 +748,24 @@ namespace Net.Pkcs11Interop.HighLevelAPI.Factories
         public ICkX942MqvDeriveParams CreateCkX942MqvDeriveParams(ulong kdf, byte[] otherInfo, byte[] publicData, ulong privateDataLen, IObjectHandle privateData, byte[] publicData2, IObjectHandle publicKey)
         {
             return _factory.CreateCkX942MqvDeriveParams(kdf, otherInfo, publicData, privateDataLen, privateData, publicData2, publicKey);
+        }
+
+        /// <summary>
+        /// Creates parameters for the CKM_ECIES mechanism
+        /// </summary>
+        /// <param name="dhPrimitive">Diffie-Hellman Primitive (CKDHP) used to derive the shared secret value</param>
+        /// <param name="kdf">Key derivation function used on the shared secret value (CKD)</param>
+        /// <param name="sharedData1">The key derivation padding data shared between the two parties</param>
+        /// <param name="encScheme">The encryption scheme (CKES) used to transform the input data</param>
+        /// <param name="encKeyLenInBits">The bit length of the key to use for the encryption scheme</param>
+        /// <param name="macScheme">The MAC scheme (CKMS) used for MAC generation or validation</param>
+        /// <param name="macKeyLenInBits">The bit length of the key to use for the MAC scheme</param>
+        /// <param name="macLenInBits">The bit length of the MAC scheme output</param>
+        /// <param name="sharedData2">The MAC padding data shared between the two parties</param>
+        /// <returns>Parameters for the CKM_ECIES mechanism</returns>
+        public ICkEciesParams CreateCkEciesParams(ulong dhPrimitive, ulong kdf, byte[] sharedData1, ulong encScheme, ulong encKeyLenInBits, ulong macScheme, ulong macKeyLenInBits, ulong macLenInBits, byte[] sharedData2)
+        {
+            return _factory.CreateCkEciesParams(dhPrimitive, kdf, sharedData1, encScheme, encKeyLenInBits, macScheme, macKeyLenInBits, macLenInBits, sharedData2);
         }
     }
 }
