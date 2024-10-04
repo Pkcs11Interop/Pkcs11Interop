@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
-    <TargetFrameworks>net20;net40;net45;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net20;net40;net45;net80</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(OS)' != 'Windows_NT'">
-    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net80</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -13,15 +13,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <!-- Note: NUnit 3.11.0 is the last version that supports .NET Framework 2.0 -->
     <PackageReference Include="NUnit" Version="3.11.0" />
   </ItemGroup>
 
-  <ItemGroup Condition="$(TargetFramework) == 'netcoreapp3.1'">
-    <PackageReference Include="NUnit3TestAdapter" Version="3.12.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+  <ItemGroup Condition="$(TargetFramework) == 'net80'">
+    <!-- Note: NUnit3TestAdapter 4.x does not seem to work with NUnit 3.x -->
+    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
   </ItemGroup>
   
   <ItemGroup>
