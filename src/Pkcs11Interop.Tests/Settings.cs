@@ -178,15 +178,8 @@ namespace Net.Pkcs11Interop.Tests
             
             PrivateKeyUri = pkcs11UriBuilder.ToString();
 
-#if NET5_0_OR_GREATER
-
-            // Set callback for resolving native library imports from Pkcs11Interop
-            if (Platform.IsLinux)
-            {
-                NativeLibrary.SetDllImportResolver(typeof(Pkcs11InteropFactories).Assembly, LinuxDllImportResolver);
-            }
-
-#endif
+            // Set up a custom DllImportResolver that may be needed on some Linux distributions
+            SetupCustomDllImportResolver();
         }
 
         /// <summary>
@@ -227,22 +220,30 @@ namespace Net.Pkcs11Interop.Tests
 #endif
         }
 
-#if NET5_0_OR_GREATER
-
         /// <summary>
-        /// Callback for resolving native library imports
+        /// Sets up a custom DllImportResolver that may be needed when Pkcs11Interop is running on Linux with .NET 5 or later
         /// </summary>
-        /// <param name="libraryName">Name of the native library that needs to be resolved</param>
-        /// <param name="assembly">The assembly loading the native library</param>
-        /// <param name="dllImportSearchPath">The search path for native library</param>
-        /// <returns>The OS handle for the loaded native library library</returns>
-        static IntPtr LinuxDllImportResolver(string libraryName, Assembly assembly, DllImportSearchPath? dllImportSearchPath)
+        static void SetupCustomDllImportResolver()
         {
-            // Note: Pkcs11Interop tries to load "libdl" but Ubuntu 22.04 provides "libdl.so.2"
-            string mappedLibraryName = (libraryName == "libdl") ? "libdl.so.2" : libraryName;
-            return NativeLibrary.Load(mappedLibraryName, assembly, dllImportSearchPath);
-        }
-
+#if NET5_0_OR_GREATER
+            if (Platform.IsLinux)
+            {
+                // Pkcs11Interop uses native functions from "libdl.so", but Ubuntu 22.04 and possibly also other distros have "libdl.so.2".
+                // Therefore, we need to set up a DllImportResolver to remap "libdl" to "libdl.so.2".
+                NativeLibrary.SetDllImportResolver(typeof(Pkcs11InteropFactories).Assembly, (libraryName, assembly, dllImportSearchPath) =>
+                {
+                    if (libraryName == "libdl")
+                    {
+                        // Note: This mapping might need to be modified if your distribution uses a different version of libdl.
+                        return NativeLibrary.Load("libdl.so.2", assembly, dllImportSearchPath);
+                    }
+                    else
+                    {
+                        return NativeLibrary.Load(libraryName, assembly, dllImportSearchPath);
+                    }
+                });
+            }
 #endif
+        }
     }
 }

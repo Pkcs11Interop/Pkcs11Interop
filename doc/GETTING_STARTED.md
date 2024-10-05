@@ -8,15 +8,20 @@ Create new C# console application project in Visual Studio and install [Pkcs11In
 
 ```csharp
 using System;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
 
 namespace ConsoleApp1
 {
-    class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
+            // Set up a custom DllImportResolver that may be needed on some Linux distributions
+            SetupCustomDllImportResolver();
+
             // Specify the path to unmanaged PKCS#11 library provided by the cryptographic device vendor
             string pkcs11LibraryPath = @"c:\SoftHSM2\lib\softhsm2-x64.dll";
 
@@ -64,6 +69,32 @@ namespace ConsoleApp1
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Sets up a custom DllImportResolver that may be needed when Pkcs11Interop is running on Linux with .NET 5 or later
+        /// </summary>
+        static void SetupCustomDllImportResolver()
+        {
+#if NET5_0_OR_GREATER
+            if (Platform.IsLinux)
+            {
+                // Pkcs11Interop uses native functions from "libdl.so", but Ubuntu 22.04 and possibly also other distros have "libdl.so.2".
+                // Therefore, we need to set up a DllImportResolver to remap "libdl" to "libdl.so.2".
+                NativeLibrary.SetDllImportResolver(typeof(Pkcs11InteropFactories).Assembly, (libraryName, assembly, dllImportSearchPath) =>
+                {
+                    if (libraryName == "libdl")
+                    {
+                        // Note: This mapping might need to be modified if your distribution uses a different version of libdl.
+                        return NativeLibrary.Load("libdl.so.2", assembly, dllImportSearchPath);
+                    }
+                    else
+                    {
+                        return NativeLibrary.Load(libraryName, assembly, dllImportSearchPath);
+                    }
+                });
+            }
+#endif
         }
     }
 }
