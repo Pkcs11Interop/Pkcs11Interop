@@ -441,8 +441,8 @@ namespace Net.Pkcs11Interop.Common
                         throw new Pkcs11UriException("Invalid value of " + attributeName + " attribute");
                     }
 
-                    if ((_checkLengths == true) && ((major > 0xff) || (minor > 0xff)))
-                        throw new ArgumentOutOfRangeException("Value of " + attributeName + " attribute exceeds the maximum allowed length");
+                    if ((major > 0xff) || (minor > 0x63))
+                        throw new ArgumentOutOfRangeException("Value of " + attributeName + " attribute exceeds the allowed maximum");
 
                     _libraryVersion = value;
                     _libraryVersionEncoded = value;
