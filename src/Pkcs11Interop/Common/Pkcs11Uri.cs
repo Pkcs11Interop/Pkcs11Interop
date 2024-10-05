@@ -730,10 +730,10 @@ namespace Net.Pkcs11Interop.Common
                         throw new Pkcs11UriException("Invalid value of " + attributeName + " attribute");
                     }
 
-                    if ((_checkLengths == true) && ((major > 0xff) || (minor > 0xff)))
-                        throw new Pkcs11UriException("Value of " + attributeName + " attribute exceeds the maximum allowed length");
+                    if ((major > 0xff) || (minor > 0x63))
+                        throw new Pkcs11UriException("Value of " + attributeName + " attribute exceeds the allowed maximum");
 
-                    _libraryVersion = string.Format("{0}.{1}", major, minor);
+                    _libraryVersion = string.Format(minor == 0 ? "{0}.{1}" : "{0}.{1:D2}", major, minor);
 
                     break;
 

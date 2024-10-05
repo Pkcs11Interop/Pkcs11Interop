@@ -1161,26 +1161,26 @@ sollicitudin bibendum.";
         [Test()]
         public void _040_LibraryVersionWithValidValue()
         {
-            string uri = @"pkcs11:library-version=1.256";
+            // Note: The value of the library-version is checked regardless of the value of the checkLengths argument
 
-            // Build URI without length checking
+            // Build URI with minor version that does not exceed the allowed maximum
             Pkcs11UriBuilder pkcs11UriBuilder = new Pkcs11UriBuilder(false);
-            pkcs11UriBuilder.LibraryVersion = "1.256";
-            Assert.IsTrue(uri == pkcs11UriBuilder.ToString());
+            pkcs11UriBuilder.LibraryVersion = "1.99";
+            Assert.IsTrue(pkcs11UriBuilder.ToString() == @"pkcs11:library-version=1.99");
 
-            // Parse URI without length checking
-            Pkcs11Uri pkcs11uri = new Pkcs11Uri(uri, false);
+            // Parse URI with minor version that does not exceed the allowed maximum
+            Pkcs11Uri pkcs11uri = new Pkcs11Uri(@"pkcs11:library-version=1.99", false);
             Assert.IsTrue(pkcs11uri.DefinesLibrary == true);
             Assert.IsTrue(pkcs11uri.DefinesSlot == false);
             Assert.IsTrue(pkcs11uri.DefinesToken == false);
             Assert.IsTrue(pkcs11uri.DefinesObject == false);
-            Assert.IsTrue(pkcs11uri.LibraryVersion == "1.256");
+            Assert.IsTrue(pkcs11uri.LibraryVersion == "1.99");
 
+            // Build URI with minor version that exceeds the allowed maximum
             try
             {
-                // Build URI with length checking
-                pkcs11UriBuilder = new Pkcs11UriBuilder();
-                pkcs11UriBuilder.LibraryVersion = "1.256";
+                pkcs11UriBuilder = new Pkcs11UriBuilder(false);
+                pkcs11UriBuilder.LibraryVersion = "1.100";
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)
@@ -1188,10 +1188,10 @@ sollicitudin bibendum.";
                 Assert.IsTrue(ex is ArgumentOutOfRangeException);
             }
 
+            // Parse URI with minor version that exceeds the allowed maximum
             try
             {
-                // Parse URI with length checking
-                pkcs11uri = new Pkcs11Uri(uri);
+                pkcs11uri = new Pkcs11Uri(@"pkcs11:library-version=1.100", false);
                 Assert.Fail("Exception expected but not thrown");
             }
             catch (Exception ex)

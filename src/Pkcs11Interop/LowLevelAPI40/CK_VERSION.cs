@@ -19,6 +19,7 @@
  *  Jaroslav IMRICH <jimrich@jimrich.sk>
  */
 
+using System;
 using System.Runtime.InteropServices;
 
 // Note: Code in this file is generated automatically.
@@ -49,7 +50,18 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
         /// <returns>String that represents the current CK_VERSION structure.</returns>
         public override string ToString()
         {
-            return string.Format("{0}.{1}", Major[0], Minor[0]);
+            if (Minor[0] == 0x00)
+            {
+                return string.Format("{0}.{1}", Major[0], Minor[0]);
+            }
+            else if (Minor[0] <= 0x63)
+            {
+                return string.Format("{0}.{1:D2}", Major[0], Minor[0]);
+            }
+            else
+            {
+                throw new Exception("Minor part of CK_VERSION exceeds the allowed maximum");
+            }
         }
     }
 }
