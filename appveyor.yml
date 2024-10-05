@@ -14,7 +14,7 @@ environment:
 #    Platform: net40
 #  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
 #    Platform: netstandard2.0
-  - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu2404
+  - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu2204
     Platform: netstandard2.0
 #  - APPVEYOR_BUILD_WORKER_IMAGE: macos
 #    Platform: netstandard2.0
