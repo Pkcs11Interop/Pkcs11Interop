@@ -22,6 +22,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using Net.Pkcs11Interop.Common;
 using Net.Pkcs11Interop.HighLevelAPI;
 using Net.Pkcs11Interop.Logging;
@@ -176,6 +177,16 @@ namespace Net.Pkcs11Interop.Tests
             pkcs11UriBuilder.Object = ApplicationName;
             
             PrivateKeyUri = pkcs11UriBuilder.ToString();
+
+#if NET5_0_OR_GREATER
+
+            // Set callback for resolving native library imports from Pkcs11Interop
+            if (Platform.IsLinux)
+            {
+                NativeLibrary.SetDllImportResolver(typeof(Pkcs11InteropFactories).Assembly, LinuxDllImportResolver);
+            }
+
+#endif
         }
 
         /// <summary>
@@ -215,5 +226,23 @@ namespace Net.Pkcs11Interop.Tests
             return path;
 #endif
         }
+
+#if NET5_0_OR_GREATER
+
+        /// <summary>
+        /// Callback for resolving native library imports
+        /// </summary>
+        /// <param name="libraryName">Name of the native library that needs to be resolved</param>
+        /// <param name="assembly">The assembly loading the native library</param>
+        /// <param name="dllImportSearchPath">The search path for native library</param>
+        /// <returns>The OS handle for the loaded native library library</returns>
+        static IntPtr LinuxDllImportResolver(string libraryName, Assembly assembly, DllImportSearchPath? dllImportSearchPath)
+        {
+            // Note: Pkcs11Interop tries to load "libdl" but Ubuntu 22.04 provides "libdl.so.2"
+            string mappedLibraryName = (libraryName == "libdl") ? "libdl.so.2" : libraryName;
+            return NativeLibrary.Load(mappedLibraryName, assembly, dllImportSearchPath);
+        }
+
+#endif
     }
 }
