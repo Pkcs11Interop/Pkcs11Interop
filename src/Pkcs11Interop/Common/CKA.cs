@@ -124,7 +124,12 @@ namespace Net.Pkcs11Interop.Common
         /// SHA-1 hash of the issuer public key [byte array]
         /// </summary>
         CKA_HASH_OF_ISSUER_PUBLIC_KEY = 0x0000008B,
-        
+
+        /// <summary>
+        /// Defines the mechanism used to calculate CKA_HASH_OF_SUBJECT_PUBLIC_KEY and CKA_HASH_OF_ISSUER_PUBLIC_KEY. [CKM/uint]
+        /// </summary>
+        CKA_NAME_HASH_ALGORITHM = 0x0000008C,
+
         /// <summary>
         /// Checksum [byte array]
         /// </summary>
