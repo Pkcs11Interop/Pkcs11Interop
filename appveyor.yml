@@ -8,16 +8,16 @@ skip_tags: true
 
 environment:
   matrix:
-  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
-    Platform: net20
-  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
-    Platform: net40
-  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
+#  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
+#    Platform: net20
+#  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
+#    Platform: net40
+#  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
+#    Platform: netstandard2.0
+  - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu2404
     Platform: netstandard2.0
-  - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu2004
-    Platform: netstandard2.0
-  - APPVEYOR_BUILD_WORKER_IMAGE: macos
-    Platform: netstandard2.0
+#  - APPVEYOR_BUILD_WORKER_IMAGE: macos
+#    Platform: netstandard2.0
 
 build_script:
 - cmd: cd build && nuget-build.bat
