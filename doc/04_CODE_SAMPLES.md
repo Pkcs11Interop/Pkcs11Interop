@@ -2,7 +2,7 @@
 
 The Pkcs11Interop source code includes unit tests that cover all methods of the PKCS#11 API. These unit tests are documented and also serve as official code samples.
 
-**WARNING: Our documentation and code samples do not cover the theory of security/cryptography or the strengths/weaknesses of specific algorithms. You should always understand what you are doing and why. Please do not simply copy our code samples and expect them to fully solve your usage scenario. Cryptography is an advanced topic, and it is essential to consult a solid, preferably recent, reference to make the best use of it.**
+> **WARNING: Our documentation and code samples do not cover the theory of security/cryptography or the strengths/weaknesses of specific algorithms. You should always understand what you are doing and why. Please do not simply copy our code samples and expect them to fully solve your usage scenario. Cryptography is an advanced topic, and it is essential to consult a solid, preferably recent, reference to make the best use of it.**
 
 *Note: New objects/keys with "Pkcs11Interop" label are created/generated for every test method that needs to work with objects. These objects are deleted at the end of the test method, but they may persist if the test fails. Any leftover objects with the "Pkcs11Interop" label can be safely deleted using the [Pkcs11Admin](https://www.pkcs11admin.net/) application.*
 
