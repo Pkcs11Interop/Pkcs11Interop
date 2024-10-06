@@ -6,7 +6,7 @@ Pkcs11Interop may not be the ideal choice if you are developing an application i
 
 Pkcs11Interop is a suitable choice if you are developing an application intended for **platforms beyond just Windows** and your application will perform cryptographic operations with keys stored in a hardware device such as a smartcard or HSM.
 
-Moreover, if your application will perform just signing or encryption with RSA or EC keys associated with an X.509 certificate, you might find the [Pkcs11Interop.X509Store](https://github.com/Pkcs11Interop/Pkcs11Interop.X509Store) library to be a simpler and more developer-friendly alternative to the full Pkcs11Interop.
+Moreover, if your application will perform just signing or encryption with RSA or EC keys, you might find the [Pkcs11Interop.X509Store](https://github.com/Pkcs11Interop/Pkcs11Interop.X509Store) library to be a simpler and more developer-friendly alternative to the full Pkcs11Interop.
 
 ## How can I integrate Pkcs11Interop with other built-in .NET classes?
 
@@ -20,10 +20,14 @@ Pkcs11Interop is a wrapper library and, as such, it supports all the algorithms 
 
 To safely use Pkcs11Interop in a multi-threaded application, follow these four rules:
 
-1. **Use a Single Library Instance**: Under normal circumstances, load the PKCS#11 library only once per process and reuse the `IPkcs11Library` instance across all threads.
-2. **Set AppType to MultiThreaded**: When loading the PKCS#11 library, set the `appType` parameter to `AppType.MultiThreaded`. This instructs the PKCS#11 library to handle any required locking internally, so you don't need to manage it yourself.
-3. **Maintain a Main Session**: After loading the PKCS#11 library, open a session (referred to as the main session), log in to this session, and keep it open. All PKCS#11 sessions share the same login state, so as long as the main session is open and logged in, all sessions (both existing and newly created) will be logged in.
-4. **Create Separate Sessions**: Always create a new session for each cryptographic operation, regardless of the thread. Ensure to close the session once it is no longer needed.
+1. **Use a single library instance**  
+   Under normal circumstances, load the PKCS#11 library only once per process and reuse the `IPkcs11Library` instance across all threads.
+2. **Set AppType to MultiThreaded**  
+   When loading the PKCS#11 library, set the `appType` parameter to `AppType.MultiThreaded`. This instructs the PKCS#11 library to handle any required locking internally, so you don't need to manage it yourself.
+3. **Maintain a main session**  
+   After loading the PKCS#11 library, open a session (referred to as the main session), login into this session, and keep it open. All PKCS#11 sessions share the same login state, so as long as the main session is open and logged in, all sessions (both existing and newly created) will be logged in.
+4. **Create multiple separate sessions**  
+   Always create a new session for each cryptographic operation, regardless of the thread. Ensure to close the session once it is no longer needed.
 
 ## Can I use a certificate from Pkcs11Interop for SSL connections?
 
