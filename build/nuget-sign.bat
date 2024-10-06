@@ -11,7 +11,7 @@ set SEVENZIP="c:\Program Files\7-Zip\7z.exe"
 set SIGNTOOL="C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe"
 
 @rem Define signing options
-set CERTHASH=d4ba72939a46bac6dd31dad895a9901ace0d56f6
+set CERTHASH=3336dc12261fed71ab08ab364bf5d0f53083b00d
 set TSAURL=http://time.certum.pl/
 set LIBNAME=Pkcs11Interop
 set LIBURL=https://www.pkcs11interop.net/
