@@ -41,6 +41,7 @@ Pkcs11Interop has been confirmed to work with the following devices:
 - Utimaco CryptoServer HSM
 - Belgian and Slovak eID cards
 - SmartCard-HSM
+- YubiKey with the PIV application
 
 ## Documentation
 
