@@ -195,8 +195,7 @@ namespace Net.Pkcs11Interop.Tests
             return string.Empty;
 #else
 
-            string path = typeof(Settings).Assembly.CodeBase;
-            path = new Uri(path).LocalPath;
+            string path = typeof(Settings).Assembly.Location;
             path = Path.GetDirectoryName(path);
             path = Path.Combine(path, "pkcs11-mock");
 
