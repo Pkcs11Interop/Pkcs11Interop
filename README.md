@@ -16,7 +16,7 @@ Pkcs11Interop is a managed library written in C# that brings the full power of t
 
 The following figure illustrates the typical usage of the Pkcs11Interop library in a .NET application:
 
-![Pkcs11Interop architecture](doc/images/pkcs11interop-architecture-small.png?raw=true)
+![Pkcs11Interop architecture](doc/images/pkcs11interop-architecture-small.png)
 
 The Pkcs11Interop library:
 

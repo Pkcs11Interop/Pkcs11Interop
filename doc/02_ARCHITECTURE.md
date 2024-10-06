@@ -8,7 +8,7 @@ Pkcs11Interop uses `System.Runtime.InteropServices` to define platform invoke me
 
 The following figure presents the typical usage of the Pkcs11Interop library in a .NET application (left side) and the internal architecture of the Pkcs11Interop library (right side):
 
-![Pkcs11Interop architecture](images/pkcs11interop-architecture.png?raw=true)
+![Pkcs11Interop architecture](images/pkcs11interop-architecture.png)
 
 *Note: Click on the picture for a larger image.*
 

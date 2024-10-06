@@ -2,7 +2,7 @@
 
 Pkcs11Interop loads the unmanaged PKCS#11 library provided by the cryptographic device vendor, making its functions accessible to .NET applications. The following figure presents the typical usage of the Pkcs11Interop library in a .NET application:
 
-![Pkcs11interop without PKCS11-LOGGER](images/pkcs11interop-architecture-small.png?raw=true)
+![Pkcs11interop without PKCS11-LOGGER](images/pkcs11interop-architecture-small.png)
 
 The next code sample demonstrates how to load the PKCS#11 library via Pkcs11Interop in a .NET application:
 
@@ -32,7 +32,7 @@ The logger acts as an intermediary between the application and the original PKCS
 
 The following figure illustrates the typical usage of the Pkcs11Interop library with the PKCS11-LOGGER proxy in a .NET application:
 
-![Pkcs11interop with PKCS11-LOGGER](images/pkcs11interop-with-pkcs11-logger.png?raw=true)
+![Pkcs11interop with PKCS11-LOGGER](images/pkcs11interop-with-pkcs11-logger.png)
 
 The next code sample demonstrates how to load the PKCS#11 library using PKCS11-LOGGER and Pkcs11Interop in a .NET application:
 
