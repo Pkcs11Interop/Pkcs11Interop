@@ -52,4 +52,4 @@ Up to version 4, Pkcs11Interop used individual classes located in the `Net.Pkcs1
 
 Since version 5, Pkcs11Interop uses the [factory pattern](https://en.wikipedia.org/wiki/Abstract_factory_pattern) implemented by the `Net.Pkcs11Interop.HighLevelAPI.Pkcs11InteropFactories` class that automatically instantiates the correct set of platform-dependent API-s.
 
-[Next page >](03_GETTING_STARTED.md)
+[Next page >](05_GETTING_STARTED.md)

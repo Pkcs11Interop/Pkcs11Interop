@@ -136,4 +136,4 @@ The following source files contain valuable code samples:
   Involved PKCS#11 functions: None  
   Demonstrates how to utilize managed logging in the Pkcs11Interop library.
 
-[Next page >](05_TROUBLESHOOTING.md)
+[Next page >](07_TROUBLESHOOTING.md)

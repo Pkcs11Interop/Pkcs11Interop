@@ -192,4 +192,4 @@ Supported mechanisms:
 
 That's it! You have successfully used the unmanaged PKCS#11 library in your .NET application.
 
-[Next page >](04_CODE_SAMPLES.md)
+[Next page >](06_CODE_SAMPLES.md)

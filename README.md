@@ -14,6 +14,8 @@ PKCS#11 is a cryptographic standard maintained by the OASIS PKCS 11 Technical Co
 
 Pkcs11Interop is a managed library written in C# that brings the full power of the PKCS#11 API to the .NET environment. It loads the unmanaged PKCS#11 library provided by the cryptographic device vendor and makes its functions accessible to .NET applications.
 
+> **NOTE:** If your application only needs to perform signing or encryption with RSA or EC keys, consider using the [Pkcs11Interop.X509Store](https://github.com/Pkcs11Interop/Pkcs11Interop.X509Store) library. It offers a simpler and more developer-friendly alternative to the full Pkcs11Interop. It also includes `Pkcs11RsaProvider`, a PKCS#11-based implementation of the `System.Security.Cryptography.RSA` algorithm, and `Pkcs11ECDsaProvider`, a PKCS#11-based implementation of the `System.Security.Cryptography.ECDsa` algorithm. These providers integrate easily with other .NET classes, such as `System.Security.Cryptography.Pkcs.SignedCms` and `System.Security.Cryptography.Xml.SignedXml`.
+
 The following figure illustrates the typical usage of the Pkcs11Interop library in a .NET application:
 
 ![Pkcs11Interop architecture](doc/images/pkcs11interop-architecture-small.png)
@@ -54,11 +56,13 @@ Before you start using Pkcs11Interop, it is highly recommended that you familiar
 
 The following topics are covered by standalone documents:
 - [Basic PKCS#11 Related Terms](doc/01_BASIC_TERMS.md)
-- [Pkcs11Interop Library Architecture](doc/02_ARCHITECTURE.md)
-- [Getting Started with Pkcs11Interop](doc/03_GETTING_STARTED.md)
-- [Pkcs11Interop Code Samples](doc/04_CODE_SAMPLES.md)
-- [Troubleshooting Pkcs11Interop with PKCS11-LOGGER](doc/05_TROUBLESHOOTING.md)
-- [Frequently Asked Questions](doc/06_FAQ.md)
+- [PKCS#11 Sessions](doc/02_SESSIONS.md)
+- [PKCS#11 Objects](doc/03_OBJECTS.md)
+- [Pkcs11Interop Library Architecture](doc/04_ARCHITECTURE.md)
+- [Getting Started with Pkcs11Interop](doc/05_GETTING_STARTED.md)
+- [Pkcs11Interop Code Samples](doc/06_CODE_SAMPLES.md)
+- [Troubleshooting Pkcs11Interop with PKCS11-LOGGER](doc/07_TROUBLESHOOTING.md)
+- [Frequently Asked Questions](doc/08_FAQ.md)
 
 ## Download
 

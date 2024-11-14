@@ -119,4 +119,4 @@ Here’s a brief sample of the content extracted from the beginning of the log f
 
 **Warning: Log files produced by PKCS11-LOGGER may contain sensitive information and should not be shared publicly.**
 
-[Next page >](06_FAQ.md)
+[Next page >](08_FAQ.md)
