@@ -56,8 +56,8 @@ Before you start using Pkcs11Interop, it is highly recommended that you familiar
 
 The following topics are covered by standalone documents:
 - [Basic PKCS#11 Related Terms](doc/01_BASIC_TERMS.md)
-- [PKCS#11 Sessions](doc/02_SESSIONS.md)
-- [PKCS#11 Objects](doc/03_OBJECTS.md)
+- [PKCS#11 Objects](doc/02_OBJECTS.md)
+- [PKCS#11 Sessions](doc/03_SESSIONS.md)
 - [Pkcs11Interop Library Architecture](doc/04_ARCHITECTURE.md)
 - [Getting Started with Pkcs11Interop](doc/05_GETTING_STARTED.md)
 - [Pkcs11Interop Code Samples](doc/06_CODE_SAMPLES.md)

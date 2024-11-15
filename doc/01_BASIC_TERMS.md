@@ -27,15 +27,15 @@ Of course, since PKCS#11 provides only a logical view of slots and tokens, there
 
 There are also three additional important PKCS#11 related terms that are not depicted on the above image:
 
-* **Session**  
-  Session represents a logical connection between an application and a token. A single application usually uses several sessions as they provide both operation and thread isolation.
-
 * **Object**  
   An object represents generic data, a certificate, a public key, a private key, or a secret key permanently stored on a token or temporarily existing in the session. Tokens can perform cryptographic functions with objects without revealing their values.
+
+* **Session**  
+  Session represents a logical connection between an application and a token. A single application usually uses several sessions as they provide both cryptographic operation isolation and thread isolation.
 
 * **Mechanism**  
   Mechanism represents a cryptographic algorithm. Each token may support a different set of mechanisms (e.g., one token may support RSA encryption while another may not) or support mechanisms with different limitations (e.g., one token may support RSA keys up to 2048 bits while another up to 4096 bits).
 
-Sessions and objects are described in more detail in the following chapters.
+Objects and sessions are described in more detail in the following chapters.
 
-[Next page >](02_SESSIONS.md)
+[Next page >](02_OBJECTS.md)
