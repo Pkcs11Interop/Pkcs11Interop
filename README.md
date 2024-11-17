@@ -8,13 +8,15 @@ Pkcs11Interop
 [![Stack Overflow](https://img.shields.io/badge/stack-pkcs11interop-blue.svg)](https://stackoverflow.com/questions/tagged/pkcs11interop)
 [![Twitter](https://img.shields.io/badge/twitter-p11interop-blue.svg)](https://twitter.com/p11interop)
 
+## Before You Begin
+
+If your application only needs to perform signing or encryption with RSA or EC keys, consider using the [Pkcs11Interop.X509Store](https://github.com/Pkcs11Interop/Pkcs11Interop.X509Store) library. It offers a simpler and more developer-friendly alternative to the full Pkcs11Interop library. It also includes `Pkcs11RsaProvider`, a PKCS#11-based implementation of the `System.Security.Cryptography.RSA` algorithm, and `Pkcs11ECDsaProvider`, a PKCS#11-based implementation of the `System.Security.Cryptography.ECDsa` algorithm. These providers integrate easily with other .NET classes, such as `System.Security.Cryptography.Pkcs.SignedCms` and `System.Security.Cryptography.Xml.SignedXml`.
+
 ## Overview
 
 PKCS#11 is a cryptographic standard maintained by the OASIS PKCS 11 Technical Committee (originally published by RSA Laboratories). It defines an ANSI C API to access smart cards and other types of cryptographic hardware.
 
 Pkcs11Interop is a managed library written in C# that brings the full power of the PKCS#11 API to the .NET environment. It loads the unmanaged PKCS#11 library provided by the cryptographic device vendor and makes its functions accessible to .NET applications.
-
-> **NOTE:** If your application only needs to perform signing or encryption with RSA or EC keys, consider using the [Pkcs11Interop.X509Store](https://github.com/Pkcs11Interop/Pkcs11Interop.X509Store) library. It offers a simpler and more developer-friendly alternative to the full Pkcs11Interop. It also includes `Pkcs11RsaProvider`, a PKCS#11-based implementation of the `System.Security.Cryptography.RSA` algorithm, and `Pkcs11ECDsaProvider`, a PKCS#11-based implementation of the `System.Security.Cryptography.ECDsa` algorithm. These providers integrate easily with other .NET classes, such as `System.Security.Cryptography.Pkcs.SignedCms` and `System.Security.Cryptography.Xml.SignedXml`.
 
 The following figure illustrates the typical usage of the Pkcs11Interop library in a .NET application:
 
@@ -55,14 +57,15 @@ Before you start using Pkcs11Interop, it is highly recommended that you familiar
 - *Chapter 10 - Objects*
 
 The following topics are covered by standalone documents:
-- [Basic PKCS#11 Related Terms](doc/01_BASIC_TERMS.md)
-- [PKCS#11 Objects](doc/02_OBJECTS.md)
-- [PKCS#11 Sessions](doc/03_SESSIONS.md)
+- [Quick Introduction to PKCS#11 Terminology](doc/01_TERMINOLOGY.md)
+- [Quick Introduction to PKCS#11 Objects](doc/02_OBJECTS.md)
+- [Quick Introduction to PKCS#11 Sessions](doc/03_SESSIONS.md)
 - [Pkcs11Interop Library Architecture](doc/04_ARCHITECTURE.md)
-- [Getting Started with Pkcs11Interop](doc/05_GETTING_STARTED.md)
-- [Pkcs11Interop Code Samples](doc/06_CODE_SAMPLES.md)
-- [Troubleshooting Pkcs11Interop with PKCS11-LOGGER](doc/07_TROUBLESHOOTING.md)
-- [Frequently Asked Questions](doc/08_FAQ.md)
+- [Pkcs11Interop Interfaces](doc/05_INTERFACES.md)
+- [Getting Started with Pkcs11Interop](doc/06_GETTING_STARTED.md)
+- [Pkcs11Interop Code Samples](doc/07_CODE_SAMPLES.md)
+- [Troubleshooting Pkcs11Interop with PKCS11-LOGGER](doc/08_TROUBLESHOOTING.md)
+- [Frequently Asked Questions](doc/09_FAQ.md)
 
 ## Download
 
@@ -83,7 +86,7 @@ If you need help, please choose one of the options that best suits your needs:
 - Questions with the [pkcs#11 tag](https://stackoverflow.com/questions/tagged/pkcs%2311) and [pkcs11interop tag](https://stackoverflow.com/questions/tagged/pkcs11interop) posted on StackOverflow.
 - Commercial support and consulting from the original developer available upon request at [info@pkcs11interop.net](mailto:info@pkcs11interop.net).
 
-## Related projects
+## Related Projects
 
 * [Pkcs11Admin](https://www.pkcs11admin.net/)  
   GUI tool for administration of PKCS#11 enabled devices based on Pkcs11Interop library.
