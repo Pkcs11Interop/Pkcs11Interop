@@ -8,9 +8,7 @@ Pkcs11Interop
 [![Stack Overflow](https://img.shields.io/badge/stack-pkcs11interop-blue.svg)](https://stackoverflow.com/questions/tagged/pkcs11interop)
 [![Twitter](https://img.shields.io/badge/twitter-p11interop-blue.svg)](https://twitter.com/p11interop)
 
-## Before You Begin
-
-If your application only needs to perform signing or encryption with RSA or EC keys, consider using the [Pkcs11Interop.X509Store](https://github.com/Pkcs11Interop/Pkcs11Interop.X509Store) library. It offers a simpler and more developer-friendly alternative to the full Pkcs11Interop library. It also includes `Pkcs11RsaProvider`, a PKCS#11-based implementation of the `System.Security.Cryptography.RSA` algorithm, and `Pkcs11ECDsaProvider`, a PKCS#11-based implementation of the `System.Security.Cryptography.ECDsa` algorithm. These providers integrate easily with other .NET classes, such as `System.Security.Cryptography.Pkcs.SignedCms` and `System.Security.Cryptography.Xml.SignedXml`.
+> **If your application only needs to perform signing or encryption with RSA or EC keys, consider using the [Pkcs11Interop.X509Store](https://github.com/Pkcs11Interop/Pkcs11Interop.X509Store) library. It offers a simpler and more developer-friendly alternative to the full Pkcs11Interop library. Additionally, it includes providers that easily integrate with other built-in .NET classes such as [`SignedCms`](https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.pkcs.signedcms?view=netframework-4.6.2) and [`SignedXml`](https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.xml.signedxml?view=netframework-4.6.2).**
 
 ## Overview
 

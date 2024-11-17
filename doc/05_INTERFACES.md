@@ -5,7 +5,7 @@ The following figure presents the relationships between classes and interfaces f
 ![Pkcs11Interop Interfaces](images/Pkcs11Interop_Interfaces.png)
 
 An instance of the `Pkcs11InteropFactories` class:
-- Contains multiple [factories](https://en.wikipedia.org/wiki/Abstract_factory_pattern) used by both the developer and the Pkcs11Interop library itself.
+- Contains multiple factories used by both the developer and the Pkcs11Interop library itself.
 - Is most commonly used for loading unmanaged PKCS#11 libraries and creating instances of `IPkcs11Library`.
 
 Each instance of a class implementing the `IPkcs11Library` interface:
