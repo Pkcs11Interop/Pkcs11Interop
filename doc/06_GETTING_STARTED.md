@@ -1,10 +1,10 @@
-# Getting started with Pkcs11Interop
+# Getting Started with Pkcs11Interop
 
-Follow the instructions provided by the vendor of your cryptographic device to install and configure the device along with all the required support software. Consult device documentation to determine the exact location of unmanaged PKCS#11 library provided by the device vendor.
+Follow the instructions provided by the vendor of your cryptographic device to install and configure the device along with all the required support software. Consult the device documentation to determine the exact location of the unmanaged PKCS#11 library provided by the vendor.
 
-Create new C# console application project in Visual Studio and install [Pkcs11Interop NuGet package](https://www.nuget.org/packages/Pkcs11Interop/) with [NuGet Package Manager UI](https://docs.microsoft.com/en-us/nuget/tools/package-manager-ui#finding-and-installing-a-package) or any other tool of your choice. Replace contents of `Program.cs` file in your project with the following code which displays basic information about your unmanaged PKCS#11 library and all slots it can access.
+Create a new C# console application project in Visual Studio and install the [Pkcs11Interop NuGet package](https://www.nuget.org/packages/Pkcs11Interop/) using the [NuGet Package Manager UI](https://docs.microsoft.com/en-us/nuget/tools/package-manager-ui#finding-and-installing-a-package) or any other tool of your choice. Replace the contents of the `Program.cs` file in your project with the following code, which displays basic information about your unmanaged PKCS#11 library and all accessible slots.
 
-**WARNING: Don't forget to replace the value of `pkcs11LibraryPath` variable.**
+**WARNING: Don't forget to replace the value of the `pkcs11LibraryPath` variable.**
 
 ```csharp
 using System;
@@ -100,7 +100,7 @@ namespace ConsoleApp1
 }
 ```
 
-When you execute your application you should get output similar to this one:
+When you execute your application, you should see output similar to this:
 
 ```
 Library
@@ -190,4 +190,6 @@ Supported mechanisms:
 ...
 ```
 
-That's it! You have successfully used unmanaged PKCS#11 library in your .NET application.
+That's it! You have successfully used the unmanaged PKCS#11 library in your .NET application.
+
+[Next page >](07_CODE_SAMPLES.md)

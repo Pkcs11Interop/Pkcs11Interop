@@ -1,10 +1,10 @@
 # Troubleshooting Pkcs11Interop with PKCS11-LOGGER
 
-Pkcs11Interop loads unmanaged PKCS#11 library provided by the cryptographic device vendor and makes its functions accessible to .NET application. Following figure presents the typical usage of Pkcs11Interop library in .NET application:
+Pkcs11Interop loads the unmanaged PKCS#11 library provided by the cryptographic device vendor, making its functions accessible to .NET applications. The following figure presents the typical usage of the Pkcs11Interop library in a .NET application:
 
-![Pkcs11interop without PKCS11-LOGGER](images/pkcs11interop-architecture-small.png?raw=true)
+![Pkcs11interop without PKCS11-LOGGER](images/pkcs11interop-architecture-small.png)
 
-Next code sample shows how to load PKCS#11 library via Pkcs11Interop in .NET application:
+The next code sample demonstrates how to load the PKCS#11 library via Pkcs11Interop in a .NET application:
 
 ```csharp
 string pkcs11LibraryPath = null;
@@ -26,15 +26,15 @@ using (IPkcs11Library pkcs11Library = factories.Pkcs11LibraryFactory.LoadPkcs11L
 }
 ```
 
-Due to the complexity of PKCS#11 API it is not rare that user needs to troubleshoot communication problems between application and PKCS#11 library. That is the moment when [PKCS11-LOGGER](https://github.com/Pkcs11Interop/pkcs11-logger) may come handy.
+Due to the complexity of the PKCS#11 API, it is not uncommon for users to encounter communication problems between their application and the PKCS#11 library. This is where [PKCS11-LOGGER](https://github.com/Pkcs11Interop/pkcs11-logger) can be particularly useful.
 
-Logger takes place between the application and the original PKCS#11 library. Application calls PKCS#11 function provided by logger, logger calls the same function provided by the original PKCS#11 library and while logging everything it returns the result to the application.
+The logger acts as an intermediary between the application and the original PKCS#11 library. When the application calls a PKCS#11 function via the logger, the logger invokes the same function from the original PKCS#11 library, logs all relevant information, and then returns the result to the application.
 
-Following figure presents the typical usage of Pkcs11Interop library with PKCS11-LOGGER proxy in .NET application:
+The following figure illustrates the typical usage of the Pkcs11Interop library with the PKCS11-LOGGER proxy in a .NET application:
 
-![Pkcs11interop with PKCS11-LOGGER](images/pkcs11interop-with-pkcs11-logger.png?raw=true)
+![Pkcs11interop with PKCS11-LOGGER](images/pkcs11interop-with-pkcs11-logger.png)
 
-Next code sample shows how to load PKCS#11 library via PKCS11-LOGGER and Pkcs11Interop in .NET application:
+The next code sample demonstrates how to load the PKCS#11 library using PKCS11-LOGGER and Pkcs11Interop in a .NET application:
 
 ```csharp
 string pkcs11LibraryPath = null;
@@ -66,9 +66,9 @@ using (IPkcs11Library pkcs11Library = factories.Pkcs11LibraryFactory.LoadPkcs11L
 }
 ```
 
-Analysis of the logged information needs to be performed by a person familiar with [PKCS#11 specifications](https://github.com/Pkcs11Interop/PKCS11-SPECS) who should be able to determine whether problems were caused by the managed components (.NET application or Pkcs11Interop) or by the implementation of unmanaged PKCS#11 library.
+The analysis of the logged information should be performed by someone familiar with the [PKCS#11 specifications](https://github.com/Pkcs11Interop/PKCS11-SPECS). This person should be able to determine whether the issues stem from the managed components (i.e., the .NET application or Pkcs11Interop) or from the implementation of the unmanaged PKCS#11 library.
 
-Here's the short sample of the content extracted from the beginning of the log file:
+Here’s a brief sample of the content extracted from the beginning of the log file:
 
 ```
 0x000013c8 : 0x00001078 : ****************************** 2015-12-14 23:56:07 ***
@@ -118,3 +118,5 @@ Here's the short sample of the content extracted from the beginning of the log f
 ```
 
 **Warning: Log files produced by PKCS11-LOGGER may contain sensitive information and should not be shared publicly.**
+
+[Next page >](09_FAQ.md)
