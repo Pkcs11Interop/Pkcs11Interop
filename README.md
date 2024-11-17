@@ -8,7 +8,7 @@ Pkcs11Interop
 [![Stack Overflow](https://img.shields.io/badge/stack-pkcs11interop-blue.svg)](https://stackoverflow.com/questions/tagged/pkcs11interop)
 [![Twitter](https://img.shields.io/badge/twitter-p11interop-blue.svg)](https://twitter.com/p11interop)
 
-> **PLEASE NOTE: If your application only needs to perform signing or encryption with RSA or EC keys, consider using the [Pkcs11Interop.X509Store](https://github.com/Pkcs11Interop/Pkcs11Interop.X509Store) library. It offers a simpler and more developer-friendly alternative to the full Pkcs11Interop library. Additionally, it includes providers that easily integrate with other built-in .NET classes such as `SignedCms` and[`SignedXml`.**
+> **PLEASE NOTE: If your application only needs to perform signing or encryption with RSA or EC keys, consider using the [Pkcs11Interop.X509Store](https://github.com/Pkcs11Interop/Pkcs11Interop.X509Store) library. It offers a simpler and more developer-friendly alternative to the full Pkcs11Interop library. Additionally, it includes providers that easily integrate with other built-in .NET classes such as `SignedCms` and `SignedXml`.**
 
 ## Overview
 
