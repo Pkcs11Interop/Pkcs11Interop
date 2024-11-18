@@ -1,3 +1,11 @@
+Pkcs11Interop 5.2.0 (2024-11-18)
+ - #198 - Updated to Visual Studio 2022
+ - #243 - Updated dependencies and started using .NET 8 to run tests
+ - #244 - Fixed handling of Minor part in CK_VERSION structure
+ - #245 - Added missing CKA_NAME_HASH_ALGORITHM attribute
+ - #248 - Documented usage of DllImportResolver on Linux
+ - #249 - Updated and extended documentation
+
 Pkcs11Interop 5.1.2 (2021-02-03)
  - #150 - Enabled deterministic builds
  - #173 - Fixed problem with too small buffer used for encryption
