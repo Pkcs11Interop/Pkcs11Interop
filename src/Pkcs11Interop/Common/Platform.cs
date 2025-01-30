@@ -62,7 +62,9 @@ namespace Net.Pkcs11Interop.Common
         private static bool _isWindows = false;
 
         /// <summary>
-        /// True if runtime platform is Windows
+        /// True if runtime platform is Windows.
+        /// This property is used by Pkcs11Interop to choose correct set of native functions.
+        /// Value of this property can be changed if needed.
         /// </summary>
         public static bool IsWindows
         {
@@ -70,6 +72,18 @@ namespace Net.Pkcs11Interop.Common
             {
                 DetectPlatform();
                 return _isWindows;
+            }
+            set
+            {
+                if (value == false)
+                    throw new ArgumentException("Assigned value has to be TRUE.");
+
+                if (_isWindows || _isLinux || _isMacOsX)
+                    throw new NotSupportedException("Runtime platform has already been determined.");
+
+                _isWindows = true;
+                _isLinux = false;
+                _isMacOsX = false;
             }
         }
 
@@ -79,7 +93,9 @@ namespace Net.Pkcs11Interop.Common
         private static bool _isLinux = false;
 
         /// <summary>
-        /// True if runtime platform is Linux
+        /// True if runtime platform is Linux.
+        /// This property is used by Pkcs11Interop to choose correct set of native functions.
+        /// Value of this property can be changed if needed.
         /// </summary>
         public static bool IsLinux
         {
@@ -87,6 +103,18 @@ namespace Net.Pkcs11Interop.Common
             {
                 DetectPlatform();
                 return _isLinux;
+            }
+            set
+            {
+                if (value == false)
+                    throw new ArgumentException("Assigned value has to be TRUE.");
+
+                if (_isWindows || _isLinux || _isMacOsX)
+                    throw new NotSupportedException("Runtime platform has already been determined.");
+
+                _isWindows = false;
+                _isLinux = true;
+                _isMacOsX = false;
             }
         }
 
@@ -96,7 +124,9 @@ namespace Net.Pkcs11Interop.Common
         private static bool _isMacOsX = false;
 
         /// <summary>
-        /// True if runtime platform is Mac OS X
+        /// True if runtime platform is Mac OS X.
+        /// This property is used by Pkcs11Interop to choose correct set of native functions.
+        /// Value of this property can be changed if needed.
         /// </summary>
         public static bool IsMacOsX
         {
@@ -104,6 +134,18 @@ namespace Net.Pkcs11Interop.Common
             {
                 DetectPlatform();
                 return _isMacOsX;
+            }
+            set
+            {
+                if (value == false)
+                    throw new ArgumentException("Assigned value has to be TRUE.");
+
+                if (_isWindows || _isLinux || _isMacOsX)
+                    throw new NotSupportedException("Runtime platform has already been determined.");
+
+                _isWindows = false;
+                _isLinux = false;
+                _isMacOsX = true;
             }
         }
 
@@ -200,17 +242,17 @@ namespace Net.Pkcs11Interop.Common
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                _isWindows = true;
+                IsWindows = true;
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 // Note: Android gets here too
-                _isLinux = true;
+                IsLinux = true;
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 // Note: iOS gets here too
-                _isMacOsX = true;
+                IsMacOsX = true;
             }
             else
             {
@@ -241,7 +283,7 @@ namespace Net.Pkcs11Interop.Common
             string windir = Environment.GetEnvironmentVariable("windir");
             if (!string.IsNullOrEmpty(windir) && windir.Contains(@"\") && Directory.Exists(windir))
             {
-                _isWindows = true;
+                IsWindows = true;
             }
             else if (File.Exists(@"/proc/sys/kernel/ostype"))
             {
@@ -249,7 +291,7 @@ namespace Net.Pkcs11Interop.Common
                 if (osType.StartsWith("Linux", StringComparison.OrdinalIgnoreCase))
                 {
                     // Note: Android gets here too
-                    _isLinux = true;
+                    IsLinux = true;
                 }
                 else
                 {
@@ -259,7 +301,7 @@ namespace Net.Pkcs11Interop.Common
             else if (File.Exists(@"/System/Library/CoreServices/SystemVersion.plist"))
             {
                 // Note: iOS gets here too
-                _isMacOsX = true;
+                IsMacOsX = true;
             }
             else
             {
