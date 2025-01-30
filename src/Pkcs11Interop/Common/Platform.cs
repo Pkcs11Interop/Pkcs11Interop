@@ -75,6 +75,12 @@ namespace Net.Pkcs11Interop.Common
             }
             set
             {
+                if (value == false)
+                    throw new ArgumentException("Assigned value has to be TRUE.");
+
+                if (_isWindows || _isLinux || _isMacOsX)
+                    throw new NotSupportedException("Runtime platform has already been determined.");
+
                 _isWindows = true;
                 _isLinux = false;
                 _isMacOsX = false;
@@ -100,6 +106,12 @@ namespace Net.Pkcs11Interop.Common
             }
             set
             {
+                if (value == false)
+                    throw new ArgumentException("Assigned value has to be TRUE.");
+
+                if (_isWindows || _isLinux || _isMacOsX)
+                    throw new NotSupportedException("Runtime platform has already been determined.");
+
                 _isWindows = false;
                 _isLinux = true;
                 _isMacOsX = false;
@@ -125,6 +137,12 @@ namespace Net.Pkcs11Interop.Common
             }
             set
             {
+                if (value == false)
+                    throw new ArgumentException("Assigned value has to be TRUE.");
+
+                if (_isWindows || _isLinux || _isMacOsX)
+                    throw new NotSupportedException("Runtime platform has already been determined.");
+
                 _isWindows = false;
                 _isLinux = false;
                 _isMacOsX = true;
