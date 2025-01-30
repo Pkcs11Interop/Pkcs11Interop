@@ -38,10 +38,7 @@
     <None Update="pkcs11-mock\linux\pkcs11-mock-x86.so">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="pkcs11-mock\osx\pkcs11-mock-x64.dylib">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="pkcs11-mock\osx\pkcs11-mock-x86.dylib">
+    <None Update="pkcs11-mock\osx\pkcs11-mock.dylib">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="pkcs11-mock\README.txt">
