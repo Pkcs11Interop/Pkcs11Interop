@@ -212,7 +212,7 @@ namespace Net.Pkcs11Interop.Tests
             else if (Platform.IsMacOsX)
             {
                 path = Path.Combine(path, "osx");
-                path = Path.Combine(path, "pkcs11-mock-" + (Platform.Uses32BitRuntime ? "x86" : "x64") + ".dylib");
+                path = Path.Combine(path, "pkcs11-mock.dylib");
             }
 
             return path;
