@@ -1,4 +1,4 @@
-PKCS11-MOCK is minimalistic C library that implements PKCS#11 v2.20 API. 
+PKCS11-MOCK is minimalistic C library that implements PKCS#11 v3.1 API. 
 It is not a real cryptographic module but just a dummy mock object designed 
 specifically for unit testing of Pkcs11Interop library.
 
@@ -12,8 +12,5 @@ The Wikipedia article on mock objects states:
 
 Following these simple principles PKCS11-MOCK does not depend on any hardware 
 nor configuration and can be easily modified to return any response or data. 
-It has been tested on several desktop and mobile platforms and as such might 
-also be used as a lightweight skeleton for the development of portable 
-PKCS#11 libraries.
 
 For more info visit https://github.com/Pkcs11Interop/pkcs11-mock
