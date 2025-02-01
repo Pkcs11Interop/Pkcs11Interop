@@ -1,0 +1,53 @@
+name: Windows
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Set up OS
+      run: |
+        choco install --no-progress nunit-console-runner
+    
+    - name: Set up msbuild
+      uses: microsoft/setup-msbuild@v2
+    
+    - name: Checkout source code
+      uses: actions/checkout@v4
+
+    - name: Build source code
+      shell: cmd
+      run: |
+        msbuild .\src\Pkcs11Interop.sln /p:Configuration=Release /p:Platform="Any CPU" /target:Restore
+        msbuild .\src\Pkcs11Interop.sln /p:Configuration=Release /p:Platform="Any CPU" /target:Rebuild
+
+    - name: Test net20 assembly in 32-bit application
+      shell: cmd
+      run: |
+        nunit3-console .\src\Pkcs11Interop.Tests\bin\Release\net20\Pkcs11Interop.Tests.dll --x86
+
+    - name: Test net20 assembly
+      shell: cmd
+      run: |
+        nunit3-console .\src\Pkcs11Interop.Tests\bin\Release\net20\Pkcs11Interop.Tests.dll
+
+    - name: Test net40 assembly
+      shell: cmd
+      run: |
+        nunit3-console .\src\Pkcs11Interop.Tests\bin\Release\net40\Pkcs11Interop.Tests.dll
+
+    - name: Test net45 assembly
+      shell: cmd
+      run: |
+        nunit3-console .\src\Pkcs11Interop.Tests\bin\Release\net45\Pkcs11Interop.Tests.dll
+
+    - name: Test netstandard2.0 assembly in net80 application
+      shell: cmd
+      run: |
+        dotnet vstest .\src\Pkcs11Interop.Tests\bin\Release\net80\Pkcs11Interop.Tests.dll /Framework:"net8.0"

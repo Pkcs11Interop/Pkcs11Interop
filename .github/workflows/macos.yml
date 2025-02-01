@@ -1,0 +1,25 @@
+name: macOS
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v4
+      
+    - name: Build source code
+      run: |
+        dotnet --info
+        dotnet restore -p:Configuration=Release -p:Platform="Any CPU" -v normal ./src/
+        dotnet build -p:Configuration=Release -p:Platform="Any CPU" -v normal ./src/
+
+    - name: Test netstandard2.0 assembly in net80 application
+      run: |
+        dotnet test -f net8.0 ./src/Pkcs11Interop.Tests/bin/Release/net80/Pkcs11Interop.Tests.dll
