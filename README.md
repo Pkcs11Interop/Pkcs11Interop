@@ -3,10 +3,13 @@ Pkcs11Interop
 **Managed .NET wrapper for unmanaged PKCS#11 libraries**
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/Pkcs11Interop/Pkcs11Interop/blob/master/LICENSE.md)
-[![AppVeyor](https://ci.appveyor.com/api/projects/status/lb1jxb4t4203g3t9/branch/master?svg=true)](https://ci.appveyor.com/project/pkcs11interop/pkcs11interop/branch/master)
 [![NuGet](https://img.shields.io/badge/nuget-pkcs11interop-blue.svg)](https://www.nuget.org/packages/Pkcs11Interop/)
 [![Stack Overflow](https://img.shields.io/badge/stack-pkcs11interop-blue.svg)](https://stackoverflow.com/questions/tagged/pkcs11interop)
 [![Twitter](https://img.shields.io/badge/twitter-p11interop-blue.svg)](https://twitter.com/p11interop)
+
+[![Windows](https://github.com/Pkcs11Interop/Pkcs11Interop/actions/workflows/windows.yml/badge.svg?branch=master)](https://github.com/Pkcs11Interop/Pkcs11Interop/actions/workflows/windows.yml)
+[![Linux](https://github.com/Pkcs11Interop/Pkcs11Interop/actions/workflows/linux.yml/badge.svg?branch=master)](https://github.com/Pkcs11Interop/Pkcs11Interop/actions/workflows/linux.yml)
+[![macOS](https://github.com/Pkcs11Interop/Pkcs11Interop/actions/workflows/macos.yml/badge.svg?branch=master)](https://github.com/Pkcs11Interop/Pkcs11Interop/actions/workflows/macos.yml)
 
 > **PLEASE NOTE: If your application only needs to perform signing or encryption with RSA or EC keys, consider using the [Pkcs11Interop.X509Store](https://github.com/Pkcs11Interop/Pkcs11Interop.X509Store) library. It offers a simpler and more developer-friendly alternative to the full Pkcs11Interop library. Additionally, it includes providers that easily integrate with other built-in .NET classes such as `SignedCms` and `SignedXml`.**
 
