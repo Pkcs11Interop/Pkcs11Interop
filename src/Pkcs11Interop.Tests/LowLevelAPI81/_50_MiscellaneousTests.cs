@@ -63,15 +63,7 @@ namespace Net.Pkcs11Interop.Tests.LowLevelAPI81
                     }
                     else
                     {
-                        try
-                        {
-                            version.ToString();
-                            Assert.Fail("Exception expected but not thrown");
-                        }
-                        catch (Exception ex)
-                        {
-                            Assert.IsTrue(ex.Message == "Minor part of CK_VERSION exceeds the allowed maximum");
-                        }
+                        Assert.IsTrue(version.ToString() == "Invalid version");
                     }
                 }
             }

@@ -60,7 +60,7 @@ namespace Net.Pkcs11Interop.LowLevelAPI40
             }
             else
             {
-                throw new Exception("Minor part of CK_VERSION exceeds the allowed maximum");
+                return "Invalid version";
             }
         }
     }
