@@ -4,7 +4,6 @@
 test-results/
 *.suo
 *.user
-doxygen-output/
 .vs/
 *.lock.json
 /build/nuget-signed
