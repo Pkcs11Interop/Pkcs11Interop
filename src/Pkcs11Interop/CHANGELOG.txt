@@ -1,3 +1,11 @@
+Pkcs11Interop 5.3.0 (2025-02-02)
+ - #253 - Added support for MacCatalyst in MAUI apps
+ - #254 - Allow automatic platform detection to be overridden
+ - #256 - Use PKCS11-MOCK 2.0.0
+ - #257 - Replaced AppVeyor with GitHub Actions
+ - #258 - Fixed throwing in CK_VERSION::ToString
+ - #259 - Removed Doxygen-generated documentation
+
 Pkcs11Interop 5.2.0 (2024-11-18)
  - #198 - Updated to Visual Studio 2022
  - #243 - Updated dependencies and started using .NET 8 to run tests
